@@ -12,7 +12,7 @@ return [
 
     'user' => [
         'add_default_role_on_register' => true,
-        'default_role'                 => 'trial',
+        'default_role'                 => 'user',
         'namespace'                    => App\User::class,
         'default_avatar'               => 'users/default.png',
     ],
@@ -129,14 +129,14 @@ return [
         /*
          * Select default language
          */
-        'default' => 'en',
+        'default' => 'nl',
 
         /*
          * Select languages that are supported.
          */
         'locales' => [
+            'nl',
             'en',
-            //'pt',
         ],
     ],
 

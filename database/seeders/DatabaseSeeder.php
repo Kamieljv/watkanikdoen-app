@@ -36,5 +36,6 @@ class DatabaseSeeder extends Seeder
         $this->call(VoyagerThemesTableSeeder::class);
         $this->call(VoyagerThemeOptionsTableSeeder::class);
         $this->call(WaveKeyValuesTableSeeder::class);
+        $this->call(EventsTableSeeder::class);
     }
 }
