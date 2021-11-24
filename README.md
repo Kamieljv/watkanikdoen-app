@@ -27,6 +27,9 @@ For new tables:
 - Create a new seeder file for the table (see below on how to generate this)
 - Register the seeder file in `DatabaseSeeder.php`.
 
+## Modifying settings
+This can be done at `/admin/settings`. It reads and writes to the `settings` table in the database. So, in order to preserve the settings for future deployments, make sure to update its seed with `php artisan iseed settings`.
+
 ### Generate migrations and seeders
 - Generate migrations for all tables
 
