@@ -22,3 +22,6 @@ Route::group(['prefix' => 'admin'], function () {
 
 // Include Wave Routes
 Wave::routes();
+
+// Disable profile pages
+Route::redirect('@{username}', '/');

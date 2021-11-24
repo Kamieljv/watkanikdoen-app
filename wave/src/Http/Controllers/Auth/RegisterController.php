@@ -107,12 +107,6 @@ class RegisterController extends \App\Http\Controllers\Controller
             $counter += 1;
         }
 
-        $trial_days = setting('billing.trial_days', 14);
-        $trial_ends_at = null;
-        // if trial days is not zero we will set trial_ends_at to ending date
-        if(intval($trial_days) > 0){
-            $trial_ends_at = now()->addDays(setting('billing.trial_days', 14));
-        }
 
         $user = User::create([
             'name' => $data['name'],
@@ -122,7 +116,7 @@ class RegisterController extends \App\Http\Controllers\Controller
             'role_id' => $role->id,
             'verification_code' => $verification_code,
             'verified' => $verified,
-            'trial_ends_at' => $trial_ends_at
+            'trial_ends_at' => null
         ]);
 
         if(setting('auth.verify_email', false)){
