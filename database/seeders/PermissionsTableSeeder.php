@@ -532,6 +532,51 @@ class PermissionsTableSeeder extends Seeder
                 'updated_at' => '2018-07-03 04:50:28',
                 'permission_group_id' => NULL,
             ),
+            57 => 
+            array (
+                'id' => 58,
+                'key' => 'browse_events',
+                'table_name' => 'events',
+                'created_at' => '2021-11-24 16:23:01',
+                'updated_at' => '2021-11-24 16:23:01',
+                'permission_group_id' => NULL,
+            ),
+            58 => 
+            array (
+                'id' => 59,
+                'key' => 'read_events',
+                'table_name' => 'events',
+                'created_at' => '2021-11-24 16:23:01',
+                'updated_at' => '2021-11-24 16:23:01',
+                'permission_group_id' => NULL,
+            ),
+            59 => 
+            array (
+                'id' => 60,
+                'key' => 'edit_events',
+                'table_name' => 'events',
+                'created_at' => '2021-11-24 16:23:01',
+                'updated_at' => '2021-11-24 16:23:01',
+                'permission_group_id' => NULL,
+            ),
+            60 => 
+            array (
+                'id' => 61,
+                'key' => 'add_events',
+                'table_name' => 'events',
+                'created_at' => '2021-11-24 16:23:01',
+                'updated_at' => '2021-11-24 16:23:01',
+                'permission_group_id' => NULL,
+            ),
+            61 => 
+            array (
+                'id' => 62,
+                'key' => 'delete_events',
+                'table_name' => 'events',
+                'created_at' => '2021-11-24 16:23:01',
+                'updated_at' => '2021-11-24 16:23:01',
+                'permission_group_id' => NULL,
+            ),
         ));
         
         

@@ -163,6 +163,24 @@ class DataTypesTableSeeder extends Seeder
                 'created_at' => '2018-07-03 04:50:28',
                 'updated_at' => '2018-07-03 04:50:28',
             ),
+            8 => 
+            array (
+                'id' => 9,
+                'name' => 'events',
+                'slug' => 'events',
+                'display_name_singular' => 'Event',
+                'display_name_plural' => 'Events',
+                'icon' => 'voyager-exclamation',
+                'model_name' => 'App\\Event',
+                'policy_name' => NULL,
+                'controller' => NULL,
+                'description' => 'This is the database table for events',
+                'generate_permissions' => 1,
+                'server_side' => 0,
+                'details' => '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null}',
+                'created_at' => '2021-11-24 16:23:01',
+                'updated_at' => '2021-11-24 16:23:01',
+            ),
         ));
         
         

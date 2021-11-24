@@ -20,7 +20,7 @@ Reference for which seeder file (all in `database/seeders`) contains what:
 - `MenuItemsTableSeeder.php` -> Create new menu entries here
 - `DataTypesTableSeeder.php` -> Register BREAD for new tables here
 - `DataRowsTableSeeder.php` -> Configure the details for every field in said tables
-- `PermissionTableSeeder.php` -> Add the BREAD permissions to table
+- `PermissionsTableSeeder.php` -> Add the BREAD permissions to table
 
 For new tables: 
 
