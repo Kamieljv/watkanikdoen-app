@@ -29,13 +29,13 @@ class DataTypesTableSeeder extends Seeder
                 'icon' => 'voyager-news',
                 'model_name' => 'TCG\\Voyager\\Models\\Post',
                 'policy_name' => 'TCG\\Voyager\\Policies\\PostPolicy',
-                'controller' => '',
-                'description' => '',
+                'controller' => NULL,
+                'description' => 'This database contains posts.',
                 'generate_permissions' => 1,
                 'server_side' => 0,
-                'details' => NULL,
+                'details' => '{"order_column":null,"order_display_column":null,"order_direction":"desc","default_search_key":null,"scope":null}',
                 'created_at' => '2017-11-21 16:23:22',
-                'updated_at' => '2017-11-21 16:23:22',
+                'updated_at' => '2021-11-24 15:57:47',
             ),
             1 => 
             array (
