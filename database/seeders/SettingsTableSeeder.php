@@ -123,7 +123,7 @@ class SettingsTableSeeder extends Seeder
                 'id' => 12,
                 'key' => 'auth.dashboard_redirect',
                 'display_name' => 'Homepage Redirect to Dashboard if Logged in',
-                'value' => '1',
+                'value' => '0',
                 'details' => NULL,
                 'type' => 'checkbox',
                 'order' => 7,
