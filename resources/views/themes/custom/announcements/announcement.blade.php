@@ -5,7 +5,7 @@
     <div class="max-w-4xl px-5 mx-auto mt-10 lg:px-0">
         <a href="{{ route('wave.announcements') }}" class="flex items-center mb-6 font-mono text-sm font-bold cursor-pointer text-wave-500">
             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-            View All Announcements
+            {{ __("announcements.view_all") }}
         </a>
     </div>
 
@@ -19,7 +19,7 @@
         <div class="max-w-4xl mx-auto mt-6">
             <h1 class="flex flex-col leading-none">
                 <span>{{ $announcement->title }}</span>
-                <span class="mt-0 mt-10 text-base font-normal">Written on <time datetime="{{ Carbon\Carbon::parse($announcement->created_at)->toIso8601String() }}">{{ Carbon\Carbon::parse($announcement->created_at)->toFormattedDateString() }}</time>. </span>
+                <span class="mt-0 mt-10 text-base font-normal">{{ __("general.written_on") }}<time datetime="{{ Carbon\Carbon::parse($announcement->created_at)->toIso8601String() }}">{{ Date::parse($announcement->created_at)->format('j F Y') }}</time>. </span>
             </h1>
         </div>
 
