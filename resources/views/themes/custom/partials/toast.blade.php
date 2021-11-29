@@ -36,10 +36,10 @@
                     </div>
                     <div class="flex-1 w-0 pl-3.5 ml-1 border-l border-gray-100">
                         <p class="text-sm font-medium leading-5 text-gray-900">
-                            <template x-if="type == 'info'"><span>Notice</span></template>
-                            <template x-if="type == 'warning'"><span>Warning</span></template>
-                            <template x-if="type == 'success'"><span>Success</span></template>
-                            <template x-if="type == 'danger'"><span>Something went wrong</span></template>
+                            <template x-if="type == 'info'"><span>{{ __("toast.notice") }}</span></template>
+                            <template x-if="type == 'warning'"><span>{{ __("toast.warning") }}</span></template>
+                            <template x-if="type == 'success'"><span>{{ __("toast.success") }}</span></template>
+                            <template x-if="type == 'danger'"><span>{{ __("toast.danger") }}</span></template>
                         </p>
                         <p class="text-sm leading-5 text-gray-500" x-text="message"></p>
                     </div>

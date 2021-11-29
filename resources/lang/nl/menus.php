@@ -14,5 +14,8 @@ return [
     'dashboard' => 'Dashboard',
     'blog' => 'Blog',
     'my_profile' => 'Mijn Profiel',
-    'settings' => 'Instellingen'
+    'settings' => 'Instellingen',
+    'security' => 'Beveiliging',
+    'profile_settings' => 'Profielinstellingen',
+    'security_settings' => 'Beveiligingsinstellingen',
 ];

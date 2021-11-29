@@ -56,3 +56,9 @@ You may also need to clear the cache by running:
 `php artisan cache:clear`
 
 And you should be updated to the latest version :)
+
+### To Do
+
+- [ ] Localize Wave controller messages
+- [ ] Localize Voyager
+- [ ] Localize js messages

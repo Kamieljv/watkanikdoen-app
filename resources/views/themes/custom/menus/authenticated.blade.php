@@ -84,9 +84,6 @@
                         <span class="block text-sm font-medium leading-tight truncate">
                             {{ auth()->user()->name }}
                         </span>
-                        <span class="text-xs leading-5 text-gray-600">
-                            {{ __("View") }} {{ __("Profile") }}
-                        </span>
                     </a>
                     @impersonating
                             <a href="{{ route('impersonate.leave') }}" class="block px-4 py-2 text-sm leading-5 text-gray-700 text-blue-900 border-t border-gray-100 bg-blue-50 hover:bg-blue-100 focus:outline-none focus:bg-blue-200">{{ __("Leave") }} {{ __("general.impersonation") }}</a>
@@ -97,13 +94,9 @@
                         <div class="block px-4 py-1">
                             <span class="inline-block px-2 my-1 -ml-1 text-xs font-medium leading-5 text-gray-600 bg-gray-200 rounded">{{ auth()->user()->role->display_name }}</span>
                         </div>
-                        @trial
-                            <a href="{{ route('wave.settings', 'plans') }}" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">Upgrade My Account</a>
-                        @endtrial
                         @if( !auth()->guest() && auth()->user()->can('browse_admin') )
                             <a href="{{ route('voyager.dashboard') }}" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"><i class="fa fa-bolt"></i> Admin</a>
                         @endif
-                        <a href="{{ route('wave.profile', auth()->user()->username) }}" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">{{ __("menus.my_profile")}}</a>
                         <a href="{{ route('wave.settings') }}" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">{{ __("menus.settings")}}</a>
 
                     </div>

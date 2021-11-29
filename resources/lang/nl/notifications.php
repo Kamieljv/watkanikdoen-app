@@ -11,6 +11,7 @@
 */
 
 return [
+    'notifications' => 'Notificaties',
     'all' => 'Alle notificaties',
     'caught_up' => 'Je bent helemaal bij!',
 ];
