@@ -3,6 +3,8 @@
 namespace Wave\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Wave\Event;
+use Wave\Category;
 
 class HomeController extends \App\Http\Controllers\Controller
 {
@@ -20,15 +22,17 @@ class HomeController extends \App\Http\Controllers\Controller
     		}
     	}
 
+        $events = Event::orderBy('created_at', 'DESC')->paginate(12);
+        $categories = Category::all();
+
         $seo = [
 
-            'title'         => setting('site.title', 'Laravel Wave'),
-            'description'   => setting('site.description', 'Software as a Service Starter Kit'),
+            'title'         => setting('site.title', 'WatKanIkDoen.nl'),
+            'description'   => setting('site.description', 'Hét Startpunt voor Actief Burgerschap!'),
             'image'         => url('/og_image.png'),
             'type'          => 'website'
-
         ];
 
-        return view('theme::home', compact('seo'));
+        return view('theme::home', compact('events', 'categories', 'seo'));
     }
 }

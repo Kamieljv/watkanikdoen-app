@@ -22,8 +22,8 @@ return [
 	'user_model' => App\User::class,
 
 	// Set these to false in production
-	'show_docs' => env('WAVE_DOCS', true),
-    'dev_bar' => env('WAVE_BAR', true),
+	'show_docs' => env('WAVE_DOCS', false),
+    'dev_bar' => env('WAVE_BAR', false),
 
 	// This is primarily used for demo purposes of the Wave project, 
 	//in your project you will probably want to set this to false (unless you want 
