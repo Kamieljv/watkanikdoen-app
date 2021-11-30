@@ -10,13 +10,13 @@
     <div class="relative mx-auto max-w-7xl">
 		<div class="flex flex-col justify-start">
 			<h1 class="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-				{{ __("blog.title") }}
+				{{ __("acties.title") }}
 			</h1>
 			<p class="mt-3 text-xl leading-7 text-gray-500 sm:mt-4">
-				{{ __("blog.subtitle") }}
+				{{ __("acties.subtitle") }}
 			</p>
 			<ul class="flex self-start inline w-auto px-3 py-1 mt-3 text-xs font-medium text-gray-600 bg-blue-100 rounded-md">
-				<li class="mr-4 font-bold text-blue-600 uppercase">{{ __("blog.categories") }}:</li>
+				<li class="mr-4 font-bold text-blue-600 uppercase">{{ __("acties.categories") }}:</li>
 				@foreach($categories as $cat)
 					<li class="@if(isset($category) && isset($category->slug) && ($category->slug == $cat->slug)){{ 'text-blue-700' }}@endif"><a href="{{ route('wave.blog.category', $cat->slug) }}">{{ $cat->name }}</a></li>
 					@if(!$loop->last)
@@ -50,7 +50,7 @@
                         </a>
                         <a href="{{ $event->link() }}" class="block">
                             <p class="mt-3 text-base leading-6 text-gray-500">
-								{{ substr(strip_tags($event->description), 0, 200) }}@if(strlen(strip_tags($event->description)) > 200){{ '...' }}@endif
+								{{ substr(strip_tags($event->body), 0, 200) }}@if(strlen(strip_tags($event->body)) > 200){{ '...' }}@endif
                             </p>
                         </a>
                     </div>
@@ -69,7 +69,7 @@
                         </div>
                         <div class="ml-3">
                             <p class="text-sm font-medium leading-5 text-gray-900">
-                                {{ __("blog.written_by") }}<a href="#" class="hover:underline">{{ $event->user->name }}</a>
+                                {{ __("acties.written_by") }}<a href="#" class="hover:underline">{{ $event->user->name }}</a>
                             </p>
                             <div class="flex text-sm leading-5 text-gray-500">
 				 			{{ __("general.on") }} <time datetime="{{ Carbon\Carbon::parse($event->created_at)->toIso8601String() }}" class="ml-1">{{ Date::parse($event->created_at)->format("j F Y") }}</time>

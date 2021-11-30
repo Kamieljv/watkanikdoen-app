@@ -33,6 +33,6 @@ class HomeController extends \App\Http\Controllers\Controller
             'type'          => 'website'
         ];
 
-        return view('theme::home', compact('events', 'categories', 'seo'));
+        return view('theme::acties.index', compact('events', 'categories', 'seo'));
     }
 }
