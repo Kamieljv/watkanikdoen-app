@@ -75,7 +75,7 @@
             {{ csrf_field() }}
 
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <!-- ### TITLE ### -->
                     <div class="panel">
                         @if (count($errors) > 0)
@@ -187,7 +187,7 @@
                     </div>
 
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <!-- ### DETAILS ### -->
                     <div class="panel panel panel-bordered panel-warning">
                         <div class="panel-heading">
@@ -248,10 +248,23 @@
                             </div>
                         </div>
                         <div class="panel-body">
-                            @if(isset($dataTypeContent->image))
-                                <img src="{{ filter_var($dataTypeContent->image, FILTER_VALIDATE_URL) ? $dataTypeContent->image : Voyager::image( $dataTypeContent->image ) }}" style="width:100%" />
-                            @endif
-                            <input type="file" name="image">
+                            <!-- MEDIA PICKER -->
+                            @php
+                                $dataTypeRows = $dataType->{($edit ? 'editRows' : 'addRows' )};
+                                if ($dataTypeContent->{$row->field.'_'.($edit ? 'edit' : 'add')}) {
+                                    $dataTypeContent->{$row->field} = $dataTypeContent->{$row->field.'_'.($edit ? 'edit' : 'add')};
+                                }
+                            @endphp
+
+                            @foreach($dataTypeRows as $row)
+                                @if($row->type === 'media_picker')
+                                    @php
+                                        $display_options = $row->details->display ?? NULL;
+                                    @endphp
+
+                                    {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                                @endif
+                            @endforeach
                         </div>
                     </div>
 
