@@ -6,32 +6,7 @@ use Illuminate\Http\Request;
 use Wave\Event;
 use Wave\Category;
 
-class EventController extends \App\Http\Controllers\Controller
+class EventController extends \TCG\Voyager\Http\Controllers\VoyagerBaseController
 {
 
-    public function category($slug){
-        
-        $category = Category::where('slug', '=', $slug)->firstOrFail();
-        $posts = $category->posts()->orderBy('created_at', 'DESC')->paginate(6);
-        $categories = Category::all();
-
-        $seo = [
-            'seo_title' => $category->name . '- Blog',
-            'seo_description' => $category->name . '- Blog',
-        ];
-
-        return view('theme::blog.index', compact('posts', 'category', 'categories', 'seo'));
-    }
-
-    public function post($category, $slug){
-
-    	$post = Post::where('slug', '=', $slug)->firstOrFail();
-
-        $seo = [
-            'seo_title' => $post->title,
-            'seo_description' => $post->seo_description,
-        ];
-
-    	return view('theme::blog.post', compact('post', 'seo'));
-    }
 }
