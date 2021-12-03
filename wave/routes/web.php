@@ -13,6 +13,8 @@ Route::get('logout', 'Auth\LoginController@logout')->name('wave.logout');
 Route::get('user/verify/{verification_code}', 'Auth\RegisterController@verify')->name('verify');
 Route::post('register/complete', '\Wave\Http\Controllers\Auth\RegisterController@complete')->name('wave.register-complete');
 
+Route::get('actie/{actie}', '\Wave\Http\Controllers\EventController@actie')->name('wave.acties.actie');
+
 Route::get('blog', '\Wave\Http\Controllers\BlogController@index')->name('wave.blog');
 Route::get('blog/{category}', '\Wave\Http\Controllers\BlogController@category')->name('wave.blog.category');
 Route::get('blog/{category}/{post}', '\Wave\Http\Controllers\BlogController@post')->name('wave.blog.post');
