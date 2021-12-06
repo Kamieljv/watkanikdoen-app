@@ -58,8 +58,8 @@ You may also need to clear the cache by running:
 And you should be updated to the latest version :)
 
 ### To Do
-- [ ] Add categories to acties
-- [ ] Rename Events to Acties
+- [x] Add categories to acties
+- [x] Rename Events to Acties
 - [ ] Localize Wave controller messages
 - [ ] Localize Voyager
 - [ ] Localize js messages
