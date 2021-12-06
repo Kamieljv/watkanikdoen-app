@@ -3,14 +3,14 @@
 namespace Wave\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Wave\Event;
+use Wave\Actie;
 use Wave\Category;
 
-class EventController extends \TCG\Voyager\Http\Controllers\VoyagerBaseController
+class ActieController extends \TCG\Voyager\Http\Controllers\VoyagerBaseController
 {
     public function actie($slug){
 
-    	$actie = Event::where('slug', '=', $slug)->firstOrFail();
+    	$actie = Actie::where('slug', '=', $slug)->firstOrFail();
 
         $seo = [
             'seo_title' => $actie->title,

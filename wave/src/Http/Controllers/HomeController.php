@@ -3,7 +3,7 @@
 namespace Wave\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Wave\Event;
+use Wave\Actie;
 use Wave\Category;
 
 class HomeController extends \App\Http\Controllers\Controller
@@ -22,7 +22,7 @@ class HomeController extends \App\Http\Controllers\Controller
     		}
     	}
 
-        $events = Event::orderBy('created_at', 'DESC')->paginate(12);
+        $acties = Actie::orderBy('created_at', 'DESC')->paginate(12);
         $categories = Category::all();
 
         $seo = [
@@ -33,6 +33,6 @@ class HomeController extends \App\Http\Controllers\Controller
             'type'          => 'website'
         ];
 
-        return view('theme::acties.index', compact('events', 'categories', 'seo'));
+        return view('theme::acties.index', compact('acties', 'categories', 'seo'));
     }
 }

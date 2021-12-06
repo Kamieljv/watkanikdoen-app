@@ -28,35 +28,35 @@
         <div class="grid gap-5 mx-auto mt-12 sm:grid-cols-2 lg:grid-cols-3">
 
 			<!-- Loop Through Posts Here -->
-			@foreach($events as $event)
-			<article id="post-{{ $event->id }}" class="flex flex-col overflow-hidden rounded-lg shadow-lg" typeof="Article">
+			@foreach($acties as $actie)
+			<article id="post-{{ $actie->id }}" class="flex flex-col overflow-hidden rounded-lg shadow-lg" typeof="Article">
 
-				<meta property="name" content="{{ $event->title }}">
+				<meta property="name" content="{{ $actie->title }}">
 				<meta property="author" typeof="Person" content="admin">
-				<meta property="dateModified" content="{{ Carbon\Carbon::parse($event->updated_at)->toIso8601String() }}">
-				<meta class="uk-margin-remove-adjacent" property="datePublished" content="{{ Carbon\Carbon::parse($event->created_at)->toIso8601String() }}">
+				<meta property="dateModified" content="{{ Carbon\Carbon::parse($actie->updated_at)->toIso8601String() }}">
+				<meta class="uk-margin-remove-adjacent" property="datePublished" content="{{ Carbon\Carbon::parse($actie->created_at)->toIso8601String() }}">
 
                 <div class="flex-shrink-0">
-					<a href="{{ $event->link() }}">
-                    	<img class="object-cover w-full h-48" src="{{ $event->image() }}" alt="">
+					<a href="{{ $actie->link() }}">
+                    	<img class="object-cover w-full h-48" src="{{ $actie->image() }}" alt="">
 					</a>
                 </div>
                 <div class="relative flex flex-col justify-between flex-1 p-6 bg-white">
                     <div class="flex-1">
-                        <a href="{{ $event->link() }}" class="block">
+                        <a href="{{ $actie->link() }}" class="block">
                             <h3 class="mt-2 text-xl font-semibold leading-7 text-gray-900">
-                                {{ $event->title }}
+                                {{ $actie->title }}
                             </h3>
                         </a>
-                        <a href="{{ $event->link() }}" class="block">
+                        <a href="{{ $actie->link() }}" class="block">
                             <p class="mt-3 text-base leading-6 text-gray-500">
-								{{ substr(strip_tags($event->body), 0, 200) }}@if(strlen(strip_tags($event->body)) > 200){{ '...' }}@endif
+								{{ substr(strip_tags($actie->body), 0, 200) }}@if(strlen(strip_tags($actie->body)) > 200){{ '...' }}@endif
                             </p>
                         </a>
                     </div>
                     <p class="relative self-start inline-block px-2 py-1 mt-4 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded">
-                            <a href="{{ route('wave.blog.category', $event->category->slug) }}" class="text-gray-700 hover:underline" rel="category">
-								{{ $event->category->name }}
+                            <a href="{{ route('wave.blog.category', $actie->category->slug) }}" class="text-gray-700 hover:underline" rel="category">
+								{{ $actie->category->name }}
                             </a>
                         </p>
                 </div>
@@ -64,15 +64,15 @@
                 <div class="flex items-center p-6 bg-gray-50">
                         <div class="flex-shrink-0">
                             <a href="#">
-                                <img class="w-10 h-10 rounded-full" src="{{ $event->user->avatar() }}" alt="">
+                                <img class="w-10 h-10 rounded-full" src="{{ $actie->user->avatar() }}" alt="">
                             </a>
                         </div>
                         <div class="ml-3">
                             <p class="text-sm font-medium leading-5 text-gray-900">
-                                {{ __("acties.written_by") }}<a href="#" class="hover:underline">{{ $event->user->name }}</a>
+                                {{ __("acties.written_by") }}<a href="#" class="hover:underline">{{ $actie->user->name }}</a>
                             </p>
                             <div class="flex text-sm leading-5 text-gray-500">
-				 			{{ __("general.on") }} <time datetime="{{ Carbon\Carbon::parse($event->created_at)->toIso8601String() }}" class="ml-1">{{ Date::parse($event->created_at)->format("j F Y") }}</time>
+				 			{{ __("general.on") }} <time datetime="{{ Carbon\Carbon::parse($actie->created_at)->toIso8601String() }}" class="ml-1">{{ Date::parse($actie->created_at)->format("j F Y") }}</time>
                             </div>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
     </div>
 
 	<div class="flex justify-center my-10">
-		{{ $events->links('theme::partials.pagination') }}
+		{{ $acties->links('theme::partials.pagination') }}
 		<li class="uk-active"><span aria-current="page" class="page-numbers current">1</span></li>
 		<li><a class="page-numbers" href="https://demo.yootheme.com/themes/wordpress/2017/copper-hill/?paged=2&amp;page_id=92">2</a></li>
 		<li><a class="next page-numbers" href="https://demo.yootheme.com/themes/wordpress/2017/copper-hill/?paged=2&amp;page_id=92"><span uk-pagination-next="" class="uk-pagination-next uk-icon"><svg width="7" height="12" viewBox="0 0 7 12" xmlns="http://www.w3.org/2000/svg" ratio="1"><polyline fill="none" stroke="#000" stroke-width="1.2" points="1 1 6 6 1 11"></polyline></svg></span></a></li>

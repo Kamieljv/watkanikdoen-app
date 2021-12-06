@@ -4,7 +4,7 @@ namespace Wave;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Event extends Model
+class Actie extends Model
 {
     public function link(){
     	return url('/actie/' . $this->slug);
