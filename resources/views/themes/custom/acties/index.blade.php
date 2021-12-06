@@ -85,6 +85,11 @@
 
         </div>
     </div>
+
+	<div class="flex justify-center my-10">
+		{{ $acties->links('theme::partials.pagination') }}
+	</ul>
+
 </div>
 
 @endsection

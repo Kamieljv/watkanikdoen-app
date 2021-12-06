@@ -26,7 +26,6 @@ class HomeController extends \App\Http\Controllers\Controller
         $categories = Category::all();
 
         $seo = [
-
             'title'         => setting('site.title', 'WatKanIkDoen.nl'),
             'description'   => setting('site.description', 'Hét Startpunt voor Actief Burgerschap!'),
             'image'         => url('/og_image.png'),

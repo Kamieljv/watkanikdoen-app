@@ -58,7 +58,7 @@ You may also need to clear the cache by running:
 And you should be updated to the latest version :)
 
 ### To Do
-- [ ] Actie page pagination
+- [x] Actie page pagination
 - [ ] Add location, time to acties
 - [ ] Make actie page filterable
 - [x] Add categories to acties
