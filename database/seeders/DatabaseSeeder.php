@@ -40,5 +40,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AnnouncementUserTableSeeder::class);
         $this->call(ThemesTableSeeder::class);
         $this->call(ThemeOptionsTableSeeder::class);
+        $this->call(ActieCategoryTableSeeder::class);
     }
 }

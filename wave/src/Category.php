@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    public function posts(){
-    	return $this->hasMany('Wave\Post');
+    public function acties(){
+    	return $this->belongsToMany('Wave\Actie', 'actie_category');
     }
 }

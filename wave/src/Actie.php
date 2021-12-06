@@ -18,7 +18,7 @@ class Actie extends Model
     	return \Voyager::image($this->image);
     }
 
-    public function category(){
-    	return $this->belongsTo('Wave\Category');
+    public function categories(){
+    	return $this->belongsToMany('Wave\Category', 'actie_category');
     }
 }

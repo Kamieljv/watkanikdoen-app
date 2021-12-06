@@ -90,8 +90,8 @@
 
                         <div class="panel-heading">
                             <h3 class="panel-title">
-                                <i class="voyager-character"></i> {{ __('voyager::event.title') }}
-                                <span class="panel-desc"> {{ __('voyager::event.title_sub') }}</span>
+                                <i class="voyager-character"></i> {{ __('voyager::actie.title') }}
+                                <span class="panel-desc"> {{ __('voyager::actie.title_sub') }}</span>
                             </h3>
                             <div class="panel-actions">
                                 <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
@@ -109,7 +109,7 @@
                     <!-- ### CONTENT ### -->
                     <div class="panel">
                         <div class="panel-heading">
-                            <h3 class="panel-title">{{ __('voyager::event.content') }}</h3>
+                            <h3 class="panel-title">{{ __('voyager::actie.content') }}</h3>
                             <div class="panel-actions">
                                 <a class="panel-action voyager-resize-full" data-toggle="panel-fullscreen" aria-hidden="true"></a>
                             </div>
@@ -131,7 +131,7 @@
                     <!-- ### EXCERPT ### -->
                     <div class="panel">
                         <div class="panel-heading">
-                            <h3 class="panel-title">{!! __('voyager::event.excerpt') !!}</h3>
+                            <h3 class="panel-title">{!! __('voyager::actie.excerpt') !!}</h3>
                             <div class="panel-actions">
                                 <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
                             </div>
@@ -147,7 +147,7 @@
 
                     <div class="panel">
                         <div class="panel-heading">
-                            <h3 class="panel-title">{{ __('voyager::event.additional_fields') }}</h3>
+                            <h3 class="panel-title">{{ __('voyager::actie.additional_fields') }}</h3>
                             <div class="panel-actions">
                                 <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
                             </div>
@@ -191,14 +191,14 @@
                     <!-- ### DETAILS ### -->
                     <div class="panel panel panel-bordered panel-warning">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="icon wb-clipboard"></i> {{ __('voyager::event.details') }}</h3>
+                            <h3 class="panel-title"><i class="icon wb-clipboard"></i> {{ __('voyager::actie.details') }}</h3>
                             <div class="panel-actions">
                                 <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
                             </div>
                         </div>
                         <div class="panel-body">
                             <div class="form-group">
-                                <label for="author_id">{{ __('voyager::event.author_id') }}</label>
+                                <label for="author_id">{{ __('voyager::actie.author_id') }}</label>
                                 <select class="form-control" name="author_id">
                                     @foreach(Voyager::model('User')::all() as $user)
                                         <option value="{{ $user->id }}"@if(isset($dataTypeContent->author_id) && $dataTypeContent->author_id == $user->id) selected="selected"@endif>{{ $user->name }}</option>
@@ -206,7 +206,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="slug">{{ __('voyager::event.slug') }}</label>
+                                <label for="slug">{{ __('voyager::actie.slug') }}</label>
                                 {{-- @include('voyager::multilingual.input-hidden', [
                                     '_field_name'  => 'slug',
                                     '_field_trans' => get_field_translations($dataTypeContent, 'slug')
@@ -217,19 +217,11 @@
                                     value="{{ $dataTypeContent->slug ?? '' }}">
                             </div>
                             <div class="form-group">
-                                <label for="status">{{ __('voyager::event.status') }}</label>
+                                <label for="status">{{ __('voyager::actie.status') }}</label>
                                 <select class="form-control" name="status">
-                                    <option value="PUBLISHED"@if(isset($dataTypeContent->status) && $dataTypeContent->status == 'PUBLISHED') selected="selected"@endif>{{ __('voyager::event.status_published') }}</option>
-                                    <option value="DRAFT"@if(isset($dataTypeContent->status) && $dataTypeContent->status == 'DRAFT') selected="selected"@endif>{{ __('voyager::event.status_draft') }}</option>
-                                    <option value="PENDING"@if(isset($dataTypeContent->status) && $dataTypeContent->status == 'PENDING') selected="selected"@endif>{{ __('voyager::event.status_pending') }}</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="category_id">{{ __('voyager::event.category') }}</label>
-                                <select class="form-control" name="category_id">
-                                    @foreach(Voyager::model('Category')::all() as $category)
-                                        <option value="{{ $category->id }}"@if(isset($dataTypeContent->category_id) && $dataTypeContent->category_id == $category->id) selected="selected"@endif>{{ $category->name }}</option>
-                                    @endforeach
+                                    <option value="PUBLISHED"@if(isset($dataTypeContent->status) && $dataTypeContent->status == 'PUBLISHED') selected="selected"@endif>{{ __('voyager::actie.status_published') }}</option>
+                                    <option value="DRAFT"@if(isset($dataTypeContent->status) && $dataTypeContent->status == 'DRAFT') selected="selected"@endif>{{ __('voyager::actie.status_draft') }}</option>
+                                    <option value="PENDING"@if(isset($dataTypeContent->status) && $dataTypeContent->status == 'PENDING') selected="selected"@endif>{{ __('voyager::actie.status_pending') }}</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -242,7 +234,7 @@
                     <!-- ### IMAGE ### -->
                     <div class="panel panel-bordered panel-primary">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="icon wb-image"></i> {{ __('voyager::event.image') }}</h3>
+                            <h3 class="panel-title"><i class="icon wb-image"></i> {{ __('voyager::actie.image') }}</h3>
                             <div class="panel-actions">
                                 <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
                             </div>
@@ -271,14 +263,14 @@
                     <!-- ### SEO CONTENT ### -->
                     <div class="panel panel-bordered panel-info">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="icon wb-search"></i> {{ __('voyager::event.seo_content') }}</h3>
+                            <h3 class="panel-title"><i class="icon wb-search"></i> {{ __('voyager::actie.seo_content') }}</h3>
                             <div class="panel-actions">
                                 <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
                             </div>
                         </div>
                         <div class="panel-body">
                             <div class="form-group">
-                                <label for="meta_description">{{ __('voyager::event.meta_description') }}</label>
+                                <label for="meta_description">{{ __('voyager::actie.meta_description') }}</label>
                                 {{-- @include('voyager::multilingual.input-hidden', [
                                     '_field_name'  => 'meta_description',
                                     '_field_trans' => get_field_translations($dataTypeContent, 'meta_description')
@@ -286,7 +278,7 @@
                                 <textarea class="form-control" name="meta_description">{{ $dataTypeContent->meta_description ?? '' }}</textarea>
                             </div>
                             <div class="form-group">
-                                <label for="meta_keywords">{{ __('voyager::event.meta_keywords') }}</label>
+                                <label for="meta_keywords">{{ __('voyager::actie.meta_keywords') }}</label>
                                 {{-- @include('voyager::multilingual.input-hidden', [
                                     '_field_name'  => 'meta_keywords',
                                     '_field_trans' => get_field_translations($dataTypeContent, 'meta_keywords')
@@ -294,7 +286,7 @@
                                 <textarea class="form-control" name="meta_keywords">{{ $dataTypeContent->meta_keywords ?? '' }}</textarea>
                             </div>
                             <div class="form-group">
-                                <label for="seo_title">{{ __('voyager::event.seo_title') }}</label>
+                                <label for="seo_title">{{ __('voyager::actie.seo_title') }}</label>
                                 {{-- @include('voyager::multilingual.input-hidden', [
                                     '_field_name'  => 'seo_title',
                                     '_field_trans' => get_field_translations($dataTypeContent, 'seo_title')
@@ -308,7 +300,7 @@
 
             @section('submit-buttons')
                 <button type="submit" class="btn btn-primary pull-right">
-                     @if($edit){{ __('voyager::event.update') }}@else <i class="icon wb-plus-circle"></i> {{ __('voyager::event.new') }} @endif
+                     @if($edit){{ __('voyager::actie.update') }}@else <i class="icon wb-plus-circle"></i> {{ __('voyager::actie.new') }} @endif
                 </button>
             @stop
             @yield('submit-buttons')

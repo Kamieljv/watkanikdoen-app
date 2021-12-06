@@ -16,7 +16,6 @@ class CreateActiesTable extends Migration
         Schema::create('acties', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('author_id');
-            $table->integer('category_id')->nullable();
             $table->string('title');
             $table->string('seo_title')->nullable();
             $table->text('excerpt')->nullable();
