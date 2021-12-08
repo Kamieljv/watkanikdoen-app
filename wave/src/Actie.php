@@ -3,9 +3,14 @@
 namespace Wave;
 
 use Illuminate\Database\Eloquent\Model;
+use TCG\Voyager\Traits\Spatial;
 
 class Actie extends Model
 {
+    use Spatial; 
+
+    protected $spatial = ['location'];
+
     public function link(){
     	return url('/actie/' . $this->slug);
     }

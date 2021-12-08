@@ -210,16 +210,15 @@ return [
     ],
 
     'additional_js' => [
-        //'js/custom.js',
+        'js/app.js',
     ],
 
-    'googlemaps' => [
-         'key'    => env('GOOGLE_MAPS_KEY', ''),
+    'maps' => [
          'center' => [
-             'lat' => env('GOOGLE_MAPS_DEFAULT_CENTER_LAT', '32.715738'),
-             'lng' => env('GOOGLE_MAPS_DEFAULT_CENTER_LNG', '-117.161084'),
+             'lat' => env('MAPS_CENTER_LAT', '52.389'),
+             'lng' => env('MAPS_CENTER_LNG', '4.889'),
          ],
-         'zoom' => env('GOOGLE_MAPS_DEFAULT_ZOOM', 11),
+         'zoom' => env('MAPS_ZOOM', 11),
      ],
 
 ];

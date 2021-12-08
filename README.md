@@ -59,7 +59,7 @@ And you should be updated to the latest version :)
 
 ### To Do
 - [x] Actie page pagination
-- [ ] Add location, time to acties
+- [x] Add location, time to acties
 - [ ] Make actie page filterable
 - [x] Add categories to acties
 - [x] Rename Events to Acties

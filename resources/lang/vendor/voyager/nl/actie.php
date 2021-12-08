@@ -21,4 +21,5 @@ return [
     'title_sub'        => 'De titel van uw Event',
     'update'           => 'Update Event',
     'additional_fields'=> 'Andere velden',
+    'location'         => 'Locatie',
 ];

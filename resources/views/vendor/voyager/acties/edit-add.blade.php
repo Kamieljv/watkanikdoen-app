@@ -144,7 +144,38 @@
                             <textarea class="form-control" name="excerpt">{{ $dataTypeContent->excerpt ?? '' }}</textarea>
                         </div>
                     </div>
+                    <!-- ### LOCATION ### -->
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{!! __('voyager::actie.location') !!}</h3>
+                            <div class="panel-actions">
+                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            @php
+                                $dataTypeRows = $dataType->{($edit ? 'editRows' : 'addRows' )};
+                            @endphp
+                            @foreach($dataTypeRows as $row)
+                                @if(in_array($row->field, ['location', 'location_human']))
+                                    @php
+                                        $display_options = $row->details->display ?? NULL;
+                                    @endphp
+                                    <div class="form-group @if($row->type == 'hidden') hidden @endif @if(isset($display_options->width)){{ 'col-md-' . $display_options->width }}@endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                        {{ $row->slugify }}
+                                        <label for="name">{{ $row->display_name }}</label>
+                                        
+                                        {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
 
+                                        @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
+                                            {!! $after->handle($row, $dataType, $dataTypeContent) !!}
+                                        @endforeach
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
+                    <!-- ### OTHER ### -->
                     <div class="panel">
                         <div class="panel-heading">
                             <h3 class="panel-title">{{ __('voyager::actie.additional_fields') }}</h3>
@@ -155,7 +186,7 @@
                         <div class="panel-body">
                             @php
                                 $dataTypeRows = $dataType->{($edit ? 'editRows' : 'addRows' )};
-                                $exclude = ['title', 'body', 'excerpt', 'slug', 'status', 'category_id', 'author_id', 'featured', 'image', 'meta_description', 'meta_keywords', 'seo_title'];
+                                $exclude = ['title', 'body', 'excerpt', 'slug', 'status', 'category_id', 'author_id', 'featured', 'image', 'meta_description', 'meta_keywords', 'seo_title', 'location', 'location_human'];
                             @endphp
 
                             @foreach($dataTypeRows as $row)
