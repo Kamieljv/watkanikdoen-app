@@ -4,7 +4,7 @@
     $showLatLng = property_exists($row->details, 'showLatLngInput') ? (bool)$row->details->showLatLngInput : true;
     $showLatLng = $showLatLng ? 'true' : 'false';
     $defaultCenter = $dataTypeContent->getCoordinates() && 
-        count($dataTypeContent->getCoordinates()) ? $dataTypeContent->getCoordinates() : ['lat' => config('voyager.maps.center.lat'), 'lng' => config('voyager.maps.center.lng')];
+        count($dataTypeContent->getCoordinates()) ? $dataTypeContent->getCoordinates() : [['lat' => config('voyager.maps.center.lat'), 'lng' => config('voyager.maps.center.lng')]];
 @endphp
 
 <div id="app" class="coordinates-formfield">
