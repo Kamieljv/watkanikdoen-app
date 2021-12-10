@@ -1,5 +1,8 @@
 const mix = require('laravel-mix');
 
+require('laravel-mix-tailwind');
+require('laravel-mix-purgecss');
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -11,6 +14,15 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
+
+// mix assets for the multiple sections (public section/admin section)
+
+// admin
+mix.js('resources/js/app.js', 'admin/js')
     .vue()
-    .sass('resources/sass/app.scss', 'public/css');
+    .sass('resources/sass/app.scss', 'admin/css');
+
+// public
+mix.js('resources/views/themes/custom/assets/js/app.js', 'themes/custom/js')
+    .sass('resources/views/themes/custom/assets/sass/wave.scss', 'themes/custom/css')
+	.tailwind('./tailwind.config.js');

@@ -16,6 +16,5 @@ return [
     'category' => 'Categorie',
     'categories' => 'Categoriën',
     'written_by' => 'Geschreven door ',
-    'back_to_blog' => 'Terug naar Blog',
-    'posted_in' => 'Gepost in ',
+    'back_to_acties' => 'Terug naar Acties',
 ];
