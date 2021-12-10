@@ -20,6 +20,10 @@ class CreateActiesTable extends Migration
             $table->string('seo_title')->nullable();
             $table->text('excerpt')->nullable();
             $table->text('body');
+            $table->dateTime('time_start');
+            $table->dateTime('time_end');
+            $table->point('location')->nullable();
+            $table->string('location_human');
             $table->string('image')->nullable();
             $table->string('slug')->unique('posts_slug_unique');
             $table->text('meta_description')->nullable();

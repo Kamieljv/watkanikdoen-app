@@ -66,3 +66,7 @@ And you should be updated to the latest version :)
 - [ ] Localize Wave controller messages
 - [ ] Localize Voyager
 - [ ] Localize js messages
+
+### Useful links
+- Compiling multiple JS environments (public site/admin) with Laravel Mix: https://github.com/omnichronous/multimix
+- Localization in Laravel routes https://github.com/mcamara/laravel-localization
