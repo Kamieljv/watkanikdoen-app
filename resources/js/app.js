@@ -17,6 +17,9 @@ Vue.component('l-tile-layer', LTileLayer);
 Vue.component('l-marker', LMarker);
 Vue.component('l-tooltip', LTooltip);
 
+import _ from 'lodash'
+Vue.prototype.__ = str => _.get(window.i18n, str)
+
 
 
 /**

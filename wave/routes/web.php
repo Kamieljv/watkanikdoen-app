@@ -5,6 +5,9 @@ Route::impersonate();
 Route::get('/', '\Wave\Http\Controllers\HomeController@index')->name('wave.home');
 Route::get('@{username}', '\Wave\Http\Controllers\ProfileController@index')->name('wave.profile');
 
+// Translation file route
+Route::get('/lang-{lang}.js', '\Wave\Http\Controllers\LanguageController@show');
+
 // Documentation routes
 Route::view('docs/{page?}', 'docs::index')->where('page', '(.*)');
 
@@ -13,7 +16,8 @@ Route::get('logout', 'Auth\LoginController@logout')->name('wave.logout');
 Route::get('user/verify/{verification_code}', 'Auth\RegisterController@verify')->name('verify');
 Route::post('register/complete', '\Wave\Http\Controllers\Auth\RegisterController@complete')->name('wave.register-complete');
 
-Route::get('actie/{actie}', '\Wave\Http\Controllers\EventController@actie')->name('wave.acties.actie');
+Route::get('acties', '\Wave\Http\Controllers\ActieController@acties')->name('wave.acties');
+Route::get('actie/{actie}', '\Wave\Http\Controllers\ActieController@actie')->name('wave.acties.actie');
 
 Route::get('blog', '\Wave\Http\Controllers\BlogController@index')->name('wave.blog');
 Route::get('blog/{category}', '\Wave\Http\Controllers\BlogController@category')->name('wave.blog.category');

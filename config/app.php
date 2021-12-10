@@ -79,8 +79,8 @@ return [
     | to any of the locales which will be supported by the application.
     |
     */
-
-    'locale' => 'nl',
+    'locales' => ['nl', 'en'], // list available locales
+    'locale' => 'nl', // set default locale
 
     /*
     |--------------------------------------------------------------------------

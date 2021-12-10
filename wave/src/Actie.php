@@ -4,12 +4,18 @@ namespace Wave;
 
 use Illuminate\Database\Eloquent\Model;
 use TCG\Voyager\Traits\Spatial;
+use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
 
 class Actie extends Model
 {
-    use Spatial; 
+    use SpatialTrait; 
+    use Spatial;
 
     protected $spatial = ['location'];
+
+    protected $spatialFields = [
+        'location',
+    ];
 
     public function link(){
     	return url('/actie/' . $this->slug);
