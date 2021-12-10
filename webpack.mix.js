@@ -18,9 +18,9 @@ require('laravel-mix-purgecss');
 // mix assets for the multiple sections (public section/admin section)
 
 // admin
-mix.js('resources/js/app.js', 'admin/js')
+mix.js('resources/js/app.js', 'js')
     .vue()
-    .sass('resources/sass/app.scss', 'admin/css');
+    .sass('resources/sass/app.scss', 'css');
 
 // public
 mix.js('resources/views/themes/custom/assets/js/app.js', 'themes/custom/js')

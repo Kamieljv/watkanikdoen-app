@@ -210,7 +210,7 @@ return [
     ],
 
     'additional_js' => [
-        'admin/js/app.js',
+        'js/app.js',
     ],
 
     'maps' => [
