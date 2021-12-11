@@ -3274,6 +3274,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ActieAgenda',
   props: {
@@ -3292,6 +3295,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   computed: {
     heeftActies: function heeftActies() {
       return this.acties.length > 0;
+    },
+    actiesFormatted: function actiesFormatted() {
+      this.acties.forEach(function (actie) {
+        // filter HTML tags and take first 200 chars
+        var newBody = actie.body.replace(/(<([^>]+)>)/gi, "");
+        actie.body = newBody.length > 200 ? newBody.substring(0, 200) + '...' : newBody.substring(0, 200);
+        return actie;
+      });
+      return this.acties;
     }
   },
   watch: {// var: function(newVal) {
@@ -3313,7 +3325,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.isGeladen = false;
                 _this.heeftFout = false;
                 axios.get(_this.routes['wave.acties'].uri).then(function (response) {
-                  _this.acties = response.data.acties;
+                  _this.acties = response.data.acties.data;
                   _this.categories = response.data.categories;
                 })["catch"](function (error) {
                   _this.heeftFout = true;
@@ -23160,19 +23172,205 @@ var render = function () {
             ]
           ),
         ]),
-        _vm._v("\n        Geladen: " + _vm._s(_vm.isGeladen) + "\n        "),
+        _vm._v(" "),
         _c(
           "div",
           {
             staticClass:
               "grid gap-5 mx-auto mt-12 sm:grid-cols-2 lg:grid-cols-3",
           },
-          _vm._l(_vm.acties, function (actie) {
-            return _c("article", {
-              key: actie.id,
-              staticClass: "flex flex-col overflow-hidden rounded-lg shadow-lg",
-              attrs: { typeof: "Article" },
-            })
+          _vm._l(_vm.actiesFormatted, function (actie) {
+            return _c(
+              "article",
+              {
+                key: actie.id,
+                staticClass:
+                  "flex flex-col overflow-hidden rounded-lg shadow-lg",
+                attrs: { typeof: "Article" },
+              },
+              [
+                _c("meta", {
+                  attrs: { property: "name", content: actie.title },
+                }),
+                _vm._v(" "),
+                _c("meta", {
+                  attrs: {
+                    property: "author",
+                    typeof: "Person",
+                    content: "admin",
+                  },
+                }),
+                _vm._v(" "),
+                _c("meta", {
+                  attrs: {
+                    property: "dateModified",
+                    content: new Date(actie.updated_at).toISOString(),
+                  },
+                }),
+                _vm._v(" "),
+                _c("meta", {
+                  staticClass: "uk-margin-remove-adjacent",
+                  attrs: {
+                    property: "datePublished",
+                    content: new Date(actie.created_at).toISOString(),
+                  },
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "flex-shrink-0" }, [
+                  _c("a", { attrs: { href: actie.link } }, [
+                    _c("img", {
+                      staticClass: "object-cover w-full h-48",
+                      attrs: { src: actie.image_path, alt: "" },
+                    }),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "relative flex flex-col justify-between flex-1 p-6 bg-white",
+                  },
+                  [
+                    _c("div", { staticClass: "flex-1" }, [
+                      _c(
+                        "a",
+                        { staticClass: "block", attrs: { href: actie.link } },
+                        [
+                          _c(
+                            "h3",
+                            {
+                              staticClass:
+                                "mt-2 text-xl font-semibold leading-7 text-gray-900",
+                            },
+                            [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(actie.title) +
+                                  "\n                            "
+                              ),
+                            ]
+                          ),
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        { staticClass: "block", attrs: { href: actie.link } },
+                        [
+                          _c(
+                            "p",
+                            {
+                              staticClass:
+                                "mt-3 text-base leading-6 text-gray-500",
+                            },
+                            [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(actie.body) +
+                                  "\n                            "
+                              ),
+                            ]
+                          ),
+                        ]
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "ul",
+                      _vm._l(actie.categories, function (category) {
+                        return _c(
+                          "li",
+                          {
+                            key: category.id,
+                            staticClass:
+                              "relative self-start inline-block px-2 py-1 mt-4 mr-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded",
+                          },
+                          [
+                            _c(
+                              "span",
+                              {
+                                staticClass: "text-gray-700 hover:underline",
+                                attrs: { rel: "category" },
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(category.name) +
+                                    "\n                            "
+                                ),
+                              ]
+                            ),
+                          ]
+                        )
+                      }),
+                      0
+                    ),
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "flex items-center p-6 bg-gray-50" }, [
+                  _c("div", { staticClass: "flex-shrink-0" }, [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _c("img", {
+                        staticClass: "w-10 h-10 rounded-full",
+                        attrs: { src: actie.user.avatar_path, alt: "" },
+                      }),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "ml-3" }, [
+                    _c(
+                      "p",
+                      {
+                        staticClass:
+                          "text-sm font-medium leading-5 text-gray-900",
+                      },
+                      [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(_vm.__("acties.written_by"))
+                        ),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "hover:underline",
+                            attrs: { href: "#" },
+                          },
+                          [_vm._v(_vm._s(actie.user.name))]
+                        ),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "flex text-sm leading-5 text-gray-500" },
+                      [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.__("general.on")) +
+                            " "
+                        ),
+                        _c(
+                          "time",
+                          {
+                            staticClass: "ml-1",
+                            attrs: { datetime: actie.time_start },
+                          },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                new Date(actie.time_start).toLocaleDateString()
+                              )
+                            ),
+                          ]
+                        ),
+                      ]
+                    ),
+                  ]),
+                ]),
+              ]
+            )
           }),
           0
         ),

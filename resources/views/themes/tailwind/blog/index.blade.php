@@ -64,7 +64,7 @@
                 <div class="flex items-center p-6 bg-gray-50">
                         <div class="flex-shrink-0">
                             <a href="#">
-                                <img class="w-10 h-10 rounded-full" src="{{ $post->user->avatar() }}" alt="">
+                                <img class="w-10 h-10 rounded-full" src="{{ $post->user->avatar }}" alt="">
                             </a>
                         </div>
                         <div class="ml-3">

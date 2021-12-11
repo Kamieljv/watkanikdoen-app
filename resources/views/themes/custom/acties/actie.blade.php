@@ -37,7 +37,7 @@
         </div>
 
         <div class="relative">
-            <img class="w-full h-auto rounded-lg" src="{{ $actie->image() }}" alt="{{ $actie->title }}" srcset="{{ $actie->image() }}">
+            <img class="w-full h-auto rounded-lg" src="{{ $actie->image_path }}" alt="{{ $actie->title }}" srcset="{{ $actie->image_path }}">
         </div>
 
         <div class="max-w-4xl mx-auto">

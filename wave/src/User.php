@@ -35,6 +35,15 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
         'password', 'remember_token',
     ];
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'avatar_path',
+    ];
+
     public function keyValues()
     {
         return $this->morphMany('Wave\KeyValue', 'keyvalue');
@@ -136,7 +145,7 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
         return 0;
     }
 
-    public function avatar(){
+    public function getAvatarPathAttribute(){
         return Storage::url($this->avatar);
     }
 

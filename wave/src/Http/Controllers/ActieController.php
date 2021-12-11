@@ -24,8 +24,7 @@ class ActieController extends \TCG\Voyager\Http\Controllers\VoyagerBaseControlle
     }
 
     public function acties() {
-        $acties = Actie::with('categories')->first()->toArray();//->orderBy('created_at', 'DESC')->paginate(12);
-        Log::debug($acties);
+        $acties = Actie::orderBy('created_at', 'DESC')->paginate(12);
         $categories = Category::all();
 
         return response()->json(['acties' => $acties,

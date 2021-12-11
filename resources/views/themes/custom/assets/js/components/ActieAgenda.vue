@@ -12,61 +12,64 @@
                     {{ __("acties.subtitle") }}
                 </p>
             </div>
-            Geladen: {{ isGeladen }}
             <div class="grid gap-5 mx-auto mt-12 sm:grid-cols-2 lg:grid-cols-3">
                 <article 
-                    v-for="actie in acties"
+                    v-for="actie in actiesFormatted"
                     :key="actie.id"
                     class="flex flex-col overflow-hidden rounded-lg shadow-lg" 
                     typeof="Article"
                 >
-                    <!-- <meta property="name" content="{{ $actie->title }}">
+                    <meta property="name" :content="actie.title">
                     <meta property="author" typeof="Person" content="admin">
-                    <meta property="dateModified" content="{{ Carbon\Carbon::parse($actie->updated_at)->toIso8601String() }}">
-                    <meta class="uk-margin-remove-adjacent" property="datePublished" content="{{ Carbon\Carbon::parse($actie->created_at)->toIso8601String() }}">
+                    <meta property="dateModified" :content="new Date(actie.updated_at).toISOString()">
+                    <meta class="uk-margin-remove-adjacent" property="datePublished" :content="new Date(actie.created_at).toISOString()">
 
                     <div class="flex-shrink-0">
-                        <a href="{{ $actie->link() }}">
-                            <img class="object-cover w-full h-48" src="{{ $actie->image() }}" alt="">
+                        <a :href="actie.link">
+                            <img class="object-cover w-full h-48" :src="actie.image_path" alt="">
                         </a>
                     </div>
                     <div class="relative flex flex-col justify-between flex-1 p-6 bg-white">
                         <div class="flex-1">
-                            <a href="{{ $actie->link() }}" class="block">
+                            <a :href="actie.link" class="block">
                                 <h3 class="mt-2 text-xl font-semibold leading-7 text-gray-900">
-                                    {{ $actie->title }}
+                                    {{ actie.title }}
                                 </h3>
                             </a>
-                            <a href="{{ $actie->link() }}" class="block">
+                            <a :href="actie.link" class="block">
                                 <p class="mt-3 text-base leading-6 text-gray-500">
-                                    {{ substr(strip_tags($actie->body), 0, 200) }}@if(strlen(strip_tags($actie->body)) > 200){{ '...' }}@endif
+                                    {{ actie.body }}
                                 </p>
                             </a>
                         </div>
-                        @foreach ($actie->categories as $category)
-                            <p class="relative self-start inline-block px-2 py-1 mt-4 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded">
-                                <a href="{{ route('wave.blog.category', $category->slug) }}" class="text-gray-700 hover:underline" rel="category">
-                                    {{ $category->name }}
-                                </a>
-                            </p>
-                        @endforeach
+                        <ul>
+                            <li 
+                                v-for="category in actie.categories"
+                                :key="category.id"
+                                class="relative self-start inline-block px-2 py-1 mt-4 mr-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
+                            >
+                                <span class="text-gray-700 hover:underline" rel="category">
+                                    {{ category.name }}
+                                </span>
+                            </li>
+                        </ul>
                     </div>
 
                     <div class="flex items-center p-6 bg-gray-50">
                             <div class="flex-shrink-0">
                                 <a href="#">
-                                    <img class="w-10 h-10 rounded-full" src="{{ $actie->user->avatar() }}" alt="">
+                                    <img class="w-10 h-10 rounded-full" :src="actie.user.avatar_path" alt="">
                                 </a>
                             </div>
                             <div class="ml-3">
                                 <p class="text-sm font-medium leading-5 text-gray-900">
-                                    {{ __("acties.written_by") }}<a href="#" class="hover:underline">{{ $actie->user->name }}</a>
+                                    {{ __("acties.written_by") }}<a href="#" class="hover:underline">{{ actie.user.name }}</a>
                                 </p>
                                 <div class="flex text-sm leading-5 text-gray-500">
-                                {{ __("general.on") }} <time datetime="{{ Carbon\Carbon::parse($actie->created_at)->toIso8601String() }}" class="ml-1">{{ Date::parse($actie->created_at)->format("j F Y") }}</time>
+                                {{ __("general.on") }} <time :datetime="actie.time_start" class="ml-1">{{ new Date(actie.time_start).toLocaleDateString() }}</time>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
 
                 </article>
             </div>
@@ -94,6 +97,15 @@
             heeftActies() {
                 return (this.acties.length > 0);
             },
+            actiesFormatted() {
+                this.acties.forEach((actie) => {
+                    // filter HTML tags and take first 200 chars
+                    var newBody = actie.body.replace(/(<([^>]+)>)/gi, "");
+                    actie.body = (newBody.length > 200)? newBody.substring(0,200) + '...' : newBody.substring(0,200);
+                    return actie
+                });
+                return this.acties;
+            },
         },
         watch: {
             // var: function(newVal) {
@@ -108,7 +120,7 @@
                 this.isGeladen = false;
                 this.heeftFout = false;
                 axios.get(this.routes['wave.acties'].uri).then((response) => {
-                    this.acties = response.data.acties;
+                    this.acties = response.data.acties.data;
                     this.categories = response.data.categories;
                 }).catch((error) => {
                     this.heeftFout = true;
