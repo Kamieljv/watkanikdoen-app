@@ -13,6 +13,7 @@ window.Vue = require('vue').default;
 import _ from 'lodash'
 Vue.prototype.__ = str => _.get(window.i18n, str)
 
+require('@fortawesome/fontawesome-free/js/all.min.js');
 
 
 /**

@@ -2,7 +2,9 @@
 
 namespace Wave;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Date\Date;
 use TCG\Voyager\Traits\Spatial;
 use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
 
@@ -24,7 +26,8 @@ class Actie extends Model
      */
     protected $appends = [
         'link',
-        'image_path'
+        'image_path',
+        'start'
     ];
 
     /**
@@ -40,6 +43,10 @@ class Actie extends Model
 
     public function getImagePathAttribute(){
     	return \Voyager::image($this->image);
+    }
+
+    public function getStartAttribute() {
+        return Date::parse($this->time_start)->format('j M Y, G:i');
     }
 
     public function user(){

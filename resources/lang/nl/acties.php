@@ -16,5 +16,6 @@ return [
     'category' => 'Categorie',
     'categories' => 'Categoriën',
     'written_by' => 'Geschreven door ',
+    'organized_by' => 'Georganiseerd door ',
     'back_to_acties' => 'Terug naar Acties',
 ];
