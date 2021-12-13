@@ -43,7 +43,7 @@
     @endif
 
     <!-- Styles -->
-    <link href="{{ asset('themes/' . $theme->folder . '/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('themes/' . $theme->folder . '/css/wave.css') }}" rel="stylesheet">
 
     <!-- Get Language file for Vue -->
     <script src="/lang-{{ app()->getLocale() }}.js"></script>

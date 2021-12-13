@@ -1,10 +1,9 @@
 module.exports = {
-    purge: [
-        './**/*.php',
-        './*.php',
-        './assets/**/*.scss',
-        './assets/**/*.js',
-      ],
+    content: [
+        "./resources/**/*.blade.php",
+        "./resources/**/*.js",
+        "./resources/**/*.vue",
+    ],
     theme: {
         extend: {
             rotate: {
