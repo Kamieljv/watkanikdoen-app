@@ -25,4 +25,4 @@ mix.js('resources/js/app.js', 'js')
 // public
 mix.js('resources/views/themes/custom/assets/js/app.js', 'themes/custom/js')
     .sass('resources/views/themes/custom/assets/sass/wave.scss', 'themes/custom/css')
-	.tailwind('./tailwind.config.js');
+	.tailwind('./resources/views/themes/custom/tailwind.config.js');

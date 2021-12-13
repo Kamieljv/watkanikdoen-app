@@ -1,9 +1,9 @@
 module.exports = {
-    purge: [
+    mode: 'jit',
+    content: [
         './**/*.php',
         './*.php',
-        './assets/**/*.scss',
-        './assets/**/*.js',
+        './assets/**/*.{scss,js,vue}',
       ],
     theme: {
         extend: {
