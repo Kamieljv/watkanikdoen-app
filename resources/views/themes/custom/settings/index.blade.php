@@ -2,7 +2,7 @@
 
 @section('content')
 
-	<div class="flex px-8 mx-auto my-6 max-w-7xl xl:px-5">
+	<div class="flex px-8 mx-auto my-6 max-w-6xl xl:px-5">
 
 		<!-- Left Settings Menu -->
 		<div class="w-16 mr-6 md:w-1/5">

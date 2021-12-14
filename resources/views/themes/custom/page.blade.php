@@ -3,7 +3,7 @@
 @section('content')
 
 
-    <div class="py-20 mx-auto max-w-7xl">
+    <div class="py-20 mx-auto max-w-6xl">
         <article id="page-{{ $page->id }}" class="max-w-4xl px-5 mx-auto prose prose-xl lg:prose-2xl lg:px-0">
 
             <meta property="name" content="{{ $page->title }}">

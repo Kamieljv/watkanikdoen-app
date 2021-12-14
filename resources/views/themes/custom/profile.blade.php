@@ -3,7 +3,7 @@
 
 @section('content')
 
-	<div class="flex flex-col px-8 mx-auto my-6 xl:px-5 lg:flex-row max-w-7xl">
+	<div class="flex flex-col px-8 mx-auto my-6 xl:px-5 lg:flex-row max-w-6xl">
 
 		<div class="flex flex-col items-center justify-center w-full px-10 py-16 mb-8 mr-6 bg-white border rounded-lg lg:mb-0 lg:flex-1 lg:w-1/3 border-gray-150">
 			<img src="{{ Voyager::image($user->avatar_path) }}" class="w-24 h-24 border-4 border-gray-200 rounded-full">

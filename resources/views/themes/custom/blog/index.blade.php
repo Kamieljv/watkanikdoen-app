@@ -3,11 +3,11 @@
 @section('content')
 
 
-<div class="relative px-8 pt-8 pb-20 mx-auto xl:px-5 max-w-7xl sm:px-6 lg:pt-10 lg:pb-28">
+<div class="relative px-8 pt-8 pb-20 mx-auto xl:px-5 max-w-6xl sm:px-6 lg:pt-10 lg:pb-28">
     <div class="absolute inset-0">
         <div class="bg-white h-1/3 sm:h-2/3"></div>
     </div>
-    <div class="relative mx-auto max-w-7xl">
+    <div class="relative mx-auto max-w-6xl">
 		<div class="flex flex-col justify-start">
 			<h1 class="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
 				{{ __("blog.title") }}
