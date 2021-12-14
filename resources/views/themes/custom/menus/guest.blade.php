@@ -1,11 +1,10 @@
 <nav class="flex items-center justify-end flex-1 hidden w-full h-full space-x-10 md:flex">
 
-    <a href="{{ route('wave.blog') }}" class="text-base font-medium leading-6 text-gray-500 transition duration-150 ease-in-out hover:text-wave-600 focus:outline-none focus:text-wave-600">
+    <a href="{{ route('wave.blog') }}" class="text-base font-medium leading-6 text-white transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600">
         {{ __("Blog") }}
     </a>
     
-    <div class="w-1 h-5 mx-10 border-r border-gray-300"></div>
-    <a href="{{ route('login') }}" class="text-base font-medium leading-6 text-gray-500 whitespace-no-wrap hover:text-wave-600 focus:outline-none focus:text-gray-900">
+    <a href="{{ route('login') }}" class="text-base font-medium leading-6 text-white whitespace-no-wrap hover:underline focus:outline-none focus:text-gray-900">
         {{ __("Log In") }}
     </a>
     <span class="inline-flex rounded-md shadow-sm">
