@@ -8,11 +8,13 @@ use Grimzy\LaravelMysqlSpatial\Types\Geometry;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Jenssegers\Date\Date;
+use Laravel\Scout\Searchable;
 use TCG\Voyager\Traits\Spatial;
 
 class Actie extends Model
 {
     use Spatial;
+    use Searchable;
     
     protected $spatial = ['location'];    
 

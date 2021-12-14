@@ -3349,7 +3349,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       acties: [],
       isGeladen: true,
-      heeftFout: false
+      heeftFout: false,
+      searchQuery: 'klimaat'
     };
   },
   computed: {
@@ -3384,7 +3385,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _this.isGeladen = false;
                 _this.heeftFout = false;
-                axios.get(_this.routes['wave.acties'].uri).then(function (response) {
+                axios.get(_this.routes['wave.acties'].uri, {
+                  params: {
+                    q: _this.searchQuery
+                  }
+                }).then(function (response) {
                   _this.acties = response.data.acties.data;
                   _this.categories = response.data.categories;
                 })["catch"](function (error) {

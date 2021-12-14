@@ -39,6 +39,7 @@
                 acties: [],
                 isGeladen: true,
                 heeftFout: false,
+                searchQuery: 'klimaat',
             }
         },
         computed: {
@@ -67,7 +68,11 @@
             async getActies() {
                 this.isGeladen = false;
                 this.heeftFout = false;
-                axios.get(this.routes['wave.acties'].uri).then((response) => {
+                axios.get(this.routes['wave.acties'].uri, {
+                    params: {
+                        q: this.searchQuery
+                    }
+                }).then((response) => {
                     this.acties = response.data.acties.data;
                     this.categories = response.data.categories;
                 }).catch((error) => {
