@@ -1,9 +1,37 @@
+// Tailwind CSS
 @tailwind base;
+
+@layer base {
+  h1 {
+    @apply text-2xl;
+  }
+  h2 {
+    @apply text-xl;
+  }
+  h3 {
+    @apply text-lg;
+  }
+}
+
 @tailwind components;
 @tailwind utilities;
 
+@import 'fonts';
+
 [x-cloak]{
   display:none;
+}
+
+/****** Standard Elements **********/
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: HussarBold;
+}
+
+.gradient-border-b {
+  padding-bottom: 2px;
+  background: linear-gradient( to right, theme('colors.wkid-red'), theme('colors.wkid-blue') ) left bottom #fff no-repeat;
+  background-size: 100% 2px;
 }
 
 svg {

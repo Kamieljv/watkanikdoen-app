@@ -28,7 +28,7 @@
                         <h3 class=" text-xl font-semibold leading-7 text-gray-900">
                             {{ actie.title }}
                         </h3>
-                        <p class="mt-3 text-sm text-gray-500">
+                        <p class="mt-1 text-sm text-gray-500">
                             {{ actie.body }}
                         </p>
                     </div>
@@ -95,13 +95,8 @@
             width: 100%;
         }
         & .title-body-container {
-            height: 125px;
+            height: 90px;
             overflow: hidden;
-        }
-        & .title-body-container {
-            -moz-box-shadow: inset 0 -8px 11px -12px #000;
-            -webkit-box-shadow: inset 0 -8px 11px -12px #000;
-            box-shadow: inset 0 -8px 11px -12px #000;
         }
     }
       

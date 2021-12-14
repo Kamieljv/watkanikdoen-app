@@ -16,7 +16,8 @@ Route::get('logout', 'Auth\LoginController@logout')->name('wave.logout');
 Route::get('user/verify/{verification_code}', 'Auth\RegisterController@verify')->name('verify');
 Route::post('register/complete', '\Wave\Http\Controllers\Auth\RegisterController@complete')->name('wave.register-complete');
 
-Route::get('acties', '\Wave\Http\Controllers\ActieController@acties')->name('wave.acties');
+Route::get('acties', '\Wave\Http\Controllers\ActieController@index')->name('wave.acties.index');
+Route::get('acties/search', '\Wave\Http\Controllers\ActieController@search')->name('wave.acties.search');
 Route::get('actie/{actie}', '\Wave\Http\Controllers\ActieController@actie')->name('wave.acties.actie');
 
 Route::get('blog', '\Wave\Http\Controllers\BlogController@index')->name('wave.blog');

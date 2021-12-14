@@ -3325,14 +3325,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -3361,7 +3353,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.acties.forEach(function (actie) {
         // filter HTML tags and take first 200 chars
         var newBody = actie.body.replace(/(<([^>]+)>)/gi, "");
-        actie.body = newBody.length > 200 ? newBody.substring(0, 200) + '...' : newBody.substring(0, 200);
+        actie.body = newBody.length > 200 ? newBody.substring(0, 80) + '...' : newBody.substring(0, 80);
         return actie;
       });
       return this.acties;
@@ -3385,7 +3377,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _this.isGeladen = false;
                 _this.heeftFout = false;
-                axios.get(_this.routes['wave.acties'].uri, {
+                axios.get(_this.routes['wave.acties.search'].uri, {
                   params: {
                     q: _this.searchQuery
                   }
@@ -8648,7 +8640,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "article.actie .categories-container[data-v-260bb861] {\n  position: absolute;\n  top: 0;\n  width: 100%;\n}\narticle.actie .title-body-container[data-v-260bb861] {\n  height: 125px;\n  overflow: hidden;\n  box-shadow: inset 0 -8px 11px -12px #000;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "article.actie .categories-container[data-v-260bb861] {\n  position: absolute;\n  top: 0;\n  width: 100%;\n}\narticle.actie .title-body-container[data-v-260bb861] {\n  height: 90px;\n  overflow: hidden;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -9312,7 +9304,7 @@ var render = function () {
                   ]
                 ),
                 _vm._v(" "),
-                _c("p", { staticClass: "mt-3 text-sm text-gray-500" }, [
+                _c("p", { staticClass: "mt-1 text-sm text-gray-500" }, [
                   _vm._v(
                     "\n                        " +
                       _vm._s(_vm.actie.body) +
@@ -9407,59 +9399,23 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass:
-        "relative px-8 pt-8 pb-20 mx-auto xl:px-5 max-w-7xl sm:px-6 lg:pt-10 lg:pb-28",
-    },
-    [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("div", { staticClass: "relative mx-auto max-w-7xl" }, [
-        _c("div", { staticClass: "flex flex-col justify-start" }, [
-          _c(
-            "h1",
-            {
-              staticClass:
-                "text-3xl font-extrabold leading-9 tracking-tight text-gray-900 sm:text-4xl sm:leading-10",
-            },
-            [
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.__("acties.title")) +
-                  "\n            "
-              ),
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "p",
-            { staticClass: "mt-3 text-xl leading-7 text-gray-500 sm:mt-4" },
-            [
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.__("acties.subtitle")) +
-                  "\n            "
-              ),
-            ]
-          ),
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "grid gap-5 mx-auto mt-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
-          },
-          _vm._l(_vm.actiesFormatted, function (actie) {
-            return _c("actie", { key: actie.id, attrs: { actie: actie } })
-          }),
-          1
-        ),
-      ]),
-    ]
-  )
+  return _c("div", { staticClass: "relative mx-auto xl:px-5 max-w-7xl" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "relative mx-auto max-w-7xl" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "grid gap-5 mx-auto mt-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
+        },
+        _vm._l(_vm.actiesFormatted, function (actie) {
+          return _c("actie", { key: actie.id, attrs: { actie: actie } })
+        }),
+        1
+      ),
+    ]),
+  ])
 }
 var staticRenderFns = [
   function () {

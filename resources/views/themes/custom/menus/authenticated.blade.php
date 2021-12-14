@@ -1,10 +1,9 @@
 <nav class="flex items-center justify-end flex-1 hidden w-full h-full space-x-10 md:flex">
 
-    <a href="{{ route('wave.blog') }}" class="text-base font-medium leading-6 text-gray-500 transition duration-150 ease-in-out hover:text-wave-600 focus:outline-none focus:text-wave-600">
+    <a href="{{ route('wave.blog') }}" class="text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600">
         {{ __("Blog") }}
     </a>
 
-    <div class="w-1 h-5 mx-10 border-r border-gray-300"></div>
     <div class="flex sm:ml-6 sm:items-center">
 
         @include('theme::partials.notifications')
@@ -12,7 +11,7 @@
         <!-- Profile dropdown -->
         <div @click.away="open = false" class="relative flex items-center h-full ml-3" x-data="{ open: false }">
             <div>
-                <button @click="open = !open" class="flex text-sm transition duration-150 ease-in-out border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300" id="user-menu" aria-label="User menu" aria-haspopup="true" x-bind:aria-expanded="open" aria-expanded="true">
+                <button @click="open = !open" class="flex text-sm transition duration-150 ease-in-out border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 hover:border-gray-300" id="user-menu" aria-label="User menu" aria-haspopup="true" x-bind:aria-expanded="open" aria-expanded="true">
                     <img class="w-8 h-8 rounded-full" src="{{ auth()->user()->avatar_path . '?' . time() }}" alt="{{ auth()->user()->name }}'s Avatar">
                 </button>
             </div>

@@ -53,6 +53,11 @@ module.exports = {
                     800: '#002F73',
                     900: '#00204D',
                 },
+                'wkid-red': '#e11d00',
+                'wkid-pink': '#f30060',
+                'wkid-purple': '#d810b1',
+                'wkid-indigo': '#805def',
+                'wkid-blue': '#0081ff',
             }
         }
     },

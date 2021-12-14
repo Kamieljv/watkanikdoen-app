@@ -5,7 +5,7 @@
     @if(isset($seo->title))
         <title>{{ $seo->title }}</title>
     @else
-        <title>{{ setting('site.title', 'Laravel Wave') . ' - ' . setting('site.description', 'The Software as a Service Starter Kit built on Laravel & Voyager') }}</title>
+        <title>{{ setting('site.title', 'Laravel Wave') . ' | ' . setting('site.description', 'The Software as a Service Starter Kit built on Laravel & Voyager') }}</title>
     @endif
 
     <meta charset="utf-8">
@@ -14,7 +14,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="url" content="{{ url('/') }}">
 
-    <link rel="icon" href="{{ setting('site.favicon', '/wave/favicon.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ 'storage/' . setting('site.favicon', '/wave/favicon.png') }}" type="image/x-icon">
 
     {{-- Social Share Open Graph Meta Tags --}}
     @if(isset($seo->title) && isset($seo->description) && isset($seo->image))
@@ -50,11 +50,11 @@
 </head>
 <body class="flex flex-col min-h-screen @if(Request::is('/')){{ 'bg-white' }}@else{{ 'bg-gray-50' }}@endif @if(config('wave.dev_bar')){{ 'pb-10' }}@endif">
 
-    @if(config('wave.demo') && Request::is('/'))
-        @include('theme::partials.demo-header')
-    @endif
+    @section('header')
+        @include('theme::partials.header')
+    @stop
 
-    @include('theme::partials.header')
+    @yield('header')
 
     <main class="flex-grow overflow-x-hidden">
         @yield('content')

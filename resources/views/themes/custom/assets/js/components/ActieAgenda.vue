@@ -1,17 +1,9 @@
 <template>
-    <div class="relative px-8 pt-8 pb-20 mx-auto xl:px-5 max-w-7xl sm:px-6 lg:pt-10 lg:pb-28">
+    <div class="relative mx-auto xl:px-5 max-w-7xl">
         <div class="absolute inset-0">
             <div class="bg-white h-1/3 sm:h-2/3"></div>
         </div>
         <div class="relative mx-auto max-w-7xl">
-            <div class="flex flex-col justify-start">
-                <h1 class="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-                    {{ __("acties.title") }}
-                </h1>
-                <p class="mt-3 text-xl leading-7 text-gray-500 sm:mt-4">
-                    {{ __("acties.subtitle") }}
-                </p>
-            </div>
             <div class="grid gap-5 mx-auto mt-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 <actie
                     v-for="actie in actiesFormatted"
@@ -50,7 +42,7 @@
                 this.acties.forEach((actie) => {
                     // filter HTML tags and take first 200 chars
                     var newBody = actie.body.replace(/(<([^>]+)>)/gi, "");
-                    actie.body = (newBody.length > 200)? newBody.substring(0,200) + '...' : newBody.substring(0,200);
+                    actie.body = (newBody.length > 200)? newBody.substring(0,80) + '...' : newBody.substring(0,80);
                     return actie
                 });
                 return this.acties;
@@ -68,7 +60,7 @@
             async getActies() {
                 this.isGeladen = false;
                 this.heeftFout = false;
-                axios.get(this.routes['wave.acties'].uri, {
+                axios.get(this.routes['wave.acties.search'].uri, {
                     params: {
                         q: this.searchQuery
                     }
