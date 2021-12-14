@@ -70,3 +70,7 @@ And you should be updated to the latest version :)
 ### Useful links
 - Compiling multiple JS environments (public site/admin) with Laravel Mix: https://github.com/omnichronous/multimix
 - Localization in Laravel routes https://github.com/mcamara/laravel-localization
+
+### Package notes
+- For Date localizations: [jenssegers/date](https://github.com/jenssegers/date)
+- For icons: [Blade Icons](https://github.com/blade-ui-kit/blade-icons) and FontAwesome 5
