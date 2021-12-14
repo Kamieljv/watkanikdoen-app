@@ -89,7 +89,6 @@
 
 <style lang="scss" scoped>
     article.actie {
-        position: relative;
         & .categories-container {
             position: absolute;
             top: 0;

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ActiesTableSeeder extends Seeder
 {
@@ -27,9 +28,9 @@ class ActiesTableSeeder extends Seeder
                 'seo_title' => NULL,
                 'excerpt' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sagittis venenatis nibh, dapibus tempus ex ultrices sit amet.',
                 'body' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sagittis venenatis nibh, dapibus tempus ex ultrices sit amet. <strong>Donec bibendum purus venenatis sapien semper volutpat. Aliquam tincidunt convallis iaculis. Donec at ligula ac arcu fringilla lacinia sed id erat.</strong> Vestibulum non ex gravida, pretium urna eu, luctus justo. Pellentesque gravida porta scelerisque. Curabitur nulla neque, tristique eu ipsum at, gravida tempor nisl. Proin non iaculis magna. Praesent sed lectus vel nunc egestas pulvinar. <em>Integer tincidunt sem in vehicula commodo. </em></p>',
-                'time_start' => '2021-12-06 15:45:54',
-                'time_end' => '2021-12-06 15:45:56',
-                'location' => NULL,
+                'time_start' => '2021-12-06 15:45:00',
+                'time_end' => '2021-12-06 15:45:00',
+                'location' => DB::raw("(ST_GeomFromText('POINT(5,537185 52,018698)', 4326))"),
                 'location_human' => 'Place',
                 'image' => 'acties/November2021/wqjkXjNuFLcyFzVe2FmE.jpg',
                 'slug' => 'klimaatdemo',
@@ -38,7 +39,7 @@ class ActiesTableSeeder extends Seeder
                 'status' => 'PUBLISHED',
                 'featured' => 0,
                 'created_at' => '2021-11-29 16:26:00',
-                'updated_at' => '2021-12-06 14:12:19',
+                'updated_at' => '2021-12-10 17:12:51',
             ),
             1 => 
             array (
@@ -79,8 +80,29 @@ class ActiesTableSeeder extends Seeder
                 'meta_keywords' => NULL,
                 'status' => 'PUBLISHED',
                 'featured' => 0,
-                'created_at' => '2021-12-03 15:31:00',
-                'updated_at' => '2021-12-08 19:36:58',
+                'created_at' => '2021-12-08 09:00:00',
+                'updated_at' => '2021-12-10 17:01:29',
+            ),
+            3 => 
+            array (
+                'id' => 17,
+                'author_id' => 1,
+                'title' => 'Woonprotest',
+                'seo_title' => NULL,
+                'excerpt' => NULL,
+                'body' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ultrices tortor in auctor pulvinar. In enim enim, tristique a erat quis, venenatis facilisis dui. Maecenas eget ligula ut ipsum lobortis tristique in non diam. Pellentesque quis orci tempus, accumsan velit a, sodales sem. Ut elementum nunc viverra augue imperdiet euismod. Praesent venenatis tempus dolor. Maecenas venenatis laoreet sem et ultricies. Sed augue sapien, mollis a eros at, bibendum placerat arcu. Phasellus vitae dui gravida, semper augue non, sagittis lacus. Curabitur non metus eget quam consequat tincidunt. Duis feugiat dignissim felis. In egestas ante arcu, nec scelerisque quam suscipit sit amet. Aliquam et ex at sapien sodales pharetra nec at leo. Donec hendrerit pulvinar ipsum sit amet elementum. Pellentesque placerat enim ligula, cursus vulputate augue mollis vel.</p>',
+                'time_start' => '2021-12-15 18:59:00',
+                'time_end' => '2021-12-24 19:00:00',
+                'location' => NULL,
+                'location_human' => 'Hoofddorp',
+                'image' => 'acties/November2021/pexels-karolina-grabowska-8106775.jpg',
+                'slug' => 'woonprotest',
+                'meta_description' => NULL,
+                'meta_keywords' => NULL,
+                'status' => 'PUBLISHED',
+                'featured' => 0,
+                'created_at' => '2021-12-11 18:00:00',
+                'updated_at' => '2021-12-13 14:02:46',
             ),
         ));
         

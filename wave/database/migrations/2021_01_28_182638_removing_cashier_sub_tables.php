@@ -14,7 +14,7 @@ class RemovingCashierSubTables extends Migration
     public function up()
     {
         Schema::dropIfExists('subscription_items');
-        Schema::drop('subscriptions');
+        Schema::dropIfExists('subscriptions');
     }
 
     /**

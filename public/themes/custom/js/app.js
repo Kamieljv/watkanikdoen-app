@@ -8643,7 +8643,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "article.actie[data-v-260bb861] {\n  position: relative;\n}\narticle.actie .categories-container[data-v-260bb861] {\n  position: absolute;\n  top: 0;\n  width: 100%;\n}\narticle.actie .title-body-container[data-v-260bb861] {\n  height: 125px;\n  overflow: hidden;\n  box-shadow: inset 0 -8px 11px -12px #000;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "article.actie .categories-container[data-v-260bb861] {\n  position: absolute;\n  top: 0;\n  width: 100%;\n}\narticle.actie .title-body-container[data-v-260bb861] {\n  height: 125px;\n  overflow: hidden;\n  box-shadow: inset 0 -8px 11px -12px #000;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

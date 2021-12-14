@@ -21,39 +21,45 @@ class ActieCategoryTableSeeder extends Seeder
         \DB::table('actie_category')->insert(array (
             0 => 
             array (
+                'id' => 1,
                 'actie_id' => 16,
                 'category_id' => 1,
-                'id' => 1,
             ),
             1 => 
             array (
+                'id' => 3,
                 'actie_id' => 16,
                 'category_id' => 3,
-                'id' => 3,
             ),
             2 => 
             array (
+                'id' => 4,
                 'actie_id' => 12,
                 'category_id' => 1,
-                'id' => 4,
             ),
             3 => 
             array (
+                'id' => 5,
                 'actie_id' => 12,
                 'category_id' => 3,
-                'id' => 5,
             ),
             4 => 
             array (
+                'id' => 6,
                 'actie_id' => 11,
                 'category_id' => 1,
-                'id' => 6,
             ),
             5 => 
             array (
+                'id' => 7,
                 'actie_id' => 11,
                 'category_id' => 2,
-                'id' => 7,
+            ),
+            6 => 
+            array (
+                'id' => 8,
+                'actie_id' => 17,
+                'category_id' => 5,
             ),
         ));
         
