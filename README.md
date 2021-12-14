@@ -74,3 +74,5 @@ And you should be updated to the latest version :)
 ### Package notes
 - For Date localizations: [jenssegers/date](https://github.com/jenssegers/date)
 - For icons: [Blade Icons](https://github.com/blade-ui-kit/blade-icons) and FontAwesome 5
+- For Search: [Algolia](https://algolia.com)
+
