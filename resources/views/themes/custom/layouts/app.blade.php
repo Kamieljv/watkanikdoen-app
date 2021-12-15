@@ -86,6 +86,7 @@
     @waveCheckout
 
     <!-- Scripts -->
-    @yield('scripts')
+    <script src="{{ asset('themes/' . $theme->folder . '/js/app.js') }}"></script>
+    @stack('scripts')
 </body>
 </html>

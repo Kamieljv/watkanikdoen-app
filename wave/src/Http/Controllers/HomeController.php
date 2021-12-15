@@ -30,6 +30,16 @@ class HomeController extends \App\Http\Controllers\Controller
             'type'          => 'website'
         ];
 
-        return view('theme::home', compact('seo'));
+        // Definieer de routes waarmee de component evenementen kan ophalen
+        $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
+            return (strpos($route->uri, 'acties') !== false) && (strpos($route->uri, 'admin') === false);
+        })->map(function ($route) {
+            return [
+                'uri' => '/' . $route->uri,
+                'methods' => $route->methods,
+            ];
+        });
+
+        return view('theme::home', compact('seo', 'routes'));
     }
 }

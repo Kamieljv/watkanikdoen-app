@@ -28,10 +28,23 @@ h1, h2, h3, h4, h5, h6 {
   font-family: HussarBold;
 }
 
-.gradient-border-b {
+.gradient-border-b, #header.detatched {
   padding-bottom: 2px;
   background: linear-gradient( to right, theme('colors.wkid-red'), theme('colors.wkid-blue') ) left bottom #fff no-repeat;
   background-size: 100% 2px;
+}
+
+#header.detatched {
+  background-color: white;
+  color: black;
+
+  & #header-logo-link {
+    color: theme('colors.wkid-red');
+  }
+
+  & nav a {
+    color: black;
+  }
 }
 
 svg {

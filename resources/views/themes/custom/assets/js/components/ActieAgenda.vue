@@ -31,7 +31,7 @@
                 acties: [],
                 isGeladen: true,
                 heeftFout: false,
-                searchQuery: 'klimaat',
+                searchQuery: '',
             }
         },
         computed: {

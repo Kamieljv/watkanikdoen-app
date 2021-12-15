@@ -403,7 +403,7 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-shadow-colored: 0 0 #0000;
 }
 
-.ring, .form-control, .form-input, .form-textarea, .form-select, .focus\:ring-4, .focus\:ring {
+.ring, .form-control, .form-input, .form-textarea, .form-select, .focus\:ring-4, .focus\:ring, .focus\:ring-0 {
   --tw-ring-inset: var(--tw-empty,/*!*/ /*!*/);
   --tw-ring-offset-width: 0px;
   --tw-ring-offset-color: #fff;
@@ -414,7 +414,7 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-shadow-colored: 0 0 #0000;
 }
 
-.blur, .invert, .sepia, .filter {
+.blur, .drop-shadow-lg, .invert, .sepia, .filter, .hover\:drop-shadow-xl {
   --tw-blur: var(--tw-empty,/*!*/ /*!*/);
   --tw-brightness: var(--tw-empty,/*!*/ /*!*/);
   --tw-contrast: var(--tw-empty,/*!*/ /*!*/);
@@ -1239,6 +1239,10 @@ select {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
+.mx-\[22px\] {
+  margin-left: 22px;
+  margin-right: 22px;
+}
 .my-5 {
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
@@ -1313,12 +1317,6 @@ select {
 .-mt-10 {
   margin-top: -2.5rem;
 }
-.mt-1 {
-  margin-top: 0.25rem;
-}
-.ml-4 {
-  margin-left: 1rem;
-}
 .mb-6 {
   margin-bottom: 1.5rem;
 }
@@ -1343,8 +1341,14 @@ select {
 .-ml-px {
   margin-left: -1px;
 }
+.ml-4 {
+  margin-left: 1rem;
+}
 .-mt-1 {
   margin-top: -0.25rem;
+}
+.mt-1 {
+  margin-top: 0.25rem;
 }
 .mb-4 {
   margin-bottom: 1rem;
@@ -1478,11 +1482,11 @@ select {
 .h-14 {
   height: 3.5rem;
 }
-.h-8 {
-  height: 2rem;
-}
 .h-1 {
   height: 0.25rem;
+}
+.h-8 {
+  height: 2rem;
 }
 .h-24 {
   height: 6rem;
@@ -1502,8 +1506,11 @@ select {
 .h-0 {
   height: 0px;
 }
-.h-\[500px\] {
-  height: 500px;
+.h-\[400px\] {
+  height: 400px;
+}
+.h-\[50px\] {
+  height: 50px;
 }
 .min-h-screen {
   min-height: 100vh;
@@ -1567,6 +1574,9 @@ select {
 }
 .w-16 {
   width: 4rem;
+}
+.w-\[500px\] {
+  width: 500px;
 }
 .w-24 {
   width: 6rem;
@@ -1969,6 +1979,9 @@ select {
 .border-solid {
   border-style: solid;
 }
+.border-none {
+  border-style: none;
+}
 .border-gray-100 {
   --tw-border-opacity: 1;
   border-color: rgb(243 244 246 / var(--tw-border-opacity));
@@ -2257,6 +2270,9 @@ select {
 .p-1 {
   padding: 0.25rem;
 }
+.p-0 {
+  padding: 0px;
+}
 .p-2\.5 {
   padding: 0.625rem;
 }
@@ -2522,13 +2538,13 @@ select {
   font-size: 1.25rem;
   line-height: 1.75rem;
 }
-.text-lg {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-}
 .text-5xl {
   font-size: 3rem;
   line-height: 1;
+}
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
 }
 .text-4xl {
   font-size: 2.25rem;
@@ -2868,6 +2884,10 @@ select {
   --tw-blur: blur(8px);
   filter: var(--tw-filter);
 }
+.drop-shadow-lg {
+  --tw-drop-shadow: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  filter: var(--tw-filter);
+}
 .invert {
   --tw-invert: invert(100%);
   filter: var(--tw-filter);
@@ -2965,10 +2985,21 @@ h1, h2, h3, h4, h5, h6 {
   font-family: HussarBold;
 }
 
-.gradient-border-b {
+.gradient-border-b, #header.detatched {
   padding-bottom: 2px;
   background: linear-gradient(to right, #e11d00, #0081ff) left bottom #fff no-repeat;
   background-size: 100% 2px;
+}
+
+#header.detatched {
+  background-color: white;
+  color: black;
+}
+#header.detatched #header-logo-link {
+  color: #e11d00;
+}
+#header.detatched nav a {
+  color: black;
 }
 
 svg {
@@ -3287,6 +3318,11 @@ svg {
   opacity: 0.75;
 }
 
+.hover\:drop-shadow-xl:hover {
+  --tw-drop-shadow: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
+  filter: var(--tw-filter);
+}
+
 .focus\:z-10:focus {
   z-index: 10;
 }
@@ -3421,6 +3457,12 @@ svg {
   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
 }
 
+.focus\:ring-0:focus {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
 .focus\:ring-blue-500:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity));
@@ -3441,6 +3483,10 @@ svg {
 
 .focus\:ring-offset-0:focus {
   --tw-ring-offset-width: 0px;
+}
+
+.focus\:filter-none:focus {
+  filter: none;
 }
 
 .active\:bg-wave-700:active {
