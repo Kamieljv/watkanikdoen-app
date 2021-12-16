@@ -24,6 +24,10 @@
             routes: {
                 type: Object,
                 required: true,
+            },
+            query: {
+                type: String,
+                default: '',
             }
         },
         data() {
@@ -31,7 +35,6 @@
                 acties: [],
                 isGeladen: true,
                 heeftFout: false,
-                searchQuery: '',
             }
         },
         computed: {
@@ -49,9 +52,9 @@
             },
         },
         watch: {
-            // var: function(newVal) {
-            // this.getActies();
-            // },
+            query: function(newVal) {
+                this.getActies();
+            },
         },
         mounted() {
             this.getActies();
@@ -62,7 +65,7 @@
                 this.heeftFout = false;
                 axios.get(this.routes['wave.acties.search'].uri, {
                     params: {
-                        q: this.searchQuery
+                        q: this.query
                     }
                 }).then((response) => {
                     this.acties = response.data.acties.data;

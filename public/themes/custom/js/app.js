@@ -3335,14 +3335,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     routes: {
       type: Object,
       required: true
+    },
+    query: {
+      type: String,
+      "default": ''
     }
   },
   data: function data() {
     return {
       acties: [],
       isGeladen: true,
-      heeftFout: false,
-      searchQuery: ''
+      heeftFout: false
     };
   },
   computed: {
@@ -3359,9 +3362,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return this.acties;
     }
   },
-  watch: {// var: function(newVal) {
-    // this.getActies();
-    // },
+  watch: {
+    query: function query(newVal) {
+      this.getActies();
+    }
   },
   mounted: function mounted() {
     this.getActies();
@@ -3379,7 +3383,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.heeftFout = false;
                 axios.get(_this.routes['wave.acties.search'].uri, {
                   params: {
-                    q: _this.searchQuery
+                    q: _this.query
                   }
                 }).then(function (response) {
                   _this.acties = response.data.acties.data;
@@ -3397,6 +3401,137 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/views/themes/custom/assets/js/components/FormField.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/views/themes/custom/assets/js/components/FormField.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'FormField',
+  inheritAttrs: false,
+  props: {
+    label: {
+      type: String,
+      "default": ''
+    },
+    type: {
+      type: String,
+      "default": 'text',
+      validator: function validator(value) {
+        return ["url", "text", "password", "tel", "search", "number", "email"].includes(value);
+      }
+    },
+    value: {
+      type: [String, Number],
+      "default": ''
+    },
+    name: {
+      type: String,
+      "default": ''
+    },
+    icon: {
+      type: String,
+      "default": ''
+    },
+    placeholder: {
+      type: String,
+      "default": undefined
+    },
+    required: {
+      type: Boolean,
+      "default": false
+    },
+    disabled: {
+      type: Boolean,
+      "default": false
+    },
+    step: {
+      type: Number,
+      "default": 1
+    },
+    datalist: {
+      type: Array,
+      "default": function _default() {
+        return [];
+      }
+    },
+    autocomplete: {
+      type: String,
+      "default": ''
+    },
+    classes: {
+      type: String,
+      "default": ''
+    }
+  },
+  data: function data() {
+    return {
+      data: '',
+      id: '',
+      showHelperText: false
+    };
+  },
+  computed: {
+    inputStep: function inputStep() {
+      if (this.type === 'number') {
+        return this.step;
+      } else {
+        return undefined;
+      }
+    },
+    fieldName: function fieldName() {
+      return this.name !== '' ? this.name : this.id;
+    }
+  },
+  watch: {
+    value: {
+      immediate: true,
+      handler: function handler(newVal) {
+        this.data = newVal;
+      }
+    }
+  },
+  mounted: function mounted() {},
+  methods: {
+    updateInput: function updateInput() {
+      this.$emit('input', this.data);
+    },
+    focusInput: function focusInput() {
+      this.showHelperText = true;
+    },
+    blurInput: function blurInput() {
+      this.showHelperText = false;
     }
   }
 });
@@ -9112,6 +9247,45 @@ component.options.__file = "resources/views/themes/custom/assets/js/components/A
 
 /***/ }),
 
+/***/ "./resources/views/themes/custom/assets/js/components/FormField.vue":
+/*!**************************************************************************!*\
+  !*** ./resources/views/themes/custom/assets/js/components/FormField.vue ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _FormField_vue_vue_type_template_id_6504d449___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FormField.vue?vue&type=template&id=6504d449& */ "./resources/views/themes/custom/assets/js/components/FormField.vue?vue&type=template&id=6504d449&");
+/* harmony import */ var _FormField_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FormField.vue?vue&type=script&lang=js& */ "./resources/views/themes/custom/assets/js/components/FormField.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _FormField_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _FormField_vue_vue_type_template_id_6504d449___WEBPACK_IMPORTED_MODULE_0__.render,
+  _FormField_vue_vue_type_template_id_6504d449___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/views/themes/custom/assets/js/components/FormField.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/views/themes/custom/assets/js/components/Actie.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************!*\
   !*** ./resources/views/themes/custom/assets/js/components/Actie.vue?vue&type=script&lang=js& ***!
@@ -9141,6 +9315,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ActieAgenda_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ActieAgenda.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/views/themes/custom/assets/js/components/ActieAgenda.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ActieAgenda_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/views/themes/custom/assets/js/components/FormField.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/views/themes/custom/assets/js/components/FormField.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FormField_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FormField.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/views/themes/custom/assets/js/components/FormField.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FormField_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -9187,6 +9377,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ActieAgenda_vue_vue_type_template_id_37268fcd_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ActieAgenda_vue_vue_type_template_id_37268fcd_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ActieAgenda.vue?vue&type=template&id=37268fcd&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/views/themes/custom/assets/js/components/ActieAgenda.vue?vue&type=template&id=37268fcd&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/views/themes/custom/assets/js/components/FormField.vue?vue&type=template&id=6504d449&":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/views/themes/custom/assets/js/components/FormField.vue?vue&type=template&id=6504d449& ***!
+  \*********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormField_vue_vue_type_template_id_6504d449___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormField_vue_vue_type_template_id_6504d449___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormField_vue_vue_type_template_id_6504d449___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FormField.vue?vue&type=template&id=6504d449& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/views/themes/custom/assets/js/components/FormField.vue?vue&type=template&id=6504d449&");
 
 
 /***/ }),
@@ -9427,6 +9634,148 @@ var staticRenderFns = [
     ])
   },
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/views/themes/custom/assets/js/components/FormField.vue?vue&type=template&id=6504d449&":
+/*!************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/views/themes/custom/assets/js/components/FormField.vue?vue&type=template&id=6504d449& ***!
+  \************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.type === "checkbox"
+    ? _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.data,
+            expression: "data",
+          },
+        ],
+        class: _vm.classes,
+        attrs: {
+          id: _vm.id,
+          name: _vm.fieldName,
+          step: _vm.inputStep,
+          list: "datalist-" + _vm.id,
+          placeholder: _vm.placeholder,
+          required: _vm.required,
+          disabled: _vm.disabled,
+          autocomplete: _vm.autocomplete,
+          type: "checkbox",
+        },
+        domProps: {
+          checked: Array.isArray(_vm.data)
+            ? _vm._i(_vm.data, null) > -1
+            : _vm.data,
+        },
+        on: {
+          input: _vm.updateInput,
+          focus: _vm.focusInput,
+          blur: _vm.blurInput,
+          change: function ($event) {
+            var $$a = _vm.data,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false
+            if (Array.isArray($$a)) {
+              var $$v = null,
+                $$i = _vm._i($$a, $$v)
+              if ($$el.checked) {
+                $$i < 0 && (_vm.data = $$a.concat([$$v]))
+              } else {
+                $$i > -1 &&
+                  (_vm.data = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+              }
+            } else {
+              _vm.data = $$c
+            }
+          },
+        },
+      })
+    : _vm.type === "radio"
+    ? _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.data,
+            expression: "data",
+          },
+        ],
+        class: _vm.classes,
+        attrs: {
+          id: _vm.id,
+          name: _vm.fieldName,
+          step: _vm.inputStep,
+          list: "datalist-" + _vm.id,
+          placeholder: _vm.placeholder,
+          required: _vm.required,
+          disabled: _vm.disabled,
+          autocomplete: _vm.autocomplete,
+          type: "radio",
+        },
+        domProps: { checked: _vm._q(_vm.data, null) },
+        on: {
+          input: _vm.updateInput,
+          focus: _vm.focusInput,
+          blur: _vm.blurInput,
+          change: function ($event) {
+            _vm.data = null
+          },
+        },
+      })
+    : _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.data,
+            expression: "data",
+          },
+        ],
+        class: _vm.classes,
+        attrs: {
+          id: _vm.id,
+          name: _vm.fieldName,
+          step: _vm.inputStep,
+          list: "datalist-" + _vm.id,
+          placeholder: _vm.placeholder,
+          required: _vm.required,
+          disabled: _vm.disabled,
+          autocomplete: _vm.autocomplete,
+          type: _vm.type,
+        },
+        domProps: { value: _vm.data },
+        on: {
+          input: [
+            function ($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.data = $event.target.value
+            },
+            _vm.updateInput,
+          ],
+          focus: _vm.focusInput,
+          blur: _vm.blurInput,
+        },
+      })
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -21598,7 +21947,8 @@ Vue.compile = compileToFunctions;
 
 var map = {
 	"./components/Actie.vue": "./resources/views/themes/custom/assets/js/components/Actie.vue",
-	"./components/ActieAgenda.vue": "./resources/views/themes/custom/assets/js/components/ActieAgenda.vue"
+	"./components/ActieAgenda.vue": "./resources/views/themes/custom/assets/js/components/ActieAgenda.vue",
+	"./components/FormField.vue": "./resources/views/themes/custom/assets/js/components/FormField.vue"
 };
 
 

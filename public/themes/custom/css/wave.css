@@ -414,7 +414,7 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-shadow-colored: 0 0 #0000;
 }
 
-.blur, .drop-shadow-lg, .invert, .sepia, .filter, .hover\:drop-shadow-xl {
+.blur, .invert, .sepia, .filter {
   --tw-blur: var(--tw-empty,/*!*/ /*!*/);
   --tw-brightness: var(--tw-empty,/*!*/ /*!*/);
   --tw-contrast: var(--tw-empty,/*!*/ /*!*/);
@@ -2368,6 +2368,10 @@ select {
   padding-top: 4rem;
   padding-bottom: 4rem;
 }
+.px-\[22px\] {
+  padding-left: 22px;
+  padding-right: 22px;
+}
 .pr-3 {
   padding-right: 0.75rem;
 }
@@ -2706,6 +2710,10 @@ select {
   --tw-text-opacity: 1;
   color: rgb(96 165 250 / var(--tw-text-opacity));
 }
+.text-wkid-red {
+  --tw-text-opacity: 1;
+  color: rgb(225 29 0 / var(--tw-text-opacity));
+}
 .text-indigo-400 {
   --tw-text-opacity: 1;
   color: rgb(129 140 248 / var(--tw-text-opacity));
@@ -2737,10 +2745,6 @@ select {
 .text-blue-900 {
   --tw-text-opacity: 1;
   color: rgb(30 58 138 / var(--tw-text-opacity));
-}
-.text-wkid-red {
-  --tw-text-opacity: 1;
-  color: rgb(225 29 0 / var(--tw-text-opacity));
 }
 .text-indigo-500 {
   --tw-text-opacity: 1;
@@ -2882,10 +2886,6 @@ select {
 }
 .blur {
   --tw-blur: blur(8px);
-  filter: var(--tw-filter);
-}
-.drop-shadow-lg {
-  --tw-drop-shadow: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
   filter: var(--tw-filter);
 }
 .invert {
@@ -3316,11 +3316,6 @@ svg {
 
 .hover\:opacity-75:hover {
   opacity: 0.75;
-}
-
-.hover\:drop-shadow-xl:hover {
-  --tw-drop-shadow: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
-  filter: var(--tw-filter);
 }
 
 .focus\:z-10:focus {
