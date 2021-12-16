@@ -10,6 +10,17 @@ require('./wave');
 window.Vue = require('vue').default;
 
 // Load additional packages
+import Vuetify, {
+  VSkeletonLoader,
+} from 'vuetify/lib'
+
+Vue.use(Vuetify, {
+  components: {
+    VSkeletonLoader
+  }
+})
+const vuetify = new Vuetify({})
+
 import _ from 'lodash'
 Vue.prototype.__ = str => _.get(window.i18n, str)
 
@@ -24,5 +35,9 @@ require('@fortawesome/fontawesome-free/js/all.min.js');
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-const files = require.context('./', true, /\.vue$/i)
-files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+const files = require.context('./', true, /\.vue$/i);
+files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+
+new Vue({
+  vuetify,
+}).$mount('#app')
