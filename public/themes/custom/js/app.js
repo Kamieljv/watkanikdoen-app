@@ -8919,6 +8919,25 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {},
   name: 'ActieAgenda',
@@ -8927,16 +8946,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       type: Object,
       required: true
     },
-    query: {
-      type: String,
-      "default": ''
+    categories: {
+      type: Array,
+      required: true
     }
   },
   data: function data() {
     return {
       acties: [],
       isGeladen: true,
-      heeftFout: false
+      heeftFout: false,
+      query: '',
+      categoriesSelected: ''
     };
   },
   computed: {
@@ -8959,6 +8980,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   watch: {
     query: function query(newVal) {
       this.getActies();
+    },
+    categoriesSelected: function categoriesSelected(newVal) {
+      this.getActies();
     }
   },
   mounted: function mounted() {
@@ -8977,11 +9001,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 _this.heeftFout = false;
                 axios.get(_this.routes['wave.acties.search'].uri, {
                   params: {
-                    q: _this.query
+                    q: _this.query,
+                    categories: _this.categoriesSelected
                   }
                 }).then(function (response) {
                   _this.acties = response.data.acties.data;
-                  _this.categories = response.data.categories;
                 })["catch"](function (error) {
                   _this.heeftFout = true;
                 })["finally"](function () {
@@ -8996,7 +9020,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         }, _callee);
       }))();
     },
-    processInput: _.debounce(function (input) {
+    processQuery: _.debounce(function (input) {
       this.query = input;
     }, 500)
   }
@@ -9150,20 +9174,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_tailwind_dist_components__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_tailwind_dist_components__WEBPACK_IMPORTED_MODULE_0__);
 
 var VueTailwindSettings = {
-  "t-input": {
-    component: vue_tailwind_dist_components__WEBPACK_IMPORTED_MODULE_0__.TInput
-  },
-  "t-button": {
-    component: vue_tailwind_dist_components__WEBPACK_IMPORTED_MODULE_0__.TButton
-  },
   "t-rich-select": {
     component: vue_tailwind_dist_components__WEBPACK_IMPORTED_MODULE_0__.TRichSelect
-  },
-  "t-pagination": {
-    component: vue_tailwind_dist_components__WEBPACK_IMPORTED_MODULE_0__.TPagination
-  },
-  "t-tag": {
-    component: vue_tailwind_dist_components__WEBPACK_IMPORTED_MODULE_0__.TTag
   },
   "t-card": {
     component: vue_tailwind_dist_components__WEBPACK_IMPORTED_MODULE_0__.TCard,
@@ -44669,35 +44681,94 @@ var render = function () {
       {
         staticClass:
           "h-[400px] bg-gradient-to-br from-[var(--wkid-red)] to-[var(--wkid-blue)] flex items-center justify-center",
-        attrs: { id: "search-banner" },
+        attrs: { id: "filter-search-banner" },
       },
       [
         _c(
           "div",
           {
-            staticClass: "h-[50px] w-[500px]",
-            attrs: { id: "search-container" },
+            staticClass: "w-[500px] flex flex-wrap",
+            attrs: { id: "filter-search-container" },
           },
           [
             _c(
               "div",
               {
-                staticClass: "h-full w-full rounded-full bg-white px-[22px]",
-                attrs: { id: "search-wrapper" },
+                staticClass: "row h-[50px] w-full",
+                attrs: { id: "search-container" },
               },
               [
-                _c("form-field", {
-                  attrs: {
-                    "x-cloak": "",
-                    type: "text",
-                    placeholder: "Zoeken...",
-                    classes:
-                      "h-full w-full p-0 border-none focus:ring-0 focus:filter-none",
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col h-full w-full rounded-full bg-white px-[22px]",
+                    attrs: { id: "search-wrapper" },
                   },
-                  on: { input: _vm.processInput },
-                }),
-              ],
-              1
+                  [
+                    _c("form-field", {
+                      attrs: {
+                        "x-cloak": "",
+                        type: "text",
+                        placeholder: "Zoeken...",
+                        classes:
+                          "h-full w-full p-0 border-none focus:ring-0 focus:filter-none",
+                        autofocus: true,
+                      },
+                      on: { input: _vm.processQuery },
+                    }),
+                  ],
+                  1
+                ),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "row h-[50px] w-[500px] mt-1",
+                attrs: { id: "filter-container" },
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass: "col grid gap-3 grid-cols-3",
+                    attrs: { id: "filter-wrapper" },
+                  },
+                  [
+                    _c("t-rich-select", {
+                      attrs: {
+                        id: "category-selector",
+                        options: _vm.categories,
+                        textAttribute: "name",
+                        multiple: true,
+                        clearable: true,
+                        hideSearchBox: true,
+                        placeholder: "Categorie...",
+                      },
+                      model: {
+                        value: _vm.categoriesSelected,
+                        callback: function ($$v) {
+                          _vm.categoriesSelected = $$v
+                        },
+                        expression: "categoriesSelected",
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c("t-rich-select", {
+                      staticClass: "rounded-full ",
+                      attrs: { options: _vm.categories },
+                    }),
+                    _vm._v(" "),
+                    _c("t-rich-select", {
+                      staticClass: "rounded-full ",
+                      attrs: { options: _vm.categories },
+                    }),
+                  ],
+                  1
+                ),
+              ]
             ),
           ]
         ),

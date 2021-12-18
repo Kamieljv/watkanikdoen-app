@@ -1,19 +1,7 @@
-import { TInput, TButton, TRichSelect, TPagination, TTag, TCard } from "vue-tailwind/dist/components";
+import { TRichSelect, TCard } from "vue-tailwind/dist/components";
 const VueTailwindSettings = {
-  "t-input": {
-    component: TInput,
-  },
-  "t-button": {
-    component: TButton,
-  },
   "t-rich-select": {
-    component: TRichSelect,
-  },
-  "t-pagination": {
-    component: TPagination,
-  },
-  "t-tag": {
-    component: TTag,
+      component: TRichSelect
   },
   "t-card": {
     component: TCard,

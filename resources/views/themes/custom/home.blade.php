@@ -8,6 +8,7 @@
     <div id="app">
         <actie-agenda
             :routes="{{ $routes }}"
+            :categories="{{ $categories }}"
         >
         </actie-agenda>
     </div>
@@ -21,16 +22,6 @@
     <script type="application/javascript">      
         var app = new Vue({
             el: '#app',
-            components: {},
-            data: {
-                routes: @json($routes),
-                query: '',
-            },
-            methods: {
-                processInput: _.debounce(function(input) {
-                    this.query = input;
-                }, 500),
-            }
         });
     </script>
 @endpush

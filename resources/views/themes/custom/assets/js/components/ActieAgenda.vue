@@ -1,15 +1,34 @@
 <template>
     <div class="row">
-        <div id="search-banner" class="h-[400px] bg-gradient-to-br from-[var(--wkid-red)] to-[var(--wkid-blue)] flex items-center justify-center">
-            <div id="search-container" class="h-[50px] w-[500px]">
-                <div id="search-wrapper" class="h-full w-full rounded-full bg-white px-[22px]">
-                    <form-field
-                        x-cloak
-                        type="text"
-                        placeholder="Zoeken..."
-                        classes="h-full w-full p-0 border-none focus:ring-0 focus:filter-none"
-                        @input="processInput"
-                    />
+        <div id="filter-search-banner" class="h-[400px] bg-gradient-to-br from-[var(--wkid-red)] to-[var(--wkid-blue)] flex items-center justify-center">
+            <div id="filter-search-container" class="w-[500px] flex flex-wrap">
+                <div id="search-container" class="row h-[50px] w-full">
+                    <div id="search-wrapper" class="col h-full w-full rounded-full bg-white px-[22px]">
+                        <form-field
+                            x-cloak
+                            type="text"
+                            placeholder="Zoeken..."
+                            classes="h-full w-full p-0 border-none focus:ring-0 focus:filter-none"
+                            :autofocus="true"
+                            @input="processQuery"
+                        />
+                    </div>
+                </div>
+                <div id="filter-container" class="row h-[50px] w-[500px] mt-1">
+                    <div id="filter-wrapper" class="col grid gap-3 grid-cols-3">
+                        <t-rich-select 
+                            id="category-selector"
+                            :options="categories"
+                            textAttribute="name"
+                            v-model="categoriesSelected"
+                            :multiple="true"
+                            :clearable="true"
+                            :hideSearchBox="true"
+                            placeholder="Categorie..."
+                        />
+                        <t-rich-select :options="categories" class="rounded-full "/>
+                        <t-rich-select :options="categories" class="rounded-full "/>
+                    </div>
                 </div>
             </div>
         </div>
@@ -67,9 +86,9 @@
                 type: Object,
                 required: true,
             },
-            query: {
-                type: String,
-                default: '',
+            categories: {
+                type: Array,
+                required: true,
             }
         },
         data() {
@@ -77,6 +96,8 @@
                 acties: [],
                 isGeladen: true,
                 heeftFout: false,
+                query: '',
+                categoriesSelected: '',
             }
         },
         computed: {
@@ -100,6 +121,9 @@
             query: function(newVal) {
                 this.getActies();
             },
+            categoriesSelected: function(newVal) {
+                this.getActies();
+            }
         },
         mounted() {
             this.getActies();
@@ -110,18 +134,18 @@
                 this.heeftFout = false;
                 axios.get(this.routes['wave.acties.search'].uri, {
                     params: {
-                        q: this.query
+                        q: this.query,
+                        categories: this.categoriesSelected,
                     }
                 }).then((response) => {
                     this.acties = response.data.acties.data;
-                    this.categories = response.data.categories;
                 }).catch((error) => {
                     this.heeftFout = true;
                 }).finally(() => {
                     this.isGeladen = true;
                 });
             },
-            processInput: _.debounce(function(input) {
+            processQuery: _.debounce(function(input) {
                     this.query = input;
                 }, 500),
         }
