@@ -9,9 +9,18 @@ require('./wave');
 
 window.Vue = require('vue').default;
 
-// Load additional packages
+/** 
+ * Load additional packages
+ */
+// Lodash for language
 import _ from 'lodash'
 Vue.prototype.__ = str => _.get(window.i18n, str)
+
+// VueTailwind for components
+import VueTailwind from 'vue-tailwind'
+import VueTailwindSettings from "../../VueTailwindSettings.js";
+Vue.use(VueTailwind, VueTailwindSettings);
+
 
 require('@fortawesome/fontawesome-free/js/all.min.js');
 

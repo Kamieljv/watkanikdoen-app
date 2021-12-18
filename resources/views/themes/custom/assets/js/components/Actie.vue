@@ -11,7 +11,7 @@
             <div class="content flex flex-col h-full">
                 <div class="flex-shrink-0" style="position:relative;">
                     <img class="object-cover w-full h-48" :src="actie.image_path" alt="">
-                    <ul class="categories-container p-2">
+                    <ul class="categories-container p-2 absolute top-0 w-full">
                         <li 
                             v-for="category in actie.categories"
                             :key="category.id"
@@ -24,7 +24,7 @@
                     </ul>
                 </div>
                 <div class="flex flex-col justify-between flex-1 bg-white">
-                    <div class="title-body-container p-3 relative">
+                    <div class="title-body-container p-3 h-[90px] overflow-hidden relative">
                         <h3 class=" text-xl font-semibold leading-7 text-gray-900">
                             {{ actie.title }}
                         </h3>
@@ -88,17 +88,6 @@
 </script>
 
 <style lang="scss" scoped>
-    article.actie {
-        & .categories-container {
-            position: absolute;
-            top: 0;
-            width: 100%;
-        }
-        & .title-body-container {
-            height: 90px;
-            overflow: hidden;
-        }
-    }
       
 </style>
 

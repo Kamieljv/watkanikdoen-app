@@ -18,6 +18,14 @@
 
 @import 'fonts';
 
+:root {
+  --wkid-red: #e11d00;
+  --wkid-pink: #f30060;
+  --wkid-purple: #d810b1;
+  --wkid-indigo: #805def;
+  --wkid-blue: #0081ff;
+}
+
 [x-cloak]{
   display:none;
 }
@@ -30,7 +38,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .gradient-border-b, #header.detatched {
   padding-bottom: 2px;
-  background: linear-gradient( to right, theme('colors.wkid-red'), theme('colors.wkid-blue') ) left bottom #fff no-repeat;
+  background: linear-gradient( to right, var(--wkid-red), var(--wkid-blue) ) left bottom #fff no-repeat;
   background-size: 100% 2px;
 }
 
@@ -39,7 +47,7 @@ h1, h2, h3, h4, h5, h6 {
   color: black;
 
   & #header-logo-link {
-    color: theme('colors.wkid-red');
+    color: var(--wkid-red);
   }
 
   & nav a {
@@ -88,20 +96,20 @@ svg {
     to {transform: translateX(-100%);}
   }
 
-  .form-control{
-    @apply form-input w-full;
-  }
+  // .form-control{
+  //   @apply form-input w-full;
+  // }
 
 /****** Form Input CLASSES **********/
 
-.form-input, .form-textarea, .form-select {
-    @apply appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out focus:outline-none focus:ring focus:ring-opacity-30 focus:ring-wave-500 focus:border-wave-400;
-}
+// .form-input, .form-textarea, .form-select {
+//     @apply appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out focus:outline-none focus:ring focus:ring-opacity-30 focus:ring-wave-500 focus:border-wave-400;
+// }
 
-.form-select{
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M7 7l3-3 3 3m0 6l-3 3-3-3' stroke='%239fa6b2' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    background-position: right .5rem center;
-    background-size: 1.5em 1.5em;
-    padding:.5rem 2.5rem .5rem .75rem;
-    background-repeat: no-repeat;
-}
+// .form-select{
+//     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M7 7l3-3 3 3m0 6l-3 3-3-3' stroke='%239fa6b2' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+//     background-position: right .5rem center;
+//     background-size: 1.5em 1.5em;
+//     padding:.5rem 2.5rem .5rem .75rem;
+//     background-repeat: no-repeat;
+// }
