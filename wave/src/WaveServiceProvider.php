@@ -55,7 +55,6 @@ class WaveServiceProvider extends ServiceProvider
 	        });
 	    }
 
-        $this->loadViewsFrom(__DIR__.'/../docs/', 'docs');
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'wave');
         $this->loadMigrationsFrom(realpath(__DIR__.'/../database/migrations'));
         $this->loadBladeDirectives();
