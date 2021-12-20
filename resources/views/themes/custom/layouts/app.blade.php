@@ -42,6 +42,8 @@
         <meta name="description" content="{{ $seo->description }}">
     @endif
 
+    <!-- Scripts (only Alpinejs) -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <!-- Styles -->
     <link href="{{ asset('themes/' . $theme->folder . '/css/wave.css') }}" rel="stylesheet">
 
@@ -50,11 +52,11 @@
 </head>
 <body class="flex flex-col min-h-screen @if(Request::is('/')){{ 'bg-white' }}@else{{ 'bg-gray-50' }}@endif @if(config('wave.dev_bar')){{ 'pb-10' }}@endif">
 
-    @section('header')
+    @if(Request::is('/'))
+        @include('theme::partials.home-header')
+    @else
         @include('theme::partials.header')
-    @stop
-
-    @yield('header')
+    @endif
 
     <main class="flex-grow overflow-x-hidden">
         @yield('content')

@@ -1,9 +1,5 @@
 @extends('theme::layouts.app')
 
-@section('header')
-    @include('theme::partials.home-header')
-@stop
-
 @section('content')
     <div id="app">
         <actie-agenda

@@ -75,21 +75,21 @@ class DataTypesTableSeeder extends Seeder
             ),
             3 => 
             array (
-                'controller' => '',
+                'controller' => NULL,
                 'created_at' => '2017-11-21 16:23:22',
-                'description' => '',
-                'details' => NULL,
+                'description' => NULL,
+                'details' => '{"order_column":null,"order_display_column":null,"order_direction":"desc","default_search_key":null,"scope":null}',
                 'display_name_plural' => 'Categories',
                 'display_name_singular' => 'Category',
                 'generate_permissions' => 1,
                 'icon' => 'voyager-categories',
                 'id' => 4,
-                'model_name' => 'TCG\\Voyager\\Models\\Category',
+                'model_name' => 'Wave\\Category',
                 'name' => 'categories',
                 'policy_name' => NULL,
                 'server_side' => 0,
                 'slug' => 'categories',
-                'updated_at' => '2017-11-21 16:23:22',
+                'updated_at' => '2021-12-06 11:11:11',
             ),
             4 => 
             array (
@@ -179,7 +179,25 @@ class DataTypesTableSeeder extends Seeder
                 'policy_name' => NULL,
                 'server_side' => 0,
                 'slug' => 'acties',
-                'updated_at' => '2021-12-06 10:42:35',
+                'updated_at' => '2021-12-10 17:02:15',
+            ),
+            9 => 
+            array (
+                'controller' => NULL,
+                'created_at' => '2021-12-18 16:24:23',
+                'description' => NULL,
+                'details' => '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null}',
+                'display_name_plural' => 'Actie Themes',
+                'display_name_singular' => 'Actie Theme',
+                'generate_permissions' => 1,
+                'icon' => NULL,
+                'id' => 12,
+                'model_name' => 'Wave\\ActieTheme',
+                'name' => 'actie_themes',
+                'policy_name' => NULL,
+                'server_side' => 0,
+                'slug' => 'actie-themes',
+                'updated_at' => '2021-12-18 16:24:23',
             ),
         ));
         

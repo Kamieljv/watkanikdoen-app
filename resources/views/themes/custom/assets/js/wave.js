@@ -1,4 +1,3 @@
-import 'alpinejs'
 window.axios = require('axios');
 window.url = document.querySelector("meta[name='url']").getAttribute("content");
 window.csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");

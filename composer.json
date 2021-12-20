@@ -24,7 +24,7 @@
         "laravel/helpers": "^1.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.4",
-        "livewire/livewire": "^2.4",
+        "livewire/livewire": "^2.8",
         "orangehill/iseed": "^3.0",
         "tcg/voyager": "1.4.x-dev",
         "tymon/jwt-auth": "dev-develop"
