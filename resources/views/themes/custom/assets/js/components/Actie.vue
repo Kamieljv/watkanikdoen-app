@@ -11,14 +11,14 @@
             <div class="content flex flex-col h-full">
                 <div class="flex-shrink-0" style="position:relative;">
                     <img class="object-cover w-full h-48" :src="actie.image_path" alt="">
-                    <ul class="categories-container p-2 absolute top-0 w-full">
+                    <ul class="themes-container p-2 absolute top-0 w-full">
                         <li 
-                            v-for="category in actie.categories"
-                            :key="category.id"
+                            v-for="theme in actie.themes"
+                            :key="theme.id"
                             class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
                         >
-                            <span class="text-gray-700" rel="category">
-                                {{ category.name }}
+                            <span class="text-gray-700" rel="theme">
+                                {{ theme.name }}
                             </span>
                         </li>
                     </ul>

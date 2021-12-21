@@ -28,7 +28,7 @@ class ActieController extends \TCG\Voyager\Http\Controllers\VoyagerBaseControlle
 
     public function search(Request $request) {
         $acties = Actie::search($request->get('q'), function (SearchIndex $algolia, string $query, array $options) use ($request) {
-            $options['facetFilters'] = [preg_filter('/^/', 'categories.id:', $request->get('categories'))];
+            $options['facetFilters'] = [preg_filter('/^/', 'themes.id:', $request->get('themes'))];
             return $algolia->search($query, $options);
         })->paginate(12);
 

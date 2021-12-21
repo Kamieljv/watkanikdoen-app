@@ -18,16 +18,16 @@
                     <div id="filter-wrapper" class="col grid gap-3 grid-cols-3">
                         <t-rich-select 
                             id="category-selector"
-                            :options="categories"
+                            :options="themes"
                             textAttribute="name"
-                            v-model="categoriesSelected"
+                            v-model="themesSelected"
                             :multiple="true"
                             :clearable="true"
                             :hideSearchBox="true"
-                            placeholder="Categorie..."
+                            placeholder="Theme..."
                         />
-                        <t-rich-select :options="categories" class="rounded-full "/>
-                        <t-rich-select :options="categories" class="rounded-full "/>
+                        <t-rich-select :options="themes" class="rounded-full "/>
+                        <t-rich-select :options="themes" class="rounded-full "/>
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                 type: Object,
                 required: true,
             },
-            categories: {
+            themes: {
                 type: Array,
                 required: true,
             }
@@ -97,7 +97,7 @@
                 isGeladen: true,
                 heeftFout: false,
                 query: '',
-                categoriesSelected: '',
+                themesSelected: '',
             }
         },
         computed: {
@@ -121,7 +121,7 @@
             query: function(newVal) {
                 this.getActies();
             },
-            categoriesSelected: function(newVal) {
+            themesSelected: function(newVal) {
                 this.getActies();
             }
         },
@@ -135,7 +135,7 @@
                 axios.get(this.routes['wave.acties.search'].uri, {
                     params: {
                         q: this.query,
-                        categories: this.categoriesSelected,
+                        themes: this.themesSelected,
                     }
                 }).then((response) => {
                     this.acties = response.data.acties.data;

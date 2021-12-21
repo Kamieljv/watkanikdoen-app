@@ -85,7 +85,7 @@ return [
     |
     */
 
-    'attributesForFaceting' => ['categories.id'],
+    'attributesForFaceting' => ['themes.id'],
 
     /*
     |--------------------------------------------------------------------------

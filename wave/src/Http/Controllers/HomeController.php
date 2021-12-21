@@ -5,7 +5,7 @@ namespace Wave\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Wave\Actie;
-use Wave\Category;
+use Wave\ActieTheme;
 
 class HomeController extends \App\Http\Controllers\Controller
 {
@@ -40,8 +40,8 @@ class HomeController extends \App\Http\Controllers\Controller
             ];
         });
 
-        $categories = Category::all();
+        $themes = ActieTheme::all();
 
-        return view('theme::home', compact('seo', 'routes', 'categories'));
+        return view('theme::home', compact('seo', 'routes', 'themes'));
     }
 }

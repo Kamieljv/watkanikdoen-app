@@ -46,7 +46,7 @@ class Actie extends Model
      *
      * @var array
      */
-    protected $with = ['user:id,name,avatar', 'categories'];
+    protected $with = ['user:id,name,avatar', 'categories', 'themes'];
 
     public function getLinkAttribute(){
     	return url('/actie/' . $this->slug);
@@ -100,5 +100,9 @@ class Actie extends Model
 
     public function categories(){
     	return $this->belongsToMany('Wave\Category', 'actie_category');
+    }
+
+    public function themes(){
+    	return $this->belongsToMany('Wave\ActieTheme', 'actie_actie_theme');
     }
 }

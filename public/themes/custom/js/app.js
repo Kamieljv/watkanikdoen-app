@@ -5563,7 +5563,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       type: Object,
       required: true
     },
-    categories: {
+    themes: {
       type: Array,
       required: true
     }
@@ -5574,7 +5574,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       isGeladen: true,
       heeftFout: false,
       query: '',
-      categoriesSelected: ''
+      themesSelected: ''
     };
   },
   computed: {
@@ -5598,7 +5598,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     query: function query(newVal) {
       this.getActies();
     },
-    categoriesSelected: function categoriesSelected(newVal) {
+    themesSelected: function themesSelected(newVal) {
       this.getActies();
     }
   },
@@ -5619,7 +5619,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 axios.get(_this.routes['wave.acties.search'].uri, {
                   params: {
                     q: _this.query,
-                    categories: _this.categoriesSelected
+                    themes: _this.themesSelected
                   }
                 }).then(function (response) {
                   _this.acties = response.data.acties.data;
@@ -41132,14 +41132,12 @@ var render = function () {
               _vm._v(" "),
               _c(
                 "ul",
-                {
-                  staticClass: "categories-container p-2 absolute top-0 w-full",
-                },
-                _vm._l(_vm.actie.categories, function (category) {
+                { staticClass: "themes-container p-2 absolute top-0 w-full" },
+                _vm._l(_vm.actie.themes, function (theme) {
                   return _c(
                     "li",
                     {
-                      key: category.id,
+                      key: theme.id,
                       staticClass:
                         "relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded",
                     },
@@ -41148,12 +41146,12 @@ var render = function () {
                         "span",
                         {
                           staticClass: "text-gray-700",
-                          attrs: { rel: "category" },
+                          attrs: { rel: "theme" },
                         },
                         [
                           _vm._v(
                             "\n                            " +
-                              _vm._s(category.name) +
+                              _vm._s(theme.name) +
                               "\n                        "
                           ),
                         ]
@@ -41353,30 +41351,30 @@ var render = function () {
                     _c("t-rich-select", {
                       attrs: {
                         id: "category-selector",
-                        options: _vm.categories,
+                        options: _vm.themes,
                         textAttribute: "name",
                         multiple: true,
                         clearable: true,
                         hideSearchBox: true,
-                        placeholder: "Categorie...",
+                        placeholder: "Theme...",
                       },
                       model: {
-                        value: _vm.categoriesSelected,
+                        value: _vm.themesSelected,
                         callback: function ($$v) {
-                          _vm.categoriesSelected = $$v
+                          _vm.themesSelected = $$v
                         },
-                        expression: "categoriesSelected",
+                        expression: "themesSelected",
                       },
                     }),
                     _vm._v(" "),
                     _c("t-rich-select", {
                       staticClass: "rounded-full ",
-                      attrs: { options: _vm.categories },
+                      attrs: { options: _vm.themes },
                     }),
                     _vm._v(" "),
                     _c("t-rich-select", {
                       staticClass: "rounded-full ",
-                      attrs: { options: _vm.categories },
+                      attrs: { options: _vm.themes },
                     }),
                   ],
                   1

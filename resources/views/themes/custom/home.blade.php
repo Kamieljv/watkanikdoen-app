@@ -4,7 +4,7 @@
     <div id="app">
         <actie-agenda
             :routes="{{ $routes }}"
-            :categories="{{ $categories }}"
+            :themes="{{ $themes }}"
         >
         </actie-agenda>
     </div>
