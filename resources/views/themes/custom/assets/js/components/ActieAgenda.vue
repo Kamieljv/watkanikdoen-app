@@ -26,8 +26,14 @@
                             :hideSearchBox="true"
                             placeholder="Theme..."
                         />
-                        <t-rich-select :options="themes" class="rounded-full "/>
-                        <t-rich-select :options="themes" class="rounded-full "/>
+                        <form-slider
+                            thumbColor="var(--wkid-blue)"
+                            progressColor="var(--wkid-blue)"
+                            unit="km"
+                            :min="10"
+                            :max="150"
+                            v-model="distance"
+                        />
                     </div>
                 </div>
             </div>
@@ -60,7 +66,8 @@
                                     <div class="rounded-full bg-gray-200 h-10 w-10"></div>
                                 </template>
                             </t-card>
-                        </div><div 
+                        </div>
+                        <div 
                             v-else
                             class="grid gap-5 mx-auto mt-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
                         >
@@ -98,9 +105,13 @@
                 heeftFout: false,
                 query: '',
                 themesSelected: '',
+                distance: '',
             }
         },
         computed: {
+            sliderArray() {
+                return [...Array(10+1).keys()].slice(1).map((v) => {return v * stepSize})
+            },
             skeletonArray() {
                 return [...Array(10).keys()];
             },
@@ -118,11 +129,14 @@
             },
         },
         watch: {
-            query: function(newVal) {
+            query: function() {
                 this.getActies();
             },
-            themesSelected: function(newVal) {
+            themesSelected: function() {
                 this.getActies();
+            },
+            distance: function(newVal) {
+                console.log(newVal);
             }
         },
         mounted() {
