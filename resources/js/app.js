@@ -1,44 +1,25 @@
 /**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
+ * This JS adds to the voyager base JS asset.
+ * Vue, jQuery and BootstrapJS (among others) are loaded there.
  */
 
-require('./bootstrap');
-
-window.Vue = require('vue').default;
-
-// Load additional packages
+// Load Leaflet
 import { LMap, LTileLayer, LMarker, LTooltip } from 'vue2-leaflet';
 import 'leaflet/dist/leaflet.css';
-
 Vue.component('l-map', LMap);
 Vue.component('l-tile-layer', LTileLayer);
 Vue.component('l-marker', LMarker);
 Vue.component('l-tooltip', LTooltip);
 
+// Define translation directive ('__()')
 import _ from 'lodash'
 Vue.prototype.__ = str => _.get(window.i18n, str)
 
-
-
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-
+// Load additional components
 const files = require.context('./', true, /\.vue$/i)
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-const app = new Vue({
-    el: '#app',
+// Mount Vue instances
+ var coordinatesField = new Vue({
+    el: '#coordinates-formfield',
 });
