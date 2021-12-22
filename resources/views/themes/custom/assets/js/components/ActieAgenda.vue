@@ -33,6 +33,7 @@
                             :min="10"
                             :max="150"
                             v-model="distance"
+                            :delay="400"
                         />
                     </div>
                 </div>

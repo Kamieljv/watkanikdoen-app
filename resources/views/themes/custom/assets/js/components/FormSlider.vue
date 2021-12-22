@@ -5,7 +5,7 @@
                 type="range"
                 ref="range"
                 class="range-slider"
-                @input="$emit('input', $event.target.value)"
+                @input="inputCaptured"
                 :max="max"
                 :min="min"
                 v-model="value"
@@ -20,7 +20,7 @@
                 }"
             />
         </div>
-        <div class="value-wrapper shrink-0 ml-3">
+        <div class="value-wrapper shrink-0 text-right w-[60px]">
             {{ value + ' ' + unit }}
         </div>
     </div>
@@ -28,6 +28,7 @@
 
 <script>
     export default {
+        name: "FormSlider",
         props: {
             unit: {
                 type: String
@@ -36,6 +37,11 @@
                 type: String,
                 required: false,
                 default: "100%",
+            },
+            delay: {
+                type: Number, 
+                required: false,
+                default: 500,
             },
             progressColor: {
                 type: String,
@@ -96,7 +102,17 @@
                 this.updateWebkitProgress;
             },
         },
-};
+        computed: {
+            inputCaptured() {
+                return _.debounce(this.processInput, this.delay)
+            }
+        },
+        methods: {
+            processInput(event) {
+                this.$emit('input', event.target.value)
+            },
+        },
+    };
 </script>
 
 <style scoped>

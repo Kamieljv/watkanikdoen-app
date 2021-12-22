@@ -5562,6 +5562,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {},
   name: 'ActieAgenda',
@@ -5803,6 +5804,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+var _name$props$data$comp;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -5831,7 +5836,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_name$props$data$comp = {
+  name: "FormSlider",
   props: {
     unit: {
       type: String
@@ -5840,6 +5846,11 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       required: false,
       "default": "100%"
+    },
+    delay: {
+      type: Number,
+      required: false,
+      "default": 500
     },
     progressColor: {
       type: String,
@@ -5900,7 +5911,15 @@ __webpack_require__.r(__webpack_exports__);
       this.updateWebkitProgress;
     }
   }
-});
+}, _defineProperty(_name$props$data$comp, "computed", {
+  inputCaptured: function inputCaptured() {
+    return _.debounce(this.processInput, this.delay);
+  }
+}), _defineProperty(_name$props$data$comp, "methods", {
+  processInput: function processInput(event) {
+    this.$emit('input', event.target.value);
+  }
+}), _name$props$data$comp);
 
 /***/ }),
 
@@ -41998,6 +42017,7 @@ var render = function () {
                         unit: "km",
                         min: 10,
                         max: 150,
+                        delay: 400,
                       },
                       model: {
                         value: _vm.distance,
@@ -42309,9 +42329,7 @@ var render = function () {
           attrs: { type: "range", max: _vm.max, min: _vm.min },
           domProps: { value: _vm.value },
           on: {
-            input: function ($event) {
-              return _vm.$emit("input", $event.target.value)
-            },
+            input: _vm.inputCaptured,
             __r: function ($event) {
               _vm.value = $event.target.value
             },
@@ -42319,7 +42337,7 @@ var render = function () {
         }),
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "value-wrapper shrink-0 ml-3" }, [
+      _c("div", { staticClass: "value-wrapper shrink-0 text-right w-[60px]" }, [
         _vm._v("\n        " + _vm._s(_vm.value + " " + _vm.unit) + "\n    "),
       ]),
     ]

@@ -1616,6 +1616,9 @@ select {
 .w-\[500px\] {
   width: 500px;
 }
+.w-\[60px\] {
+  width: 60px;
+}
 .min-w-full {
   min-width: 100%;
 }
