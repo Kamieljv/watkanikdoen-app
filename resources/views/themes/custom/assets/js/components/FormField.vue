@@ -11,6 +11,7 @@
     :required="required"
     :disabled="disabled"
     :autocomplete="autocomplete"
+    :autofocus="autofocus"
     @input="updateInput"
     @focus="focusInput"
     @blur="blurInput"
@@ -76,6 +77,10 @@
       autocomplete: {
         type: String,
         default: ''
+      },
+      autofocus: {
+        type: Boolean,
+        default: false,
       },
       classes: {
         type: String,

@@ -1,45 +1,52 @@
 <template>
-    <div class="row">
-        <div id="filter-search-banner" class="h-[400px] bg-gradient-to-br from-[var(--wkid-red)] to-[var(--wkid-blue)] flex items-center justify-center">
-            <div id="filter-search-container" class="w-[500px] flex flex-wrap">
-                <div id="search-container" class="row h-[50px] w-full">
-                    <div id="search-wrapper" class="col h-full w-full rounded-full bg-white px-[22px]">
-                        <form-field
-                            x-cloak
+    <div>
+        <div class="row">
+            <div id="filter-search-banner" class="h-[200px] bg-gradient-to-br from-[var(--wkid-red)] to-[var(--wkid-blue)] flex items-bottom pb-[50px] justify-center">
+                
+            </div>
+        </div>
+        <div class="row px-8 mx-auto xl:px-5 max-w-6xl">
+            <div id="filter-container" class="row my-3">
+                <div id="filter-wrapper" class="col grid gap-3 grid-cols-4">
+                    <div>
+                        <t-input
                             type="text"
                             placeholder="Zoeken..."
-                            classes="h-full w-full p-0 border-none focus:ring-0 focus:filter-none"
                             :autofocus="true"
                             @input="processQuery"
                         />
                     </div>
-                </div>
-                <div id="filter-container" class="row h-[50px] w-[500px] mt-1">
-                    <div id="filter-wrapper" class="col grid gap-3 grid-cols-3">
-                        <t-rich-select 
-                            id="category-selector"
-                            :options="themes"
-                            textAttribute="name"
-                            v-model="themesSelected"
-                            :multiple="true"
-                            :clearable="true"
-                            :hideSearchBox="true"
-                            placeholder="Theme..."
-                        />
-                        <form-slider
-                            thumbColor="var(--wkid-blue)"
-                            progressColor="var(--wkid-blue)"
-                            unit="km"
-                            :min="10"
-                            :max="150"
-                            v-model="distance"
-                            :delay="400"
-                        />
-                    </div>
+                    <t-rich-select 
+                        id="category-selector"
+                        :options="themes"
+                        textAttribute="name"
+                        v-model="themesSelected"
+                        :multiple="true"
+                        :hideSearchBox="true"
+                        :closeOnSelect="false"
+                        placeholder="Theme..."
+                    />
+                    <form-autocomplete
+                        :items="geoSuggestions"
+                        :isAsync="true"
+                        @change="getGeoSuggestions"
+                        @input="getCoordinates"
+                        placeholder="Plaatsnaam"
+                    />
+                    <form-slider
+                        thumbColor="var(--wkid-blue)"
+                        progressColor="var(--wkid-blue)"
+                        unit="km"
+                        :min="10"
+                        :max="150"
+                        v-model="distance"
+                        :currentValue="distance"
+                        :delay="400"
+                        :disabled="coordinates !== ''"
+                    />
                 </div>
             </div>
         </div>
-
         <div class="row px-8 mx-auto xl:px-5 max-w-6xl" >
             <div class="col" style="width: 100%">
                 <div class="relative mx-auto xl:px-5 max-w-7xl">
@@ -102,11 +109,13 @@
         data() {
             return {
                 acties: [],
+                themesSelected: '',
+                query: '',
+                coordinates: '',
+                distance: 100,
+                geoSuggestions: [],
                 isGeladen: true,
                 heeftFout: false,
-                query: '',
-                themesSelected: '',
-                distance: '',
             }
         },
         computed: {
@@ -137,8 +146,8 @@
                 this.getActies();
             },
             distance: function(newVal) {
-                console.log(newVal);
-            }
+                this.getActies();
+            },
         },
         mounted() {
             this.getActies();
@@ -151,6 +160,8 @@
                     params: {
                         q: this.query,
                         themes: this.themesSelected,
+                        coordinates: this.coordinates,
+                        distance: this.distance,
                     }
                 }).then((response) => {
                     this.acties = response.data.acties.data;
@@ -163,11 +174,41 @@
             processQuery: _.debounce(function(input) {
                     this.query = input;
                 }, 500),
+            async getGeoSuggestions(query) {
+                axios.get('https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest', {
+                    params: {
+                        q: query,
+                        rows: 5,
+                        fl: "id,weergavenaam",
+                        fq: "type:woonplaats",
+                    }
+                }).then((data) => {
+                    this.geoSuggestions = Object.keys(data.data.highlighting).map((key) => {
+                        return {
+                            id: key,
+                            name: data.data.highlighting[key].suggest[0]
+                        }
+                    });
+                });
+            },
+            async getCoordinates(obj) {
+                if (obj !== '') { 
+                    axios.get('https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup', {
+                        params: {
+                            id: obj.id,
+                            rows: 1,
+                        }
+                    }).then((data) => {
+                        let pointString = data.data.response.docs[0].centroide_ll;
+                        this.coordinates = pointString.slice(6,pointString.length-1).split(" ").reverse().join(",")
+                        this.getActies();
+                    });
+                } else {
+                    this.coordinates = '';
+                    this.getActies();
+                }
+            }
         }
     }
 </script>
-
-<style lang="scss" scoped>
-    
-</style>
 

@@ -1,6 +1,9 @@
 <template>
-    <div class="slider-input-wrapper flex flex-row items-center justify-between">
-        <div class="slider-wrapper flex shrink items-center">
+    <div class="slider-input-wrapper flex items-center justify-between">
+        <div class="slider-wrapper flex flex-col shrink items-center">
+            <div class="w-full text-left text-sm text-gray-500">
+                {{ 'Afstand (tot ' + value + ' ' + unit + ')'}}
+            </div>
             <input
                 type="range"
                 ref="range"
@@ -18,10 +21,8 @@
                     '--thumb-color': thumbColor,
                     '--thumb-size': thumbSize,
                 }"
+                :disabled="disabled"
             />
-        </div>
-        <div class="value-wrapper shrink-0 text-right w-[60px]">
-            {{ value + ' ' + unit }}
         </div>
     </div>
 </template>
@@ -30,6 +31,10 @@
     export default {
         name: "FormSlider",
         props: {
+            currentValue: {
+                type: Number,
+                required: true,
+            },
             unit: {
                 type: String
             },
@@ -42,6 +47,10 @@
                 type: Number, 
                 required: false,
                 default: 500,
+            },
+            disabled: {
+                type: Boolean,
+                default: false,
             },
             progressColor: {
                 type: String,
@@ -85,7 +94,7 @@
         },
         data() {
             return {
-                value: this.min,
+                value: this.currentValue,
             }
         }, 
         computed: {
@@ -109,7 +118,7 @@
         },
         methods: {
             processInput(event) {
-                this.$emit('input', event.target.value)
+                this.$emit('input', Number(event.target.value));
             },
         },
     };
