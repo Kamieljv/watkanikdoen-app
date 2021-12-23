@@ -74,6 +74,6 @@ And you should be updated to the latest version :)
 ### Package notes
 - For Date localizations: [jenssegers/date](https://github.com/jenssegers/date)
 - For icons: [Blade Icons](https://github.com/blade-ui-kit/blade-icons) and FontAwesome 5
-- For Search: [Algolia](https://algolia.com)
+- For Search: [Algolia](https://algolia.com) (Potential free credits for NGOs via [this form](https://www.algolia.com/for-open-source/)).
 - For Dutch Cities: [PDOK API](https://www.pdok.nl/restful-api/-/article/pdok-locatieserver-1#/paths/~1lookup/get)
 
