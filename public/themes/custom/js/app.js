@@ -5570,6 +5570,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {},
   name: 'ActieAgenda',
@@ -5589,7 +5590,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       themesSelected: '',
       query: '',
       coordinates: '',
-      distance: 100,
+      distance: null,
+      defaultDistance: 100,
       geoSuggestions: [],
       isGeladen: true,
       heeftFout: false
@@ -5615,6 +5617,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         return actie;
       });
       return this.acties;
+    },
+    coordinatesPresent: function coordinatesPresent() {
+      return this.coordinates !== '';
     }
   },
   watch: {
@@ -5624,30 +5629,33 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     themesSelected: function themesSelected() {
       this.getActies();
     },
-    distance: function distance(newVal) {
+    distance: function distance() {
       this.getActies();
+    },
+    coordinates: function coordinates() {
+      this.distance = this.distance === null ? this.defaultDistance : this.distance;
     }
   },
   mounted: function mounted() {
     this.getActies();
   },
   methods: {
-    getActies: function getActies() {
-      var _this = this;
+    getActies: _.debounce( /*#__PURE__*/function () {
+      var _getActies = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var _this = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.isGeladen = false;
-                _this.heeftFout = false;
-                axios.get(_this.routes['wave.acties.search'].uri, {
+                this.isGeladen = false;
+                this.heeftFout = false;
+                axios.get(this.routes['wave.acties.search'].uri, {
                   params: {
-                    q: _this.query,
-                    themes: _this.themesSelected,
-                    coordinates: _this.coordinates,
-                    distance: _this.distance
+                    q: this.query,
+                    themes: this.themesSelected,
+                    coordinates: this.coordinates,
+                    distance: this.distance
                   }
                 }).then(function (response) {
                   _this.acties = response.data.acties.data;
@@ -5662,13 +5670,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 return _context.stop();
             }
           }
-        }, _callee);
-      }))();
-    },
+        }, _callee, this);
+      }));
+
+      function getActies() {
+        return _getActies.apply(this, arguments);
+      }
+
+      return getActies;
+    }(), 500),
     processQuery: _.debounce(function (input) {
       this.query = input;
     }, 500),
-    getGeoSuggestions: function getGeoSuggestions(query) {
+    getGeoSuggestions: function getGeoSuggestions(geoQuery) {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
@@ -5678,7 +5692,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               case 0:
                 axios.get('https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest', {
                   params: {
-                    q: query,
+                    q: geoQuery,
                     rows: 5,
                     fl: "id,weergavenaam",
                     fq: "type:woonplaats"
@@ -6097,12 +6111,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_name$props$data$comp = {
   name: "FormSlider",
   props: {
     currentValue: {
       type: Number,
-      required: true
+      required: false
     },
     unit: {
       type: String
@@ -6213,7 +6231,7 @@ var VueTailwindSettings = {
       fixedClasses: {
         wrapper: 'relative',
         buttonWrapper: 'inline-block relative w-full h-full',
-        selectButton: 'w-full h-full flex text-left justify-between items-center',
+        selectButton: 'w-full h-full flex text-left justify-between items-center cursor-pointer',
         selectButtonLabel: 'block truncate',
         selectButtonTagWrapper: 'flex overflow-hidden',
         selectButtonTag: '',
@@ -42441,6 +42459,13 @@ var render = function () {
                       autofocus: true,
                     },
                     on: { input: _vm.processQuery },
+                    model: {
+                      value: _vm.query,
+                      callback: function ($$v) {
+                        _vm.query = $$v
+                      },
+                      expression: "query",
+                    },
                   }),
                 ],
                 1
@@ -42486,7 +42511,7 @@ var render = function () {
                   max: 150,
                   currentValue: _vm.distance,
                   delay: 400,
-                  disabled: _vm.coordinates !== "",
+                  disabled: !_vm.coordinatesPresent,
                 },
                 model: {
                   value: _vm.distance,
@@ -42932,7 +42957,10 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "slider-input-wrapper flex items-center justify-between" },
+    {
+      staticClass: "slider-input-wrapper flex items-center justify-between",
+      attrs: { title: _vm.disabled ? "Selecteer eerst een plaatsnaam." : "" },
+    },
     [
       _c(
         "div",
@@ -42941,7 +42969,13 @@ var render = function () {
           _c("div", { staticClass: "w-full text-left text-sm text-gray-500" }, [
             _vm._v(
               "\n            " +
-                _vm._s("Afstand (tot " + _vm.value + " " + _vm.unit + ")") +
+                _vm._s(
+                  "Afstand (tot " +
+                    (_vm.disabled ? "..." : _vm.value) +
+                    " " +
+                    _vm.unit +
+                    ")"
+                ) +
                 "\n        "
             ),
           ]),
@@ -42959,17 +42993,18 @@ var render = function () {
             staticClass: "range-slider",
             style: {
               "--range-width": _vm.rangeWidth,
-              "--progress-color": _vm.progressColor,
+              "--progress-color": _vm.disabled ? "gray" : _vm.progressColor,
               "--track-color": _vm.trackColor,
               "--track-height": _vm.trackHeight,
               "--thumb-border-radius": _vm.squaredThumb ? "0" : "50%",
-              "--thumb-color": _vm.thumbColor,
+              "--thumb-color": _vm.disabled ? "gray" : _vm.thumbColor,
               "--thumb-size": _vm.thumbSize,
             },
             attrs: {
               type: "range",
               max: _vm.max,
               min: _vm.min,
+              step: "10",
               disabled: _vm.disabled,
             },
             domProps: { value: _vm.value },

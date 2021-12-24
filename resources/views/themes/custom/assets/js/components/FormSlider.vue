@@ -1,8 +1,11 @@
 <template>
-    <div class="slider-input-wrapper flex items-center justify-between">
+    <div 
+        class="slider-input-wrapper flex items-center justify-between"
+        :title="disabled? 'Selecteer eerst een plaatsnaam.' : ''"
+    >
         <div class="slider-wrapper flex flex-col shrink items-center">
             <div class="w-full text-left text-sm text-gray-500">
-                {{ 'Afstand (tot ' + value + ' ' + unit + ')'}}
+                {{ 'Afstand (tot ' + (disabled? '...' : value) + ' ' + unit + ')'}}
             </div>
             <input
                 type="range"
@@ -11,14 +14,15 @@
                 @input="inputCaptured"
                 :max="max"
                 :min="min"
+                step="10"
                 v-model="value"
                 :style="{
                     '--range-width': rangeWidth,
-                    '--progress-color': progressColor,
+                    '--progress-color': disabled? 'gray' : progressColor,
                     '--track-color': trackColor,
                     '--track-height': trackHeight,
                     '--thumb-border-radius': squaredThumb ? '0' : '50%',
-                    '--thumb-color': thumbColor,
+                    '--thumb-color': disabled? 'gray' : thumbColor,
                     '--thumb-size': thumbSize,
                 }"
                 :disabled="disabled"
@@ -33,7 +37,7 @@
         props: {
             currentValue: {
                 type: Number,
-                required: true,
+                required: false,
             },
             unit: {
                 type: String

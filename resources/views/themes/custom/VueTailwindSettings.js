@@ -6,7 +6,7 @@ const VueTailwindSettings = {
       fixedClasses: {
         wrapper: 'relative',
         buttonWrapper: 'inline-block relative w-full h-full',
-        selectButton: 'w-full h-full flex text-left justify-between items-center',
+        selectButton: 'w-full h-full flex text-left justify-between items-center cursor-pointer',
         selectButtonLabel: 'block truncate',
         selectButtonTagWrapper: 'flex overflow-hidden',
         selectButtonTag: '',

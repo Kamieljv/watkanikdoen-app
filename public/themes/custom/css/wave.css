@@ -1667,11 +1667,11 @@ select {
 .flex-shrink {
   flex-shrink: 1;
 }
-.shrink {
-  flex-shrink: 1;
-}
 .shrink-0 {
   flex-shrink: 0;
+}
+.shrink {
+  flex-shrink: 1;
 }
 .flex-grow {
   flex-grow: 1;
@@ -2187,6 +2187,9 @@ select {
 .bg-\[color\:var\(--wkid-blue\)\] {
   background-color: var(--wkid-blue);
 }
+.bg-\[color\:var\(--wkid-blue-dark\)\] {
+  background-color: var(--wkid-blue-dark);
+}
 .bg-red-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(254 202 202 / var(--tw-bg-opacity));
@@ -2205,9 +2208,6 @@ select {
 }
 .bg-transparent {
   background-color: transparent;
-}
-.bg-\[color\:var\(--wkid-blue-dark\)\] {
-  background-color: var(--wkid-blue-dark);
 }
 .bg-opacity-25 {
   --tw-bg-opacity: 0.25;

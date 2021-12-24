@@ -8,6 +8,8 @@ use Grimzy\LaravelMysqlSpatial\Types\Geometry;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Jenssegers\Date\Date;
+use Illuminate\Support\Facades\Log;
+
 use Laravel\Scout\Searchable;
 use TCG\Voyager\Traits\Spatial;
 
@@ -34,7 +36,7 @@ class Actie extends Model
         'link',
         'image_path',
         'start',
-        'location_object'
+        '_geoloc'
     ];
 
     protected $hidden = [
@@ -60,13 +62,9 @@ class Actie extends Model
         return Date::parse($this->time_start)->format('j M Y, G:i');
     }
 
-    public function getLocationObjectAttribute(){
-        $pointArray = explode(' ', Geometry::getWKTArgument($this->location));
-        if (count($pointArray) === 2) {
-            return new Point($pointArray[0], $pointArray[1]);
-        } else {
-            return null;
-        }
+    public function getgeolocAttribute(){
+        $coords = $this->getCoordinates();
+        return (count($coords) === 0)? null : $coords[0];
     }
 
     /**

@@ -13,6 +13,7 @@
                             type="text"
                             placeholder="Zoeken..."
                             :autofocus="true"
+                            v-model="query"
                             @input="processQuery"
                         />
                     </div>
@@ -42,7 +43,7 @@
                         v-model="distance"
                         :currentValue="distance"
                         :delay="400"
-                        :disabled="coordinates !== ''"
+                        :disabled="!coordinatesPresent"
                     />
                 </div>
             </div>
@@ -112,7 +113,8 @@
                 themesSelected: '',
                 query: '',
                 coordinates: '',
-                distance: 100,
+                distance: null,
+                defaultDistance: 100,
                 geoSuggestions: [],
                 isGeladen: true,
                 heeftFout: false,
@@ -137,6 +139,9 @@
                 });
                 return this.acties;
             },
+            coordinatesPresent() {
+                return this.coordinates !== '';
+            }
         },
         watch: {
             query: function() {
@@ -145,15 +150,18 @@
             themesSelected: function() {
                 this.getActies();
             },
-            distance: function(newVal) {
+            distance: function() {
                 this.getActies();
             },
+            coordinates: function() {
+                this.distance = (this.distance === null)? this.defaultDistance : this.distance;
+            }
         },
         mounted() {
             this.getActies();
         },
         methods: {
-            async getActies() {
+            getActies: _.debounce(async function getActies() {
                 this.isGeladen = false;
                 this.heeftFout = false;
                 axios.get(this.routes['wave.acties.search'].uri, {
@@ -170,14 +178,14 @@
                 }).finally(() => {
                     this.isGeladen = true;
                 });
-            },
+            }, 500),
             processQuery: _.debounce(function(input) {
-                    this.query = input;
-                }, 500),
-            async getGeoSuggestions(query) {
+                this.query = input;
+            }, 500),
+            async getGeoSuggestions(geoQuery) {
                 axios.get('https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest', {
                     params: {
-                        q: query,
+                        q: geoQuery,
                         rows: 5,
                         fl: "id,weergavenaam",
                         fq: "type:woonplaats",
