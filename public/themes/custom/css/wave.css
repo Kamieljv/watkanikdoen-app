@@ -2209,6 +2209,9 @@ select {
 .bg-transparent {
   background-color: transparent;
 }
+.bg-\[color\:var\(--wkid-yellow-light\)\] {
+  background-color: var(--wkid-yellow-light);
+}
 .bg-opacity-25 {
   --tw-bg-opacity: 0.25;
 }
@@ -2979,12 +2982,24 @@ select {
   src: url("../../../fonts/PolandCanIntoBigWritingsOutline-B9RV.otf");
 }
 :root {
+  --wkid-red: #e11d00;
+  --wkid-pink: #f30060;
+  --wkid-purple: #d810b1;
+  --wkid-indigo: #805def;
   --wkid-blue: #0081ff;
-  --wkid-red: #aa1700;
-  --wkid-pink: #ad0246;
-  --wkid-purple: #9c1c83;
-  --wkid-indigo: #5b3cc2;
+  --wkid-yellow: #fdd10d;
+  --wkid-red-dark: #aa1700;
+  --wkid-pink-dark: #ad0246;
+  --wkid-purple-dark: #9c1c83;
+  --wkid-indigo-dark: #5b3cc2;
   --wkid-blue-dark: #0f5ead;
+  --wkid-yellow-dark: #c9a400;
+  --wkid-red-light: #e66956;
+  --wkid-pink-light: #f34e90;
+  --wkid-purple-light: #d354ba;
+  --wkid-indigo-light: #9986d6;
+  --wkid-blue-light: #4fa7ff;
+  --wkid-yellow-light: #ffdf50;
 }
 
 [x-cloak] {

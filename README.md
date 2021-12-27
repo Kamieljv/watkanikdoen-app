@@ -60,9 +60,13 @@ And you should be updated to the latest version :)
 ### To Do
 - [x] Actie page pagination
 - [x] Add location, time to acties
-- [ ] Make actie page filterable
+- [x] Make actie page filterable
 - [x] Add categories to acties
 - [x] Rename Events to Acties
+- [ ] Create single action page
+- [ ] Implement organizers functionality
+- [ ] Minimize information passed to views
+- [ ] Make acties sortable
 - [ ] Localize Wave controller messages
 - [ ] Localize Voyager
 - [ ] Localize js messages

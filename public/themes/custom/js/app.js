@@ -5423,6 +5423,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ActieAgenda',
   props: {
@@ -5458,6 +5468,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _mixins_geoHelper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../mixins/geoHelper */ "./resources/views/themes/custom/assets/js/mixins/geoHelper.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -5571,9 +5582,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  components: {},
   name: 'ActieAgenda',
+  components: {},
+  mixins: [_mixins_geoHelper__WEBPACK_IMPORTED_MODULE_1__.geoHelper],
   props: {
     routes: {
       type: Object,
@@ -5610,10 +5623,22 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       return this.acties.length > 0;
     },
     actiesFormatted: function actiesFormatted() {
+      var _this = this;
+
       this.acties.forEach(function (actie) {
         // filter HTML tags and take first 200 chars
         var newBody = actie.body.replace(/(<([^>]+)>)/gi, "");
         actie.body = newBody.length > 200 ? newBody.substring(0, 80) + '...' : newBody.substring(0, 80);
+
+        if (actie._geoloc && _this.coordinates !== '') {
+          var coordinates = _this.coordinates.split(","); // calculate distance to actie in km
+
+
+          actie.distance = _this.calcDistance(actie._geoloc.lat, actie._geoloc.lng, coordinates[0], coordinates[1]).toFixed(1);
+        } else {
+          actie.distance = null;
+        }
+
         return actie;
       });
       return this.acties;
@@ -5642,7 +5667,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   methods: {
     getActies: _.debounce( /*#__PURE__*/function () {
       var _getActies = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var _this = this;
+        var _this2 = this;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
@@ -5658,11 +5683,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                     distance: this.distance
                   }
                 }).then(function (response) {
-                  _this.acties = response.data.acties.data;
+                  _this2.acties = response.data.acties.data;
                 })["catch"](function (error) {
-                  _this.heeftFout = true;
+                  _this2.heeftFout = true;
                 })["finally"](function () {
-                  _this.isGeladen = true;
+                  _this2.isGeladen = true;
                 });
 
               case 3:
@@ -5683,7 +5708,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.query = input;
     }, 500),
     getGeoSuggestions: function getGeoSuggestions(geoQuery) {
-      var _this2 = this;
+      var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
@@ -5698,7 +5723,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                     fq: "type:woonplaats"
                   }
                 }).then(function (data) {
-                  _this2.geoSuggestions = Object.keys(data.data.highlighting).map(function (key) {
+                  _this3.geoSuggestions = Object.keys(data.data.highlighting).map(function (key) {
                     return {
                       id: key,
                       name: data.data.highlighting[key].suggest[0]
@@ -5715,7 +5740,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }))();
     },
     getCoordinates: function getCoordinates(obj) {
-      var _this3 = this;
+      var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
@@ -5730,14 +5755,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                     }
                   }).then(function (data) {
                     var pointString = data.data.response.docs[0].centroide_ll;
-                    _this3.coordinates = pointString.slice(6, pointString.length - 1).split(" ").reverse().join(",");
+                    _this4.coordinates = pointString.slice(6, pointString.length - 1).split(" ").reverse().join(",");
 
-                    _this3.getActies();
+                    _this4.getActies();
                   });
                 } else {
-                  _this3.coordinates = '';
+                  _this4.coordinates = '';
 
-                  _this3.getActies();
+                  _this4.getActies();
                 }
 
               case 1:
@@ -6356,6 +6381,45 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/views/themes/custom/assets/js/mixins/geoHelper.js":
+/*!*********************************************************************!*\
+  !*** ./resources/views/themes/custom/assets/js/mixins/geoHelper.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "geoHelper": () => (/* binding */ geoHelper)
+/* harmony export */ });
+var geoHelper = {
+  data: function data() {
+    return {//
+    };
+  },
+  methods: {
+    //This function takes in latitude and longitude of two location and returns the distance between them as the crow flies (in km)
+    calcDistance: function calcDistance(lat1, lon1, lat2, lon2) {
+      var R = 6371; // km
+
+      var dLat = this.toRad(lat2 - lat1);
+      var dLon = this.toRad(lon2 - lon1);
+      var lat1 = this.toRad(lat1);
+      var lat2 = this.toRad(lat2);
+      var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      var d = R * c;
+      return d;
+    },
+    // Converts numeric degrees to radians
+    toRad: function toRad(Value) {
+      return Value * Math.PI / 180;
+    }
+  }
+};
 
 /***/ }),
 
@@ -42308,6 +42372,41 @@ var render = function () {
                   )
                 }),
                 0
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "distance-container text-right p-2 absolute bottom-0 w-full",
+                },
+                [
+                  _vm.actie.distance
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "relative self-start inline-block bg-[color:var(--wkid-yellow-light)] px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded",
+                        },
+                        [
+                          _c(
+                            "span",
+                            {
+                              staticClass: "text-white",
+                              attrs: { rel: "theme" },
+                            },
+                            [
+                              _c("i", { staticClass: "fas fa-location-arrow" }),
+                              _vm._v(
+                                "   " + _vm._s(_vm.actie.distance + " km")
+                              ),
+                              _c("br"),
+                            ]
+                          ),
+                        ]
+                      )
+                    : _vm._e(),
+                ]
               ),
             ]
           ),

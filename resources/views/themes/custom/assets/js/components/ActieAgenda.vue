@@ -94,9 +94,11 @@
 </template>
 
 <script>
+    import { geoHelper } from '../mixins/geoHelper'
     export default {
-        components: {},
         name: 'ActieAgenda',
+        components: {},
+        mixins: [geoHelper],
         props: {
             routes: {
                 type: Object,
@@ -135,6 +137,14 @@
                     // filter HTML tags and take first 200 chars
                     var newBody = actie.body.replace(/(<([^>]+)>)/gi, "");
                     actie.body = (newBody.length > 200)? newBody.substring(0,80) + '...' : newBody.substring(0,80);
+                    if (actie._geoloc && this.coordinates !== '') {
+                        let coordinates = this.coordinates.split(",");
+                        // calculate distance to actie in km
+                        actie.distance = this.calcDistance(actie._geoloc.lat, actie._geoloc.lng,
+                                                            coordinates[0], coordinates[1]).toFixed(1);
+                    } else {
+                        actie.distance = null;
+                    }
                     return actie
                 });
                 return this.acties;

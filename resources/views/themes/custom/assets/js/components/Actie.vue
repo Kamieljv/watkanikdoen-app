@@ -22,6 +22,16 @@
                             </span>
                         </li>
                     </ul>
+                    <div class="distance-container text-right p-2 absolute bottom-0 w-full">
+                        <div 
+                            v-if="actie.distance"
+                            class="relative self-start inline-block bg-[color:var(--wkid-yellow-light)] px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
+                        >
+                            <span class="text-white" rel="theme">
+                                <i class="fas fa-location-arrow"></i> &nbsp; {{ actie.distance + ' km' }}<br/>
+                            </span>
+                        </div>
+                    </div>
                 </div>
                 <div class="flex flex-col justify-between flex-1 bg-white">
                     <div class="title-body-container p-3 h-[90px] overflow-hidden relative">
