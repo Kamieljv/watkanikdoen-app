@@ -22,4 +22,6 @@ return [
     'details' => 'Details',
     'description' => 'Beschrijving',
     'to_organizer' => 'Door naar organisator',
+    'last_edit' => 'Laatst bijgewerkt',
+    'created_at' => 'Geplaatst op',
 ];

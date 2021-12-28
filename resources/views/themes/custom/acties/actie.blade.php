@@ -21,15 +21,15 @@
                     <div class="flex-shrink-0 not-prose rounded-lg shadow-lg overflow-hidden" style="position:relative;">
                         <img class="object-cover w-full h-48" src="{{ $actie->image_path }}" alt="">
                         <ul class="themes-container p-2 absolute top-0 w-full">
-                            {{-- <li 
-                                v-for="theme in actie.themes"
-                                :key="theme.id"
-                                class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
-                            >
-                                <span class="text-gray-700" rel="theme">
-                                    {{ theme.name }}
-                                </span>
-                            </li> --}}
+                            @foreach ($actie->themes as $actieTheme)
+                                <li 
+                                    class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
+                                >
+                                    <span class="text-gray-700">
+                                        {{ $actieTheme->name }}
+                                    </span>
+                                </li>
+                            @endforeach
                         </ul>
                         <div class="distance-container text-right p-2 absolute bottom-0 w-full">
                             {{-- <div 
@@ -41,11 +41,16 @@
                                 </span>
                             </div> --}}
                         </div>
-                        {{-- Mobile title --}}
+                        {{-- Mobile title & details --}}
                         <div class="flex flex-col gap-3 not-prose p-3 pt-4 bg-white overflow-hidden block sm:hidden">
                             <h1 class="leading-none">
                                 <span>{{ $actie->title }}</span>
                             </h1>
+                            @if (isset($actie->updated_at))
+                                <span class="mt-0 text-base font-normal">{{ __("acties.last_edit") }}: {{ $actie->updated_at }}</span>
+                            @else
+                                <span class="mt-0 text-base font-normal">{{ __("acties.created_at") }}: {{ $actie->created_at }}</span>
+                            @endif
                             <div class="details-container text-sm text-gray-500">
                                 <div class="time">
                                     <i class="far fa-calendar"></i> &nbsp; {{ $actie->start }}<br/>
@@ -91,9 +96,14 @@
             </div>
 
             <div id="left-container" class="col-span-12 p-8 bg-white rounded-lg shadow-lg sm:col-span-8">
-                <h1 class="leading-none hidden sm:block">
-                    <span>{{ $actie->title }}</span>
-                </h1>
+                <div class="leading-none hidden sm:block">
+                    <h1>{{ $actie->title }}</h1>
+                    @if (isset($actie->updated_at))
+                        <span class="mt-0 italic text-sm font-normal">{{ __("acties.last_edit") }}: <time datetime="{{ Carbon\Carbon::parse($actie->updated_at)->toIso8601String() }}">{{ Date::parse($actie->updated_at)->format("j F Y") }}</time></span>
+                    @else
+                        <span class="mt-0 italic text-sm font-normal">{{ __("acties.created_at") }}: <time datetime="{{ Carbon\Carbon::parse($actie->created_at)->toIso8601String() }}">{{ Date::parse($actie->created_at)->format("j F Y") }}</time></span>
+                    @endif
+                </div>
                 <h3 class="leading-none block sm:hidden mt-0">
                     <span>{{ __("acties.description") }}</span>
                 </h3>
