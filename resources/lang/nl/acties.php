@@ -21,5 +21,5 @@ return [
     'about_organizer' => 'Over de organisator',
     'details' => 'Details',
     'description' => 'Beschrijving',
-    'to_organizer' => 'Naar organisator',
+    'to_organizer' => 'Door naar organisator',
 ];

@@ -41,15 +41,23 @@
                                 </span>
                             </div> --}}
                         </div>
-                    </div>
-                    {{-- Mobile title --}}
-                    <div class="not-prose p-3 bg-white rounded-lg shadow-lg overflow-hidden">
-                        <h1 class="leading-none block sm:hidden">
-                            <span>{{ $actie->title }}</span>
-                        </h1>
+                        {{-- Mobile title --}}
+                        <div class="flex flex-col gap-3 not-prose p-3 pt-4 bg-white overflow-hidden block sm:hidden">
+                            <h1 class="leading-none">
+                                <span>{{ $actie->title }}</span>
+                            </h1>
+                            <div class="details-container text-sm text-gray-500">
+                                <div class="time">
+                                    <i class="far fa-calendar"></i> &nbsp; {{ $actie->start }}<br/>
+                                </div>
+                                <div class="location">
+                                    <i class="fas fa-map-marker-alt"></i> &nbsp; {{ $actie->location_human }}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!-- Details -->
-                    <div class="not-prose p-3 bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="not-prose p-3 bg-white rounded-lg shadow-lg overflow-hidden hidden sm:block">
                         <h3>{{ __("acties.details") }}</h3>
                         <div class="details-container text-sm text-gray-500">
                             <div class="time">
@@ -60,14 +68,8 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Buttons -->
-                    <div>
-                        <button href="{{ $actie->link }}" class="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
-                            <i class="fas fa-link"></i> &nbsp; {{ __("acties.to_organizer") }}
-                        </button>
-                    </div>
                     <!-- About the organizer -->
-                    <div class="not-prose p-3 bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="not-prose flex flex-col gap-3 p-3 bg-white rounded-lg shadow-lg overflow-hidden">
                         <h3>{{ __("acties.about_organizer") }}</h3>
                         <div class="flex flex-row items-center">
                             <div class="flex-shrink-0">
@@ -81,6 +83,9 @@
                                 </p>
                             </div>
                         </div>
+                        <button href="{{ $actie->link }}" class="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
+                            <i class="fas fa-link"></i> &nbsp; {{ __("acties.to_organizer") }}
+                        </button>
                     </div>
                 </div>
             </div>
