@@ -86,6 +86,7 @@
                 isLoading: false,
                 hasValue: false,
                 arrowCounter: 0,
+                preventOpen: false,
             };
         },
         watch: {
@@ -105,6 +106,7 @@
         },
         methods: {
             setResult(result) {
+                this.preventOpen = true;
                 this.search = result[this.dataAttribute].replace(/(<([^>]+)>)/gi, "");
                 this.isOpen = false;
                 this.hasValue = true;
@@ -123,10 +125,11 @@
             },
             onChange: _.debounce(function() {
                 if (this.search.length >= this.minQueryLength) {
-                    this.$emit('change', this.search);
+                    if (!this.preventOpen) this.$emit('change', this.search);
                     if (this.isAsync) {
                         this.isLoading = true;
-                        this.isOpen = true;
+                        console.log(this.preventOpen);
+                        this.isOpen = !this.preventOpen;
                     } else {
                         this.filterResults();
                         this.isOpen = true;
@@ -134,6 +137,7 @@
                 } else {
                     this.isOpen = false;
                 }
+                this.preventOpen = false;
             }, 500),
             handleClickOutside(event) {
                 if (!this.$el.contains(event.target)) {

@@ -41,7 +41,7 @@
                         :min="10"
                         :max="150"
                         v-model="distance"
-                        :currentValue="distance"
+                        :currentValue="defaultDistance"
                         :delay="400"
                         :disabled="!coordinatesPresent"
                     />
@@ -210,6 +210,7 @@
                 });
             },
             async getCoordinates(obj) {
+                this.isGeladen = false;
                 if (obj !== '') { 
                     axios.get('https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup', {
                         params: {

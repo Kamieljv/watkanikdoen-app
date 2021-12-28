@@ -1219,8 +1219,23 @@ select {
 .z-\[99\] {
   z-index: 99;
 }
+.order-2 {
+  order: 2;
+}
+.order-1 {
+  order: 1;
+}
+.col-span-8 {
+  grid-column: span 8 / span 8;
+}
+.col-span-4 {
+  grid-column: span 4 / span 4;
+}
 .col-span-1 {
   grid-column: span 1 / span 1;
+}
+.col-span-12 {
+  grid-column: span 12 / span 12;
 }
 .-m-3 {
   margin: -0.75rem;
@@ -1802,11 +1817,20 @@ select {
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
+.grid-cols-12 {
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 .grid-cols-4 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.grid-rows-3 {
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+}
+.flex-row {
+  flex-direction: row;
 }
 .flex-row-reverse {
   flex-direction: row-reverse;
@@ -1849,6 +1873,9 @@ select {
 }
 .gap-3 {
   gap: 0.75rem;
+}
+.gap-4 {
+  gap: 1rem;
 }
 .gap-y-16 {
   row-gap: 4rem;
@@ -2206,11 +2233,14 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(96 165 250 / var(--tw-bg-opacity));
 }
+.bg-\[color\:var\(--wkid-yellow-light\)\] {
+  background-color: var(--wkid-yellow-light);
+}
 .bg-transparent {
   background-color: transparent;
 }
-.bg-\[color\:var\(--wkid-yellow-light\)\] {
-  background-color: var(--wkid-yellow-light);
+.bg-\[color\:var\(--wkid-pink\)\] {
+  background-color: var(--wkid-pink);
 }
 .bg-opacity-25 {
   --tw-bg-opacity: 0.25;
@@ -3161,6 +3191,9 @@ svg {
 .hover\:bg-\[color\:var\(--wkid-blue-dark\)\]:hover {
   background-color: var(--wkid-blue-dark);
 }
+.hover\:bg-\[color\:var\(--wkid-pink-dark\)\]:hover {
+  background-color: var(--wkid-pink-dark);
+}
 .hover\:bg-opacity-10:hover {
   --tw-bg-opacity: 0.1;
 }
@@ -3415,6 +3448,30 @@ svg {
   }
 }
 @media (min-width: 640px) {
+
+  .sm\:order-2 {
+    order: 2;
+  }
+
+  .sm\:order-1 {
+    order: 1;
+  }
+
+  .sm\:order-last {
+    order: 9999;
+  }
+
+  .sm\:col-span-12 {
+    grid-column: span 12 / span 12;
+  }
+
+  .sm\:col-span-4 {
+    grid-column: span 4 / span 4;
+  }
+
+  .sm\:col-span-8 {
+    grid-column: span 8 / span 8;
+  }
 
   .sm\:my-8 {
     margin-top: 2rem;

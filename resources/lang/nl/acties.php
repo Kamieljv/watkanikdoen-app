@@ -18,4 +18,8 @@ return [
     'written_by' => 'Geschreven door ',
     'organized_by' => 'Georganiseerd door ',
     'back_to_acties' => 'Terug naar Acties',
+    'about_organizer' => 'Over de organisator',
+    'details' => 'Details',
+    'description' => 'Beschrijving',
+    'to_organizer' => 'Naar organisator',
 ];

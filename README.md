@@ -63,7 +63,8 @@ And you should be updated to the latest version :)
 - [x] Make actie page filterable
 - [x] Add categories to acties
 - [x] Rename Events to Acties
-- [ ] Create single action page
+- [x] Create single action page
+- [ ] Improve single action page responsiveness
 - [ ] Implement organizers functionality
 - [ ] Minimize information passed to views
 - [ ] Make acties sortable
