@@ -7,7 +7,7 @@
         </div>
         <div class="row px-8 mx-auto xl:px-5 max-w-6xl">
             <div id="filter-container" class="row my-3">
-                <div id="filter-wrapper" class="col grid gap-3 grid-cols-4">
+                <div id="filter-wrapper" class="col grid gap-3 grid-cols-2 sm:grid-cols-4">
                     <div>
                         <t-input
                             type="text"
@@ -50,7 +50,7 @@
         </div>
         <div class="row px-8 mx-auto xl:px-5 max-w-6xl" >
             <div class="col" style="width: 100%">
-                <div class="relative mx-auto xl:px-5 max-w-7xl">
+                <div class="relative mx-auto w-full">
                     <div class="absolute inset-0">
                         <div class="bg-white h-1/3 sm:h-2/3"></div>
                     </div>

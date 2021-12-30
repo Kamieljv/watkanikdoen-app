@@ -3,7 +3,7 @@
         class="slider-input-wrapper flex items-center justify-between"
         :title="disabled? 'Selecteer eerst een plaatsnaam.' : ''"
     >
-        <div class="slider-wrapper flex flex-col shrink items-center">
+        <div class="slider-wrapper w-full flex flex-col shrink items-center">
             <div class="w-full text-left text-sm text-gray-500">
                 {{ 'Afstand (tot ' + (disabled? '...' : value) + ' ' + unit + ')'}}
             </div>

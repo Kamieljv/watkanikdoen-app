@@ -42551,7 +42551,7 @@ var render = function () {
           _c(
             "div",
             {
-              staticClass: "col grid gap-3 grid-cols-4",
+              staticClass: "col grid gap-3 grid-cols-2 sm:grid-cols-4",
               attrs: { id: "filter-wrapper" },
             },
             [
@@ -42636,7 +42636,7 @@ var render = function () {
     _vm._v(" "),
     _c("div", { staticClass: "row px-8 mx-auto xl:px-5 max-w-6xl" }, [
       _c("div", { staticClass: "col", staticStyle: { width: "100%" } }, [
-        _c("div", { staticClass: "relative mx-auto xl:px-5 max-w-7xl" }, [
+        _c("div", { staticClass: "relative mx-auto w-full" }, [
           _vm._m(1),
           _vm._v(" "),
           _c("div", { staticClass: "relative mx-auto max-w-7xl" }, [
@@ -43070,7 +43070,10 @@ var render = function () {
     [
       _c(
         "div",
-        { staticClass: "slider-wrapper flex flex-col shrink items-center" },
+        {
+          staticClass:
+            "slider-wrapper w-full flex flex-col shrink items-center",
+        },
         [
           _c("div", { staticClass: "w-full text-left text-sm text-gray-500" }, [
             _vm._v(
