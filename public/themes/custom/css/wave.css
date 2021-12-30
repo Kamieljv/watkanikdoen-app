@@ -1219,23 +1219,11 @@ select {
 .z-\[99\] {
   z-index: 99;
 }
-.order-2 {
-  order: 2;
-}
-.order-1 {
-  order: 1;
-}
-.col-span-8 {
-  grid-column: span 8 / span 8;
-}
-.col-span-4 {
-  grid-column: span 4 / span 4;
+.col-span-12 {
+  grid-column: span 12 / span 12;
 }
 .col-span-1 {
   grid-column: span 1 / span 1;
-}
-.col-span-12 {
-  grid-column: span 12 / span 12;
 }
 .-m-3 {
   margin: -0.75rem;
@@ -1448,6 +1436,9 @@ select {
 .mt-0 {
   margin-top: 0px;
 }
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
 .ml-12 {
   margin-left: 3rem;
 }
@@ -1471,9 +1462,6 @@ select {
 }
 .-ml-1\.5 {
   margin-left: -0.375rem;
-}
-.mb-1 {
-  margin-bottom: 0.25rem;
 }
 .block {
   display: block;
@@ -1826,9 +1814,6 @@ select {
 .grid-cols-4 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
-.grid-rows-3 {
-  grid-template-rows: repeat(3, minmax(0, 1fr));
-}
 .flex-row {
   flex-direction: row;
 }
@@ -1871,11 +1856,11 @@ select {
 .gap-6 {
   gap: 1.5rem;
 }
-.gap-3 {
-  gap: 0.75rem;
-}
 .gap-4 {
   gap: 1rem;
+}
+.gap-3 {
+  gap: 0.75rem;
 }
 .gap-y-16 {
   row-gap: 4rem;
@@ -2207,6 +2192,9 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(224 231 255 / var(--tw-bg-opacity));
 }
+.bg-\[color\:var\(--wkid-pink\)\] {
+  background-color: var(--wkid-pink);
+}
 .bg-gray-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(209 213 219 / var(--tw-bg-opacity));
@@ -2216,6 +2204,9 @@ select {
 }
 .bg-\[color\:var\(--wkid-blue-dark\)\] {
   background-color: var(--wkid-blue-dark);
+}
+.bg-\[color\:var\(--wkid-yellow-light\)\] {
+  background-color: var(--wkid-yellow-light);
 }
 .bg-red-200 {
   --tw-bg-opacity: 1;
@@ -2233,14 +2224,8 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(96 165 250 / var(--tw-bg-opacity));
 }
-.bg-\[color\:var\(--wkid-yellow-light\)\] {
-  background-color: var(--wkid-yellow-light);
-}
 .bg-transparent {
   background-color: transparent;
-}
-.bg-\[color\:var\(--wkid-pink\)\] {
-  background-color: var(--wkid-pink);
 }
 .bg-opacity-25 {
   --tw-bg-opacity: 0.25;
@@ -3180,6 +3165,9 @@ svg {
   --tw-bg-opacity: 1;
   background-color: rgb(220 38 38 / var(--tw-bg-opacity));
 }
+.hover\:bg-\[color\:var\(--wkid-pink-dark\)\]:hover {
+  background-color: var(--wkid-pink-dark);
+}
 .hover\:bg-indigo-50:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(238 242 255 / var(--tw-bg-opacity));
@@ -3190,9 +3178,6 @@ svg {
 }
 .hover\:bg-\[color\:var\(--wkid-blue-dark\)\]:hover {
   background-color: var(--wkid-blue-dark);
-}
-.hover\:bg-\[color\:var\(--wkid-pink-dark\)\]:hover {
-  background-color: var(--wkid-pink-dark);
 }
 .hover\:bg-opacity-10:hover {
   --tw-bg-opacity: 0.1;
@@ -3449,20 +3434,8 @@ svg {
 }
 @media (min-width: 640px) {
 
-  .sm\:order-2 {
-    order: 2;
-  }
-
-  .sm\:order-1 {
-    order: 1;
-  }
-
   .sm\:order-last {
     order: 9999;
-  }
-
-  .sm\:col-span-12 {
-    grid-column: span 12 / span 12;
   }
 
   .sm\:col-span-4 {

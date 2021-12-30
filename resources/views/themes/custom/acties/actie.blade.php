@@ -47,9 +47,9 @@
                                 <span>{{ $actie->title }}</span>
                             </h1>
                             @if (isset($actie->updated_at))
-                                <span class="mt-0 text-base font-normal">{{ __("acties.last_edit") }}: {{ $actie->updated_at }}</span>
+                                <span class="mt-0 italic text-sm font-normal">{{ __("acties.last_edit") }}: {{ $actie->updated_at }}</span>
                             @else
-                                <span class="mt-0 text-base font-normal">{{ __("acties.created_at") }}: {{ $actie->created_at }}</span>
+                                <span class="mt-0 italic text-sm font-normal">{{ __("acties.created_at") }}: {{ $actie->created_at }}</span>
                             @endif
                             <div class="details-container text-sm text-gray-500">
                                 <div class="time">
