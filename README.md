@@ -66,9 +66,12 @@ And you should be updated to the latest version :)
 - [x] Create single action page
 - [x] Improve single action page responsiveness
 - [ ] Implement organizers functionality
-- [ ] Responsiveness of the home page
+- [x] Responsiveness of the home page
+- [ ] Pagination of acties on home page
 - [ ] Minimize information passed to views
 - [ ] Make acties sortable
+- [ ] Page analytics (e.g. Open Web Analytics, Umami or Plausible)
+- [ ] Image compression after upload 
 - [ ] Localize Wave controller messages
 - [ ] Localize Voyager
 - [ ] Localize js messages
