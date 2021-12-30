@@ -25,7 +25,7 @@
                         :multiple="true"
                         :hideSearchBox="true"
                         :closeOnSelect="false"
-                        placeholder="Theme..."
+                        placeholder="Thema..."
                     />
                     <form-autocomplete
                         :items="geoSuggestions"

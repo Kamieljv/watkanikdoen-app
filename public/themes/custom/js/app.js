@@ -42585,7 +42585,7 @@ var render = function () {
                   multiple: true,
                   hideSearchBox: true,
                   closeOnSelect: false,
-                  placeholder: "Theme...",
+                  placeholder: "Thema...",
                 },
                 model: {
                   value: _vm.themesSelected,
