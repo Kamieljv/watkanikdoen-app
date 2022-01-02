@@ -10,7 +10,10 @@
             <meta class="uk-margin-remove-adjacent" property="datePublished" :content="new Date(actie.created_at).toISOString()">
             <div class="content flex flex-col h-full">
                 <div class="flex-shrink-0" style="position:relative;">
-                    <img class="object-cover w-full h-48" :src="actie.image_path" alt="">
+                    <img v-if="actie.image_path" class="object-cover w-full h-[150px]" :src="actie.image_path" alt="">
+                    <div v-else class="h-[150px] bg-gradient-to-br from-[var(--wkid-red-light)] to-[var(--wkid-blue-light)] text-white flex items-center justify-center">
+                        <svg-vue icon="logo" style="stroke: currentColor; height: 52px;"></svg-vue>
+                    </div>
                     <ul class="themes-container p-2 absolute top-0 w-full">
                         <li 
                             v-for="theme in actie.themes"

@@ -17,6 +17,7 @@
         "glob-all": "^3.2.1",
         "laravel-mix": "^6.0.39",
         "laravel-mix-purgecss": "^6.0.0",
+        "laravel-mix-svg-vue": "^0.4.1",
         "laravel-mix-tailwind": "^0.1.2",
         "leaflet": "^1.7.1",
         "lodash": "^4.17.21",

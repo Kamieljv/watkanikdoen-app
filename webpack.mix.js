@@ -2,6 +2,7 @@ const mix = require('laravel-mix');
 
 require('laravel-mix-tailwind');
 require('laravel-mix-purgecss');
+require('laravel-mix-svg-vue');
 
 /*
  |--------------------------------------------------------------------------
@@ -26,4 +27,5 @@ mix.js('resources/js/app.js', 'js')
 mix.js('resources/views/themes/custom/assets/js/app.js', 'themes/custom/js')
     .sass('resources/views/themes/custom/assets/sass/wave.scss', 'themes/custom/css')
 	.tailwind('./resources/views/themes/custom/tailwind.config.js')
+    .svgVue()
     .version();
