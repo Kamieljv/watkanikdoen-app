@@ -55,7 +55,7 @@ class Actie extends Model
     }
 
     public function getImagePathAttribute(){
-    	return \Voyager::image($this->image);
+    	return $this->image ? \Voyager::image($this->image) : null;
     }
 
     public function getStartAttribute() {

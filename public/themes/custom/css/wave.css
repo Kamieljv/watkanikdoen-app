@@ -1553,6 +1553,9 @@ select {
 .h-0 {
   height: 0px;
 }
+.h-\[150px\] {
+  height: 150px;
+}
 .h-\[90px\] {
   height: 90px;
 }
@@ -1810,9 +1813,6 @@ select {
 }
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
-}
-.grid-cols-4 {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 .flex-row {
   flex-direction: row;
@@ -2250,6 +2250,10 @@ select {
   --tw-gradient-from: #2563eb;
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(37 99 235 / 0));
 }
+.from-\[var\(--wkid-red-light\)\] {
+  --tw-gradient-from: var(--wkid-red-light);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(255 255 255 / 0));
+}
 .from-\[var\(--wkid-red\)\] {
   --tw-gradient-from: var(--wkid-red);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(255 255 255 / 0));
@@ -2271,6 +2275,9 @@ select {
 }
 .to-purple-500 {
   --tw-gradient-to: #a855f7;
+}
+.to-\[var\(--wkid-blue-light\)\] {
+  --tw-gradient-to: var(--wkid-blue-light);
 }
 .to-\[var\(--wkid-blue\)\] {
   --tw-gradient-to: var(--wkid-blue);

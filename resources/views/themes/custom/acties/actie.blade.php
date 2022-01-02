@@ -19,7 +19,7 @@
                 <div class="content flex flex-col gap-4 h-full">
                     <!-- Image and tags -->
                     <div class="flex-shrink-0 not-prose rounded-lg shadow-lg overflow-hidden" style="position:relative;">
-                        <img class="object-cover w-full h-48" src="{{ $actie->image_path }}" alt="">
+                        <img class="object-cover w-full h-48" src="{{ $actie->image_path ?? asset('images/default_thumbnail.png') }}" alt="">
                         <ul class="themes-container p-2 absolute top-0 w-full">
                             @foreach ($actie->themes as $actieTheme)
                                 <li 

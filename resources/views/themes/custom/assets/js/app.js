@@ -21,6 +21,9 @@ import VueTailwind from 'vue-tailwind'
 import VueTailwindSettings from "../../VueTailwindSettings.js";
 Vue.use(VueTailwind, VueTailwindSettings);
 
+import SvgVue from 'svg-vue';
+Vue.use(SvgVue);
+
 
 require('@fortawesome/fontawesome-free/js/all.min.js');
 
