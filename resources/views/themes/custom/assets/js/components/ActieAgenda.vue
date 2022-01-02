@@ -48,7 +48,7 @@
                 </div>
             </div>
         </div>
-        <div class="row px-8 mx-auto xl:px-5 max-w-6xl" >
+        <div class="row px-8 mx-auto xl:px-5 max-w-6xl mb-8" >
             <div class="col" style="width: 100%">
                 <div class="relative mx-auto w-full">
                     <div class="absolute inset-0">
@@ -90,14 +90,23 @@
                 </div>
             </div>
         </div>
+        <!-- Pagination -->
+        <pagination 
+            :current="currentPage"
+            :total="total"
+            :per-page="perPage"
+            :baseLink="base_link"
+            @page-changed="getActies($event)"
+        />
     </div>
 </template>
 
 <script>
     import { geoHelper } from '../mixins/geoHelper'
+import Pagination from './Pagination.vue'
     export default {
         name: 'ActieAgenda',
-        components: {},
+        components: {Pagination},
         mixins: [geoHelper],
         props: {
             routes: {
@@ -120,6 +129,10 @@
                 geoSuggestions: [],
                 isGeladen: true,
                 heeftFout: false,
+                currentPage: null,
+                perPage: null,
+                total: null,
+                base_link: null,
             }
         },
         computed: {
@@ -171,7 +184,7 @@
             this.getActies();
         },
         methods: {
-            getActies: _.debounce(async function getActies() {
+            getActies: _.debounce(async function getActies(page = 1) {
                 this.isGeladen = false;
                 this.heeftFout = false;
                 axios.get(this.routes['wave.acties.search'].uri, {
@@ -180,9 +193,14 @@
                         themes: this.themesSelected,
                         coordinates: this.coordinates,
                         distance: this.distance,
+                        page: page,
                     }
                 }).then((response) => {
                     this.acties = response.data.acties.data;
+                    this.currentPage = response.data.acties.current_page;
+                    this.perPage = response.data.acties.per_page;
+                    this.total = response.data.acties.total;
+                    this.base_link = response.data.acties.first_page_url;
                 }).catch((error) => {
                     this.heeftFout = true;
                 }).finally(() => {

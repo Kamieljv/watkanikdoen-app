@@ -128,7 +128,6 @@
                     if (!this.preventOpen) this.$emit('change', this.search);
                     if (this.isAsync) {
                         this.isLoading = true;
-                        console.log(this.preventOpen);
                         this.isOpen = !this.preventOpen;
                     } else {
                         this.filterResults();

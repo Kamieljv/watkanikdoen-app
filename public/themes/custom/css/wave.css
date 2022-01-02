@@ -1634,6 +1634,11 @@ select {
 .min-w-full {
   min-width: 100%;
 }
+.min-w-max {
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+}
 .max-w-6xl {
   max-width: 72rem;
 }
@@ -1733,6 +1738,14 @@ select {
 }
 .-rotate-3 {
   --tw-rotate: -3deg;
+  transform: var(--tw-transform);
+}
+.rotate-45 {
+  --tw-rotate: 45deg;
+  transform: var(--tw-transform);
+}
+.-rotate-45 {
+  --tw-rotate: -45deg;
   transform: var(--tw-transform);
 }
 .scale-110 {
@@ -2116,6 +2129,10 @@ select {
   --tw-border-opacity: 1;
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
+.border-indigo-400 {
+  --tw-border-opacity: 1;
+  border-color: rgb(129 140 248 / var(--tw-border-opacity));
+}
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
@@ -2258,6 +2275,18 @@ select {
   --tw-gradient-from: var(--wkid-red);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(255 255 255 / 0));
 }
+.from-blue-400 {
+  --tw-gradient-from: #60a5fa;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(96 165 250 / 0));
+}
+.from-\[var\(--wkid-blue\)\] {
+  --tw-gradient-from: var(--wkid-blue);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(255 255 255 / 0));
+}
+.from-\[var\(--wkid-blue-light\)\] {
+  --tw-gradient-from: var(--wkid-blue-light);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(255 255 255 / 0));
+}
 .via-blue-500 {
   --tw-gradient-stops: var(--tw-gradient-from), #3b82f6, var(--tw-gradient-to, rgb(59 130 246 / 0));
 }
@@ -2281,6 +2310,15 @@ select {
 }
 .to-\[var\(--wkid-blue\)\] {
   --tw-gradient-to: var(--wkid-blue);
+}
+.to-indigo-400 {
+  --tw-gradient-to: #818cf8;
+}
+.to-\[var\(--wkid-red\)\] {
+  --tw-gradient-to: var(--wkid-red);
+}
+.to-\[var\(--wkid-red-light\)\] {
+  --tw-gradient-to: var(--wkid-red-light);
 }
 .bg-cover {
   background-size: cover;
@@ -2555,6 +2593,9 @@ select {
 }
 .pr-8 {
   padding-right: 2rem;
+}
+.pr-6 {
+  padding-right: 1.5rem;
 }
 .text-left {
   text-align: left;
@@ -3185,6 +3226,10 @@ svg {
 }
 .hover\:bg-\[color\:var\(--wkid-blue-dark\)\]:hover {
   background-color: var(--wkid-blue-dark);
+}
+.hover\:bg-gray-200:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 .hover\:bg-opacity-10:hover {
   --tw-bg-opacity: 0.1;

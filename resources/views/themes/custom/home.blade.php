@@ -8,10 +8,6 @@
         >
         </actie-agenda>
     </div>
-
-    {{-- <div class="flex justify-center my-10">
-        {{ $acties->links('theme::partials.pagination') }}
-    </div> --}}
 @endsection
 
 @push('scripts')

@@ -32,7 +32,7 @@ class ActieController extends \TCG\Voyager\Http\Controllers\VoyagerBaseControlle
             $options['aroundLatLng'] = $request->get('coordinates') ?? '';
             $options['aroundRadius'] = ($request->get('distance') ?? 9999) * 1000;
             return $algolia->search($query, $options);
-        })->paginate(12);
+        })->paginate(2);
 
         return response()->json(['acties' => $acties]);
     }
