@@ -71,7 +71,7 @@ And you should be updated to the latest version :)
 - [ ] Minimize information passed to views
 - [ ] Make acties sortable
 - [ ] Page analytics (e.g. Open Web Analytics, Umami or Plausible)
-- [ ] Image compression after upload 
+- [x] Image compression after upload 
 - [ ] Localize Wave controller messages
 - [ ] Localize Voyager
 - [ ] Localize js messages
