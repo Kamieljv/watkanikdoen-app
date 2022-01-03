@@ -43,5 +43,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ActieCategoryTableSeeder::class);
         $this->call(ActieThemesTableSeeder::class);
         $this->call(ActieActieThemeTableSeeder::class);
+        $this->call(OrganizersTableSeeder::class);
+        $this->call(ActieOrganizerTableSeeder::class);
     }
 }
