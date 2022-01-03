@@ -36,6 +36,7 @@ class Actie extends Model
         'link',
         'image_path',
         'start',
+        'start_unix',
         '_geoloc'
     ];
 
@@ -60,6 +61,10 @@ class Actie extends Model
 
     public function getStartAttribute() {
         return Date::parse($this->time_start)->format('j M Y, G:i');
+    }
+
+    public function getStartUnixAttribute() {
+        return Date::parse($this->time_start)->timestamp;
     }
 
     public function getgeolocAttribute(){

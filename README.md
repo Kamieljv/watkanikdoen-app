@@ -68,8 +68,11 @@ And you should be updated to the latest version :)
 - [ ] Implement organizers functionality
 - [x] Responsiveness of the home page
 - [ ] Pagination of acties on home page
+- [ ] Filter acties that have passed
+- [ ] Add date filter to action page
 - [ ] Minimize information passed to views
 - [ ] Make acties sortable
+- [ ] Static pages (About, Privacy policy, etc.)
 - [ ] Page analytics (e.g. Open Web Analytics, Umami or Plausible)
 - [x] Image compression after upload 
 - [ ] Localize Wave controller messages
