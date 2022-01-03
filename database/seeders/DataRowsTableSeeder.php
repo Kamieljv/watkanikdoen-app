@@ -1635,6 +1635,22 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{"foreign_pivot_key":"actie_id","related_pivot_key":"actie_theme_id","parent_key":"id","model":"Wave\\\\ActieTheme","table":"actie_themes","type":"belongsToMany","column":"id","key":"id","label":"name","pivot_table":"actie_actie_theme","pivot":"1","taggable":"0"}',
                 'order' => 19,
             ),
+            101 => 
+            array (
+                'id' => 154,
+                'data_type_id' => 9,
+                'field' => 'externe_link',
+                'type' => 'text',
+                'display_name' => 'Externe Link',
+                'required' => 1,
+                'browse' => 1,
+                'read' => 1,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{}',
+                'order' => 7,
+            ),
         ));
         
         

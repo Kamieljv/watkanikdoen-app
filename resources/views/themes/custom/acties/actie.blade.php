@@ -19,7 +19,13 @@
                 <div class="content flex flex-col gap-4 h-full">
                     <!-- Image and tags -->
                     <div class="flex-shrink-0 not-prose rounded-lg shadow-lg overflow-hidden" style="position:relative;">
-                        <img class="object-cover w-full h-48" src="{{ $actie->image_path ?? asset('images/default_thumbnail.png') }}" alt="">
+                        @if ($actie->image_path)
+                            <img class="object-cover w-full h-48" src="{{ $actie->image_path ?? asset('images/default_thumbnail.png') }}" alt="">
+                        @else
+                            <div class="h-[150px] bg-gradient-to-br from-[var(--wkid-red-light)] to-[var(--wkid-blue-light)] text-white flex items-center justify-center">
+                                @svg('icon-logo', ['style' => 'stroke: currentColor; height: 52px;'])
+                            </div>
+                        @endif
                         <ul class="themes-container p-2 absolute top-0 w-full">
                             @foreach ($actie->themes as $actieTheme)
                                 <li 
@@ -88,9 +94,9 @@
                                 </p>
                             </div>
                         </div>
-                        <button href="{{ $actie->link }}" class="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
+                        <a href="{{ $actie->externe_link }}" class="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
                             <i class="fas fa-link"></i> &nbsp; {{ __("acties.to_organizer") }}
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
