@@ -33,7 +33,9 @@ class ActieController extends \TCG\Voyager\Http\Controllers\VoyagerBaseControlle
             $options['aroundRadius'] = ($request->get('distance') ?? 9999) * 1000;
             $options['filters'] = "start_unix > ". time();
             return $algolia->search($query, $options);
-        })->paginate(12);
+        })
+            ->within('acties_start_unix_asc')
+            ->paginate(12);
 
         return response()->json(['acties' => $acties]);
     }
