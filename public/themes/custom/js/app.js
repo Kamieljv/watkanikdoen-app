@@ -43576,7 +43576,7 @@ var render = function () {
                         staticClass:
                           "flex hover:bg-gray-200 rounded-full transform h-6 w-6 items-center justify-center",
                         class: {
-                          "text-white bg-gradient-to-br from-[var(--wkid-blue-light)] to-[var(--wkid-red-light)]":
+                          "text-white bg-[color:var(--wkid-pink)]":
                             _vm.current == page,
                         },
                       },

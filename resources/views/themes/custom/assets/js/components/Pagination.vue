@@ -26,7 +26,7 @@
         <li class="pr-6" v-if="hasFirst()">...</li>
         <li class="pr-6" v-for="page in pages" :key="page">
           <a href="#" @click.prevent="changePage(page)">
-            <div :class="{'text-white bg-gradient-to-br from-[var(--wkid-blue-light)] to-[var(--wkid-red-light)]': current == page}"
+            <div :class="{'text-white bg-[color:var(--wkid-pink)]': current == page}"
                  class="flex hover:bg-gray-200 rounded-full transform h-6 w-6 items-center justify-center">
               <span class="transform">{{ page }}</span>
             </div>
