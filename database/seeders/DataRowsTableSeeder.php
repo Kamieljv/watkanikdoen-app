@@ -1312,7 +1312,7 @@ class DataRowsTableSeeder extends Seeder
                 'edit' => 1,
                 'add' => 1,
                 'delete' => 1,
-                'details' => '{"max":1,"min":1,"expanded":true,"show_folders":true,"show_toolbar":true,"allow_upload":true,"allow_move":false,"allow_delete":false,"allow_create_folder":false,"allow_rename":false,"allow_crop":true,"allowed":["image\\/jpeg","image\\/png"],"show_as_images":true,"hide_thumbnails":false,"quality":70,"upsize":true,"thumbnails":[{"type":"resize","name":"resize-500","width":"500"}]}',
+                'details' => '{"max":1,"min":0,"expanded":true,"show_folders":true,"show_toolbar":true,"allow_upload":true,"allow_move":false,"allow_delete":false,"allow_create_folder":false,"allow_rename":false,"allow_crop":true,"allowed":["image\\/jpeg","image\\/png"],"show_as_images":true,"hide_thumbnails":false,"quality":70,"upsize":true,"thumbnails":[{"type":"resize","name":"resize-500","width":"500"}]}',
                 'order' => 9,
             ),
             81 => 
@@ -1786,7 +1786,7 @@ class DataRowsTableSeeder extends Seeder
                 'field' => 'acty_belongstomany_organizer_relationship',
                 'type' => 'relationship',
                 'display_name' => 'organizers',
-                'required' => 0,
+                'required' => 1,
                 'browse' => 1,
                 'read' => 1,
                 'edit' => 1,

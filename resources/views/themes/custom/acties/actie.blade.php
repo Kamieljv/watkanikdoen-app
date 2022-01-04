@@ -81,19 +81,27 @@
                     </div>
                     <!-- About the organizer -->
                     <div class="not-prose flex flex-col gap-3 p-3 bg-white rounded-lg shadow-lg overflow-hidden">
-                        <h3>{{ __("acties.about_organizer") }}</h3>
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink-0">
-                                <a href="#">
-                                    <img class="w-10 h-10 rounded-full" src="{{ $actie->user->avatar_path }}" alt="">
-                                </a>
+                        @if (count($actie->organizers) > 1)
+                            <h3>{{ __("acties.about_organizers") }}</h3>
+                        @else
+                            <h3>{{ __("acties.about_organizers") }}</h3>
+                        @endif
+                        
+                        @foreach ($actie->organizers as $organizer)
+                            <div class="flex flex-row items-center">
+                                <div class="flex-shrink-0">
+                                    <a href="#">
+                                        <img class="w-10 h-10 rounded-full" src="{{ $organizer->logo_path }}" alt="">
+                                    </a>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm leading-5 text-gray-900">
+                                        <a href="#" class="font-medium">{{ $organizer->name }}</a>
+                                    </p>
+                                </div>
                             </div>
-                            <div class="ml-3">
-                                <p class="text-sm leading-5 text-gray-900">
-                                    <a href="#" class="font-medium">{{ $actie->user->name }}</a>
-                                </p>
-                            </div>
-                        </div>
+                        @endforeach
+                        
                         <a href="{{ $actie->externe_link }}" class="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
                             <i class="fas fa-link"></i> &nbsp; {{ __("acties.to_organizer") }}
                         </a>

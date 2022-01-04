@@ -19,6 +19,7 @@ return [
     'organized_by' => 'Georganiseerd door ',
     'back_to_acties' => 'Terug naar Acties',
     'about_organizer' => 'Over de organisator',
+    'about_organizers' => 'Over de organisatoren',
     'details' => 'Details',
     'description' => 'Beschrijving',
     'to_organizer' => 'Door naar organisator',

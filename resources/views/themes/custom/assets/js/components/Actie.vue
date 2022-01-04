@@ -59,12 +59,15 @@
                 <div class="flex items-center p-3 bg-gray-200">
                     <div class="flex-shrink-0">
                         <a href="#">
-                            <img class="w-10 h-10 rounded-full" :src="actie.user.avatar_path" alt="">
+                            <img class="w-10 h-10 rounded-full" :src="actie.organizers[0].logo_path" alt="">
                         </a>
                     </div>
                     <div class="ml-3">
                         <p class="text-sm leading-5 text-gray-900">
-                            {{ __("acties.organized_by") }}<a href="#" class="font-medium hover:underline">{{ actie.user.name }}</a>
+                            {{ __("acties.organized_by") }}
+                            <a href="#" class="font-medium hover:underline">
+                                {{ actie.organizers[0].name }}</a>
+                            <span v-if="actie.organizers.length > 1"> {{__('general.and')}} {{actie.organizers.length - 1}} {{(actie.organizers.length - 1 > 1)? __('general.others') : __('general.other')}}</span>
                         </p>
                     </div>
                 </div>

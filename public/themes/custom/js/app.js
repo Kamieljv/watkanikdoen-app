@@ -5436,6 +5436,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ActieAgenda',
   props: {
@@ -42790,7 +42793,7 @@ var render = function () {
               _c("a", { attrs: { href: "#" } }, [
                 _c("img", {
                   staticClass: "w-10 h-10 rounded-full",
-                  attrs: { src: _vm.actie.user.avatar_path, alt: "" },
+                  attrs: { src: _vm.actie.organizers[0].logo_path, alt: "" },
                 }),
               ]),
             ]),
@@ -42799,7 +42802,8 @@ var render = function () {
               _c("p", { staticClass: "text-sm leading-5 text-gray-900" }, [
                 _vm._v(
                   "\n                        " +
-                    _vm._s(_vm.__("acties.organized_by"))
+                    _vm._s(_vm.__("acties.organized_by")) +
+                    "\n                        "
                 ),
                 _c(
                   "a",
@@ -42807,8 +42811,30 @@ var render = function () {
                     staticClass: "font-medium hover:underline",
                     attrs: { href: "#" },
                   },
-                  [_vm._v(_vm._s(_vm.actie.user.name))]
+                  [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.actie.organizers[0].name)
+                    ),
+                  ]
                 ),
+                _vm._v(" "),
+                _vm.actie.organizers.length > 1
+                  ? _c("span", [
+                      _vm._v(
+                        " " +
+                          _vm._s(_vm.__("general.and")) +
+                          " " +
+                          _vm._s(_vm.actie.organizers.length - 1) +
+                          " " +
+                          _vm._s(
+                            _vm.actie.organizers.length - 1 > 1
+                              ? _vm.__("general.others")
+                              : _vm.__("general.other")
+                          )
+                      ),
+                    ])
+                  : _vm._e(),
               ]),
             ]),
           ]),

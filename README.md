@@ -65,10 +65,11 @@ And you should be updated to the latest version :)
 - [x] Rename Events to Acties
 - [x] Create single action page
 - [x] Improve single action page responsiveness
-- [ ] Implement organizers functionality
+- [x] Implement organizers functionality
 - [x] Responsiveness of the home page
-- [ ] Pagination of acties on home page
-- [ ] Filter acties that have passed
+- [ ] Make organizer's overview pages
+- [x] Pagination of acties on home page
+- [x] Filter acties that have passed
 - [ ] Add date filter to action page
 - [ ] Minimize information passed to views
 - [ ] Make acties sortable

@@ -30,7 +30,7 @@ class ActiesTableSeeder extends Seeder
                 'externe_link' => '#',
                 'time_start' => '2022-02-06 15:45:00',
                 'time_end' => '2022-02-06 16:45:00',
-                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '¦5û&@}Jß²dJ@',
+                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'Õ¿ ¬@å lP6,J@',
                 'location_human' => 'De Dam, Amsterdam',
                 'image' => NULL,
                 'slug' => 'klimaatdemo-amsterdam',
@@ -39,7 +39,7 @@ class ActiesTableSeeder extends Seeder
                 'status' => 'PUBLISHED',
                 'featured' => 0,
                 'created_at' => '2021-11-29 16:26:00',
-                'updated_at' => '2021-12-21 15:34:52',
+                'updated_at' => '2022-01-04 08:57:30',
             ),
             1 => 
             array (
@@ -55,14 +55,14 @@ class ActiesTableSeeder extends Seeder
                 'time_end' => '2022-02-06 15:45:00',
                 'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'u“VŽ@oƒÀÊ1J@',
                 'location_human' => 'De Dam, Amsterdam',
-                'image' => NULL,
+                'image' => 'acties/pexels-paddy-o-sullivan-2369217-resize-500.jpg',
                 'slug' => 'black-lives-matter-amsterdam',
                 'meta_description' => NULL,
                 'meta_keywords' => NULL,
                 'status' => 'PUBLISHED',
                 'featured' => 0,
                 'created_at' => '2021-12-02 18:26:00',
-                'updated_at' => '2021-12-21 15:34:39',
+                'updated_at' => '2022-01-03 16:27:19',
             ),
             2 => 
             array (
@@ -85,7 +85,7 @@ class ActiesTableSeeder extends Seeder
                 'status' => 'PUBLISHED',
                 'featured' => 0,
                 'created_at' => '2021-12-08 09:00:00',
-                'updated_at' => '2022-01-02 14:01:22',
+                'updated_at' => '2022-01-04 08:55:07',
             ),
             3 => 
             array (
@@ -107,7 +107,7 @@ class ActiesTableSeeder extends Seeder
                 'status' => 'PUBLISHED',
                 'featured' => 0,
                 'created_at' => '2021-12-11 18:00:00',
-                'updated_at' => '2022-01-02 14:03:35',
+                'updated_at' => '2022-01-03 16:08:47',
             ),
             4 => 
             array (
@@ -120,7 +120,8 @@ class ActiesTableSeeder extends Seeder
                 'externe_link' => '#',
                 'time_start' => '2022-02-06 15:45:00',
                 'time_end' => '2022-02-06 15:45:00',
-                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '¦5û&@}Jß²dJ@',
+                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'QÎ^Õt@Û—d
+J@',
                 'location_human' => 'Jaarbeursplein, Utrecht',
                 'image' => NULL,
                 'slug' => 'klimaatdemo-utrecht',
@@ -129,7 +130,7 @@ class ActiesTableSeeder extends Seeder
                 'status' => 'PUBLISHED',
                 'featured' => 0,
                 'created_at' => '2021-11-29 16:26:00',
-                'updated_at' => '2021-12-21 15:34:52',
+                'updated_at' => '2022-01-04 08:58:26',
             ),
             5 => 
             array (
@@ -142,7 +143,7 @@ class ActiesTableSeeder extends Seeder
                 'externe_link' => '#',
                 'time_start' => '2022-02-06 15:45:00',
                 'time_end' => '2022-02-06 15:45:00',
-                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '¦5û&@}Jß²dJ@',
+                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'S;uðEa@<ý@þôëI@',
                 'location_human' => 'Valkhofpark, Nijmegen',
                 'image' => NULL,
                 'slug' => 'klimaatdemo-nijmegen',
@@ -151,7 +152,7 @@ class ActiesTableSeeder extends Seeder
                 'status' => 'PUBLISHED',
                 'featured' => 0,
                 'created_at' => '2021-11-29 16:26:00',
-                'updated_at' => '2021-12-21 15:34:52',
+                'updated_at' => '2022-01-04 08:58:58',
             ),
             6 => 
             array (
@@ -162,10 +163,11 @@ class ActiesTableSeeder extends Seeder
                 'excerpt' => NULL,
                 'body' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel leo massa. Suspendisse pharetra justo ut turpis suscipit, in auctor tellus dignissim. Donec orci tortor, aliquam eu mauris vitae, vestibulum porta mi. Ut leo augue, elementum nec malesuada sed, euismod vel nunc. Sed tincidunt dolor porttitor eros suscipit, in dignissim erat mollis. Vestibulum in rhoncus mauris, sit amet rutrum orci. Vestibulum at pulvinar nisl.</p>
 <p>Ut hendrerit augue nec suscipit interdum. In auctor purus sem. Nullam quis lorem eu turpis euismod cursus. Maecenas varius, nisi ut bibendum gravida, quam massa aliquet quam, a imperdiet leo nulla at magna. Donec sollicitudin congue rhoncus. Phasellus et semper nisl. Nulla facilisi. Praesent eget ipsum laoreet, convallis sapien id, fringilla dui. Donec volutpat odio nec molestie efficitur. Cras finibus vulputate mauris. Suspendisse potenti. Praesent ac vestibulum felis. Nulla mollis tellus a odio tincidunt tincidunt. Nullam tempor, metus quis vulputate consectetur, quam ex elementum mi, id posuere tellus nisl non orci.</p>',
-                'externe_link' => '#',
+                'externe_link' => 'https://utrecht.nl',
                 'time_start' => '2022-02-06 15:45:00',
                 'time_end' => '2022-02-06 15:45:00',
-                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'u“VŽ@oƒÀÊ1J@',
+                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'sBÔDÚp@’ýŽ§ü
+J@',
                 'location_human' => 'Jaarbeursplein, Utrecht',
                 'image' => NULL,
                 'slug' => 'black-lives-matter-utrecht',
@@ -174,21 +176,21 @@ class ActiesTableSeeder extends Seeder
                 'status' => 'PUBLISHED',
                 'featured' => 0,
                 'created_at' => '2021-12-02 18:26:00',
-                'updated_at' => '2021-12-21 15:34:39',
+                'updated_at' => '2022-01-04 08:55:59',
             ),
             7 => 
             array (
                 'id' => 24,
                 'author_id' => 2,
-                'title' => 'Black Lives Matter Utrecht',
+                'title' => 'Black Lives Matter Nijmegen',
                 'seo_title' => NULL,
                 'excerpt' => NULL,
                 'body' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel leo massa. Suspendisse pharetra justo ut turpis suscipit, in auctor tellus dignissim. Donec orci tortor, aliquam eu mauris vitae, vestibulum porta mi. Ut leo augue, elementum nec malesuada sed, euismod vel nunc. Sed tincidunt dolor porttitor eros suscipit, in dignissim erat mollis. Vestibulum in rhoncus mauris, sit amet rutrum orci. Vestibulum at pulvinar nisl.</p>
 <p>Ut hendrerit augue nec suscipit interdum. In auctor purus sem. Nullam quis lorem eu turpis euismod cursus. Maecenas varius, nisi ut bibendum gravida, quam massa aliquet quam, a imperdiet leo nulla at magna. Donec sollicitudin congue rhoncus. Phasellus et semper nisl. Nulla facilisi. Praesent eget ipsum laoreet, convallis sapien id, fringilla dui. Donec volutpat odio nec molestie efficitur. Cras finibus vulputate mauris. Suspendisse potenti. Praesent ac vestibulum felis. Nulla mollis tellus a odio tincidunt tincidunt. Nullam tempor, metus quis vulputate consectetur, quam ex elementum mi, id posuere tellus nisl non orci.</p>',
-                'externe_link' => '#',
+                'externe_link' => 'https://nijmegen.nl',
                 'time_start' => '2022-02-06 15:45:00',
                 'time_end' => '2022-02-06 15:45:00',
-                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'u“VŽ@oƒÀÊ1J@',
+                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'Yêà‹Ff@+ruw$ëI@',
                 'location_human' => 'Valkhofpark, Nijmegen',
                 'image' => NULL,
                 'slug' => 'black-lives-matter-nijmegen',
@@ -197,7 +199,29 @@ class ActiesTableSeeder extends Seeder
                 'status' => 'PUBLISHED',
                 'featured' => 0,
                 'created_at' => '2021-12-02 18:26:00',
-                'updated_at' => '2021-12-21 15:34:39',
+                'updated_at' => '2022-01-04 08:56:59',
+            ),
+            8 => 
+            array (
+                'id' => 25,
+                'author_id' => 1,
+                'title' => 'Bio-industrie Protest',
+                'seo_title' => NULL,
+                'excerpt' => NULL,
+                'body' => '<p>Dit is de beschrijving. Lorem Ipsum lorem ipsum</p>',
+                'externe_link' => 'https://partijvoordedieren.nl',
+                'time_start' => '2022-02-17 10:02:00',
+                'time_end' => '2022-02-18 10:02:00',
+                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'u“VŽ@oƒÀÊ1J@',
+                'location_human' => 'Museumplein, Amsterdam',
+                'image' => 'acties/pexels-karolina-grabowska-8106775-resize-500.jpg',
+                'slug' => 'bio-industrie-protest',
+                'meta_description' => NULL,
+                'meta_keywords' => NULL,
+                'status' => 'PUBLISHED',
+                'featured' => 0,
+                'created_at' => '2022-01-04 09:03:00',
+                'updated_at' => '2022-01-04 09:09:09',
             ),
         ));
         

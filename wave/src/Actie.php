@@ -49,7 +49,7 @@ class Actie extends Model
      *
      * @var array
      */
-    protected $with = ['user:id,name,avatar', 'categories', 'themes'];
+    protected $with = ['organizers:id,name,logo', 'categories', 'themes'];
 
     public function getLinkAttribute(){
     	return url('/actie/' . $this->slug);
@@ -97,8 +97,8 @@ class Actie extends Model
         return parent::newQuery($excludeDeleted);
     }
 
-    public function user(){
-        return $this->belongsTo('\Wave\User', 'author_id');
+    public function organizers(){
+        return $this->belongsToMany('Wave\Organizer', 'actie_organizer');
     }
 
     public function categories(){
