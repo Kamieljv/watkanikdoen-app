@@ -22,7 +22,7 @@ return [
     'about_organizers' => 'Over de organisatoren',
     'details' => 'Details',
     'description' => 'Beschrijving',
-    'to_organizer' => 'Door naar organisator',
+    'to_action_page' => 'Naar actiepagina',
     'last_edit' => 'Laatst bijgewerkt',
     'created_at' => 'Geplaatst op',
 ];

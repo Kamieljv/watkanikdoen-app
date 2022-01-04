@@ -43496,223 +43496,225 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "min-w-max" }, [
-    _c(
-      "section",
-      {
-        staticClass:
-          "flex justify-center bg-white px-10 py-3 text-gray-700 font-montserrat",
-      },
-      [
+  return _vm.pages.length > 1
+    ? _c("div", { staticClass: "min-w-max" }, [
         _c(
-          "ul",
-          { staticClass: "flex items-center" },
+          "section",
+          {
+            staticClass:
+              "flex justify-center bg-white px-10 py-3 text-gray-700 font-montserrat",
+          },
           [
-            _vm.hasPrev()
-              ? _c("li", { staticClass: "pr-6" }, [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "#" },
-                      on: {
-                        click: function ($event) {
-                          $event.preventDefault()
-                          return _vm.changePage(_vm.prevPage)
-                        },
-                      },
-                    },
-                    [
+            _c(
+              "ul",
+              { staticClass: "flex items-center" },
+              [
+                _vm.hasPrev()
+                  ? _c("li", { staticClass: "pr-6" }, [
                       _c(
-                        "div",
+                        "a",
                         {
-                          staticClass:
-                            "flex items-center justify-center hover:bg-gray-200 rounded-full transform h-6 w-6",
+                          attrs: { href: "#" },
+                          on: {
+                            click: function ($event) {
+                              $event.preventDefault()
+                              return _vm.changePage(_vm.prevPage)
+                            },
+                          },
                         },
                         [
-                          _c("div", { staticClass: "transform" }, [
-                            _c(
-                              "svg",
-                              {
-                                staticClass: "h-4 w-4",
-                                attrs: {
-                                  xmlns: "http://www.w3.org/2000/svg",
-                                  fill: "none",
-                                  viewBox: "0 0 24 24",
-                                  stroke: "currentColor",
-                                },
-                              },
-                              [
-                                _c("path", {
-                                  attrs: {
-                                    "stroke-linecap": "round",
-                                    "stroke-linejoin": "round",
-                                    "stroke-width": "2",
-                                    d: "M15 19l-7-7 7-7",
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "flex items-center justify-center hover:bg-gray-200 rounded-full transform h-6 w-6",
+                            },
+                            [
+                              _c("div", { staticClass: "transform" }, [
+                                _c(
+                                  "svg",
+                                  {
+                                    staticClass: "h-4 w-4",
+                                    attrs: {
+                                      xmlns: "http://www.w3.org/2000/svg",
+                                      fill: "none",
+                                      viewBox: "0 0 24 24",
+                                      stroke: "currentColor",
+                                    },
                                   },
-                                }),
-                              ]
-                            ),
-                          ]),
+                                  [
+                                    _c("path", {
+                                      attrs: {
+                                        "stroke-linecap": "round",
+                                        "stroke-linejoin": "round",
+                                        "stroke-width": "2",
+                                        d: "M15 19l-7-7 7-7",
+                                      },
+                                    }),
+                                  ]
+                                ),
+                              ]),
+                            ]
+                          ),
                         ]
                       ),
-                    ]
-                  ),
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.hasFirst()
-              ? _c("li", { staticClass: "pr-6" }, [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "#" },
-                      on: {
-                        click: function ($event) {
-                          $event.preventDefault()
-                          return _vm.changePage(1)
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.hasFirst()
+                  ? _c("li", { staticClass: "pr-6" }, [
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function ($event) {
+                              $event.preventDefault()
+                              return _vm.changePage(1)
+                            },
+                          },
                         },
-                      },
-                    },
-                    [_vm._m(0)]
-                  ),
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.hasFirst()
-              ? _c("li", { staticClass: "pr-6" }, [_vm._v("...")])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm._l(_vm.pages, function (page) {
-              return _c("li", { key: page, staticClass: "pr-6" }, [
-                _c(
-                  "a",
-                  {
-                    attrs: { href: "#" },
-                    on: {
-                      click: function ($event) {
-                        $event.preventDefault()
-                        return _vm.changePage(page)
-                      },
-                    },
-                  },
-                  [
+                        [_vm._m(0)]
+                      ),
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.hasFirst()
+                  ? _c("li", { staticClass: "pr-6" }, [_vm._v("...")])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm._l(_vm.pages, function (page) {
+                  return _c("li", { key: page, staticClass: "pr-6" }, [
                     _c(
-                      "div",
+                      "a",
                       {
-                        staticClass:
-                          "flex hover:bg-gray-200 rounded-full transform h-6 w-6 items-center justify-center",
-                        class: {
-                          "text-white bg-[color:var(--wkid-pink)]":
-                            _vm.current == page,
+                        attrs: { href: "#" },
+                        on: {
+                          click: function ($event) {
+                            $event.preventDefault()
+                            return _vm.changePage(page)
+                          },
                         },
                       },
                       [
-                        _c("span", { staticClass: "transform" }, [
-                          _vm._v(_vm._s(page)),
-                        ]),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "flex hover:bg-gray-200 rounded-full transform h-6 w-6 items-center justify-center",
+                            class: {
+                              "text-white bg-[color:var(--wkid-pink)]":
+                                _vm.current == page,
+                            },
+                          },
+                          [
+                            _c("span", { staticClass: "transform" }, [
+                              _vm._v(_vm._s(page)),
+                            ]),
+                          ]
+                        ),
                       ]
                     ),
-                  ]
-                ),
-              ])
-            }),
-            _vm._v(" "),
-            _vm.hasLast()
-              ? _c("li", { staticClass: "pr-6" }, [_vm._v("...")])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.hasLast()
-              ? _c("li", { staticClass: "pr-6" }, [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "#" },
-                      on: {
-                        click: function ($event) {
-                          $event.preventDefault()
-                          return _vm.changePage(_vm.totalPages)
-                        },
-                      },
-                    },
-                    [
+                  ])
+                }),
+                _vm._v(" "),
+                _vm.hasLast()
+                  ? _c("li", { staticClass: "pr-6" }, [_vm._v("...")])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.hasLast()
+                  ? _c("li", { staticClass: "pr-6" }, [
                       _c(
-                        "div",
+                        "a",
                         {
-                          staticClass:
-                            "flex hover:bg-gray-200 rounded-full transform h-6 w-6 items-center justify-center",
+                          attrs: { href: "#" },
+                          on: {
+                            click: function ($event) {
+                              $event.preventDefault()
+                              return _vm.changePage(_vm.totalPages)
+                            },
+                          },
                         },
                         [
-                          _c("span", { staticClass: "transform" }, [
-                            _vm._v(
-                              "\n          " +
-                                _vm._s(_vm.totalPages) +
-                                "\n        "
-                            ),
-                          ]),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "flex hover:bg-gray-200 rounded-full transform h-6 w-6 items-center justify-center",
+                            },
+                            [
+                              _c("span", { staticClass: "transform" }, [
+                                _vm._v(
+                                  "\n          " +
+                                    _vm._s(_vm.totalPages) +
+                                    "\n        "
+                                ),
+                              ]),
+                            ]
+                          ),
                         ]
                       ),
-                    ]
-                  ),
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.hasNext()
-              ? _c("li", { staticClass: "pr-6" }, [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "#" },
-                      on: {
-                        click: function ($event) {
-                          $event.preventDefault()
-                          return _vm.changePage(_vm.nextPage)
-                        },
-                      },
-                    },
-                    [
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.hasNext()
+                  ? _c("li", { staticClass: "pr-6" }, [
                       _c(
-                        "div",
+                        "a",
                         {
-                          staticClass:
-                            "flex items-center justify-center hover:bg-gray-200 rounded-full transform h-6 w-6",
+                          attrs: { href: "#" },
+                          on: {
+                            click: function ($event) {
+                              $event.preventDefault()
+                              return _vm.changePage(_vm.nextPage)
+                            },
+                          },
                         },
                         [
-                          _c("div", { staticClass: "transform" }, [
-                            _c(
-                              "svg",
-                              {
-                                staticClass: "h-4 w-4",
-                                attrs: {
-                                  xmlns: "http://www.w3.org/2000/svg",
-                                  fill: "none",
-                                  viewBox: "0 0 24 24",
-                                  stroke: "currentColor",
-                                },
-                              },
-                              [
-                                _c("path", {
-                                  attrs: {
-                                    "stroke-linecap": "round",
-                                    "stroke-linejoin": "round",
-                                    "stroke-width": "2",
-                                    d: "M9 5l7 7-7 7",
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "flex items-center justify-center hover:bg-gray-200 rounded-full transform h-6 w-6",
+                            },
+                            [
+                              _c("div", { staticClass: "transform" }, [
+                                _c(
+                                  "svg",
+                                  {
+                                    staticClass: "h-4 w-4",
+                                    attrs: {
+                                      xmlns: "http://www.w3.org/2000/svg",
+                                      fill: "none",
+                                      viewBox: "0 0 24 24",
+                                      stroke: "currentColor",
+                                    },
                                   },
-                                }),
-                              ]
-                            ),
-                          ]),
+                                  [
+                                    _c("path", {
+                                      attrs: {
+                                        "stroke-linecap": "round",
+                                        "stroke-linejoin": "round",
+                                        "stroke-width": "2",
+                                        d: "M9 5l7 7-7 7",
+                                      },
+                                    }),
+                                  ]
+                                ),
+                              ]),
+                            ]
+                          ),
                         ]
                       ),
-                    ]
-                  ),
-                ])
-              : _vm._e(),
-          ],
-          2
+                    ])
+                  : _vm._e(),
+              ],
+              2
+            ),
+          ]
         ),
-      ]
-    ),
-  ])
+      ])
+    : _vm._e()
 }
 var staticRenderFns = [
   function () {

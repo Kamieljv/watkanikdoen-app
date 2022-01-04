@@ -65,10 +65,13 @@
                                     <i class="fas fa-map-marker-alt"></i> &nbsp; {{ $actie->location_human }}
                                 </div>
                             </div>
+                            <a href="{{ $actie->externe_link }}" class="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
+                                <i class="fas fa-link"></i> &nbsp; {{ __("acties.to_action_page") }}
+                            </a>
                         </div>
                     </div>
                     <!-- Details -->
-                    <div class="not-prose p-3 bg-white rounded-lg shadow-lg overflow-hidden hidden sm:block">
+                    <div class="sm:flex flex-col gap-3 not-prose p-3 bg-white rounded-lg shadow-lg overflow-hidden hidden">
                         <h3>{{ __("acties.details") }}</h3>
                         <div class="details-container text-sm text-gray-500">
                             <div class="time">
@@ -78,6 +81,9 @@
                                 <i class="fas fa-map-marker-alt"></i> &nbsp; {{ $actie->location_human }}
                             </div>
                         </div>
+                        <a href="{{ $actie->externe_link }}" class="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
+                            <i class="fas fa-link"></i> &nbsp; {{ __("acties.to_action_page") }}
+                        </a>
                     </div>
                     <!-- About the organizer -->
                     <div class="not-prose flex flex-col gap-3 p-3 bg-white rounded-lg shadow-lg overflow-hidden">
@@ -100,11 +106,10 @@
                                     </p>
                                 </div>
                             </div>
+                            {{-- <div class="text-sm">
+                                {!! $organizer->description !!}
+                            </div> --}}
                         @endforeach
-                        
-                        <a href="{{ $actie->externe_link }}" class="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
-                            <i class="fas fa-link"></i> &nbsp; {{ __("acties.to_organizer") }}
-                        </a>
                     </div>
                 </div>
             </div>

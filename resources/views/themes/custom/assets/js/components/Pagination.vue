@@ -1,5 +1,5 @@
 <template>
-  <div class="min-w-max">
+  <div v-if="pages.length > 1" class="min-w-max">
     <section class="flex justify-center bg-white px-10 py-3 text-gray-700 font-montserrat">
       <ul class="flex items-center">
         <li class="pr-6" v-if="hasPrev()">
