@@ -94,18 +94,18 @@
                         @endif
                         
                         @foreach ($actie->organizers as $organizer)
-                            <div class="flex flex-row items-center">
-                                <div class="flex-shrink-0">
-                                    <a href="#">
+                            <a href="{{ $organizer->link }}">
+                                <div class="flex flex-row items-center">
+                                    <div class="flex-shrink-0">
                                         <img class="w-10 h-10 rounded-full" src="{{ $organizer->logo_path }}" alt="">
-                                    </a>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="text-sm leading-5 text-gray-900">
+                                            {{ $organizer->name }}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div class="ml-3">
-                                    <p class="text-sm leading-5 text-gray-900">
-                                        <a href="#" class="font-medium">{{ $organizer->name }}</a>
-                                    </p>
-                                </div>
-                            </div>
+                            </a>
                             {{-- <div class="text-sm">
                                 {!! $organizer->description !!}
                             </div> --}}

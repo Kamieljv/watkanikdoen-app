@@ -19,6 +19,8 @@ Route::post('register/complete', '\Wave\Http\Controllers\Auth\RegisterController
 Route::get('acties/search', '\Wave\Http\Controllers\ActieController@search')->name('wave.acties.search');
 Route::get('actie/{actie}', '\Wave\Http\Controllers\ActieController@actie')->name('wave.acties.actie');
 
+Route::get('organizer/{organizer}', '\Wave\Http\Controllers\OrganizerController@organizer')->name('wave.organizers.organizer');
+
 Route::get('blog', '\Wave\Http\Controllers\BlogController@index')->name('wave.blog');
 Route::get('blog/{category}', '\Wave\Http\Controllers\BlogController@category')->name('wave.blog.category');
 Route::get('blog/{category}/{post}', '\Wave\Http\Controllers\BlogController@post')->name('wave.blog.post');

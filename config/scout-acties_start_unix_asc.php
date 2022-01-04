@@ -1,6 +1,17 @@
 <?php
 
 return [
+    "ranking" => [
+        "asc(start_unix)",
+        "typo",
+        "geo",
+        "words",
+        "filters",
+        "proximity",
+        "attribute",
+        "exact",
+        "custom"
+    ],
     'searchableAttributes' => ['title', 'excerpt', 'body', 'location_human', 'meta_keywords'],
     'customRanking' => ['desc(created_at)', 'desc(updated_at)'],
     'removeStopWords' => null,

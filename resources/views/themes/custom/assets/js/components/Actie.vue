@@ -65,7 +65,7 @@
                     <div class="ml-3">
                         <p class="text-sm leading-5 text-gray-900">
                             {{ __("acties.organized_by") }}
-                            <a href="#" class="font-medium hover:underline">
+                            <a :href="actie.organizers[0].link" class="font-medium hover:underline">
                                 {{ actie.organizers[0].name }}</a>
                             <span v-if="actie.organizers.length > 1"> {{__('general.and')}} {{actie.organizers.length - 1}} {{(actie.organizers.length - 1 > 1)? __('general.others') : __('general.other')}}</span>
                         </p>

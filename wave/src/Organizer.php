@@ -9,10 +9,15 @@ class Organizer extends Model
 
     protected $appends = [
         'logo_path',
+        'link',
     ];
 
     public function getLogoPathAttribute(){
     	return $this->logo ? \Voyager::image($this->logo) : null;
+    }
+
+    public function getLinkAttribute(){
+        return url('/organizer/' . $this->slug);
     }
 
     public function acties(){

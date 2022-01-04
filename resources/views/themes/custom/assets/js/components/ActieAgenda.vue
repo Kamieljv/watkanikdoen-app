@@ -1,11 +1,6 @@
 <template>
     <div>
-        <div class="row">
-            <div id="filter-search-banner" class="h-[200px] bg-gradient-to-br from-[var(--wkid-red)] to-[var(--wkid-blue)] flex items-bottom pb-[50px] justify-center">
-                
-            </div>
-        </div>
-        <div class="row px-8 mx-auto xl:px-5 max-w-6xl">
+        <div v-if="filterable" class="row px-8 mx-auto xl:px-5 max-w-6xl">
             <div id="filter-container" class="row my-3">
                 <div id="filter-wrapper" class="col grid gap-3 grid-cols-2 sm:grid-cols-4">
                     <div>
@@ -103,7 +98,7 @@
 
 <script>
     import { geoHelper } from '../mixins/geoHelper'
-import Pagination from './Pagination.vue'
+    import Pagination from './Pagination.vue'
     export default {
         name: 'ActieAgenda',
         components: {Pagination},
@@ -115,7 +110,15 @@ import Pagination from './Pagination.vue'
             },
             themes: {
                 type: Array,
-                required: true,
+                default: () => [],
+            },
+            filterable: {
+                type: Boolean,
+                default: true,
+            },
+            organizerId: {
+                type: Number,
+                default: null,
             }
         },
         data() {
@@ -194,6 +197,7 @@ import Pagination from './Pagination.vue'
                         coordinates: this.coordinates,
                         distance: this.distance,
                         page: page,
+                        organizer: this.organizerId,
                     }
                 }).then((response) => {
                     this.acties = response.data.acties.data;

@@ -67,7 +67,7 @@ And you should be updated to the latest version :)
 - [x] Improve single action page responsiveness
 - [x] Implement organizers functionality
 - [x] Responsiveness of the home page
-- [ ] Make organizer's overview pages
+- [x] Make organizer's overview pages
 - [x] Pagination of acties on home page
 - [x] Filter acties that have passed
 - [ ] Add date filter to action page

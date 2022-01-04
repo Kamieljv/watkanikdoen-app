@@ -5592,11 +5592,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -5612,7 +5607,17 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     themes: {
       type: Array,
-      required: true
+      "default": function _default() {
+        return [];
+      }
+    },
+    filterable: {
+      type: Boolean,
+      "default": true
+    },
+    organizerId: {
+      type: Number,
+      "default": null
     }
   },
   data: function data() {
@@ -5706,7 +5711,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                     themes: this.themesSelected,
                     coordinates: this.coordinates,
                     distance: this.distance,
-                    page: page
+                    page: page,
+                    organizer: this.organizerId
                   }
                 }).then(function (response) {
                   _this2.acties = response.data.acties.data;
@@ -42809,7 +42815,7 @@ var render = function () {
                   "a",
                   {
                     staticClass: "font-medium hover:underline",
-                    attrs: { href: "#" },
+                    attrs: { href: _vm.actie.organizers[0].link },
                   },
                   [
                     _vm._v(
@@ -42869,103 +42875,103 @@ var render = function () {
   return _c(
     "div",
     [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("div", { staticClass: "row px-8 mx-auto xl:px-5 max-w-6xl" }, [
-        _c(
-          "div",
-          { staticClass: "row my-3", attrs: { id: "filter-container" } },
-          [
+      _vm.filterable
+        ? _c("div", { staticClass: "row px-8 mx-auto xl:px-5 max-w-6xl" }, [
             _c(
               "div",
-              {
-                staticClass: "col grid gap-3 grid-cols-2 sm:grid-cols-4",
-                attrs: { id: "filter-wrapper" },
-              },
+              { staticClass: "row my-3", attrs: { id: "filter-container" } },
               [
                 _c(
                   "div",
+                  {
+                    staticClass: "col grid gap-3 grid-cols-2 sm:grid-cols-4",
+                    attrs: { id: "filter-wrapper" },
+                  },
                   [
-                    _c("t-input", {
+                    _c(
+                      "div",
+                      [
+                        _c("t-input", {
+                          attrs: {
+                            type: "text",
+                            placeholder: "Zoeken...",
+                            autofocus: true,
+                          },
+                          on: { input: _vm.processQuery },
+                          model: {
+                            value: _vm.query,
+                            callback: function ($$v) {
+                              _vm.query = $$v
+                            },
+                            expression: "query",
+                          },
+                        }),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("t-rich-select", {
                       attrs: {
-                        type: "text",
-                        placeholder: "Zoeken...",
-                        autofocus: true,
+                        id: "category-selector",
+                        options: _vm.themes,
+                        textAttribute: "name",
+                        multiple: true,
+                        hideSearchBox: true,
+                        closeOnSelect: false,
+                        placeholder: "Thema...",
                       },
-                      on: { input: _vm.processQuery },
                       model: {
-                        value: _vm.query,
+                        value: _vm.themesSelected,
                         callback: function ($$v) {
-                          _vm.query = $$v
+                          _vm.themesSelected = $$v
                         },
-                        expression: "query",
+                        expression: "themesSelected",
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c("form-autocomplete", {
+                      attrs: {
+                        items: _vm.geoSuggestions,
+                        isAsync: true,
+                        placeholder: "Plaatsnaam",
+                      },
+                      on: {
+                        change: _vm.getGeoSuggestions,
+                        input: _vm.getCoordinates,
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c("form-slider", {
+                      attrs: {
+                        thumbColor: "var(--wkid-blue)",
+                        progressColor: "var(--wkid-blue)",
+                        unit: "km",
+                        min: 10,
+                        max: 150,
+                        currentValue: _vm.defaultDistance,
+                        delay: 400,
+                        disabled: !_vm.coordinatesPresent,
+                      },
+                      model: {
+                        value: _vm.distance,
+                        callback: function ($$v) {
+                          _vm.distance = $$v
+                        },
+                        expression: "distance",
                       },
                     }),
                   ],
                   1
                 ),
-                _vm._v(" "),
-                _c("t-rich-select", {
-                  attrs: {
-                    id: "category-selector",
-                    options: _vm.themes,
-                    textAttribute: "name",
-                    multiple: true,
-                    hideSearchBox: true,
-                    closeOnSelect: false,
-                    placeholder: "Thema...",
-                  },
-                  model: {
-                    value: _vm.themesSelected,
-                    callback: function ($$v) {
-                      _vm.themesSelected = $$v
-                    },
-                    expression: "themesSelected",
-                  },
-                }),
-                _vm._v(" "),
-                _c("form-autocomplete", {
-                  attrs: {
-                    items: _vm.geoSuggestions,
-                    isAsync: true,
-                    placeholder: "Plaatsnaam",
-                  },
-                  on: {
-                    change: _vm.getGeoSuggestions,
-                    input: _vm.getCoordinates,
-                  },
-                }),
-                _vm._v(" "),
-                _c("form-slider", {
-                  attrs: {
-                    thumbColor: "var(--wkid-blue)",
-                    progressColor: "var(--wkid-blue)",
-                    unit: "km",
-                    min: 10,
-                    max: 150,
-                    currentValue: _vm.defaultDistance,
-                    delay: 400,
-                    disabled: !_vm.coordinatesPresent,
-                  },
-                  model: {
-                    value: _vm.distance,
-                    callback: function ($$v) {
-                      _vm.distance = $$v
-                    },
-                    expression: "distance",
-                  },
-                }),
-              ],
-              1
+              ]
             ),
-          ]
-        ),
-      ]),
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _c("div", { staticClass: "row px-8 mx-auto xl:px-5 max-w-6xl mb-8" }, [
         _c("div", { staticClass: "col", staticStyle: { width: "100%" } }, [
           _c("div", { staticClass: "relative mx-auto w-full" }, [
-            _vm._m(1),
+            _vm._m(0),
             _vm._v(" "),
             _c("div", { staticClass: "relative mx-auto max-w-7xl" }, [
               !_vm.isGeladen
@@ -43066,18 +43072,6 @@ var render = function () {
   )
 }
 var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", {
-        staticClass:
-          "h-[200px] bg-gradient-to-br from-[var(--wkid-red)] to-[var(--wkid-blue)] flex items-bottom pb-[50px] justify-center",
-        attrs: { id: "filter-search-banner" },
-      }),
-    ])
-  },
   function () {
     var _vm = this
     var _h = _vm.$createElement

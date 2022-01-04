@@ -49,7 +49,7 @@ class Actie extends Model
      *
      * @var array
      */
-    protected $with = ['organizers:id,name,logo', 'categories', 'themes'];
+    protected $with = ['organizers:id,name,logo,slug', 'categories', 'themes'];
 
     public function getLinkAttribute(){
     	return url('/actie/' . $this->slug);
