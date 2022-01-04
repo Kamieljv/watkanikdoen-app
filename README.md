@@ -57,7 +57,10 @@ You may also need to clear the cache by running:
 
 And you should be updated to the latest version :)
 
-### To Do
+## Site Analytics
+For site analytics, we use [Umami](https://umami.is/), which is an open-source and self-hosted framework that enables simple analytics (pageviews, devices used and referrers). The analytics server is hosted by [Vercel](https://vercel.com/pricing), which is free for non-commercial use.
+
+## To Do
 - [x] Actie page pagination
 - [x] Add location, time to acties
 - [x] Make actie page filterable
