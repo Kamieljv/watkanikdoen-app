@@ -21,12 +21,11 @@ class CategoriesTableSeeder extends Seeder
         \DB::table('categories')->insert(array (
             0 => 
             array (
-                'created_at' => '2021-12-20 12:48:31',
                 'id' => 6,
-                'name' => 'Demonstratie',
                 'order' => 1,
-                'parent_id' => NULL,
+                'name' => 'Demonstratie',
                 'slug' => 'demonstratie',
+                'created_at' => '2021-12-20 12:48:31',
                 'updated_at' => '2021-12-20 12:48:31',
             ),
         ));
