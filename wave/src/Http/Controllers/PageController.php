@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 class PageController extends \App\Http\Controllers\Controller
 {
     public function page($slug){
-    	$page = Page::where('slug', '=', $slug)->firstOrFail();
+    	$page = Page::where('slug', '=', $slug)
+            ->where('status', '=', 'ACTIVE')->firstOrFail();
 
     	$seo = [
             'seo_title' => $page->title,

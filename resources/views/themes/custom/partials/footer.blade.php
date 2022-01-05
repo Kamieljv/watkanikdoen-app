@@ -136,15 +136,15 @@
             <ul class="flex flex-wrap space-x-5 text-xs">
                 <li class="mb-6 text-center flex-full lg:flex-none lg:mb-0">&copy; {{ date('Y') }} {{ setting('site.title', 'Laravel Wave') }}</li>
                 <li class="lg:ml-6">
-                    <a href="#_" class="relative inline-block text-black group">
+                    <a href="/privacybeleid" class="relative inline-block text-black group">
                         <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-0"></span>
                         <span>{{ __("Privacy Policy") }}</span>
                     </a>
                 </li>
                 <li class="lg:ml-6">
-                    <a href="#_" class="relative inline-block text-black group">
+                    <a href="/over-ons" class="relative inline-block text-black group">
                         <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-0"></span>
-                        <span>{{ __("Terms of Service") }}</span>
+                        <span>{{ __("general.about_us") }}</span>
                     </a>
                 </li>
             </ul>            

@@ -13,6 +13,7 @@ return [
     'written_on' => 'Geschreven op ', 
     'read_more' => 'Meer lezen...',
     'about' => 'Over',
+    'about_us' => 'Over ons',
     'mark_as_read' => 'Markeer als gelezen',
     'or_back_to' => 'of, keer terug naar de ',
     'or_you_can_here' => 'of, je kunt hier ',

@@ -78,6 +78,7 @@ For site analytics, we use [Umami](https://umami.is/), which is an open-source a
 - [ ] Make acties sortable
 - [ ] Static pages (About, Privacy policy, etc.)
 - [ ] Page analytics (e.g. Open Web Analytics, Umami or Plausible)
+- [ ] Cookiemelding
 - [x] Image compression after upload 
 - [ ] Localize Wave controller messages
 - [ ] Localize Voyager
