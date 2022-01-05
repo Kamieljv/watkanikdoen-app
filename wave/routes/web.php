@@ -28,7 +28,7 @@ Route::get('blog/{category}/{post}', '\Wave\Http\Controllers\BlogController@post
 Route::view('install', 'wave::install')->name('wave.install');
 
 /***** Pages *****/
-Route::get('p/{page}', '\Wave\Http\Controllers\PageController@page');
+Route::get('{page}', '\Wave\Http\Controllers\PageController@page')->name('wave.page');
 
 /***** Pricing Page *****/
 Route::view('pricing', 'theme::pricing')->name('wave.pricing');

@@ -32,7 +32,6 @@ class ActieController extends \TCG\Voyager\Http\Controllers\VoyagerBaseControlle
                 preg_filter('/^/', 'themes.id:', $request->get('themes')), // theme filters
                 ['organizers.id:' . $request->get('organizer')] // organization filter 
             ];
-            Log::debug($options);
             $options['aroundLatLng'] = $request->get('coordinates') ?? '';
             $options['aroundRadius'] = ($request->get('distance') ?? 9999) * 1000;
             $options['filters'] = "start_unix > ". time();
