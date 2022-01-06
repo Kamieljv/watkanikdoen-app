@@ -26,7 +26,7 @@ class LoginController extends \App\Http\Controllers\Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo = 'auth/dashboard';
 
     /**
      * Create a new controller instance.

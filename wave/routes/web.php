@@ -40,11 +40,9 @@ Route::post('checkout', '\Wave\Http\Controllers\SubscriptionController@checkout'
 
 Route::get('test', '\Wave\Http\Controllers\SubscriptionController@test');
 
-Route::group(['middleware' => 'wave'], function () {
+Route::group(['prefix' => 'auth', 'middleware' => 'auth'], function(){
 	Route::get('dashboard', '\Wave\Http\Controllers\DashboardController@index')->name('wave.dashboard');
-});
 
-Route::group(['middleware' => 'auth'], function(){
 	Route::get('settings/{section?}', '\Wave\Http\Controllers\SettingsController@index')->name('wave.settings');
 
 	Route::post('settings/profile', '\Wave\Http\Controllers\SettingsController@profilePut')->name('wave.settings.profile.put');
