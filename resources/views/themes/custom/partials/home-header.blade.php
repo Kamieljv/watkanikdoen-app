@@ -7,7 +7,7 @@
                     @svg('icon-logo', ['style' => 'stroke: currentColor; height: 52px;'])
                 </a>     
             </div>
-            <h1>{{ setting('site.title') }}</h1>
+            <h1 class="hidden md:block">{{ setting('site.title') }}</h1>
             
             <div class="flex justify-end flex-grow -my-2 -mr-2 md:hidden">
                 <button @click="mobileMenuOpen = true" type="button" class="inline-flex items-center justify-center p-2 transition duration-150 ease-in-out rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500">

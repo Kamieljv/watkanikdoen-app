@@ -1,7 +1,8 @@
 <template>
     <div>
-        <div v-if="filterable" class="row px-8 mx-auto xl:px-5 max-w-6xl">
+        <div v-if="filterable" class="row mx-auto max-w-6xl">
             <div id="filter-container" class="row my-3">
+                <h6 class="text-sm text-gray-400">Zoek & Filter</h6>
                 <div id="filter-wrapper" class="col grid gap-3 grid-cols-2 sm:grid-cols-4">
                     <div>
                         <t-input
@@ -43,7 +44,7 @@
                 </div>
             </div>
         </div>
-        <div class="row px-8 mx-auto xl:px-5 max-w-6xl mb-8" >
+        <div class="row mx-auto max-w-6xl mb-8" >
             <div class="col" style="width: 100%">
                 <div class="relative mx-auto w-full">
                     <div class="absolute inset-0">

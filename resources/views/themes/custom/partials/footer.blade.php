@@ -130,10 +130,10 @@
         </div>
 
         <div class="flex flex-col items-center justify-between py-10 border-t border-solid lg:flex-row border-gray">
-            <div>
+            <a id="footer-logo-link" href="{{ route('wave.home') }}">
                 @svg('icon-logo', ['style' => 'stroke: black; height: 32px;'])
-            </div>
-            <ul class="flex flex-wrap space-x-5 text-xs">
+            </a>
+            <ul class="flex flex-wrap space-x-5 text-xs mt-5 lg:mt-0">
                 <li class="mb-6 text-center flex-full lg:flex-none lg:mb-0">&copy; {{ date('Y') }} {{ setting('site.title', 'Laravel Wave') }}</li>
                 <li class="lg:ml-6">
                     <a href="/privacybeleid" class="relative inline-block text-black group">
@@ -148,7 +148,7 @@
                     </a>
                 </li>
             </ul>            
-            <ul class="flex items-center mt-10 space-x-5 lg:mt-0">
+            <ul class="flex items-center mt-5 space-x-5 lg:mt-0">
                 <li>
                     <a href="#" class="text-gray-600 hover:text-gray-900">
                         <span class="sr-only">Facebook</span>
