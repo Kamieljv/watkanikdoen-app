@@ -58,11 +58,11 @@
                                 <span class="mt-0 italic text-sm font-normal">{{ __("acties.created_at") }}: {{ $actie->created_at }}</span>
                             @endif
                             <div class="details-container text-sm text-gray-500">
-                                <div class="time">
-                                    <i class="far fa-calendar"></i> &nbsp; {{ $actie->start }}<br/>
+                                <div class="flex items-center text-sm leading-5 text-gray-700">
+                                    @svg('antdesign-clock-circle-o', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ $actie->start }}<br/>
                                 </div>
-                                <div class="location">
-                                    <i class="fas fa-map-marker-alt"></i> &nbsp; {{ $actie->location_human }}
+                                <div class="flex items-center text-sm leading-5 text-gray-700">
+                                    @svg('antdesign-environment-o', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ $actie->location_human }}
                                 </div>
                             </div>
                             <a href="{{ $actie->externe_link }}" class="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
@@ -74,11 +74,11 @@
                     <div class="sm:flex flex-col gap-3 not-prose p-3 bg-white rounded-lg shadow-lg overflow-hidden hidden">
                         <h3>{{ __("acties.details") }}</h3>
                         <div class="details-container text-sm text-gray-500">
-                            <div class="time">
-                                <i class="far fa-calendar"></i> &nbsp; {{ $actie->start }}<br/>
+                            <div class="flex items-center text-sm leading-5 text-gray-700">
+                                @svg('antdesign-clock-circle-o', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ $actie->start }}<br/>
                             </div>
-                            <div class="location">
-                                <i class="fas fa-map-marker-alt"></i> &nbsp; {{ $actie->location_human }}
+                            <div class="flex items-center text-sm leading-5 text-gray-700">
+                                @svg('antdesign-environment-o', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ $actie->location_human }}
                             </div>
                         </div>
                         <a href="{{ $actie->externe_link }}" class="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
@@ -100,7 +100,7 @@
                                         <img class="w-10 h-10 rounded-full" src="{{ $organizer->logo_path }}" alt="">
                                     </div>
                                     <div class="ml-3">
-                                        <p class="text-sm leading-5 text-gray-900">
+                                        <p class="text-sm font-medium hover:underline leading-5 text-gray-900">
                                             {{ $organizer->name }}
                                         </p>
                                     </div>

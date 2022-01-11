@@ -48,11 +48,11 @@
                 </div>
                 <div class="flex flex-col grow justify-between flex-1 bg-white">
                     <div class="details-container text-sm text-gray-500 p-3">
-                        <div class="time">
-                            <i class="far fa-calendar"></i> &nbsp; {{ actie.start }}<br/>
+                        <div class="flex items-center text-sm leading-5 text-gray-700">
+                            <svg-vue icon="antdesign-clock-circle-o" style="stroke: currentColor; height: 20px;"></svg-vue> &nbsp; {{ actie.start }}<br/>
                         </div>
-                        <div class="location">
-                            <i class="fas fa-map-marker-alt"></i> &nbsp; {{ actie.location_human }}
+                        <div class="flex items-center text-sm leading-5 text-gray-700">
+                            <svg-vue icon="antdesign-environment-o" style="stroke: currentColor; height: 20px;"></svg-vue> &nbsp; {{ actie.location_human }}
                         </div>
                     </div>
                 </div>
