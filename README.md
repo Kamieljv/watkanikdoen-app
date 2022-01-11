@@ -75,9 +75,11 @@ The analytics server is hosted on [http://watkanikdoen-analytics.herokuapp.com/]
 - [x] Pagination of acties on home page
 - [x] Filter acties that have passed
 - [ ] Add date filter to action page
-- [ ] Minimize information passed to views
+- [x] Minimize information passed to views
 - [ ] Make acties sortable
 - [ ] Static pages (About, Privacy policy, etc.)
+- [ ] Add flow for reporting new action and action moderation
+- [ ] Configure user roles (admin, moderator, user)
 - [ ] Page analytics (e.g. Open Web Analytics, Umami or Plausible)
 - [ ] Cookiemelding
 - [x] Image compression after upload 
