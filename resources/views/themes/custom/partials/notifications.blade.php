@@ -2,7 +2,7 @@
 
 @if(!isset($show_all_notifications))
     @php $unreadNotifications = auth()->user()->unreadNotifications->take(5); @endphp
-    <div id="notification-list" @click.away="open = false" class="relative flex items-center h-full" x-data="{ open: false }">
+    <div id="notification-list" @click.away="open = false" class="flex items-center h-full" x-data="{ open: false }">
         <div id="notification-icon relative">
             <button @click="open = !open" class="relative p-1 ml-3 text-gray-400 transition duration-150 ease-in-out rounded-full hover:text-gray-500 focus:outline-none focus:text-gray-500 focus:bg-gray-100">
                 <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -23,7 +23,7 @@
             x-transition:leave="transition duration-50 ease-in scale-100"
             x-transition:leave-start="opacity-100 scale-100"
             x-transition:leave-end="opacity-0 scale-95"
-            class="absolute top-0 right-0 max-w-lg mt-20 overflow-hidden origin-top-right transform rounded-lg shadow-lg max-w-7xl w-104" x-cloak>
+            class="absolute top-0 left-2 sm:left-auto right-2 sm:right-0 max-w-lg mt-[70px] sm:mt-[50px] overflow-hidden origin-top-right transform rounded-xl shadow-lg max-w-7xl w-104" x-cloak>
     @else
         <div class="relative top-0 right-0 w-full my-8 overflow-hidden origin-top max-w-7xl">
     @endif

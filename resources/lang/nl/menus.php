@@ -11,9 +11,15 @@
 */
 
 return [
+    'hello' => 'Hallo',
     'dashboard' => 'Dashboard',
+    'report_action' => 'Actie aanmelden',
     'blog' => 'Blog',
     'my_profile' => 'Mijn Profiel',
+    'log_out' => 'Uitloggen',
+    'log_in' => 'Inloggen',
+    'register' => 'Maak een account',
+    'notifications' => 'Notificaties',
     'settings' => 'Instellingen',
     'security' => 'Beveiliging',
     'profile_settings' => 'Profielinstellingen',

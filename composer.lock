@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e364696ac23285c99da37cb3e2f925c7",
+    "content-hash": "edc8326371252a7ad78bf793f85b6b37",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -423,6 +423,78 @@
                 }
             ],
             "time": "2021-08-15T20:50:18+00:00"
+        },
+        {
+            "name": "codeat3/blade-ant-design-icons",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/codeat3/blade-ant-design-icons.git",
+                "reference": "8c4c3872df2fa5c729a238bc262282fcc1e9de4a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/codeat3/blade-ant-design-icons/zipball/8c4c3872df2fa5c729a238bc262282fcc1e9de4a",
+                "reference": "8c4c3872df2fa5c729a238bc262282fcc1e9de4a",
+                "shasum": ""
+            },
+            "require": {
+                "blade-ui-kit/blade-icons": "^1.0",
+                "illuminate/support": "^8.0",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "codeat3/blade-icon-generation-helpers": "dev-poc",
+                "codeat3/phpcs-styles": "dev-main",
+                "orchestra/testbench": "^6.0",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Codeat3\\BladeAntDesignIcons\\BladeAntDesignIconsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Codeat3\\BladeAntDesignIcons\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Swapnil Sarwe",
+                    "homepage": "https://swapnilsarwe.com"
+                },
+                {
+                    "name": "Dries Vints",
+                    "homepage": "https://driesvints.com"
+                }
+            ],
+            "description": "A package to easily make use of Ant Design Icons in your Laravel Blade views.",
+            "homepage": "https://github.com/codeat3/blade-ant-design-icons",
+            "keywords": [
+                "ant-design",
+                "blade",
+                "icons",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/codeat3/blade-ant-design-icons/issues",
+                "source": "https://github.com/codeat3/blade-ant-design-icons/tree/1.2.1"
+            },
+            "funding": [
+                {
+                    "url": "https://www.buymeacoffee.com/swapnilsarwe",
+                    "type": "custom"
+                }
+            ],
+            "time": "2022-01-03T08:55:05+00:00"
         },
         {
             "name": "composer/ca-bundle",

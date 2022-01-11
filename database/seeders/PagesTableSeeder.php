@@ -51,6 +51,21 @@ class PagesTableSeeder extends Seeder
                 'created_at' => '2022-01-05 10:18:41',
                 'updated_at' => '2022-01-05 10:20:05',
             ),
+            2 => 
+            array (
+                'id' => 4,
+                'author_id' => 1,
+                'title' => 'Contact',
+                'excerpt' => 'Dit is de contactpagina.',
+                'body' => '<p>Dit is de contactpagina.</p>',
+                'image' => NULL,
+                'slug' => 'contact',
+                'meta_description' => 'contact',
+                'meta_keywords' => 'contact',
+                'status' => 'ACTIVE',
+                'created_at' => '2022-01-11 09:53:31',
+                'updated_at' => '2022-01-11 09:53:31',
+            ),
         ));
         
         
