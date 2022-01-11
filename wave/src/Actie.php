@@ -42,6 +42,11 @@ class Actie extends Model
 
     protected $hidden = [
         'location',
+        'id',
+        'author_id',
+        'status',
+        'image',
+        'slug',
     ];
 
     /**
@@ -49,7 +54,7 @@ class Actie extends Model
      *
      * @var array
      */
-    protected $with = ['organizers:id,name,logo,slug', 'categories', 'themes'];
+    protected $with = ['organizers:id,name,logo,slug', 'categories:id,name', 'themes:id,name'];
 
     public function getLinkAttribute(){
     	return url('/actie/' . $this->slug);

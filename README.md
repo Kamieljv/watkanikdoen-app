@@ -58,7 +58,8 @@ You may also need to clear the cache by running:
 And you should be updated to the latest version :)
 
 ## Site Analytics
-For site analytics, we use [Umami](https://umami.is/), which is an open-source and self-hosted framework that enables simple analytics (pageviews, devices used and referrers). The analytics server is hosted by [Vercel](https://vercel.com/pricing), which is free for non-commercial use.
+For site analytics, we use [Umami](https://umami.is/), which is an open-source and self-hosted framework that enables simple analytics (pageviews, devices used and referrers).
+The analytics server is hosted on [http://watkanikdoen-analytics.herokuapp.com/](http://watkanikdoen-analytics.herokuapp.com/).
 
 ## To Do
 - [x] Actie page pagination
