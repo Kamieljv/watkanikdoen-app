@@ -81,14 +81,13 @@
     <!-- End Full Loader -->
 
 
-    @include('theme::partials.toast')
-    @if(session('message'))
-        <script>setTimeout(function(){ popToast("{{ session('message_type') }}", "{{ session('message') }}"); }, 10);</script>
-    @endif
+    
     @waveCheckout
 
     <!-- Scripts -->
     <script src="{{ asset('themes/' . $theme->folder . '/js/app.js') }}"></script>
     @stack('scripts')
+    
+    @include('theme::partials.toast')
 </body>
 </html>

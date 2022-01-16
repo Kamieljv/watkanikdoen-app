@@ -10,8 +10,8 @@
 */
 
 return [
-    'notice' => 'Melding',
+    'info' => 'Melding',
     'warning' => 'Waarschuwing',
-    'success' => 'Succesvol',
-    'danger' => 'Er ging iets mis.',
+    'success' => 'Het is gelukt',
+    'error' => 'Oeps!',
 ];

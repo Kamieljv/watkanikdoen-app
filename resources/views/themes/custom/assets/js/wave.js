@@ -52,29 +52,6 @@ for (var i = 0; i < markAsRead.length; i++) {
 
 /********** END NOTIFICATION FUNCTIONALITY **********/
 
-/********** START TOAST FUNCTIONALITY **********/
-
-window.popToast = function(type, message){
-    document.getElementById('toast').__x.$data.type = type;
-    document.getElementById('toast').__x.$data.message = message;
-    document.getElementById('toast').__x.$data.show = true;
-
-    setTimeout(function(){
-        document.getElementById('toast_bar').classList.remove('w-full');
-        document.getElementById('toast_bar').classList.add('w-0');
-    }, 150);
-    // After 4 seconds hide the toast
-    setTimeout(function(){
-        document.getElementById('toast').__x.$data.show = false;
-        setTimeout(function(){
-            document.getElementById('toast_bar').classList.remove('w-0');
-            document.getElementById('toast_bar').classList.add('w-full');
-        }, 300);
-    }, 4000);
-}
-
-/********** END TOAST FUNCTIONALITY **********/
-
 /********** Start Billing Checkout Functionality ***********/
 
 /***** Payment Success Functionality */

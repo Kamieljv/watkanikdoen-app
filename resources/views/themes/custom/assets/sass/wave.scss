@@ -40,6 +40,21 @@
   --wkid-blue-light: #4fa7ff;
   --wkid-yellow-light: #ffdf50;
 
+  --wkid-message-info: var(--wkid-blue);
+  --wkid-message-warning: #ff8b1f;
+  --wkid-message-success: #45da20;
+  --wkid-message-error: var(--wkid-red);;
+
+  --wkid-message-info-dark: var(--wkid-blue-dark);
+  --wkid-message-warning-dark: #ce6503;
+  --wkid-message-success-dark: #237210;
+  --wkid-message-error-dark: var(--wkid-red-dark);;
+
+  --wkid-message-info-light: var(--wkid-blue-light);
+  --wkid-message-warning-light: #ffc38b;
+  --wkid-message-success-light: #97ee82;
+  --wkid-message-error-light: var(--wkid-red-light);;
+
 }
 
 [x-cloak]{
