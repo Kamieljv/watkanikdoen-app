@@ -37,18 +37,18 @@
                     </div>
                 </div>
                 <div class="flex flex-col justify-between flex-1 bg-white">
-                    <div class="title-body-container p-3 h-[90px] overflow-hidden relative">
-                        <h3 class=" text-xl font-semibold leading-7 text-gray-900">
+                    <div class="title-body-container p-3 h-[110px] overflow-hidden relative">
+                        <h3 class="truncate text-xl font-semibold leading-7 text-gray-900">
                             {{ actie.title }}
                         </h3>
-                        <p class="mt-1 text-sm text-gray-500">
+                        <p class="mt-1 line-clamp-3 text-sm text-gray-500">
                             {{ actie.body }}
                         </p>
                     </div>
                 </div>
                 <div class="flex flex-col grow justify-between flex-1 bg-white">
                     <div class="details-container text-sm text-gray-500 p-3">
-                        <div class="flex items-center text-sm leading-5 text-gray-700">
+                        <div class="flex items-center mb-1 text-sm leading-5 text-gray-700">
                             <svg-vue icon="antdesign-clock-circle-o" style="stroke: currentColor; height: 20px;"></svg-vue> &nbsp; {{ actie.start }}<br/>
                         </div>
                         <div class="flex items-center text-sm leading-5 text-gray-700">

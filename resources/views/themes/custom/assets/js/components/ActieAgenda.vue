@@ -151,9 +151,7 @@
             },
             actiesFormatted() {
                 this.acties.forEach((actie) => {
-                    // filter HTML tags and take first 200 chars
-                    var newBody = actie.body.replace(/(<([^>]+)>)/gi, "");
-                    actie.body = (newBody.length > 200)? newBody.substring(0,80) + '...' : newBody.substring(0,80);
+                    actie.body = actie.body.replace(/(<([^>]+)>)/gi, "");
                     if (actie._geoloc && this.coordinates !== '') {
                         let coordinates = this.coordinates.split(",");
                         // calculate distance to actie in km
