@@ -1,8 +1,8 @@
 <form action="{{ route('wave.settings.profile.put') }}" method="POST" enctype="multipart/form-data">
-	<div class="relative flex flex-col px-10 py-8 lg:flex-row">
+	<div class="relative flex flex-col p-6 lg:flex-row">
 		<div class="flex justify-start w-full mb-8 lg:w-3/12 xl:w-1/5 lg:m-b0">
 			<div class="relative w-32 h-32 cursor-pointer group">
-				<img id="preview" src="{{ Voyager::image(auth()->user()->avatar_path) . '?' . time() }}" class="w-32 h-32 rounded-full ">
+				<img id="preview" src="{{ auth()->user()->avatar_path . '?' . time() }}" class="w-32 h-32 rounded-full ">
 				<div class="absolute inset-0 w-full h-full">
 				    <input type="file" id="upload" class="absolute inset-0 z-20 w-full h-full opacity-0 cursor-pointer group">
 				    <input type="hidden" id="uploadBase64" name="avatar">
@@ -16,14 +16,16 @@
 			<div>
 				<label for="name" class="block text-sm font-medium leading-5 text-gray-700">{{ __("Name") }}</label>
 				<div class="mt-1 rounded-md shadow-sm">
-					<input id="name" type="text" name="name" placeholder="Name" value="{{ Auth::user()->name }}" required class="w-full form-input">
+					<input id="name" type="text" name="name" value="{{ Auth::user()->name }}" required 
+					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 				</div>
 			</div>
 
 			<div class="mt-5">
 				<label for="email" class="block text-sm font-medium leading-5 text-gray-700">{{ __("Email Address") }}</label>
 				<div class="mt-1 rounded-md shadow-sm">
-					<input id="email" type="text" name="email" placeholder="Email Address" value="{{ Auth::user()->email }}" required class="w-full form-input">
+					<input id="email" type="text" name="email" value="{{ Auth::user()->email }}" required 
+					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 				</div>
 			</div>
 

@@ -1,24 +1,27 @@
 <form action="{{ route('wave.settings.security.put') }}" method="POST" enctype="multipart/form-data">
-	<div class="relative flex flex-col px-10 py-8">
+	<div class="relative flex flex-col p-6">
 		
 		<div>
 			<label for="current_password" class="block text-sm font-medium leading-5 text-gray-700">{{ __("Current Password") }}</label>
 			<div class="mt-1 rounded-md shadow-sm">
-				<input id="current_password" type="password" name="current_password" placeholder="Current Password" class="w-full form-input">
+				<input id="current_password" type="password" name="current_password"
+				class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 			</div>
 		</div>
 
 		<div class="mt-5">
 			<label for="password" class="block text-sm font-medium leading-5 text-gray-700">{{ __("New Password") }}</label>
 			<div class="mt-1 rounded-md shadow-sm">
-				<input id="password" type="password" name="password" placeholder="New Password" class="w-full form-input">
+				<input id="password" type="password" name="password"
+				class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 			</div>
 		</div>
 
 		<div class="mt-5">
 			<label for="password_confirmation" class="block text-sm font-medium leading-5 text-gray-700">{{ __("Confirm") }} {{ __("New Password") }}</label>
 			<div class="mt-1 rounded-md shadow-sm">
-				<input id="password_confirmation" type="password" name="password_confirmation" placeholder="Confirm New Password" class="w-full form-input">
+				<input id="password_confirmation" type="password" name="password_confirmation" 
+				class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 			</div>
 		</div>
 

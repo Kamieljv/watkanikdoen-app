@@ -9,7 +9,7 @@
     <div class="fixed inset-0 z-40 flex items-end justify-center px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end">
         <div id="toast"
             x-data="{ show: true }" @click="show = false"
-            x-init="setTimeout(() => show = false, 4000); setTimeout(() => $refs.toast_bar.classList.add('w-0'), 20)"
+            x-init="setTimeout(() => show = false, 4000); setTimeout(() => $refs.toast_bar.classList.add('w-0'), 10)"
             x-show="show"
             x-transition:enter="transform ease-out duration-300 transition"
             x-transition:enter-start="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
@@ -40,7 +40,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="toast_bar" x-ref="toast_bar" class="absolute bottom-0 left-0 w-full h-1 transition-all ease-out"
+                <div id="toast_bar" x-ref="toast_bar" class="absolute bottom-0 left-0 w-full h-1 transition-all"
                     style="transition-duration: 3950ms; background: var(--wkid-message-{{$type}})"></div>
             </div>
         </div>

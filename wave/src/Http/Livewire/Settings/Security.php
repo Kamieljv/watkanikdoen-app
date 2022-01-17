@@ -26,7 +26,7 @@ class Security extends Component
         ])->save();
 
         // Display success toast notification
-        $this->dispatchBrowserEvent('popToast', ['type' => 'success', 'message' => 'Successfully updated your password']);
+        session()->flash('success', 'Successfully updated your password');
 
         // Clear the input fields
         $this->current_password = $this->password = $this->password_confirmation = "";

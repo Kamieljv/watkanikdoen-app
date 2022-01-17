@@ -2,35 +2,39 @@
 
 @section('content')
 
-	<div class="flex px-8 mx-auto my-6 max-w-6xl xl:px-5">
+	<div class="grid grid-cols-4 gap-3 px-8 mx-auto my-6 max-w-6xl xl:px-5">
 
 		<!-- Left Settings Menu -->
-		<div class="w-16 mr-6 md:w-1/5">
+		<div class="w-full mr-6 col-span-4 md:col-span-1">
 
-			<div class="relative flex flex-col items-start justify-center w-full py-6 bg-white border rounded-lg border-gray-150">
-				<h3 class="hidden px-6 pb-3 text-xs font-semibold leading-4 tracking-wider text-gray-500 uppercase md:block">{{ __("menus.settings") }}</h3>
+			<div class="relative grid grid-cols-2 items-center justify-center w-full py-1 md:py-0 bg-white border rounded-lg border-gray-150">
+				<h3 class="col-span-2 px-6 py-3 md:pb-3 text-xs font-semibold leading-4 tracking-wider text-gray-500 uppercase">{{ __("menus.settings") }}</h3>
 
-				<a href="{{ route('wave.settings', 'profile') }}" class="block relative w-full flex items-center px-6 py-3 text-sm font-medium leading-5 @if(Request::is('settings/profile')){{ 'text-gray-900' }}@else{{ 'text-gray-600' }}@endif transition duration-150 ease-in-out rounded-md group hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50">
-					<svg class="flex-shrink-0 w-5 h-5 mr-3 -ml-1 @if(Request::is('settings/profile')){{ 'text-gray-500' }}@else{{ 'text-gray-400' }}@endif transition duration-150 ease-in-out group-hover:text-gray-500 group-focus:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-					<span class="hidden truncate md:inline-block">{{ __("Profile") }}</span>
-					<span class="absolute left-0 block w-1 transition-all duration-300 ease-out rounded-full @if(Request::is('settings/profile')){{ 'bg-blue-500 h-full top-0' }}@else{{ 'top-1/2 bg-gray-300 group-hover:top-0 h-0 group-hover:h-full' }}@endif "></span>
+				<a href="{{ route('wave.settings', 'profile') }}" class="block col-span-1 md:col-span-2 relative w-full flex items-center px-6 py-3 text-sm font-medium leading-5 @if(Request::is('auth/settings/profile')){{ 'text-gray-900 bg-gray-50' }}@else{{ 'text-gray-600' }}@endif transition duration-150 ease-in-out rounded-md group hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50">
+					@svg('antdesign-user-o', ['style' => 'width: 20px; height: 20px;']) &nbsp;
+					<span class="truncate">{{ __("Profile") }}</span>
+					<span class="absolute left-0 block w-1 transition-all duration-300 ease-out rounded-full @if(Request::is('auth/settings/profile')){{ 'bg-blue-500 h-full top-0' }}@else{{ 'top-1/2 bg-gray-300 group-hover:top-0 h-0 group-hover:h-full' }}@endif "></span>
 				</a>
-				<a href="{{ route('wave.settings', 'security') }}" class="block relative w-full flex items-center px-6 py-3 text-sm font-medium leading-5 @if(Request::is('settings/security')){{ 'text-gray-900' }}@else{{ 'text-gray-600' }}@endif transition duration-150 ease-in-out rounded-md group hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50">
-					<svg class="flex-shrink-0 w-5 h-5 mr-3 -ml-1 @if(Request::is('settings/security')){{ 'text-gray-500' }}@else{{ 'text-gray-400' }}@endif transition duration-150 ease-in-out group-hover:text-gray-500 group-focus:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-					<span class="hidden truncate md:inline-block">{{ __("menus.security") }}</span>
-					<span class="absolute left-0 block w-1 transition-all duration-300 ease-out rounded-full @if(Request::is('settings/security')){{ 'bg-blue-500 h-full top-0' }}@else{{ 'top-1/2 bg-gray-300 group-hover:top-0 h-0 group-hover:h-full' }}@endif "></span>
+				<a href="{{ route('wave.settings', 'security') }}" class="block col-span-1 md:col-span-2 relative w-full flex items-center px-6 py-3 text-sm font-medium leading-5 @if(Request::is('auth/settings/security')){{ 'text-gray-900 bg-gray-50' }}@else{{ 'text-gray-600' }}@endif transition duration-150 ease-in-out rounded-md group hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50">
+					@svg('antdesign-lock-o', ['style' => 'width: 20px; height: 20px;']) &nbsp;
+					<span class="truncate">{{ __("menus.security") }}</span>
+					<span class="absolute left-0 block w-1 transition-all duration-300 ease-out rounded-full @if(Request::is('auth/settings/security')){{ 'bg-blue-500 h-full top-0' }}@else{{ 'top-1/2 bg-gray-300 group-hover:top-0 h-0 group-hover:h-full' }}@endif "></span>
 				</a>
 			</div>
 
 		</div>
 		<!-- End Settings Menu -->
 
-		<div class="flex flex-col w-full bg-white border rounded-lg md:w-4/5 border-gray-150">
+		<div class="flex flex-col w-full bg-white border rounded-lg col-span-4 md:col-span-3 border-gray-150">
 			<div class="flex flex-wrap items-center justify-between border-b border-gray-200 sm:flex-no-wrap">
 	            <div class="relative p-6">
 	                <h3 class="flex text-lg font-medium leading-6 text-gray-600">
-						<svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-						{{ __("menus." . (str_replace('-', ' ', Request::segment(2)) ?? 'profile') . '_settings') }}
+						@if (Request::is('auth/settings/profile'))
+							@svg('antdesign-user-o', ['style' => 'width: 20px; height: 20px;']) &nbsp;
+						@elseif (Request::is('auth/settings/security'))
+							@svg('antdesign-lock-o', ['style' => 'width: 20px; height: 20px;']) &nbsp;
+						@endif('antdesign-user-o', ['style' => 'width: 20px; height: 20px;'])
+						{{ __("menus." . (str_replace('-', ' ', Request::segment(3)) ?? 'profile') . '_settings') }}
 	                </h3>
 	            </div>
 	        </div>

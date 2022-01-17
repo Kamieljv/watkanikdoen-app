@@ -60,7 +60,7 @@ class SettingsController extends Controller
 	    	}
     	}
 
-    	return back()->with(['message' => 'Successfully updated user profile', 'message_type' => 'success']);
+    	return back()->with('success', __('settings.profile.update_success'));
     }
 
     public function securityPut(Request $request){
