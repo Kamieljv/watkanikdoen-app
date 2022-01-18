@@ -2,13 +2,13 @@
 
 @section('content')
 
-    <div class="max-w-4xl flex px-5 mx-auto mt-10 lg:px-0">
+    <div class="max-w-4xl mx-auto mt-10 px-5 lg:px-0 flex">
         <a href="{{ route('wave.home') }}" class="flex items-center text-sm font-bold cursor-pointer text-gray-700">
             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
             {{ __("acties.back_to_acties") }}
         </a>
     </div>
-    <article id="post-{{ $actie->id }}" class="max-w-4xl px-5 mb-4 mx-auto prose lg:px-0">
+    <article id="post-{{ $actie->id }}" class="max-w-4xl px-5 mb-4 mx-auto prose lg:px-0 mt-6">
         <meta property="name" content="{{ $actie->title }}">
         <meta property="author" typeof="Person" content="admin">
         <meta property="dateModified" content="{{ Carbon\Carbon::parse($actie->updated_at)->toIso8601String() }}">
