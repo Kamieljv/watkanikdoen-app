@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Support\Facades\Route;
 use Wave\ActieTheme;
+use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
@@ -16,9 +17,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (setting('auth.dashboard_redirect', true) !== "null") {
+        if (setting('auth.dashboard_redirect') !== null) {
             if (!Auth::guest()) {
-                return redirect('dashboard');
+                return redirect('auth/dashboard');
             }
         }
 
