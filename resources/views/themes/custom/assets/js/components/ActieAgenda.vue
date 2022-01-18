@@ -98,157 +98,157 @@
 </template>
 
 <script>
-    import { geoHelper } from '../mixins/geoHelper'
-    import Pagination from './Pagination.vue'
-    export default {
-        name: 'ActieAgenda',
-        components: {Pagination},
-        mixins: [geoHelper],
-        props: {
-            routes: {
-                type: Object,
-                required: true,
-            },
-            themes: {
-                type: Array,
-                default: () => [],
-            },
-            filterable: {
-                type: Boolean,
-                default: true,
-            },
-            organizerId: {
-                type: Number,
-                default: null,
-            }
-        },
-        data() {
-            return {
-                acties: [],
-                themesSelected: '',
-                query: '',
-                coordinates: '',
-                distance: null,
-                defaultDistance: 100,
-                geoSuggestions: [],
-                isGeladen: true,
-                heeftFout: false,
-                currentPage: null,
-                perPage: null,
-                total: null,
-                base_link: null,
-            }
-        },
-        computed: {
-            sliderArray() {
-                return [...Array(10+1).keys()].slice(1).map((v) => {return v * stepSize})
-            },
-            skeletonArray() {
-                return [...Array(10).keys()];
-            },
-            heeftActies() {
-                return (this.acties.length > 0);
-            },
-            actiesFormatted() {
-                this.acties.forEach((actie) => {
-                    actie.body = actie.body.replace(/(<([^>]+)>)/gi, "");
-                    if (actie._geoloc && this.coordinates !== '') {
-                        let coordinates = this.coordinates.split(",");
-                        // calculate distance to actie in km
-                        actie.distance = this.calcDistance(actie._geoloc.lat, actie._geoloc.lng,
-                                                            coordinates[0], coordinates[1]).toFixed(1);
-                    } else {
-                        actie.distance = null;
-                    }
-                    return actie
-                });
-                return this.acties;
-            },
-            coordinatesPresent() {
-                return this.coordinates !== '';
-            }
-        },
-        watch: {
-            query: function() {
-                this.getActies();
-            },
-            themesSelected: function() {
-                this.getActies();
-            },
-            distance: function() {
-                this.getActies();
-            },
-            coordinates: function() {
-                this.distance = (this.distance === null)? this.defaultDistance : this.distance;
-            }
-        },
-        mounted() {
-            this.getActies();
-        },
-        methods: {
-            getActies: _.debounce(async function getActies(page = 1) {
-                this.isGeladen = false;
-                this.heeftFout = false;
-                axios.get(this.routes['wave.acties.search'].uri, {
-                    params: {
-                        q: this.query,
-                        themes: this.themesSelected,
-                        coordinates: this.coordinates,
-                        distance: this.distance,
-                        page: page,
-                        organizer: this.organizerId,
-                    }
-                }).then((response) => {
-                    this.acties = response.data.acties.data;
-                    this.currentPage = response.data.acties.current_page;
-                    this.perPage = response.data.acties.per_page;
-                    this.total = response.data.acties.total;
-                    this.base_link = response.data.acties.first_page_url;
-                }).catch((error) => {
-                    this.heeftFout = true;
-                }).finally(() => {
-                    this.isGeladen = true;
-                });
-            }, 500),
-            processQuery: _.debounce(function(input) {
-                this.query = input;
-            }, 500),
-            async getGeoSuggestions(geoQuery) {
-                axios.get('https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest', {
-                    params: {
-                        q: geoQuery,
-                        rows: 5,
-                        fl: "id,weergavenaam",
-                        fq: "type:woonplaats",
-                    }
-                }).then((data) => {
-                    this.geoSuggestions = Object.keys(data.data.highlighting).map((key) => {
-                        return {
-                            id: key,
-                            name: data.data.highlighting[key].suggest[0]
-                        }
-                    });
-                });
-            },
-            async getCoordinates(obj) {
-                this.isGeladen = false;
-                if (obj !== '') { 
-                    axios.get('https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup', {
-                        params: {
-                            id: obj.id,
-                            rows: 1,
-                        }
-                    }).then((data) => {
-                        let pointString = data.data.response.docs[0].centroide_ll;
-                        this.coordinates = pointString.slice(6,pointString.length-1).split(" ").reverse().join(",")
-                        this.getActies();
-                    });
-                } else {
-                    this.coordinates = '';
-                    this.getActies();
-                }
-            }
-        }
-    }
+import { geoHelper } from "../mixins/geoHelper"
+import Pagination from "./Pagination.vue"
+export default {
+	name: "ActieAgenda",
+	components: {Pagination},
+	mixins: [geoHelper],
+	props: {
+		routes: {
+			type: Object,
+			required: true,
+		},
+		themes: {
+			type: Array,
+			default: () => [],
+		},
+		filterable: {
+			type: Boolean,
+			default: true,
+		},
+		organizerId: {
+			type: Number,
+			default: null,
+		}
+	},
+	data() {
+		return {
+			acties: [],
+			themesSelected: "",
+			query: "",
+			coordinates: "",
+			distance: null,
+			defaultDistance: 100,
+			geoSuggestions: [],
+			isGeladen: true,
+			heeftFout: false,
+			currentPage: null,
+			perPage: null,
+			total: null,
+			base_link: null,
+		}
+	},
+	computed: {
+		sliderArray() {
+			return [...Array(10+1).keys()].slice(1).map((v) => {return v * stepSize})
+		},
+		skeletonArray() {
+			return [...Array(10).keys()]
+		},
+		heeftActies() {
+			return (this.acties.length > 0)
+		},
+		actiesFormatted() {
+			this.acties.forEach((actie) => {
+				actie.body = actie.body.replace(/(<([^>]+)>)/gi, "")
+				if (actie._geoloc && this.coordinates !== "") {
+					let coordinates = this.coordinates.split(",")
+					// calculate distance to actie in km
+					actie.distance = this.calcDistance(actie._geoloc.lat, actie._geoloc.lng,
+						coordinates[0], coordinates[1]).toFixed(1)
+				} else {
+					actie.distance = null
+				}
+				return actie
+			})
+			return this.acties
+		},
+		coordinatesPresent() {
+			return this.coordinates !== ""
+		}
+	},
+	watch: {
+		query: function() {
+			this.getActies()
+		},
+		themesSelected: function() {
+			this.getActies()
+		},
+		distance: function() {
+			this.getActies()
+		},
+		coordinates: function() {
+			this.distance = (this.distance === null)? this.defaultDistance : this.distance
+		}
+	},
+	mounted() {
+		this.getActies()
+	},
+	methods: {
+		getActies: _.debounce(async function getActies(page = 1) {
+			this.isGeladen = false
+			this.heeftFout = false
+			axios.get(this.routes["wave.acties.search"].uri, {
+				params: {
+					q: this.query,
+					themes: this.themesSelected,
+					coordinates: this.coordinates,
+					distance: this.distance,
+					page: page,
+					organizer: this.organizerId,
+				}
+			}).then((response) => {
+				this.acties = response.data.acties.data
+				this.currentPage = response.data.acties.current_page
+				this.perPage = response.data.acties.per_page
+				this.total = response.data.acties.total
+				this.base_link = response.data.acties.first_page_url
+			}).catch((error) => {
+				this.heeftFout = true
+			}).finally(() => {
+				this.isGeladen = true
+			})
+		}, 500),
+		processQuery: _.debounce(function(input) {
+			this.query = input
+		}, 500),
+		async getGeoSuggestions(geoQuery) {
+			axios.get("https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest", {
+				params: {
+					q: geoQuery,
+					rows: 5,
+					fl: "id,weergavenaam",
+					fq: "type:woonplaats",
+				}
+			}).then((data) => {
+				this.geoSuggestions = Object.keys(data.data.highlighting).map((key) => {
+					return {
+						id: key,
+						name: data.data.highlighting[key].suggest[0]
+					}
+				})
+			})
+		},
+		async getCoordinates(obj) {
+			this.isGeladen = false
+			if (obj !== "") { 
+				axios.get("https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup", {
+					params: {
+						id: obj.id,
+						rows: 1,
+					}
+				}).then((data) => {
+					let pointString = data.data.response.docs[0].centroide_ll
+					this.coordinates = pointString.slice(6,pointString.length-1).split(" ").reverse().join(",")
+					this.getActies()
+				})
+			} else {
+				this.coordinates = ""
+				this.getActies()
+			}
+		}
+	}
+}
 </script>
 

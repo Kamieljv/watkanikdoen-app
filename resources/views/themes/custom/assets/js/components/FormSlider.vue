@@ -32,100 +32,100 @@
 </template>
 
 <script>
-    export default {
-        name: "FormSlider",
-        props: {
-            currentValue: {
-                type: Number,
-                required: false,
-            },
-            unit: {
-                type: String
-            },
-            rangeWidth: {
-                type: String,
-                required: false,
-                default: "100%",
-            },
-            delay: {
-                type: Number, 
-                required: false,
-                default: 500,
-            },
-            disabled: {
-                type: Boolean,
-                default: false,
-            },
-            progressColor: {
-                type: String,
-                required: false,
-                default: "#000c",
-            },
-            trackColor: {
-                type: String,
-                required: false,
-                default: "#0003",
-            },
-            squaredThumb: {
-                type: Boolean,
-                required: false,
-                default: false,
-            },
-            thumbColor: {
-                type: String,
-                required: false,
-                default: "blue",
-            },
-            thumbSize: {
-                type: String,
-                required: false,
-                default: "11px",
-            },
-            trackHeight: {
-                type: String,
-                default: "5px",
-            },
-            max: {
-                type: Number,
-                required: false,
-                default: 100,
-            },
-            min: {
-                type: Number,
-                required: false,
-                default: 10,
-            },
-        },
-        data() {
-            return {
-                value: this.currentValue,
-            }
-        }, 
-        computed: {
-            updateWebkitProgress() {
-                const progress = (this.value / this.max) * 100 + "%";
-                return this.$refs.range.style.setProperty("--webkit-progress", progress);
-            },
-        },
-        mounted() {
-            this.updateWebkitProgress;
-        },
-        watch: {
-            value: function() {
-                this.updateWebkitProgress;
-            },
-        },
-        computed: {
-            inputCaptured() {
-                return _.debounce(this.processInput, this.delay)
-            }
-        },
-        methods: {
-            processInput(event) {
-                this.$emit('input', Number(event.target.value));
-            },
-        },
-    };
+export default {
+	name: "FormSlider",
+	props: {
+		currentValue: {
+			type: Number,
+			required: false,
+		},
+		unit: {
+			type: String
+		},
+		rangeWidth: {
+			type: String,
+			required: false,
+			default: "100%",
+		},
+		delay: {
+			type: Number, 
+			required: false,
+			default: 500,
+		},
+		disabled: {
+			type: Boolean,
+			default: false,
+		},
+		progressColor: {
+			type: String,
+			required: false,
+			default: "#000c",
+		},
+		trackColor: {
+			type: String,
+			required: false,
+			default: "#0003",
+		},
+		squaredThumb: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
+		thumbColor: {
+			type: String,
+			required: false,
+			default: "blue",
+		},
+		thumbSize: {
+			type: String,
+			required: false,
+			default: "11px",
+		},
+		trackHeight: {
+			type: String,
+			default: "5px",
+		},
+		max: {
+			type: Number,
+			required: false,
+			default: 100,
+		},
+		min: {
+			type: Number,
+			required: false,
+			default: 10,
+		},
+	},
+	data() {
+		return {
+			value: this.currentValue,
+		}
+	}, 
+	computed: {
+		updateWebkitProgress() {
+			const progress = (this.value / this.max) * 100 + "%"
+			return this.$refs.range.style.setProperty("--webkit-progress", progress)
+		},
+	},
+	mounted() {
+		this.updateWebkitProgress
+	},
+	watch: {
+		value: function() {
+			this.updateWebkitProgress
+		},
+	},
+	computed: {
+		inputCaptured() {
+			return _.debounce(this.processInput, this.delay)
+		}
+	},
+	methods: {
+		processInput(event) {
+			this.$emit("input", Number(event.target.value))
+		},
+	},
+}
 </script>
 
 <style scoped>

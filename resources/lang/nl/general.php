@@ -10,7 +10,7 @@
 */
 
 return [
-    'written_on' => 'Geschreven op ', 
+    'written_on' => 'Geschreven op ',
     'read_more' => 'Meer lezen...',
     'about' => 'Over',
     'about_us' => 'Over ons',

@@ -2,14 +2,13 @@
 
 namespace Wave\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Auth;
 use Illuminate\Support\Facades\Route;
-use Wave\Actie;
 use Wave\ActieTheme;
 
-class HomeController extends \App\Http\Controllers\Controller
+class HomeController extends Controller
 {
-
     /**
      * Show the application dashboard.
      *
@@ -17,17 +16,17 @@ class HomeController extends \App\Http\Controllers\Controller
      */
     public function index()
     {
-    	if(setting('auth.dashboard_redirect', true) != "null"){
-    		if(!\Auth::guest()){
-    			return redirect('dashboard');
-    		}
-    	}
+        if (setting('auth.dashboard_redirect', true) !== "null") {
+            if (!Auth::guest()) {
+                return redirect('dashboard');
+            }
+        }
 
         $seo = [
             'title'         => setting('site.title', 'WatKanIkDoen.nl'),
             'description'   => setting('site.description', 'Hét Startpunt voor Actief Burgerschap!'),
             'image'         => url('/og_image.png'),
-            'type'          => 'website'
+            'type'          => 'website',
         ];
 
         // Definieer de routes waarmee de component evenementen kan ophalen

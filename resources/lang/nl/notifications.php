@@ -5,7 +5,7 @@
 | General Language Lines
 |--------------------------------------------------------------------------
 |
-| The following language lines are used on notifications and related 
+| The following language lines are used on notifications and related
 | strings.
 |
 */

@@ -2,10 +2,9 @@
 
 namespace Tests\Browser;
 
-use Tests\DuskTestCase;
-use Laravel\Dusk\Browser;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\User;
+use Laravel\Dusk\Browser;
+use Tests\DuskTestCase;
 
 class AuthTest extends DuskTestCase
 {
@@ -66,5 +65,4 @@ class AuthTest extends DuskTestCase
                 ->assertSee('Successfully logged in.');
         });
     }
-
 }

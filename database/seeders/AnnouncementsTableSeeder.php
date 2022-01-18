@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
+use DB;
 use Illuminate\Database\Seeder;
 
 class AnnouncementsTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -14,12 +14,12 @@ class AnnouncementsTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
-        \DB::table('announcements')->delete();
-        
-        \DB::table('announcements')->insert(array (
-            0 => 
+
+        DB::table('announcements')->delete();
+
+        DB::table('announcements')->insert(array (
+            0 =>
             array (
                 'body' => '<p>It\'s been a fun Journey creating this awesome SAAS starter kit and we are super excited to use it in many of our future projects. There are just so many features that Wave has that will make building the SAAS of your dreams easier than ever before.</p>
 <p>Make sure to stay up-to-date on our latest releases as we will be releasing many more features down the road :)</p>
@@ -30,7 +30,7 @@ class AnnouncementsTableSeeder extends Seeder
             'title' => 'Wave 1.0 Released',
             'updated_at' => '2018-05-21 00:38:02',
         ),
-        1 => 
+        1 =>
         array (
             'body' => '<p>This new version of Wave includes the following updates:</p>
 <ul>
@@ -47,7 +47,7 @@ class AnnouncementsTableSeeder extends Seeder
             'title' => 'Wave 2.0 Released',
             'updated_at' => '2021-11-24 19:54:32',
         ),
-        2 => 
+        2 =>
         array (
             'body' => '<p>Does this test work? This is the body.</p>',
             'created_at' => '2021-11-29 09:15:20',
@@ -56,8 +56,6 @@ class AnnouncementsTableSeeder extends Seeder
             'title' => 'Test Announcement',
             'updated_at' => '2021-11-29 09:15:21',
         ),
-    ));
-        
-        
+        ));
     }
 }

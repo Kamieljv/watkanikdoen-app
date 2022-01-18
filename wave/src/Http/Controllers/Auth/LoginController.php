@@ -2,11 +2,12 @@
 
 namespace Wave\Http\Controllers\Auth;
 
+use Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 
-class LoginController extends \App\Http\Controllers\Controller
+class LoginController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -18,7 +19,6 @@ class LoginController extends \App\Http\Controllers\Controller
     | to conveniently provide its functionality to your applications.
     |
     */
-
     use AuthenticatesUsers;
 
     /**
@@ -38,8 +38,9 @@ class LoginController extends \App\Http\Controllers\Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function username(){
-        if(setting('auth.email_or_username')){
+    public function username()
+    {
+        if (setting('auth.email_or_username')) {
             return setting('auth.email_or_username');
         }
 
@@ -53,7 +54,7 @@ class LoginController extends \App\Http\Controllers\Controller
 
     protected function authenticated(Request $request, $user)
     {
-        if(setting('auth.verify_email') && !$user->verified){
+        if (setting('auth.verify_email') && !$user->verified) {
             $this->guard()->logout();
             return redirect()->back()->with(['message' => 'Please verify your email before logging into your account.', 'message_type' => 'warning']);
         }
@@ -76,8 +77,9 @@ class LoginController extends \App\Http\Controllers\Controller
     }
 
 
-    public function logout(){
-        \Auth::logout();
+    public function logout()
+    {
+        Auth::logout();
         return redirect(route('wave.home'));
     }
 }

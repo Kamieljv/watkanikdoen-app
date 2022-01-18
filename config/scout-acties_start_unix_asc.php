@@ -10,7 +10,7 @@ return [
         "proximity",
         "attribute",
         "exact",
-        "custom"
+        "custom",
     ],
     'searchableAttributes' => ['title', 'excerpt', 'body', 'location_human', 'meta_keywords'],
     'customRanking' => ['desc(created_at)', 'desc(updated_at)'],

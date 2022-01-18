@@ -58,6 +58,6 @@ dataset('authroutes', function () {
         '/settings/api',
         '/settings/plans',
         '/settings/subscription',
-        '/settings/invoices'
+        '/settings/invoices',
     ];
 });

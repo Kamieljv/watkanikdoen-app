@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
+use DB;
 use Illuminate\Database\Seeder;
 
 class VoyagerThemeOptionsTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -16,9 +16,9 @@ class VoyagerThemeOptionsTableSeeder extends Seeder
     {
 
 
-        \DB::table('theme_options')->delete();
+        DB::table('theme_options')->delete();
 
-        \DB::table('theme_options')->insert(array (
+        DB::table('theme_options')->insert(array (
             0 =>
             array (
                 'id' => 17,
@@ -92,7 +92,5 @@ class VoyagerThemeOptionsTableSeeder extends Seeder
                 'updated_at' => '2018-08-28 23:12:11'
             )
         ));
-
-
     }
 }

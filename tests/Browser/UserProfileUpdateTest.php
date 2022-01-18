@@ -2,14 +2,12 @@
 
 namespace Tests\Browser;
 
-use Tests\DuskTestCase;
-use Laravel\Dusk\Browser;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\User;
+use Laravel\Dusk\Browser;
+use Tests\DuskTestCase;
 
 class UserProfileUpdateTest extends DuskTestCase
 {
-
     public function testProfilePage()
     {
         $this->browse(function (Browser $browser) {
@@ -21,5 +19,4 @@ class UserProfileUpdateTest extends DuskTestCase
                 ->click('@update-profile-button');
         });
     }
-
 }

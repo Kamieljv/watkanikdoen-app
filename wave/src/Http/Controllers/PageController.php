@@ -2,20 +2,21 @@
 
 namespace Wave\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Wave\Page;
-use Illuminate\Http\Request;
 
-class PageController extends \App\Http\Controllers\Controller
+class PageController extends Controller
 {
-    public function page($slug){
-    	$page = Page::where('slug', '=', $slug)
+    public function page($slug)
+    {
+        $page = Page::where('slug', '=', $slug)
             ->where('status', '=', 'ACTIVE')->firstOrFail();
 
-    	$seo = [
+        $seo = [
             'seo_title' => $page->title,
             'seo_description' => $page->meta_description,
         ];
 
-    	return view('theme::page', compact('page', 'seo'));
+        return view('theme::page', compact('page', 'seo'));
     }
 }

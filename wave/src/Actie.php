@@ -2,23 +2,19 @@
 
 namespace Wave;
 
-use Carbon\Carbon;
-use Grimzy\LaravelMysqlSpatial\Types\Point;
-use Grimzy\LaravelMysqlSpatial\Types\Geometry;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Jenssegers\Date\Date;
-use Illuminate\Support\Facades\Log;
-
 use Laravel\Scout\Searchable;
 use TCG\Voyager\Traits\Spatial;
+use Voyager;
 
 class Actie extends Model
 {
     use Spatial;
     use Searchable;
-    
-    protected $spatial = ['location'];    
+
+    protected $spatial = ['location'];
 
     /**
      * Select geometrical attributes as text from database.
@@ -37,7 +33,7 @@ class Actie extends Model
         'image_path',
         'start',
         'start_unix',
-        '_geoloc'
+        '_geoloc',
     ];
 
     protected $hidden = [
@@ -56,25 +52,30 @@ class Actie extends Model
      */
     protected $with = ['organizers:id,name,logo,slug', 'categories:id,name', 'themes:id,name'];
 
-    public function getLinkAttribute(){
-    	return url('/actie/' . $this->slug);
+    public function getLinkAttribute()
+    {
+        return url('/actie/' . $this->slug);
     }
 
-    public function getImagePathAttribute(){
-    	return $this->image ? \Voyager::image($this->image) : null;
+    public function getImagePathAttribute()
+    {
+        return $this->image ? Voyager::image($this->image) : null;
     }
 
-    public function getStartAttribute() {
+    public function getStartAttribute()
+    {
         return Date::parse($this->time_start)->format('j M Y, G:i');
     }
 
-    public function getStartUnixAttribute() {
+    public function getStartUnixAttribute()
+    {
         return Date::parse($this->time_start)->timestamp;
     }
 
-    public function getgeolocAttribute(){
+    public function getgeolocAttribute()
+    {
         $coords = $this->getCoordinates();
-        return (count($coords) === 0)? null : $coords[0];
+        return (count($coords) === 0) ? null : $coords[0];
     }
 
     /**
@@ -82,16 +83,13 @@ class Actie extends Model
      * Manipulate in case we need to convert geometrical fields to text.
      *
      * @param  bool $excludeDeleted
-     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function newQuery($excludeDeleted = true)
     {
-        if (!empty($this->spatial) && $this->geometryAsText === true)
-        {
+        if (!empty($this->spatial) && $this->geometryAsText === true) {
             $raw = '';
-            foreach ($this->spatial as $column)
-            {
+            foreach ($this->spatial as $column) {
                 $raw .= 'ST_AsText(`' . $this->table . '`.`' . $column . '`) as `' . $column . '`, ';
             }
             $raw = substr($raw, 0, -2);
@@ -102,15 +100,18 @@ class Actie extends Model
         return parent::newQuery($excludeDeleted);
     }
 
-    public function organizers(){
+    public function organizers()
+    {
         return $this->belongsToMany('Wave\Organizer', 'actie_organizer');
     }
 
-    public function categories(){
-    	return $this->belongsToMany('Wave\Category', 'actie_category');
+    public function categories()
+    {
+        return $this->belongsToMany('Wave\Category', 'actie_category');
     }
 
-    public function themes(){
-    	return $this->belongsToMany('Wave\ActieTheme', 'actie_actie_theme');
+    public function themes()
+    {
+        return $this->belongsToMany('Wave\ActieTheme', 'actie_actie_theme');
     }
 }

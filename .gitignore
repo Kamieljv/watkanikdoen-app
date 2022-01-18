@@ -18,3 +18,4 @@ yarn-error.log
 .env
 .DS_Store
 .phpunit.result.cache
+.phpcs-cache

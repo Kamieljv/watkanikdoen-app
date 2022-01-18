@@ -2,7 +2,10 @@
 
 namespace Wave\Http\Controllers;
 
-class LanguageController extends \App\Http\Controllers\Controller
+use App\Http\Controllers\Controller;
+use Response;
+
+class LanguageController extends Controller
 {
     public function show($locale)
     {
@@ -17,7 +20,7 @@ class LanguageController extends \App\Http\Controllers\Controller
         }
 
         $contents = 'window.i18n = ' . json_encode($strings, config('app.debug', false) ? JSON_PRETTY_PRINT : 0) . ';';
-        $response = \Response::make($contents, 200);
+        $response = Response::make($contents, 200);
         $response->header('Content-Type', 'application/javascript');
 
         return $response;

@@ -3,12 +3,9 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use \Storage;
 
 class User extends \Wave\User
 {
-
     use Notifiable;
 
     /**
@@ -17,13 +14,13 @@ class User extends \Wave\User
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'username', 'password', 'verification_code', 'verified', 'trial_ends_at'
+        'name', 'email', 'username', 'password', 'verification_code', 'verified', 'trial_ends_at',
     ];
 
     protected $dates = [
         'created_at',
         'updated_at',
-        'trial_ends_at'
+        'trial_ends_at',
     ];
 
     /**
@@ -34,5 +31,4 @@ class User extends \Wave\User
     protected $hidden = [
         'password', 'remember_token',
     ];
-
 }
