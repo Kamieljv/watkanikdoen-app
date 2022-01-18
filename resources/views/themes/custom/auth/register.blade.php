@@ -2,23 +2,21 @@
 
 @section('content')
 
-
-    <div class="sm:mx-auto sm:w-full sm:max-w-md sm:pt-10">
-        <h2 class="text-3xl font-extrabold leading-9 text-center text-gray-900 sm:mt-6 lg:text-5xl">
-            {{ __("Register") }}
-        </h2>
-        <p class="mt-4 text-sm leading-5 text-center text-gray-600 max-w">
-            {{ __("general.or_you_can_here") }}
-            <a href="{{ route('login') }}" class="font-medium transition duration-150 ease-in-out text-wave-600 hover:text-wave-500 focus:outline-none focus:underline">
-                {{ __("Log In") }}
-            </a>
-        </p>
-    </div>
-
     <div class="flex flex-col justify-center pb-10 sm:pb-20 sm:px-6 lg:px-8">
+        <div class="flex flex-col justify-center py-10 sm:py-20 sm:px-6 lg:px-8">
+            <div class="sm:mx-auto sm:w-full sm:max-w-md">
+                <h2 class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-900 lg:text-5xl">
+                    {{ __("Register") }}
+                </h2>
+                <p class="mt-4 text-sm leading-5 text-center text-gray-600 max-w">
+                    {{ __("general.or_you_can_here") }}
+                    <a href="{{ route('login') }}" class="font-medium transition duration-150 ease-in-out text-[color:var(--wkid-blue)] focus:outline-none hover:underline hover:text-[color:var(--wkid-blue-dark)]">
+                        {{ __("Log In") }}
+                    </a>
+                </p>
+            </div>
 
-
-        <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="mt-8 mx-5 sm:mx-auto sm:w-full sm:max-w-md">
             <div class="px-4 py-8 bg-white border shadow border-gray-50 sm:rounded-lg sm:px-10">
                 <form role="form" method="POST" action="@if(setting('billing.card_upfront')){{ route('wave.register-subscribe') }}@else{{ route('register') }}@endif">
                     @csrf

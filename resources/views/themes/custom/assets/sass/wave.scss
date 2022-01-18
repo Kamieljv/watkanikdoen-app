@@ -1,22 +1,3 @@
-// Tailwind CSS
-@tailwind base;
-
-@layer base {
-  h1 {
-    @apply text-2xl;
-  }
-  h2 {
-    @apply text-xl;
-  }
-  h3 {
-    @apply text-lg;
-  }
-}
-
-@tailwind components;
-@tailwind utilities;
-
-@import 'fonts';
 
 :root {
   --wkid-red: #e11d00;
@@ -54,14 +35,59 @@
   --wkid-message-warning-light: #ffc38b;
   --wkid-message-success-light: #97ee82;
   --wkid-message-error-light: var(--wkid-red-light);;
-
 }
+
+// Tailwind CSS
+@tailwind base;
+
+@layer base {
+  h1 {
+    @apply text-2xl;
+  }
+  h2 {
+    @apply text-xl;
+  }
+  h3 {
+    @apply text-lg;
+  }
+  [type="text"],
+  [type="email"],
+  [type="url"],
+  [type="password"],
+  [type="number"],
+  [type="date"],
+  [type="datetime-local"],
+  [type="month"],
+  [type="search"],
+  [type="tel"],
+  [type="time"],
+  [type="week"],
+  [multiple],
+  textarea,
+  select {
+    @apply appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500;
+  }
+
+  [type="checkbox"] {
+    @apply text-[color:var(--wkid-blue)] border-gray-300 rounded shadow-sm focus:border-[color:var(--wkid-blue)] focus:ring focus:ring-offset-0 focus:ring-blue-600 focus:ring-opacity-50 rounded-xl;
+  }
+}
+
+@tailwind components;
+@tailwind utilities;
+
+@import 'fonts';
+
 
 [x-cloak]{
   display:none;
 }
 
 /****** Standard Elements **********/
+
+html {
+  font-family: Ubuntu, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* 4 */
+}
 
 h1, h2, h3, h4, h5, h6 {
   font-family: HussarBold;
@@ -129,14 +155,11 @@ svg {
 
 /****** Form Input CLASSES **********/
 
-// .form-input, .form-textarea, .form-select {
-//     @apply appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out focus:outline-none focus:ring focus:ring-opacity-30 focus:ring-wave-500 focus:border-wave-400;
-// }
 
-// .form-select{
-//     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M7 7l3-3 3 3m0 6l-3 3-3-3' stroke='%239fa6b2' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-//     background-position: right .5rem center;
-//     background-size: 1.5em 1.5em;
-//     padding:.5rem 2.5rem .5rem .75rem;
-//     background-repeat: no-repeat;
-// }
+.form-select{
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M7 7l3-3 3 3m0 6l-3 3-3-3' stroke='%239fa6b2' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-position: right .5rem center;
+    background-size: 1.5em 1.5em;
+    padding:.5rem 2.5rem .5rem .75rem;
+    background-repeat: no-repeat;
+}

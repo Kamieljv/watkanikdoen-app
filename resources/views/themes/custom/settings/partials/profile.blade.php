@@ -16,16 +16,14 @@
 			<div>
 				<label for="name" class="block text-sm font-medium leading-5 text-gray-700">{{ __("Name") }}</label>
 				<div class="mt-1 rounded-md shadow-sm">
-					<input id="name" type="text" name="name" value="{{ Auth::user()->name }}" required 
-					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+					<input id="name" type="text" name="name" value="{{ Auth::user()->name }}" required>
 				</div>
 			</div>
 
 			<div class="mt-5">
 				<label for="email" class="block text-sm font-medium leading-5 text-gray-700">{{ __("Email Address") }}</label>
 				<div class="mt-1 rounded-md shadow-sm">
-					<input id="email" type="text" name="email" value="{{ Auth::user()->email }}" required 
-					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+					<input id="email" type="text" name="email" value="{{ Auth::user()->email }}" required>
 				</div>
 			</div>
 

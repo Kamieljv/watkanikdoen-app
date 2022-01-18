@@ -33,7 +33,7 @@
 							@svg('antdesign-user-o', ['style' => 'width: 20px; height: 20px;']) &nbsp;
 						@elseif (Request::is('auth/settings/security'))
 							@svg('antdesign-lock-o', ['style' => 'width: 20px; height: 20px;']) &nbsp;
-						@endif('antdesign-user-o', ['style' => 'width: 20px; height: 20px;'])
+						@endif
 						{{ __("menus." . (str_replace('-', ' ', Request::segment(3)) ?? 'profile') . '_settings') }}
 	                </h3>
 	            </div>

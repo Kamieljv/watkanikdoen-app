@@ -5,7 +5,7 @@
             <!-- data-replace='{ "translate-y-12": "translate-y-0", "scale-110": "scale-100", "opacity-0": "opacity-100" }' -->
                 <a id="header-logo-link" href="{{ route('wave.home') }}" class="flex items-center justify-center space-x-3 transition-all duration-1000 ease-out transform text-white">
                     @svg('icon-logo', ['style' => 'stroke: currentColor; height: 52px;'])
-                </a>     
+                </a>
             </div>
             <h1 class="hidden md:block">{{ setting('site.title') }}</h1>
 
