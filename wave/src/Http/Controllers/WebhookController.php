@@ -2,13 +2,9 @@
 
 namespace Wave\Http\Controllers;
 
-use \App\Http\Requests;
-use Symfony\Component\HttpFoundation\Response;
-
 class WebhookController
 {
-
-	public function handleCustomerSubscriptionDeleted(array $payload)
+    public function handleCustomerSubscriptionDeleted(array $payload)
     {
 
         // $user = $this->getUserByStripeId($payload['data']['object']['customer']);
@@ -22,11 +18,9 @@ class WebhookController
 
         //     $cancelled_id = \TCG\Voyager\Models\Role::where('name', '=', 'cancelled')->first()->id;
         //     $user->role_id = $cancelled_id;
-        // 	$user->save();
+        //  $user->save();
         // }
 
-	    // return new Response('Webhook Handled', 200);
-
+        // return new Response('Webhook Handled', 200);
     }
-
 }

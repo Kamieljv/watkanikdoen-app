@@ -3,23 +3,20 @@
 namespace Wave\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
 class VerifyEmail extends Notification
 {
     use Queueable;
 
-    public $user;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct(public $user)
     {
-        $this->user = $user;
     }
 
     /**
@@ -41,13 +38,12 @@ class VerifyEmail extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = url('/user/verify/'.$this->user->verification_code);
+        $url = url('/user/verify/' . $this->user->verification_code);
 
-        return (new MailMessage)
+        return (new MailMessage())
                     ->line('Thanks for signing up, but before you can continue we need to verify your email.')
                     ->action('Verify Email', $url)
                     ->line('Thanks! See you soon.');
-
     }
 
     /**

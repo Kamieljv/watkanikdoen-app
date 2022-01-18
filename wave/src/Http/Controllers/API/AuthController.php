@@ -2,14 +2,15 @@
 
 namespace Wave\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use TCG\Voyager\Models\Role;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Validator;
+use Wave\ApiKey;
 use Wave\User;
 
-class AuthController extends \App\Http\Controllers\Controller
+class AuthController extends Controller
 {
     /**
      * Create a new AuthController instance.
@@ -49,23 +50,21 @@ class AuthController extends \App\Http\Controllers\Controller
         return response()->json(['message' => 'Successfully logged out']);
     }
 
-    public function token(){
+    public function token()
+    {
         $request = app('request');
 
-        if(isset($request->key)){
+        if (isset($request->key)) {
+            $key = ApiKey::where('key', '=', $request->key)->first();
 
-            $key = \Wave\ApiKey::where('key', '=', $request->key)->first();
-
-            if(isset($key->id)){
+            if (isset($key->id)) {
                 return response()->json(['access_token' => JWTAuth::fromUser($key->user, ['exp' => config('wave.api.key_token_expires', 1)])]);
             } else {
                 abort('400', 'Invalid Api Key');
             }
-
         } else {
             abort('401', 'Unauthorized');
         }
-
     }
 
     /**
@@ -82,7 +81,6 @@ class AuthController extends \App\Http\Controllers\Controller
      * Get the token array structure.
      *
      * @param  string $token
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     protected function respondWithToken($token)
@@ -90,7 +88,7 @@ class AuthController extends \App\Http\Controllers\Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => config('wave.api.auth_token_expires', 60)
+            'expires_in' => config('wave.api.auth_token_expires', 60),
         ]);
     }
 
@@ -113,7 +111,7 @@ class AuthController extends \App\Http\Controllers\Controller
             'password' => bcrypt($request->password),
         ]);
 
-        
+
         $credentials = ['email' => $request['email'], 'password' => $request['password']];
 
         if (! $token = JWTAuth::attempt($credentials)) {
@@ -121,7 +119,6 @@ class AuthController extends \App\Http\Controllers\Controller
         }
 
         return $this->respondWithToken($token);
-
     }
 
     protected function validator(array $data)

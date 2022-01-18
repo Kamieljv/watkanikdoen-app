@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
+use DB;
 use Illuminate\Database\Seeder;
 
 class PostsTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -14,12 +14,12 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
-        \DB::table('posts')->delete();
-        
-        \DB::table('posts')->insert(array (
-            0 => 
+
+        DB::table('posts')->delete();
+
+        DB::table('posts')->insert(array (
+            0 =>
             array (
                 'author_id' => 1,
                 'body' => '<p>There are many different ways to market your application. First, let\'s start off at the beginning and then we will get more in-depth. You\'ll want to discover your target audience and after that, you\'ll want to run some ads.</p>
@@ -56,7 +56,7 @@ class PostsTableSeeder extends Seeder
                 'title' => 'Best ways to market your application',
                 'updated_at' => '2021-11-30 12:39:16',
             ),
-            1 => 
+            1 =>
             array (
                 'author_id' => 1,
                 'body' => '<p>What can be said about achieving your dreams? <br>Well... It\'s a good thing, and it\'s probably something you\'re dreaming of. Oh yeah, when you create an app and a product that you enjoy working on... You\'ll be pretty happy and your dreams will probably come true. Cool, right?</p>
@@ -80,7 +80,7 @@ class PostsTableSeeder extends Seeder
 <p>Competently redefine long-term high-impact relationships rather than effective metrics. Distinctively maintain impactful platforms after strategic imperatives. Intrinsically evolve mission-critical deliverables after multimedia based e-business. Interactively mesh cooperative benefits whereas distributed process improvements. Progressively monetize an expanded array of e-services whereas.</p>',
                 'category_id' => 1,
                 'created_at' => '2018-03-26 02:50:18',
-                'excerpt' => NULL,
+                'excerpt' => null,
                 'featured' => 0,
                 'id' => 6,
                 'image' => 'posts/March2018/rU26aWVsZ2zocWGSTE7J.jpg',
@@ -92,7 +92,7 @@ class PostsTableSeeder extends Seeder
                 'title' => 'Achieving your Dreams',
                 'updated_at' => '2018-03-26 02:15:18',
             ),
-            2 => 
+            2 =>
             array (
                 'author_id' => 1,
                 'body' => '<p>The foundation is one of the most important aspects. You\'ll want to make sure that you build your application on a solid foundation because this is where every other feature will grow on top of.</p>
@@ -116,7 +116,7 @@ class PostsTableSeeder extends Seeder
 <p>Competently redefine long-term high-impact relationships rather than effective metrics. Distinctively maintain impactful platforms after strategic imperatives. Intrinsically evolve mission-critical deliverables after multimedia based e-business. Interactively mesh cooperative benefits whereas distributed process improvements. Progressively monetize an expanded array of e-services whereas.&nbsp;</p>',
                 'category_id' => 1,
                 'created_at' => '2018-03-26 02:24:43',
-                'excerpt' => NULL,
+                'excerpt' => null,
                 'featured' => 0,
                 'id' => 7,
                 'image' => 'posts/March2018/4vI1gzsAvMZ30yfDIe67.jpg',
@@ -128,7 +128,7 @@ class PostsTableSeeder extends Seeder
                 'title' => 'Building a solid foundation',
                 'updated_at' => '2018-03-26 02:24:43',
             ),
-            3 => 
+            3 =>
             array (
                 'author_id' => 1,
                 'body' => '<p>There is a fit for each person. Depending on the service you may want to focus on what each person needs. When you find this you\'ll be able to segregate your application to fit each person\'s needs.</p>
@@ -152,7 +152,7 @@ class PostsTableSeeder extends Seeder
 <p>Competently redefine long-term high-impact relationships rather than effective metrics. Distinctively maintain impactful platforms after strategic imperatives. Intrinsically evolve mission-critical deliverables after multimedia based e-business. Interactively mesh cooperative benefits whereas distributed process improvements. Progressively monetize an expanded array of e-services whereas.&nbsp;</p>',
                 'category_id' => 2,
                 'created_at' => '2018-03-26 02:42:44',
-                'excerpt' => NULL,
+                'excerpt' => null,
                 'featured' => 0,
                 'id' => 8,
                 'image' => 'posts/March2018/hWOT5yqNmzCnLhVWXB2u.jpg',
@@ -164,7 +164,7 @@ class PostsTableSeeder extends Seeder
                 'title' => 'Finding the solution that fits for you',
                 'updated_at' => '2018-03-26 02:42:44',
             ),
-            4 => 
+            4 =>
             array (
                 'author_id' => 1,
                 'body' => '<p>It\'s not enough nowadays to create something you want, instead you\'ll need to focus on what people need. If you find a need for something that isn\'t available... You should create it. Odds are someone will find it useful as well.</p>
@@ -188,7 +188,7 @@ class PostsTableSeeder extends Seeder
 <p>Competently redefine long-term high-impact relationships rather than effective metrics. Distinctively maintain impactful platforms after strategic imperatives. Intrinsically evolve mission-critical deliverables after multimedia based e-business. Interactively mesh cooperative benefits whereas distributed process improvements. Progressively monetize an expanded array of e-services whereas.</p>',
                 'category_id' => 2,
                 'created_at' => '2018-03-26 02:49:37',
-                'excerpt' => NULL,
+                'excerpt' => null,
                 'featured' => 0,
                 'id' => 9,
                 'image' => 'posts/March2018/weZwLLpaXnxyTR989iDk.jpg',
@@ -200,7 +200,7 @@ class PostsTableSeeder extends Seeder
                 'title' => 'Creating something useful',
                 'updated_at' => '2018-03-26 02:56:38',
             ),
-            5 => 
+            5 =>
             array (
                 'author_id' => 1,
                 'body' => '<p>The reason why we are the way we are is... Because we are designed for a purpose. Some people are created to help or service, and others are created to... Well... Create. Are you a creator.</p>
@@ -224,7 +224,7 @@ class PostsTableSeeder extends Seeder
 <p>Competently redefine long-term high-impact relationships rather than effective metrics. Distinctively maintain impactful platforms after strategic imperatives. Intrinsically evolve mission-critical deliverables after multimedia based e-business. Interactively mesh cooperative benefits whereas distributed process improvements. Progressively monetize an expanded array of e-services whereas.</p>',
                 'category_id' => 1,
                 'created_at' => '2018-03-26 02:08:02',
-                'excerpt' => NULL,
+                'excerpt' => null,
                 'featured' => 0,
                 'id' => 10,
                 'image' => 'posts/March2018/K804BvnOehlLao0XmI08.jpg',
@@ -237,7 +237,5 @@ class PostsTableSeeder extends Seeder
                 'updated_at' => '2018-06-28 06:14:31',
             ),
         ));
-        
-        
     }
 }

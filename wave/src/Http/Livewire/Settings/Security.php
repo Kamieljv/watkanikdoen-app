@@ -14,15 +14,16 @@ class Security extends Component
     {
         return [
             'current_password' => 'required|password',
-            'password' => 'required|confirmed|min:'.config('wave.auth.min_password_length')
+            'password' => 'required|confirmed|min:' . config('wave.auth.min_password_length'),
         ];
     }
 
-    public function save(){
+    public function save()
+    {
         $this->validate();
 
         auth()->user()->forceFill([
-            'password' => bcrypt($this->password)
+            'password' => bcrypt($this->password),
         ])->save();
 
         // Display success toast notification
@@ -30,7 +31,6 @@ class Security extends Component
 
         // Clear the input fields
         $this->current_password = $this->password = $this->password_confirmation = "";
-
     }
 
     public function render()

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 
-class ResetPasswordController extends \App\Http\Controllers\Controller
+class ResetPasswordController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -18,7 +18,6 @@ class ResetPasswordController extends \App\Http\Controllers\Controller
     | explore this trait and override any methods you wish to tweak.
     |
     */
-
     use ResetsPasswords;
 
     /**
@@ -50,7 +49,7 @@ class ResetPasswordController extends \App\Http\Controllers\Controller
     public function showResetForm(Request $request, $token = null)
     {
         return view('theme::auth.passwords.reset')->with(
-            ['token' => $token, 'email' => $request->email]
+            ['token' => $token, 'email' => $request->email],
         );
     }
 

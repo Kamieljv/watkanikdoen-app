@@ -52,115 +52,115 @@
 </template>
 
 <script>
-    export default {
-        name: 'FormAutocomplete',
-        props: {
-            items: {
-                type: Array,
-                required: false,
-                default: () => [],
-            },
-            isAsync: {
-                type: Boolean,
-                required: false,
-                default: false,
-            },
-            minQueryLength: {
-                type: Number,
-                default: 3,
-            },
-            dataAttribute: {
-                type: String,
-                default: 'name'
-            },
-            placeholder: {
-                type: String,
-                required: true,
-            }
-        },
-        data() {
-            return {
-                isOpen: false,
-                results: [],
-                search: '',
-                isLoading: false,
-                hasValue: false,
-                arrowCounter: 0,
-                preventOpen: false,
-            };
-        },
-        watch: {
-            items: function (value, oldValue) {
-                if (value !== oldValue) {
-                    this.results = value
-                    this.isLoading = false;
-                    this.isOpen = true;
-                }
-            },
-        },
-        mounted() {
-            document.addEventListener('click', this.handleClickOutside)
-        },
-        destroyed() {
-            document.removeEventListener('click', this.handleClickOutside)
-        },
-        methods: {
-            setResult(result) {
-                this.preventOpen = true;
-                this.search = result[this.dataAttribute].replace(/(<([^>]+)>)/gi, "");
-                this.isOpen = false;
-                this.hasValue = true;
-                this.$emit('input', result);
-            },
-            resetResult() {
-                this.search = '';
-                this.isOpen = false;
-                this.hasValue = false;
-                this.$emit('input', '');
-            },
-            filterResults() {
-                this.results = this.items.filter((item) => {
-                    return item.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
-                });
-            },
-            onChange: _.debounce(function() {
-                if (this.search.length >= this.minQueryLength) {
-                    if (!this.preventOpen) this.$emit('change', this.search);
-                    if (this.isAsync) {
-                        this.isLoading = true;
-                        this.isOpen = !this.preventOpen;
-                    } else {
-                        this.filterResults();
-                        this.isOpen = true;
-                    }
-                } else {
-                    this.isOpen = false;
-                }
-                this.preventOpen = false;
-            }, 500),
-            handleClickOutside(event) {
-                if (!this.$el.contains(event.target)) {
-                    this.isOpen = false;
-                    this.arrowCounter = 0;
-                }
-            },
-            onArrowDown() {
-                if (this.arrowCounter < this.results.length) {
-                    this.arrowCounter = this.arrowCounter + 1;
-                }
-            },
-            onArrowUp() {
-                if (this.arrowCounter > 0) {
-                    this.arrowCounter = this.arrowCounter - 1;
-                }
-            },
-            onEnter() {
-                this.search = this.results[this.arrowCounter][this.dataAttribute].replace(/(<([^>]+)>)/gi, "");
-                this.isOpen = false;
-                this.arrowCounter = 0;
-            },
-        }
-    };
+export default {
+	name: "FormAutocomplete",
+	props: {
+		items: {
+			type: Array,
+			required: false,
+			default: () => [],
+		},
+		isAsync: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
+		minQueryLength: {
+			type: Number,
+			default: 3,
+		},
+		dataAttribute: {
+			type: String,
+			default: "name"
+		},
+		placeholder: {
+			type: String,
+			required: true,
+		}
+	},
+	data() {
+		return {
+			isOpen: false,
+			results: [],
+			search: "",
+			isLoading: false,
+			hasValue: false,
+			arrowCounter: 0,
+			preventOpen: false,
+		}
+	},
+	watch: {
+		items: function (value, oldValue) {
+			if (value !== oldValue) {
+				this.results = value
+				this.isLoading = false
+				this.isOpen = true
+			}
+		},
+	},
+	mounted() {
+		document.addEventListener("click", this.handleClickOutside)
+	},
+	destroyed() {
+		document.removeEventListener("click", this.handleClickOutside)
+	},
+	methods: {
+		setResult(result) {
+			this.preventOpen = true
+			this.search = result[this.dataAttribute].replace(/(<([^>]+)>)/gi, "")
+			this.isOpen = false
+			this.hasValue = true
+			this.$emit("input", result)
+		},
+		resetResult() {
+			this.search = ""
+			this.isOpen = false
+			this.hasValue = false
+			this.$emit("input", "")
+		},
+		filterResults() {
+			this.results = this.items.filter((item) => {
+				return item.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+			})
+		},
+		onChange: _.debounce(function() {
+			if (this.search.length >= this.minQueryLength) {
+				if (!this.preventOpen) this.$emit("change", this.search)
+				if (this.isAsync) {
+					this.isLoading = true
+					this.isOpen = !this.preventOpen
+				} else {
+					this.filterResults()
+					this.isOpen = true
+				}
+			} else {
+				this.isOpen = false
+			}
+			this.preventOpen = false
+		}, 500),
+		handleClickOutside(event) {
+			if (!this.$el.contains(event.target)) {
+				this.isOpen = false
+				this.arrowCounter = 0
+			}
+		},
+		onArrowDown() {
+			if (this.arrowCounter < this.results.length) {
+				this.arrowCounter = this.arrowCounter + 1
+			}
+		},
+		onArrowUp() {
+			if (this.arrowCounter > 0) {
+				this.arrowCounter = this.arrowCounter - 1
+			}
+		},
+		onEnter() {
+			this.search = this.results[this.arrowCounter][this.dataAttribute].replace(/(<([^>]+)>)/gi, "")
+			this.isOpen = false
+			this.arrowCounter = 0
+		},
+	}
+}
 </script>
 
 <style>

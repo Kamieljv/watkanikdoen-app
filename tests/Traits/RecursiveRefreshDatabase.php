@@ -6,7 +6,8 @@ use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\RefreshDatabaseState;
 
-trait RecursiveRefreshDatabase {
+trait RecursiveRefreshDatabase
+{
     use RefreshDatabase;
 
     /**

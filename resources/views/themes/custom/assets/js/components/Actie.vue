@@ -77,30 +77,30 @@
 </template>
 
 <script>
-    export default {
-        name: 'ActieAgenda',
-        props: {
-            actie: {
-                type: Object,
-                required: true,
-            }
-        },
-        data() {
-            return {
-            }
-        },
-        computed: {
-            //
-        },
-        watch: {
-            //
-        },
-        mounted() {
-        },
-        methods: {
-            //
-        }
-    }
+export default {
+	name: "ActieAgenda",
+	props: {
+		actie: {
+			type: Object,
+			required: true,
+		}
+	},
+	data() {
+		return {
+		}
+	},
+	computed: {
+		//
+	},
+	watch: {
+		//
+	},
+	mounted() {
+	},
+	methods: {
+		//
+	}
+}
 </script>
 
 <style lang="scss" scoped>

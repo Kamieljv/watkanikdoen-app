@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\ServiceProvider;
+use Throwable;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if ($this->app->environment() == 'production') {
+        if ($this->app->environment() === 'production') {
             $this->app['request']->server->set('HTTPS', true);
         }
         $this->setSchemaDefaultLength();
@@ -27,14 +28,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
     }
 
     private function setSchemaDefaultLength(): void
     {
         try {
             Schema::defaultStringLength(191);
+        } catch (Throwable $exception) {
         }
-        catch (\Exception $exception){}
     }
 }

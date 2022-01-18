@@ -1,10 +1,10 @@
 module.exports = {
-    mode: 'jit',
+    mode: "jit",
     content: [
-        './**/*.php',
-        './*.php',
-        './resources/views/themes/custom/assets/**/*.{scss,js,vue}',
-      ],
+    "./**/*.php",
+    "./*.php",
+    "./resources/views/themes/custom/assets/**/*.{scss,js,vue}",
+    ],
     theme: {
         //
     },
@@ -12,8 +12,8 @@ module.exports = {
         //
     },
     plugins: [
-        require('@tailwindcss/forms'),
-        require('@tailwindcss/typography'),
-        require('@tailwindcss/line-clamp')
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/typography"),
+    require("@tailwindcss/line-clamp")
     ]
 }

@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
+use DB;
 use Illuminate\Database\Seeder;
 
 class WaveKeyValuesTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -16,9 +16,9 @@ class WaveKeyValuesTableSeeder extends Seeder
     {
 
 
-        \DB::table('wave_key_values')->delete();
+        DB::table('wave_key_values')->delete();
 
-        \DB::table('wave_key_values')->insert(array (
+        DB::table('wave_key_values')->insert(array (
             0 =>
             array (
                 'id' => 10,
@@ -29,7 +29,5 @@ class WaveKeyValuesTableSeeder extends Seeder
                 'value' => 'Hello I am the admin user. You can update this information in the edit profile section. Hope you enjoy using Wave.',
             ),
         ));
-
-
     }
 }

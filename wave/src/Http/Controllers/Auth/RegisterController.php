@@ -2,19 +2,18 @@
 
 namespace Wave\Http\Controllers\Auth;
 
-use App\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
-use Wave\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\Notification;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
+use TCG\Voyager\Models\Role;
+use Wave\Notifications\VerifyEmail;
 
-
-
-class RegisterController extends \App\Http\Controllers\Controller
+class RegisterController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -26,7 +25,6 @@ class RegisterController extends \App\Http\Controllers\Controller
     | provide this functionality without requiring any additional code.
     |
     */
-
     use RegistersUsers;
 
     /**
@@ -45,7 +43,7 @@ class RegisterController extends \App\Http\Controllers\Controller
     {
         $this->middleware('guest', ['except' =>
             [
-                'complete'
+                'complete',
             ]]);
     }
 
@@ -57,19 +55,19 @@ class RegisterController extends \App\Http\Controllers\Controller
      */
     protected function validator(array $data)
     {
-        if(setting('auth.username_in_registration') && setting('auth.username_in_registration') == 'yes'){
+        if (setting('auth.username_in_registration') && setting('auth.username_in_registration') === 'yes') {
             return Validator::make($data, [
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
                 'username' => 'required|string|max:20|unique:users',
-                'password' => 'required|string|min:6|confirmed'
+                'password' => 'required|string|min:6|confirmed',
             ]);
         }
 
         return Validator::make($data, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed'
+            'password' => 'required|string|min:6|confirmed',
         ]);
     }
 
@@ -81,19 +79,19 @@ class RegisterController extends \App\Http\Controllers\Controller
      */
     public function create(array $data)
     {
-        $role = \TCG\Voyager\Models\Role::where('name', '=', config('voyager.user.default_role'))->first();
+        $role = Role::where('name', '=', config('voyager.user.default_role'))->first();
 
-        $verification_code = NULL;
+        $verification_code = null;
         $verified = 1;
 
-        if(setting('auth.verify_email', false)){
+        if (setting('auth.verify_email', false)) {
             $verification_code = str_random(30);
             $verified = 0;
         }
 
-        if(isset($data['username']) && !empty($data['username'])){
+        if (isset($data['username']) && !empty($data['username'])) {
             $username = $data['username'];
-        } elseif(isset($data['name']) && !empty($data['name'])) {
+        } elseif (isset($data['name']) && !empty($data['name'])) {
             $username = str_slug($data['name']);
         } else {
             $username = $this->getUniqueUsernameFromEmail($data['email']);
@@ -102,7 +100,7 @@ class RegisterController extends \App\Http\Controllers\Controller
         $username_original = $username;
         $counter = 1;
 
-        while(User::where('username', '=', $username)->first()){
+        while (User::where('username', '=', $username)->first()) {
             $username = $username_original . (string)$counter;
             $counter += 1;
         }
@@ -116,10 +114,10 @@ class RegisterController extends \App\Http\Controllers\Controller
             'role_id' => $role->id,
             'verification_code' => $verification_code,
             'verified' => $verified,
-            'trial_ends_at' => null
+            'trial_ends_at' => null,
         ]);
 
-        if(setting('auth.verify_email', false)){
+        if (setting('auth.verify_email', false)) {
             $this->sendVerificationEmail($user);
         }
 
@@ -132,18 +130,19 @@ class RegisterController extends \App\Http\Controllers\Controller
      * @param  Request  $request
      * @return redirect
      */
-    public function complete(Request $request){
+    public function complete(Request $request)
+    {
 
-        if(setting('auth.username_in_registration') && setting('auth.username_in_registration') == 'yes'){
+        if (setting('auth.username_in_registration') && setting('auth.username_in_registration') === 'yes') {
             $request->validate([
                 'name' => 'required|string|min:3|max:255',
                 'username' => 'required|string|max:20|unique:users,username,' . auth()->user()->id,
-                'password' => 'required|string|min:6'
+                'password' => 'required|string|min:6',
             ]);
         } else {
             $request->validate([
                 'name' => 'required|string|min:3|max:255',
-                'password' => 'required|string|min:6'
+                'password' => 'required|string|min:6',
             ]);
         }
 
@@ -156,25 +155,26 @@ class RegisterController extends \App\Http\Controllers\Controller
 
 
         return redirect()->route('wave.dashboard')->with(['message' => 'Successfully updated your profile information.', 'message_type' => 'success']);
-
     }
 
-    private function sendVerificationEmail($user){
+    private function sendVerificationEmail($user)
+    {
         Notification::route('mail', $user->email)->notify(new VerifyEmail($user));
     }
 
     public function showRegistrationForm()
     {
-        if(setting('billing.card_upfront')){
+        if (setting('billing.card_upfront')) {
             return redirect()->route('wave.pricing');
         }
         return view('theme::auth.register');
     }
 
-    public function verify(Request $request, $verification_code){
+    public function verify(Request $request, $verification_code)
+    {
         $user = User::where('verification_code', '=', $verification_code)->first();
 
-        $user->verification_code = NULL;
+        $user->verification_code = null;
         $user->verified = 1;
         $user->email_verified_at = Carbon::now();
         $user->save();
@@ -194,7 +194,7 @@ class RegisterController extends \App\Http\Controllers\Controller
 
         event(new Registered($user = $this->create($request->all())));
 
-        if(setting('auth.verify_email')){
+        if (setting('auth.verify_email')) {
             // send email verification
             return redirect()->route('login')->with(['message' => 'Thanks for signing up! Please check your email to verify your account.', 'message_type' => 'success']);
         } else {
@@ -213,7 +213,7 @@ class RegisterController extends \App\Http\Controllers\Controller
 
         $user_exists = \Wave\User::where('username', '=', $username)->first();
         $counter = 1;
-        while (isset($user_exists->id) ) {
+        while (isset($user_exists->id)) {
             $new_username = $username . $counter;
             $counter += 1;
             $user_exists = \Wave\User::where('username', '=', $new_username)->first();
@@ -221,7 +221,7 @@ class RegisterController extends \App\Http\Controllers\Controller
 
         $username = $new_username;
 
-        if(strlen($username) < 4){
+        if (strlen($username) < 4) {
             $username = $username . uniqid();
         }
 

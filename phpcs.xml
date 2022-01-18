@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<ruleset name="WKID PHP styles">
+
+    <file>app</file>
+    <file>config</file> -->
+    <file>database</file>
+    <file>resources</file>
+    <file>routes</file>
+    <file>tests</file>
+    <file>wave</file>
+
+    <exclude-pattern>bootstrap</exclude-pattern>
+    <exclude-pattern>hooks</exclude-pattern>
+    <exclude-pattern>node_modules</exclude-pattern>
+    <exclude-pattern>public</exclude-pattern>
+    <exclude-pattern>storage</exclude-pattern>
+    <exclude-pattern>vendor</exclude-pattern>
+    <!-- <exclude-pattern>*.blade.php</exclude-pattern> -->
+
+    <arg name="colors"/>
+    <arg name="extensions" value="php"/>
+    <ini name="memory_limit" value="512M"/>
+
+    <rule ref="PSR12"/>
+
+    <!-- database migrations are not namespaced -->
+    <rule ref="PSR1.Classes.ClassDeclaration">
+        <exclude-pattern>*/database/migrations/*</exclude-pattern>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.Arrays.MultiLineArrayEndBracketPlacement"/>
+    <rule ref="SlevomatCodingStandard.Arrays.SingleLineArrayWhitespace"/>
+    <rule ref="SlevomatCodingStandard.Arrays.TrailingArrayComma"/>
+
+    <rule ref="SlevomatCodingStandard.Classes.ClassConstantVisibility"/>
+    <rule ref="SlevomatCodingStandard.Classes.RequireConstructorPropertyPromotion"/>
+
+    <rule ref="SlevomatCodingStandard.Commenting.DocCommentSpacing">
+        <properties>
+            <property name="linesCountBetweenAnnotationsGroups" value="1"/>
+            <property name="linesCountBetweenDescriptionAndAnnotations" value="1"/>
+            <property name="linesCountBetweenDifferentAnnotationsTypes" value="0"/>
+            <property name="annotationsGroups" type="array">
+                <element value="
+                    @test,
+                    @dataProvider,
+                "/>
+                <element value="
+                    @param,
+                    @return,
+                "/>
+            </property>
+        </properties>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.ControlStructures.RequireNullCoalesceOperator"/>
+    <rule ref="SlevomatCodingStandard.ControlStructures.RequireTernaryOperator"/>
+    <rule ref="SlevomatCodingStandard.ControlStructures.UselessIfConditionWithReturn"/>
+    <rule ref="SlevomatCodingStandard.ControlStructures.UselessTernaryOperator"/>
+
+    <rule ref="SlevomatCodingStandard.Exceptions.DeadCatch"/>
+    <rule ref="SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly"/>
+
+    <rule ref="SlevomatCodingStandard.Functions.DisallowArrowFunction"/>
+    <rule ref="SlevomatCodingStandard.Functions.UnusedInheritedVariablePassedToClosure"/>
+    <rule ref="SlevomatCodingStandard.Functions.UselessParameterDefaultValue"/>
+    <rule ref="SlevomatCodingStandard.Functions.RequireTrailingCommaInCall"/>
+    <rule ref="SlevomatCodingStandard.Functions.RequireTrailingCommaInDeclaration"/>
+
+    <rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses"/>
+    <rule ref="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly">
+        <exclude-pattern>*/app/Http/Kernel.php</exclude-pattern>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses"/>
+    <rule ref="SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash"/>
+    <rule ref="SlevomatCodingStandard.Namespaces.UseFromSameNamespace"/>
+    <rule ref="SlevomatCodingStandard.Namespaces.UselessAlias"/>
+
+    <rule ref="SlevomatCodingStandard.Operators.DisallowEqualOperators"/>
+
+    <rule ref="SlevomatCodingStandard.PHP.UselessSemicolon"/>
+
+    <rule ref="SlevomatCodingStandard.TypeHints.DisallowArrayTypeHintSyntax"/>
+    <rule ref="SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue"/>
+    <rule ref="SlevomatCodingStandard.TypeHints.NullTypeHintOnLastPosition"/>
+    <!-- SOMEDAY/MAYBE: APPLY THESE RULES AND REMOVE DOCSTRINGS
+        <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint"/>
+        <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint"/>
+        <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint"/>
+    -->
+    <rule ref="SlevomatCodingStandard.TypeHints.UnionTypeHintFormat"/>
+
+    <rule ref="SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable">
+        <exclude-pattern>*/tests/Feature/ApplicationTest.php</exclude-pattern>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Variables.UnusedVariable"/>
+    <rule ref="SlevomatCodingStandard.Variables.UselessVariable"/>
+
+    <rule ref="SlevomatCodingStandard.Whitespaces.DuplicateSpaces">
+        <properties>
+            <property name="ignoreSpacesBeforeAssignment" value="1"/>
+            <property name="ignoreSpacesInComment" value="1"/>
+        </properties>
+    </rule>
+
+    <rule ref="Internal.NoCodeFound">
+        <severity>0</severity>
+    </rule>
+</ruleset>

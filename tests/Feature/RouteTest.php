@@ -1,5 +1,7 @@
 <?php
 
+use App\User;
+
 test('available routes', function ($url) {
 
     $appURL = env('APP_URL');
@@ -7,13 +9,11 @@ test('available routes', function ($url) {
         $response = $this->get($url);
 
         $response->assertStatus(200);
-
-
 })->with('routes');
 
 test('available auth routes', function ($url) {
 
-    $user = \App\User::find(1);
+    $user = User::find(1);
 
     $this->actingAs($user);
 
@@ -22,6 +22,4 @@ test('available auth routes', function ($url) {
         $response = $this->get($url);
 
         $response->assertStatus(200);
-
-
 })->with('authroutes');

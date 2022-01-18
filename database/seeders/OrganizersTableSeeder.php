@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
+use DB;
 use Illuminate\Database\Seeder;
 
 class OrganizersTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -14,12 +14,12 @@ class OrganizersTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
-        \DB::table('organizers')->delete();
-        
-        \DB::table('organizers')->insert(array (
-            0 => 
+
+        DB::table('organizers')->delete();
+
+        DB::table('organizers')->insert(array (
+            0 =>
             array (
                 'id' => 1,
                 'name' => 'Greenpeace',
@@ -30,7 +30,7 @@ class OrganizersTableSeeder extends Seeder
                 'created_at' => '2022-01-03 15:57:37',
                 'updated_at' => '2022-01-03 15:57:37',
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'name' => 'Nederland Wordt Beter',
@@ -41,7 +41,7 @@ class OrganizersTableSeeder extends Seeder
                 'created_at' => '2022-01-03 16:26:11',
                 'updated_at' => '2022-01-03 16:26:11',
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'name' => 'Kick Out Zwarte Piet',
@@ -53,7 +53,5 @@ class OrganizersTableSeeder extends Seeder
                 'updated_at' => '2022-01-03 16:41:14',
             ),
         ));
-        
-        
     }
 }

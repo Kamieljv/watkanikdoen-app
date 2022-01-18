@@ -3,8 +3,6 @@
 namespace Wave\Http\Middleware;
 
 use Closure;
-use Wave\User;
-use TCG\Voyager\Models\Role;
 
 class WaveMiddleware
 {
@@ -18,8 +16,8 @@ class WaveMiddleware
     public function handle($request, Closure $next)
     {
 
-        if(!$this->updateRole()){
-            if( $request->route()->getName() != 'wave.cancelled' ){
+        if (!$this->updateRole()) {
+            if ($request->route()->getName() !== 'wave.cancelled') {
                 return redirect()->route('wave.cancelled');
             }
         }
@@ -46,6 +44,5 @@ class WaveMiddleware
         //return true;
 
         return true;
-
     }
 }

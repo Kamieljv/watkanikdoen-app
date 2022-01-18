@@ -2,20 +2,16 @@
 
 namespace Wave\Http\Controllers;
 
-use Algolia\AlgoliaSearch\SearchIndex;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use TCG\Voyager\Http\Controllers\VoyagerBaseController;
 use Wave\Organizer;
-use Wave\Actie;
 
-
-class OrganizerController extends \TCG\Voyager\Http\Controllers\VoyagerBaseController
+class OrganizerController extends VoyagerBaseController
 {
-    
-    public function organizer($slug){
+    public function organizer($slug)
+    {
 
-    	$organizer = Organizer::where('slug', '=', $slug)->firstOrFail();
+        $organizer = Organizer::where('slug', '=', $slug)->firstOrFail();
 
         $seo = [
             'seo_title' => $organizer->name,
@@ -32,6 +28,6 @@ class OrganizerController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContr
             ];
         });
 
-    	return view('theme::organizers.organizer', compact('organizer', 'seo', 'routes'));
+        return view('theme::organizers.organizer', compact('organizer', 'seo', 'routes'));
     }
 }
