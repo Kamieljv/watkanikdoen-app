@@ -82,6 +82,7 @@ The analytics server is hosted on [http://watkanikdoen-analytics.herokuapp.com/]
 - [ ] Configure user roles (admin, moderator, user)
 - [ ] Page analytics (e.g. Open Web Analytics, Umami or Plausible)
 - [ ] Cookiemelding
+- [ ] Configure permissions in admin backend
 - [ ] Color theme tags
 - [ ] Menu-items in mobile authenticated menu (Blog, About, etc.)
 - [ ] Image compression after upload (on all upload types)
