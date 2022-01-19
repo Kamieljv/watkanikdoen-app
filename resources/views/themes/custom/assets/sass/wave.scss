@@ -139,6 +139,13 @@ h6 {
       background: white;
     }
   }
+  & .transparent-button a {
+    color: white;
+    border-color: white;
+    &:hover {
+      background: #ffffff3d;
+    }
+  }
 }
 
 svg {
