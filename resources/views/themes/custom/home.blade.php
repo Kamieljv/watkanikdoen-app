@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row">
-        <div id="colored-banner" class="h-20 md:h-[200px] bg-gradient-to-br from-[var(--wkid-red)] to-[var(--wkid-blue)] flex items-bottom pb-[50px] justify-center">
+        <div id="colored-banner" class="h-[300px] bg-gradient-to-br from-[var(--wkid-red)] to-[var(--wkid-blue)] flex items-bottom pb-[50px] justify-center">
             
         </div>
     </div>

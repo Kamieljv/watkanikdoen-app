@@ -12,7 +12,7 @@
         <div id="profile-dropdown" @click.away="open = false" class="flex items-center h-full ml-3" x-data="{ open: false }">
             <div>
                 <button @click="open = !open" class="flex text-sm transition duration-150 ease-in-out border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 hover:border-gray-300" id="user-menu" aria-label="User menu" aria-haspopup="true" x-bind:aria-expanded="open" aria-expanded="true">
-                    <img class="w-8 h-8 rounded-full" src="{{ auth()->user()->avatar_path . '?' . time() }}" alt="{{ auth()->user()->name }}'s Avatar">
+                    <img class="w-10 h-10 rounded-full" src="{{ auth()->user()->avatar_path . '?' . time() }}" alt="{{ auth()->user()->name }}'s Avatar">
                 </button>
             </div>
 

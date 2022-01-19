@@ -17,7 +17,7 @@ Vue.prototype.__ = str => _.get(window.i18n, str)
 
 // Add TinyMCE (rich text editor) paste plugin
 // (https://www.tiny.cloud/docs-3x/reference/TinyMCE3x@Plugins/Plugin3x@paste/)
-import '../../public/vendor/tcg/voyager/assets/js/plugins/paste/plugin.min.js';
+import "../../public/vendor/tcg/voyager/assets/js/plugins/paste/plugin.min.js"
 
 // Load additional components
 const files = require.context("./", true, /\.vue$/i)
@@ -25,7 +25,7 @@ files.keys().map(key => Vue.component(key.split("/").pop().split(".")[0], files(
 
 // Mount Vue instances
 var coordinatesField = new Vue(
-    {
-        el: "#coordinates-formfield",
-    }
+	{
+		el: "#coordinates-formfield",
+	}
 )

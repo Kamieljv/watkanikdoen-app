@@ -8,18 +8,18 @@ window.csrf = document.querySelector("meta[name='csrf-token']").getAttribute("co
  */
 
 document.addEventListener(
-    "DOMContentLoaded", function () {
-        var replacers = document.querySelectorAll("[data-replace]")
-        for(var i=0; i<replacers.length; i++){
-            let replaceClasses = JSON.parse(replacers[i].dataset.replace.replace(/'/g, "\""))
-            Object.keys(replaceClasses).forEach(
-                function (key) {
-                    replacers[i].classList.remove(key)
-                    replacers[i].classList.add(replaceClasses[key])
-                }
-            )
-        }
-    }
+	"DOMContentLoaded", function () {
+		var replacers = document.querySelectorAll("[data-replace]")
+		for(var i=0; i<replacers.length; i++){
+			let replaceClasses = JSON.parse(replacers[i].dataset.replace.replace(/'/g, "\""))
+			Object.keys(replaceClasses).forEach(
+				function (key) {
+					replacers[i].classList.remove(key)
+					replacers[i].classList.add(replaceClasses[key])
+				}
+			)
+		}
+	}
 )
 
 
@@ -31,33 +31,33 @@ var markAsRead = document.getElementsByClassName("mark-as-read")
 var removedNotifications = 0
 var unreadNotifications =  markAsRead.length
 for (var i = 0; i < markAsRead.length; i++) {
-    markAsRead[i].addEventListener(
-        "click", function () {
-            var notificationId = this.dataset.id
-            var notificationListId = this.dataset.listid
+	markAsRead[i].addEventListener(
+		"click", function () {
+			var notificationId = this.dataset.id
+			var notificationListId = this.dataset.listid
 
-            var notificationRequest = new XMLHttpRequest()
-            notificationRequest.open("POST", url + "/notification/read/" + notificationId, true)
-            notificationRequest.onreadystatechange = function () {
-                if (notificationRequest.readyState != 4 || notificationRequest.status != 200) { return
-                    var response = JSON.parse(notificationRequest.responseText)
-                    document.getElementById("notification-li-" + response.listid).remove()
-                    removedNotifications += 1
-                    var notificationCount = document.getElementById("notification-count")
-                    if(notificationCount) {
-                          notificationCount.innerHTML = parseInt(notificationCount.innerHTML) - 1
-                    }
-                }
-                if(removedNotifications >= unreadNotifications) {
-                    if(document.getElementById("notification-count")) {
-                        document.getElementById("notification-count").classList.add("opacity-0")
-                    }
-                }
-            }
-            notificationRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
-            notificationRequest.send("_token=" + csrf + "&listid=" + notificationListId)
-        }
-    )
+			var notificationRequest = new XMLHttpRequest()
+			notificationRequest.open("POST", url + "/notification/read/" + notificationId, true)
+			notificationRequest.onreadystatechange = function () {
+				if (notificationRequest.readyState != 4 || notificationRequest.status != 200) { return
+					var response = JSON.parse(notificationRequest.responseText)
+					document.getElementById("notification-li-" + response.listid).remove()
+					removedNotifications += 1
+					var notificationCount = document.getElementById("notification-count")
+					if(notificationCount) {
+						notificationCount.innerHTML = parseInt(notificationCount.innerHTML) - 1
+					}
+				}
+				if(removedNotifications >= unreadNotifications) {
+					if(document.getElementById("notification-count")) {
+						document.getElementById("notification-count").classList.add("opacity-0")
+					}
+				}
+			}
+			notificationRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+			notificationRequest.send("_token=" + csrf + "&listid=" + notificationListId)
+		}
+	)
 }
 
 /**********
@@ -73,48 +73,48 @@ for (var i = 0; i < markAsRead.length; i++) {
 */
 
 window.checkoutComplete = function (data) {
-    var checkoutId = data.checkout.id
+	var checkoutId = data.checkout.id
 
-    Paddle.Order.details(
-        checkoutId, function (data) {
-            // Order data, downloads, receipts etc... available within 'data' variable.
-            document.getElementById("fullscreenLoaderMessage").innerText = "Finishing Up Your Order"
-            document.getElementById("fullscreenLoader").classList.remove("hidden")
-            axios.post("/checkout", { _token: csrf, checkout_id: data.checkout.checkout_id })
-            .then(
-                function (response) {
-                    console.log(response)
-                    if(parseInt(response.data.status) == 1) {
-                          let queryParams = ""
-                        if(parseInt(response.data.guest) == 1) {
-                            queryParams = "?complete=true"
-                        }
-                        window.location = "/checkout/welcome" + queryParams
-                    }
-                }
-            )
-        }
-    )
+	Paddle.Order.details(
+		checkoutId, function (data) {
+			// Order data, downloads, receipts etc... available within 'data' variable.
+			document.getElementById("fullscreenLoaderMessage").innerText = "Finishing Up Your Order"
+			document.getElementById("fullscreenLoader").classList.remove("hidden")
+			axios.post("/checkout", { _token: csrf, checkout_id: data.checkout.checkout_id })
+				.then(
+					function (response) {
+						console.log(response)
+						if(parseInt(response.data.status) == 1) {
+							let queryParams = ""
+							if(parseInt(response.data.guest) == 1) {
+								queryParams = "?complete=true"
+							}
+							window.location = "/checkout/welcome" + queryParams
+						}
+					}
+				)
+		}
+	)
 }
 
 window.checkoutUpdate = function (data) {
-    if(data.checkout.completed) {
-        popToast("success", "Your payment info has been successfully updated.")
-    } else {
-        popToast("danger", "Sorry, there seems to be a problem updating your payment info")
-    }
+	if(data.checkout.completed) {
+		popToast("success", "Your payment info has been successfully updated.")
+	} else {
+		popToast("danger", "Sorry, there seems to be a problem updating your payment info")
+	}
 }
 
 window.checkoutCancel = function (data) {
-    let subscriptionId = data.checkout.id
-    axios.post("/cancel", { _token: csrf, id: subscriptionId })
-    .then(
-        function (response) {
-            if(parseInt(response.data.status) == 1) {
-                 window.location = "/settings/subscription"
-            }
-        }
-    )
+	let subscriptionId = data.checkout.id
+	axios.post("/cancel", { _token: csrf, id: subscriptionId })
+		.then(
+			function (response) {
+				if(parseInt(response.data.status) == 1) {
+					window.location = "/settings/subscription"
+				}
+			}
+		)
 }
 
 /*****
@@ -131,9 +131,9 @@ window.checkoutCancel = function (data) {
 ***********/
 
 window.switchPlans = function (plan_id, plan_name) {
-    document.getElementById("switchPlansModal").__x.$data.open = true
-    document.getElementById("switchPlansModal").__x.$data.plan_name = plan_name
-    document.getElementById("switchPlansModal").__x.$data.plan_id = plan_id
+	document.getElementById("switchPlansModal").__x.$data.open = true
+	document.getElementById("switchPlansModal").__x.$data.plan_name = plan_name
+	document.getElementById("switchPlansModal").__x.$data.plan_id = plan_id
 }
 
 

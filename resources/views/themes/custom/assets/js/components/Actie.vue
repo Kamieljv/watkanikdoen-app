@@ -1,6 +1,6 @@
 <template>
-    <article 
-        class="flex flex-col overflow-hidden rounded-lg shadow-lg actie relative" 
+    <article
+        class="flex flex-col overflow-hidden rounded-lg shadow-lg actie relative transition-all ease-out hover:translate-y-[-0.250rem] hover:shadow-[0_0_20px_rgba(0,0,0,0.30)]"
         typeof="Article"
     >
         <a :href="actie.link" class="h-full">
@@ -15,7 +15,7 @@
                         <svg-vue icon="logo" style="stroke: currentColor; height: 52px;"></svg-vue>
                     </div>
                     <ul class="themes-container p-2 absolute top-0 w-full">
-                        <li 
+                        <li
                             v-for="theme in actie.themes"
                             :key="theme.id"
                             class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
@@ -26,7 +26,7 @@
                         </li>
                     </ul>
                     <div class="distance-container text-right p-2 absolute bottom-0 w-full">
-                        <div 
+                        <div
                             v-if="actie.distance"
                             class="relative self-start inline-block bg-[color:var(--wkid-yellow-light)] px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
                         >
@@ -49,10 +49,12 @@
                 <div class="flex flex-col grow justify-between flex-1 bg-white">
                     <div class="details-container text-sm text-gray-500 p-3">
                         <div class="flex items-center mb-1 text-sm leading-5 text-gray-700">
-                            <svg-vue icon="antdesign-clock-circle-o" style="stroke: currentColor; height: 20px;"></svg-vue> &nbsp; {{ actie.start }}<br/>
+                            <svg-vue icon="antdesign-clock-circle-o" class="shrink-0" style="stroke: currentColor; height: 20px;"></svg-vue>
+                            &nbsp; <span class="font-medium">{{ actie.start }}</span><br/>
                         </div>
                         <div class="flex items-center text-sm leading-5 text-gray-700">
-                            <svg-vue icon="antdesign-environment-o" style="stroke: currentColor; height: 20px;"></svg-vue> &nbsp; {{ actie.location_human }}
+                            <svg-vue icon="antdesign-environment-o" class="shrink-0" style="stroke: currentColor; height: 20px;"></svg-vue>
+                            &nbsp; <span class="font-medium truncate">{{ actie.location_human }}</span>
                         </div>
                     </div>
                 </div>
@@ -104,6 +106,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-      
+
 </style>
 

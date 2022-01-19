@@ -1,6 +1,6 @@
 <template>
     <div class="relative">
-        <div>
+        <div class="h-full">
             <t-input
                 @input="onChange"
                 v-model="search"

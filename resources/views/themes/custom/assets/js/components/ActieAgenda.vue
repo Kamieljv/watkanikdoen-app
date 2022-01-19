@@ -2,7 +2,7 @@
     <div>
         <div v-if="filterable" class="row mx-auto max-w-6xl">
             <div id="filter-container" class="row my-3">
-                <h6 class="text-sm text-gray-400">Zoek & Filter</h6>
+                <h6 class="mt-8 mb-3 text-sm text-gray-800">Zoek & Filter</h6>
                 <div id="filter-wrapper" class="col grid gap-3 grid-cols-2 sm:grid-cols-4">
                     <div>
                         <t-input

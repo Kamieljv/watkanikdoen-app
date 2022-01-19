@@ -16,19 +16,18 @@
             </div>
             <h1>{{ $organizer->name }}</h1>
         </div>
-        <div class="mt-5">
+        <div class="mt-5 mb-10">
             {!! $organizer->description !!}
         </div>
-        <div>
+        <div id="app">
             <h2>Acties georganiseerd door {{ $organizer->name }}</h2>
-            <div id="app">
-                <actie-agenda
-                    :routes="{{ $routes }}"
-                    :filterable="false"
-                    :organizer-id="{{ $organizer->id }}"
-                >
-                </actie-agenda>
-            </div>
+            <actie-agenda
+                :routes="{{ $routes }}"
+                :filterable="false"
+                :organizer-id="{{ $organizer->id }}"
+                class="-mt-8"
+            >
+            </actie-agenda>
         </div>
     </div>
 
