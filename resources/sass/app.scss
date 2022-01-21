@@ -5,4 +5,11 @@
 @import "variables";
 
 // Bootstrap
-@import "~bootstrap/scss/bootstrap";
+// @import "~bootstrap/scss/bootstrap";
+
+// Modify action buttons
+.btn.approve,
+.btn.view {
+    margin-left: 5px;
+    cursor: pointer;
+}

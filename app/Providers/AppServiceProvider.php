@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Throwable;
+use Voyager;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,8 @@ class AppServiceProvider extends ServiceProvider
             $this->app['request']->server->set('HTTPS', true);
         }
         $this->setSchemaDefaultLength();
+
+        Voyager::addAction(\App\Actions\ApproveAanmelding::class);
     }
 
     /**

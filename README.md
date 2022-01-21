@@ -86,6 +86,7 @@ The analytics server is hosted on [http://watkanikdoen-analytics.herokuapp.com/]
 - [ ] Color theme tags
 - [ ] Menu-items in mobile authenticated menu (Blog, About, etc.)
 - [ ] Image compression after upload (on all upload types)
+- [ ] :warning: Restructure to get rid of `/wave`
 - [ ] Localize Wave controller messages
 - [ ] Localize Voyager
 - [ ] Localize js messages

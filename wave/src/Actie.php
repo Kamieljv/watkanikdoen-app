@@ -24,6 +24,25 @@ class Actie extends Model
     protected $geometryAsText = true;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'user_id',
+        'title',
+        'body',
+        'externe_link',
+        'time_start',
+        'time_end',
+        'location',
+        'location_human',
+        'slug',
+        'image',
+        'status',
+    ];
+
+    /**
      * The accessors to append to the model's array form.
      *
      * @var array

@@ -13,9 +13,15 @@ class Aanmelding extends Model
         'image_path',
     ];
 
-    public function getLogoPathAttribute()
+    public function getImagePathAttribute()
     {
         return $this->image ? Voyager::image($this->image) : null;
+    }
+
+    public function approve()
+    {
+        $this->status = 'APPROVED';
+        $this->save();
     }
 
     public function user()

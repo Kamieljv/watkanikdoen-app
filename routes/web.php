@@ -18,6 +18,7 @@ Auth::routes();
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+    Route::get('aanmelding/approve/{id}', 'AanmeldingController@approve')->name('aanmelding.approve');
 });
 
 // Include Wave Routes
