@@ -186,7 +186,7 @@
                         <div class="panel-body">
                             @php
                                 $dataTypeRows = $dataType->{($edit ? 'editRows' : 'addRows' )};
-                                $exclude = ['title', 'body', 'excerpt', 'slug', 'status', 'category_id', 'author_id', 'featured', 'image', 'meta_description', 'meta_keywords', 'seo_title', 'location', 'location_human'];
+                                $exclude = ['title', 'body', 'excerpt', 'slug', 'status', 'category_id', 'user_id', 'featured', 'image', 'meta_description', 'meta_keywords', 'seo_title', 'location', 'location_human'];
                             @endphp
 
                             @foreach($dataTypeRows as $row)
@@ -229,10 +229,10 @@
                         </div>
                         <div class="panel-body">
                             <div class="form-group">
-                                <label for="author_id">{{ __('voyager::actie.author_id') }}</label>
-                                <select class="form-control" name="author_id">
+                                <label for="user_id">{{ __('voyager::actie.user_id') }}</label>
+                                <select class="form-control" name="user_id">
                                     @foreach(Voyager::model('User')::all() as $user)
-                                        <option value="{{ $user->id }}"@if(isset($dataTypeContent->author_id) && $dataTypeContent->author_id == $user->id) selected="selected"@endif>{{ $user->name }}</option>
+                                        <option value="{{ $user->id }}"@if(isset($dataTypeContent->user_id) && $dataTypeContent->user_id == $user->id) selected="selected"@endif>{{ $user->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

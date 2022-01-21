@@ -22,7 +22,7 @@ class ActiesTableSeeder extends Seeder
             0 => 
             array (
                 'id' => 11,
-                'author_id' => 2,
+                'user_id' => 2,
                 'title' => 'Klimaatdemo',
                 'seo_title' => NULL,
                 'excerpt' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sagittis venenatis nibh, dapibus tempus ex ultrices sit amet.',
@@ -30,7 +30,7 @@ class ActiesTableSeeder extends Seeder
                 'externe_link' => '#',
                 'time_start' => '2022-02-06 15:45:00',
                 'time_end' => '2022-02-06 16:45:00',
-                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'Õ¿ ¬@å lP6,J@',
+                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'Õ¿ï¿½ï¿½ï¿½@ï¿½lP6,J@',
                 'location_human' => 'De Dam, Amsterdam',
                 'image' => NULL,
                 'slug' => 'klimaatdemo-amsterdam',
@@ -44,7 +44,7 @@ class ActiesTableSeeder extends Seeder
             1 => 
             array (
                 'id' => 12,
-                'author_id' => 2,
+                'user_id' => 2,
                 'title' => 'Black Lives Matter',
                 'seo_title' => NULL,
                 'excerpt' => NULL,
@@ -53,7 +53,7 @@ class ActiesTableSeeder extends Seeder
                 'externe_link' => '#',
                 'time_start' => '2022-02-06 15:45:00',
                 'time_end' => '2022-02-06 15:45:00',
-                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'u“VŽ@oƒÀÊ1J@',
+                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'uï¿½Vï¿½@oï¿½ï¿½ï¿½1J@',
                 'location_human' => 'De Dam, Amsterdam',
                 'image' => 'acties/pexels-paddy-o-sullivan-2369217-resize-500.jpg',
                 'slug' => 'black-lives-matter-amsterdam',
@@ -67,7 +67,7 @@ class ActiesTableSeeder extends Seeder
             2 => 
             array (
                 'id' => 16,
-                'author_id' => 1,
+                'user_id' => 1,
                 'title' => 'Kick Out Zwarte Piet',
                 'seo_title' => NULL,
                 'excerpt' => NULL,
@@ -76,7 +76,7 @@ class ActiesTableSeeder extends Seeder
                 'externe_link' => '#',
                 'time_start' => '2022-02-08 09:00:00',
                 'time_end' => '2022-02-09 15:00:00',
-                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'u“VŽ@oƒÀÊ1J@',
+                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'uï¿½Vï¿½@oï¿½ï¿½ï¿½1J@',
                 'location_human' => 'De Dam, Amsterdam',
                 'image' => 'acties/pexels-markus-spiske-3039036-resize-500.jpg',
                 'slug' => 'kick-out-zwarte-piet',
@@ -90,7 +90,7 @@ class ActiesTableSeeder extends Seeder
             3 => 
             array (
                 'id' => 17,
-                'author_id' => 1,
+                'user_id' => 1,
                 'title' => 'Woonprotest',
                 'seo_title' => NULL,
                 'excerpt' => NULL,
@@ -98,7 +98,7 @@ class ActiesTableSeeder extends Seeder
                 'externe_link' => '#',
                 'time_start' => '2022-01-15 18:59:00',
                 'time_end' => '2022-01-24 19:00:00',
-                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'u“VŽ@oƒÀÊ1J@',
+                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'uï¿½Vï¿½@oï¿½ï¿½ï¿½1J@',
                 'location_human' => 'De Dam, Amsterdam',
                 'image' => 'acties/pexels-karolina-grabowska-8106775-resize-500.jpg',
                 'slug' => 'woonprotest-amsterdam',
@@ -112,7 +112,7 @@ class ActiesTableSeeder extends Seeder
             4 => 
             array (
                 'id' => 19,
-                'author_id' => 2,
+                'user_id' => 2,
                 'title' => 'Klimaatdemo',
                 'seo_title' => NULL,
                 'excerpt' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sagittis venenatis nibh, dapibus tempus ex ultrices sit amet.',
@@ -120,7 +120,7 @@ class ActiesTableSeeder extends Seeder
                 'externe_link' => '#',
                 'time_start' => '2022-02-06 15:45:00',
                 'time_end' => '2022-02-06 15:45:00',
-                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'QÎ^Õt@Û—d
+                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'Qï¿½^ï¿½t@Û—ï¿½d
 J@',
                 'location_human' => 'Jaarbeursplein, Utrecht',
                 'image' => NULL,
@@ -135,7 +135,7 @@ J@',
             5 => 
             array (
                 'id' => 20,
-                'author_id' => 2,
+                'user_id' => 2,
                 'title' => 'Klimaatdemo',
                 'seo_title' => NULL,
                 'excerpt' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sagittis venenatis nibh, dapibus tempus ex ultrices sit amet.',
@@ -143,7 +143,7 @@ J@',
                 'externe_link' => '#',
                 'time_start' => '2022-02-06 15:45:00',
                 'time_end' => '2022-02-06 15:45:00',
-                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'S;uðEa@<ý@þôëI@',
+                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'S;uï¿½Ea@<ï¿½@ï¿½ï¿½ï¿½I@',
                 'location_human' => 'Valkhofpark, Nijmegen',
                 'image' => NULL,
                 'slug' => 'klimaatdemo-nijmegen',
@@ -157,7 +157,7 @@ J@',
             6 => 
             array (
                 'id' => 23,
-                'author_id' => 2,
+                'user_id' => 2,
                 'title' => 'Black Lives Matter',
                 'seo_title' => NULL,
                 'excerpt' => NULL,
@@ -166,7 +166,7 @@ J@',
                 'externe_link' => 'https://utrecht.nl',
                 'time_start' => '2022-02-06 15:45:00',
                 'time_end' => '2022-02-06 15:45:00',
-                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'sBÔDÚp@’ýŽ§ü
+                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'sBï¿½Dï¿½p@ï¿½ï¿½ï¿½ï¿½ï¿½
 J@',
                 'location_human' => 'Jaarbeursplein, Utrecht',
                 'image' => NULL,
@@ -181,7 +181,7 @@ J@',
             7 => 
             array (
                 'id' => 24,
-                'author_id' => 2,
+                'user_id' => 2,
                 'title' => 'Black Lives Matter',
                 'seo_title' => NULL,
                 'excerpt' => NULL,
@@ -190,7 +190,7 @@ J@',
                 'externe_link' => 'https://nijmegen.nl',
                 'time_start' => '2022-02-06 15:45:00',
                 'time_end' => '2022-02-06 15:45:00',
-                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'Yêà‹Ff@+ruw$ëI@',
+                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'Yï¿½ï¿½ï¿½Ff@+ruw$ï¿½I@',
                 'location_human' => 'Valkhofpark, Nijmegen',
                 'image' => NULL,
                 'slug' => 'black-lives-matter-nijmegen',
@@ -204,7 +204,7 @@ J@',
             8 => 
             array (
                 'id' => 25,
-                'author_id' => 1,
+                'user_id' => 1,
                 'title' => 'Bio-industrie Protest',
                 'seo_title' => NULL,
                 'excerpt' => NULL,
@@ -212,7 +212,7 @@ J@',
                 'externe_link' => 'https://partijvoordedieren.nl',
                 'time_start' => '2022-02-17 10:02:00',
                 'time_end' => '2022-02-18 10:02:00',
-                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'u“VŽ@oƒÀÊ1J@',
+                'location' => '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'uï¿½Vï¿½@oï¿½ï¿½ï¿½1J@',
                 'location_human' => 'Museumplein, Amsterdam',
                 'image' => 'acties/pexels-karolina-grabowska-8106775-resize-500.jpg',
                 'slug' => 'bio-industrie-protest',

@@ -11,7 +11,7 @@ return [
     'new'              => 'Nieuw Event aanmaken',
     'seo_content'      => 'SEO inhoud',
     'seo_title'        => 'Seo titel',
-    'author_id'        => 'Schrijver User ID',
+    'user_id'        => 'User ID',
     'slug'             => 'URL slug',
     'status'           => 'Event status',
     'status_draft'     => 'concept',

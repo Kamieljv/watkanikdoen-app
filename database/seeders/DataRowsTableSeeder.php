@@ -1223,9 +1223,9 @@ class DataRowsTableSeeder extends Seeder
             array (
                 'id' => 123,
                 'data_type_id' => 9,
-                'field' => 'author_id',
+                'field' => 'user_id',
                 'type' => 'text',
-                'display_name' => 'Author Id',
+                'display_name' => 'User Id',
                 'required' => 1,
                 'browse' => 0,
                 'read' => 1,
