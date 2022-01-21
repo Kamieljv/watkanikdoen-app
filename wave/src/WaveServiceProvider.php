@@ -18,7 +18,6 @@ use Wave\Http\Livewire\Settings\Plans;
 use Wave\Http\Livewire\Settings\Security;
 use Wave\Http\Livewire\Settings\Subscription;
 use Wave\Http\Middleware\Cancelled;
-use Wave\Http\Middleware\InstallMiddleware;
 use Wave\Http\Middleware\TokenMiddleware;
 use Wave\Http\Middleware\TrialEnded;
 use Wave\Http\Middleware\WaveMiddleware;
@@ -47,7 +46,6 @@ class WaveServiceProvider extends ServiceProvider
 
         $this->app->router->aliasMiddleware('token_api', TokenMiddleware::class);
         $this->app->router->pushMiddlewareToGroup('web', WaveMiddleware::class);
-        $this->app->router->pushMiddlewareToGroup('web', InstallMiddleware::class);
 
         $this->app->router->middlewareGroup('wave', $waveMiddleware);
     }
@@ -150,11 +148,6 @@ class WaveServiceProvider extends ServiceProvider
 
         Blade::directive('endhome', function () {
             return "<?php } ?>";
-        });
-
-
-        Blade::directive('waveCheckout', function () {
-            return '{!! view("wave::checkout")->render() !!}';
         });
     }
 

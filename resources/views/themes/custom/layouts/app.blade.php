@@ -80,14 +80,10 @@
     </div>
     <!-- End Full Loader -->
 
-
-    
-    @waveCheckout
-
     <!-- Scripts -->
     <script src="{{ asset('themes/' . $theme->folder . '/js/app.js') }}"></script>
     @stack('scripts')
-    
+
     @include('theme::partials.toast')
 </body>
 </html>
