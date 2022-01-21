@@ -14,7 +14,7 @@ class SettingsController extends Controller
     public function index($section = '')
     {
         if (empty($section)) {
-            return redirect(route('wave.settings', 'profile'));
+            return redirect(route('settings', 'profile'));
         }
         return view('theme::settings.index', compact('section'));
     }

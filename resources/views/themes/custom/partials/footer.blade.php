@@ -130,7 +130,7 @@
         </div>
 
         <div class="flex flex-col items-center justify-between py-10 border-t border-solid lg:flex-row border-gray">
-            <a id="footer-logo-link" href="{{ route('wave.home') }}">
+            <a id="footer-logo-link" href="{{ route('home') }}">
                 @svg('icon-logo', ['style' => 'stroke: black; height: 32px;'])
             </a>
             <ul class="flex flex-wrap space-x-5 text-xs mt-5 lg:mt-0">

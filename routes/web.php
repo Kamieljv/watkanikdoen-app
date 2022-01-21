@@ -28,9 +28,9 @@ use App\Http\Controllers\SettingsController;
 
 // Authentication routes
 Auth::routes();
-Route::get('logout', [LoginController::class, 'logout'])->name('wave.logout');
+Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('user/verify/{verification_code}', [RegisterController::class, 'verify'])->name('verify');
-Route::post('register/complete', [RegisterController::class, 'complete'])->name('wave.register-complete');
+Route::post('register/complete', [RegisterController::class, 'complete'])->name('register-complete');
 
 
 // Include voyager routes
@@ -43,39 +43,39 @@ Route::group(['prefix' => 'admin'], function () {
 Route::impersonate();
 
 // Home route
-Route::get('/', [HomeController::class, 'index'])->name('wave.home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Translation file route
 Route::get('/lang-{lang}.js', [LanguageController::class, 'show']);
 
 // Acties & Organizers
-Route::get('acties/search', [ActieController::class, 'search'])->name('wave.acties.search');
-Route::get('actie/{actie}', [ActieController::class, 'actie'])->name('wave.acties.actie');
-Route::get('organizer/{organizer}', [OrganizerController::class, 'organizer'])->name('wave.organizers.organizer');
+Route::get('acties/search', [ActieController::class, 'search'])->name('acties.search');
+Route::get('actie/{actie}', [ActieController::class, 'actie'])->name('acties.actie');
+Route::get('organizer/{organizer}', [OrganizerController::class, 'organizer'])->name('organizers.organizer');
 
 // Blog routes
-Route::get('blog', [BlogController::class, 'index'])->name('wave.blog');
-Route::get('blog/{category}', [BlogController::class, 'category'])->name('wave.blog.category');
-Route::get('blog/{category}/{post}', [BlogController::class, 'post'])->name('wave.blog.post');
+Route::get('blog', [BlogController::class, 'index'])->name('blog');
+Route::get('blog/{category}', [BlogController::class, 'category'])->name('blog.category');
+Route::get('blog/{category}/{post}', [BlogController::class, 'post'])->name('blog.post');
 
 // General page route
-Route::get('{page}', [PageController::class, 'page'])->name('wave.page');
+Route::get('{page}', [PageController::class, 'page'])->name('page');
 
 // Routes that require authemtication
 Route::group(['prefix' => 'auth', 'middleware' => 'auth'], function () {
     // Dashboard
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('wave.dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Settings
-    Route::get('settings/{section?}', [SettingsController::class, 'index'])->name('wave.settings');
-    Route::post('settings/profile', [SettingsController::class, 'profilePut'])->name('wave.settings.profile.put');
-    Route::put('settings/security', [SettingsController::class, 'securityPut'])->name('wave.settings.security.put');
+    Route::get('settings/{section?}', [SettingsController::class, 'index'])->name('settings');
+    Route::post('settings/profile', [SettingsController::class, 'profilePut'])->name('settings.profile.put');
+    Route::put('settings/security', [SettingsController::class, 'securityPut'])->name('settings.security.put');
 
     // Notifications & Announcements
-    Route::get('notifications', [NotificationController::class, 'index'])->name('wave.notifications');
-    Route::get('announcements', [AnnouncementController::class, 'index'])->name('wave.announcements');
-    Route::get('announcement/{id}', [AnnouncementController::class, 'announcement'])->name('wave.announcement');
-    Route::post('announcements/read', [AnnouncementController::class, 'read'])->name('wave.announcements.read');
-    Route::get('notifications', [NotificationController::class, 'index'])->name('wave.notifications');
-    Route::post('notification/read/{id}', [NotificationController::class, 'delete'])->name('wave.notification.read');
+    Route::get('notifications', [NotificationController::class, 'index'])->name('notifications');
+    Route::get('announcements', [AnnouncementController::class, 'index'])->name('announcements');
+    Route::get('announcement/{id}', [AnnouncementController::class, 'announcement'])->name('announcement');
+    Route::post('announcements/read', [AnnouncementController::class, 'read'])->name('announcements.read');
+    Route::get('notifications', [NotificationController::class, 'index'])->name('notifications');
+    Route::post('notification/read/{id}', [NotificationController::class, 'delete'])->name('notification.read');
 });

@@ -18,7 +18,7 @@ class WaveMiddleware
 
         if (!$this->updateRole()) {
             if ($request->route()->getName() !== 'wave.cancelled') {
-                return redirect()->route('wave.cancelled');
+                return redirect()->route('cancelled');
             }
         }
         return $next($request);

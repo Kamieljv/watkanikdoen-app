@@ -17,7 +17,7 @@
 
             @foreach($announcements as $announcement)
 
-                <a href="{{ route('wave.announcement', $announcement->id) }}">{{ $announcement->title }}</a>
+                <a href="{{ route('announcement', $announcement->id) }}">{{ $announcement->title }}</a>
                 <span class="block mt-0 text-gray-600">{{ $announcement->description }}</span>
 
             @endforeach

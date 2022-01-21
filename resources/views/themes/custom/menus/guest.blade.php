@@ -1,6 +1,6 @@
 <nav class="flex items-center justify-end flex-1 hidden w-full h-full space-x-10 lg:flex">
 
-    <a href="{{ route('wave.blog') }}" class="text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600">
+    <a href="{{ route('blog') }}" class="text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600">
         {{ __("Blog") }}
     </a>
     <a href="/over-ons" class="hidden lg:block text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600">

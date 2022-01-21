@@ -15,7 +15,7 @@
             <div class="flex flex-col justify-center py-10 sm:py-5 sm:px-6 lg:px-8">
                 <div class="mt-8 text-left sm:mx-auto sm:w-full sm:max-w-md">
                     <div class="px-4 py-8 bg-white border shadow border-gray-50 sm:rounded-lg sm:px-10">
-                        <form role="form" method="POST" action="{{ route('wave.register-complete') }}">
+                        <form role="form" method="POST" action="{{ route('register-complete') }}">
                             @csrf
                             <!-- If we want the user to purchase before they can create an account -->
 
@@ -89,7 +89,7 @@
 
         @else
             <div class="items-center justify-center w-full mt-12 text-center">
-                <a href="{{ route('wave.dashboard') }}" class="inline-block w-auto px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-wave-700 focus:shadow-outline-wave active:bg-blue-700">
+                <a href="{{ route('dashboard') }}" class="inline-block w-auto px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-wave-700 focus:shadow-outline-wave active:bg-blue-700">
                     Go to my Dashboard
                 </a>
             </div>

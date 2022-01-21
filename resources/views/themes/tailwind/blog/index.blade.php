@@ -18,7 +18,7 @@
 			<ul class="flex self-start inline w-auto px-3 py-1 mt-3 text-xs font-medium text-gray-600 bg-blue-100 rounded-md">
 				<li class="mr-4 font-bold text-blue-600 uppercase">Categories:</li>
 				@foreach($categories as $cat)
-					<li class="@if(isset($category) && isset($category->slug) && ($category->slug == $cat->slug)){{ 'text-blue-700' }}@endif"><a href="{{ route('wave.blog.category', $cat->slug) }}">{{ $cat->name }}</a></li>
+					<li class="@if(isset($category) && isset($category->slug) && ($category->slug == $cat->slug)){{ 'text-blue-700' }}@endif"><a href="{{ route('blog.category', $cat->slug) }}">{{ $cat->name }}</a></li>
 					@if(!$loop->last)
 						<li class="mx-2">&middot;</li>
 					@endif
@@ -55,7 +55,7 @@
                         </a>
                     </div>
                     <p class="relative self-start inline-block px-2 py-1 mt-4 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded">
-                            <a href="{{ route('wave.blog.category', $post->category->slug) }}" class="text-gray-700 hover:underline" rel="category">
+                            <a href="{{ route('blog.category', $post->category->slug) }}" class="text-gray-700 hover:underline" rel="category">
 								{{ $post->category->name }}
                             </a>
                         </p>

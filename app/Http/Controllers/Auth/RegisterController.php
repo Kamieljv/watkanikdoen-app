@@ -154,7 +154,7 @@ class RegisterController extends Controller
         $user->save();
 
 
-        return redirect()->route('wave.dashboard')->with(['message' => 'Successfully updated your profile information.', 'message_type' => 'success']);
+        return redirect()->route('dashboard')->with(['message' => 'Successfully updated your profile information.', 'message_type' => 'success']);
     }
 
     private function sendVerificationEmail($user)
@@ -165,7 +165,7 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         if (setting('billing.card_upfront')) {
-            return redirect()->route('wave.pricing');
+            return redirect()->route('pricing');
         }
         return view('theme::auth.register');
     }

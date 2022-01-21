@@ -20,8 +20,8 @@
 
 	        @include('theme::partials.cancel-modal')
         @else
-            <p class="text-gray-600">Please <a href="{{ route('wave.settings', 'plans') }}">Subscribe to a Plan</a> in order to see your subscription information.</p>
-            <a href="{{ route('wave.settings', 'plans') }}" class="inline-flex self-start justify-center w-auto px-4 py-2 mt-5 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-wave-700 focus:shadow-outline-wave active:bg-blue-700">View Plans</a>
+            <p class="text-gray-600">Please <a href="{{ route('settings', 'plans') }}">Subscribe to a Plan</a> in order to see your subscription information.</p>
+            <a href="{{ route('settings', 'plans') }}" class="inline-flex self-start justify-center w-auto px-4 py-2 mt-5 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-wave-700 focus:shadow-outline-wave active:bg-blue-700">View Plans</a>
         @endif
     @endif
 </div>

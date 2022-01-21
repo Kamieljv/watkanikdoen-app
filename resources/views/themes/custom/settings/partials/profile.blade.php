@@ -1,4 +1,4 @@
-<form action="{{ route('wave.settings.profile.put') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('settings.profile.put') }}" method="POST" enctype="multipart/form-data">
 	<div class="relative flex flex-col p-6 lg:flex-row">
 		<div class="flex justify-start w-full mb-8 lg:w-3/12 xl:w-1/5 lg:m-b0">
 			<div class="relative w-32 h-32 cursor-pointer group">

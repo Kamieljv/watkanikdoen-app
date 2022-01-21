@@ -27,7 +27,7 @@
 				</div>
 				<div class="mt-5 sm:mt-6 sm:flex sm:flex-row-reverse">
 					<div class="flex flex-1 w-full rounded-md shadow-sm sm:ml-3 sm:w-full">
-                        <form id="form" action="{{ route('wave.switch-plans') }}" method="POST" class="w-full">
+                        <form id="form" action="{{ route('switch-plans') }}" method="POST" class="w-full">
                             @csrf
                             <button type="submit" class="inline-flex justify-center w-full px-4 py-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out border border-transparent rounded-md shadow-sm cursor-pointer bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-wave-700 focus:shadow-outline-wave sm:text-sm sm:leading-5">
                                 Yes, Switch My Plan

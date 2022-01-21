@@ -1,5 +1,5 @@
 <div class="flex flex-col px-10 py-8">
-	<form action="{{ route('wave.settings.api.post') }}" method="POST">
+	<form action="{{ route('settings.api.post') }}" method="POST">
 		<div>
 			<label for="key_name" class="block text-sm font-medium leading-5 text-gray-700">Create a new API Key</label>
 			<div class="mt-1 rounded-md shadow-sm">
@@ -135,7 +135,7 @@
 							</h3>
 						</div>
 						<div class="flex flex-col justify-between w-full mt-2">
-							<form action="{{ route('wave.settings.api.put') }}" method="POST">
+							<form action="{{ route('settings.api.put') }}" method="POST">
 								<div>
 									<label for="key_name" class="block text-sm font-medium leading-5 text-gray-700">Change the name of this API Key</label>
 									<div class="mt-1 rounded-md shadow-sm">
@@ -188,7 +188,7 @@
 							</div>
 							<div class="mt-5 sm:mt-6 sm:flex sm:flex-row-reverse">
 							    <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
-									<form action="{{ route('wave.settings.api.delete') }}" method="POST">
+									<form action="{{ route('settings.api.delete') }}" method="POST">
 										<input type="hidden" name="_method" value="DELETE">
 										<input type="hidden" name="id" :value="id">
 										<button type="submit" class="inline-flex justify-center w-full px-4 py-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red sm:text-sm sm:leading-5">

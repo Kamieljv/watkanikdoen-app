@@ -3,7 +3,7 @@
         <div class="flex items-center justify-between h-20 md:justify-start md:space-x-6">
             <div class="inline-flex">
             <!-- data-replace='{ "translate-y-12": "translate-y-0", "scale-110": "scale-100", "opacity-0": "opacity-100" }' -->
-                <a id="header-logo-link" href="{{ route('wave.home') }}" class="flex items-center justify-center space-x-3 transition-all duration-1000 ease-out transform text-white">
+                <a id="header-logo-link" href="{{ route('home') }}" class="flex items-center justify-center space-x-3 transition-all duration-1000 ease-out transform text-white">
                     @svg('icon-logo', ['style' => 'stroke: currentColor; height: 52px;'])
                 </a>
             </div>

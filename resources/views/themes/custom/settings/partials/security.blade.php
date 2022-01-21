@@ -1,4 +1,4 @@
-<form action="{{ route('wave.settings.security.put') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('settings.security.put') }}" method="POST" enctype="multipart/form-data">
 	<div class="relative flex flex-col p-6">
 		
 		<div>

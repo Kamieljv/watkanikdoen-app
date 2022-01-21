@@ -1,6 +1,6 @@
 <nav class="flex items-center justify-end flex-1 w-full h-full space-x-10">
 
-    <a href="{{ route('wave.blog') }}" class="hidden lg:block text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600">
+    <a href="{{ route('blog') }}" class="hidden lg:block text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600">
         {{ __("Blog") }}
     </a>
     <a href="/over-ons" class="hidden lg:block text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600">
@@ -66,14 +66,14 @@
                                 @svg('antdesign-thunderbolt-o', ['style' => 'width: 20px; height: 20px']) &nbsp; Admin
                             </a>
                         @endif
-                        <a href="{{ route('wave.settings') }}" class="flex items-center px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">
+                        <a href="{{ route('settings') }}" class="flex items-center px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">
                             @svg('antdesign-setting-o', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ __("menus.settings")}}
                         </a>
 
                     </div>
                     <div class="border-t border-gray-100"></div>
                     <div class="py-1">
-                        <a href="{{ route('wave.logout') }}" class="flex items-center w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">
+                        <a href="{{ route('logout') }}" class="flex items-center w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">
                             @svg('antdesign-logout-o', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ __("Log Out") }}
                         </a>
                     </div>

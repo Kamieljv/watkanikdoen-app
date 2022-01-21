@@ -18,7 +18,7 @@
 
         <div class="mt-8 mx-5 sm:mx-auto sm:w-full sm:max-w-md">
             <div class="px-4 py-8 bg-white border shadow border-gray-50 sm:rounded-lg sm:px-10">
-                <form role="form" method="POST" action="@if(setting('billing.card_upfront')){{ route('wave.register-subscribe') }}@else{{ route('register') }}@endif">
+                <form role="form" method="POST" action="@if(setting('billing.card_upfront')){{ route('register-subscribe') }}@else{{ route('register') }}@endif">
                     @csrf
 
                     <div>
