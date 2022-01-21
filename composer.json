@@ -58,10 +58,7 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": [],
-            "providers" : [
-                "Wave\\WaveServiceProvider"
-            ]
+            "dont-discover": []
         }
     },
     "scripts": {

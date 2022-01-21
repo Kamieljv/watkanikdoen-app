@@ -15,12 +15,7 @@
         }
     ],
     "require": {
-        "tcg/voyager": "1.*",
-    },
-    "autoload": {
-        "psr-4": {
-            "Wave\\": "/"
-        }
+        "tcg/voyager": "1.*"
     },
     "minimum-stability": "stable",
     "extra": {

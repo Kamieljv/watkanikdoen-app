@@ -184,7 +184,6 @@ return [
          */
 
         Lab404\Impersonate\ImpersonateServiceProvider::class,
-        Wave\WaveServiceProvider::class,
         DevDojo\Themes\ThemesServiceProvider::class,
 
         /*
