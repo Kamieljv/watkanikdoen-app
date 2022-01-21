@@ -3,7 +3,6 @@
 namespace App\Actions;
 
 use Illuminate\Support\Facades\Log;
-
 use TCG\Voyager\Actions\AbstractAction;
 
 class ApproveAanmelding extends AbstractAction
@@ -40,7 +39,7 @@ class ApproveAanmelding extends AbstractAction
      */
     public function shouldActionDisplayOnDataType()
     {
-        return $this->dataType->slug == 'aanmeldingen';
+        return $this->dataType->slug === 'aanmeldingen';
     }
 
     /*

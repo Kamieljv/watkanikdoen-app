@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Notifications\VerifyEmail;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -11,7 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use TCG\Voyager\Models\Role;
-use App\Notifications\VerifyEmail;
 
 class RegisterController extends Controller
 {
@@ -211,12 +211,12 @@ class RegisterController extends Controller
 
         $new_username = $username;
 
-        $user_exists = \App\Models\User::where('username', '=', $username)->first();
+        $user_exists = User::where('username', '=', $username)->first();
         $counter = 1;
         while (isset($user_exists->id)) {
             $new_username = $username . $counter;
             $counter += 1;
-            $user_exists = \App\Models\User::where('username', '=', $new_username)->first();
+            $user_exists = User::where('username', '=', $new_username)->first();
         }
 
         $username = $new_username;

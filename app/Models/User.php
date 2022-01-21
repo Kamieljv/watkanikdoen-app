@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Announcement;
-use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Lab404\Impersonate\Models\Impersonate;
 use Storage;

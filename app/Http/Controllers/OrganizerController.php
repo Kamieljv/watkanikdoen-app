@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Organizer;
 use Illuminate\Support\Facades\Route;
 use TCG\Voyager\Http\Controllers\VoyagerBaseController;
-use App\Models\Organizer;
 
 class OrganizerController extends VoyagerBaseController
 {

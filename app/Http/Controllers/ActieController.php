@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Algolia\AlgoliaSearch\SearchIndex;
+use App\Models\Actie;
 use Illuminate\Http\Request;
 use TCG\Voyager\Http\Controllers\VoyagerBaseController;
-use App\Models\Actie;
 
 class ActieController extends VoyagerBaseController
 {

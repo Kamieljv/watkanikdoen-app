@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Actie;
 use Illuminate\Database\Eloquent\Model;
 
 class ActieTheme extends Model

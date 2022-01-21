@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
-use Illuminate\Http\Request;
-use Validator;
-use Voyager;
 use App\Models\Aanmelding;
 use App\Models\Actie;
-
+use Voyager;
 
 class AanmeldingController extends Controller
 {
@@ -60,14 +56,13 @@ class AanmeldingController extends Controller
                 'message'    => __('aanmeldingen.approved_success'),
                 'alert-type' => 'success',
             ]);
-
     }
 
     protected function createSlug($title)
     {
         $slug = str_slug($title);
         $allSlugs = Actie::select('slug')->where('slug', '=', $slug)->get();
-        if (! $allSlugs->contains('slug', $slug)){
+        if (! $allSlugs->contains('slug', $slug)) {
             return $slug;
         }
 

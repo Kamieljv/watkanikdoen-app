@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
+use DB;
 use Illuminate\Database\Seeder;
 
 class AanmeldingenTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -14,12 +14,12 @@ class AanmeldingenTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
-        \DB::table('aanmeldingen')->delete();
-        
-        \DB::table('aanmeldingen')->insert(array (
-            0 => 
+
+        DB::table('aanmeldingen')->delete();
+
+        DB::table('aanmeldingen')->insert(array (
+            0 =>
             array (
                 'id' => 1,
                 'user_id' => 1,
@@ -28,15 +28,13 @@ class AanmeldingenTableSeeder extends Seeder
                 'externe_link' => '#',
                 'time_start' => '2022-01-19 17:22:00',
                 'time_end' => '2022-01-19 17:22:00',
-                'location' => NULL,
+                'location' => null,
                 'location_human' => 'Loc',
-                'image' => NULL,
+                'image' => null,
                 'status' => 'PENDING',
                 'created_at' => '2022-01-19 16:22:36',
                 'updated_at' => '2022-01-19 16:22:36',
             ),
         ));
-        
-        
     }
 }

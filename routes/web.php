@@ -12,10 +12,10 @@
 */
 
 use App\Http\Controllers\AanmeldingController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ActieController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
@@ -24,7 +24,6 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrganizerController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\SettingsController;
-
 
 // Authentication routes
 Auth::routes();

@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\ActieTheme;
-use App\Models\Category;
-use App\Models\Organizer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Jenssegers\Date\Date;

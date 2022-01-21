@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Actions\ApproveAanmelding;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Throwable;
@@ -21,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
         }
         $this->setSchemaDefaultLength();
 
-        Voyager::addAction(\App\Actions\ApproveAanmelding::class);
+        Voyager::addAction(ApproveAanmelding::class);
     }
 
     /**
