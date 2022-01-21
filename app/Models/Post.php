@@ -1,7 +1,9 @@
 <?php
 
-namespace Wave;
+namespace App\Models;
 
+use App\Models\Category;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Voyager;
 
@@ -14,7 +16,7 @@ class Post extends Model
 
     public function user()
     {
-        return $this->belongsTo('\Wave\User', 'author_id');
+        return $this->belongsTo(User::class, 'author_id');
     }
 
     public function image()
@@ -24,6 +26,6 @@ class Post extends Model
 
     public function category()
     {
-        return $this->belongsTo('Wave\Category');
+        return $this->belongsTo(Category::class);
     }
 }

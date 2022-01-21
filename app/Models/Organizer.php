@@ -1,7 +1,8 @@
 <?php
 
-namespace Wave;
+namespace App\Models;
 
+use App\Models\Actie;
 use Illuminate\Database\Eloquent\Model;
 use Voyager;
 
@@ -24,6 +25,6 @@ class Organizer extends Model
 
     public function acties()
     {
-        return $this->hasMany('Wave\Actie', 'actie_organizer');
+        return $this->hasMany(Actie::class, 'actie_organizer');
     }
 }

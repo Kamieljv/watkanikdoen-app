@@ -1,6 +1,6 @@
 <?php
 
-namespace Wave\Notifications;
+namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;

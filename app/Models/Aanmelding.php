@@ -1,7 +1,8 @@
 <?php
 
-namespace Wave;
+namespace App\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Voyager;
 
@@ -26,6 +27,6 @@ class Aanmelding extends Model
 
     public function user()
     {
-        return $this->hasOne('Wave\User');
+        return $this->hasOne(User::class);
     }
 }

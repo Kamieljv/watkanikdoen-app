@@ -1,10 +1,10 @@
 <?php
 
-namespace Wave\Http\Controllers;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Wave\Category;
-use Wave\Post;
+use App\Models\Category;
+use App\Models\Post;
 
 class BlogController extends Controller
 {

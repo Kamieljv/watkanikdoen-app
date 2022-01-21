@@ -19,7 +19,7 @@ return [
     ],
 
     // This is the default user model of your application.
-    'user_model' => App\User::class,
+    'user_model' => App\Models\User::class,
 
     // Set these to false in production
     'show_docs' => env('WAVE_DOCS', false),

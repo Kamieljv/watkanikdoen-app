@@ -1,13 +1,14 @@
 <?php
 
-namespace Wave;
+namespace App\Models;
 
+use App\Models\Actie;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
     public function acties()
     {
-        return $this->belongsToMany('Wave\Actie', 'actie_category');
+        return $this->belongsToMany(Actie::class, 'actie_category');
     }
 }

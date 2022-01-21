@@ -1,10 +1,10 @@
 <?php
 
-namespace Wave\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Route;
 use TCG\Voyager\Http\Controllers\VoyagerBaseController;
-use Wave\Organizer;
+use App\Models\Organizer;
 
 class OrganizerController extends VoyagerBaseController
 {

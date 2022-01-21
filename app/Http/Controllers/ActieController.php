@@ -1,11 +1,11 @@
 <?php
 
-namespace Wave\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Algolia\AlgoliaSearch\SearchIndex;
 use Illuminate\Http\Request;
 use TCG\Voyager\Http\Controllers\VoyagerBaseController;
-use Wave\Actie;
+use App\Models\Actie;
 
 class ActieController extends VoyagerBaseController
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Wave\Http\Controllers;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Wave\Page;
+use App\Models\Page;
 
 class PageController extends Controller
 {

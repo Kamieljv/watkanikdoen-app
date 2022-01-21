@@ -1,11 +1,11 @@
 <?php
 
-namespace Wave\Http\Controllers;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Support\Facades\Route;
-use Wave\ActieTheme;
+use App\Models\ActieTheme;
 use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller

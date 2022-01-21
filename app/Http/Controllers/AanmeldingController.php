@@ -6,8 +6,8 @@ use Auth;
 use Illuminate\Http\Request;
 use Validator;
 use Voyager;
-use Wave\Aanmelding;
-use Wave\Actie;
+use App\Models\Aanmelding;
+use App\Models\Actie;
 
 
 class AanmeldingController extends Controller

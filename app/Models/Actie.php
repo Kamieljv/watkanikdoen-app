@@ -1,7 +1,10 @@
 <?php
 
-namespace Wave;
+namespace App\Models;
 
+use App\Models\ActieTheme;
+use App\Models\Category;
+use App\Models\Organizer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Jenssegers\Date\Date;
@@ -121,16 +124,16 @@ class Actie extends Model
 
     public function organizers()
     {
-        return $this->belongsToMany('Wave\Organizer', 'actie_organizer');
+        return $this->belongsToMany(Organizer::class, 'actie_organizer');
     }
 
     public function categories()
     {
-        return $this->belongsToMany('Wave\Category', 'actie_category');
+        return $this->belongsToMany(Category::class, 'actie_category');
     }
 
     public function themes()
     {
-        return $this->belongsToMany('Wave\ActieTheme', 'actie_actie_theme');
+        return $this->belongsToMany(ActieTheme::class, 'actie_actie_theme');
     }
 }

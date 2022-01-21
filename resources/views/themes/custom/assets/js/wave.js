@@ -37,7 +37,7 @@ for (var i = 0; i < markAsRead.length; i++) {
 			var notificationListId = this.dataset.listid
 
 			var notificationRequest = new XMLHttpRequest()
-			notificationRequest.open("POST", url + "/notification/read/" + notificationId, true)
+			notificationRequest.open("POST", url + "/auth/notification/read/" + notificationId, true)
 			notificationRequest.onreadystatechange = function () {
 				if (notificationRequest.readyState != 4 || notificationRequest.status != 200) { return
 					var response = JSON.parse(notificationRequest.responseText)
