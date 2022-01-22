@@ -24,6 +24,12 @@ Vue.use(VueTailwind, VueTailwindSettings)
 import SvgVue from "svg-vue"
 Vue.use(SvgVue)
 
+import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
+import 'leaflet/dist/leaflet.css';
+Vue.component('LMap', LMap);
+Vue.component('l-tile-layer', LTileLayer);
+Vue.component('l-marker', LMarker);
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

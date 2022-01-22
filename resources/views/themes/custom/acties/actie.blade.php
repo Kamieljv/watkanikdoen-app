@@ -89,6 +89,17 @@
                             @svg('antdesign-link-o', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ __("acties.to_action_page") }}
                         </a>
                     </div>
+                    @if ($actie->__geoloc)
+                        <div class="flex-col gap-3 not-prose bg-white rounded-lg shadow-lg overflow-hidden">
+                            <div id="app">
+                                <simple-map 
+                                    :center="{{ json_encode($actie->__geoloc) }}"
+                                    :height="'200px'"
+                                >
+                                </simple-map>
+                            </div>
+                        </div>
+                    @endif
                     <!-- About the organizer -->
                     <div class="not-prose flex flex-col gap-3 p-3 bg-white rounded-lg shadow-lg overflow-hidden">
                         @if (count($actie->organizers) > 1)

@@ -27,7 +27,7 @@ class UsersTableSeeder extends Seeder
                 'email' => 'admin@admin.com',
                 'avatar' => 'users/January2022/7zHXRf96GKsRIcEd0HX0.jpg',
                 'email_verified_at' => NULL,
-                'password' => '$2y$10$WkbajwgAuz7zYR7D572LzeSfzmtkcg79hJL/emgptCrLW1jG05r.W',
+                'password' => '$2y$10$L8MjmjVVOCbyLHbp7pq/9.1ZEEa5AqE67ZXLd2M4.res05a3Rz/G2',
                 'remember_token' => 'sbxXg0E9VVoUblkYivq9ZYRdemD4gXUZNgKpo4270AwJx11906dJN2PihzHX',
                 'settings' => '{"locale":null}',
                 'created_at' => '2017-11-21 16:07:22',
