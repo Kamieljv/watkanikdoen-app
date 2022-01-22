@@ -69,7 +69,7 @@ class Actie extends Model
      *
      * @var array
      */
-    protected $with = ['organizers:id,name,logo,slug', 'categories:id,name', 'themes:id,name'];
+    protected $with = ['organizers:id,name,logo,slug', 'categories:id,name', 'themes:id,name,color'];
 
     public function getLinkAttribute()
     {

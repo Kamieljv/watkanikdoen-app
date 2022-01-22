@@ -22,42 +22,38 @@ class ActieThemesTableSeeder extends Seeder
             0 => 
             array (
                 'id' => 1,
-                'order' => 1,
                 'name' => 'Klimaat',
                 'slug' => 'klimaat',
-                'color' => NULL,
-                'created_at' => '2017-11-21 16:23:22',
-                'updated_at' => '2021-12-06 14:10:08',
+                'color' => '#61BB0C',
+                'created_at' => '2017-11-21 16:23:00',
+                'updated_at' => '2022-01-22 15:42:39',
             ),
             1 => 
             array (
                 'id' => 2,
-                'order' => 1,
                 'name' => 'Anti-racisme',
                 'slug' => 'anti-racisme',
-                'color' => NULL,
-                'created_at' => '2021-12-06 14:10:20',
-                'updated_at' => '2021-12-06 14:10:20',
+                'color' => '#F30060',
+                'created_at' => '2021-12-06 14:10:00',
+                'updated_at' => '2022-01-22 15:43:45',
             ),
             2 => 
             array (
                 'id' => 3,
-                'order' => 1,
                 'name' => 'Dierenrechten',
                 'slug' => 'dierenrechten',
-                'color' => NULL,
-                'created_at' => '2021-12-06 14:10:31',
-                'updated_at' => '2021-12-06 14:10:31',
+                'color' => '#F27A12',
+                'created_at' => '2021-12-06 14:10:00',
+                'updated_at' => '2022-01-22 15:43:03',
             ),
             3 => 
             array (
                 'id' => 4,
-                'order' => 1,
                 'name' => 'Wonen',
                 'slug' => 'wonen',
-                'color' => NULL,
-                'created_at' => '2021-12-06 14:10:46',
-                'updated_at' => '2021-12-06 14:10:46',
+                'color' => '#3B82F6',
+                'created_at' => '2021-12-06 14:10:00',
+                'updated_at' => '2022-01-22 15:43:21',
             ),
         ));
         

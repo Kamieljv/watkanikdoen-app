@@ -67,6 +67,18 @@ class ActieActieThemeTableSeeder extends Seeder
                 'actie_id' => 20,
                 'actie_theme_id' => 1,
             ),
+            8 => 
+            array (
+                'id' => 9,
+                'actie_id' => 25,
+                'actie_theme_id' => 1,
+            ),
+            9 => 
+            array (
+                'id' => 10,
+                'actie_id' => 25,
+                'actie_theme_id' => 3,
+            ),
         ));
         
         

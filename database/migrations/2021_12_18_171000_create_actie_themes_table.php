@@ -15,7 +15,6 @@ class CreateActieThemesTable extends Migration
         // Create table for storing actie_themes
         Schema::create('actie_themes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('order')->default(1);
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('color')->nullable();
