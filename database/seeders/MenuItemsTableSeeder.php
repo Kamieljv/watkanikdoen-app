@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use DB;
 use Illuminate\Database\Seeder;
 
 class MenuItemsTableSeeder extends Seeder
 {
+
     /**
      * Auto generated seed file
      *
@@ -14,12 +14,12 @@ class MenuItemsTableSeeder extends Seeder
      */
     public function run()
     {
+        
 
-
-        DB::table('menu_items')->delete();
-
-        DB::table('menu_items')->insert(array (
-            0 =>
+        \DB::table('menu_items')->delete();
+        
+        \DB::table('menu_items')->insert(array (
+            0 => 
             array (
                 'id' => 2,
                 'menu_id' => 1,
@@ -27,15 +27,15 @@ class MenuItemsTableSeeder extends Seeder
                 'url' => '',
                 'target' => '_self',
                 'icon_class' => 'voyager-images',
-                'color' => null,
-                'parent_id' => null,
+                'color' => NULL,
+                'parent_id' => NULL,
                 'order' => 3,
                 'created_at' => '2017-11-21 16:23:22',
                 'updated_at' => '2022-01-03 15:53:16',
                 'route' => 'voyager.media.index',
-                'parameters' => null,
+                'parameters' => NULL,
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 3,
                 'menu_id' => 1,
@@ -43,15 +43,15 @@ class MenuItemsTableSeeder extends Seeder
                 'url' => '',
                 'target' => '_self',
                 'icon_class' => 'voyager-news',
-                'color' => null,
-                'parent_id' => null,
+                'color' => NULL,
+                'parent_id' => NULL,
                 'order' => 4,
                 'created_at' => '2017-11-21 16:23:22',
                 'updated_at' => '2022-01-03 15:53:16',
                 'route' => 'voyager.posts.index',
-                'parameters' => null,
+                'parameters' => NULL,
             ),
-            2 =>
+            2 => 
             array (
                 'id' => 4,
                 'menu_id' => 1,
@@ -59,15 +59,15 @@ class MenuItemsTableSeeder extends Seeder
                 'url' => '',
                 'target' => '_self',
                 'icon_class' => 'voyager-person',
-                'color' => null,
+                'color' => NULL,
                 'parent_id' => 37,
                 'order' => 1,
                 'created_at' => '2017-11-21 16:23:22',
                 'updated_at' => '2021-12-20 12:56:09',
                 'route' => 'voyager.users.index',
-                'parameters' => null,
+                'parameters' => NULL,
             ),
-            3 =>
+            3 => 
             array (
                 'id' => 5,
                 'menu_id' => 1,
@@ -75,15 +75,15 @@ class MenuItemsTableSeeder extends Seeder
                 'url' => '',
                 'target' => '_self',
                 'icon_class' => 'voyager-categories',
-                'color' => null,
+                'color' => NULL,
                 'parent_id' => 38,
                 'order' => 3,
                 'created_at' => '2017-11-21 16:23:22',
                 'updated_at' => '2022-01-19 15:49:14',
                 'route' => 'voyager.categories.index',
-                'parameters' => null,
+                'parameters' => NULL,
             ),
-            4 =>
+            4 => 
             array (
                 'id' => 6,
                 'menu_id' => 1,
@@ -91,15 +91,15 @@ class MenuItemsTableSeeder extends Seeder
                 'url' => '',
                 'target' => '_self',
                 'icon_class' => 'voyager-file-text',
-                'color' => null,
-                'parent_id' => null,
+                'color' => NULL,
+                'parent_id' => NULL,
                 'order' => 5,
                 'created_at' => '2017-11-21 16:23:22',
                 'updated_at' => '2022-01-03 15:53:16',
                 'route' => 'voyager.pages.index',
-                'parameters' => null,
+                'parameters' => NULL,
             ),
-            5 =>
+            5 => 
             array (
                 'id' => 7,
                 'menu_id' => 1,
@@ -107,15 +107,15 @@ class MenuItemsTableSeeder extends Seeder
                 'url' => '',
                 'target' => '_self',
                 'icon_class' => 'voyager-lock',
-                'color' => null,
+                'color' => NULL,
                 'parent_id' => 37,
                 'order' => 2,
                 'created_at' => '2017-11-21 16:23:22',
                 'updated_at' => '2021-12-20 12:56:14',
                 'route' => 'voyager.roles.index',
-                'parameters' => null,
+                'parameters' => NULL,
             ),
-            6 =>
+            6 => 
             array (
                 'id' => 8,
                 'menu_id' => 1,
@@ -123,15 +123,15 @@ class MenuItemsTableSeeder extends Seeder
                 'url' => '',
                 'target' => '_self',
                 'icon_class' => 'voyager-tools',
-                'color' => null,
-                'parent_id' => null,
+                'color' => NULL,
+                'parent_id' => NULL,
                 'order' => 7,
                 'created_at' => '2017-11-21 16:23:22',
                 'updated_at' => '2022-01-03 15:53:16',
-                'route' => null,
-                'parameters' => null,
+                'route' => NULL,
+                'parameters' => NULL,
             ),
-            7 =>
+            7 => 
             array (
                 'id' => 9,
                 'menu_id' => 1,
@@ -139,15 +139,15 @@ class MenuItemsTableSeeder extends Seeder
                 'url' => '',
                 'target' => '_self',
                 'icon_class' => 'voyager-list',
-                'color' => null,
+                'color' => NULL,
                 'parent_id' => 8,
                 'order' => 1,
                 'created_at' => '2017-11-21 16:23:22',
                 'updated_at' => '2018-05-20 21:08:37',
                 'route' => 'voyager.menus.index',
-                'parameters' => null,
+                'parameters' => NULL,
             ),
-            8 =>
+            8 => 
             array (
                 'id' => 10,
                 'menu_id' => 1,
@@ -155,15 +155,15 @@ class MenuItemsTableSeeder extends Seeder
                 'url' => '',
                 'target' => '_self',
                 'icon_class' => 'voyager-data',
-                'color' => null,
+                'color' => NULL,
                 'parent_id' => 8,
                 'order' => 2,
                 'created_at' => '2017-11-21 16:23:22',
                 'updated_at' => '2018-05-20 21:08:37',
                 'route' => 'voyager.database.index',
-                'parameters' => null,
+                'parameters' => NULL,
             ),
-            9 =>
+            9 => 
             array (
                 'id' => 11,
                 'menu_id' => 1,
@@ -171,15 +171,15 @@ class MenuItemsTableSeeder extends Seeder
                 'url' => '/admin/compass',
                 'target' => '_self',
                 'icon_class' => 'voyager-compass',
-                'color' => null,
+                'color' => NULL,
                 'parent_id' => 8,
                 'order' => 3,
                 'created_at' => '2017-11-21 16:23:22',
                 'updated_at' => '2018-05-20 21:08:37',
-                'route' => null,
-                'parameters' => null,
+                'route' => NULL,
+                'parameters' => NULL,
             ),
-            10 =>
+            10 => 
             array (
                 'id' => 12,
                 'menu_id' => 1,
@@ -192,10 +192,10 @@ class MenuItemsTableSeeder extends Seeder
                 'order' => 5,
                 'created_at' => '2017-11-21 16:23:22',
                 'updated_at' => '2018-06-22 20:55:55',
-                'route' => null,
+                'route' => NULL,
                 'parameters' => '',
             ),
-            11 =>
+            11 => 
             array (
                 'id' => 13,
                 'menu_id' => 1,
@@ -203,15 +203,15 @@ class MenuItemsTableSeeder extends Seeder
                 'url' => '',
                 'target' => '_self',
                 'icon_class' => 'voyager-settings',
-                'color' => null,
+                'color' => NULL,
                 'parent_id' => 8,
                 'order' => 6,
                 'created_at' => '2017-11-21 16:23:22',
                 'updated_at' => '2021-12-20 12:58:31',
                 'route' => 'voyager.settings.index',
-                'parameters' => null,
+                'parameters' => NULL,
             ),
-            12 =>
+            12 => 
             array (
                 'id' => 14,
                 'menu_id' => 1,
@@ -219,15 +219,15 @@ class MenuItemsTableSeeder extends Seeder
                 'url' => '/admin/themes',
                 'target' => '_self',
                 'icon_class' => 'voyager-paint-bucket',
-                'color' => null,
+                'color' => NULL,
                 'parent_id' => 8,
                 'order' => 7,
                 'created_at' => '2017-11-21 16:31:00',
                 'updated_at' => '2021-12-20 12:58:32',
-                'route' => null,
-                'parameters' => null,
+                'route' => NULL,
+                'parameters' => NULL,
             ),
-            13 =>
+            13 => 
             array (
                 'id' => 30,
                 'menu_id' => 1,
@@ -235,15 +235,15 @@ class MenuItemsTableSeeder extends Seeder
                 'url' => '/admin/announcements',
                 'target' => '_self',
                 'icon_class' => 'voyager-megaphone',
-                'color' => null,
-                'parent_id' => null,
+                'color' => NULL,
+                'parent_id' => NULL,
                 'order' => 6,
                 'created_at' => '2018-05-20 21:08:14',
                 'updated_at' => '2022-01-03 15:53:16',
-                'route' => null,
-                'parameters' => null,
+                'route' => NULL,
+                'parameters' => NULL,
             ),
-            14 =>
+            14 => 
             array (
                 'id' => 31,
                 'menu_id' => 1,
@@ -257,9 +257,9 @@ class MenuItemsTableSeeder extends Seeder
                 'created_at' => '2018-06-22 20:53:25',
                 'updated_at' => '2018-06-22 20:54:13',
                 'route' => 'voyager.bread.index',
-                'parameters' => null,
+                'parameters' => NULL,
             ),
-            15 =>
+            15 => 
             array (
                 'id' => 34,
                 'menu_id' => 1,
@@ -275,7 +275,7 @@ class MenuItemsTableSeeder extends Seeder
                 'route' => 'voyager.acties.index',
                 'parameters' => 'null',
             ),
-            16 =>
+            16 => 
             array (
                 'id' => 36,
                 'menu_id' => 1,
@@ -291,7 +291,7 @@ class MenuItemsTableSeeder extends Seeder
                 'route' => 'voyager.actie-themes.index',
                 'parameters' => 'null',
             ),
-            17 =>
+            17 => 
             array (
                 'id' => 37,
                 'menu_id' => 1,
@@ -300,14 +300,14 @@ class MenuItemsTableSeeder extends Seeder
                 'target' => '_self',
                 'icon_class' => 'voyager-people',
                 'color' => '#000000',
-                'parent_id' => null,
+                'parent_id' => NULL,
                 'order' => 2,
                 'created_at' => '2021-12-20 12:55:52',
                 'updated_at' => '2022-01-03 15:53:16',
-                'route' => null,
+                'route' => NULL,
                 'parameters' => '',
             ),
-            18 =>
+            18 => 
             array (
                 'id' => 38,
                 'menu_id' => 1,
@@ -316,14 +316,14 @@ class MenuItemsTableSeeder extends Seeder
                 'target' => '_self',
                 'icon_class' => 'voyager-exclamation',
                 'color' => '#000000',
-                'parent_id' => null,
+                'parent_id' => NULL,
                 'order' => 1,
                 'created_at' => '2021-12-20 12:56:41',
                 'updated_at' => '2022-01-03 15:53:16',
-                'route' => null,
+                'route' => NULL,
                 'parameters' => '',
             ),
-            19 =>
+            19 => 
             array (
                 'id' => 39,
                 'menu_id' => 1,
@@ -331,15 +331,15 @@ class MenuItemsTableSeeder extends Seeder
                 'url' => '',
                 'target' => '_self',
                 'icon_class' => 'voyager-pirate',
-                'color' => null,
+                'color' => NULL,
                 'parent_id' => 38,
                 'order' => 5,
                 'created_at' => '2022-01-03 15:53:00',
                 'updated_at' => '2022-01-19 15:49:14',
                 'route' => 'voyager.organizers.index',
-                'parameters' => null,
+                'parameters' => NULL,
             ),
-            20 =>
+            20 => 
             array (
                 'id' => 44,
                 'menu_id' => 1,
@@ -347,14 +347,16 @@ class MenuItemsTableSeeder extends Seeder
                 'url' => '',
                 'target' => '_self',
                 'icon_class' => 'voyager-question',
-                'color' => null,
+                'color' => NULL,
                 'parent_id' => 38,
                 'order' => 1,
                 'created_at' => '2022-01-19 15:46:35',
                 'updated_at' => '2022-01-19 15:49:14',
                 'route' => 'voyager.aanmeldingen.index',
-                'parameters' => null,
+                'parameters' => NULL,
             ),
         ));
+        
+        
     }
 }

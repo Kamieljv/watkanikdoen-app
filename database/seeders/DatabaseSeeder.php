@@ -17,8 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
         $this->call(UserRolesTableSeeder::class);
         $this->call(AnnouncementsTableSeeder::class);
-        $this->call(ApiKeysTableSeeder::class);
-        $this->call(CategoriesTableSeeder::class);
+        $this->call(AnnouncementUserTableSeeder::class);
         $this->call(DataTypesTableSeeder::class);
         $this->call(DataRowsTableSeeder::class);
         $this->call(MenusTableSeeder::class);
@@ -29,22 +28,19 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionsTableSeeder::class);
         $this->call(PermissionRoleTableSeeder::class);
         $this->call(PermissionGroupsTableSeeder::class);
-        $this->call(PlansTableSeeder::class);
         $this->call(PostsTableSeeder::class);
         $this->call(SettingsTableSeeder::class);
         $this->call(TranslationsTableSeeder::class);
-        $this->call(VoyagerThemesTableSeeder::class);
-        $this->call(VoyagerThemeOptionsTableSeeder::class);
-        $this->call(WaveKeyValuesTableSeeder::class);
-        $this->call(ActiesTableSeeder::class);
-        $this->call(AnnouncementUserTableSeeder::class);
         $this->call(ThemesTableSeeder::class);
         $this->call(ThemeOptionsTableSeeder::class);
-        $this->call(ActieCategoryTableSeeder::class);
+        $this->call(CategoriesTableSeeder::class);
+        $this->call(OrganizersTableSeeder::class);
+        $this->call(ActiesTableSeeder::class);
         $this->call(ActieThemesTableSeeder::class);
         $this->call(ActieActieThemeTableSeeder::class);
-        $this->call(OrganizersTableSeeder::class);
+        $this->call(ActieCategoryTableSeeder::class);
         $this->call(ActieOrganizerTableSeeder::class);
         $this->call(AanmeldingenTableSeeder::class);
+        $this->call(JobsTableSeeder::class);
     }
 }

@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use DB;
 use Illuminate\Database\Seeder;
 
-class ApiKeysTableSeeder extends Seeder
+class JobsTableSeeder extends Seeder
 {
+
     /**
      * Auto generated seed file
      *
@@ -14,8 +14,11 @@ class ApiKeysTableSeeder extends Seeder
      */
     public function run()
     {
+        
 
-
-        DB::table('api_keys')->delete();
+        \DB::table('jobs')->delete();
+        
+        
+        
     }
 }

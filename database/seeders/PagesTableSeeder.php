@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use DB;
 use Illuminate\Database\Seeder;
 
 class PagesTableSeeder extends Seeder
 {
+
     /**
      * Auto generated seed file
      *
@@ -14,12 +14,12 @@ class PagesTableSeeder extends Seeder
      */
     public function run()
     {
+        
 
-
-        DB::table('pages')->delete();
-
-        DB::table('pages')->insert(array (
-            0 =>
+        \DB::table('pages')->delete();
+        
+        \DB::table('pages')->insert(array (
+            0 => 
             array (
                 'id' => 2,
                 'author_id' => 1,
@@ -34,7 +34,7 @@ class PagesTableSeeder extends Seeder
 <h2><span style="font-weight: 400;">Visie</span></h2>
 <p><span style="font-weight: 400;">Actief burgerschap klinkt goed, maar hoe wordt iemand een actieve burger? Wat kan je doen om je in te zetten? Om die vraag te beantwoorden speelt informatievoorziening een primaire rol. Informatie over hoe zet ik me in voor een progressief doel en waar moet ik zijn om dat te realiseren? Voordat een potenti&euml;le actievoerder de stap zet naar het demonstratieveld moet diegene allereerst op de hoogte zijn van wat er speelt en wat er te doen is. De mogelijkheid om informatie in te winnen is eindeloos, je moet echter wel de </span><em><span style="font-weight: 400;">juiste </span></em><span style="font-weight: 400;">informatie zien te vinden. </span><em><span style="font-weight: 400;">Watkanikdoen</span></em><span style="font-weight: 400;"> komt hieraan tegemoet door &eacute;&eacute;n overzicht te bieden van alle acties die worden georganiseerd en gebruikers daar bovendien actief over op de hoogte te houden.</span></p>
 <p><em><span style="font-weight: 400;">Watkanikdoen</span></em><span style="font-weight: 400;"> onderscheidt zich door zich niet voor &eacute;&eacute;n specifiek thema in te zetten, maar een platform te bieden aan alle acties met een progressief doeleinde. Onze overtuiging is dat de uitdagingen waar onze samenleving voor staat niet los van elkaar te zien zijn, maar onderdeel zijn van hetzelfde systeem. Dit is terug te zien in de diversiteit aan thema&rsquo;s van de acties waaraan </span><em><span style="font-weight: 400;">watkanikdoen</span></em><span style="font-weight: 400;"> een platform biedt, alsmede in de samenwerkingen die wij aangaan en het netwerk van organisatoren waar wij als verbinder een rol in willen spelen.</span></p>',
-                'image' => null,
+                'image' => NULL,
                 'slug' => 'over-ons',
                 'meta_description' => 'Over Wat Kan Ik Doen',
                 'meta_keywords' => 'about',
@@ -42,7 +42,7 @@ class PagesTableSeeder extends Seeder
                 'created_at' => '2018-03-30 03:04:51',
                 'updated_at' => '2022-01-18 21:32:01',
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 3,
                 'author_id' => 1,
@@ -50,7 +50,7 @@ class PagesTableSeeder extends Seeder
                 'excerpt' => 'Privacybeleid.',
                 'body' => '<p>Dit is het privacybeleid.</p>
 <p>&nbsp;</p>',
-                'image' => null,
+                'image' => NULL,
                 'slug' => 'privacybeleid',
                 'meta_description' => 'privacybeleid',
                 'meta_keywords' => 'privacy',
@@ -58,14 +58,14 @@ class PagesTableSeeder extends Seeder
                 'created_at' => '2022-01-05 10:18:41',
                 'updated_at' => '2022-01-18 21:25:02',
             ),
-            2 =>
+            2 => 
             array (
                 'id' => 4,
                 'author_id' => 1,
                 'title' => 'Contact',
                 'excerpt' => 'Dit is de contactpagina.',
                 'body' => '<p>Dit is de contactpagina.</p>',
-                'image' => null,
+                'image' => NULL,
                 'slug' => 'contact',
                 'meta_description' => 'contact',
                 'meta_keywords' => 'contact',
@@ -74,5 +74,7 @@ class PagesTableSeeder extends Seeder
                 'updated_at' => '2022-01-11 09:53:31',
             ),
         ));
+        
+        
     }
 }

@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateApiKeysTable extends Migration
+class CreateThemesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,12 @@ class CreateApiKeysTable extends Migration
      */
     public function up()
     {
-        Schema::create('api_keys', function (Blueprint $table) {
+        Schema::create('themes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
             $table->string('name');
-            $table->string('key', 60)->default('')->unique('api_tokens_token_unique');
-            $table->dateTime('last_used_at')->nullable();
+            $table->string('folder')->unique();
+            $table->boolean('active')->default(0);
+            $table->string('version')->default('');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateApiKeysTable extends Migration
      */
     public function down()
     {
-        Schema::drop('api_keys');
+        Schema::drop('themes');
     }
 }

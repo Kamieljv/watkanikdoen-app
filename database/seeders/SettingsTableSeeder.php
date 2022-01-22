@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use DB;
 use Illuminate\Database\Seeder;
 
 class SettingsTableSeeder extends Seeder
 {
+
     /**
      * Auto generated seed file
      *
@@ -14,123 +14,127 @@ class SettingsTableSeeder extends Seeder
      */
     public function run()
     {
+        
 
-
-        DB::table('settings')->delete();
-
-        DB::table('settings')->insert(array (
-            0 =>
+        \DB::table('settings')->delete();
+        
+        \DB::table('settings')->insert(array (
+            0 => 
             array (
-                'details' => '',
-                'display_name' => 'Site Title',
-                'group' => 'Site',
                 'id' => 1,
                 'key' => 'site.title',
-                'order' => 1,
-                'type' => 'text',
-                'value' => 'Wat Kan Ik Doen',
-            ),
-            1 =>
-            array (
+                'display_name' => 'Site Title',
+                'value' => 'Wat kan ik doen?',
                 'details' => '',
-                'display_name' => 'Site Description',
+                'type' => 'text',
+                'order' => 1,
                 'group' => 'Site',
+            ),
+            1 => 
+            array (
                 'id' => 2,
                 'key' => 'site.description',
-                'order' => 2,
-                'type' => 'text',
-                'value' => 'Het startpunt voor actief burgerschap!',
-            ),
-            2 =>
-            array (
+                'display_name' => 'Site Description',
+                'value' => 'Jouw startpunt voor actief burgerschap!',
                 'details' => '',
-                'display_name' => 'Google Analytics Tracking ID',
+                'type' => 'text',
+                'order' => 2,
                 'group' => 'Site',
+            ),
+            2 => 
+            array (
                 'id' => 4,
                 'key' => 'site.google_analytics_tracking_id',
-                'order' => 4,
-                'type' => 'text',
-                'value' => null,
-            ),
-            3 =>
-            array (
+                'display_name' => 'Google Analytics Tracking ID',
+                'value' => NULL,
                 'details' => '',
-                'display_name' => 'Admin Title',
-                'group' => 'Admin',
+                'type' => 'text',
+                'order' => 4,
+                'group' => 'Site',
+            ),
+            3 => 
+            array (
                 'id' => 6,
                 'key' => 'admin.title',
-                'order' => 1,
-                'type' => 'text',
+                'display_name' => 'Admin Title',
                 'value' => 'Admin Paneel',
-            ),
-            4 =>
-            array (
                 'details' => '',
-                'display_name' => 'Admin Description',
+                'type' => 'text',
+                'order' => 1,
                 'group' => 'Admin',
+            ),
+            4 => 
+            array (
                 'id' => 7,
                 'key' => 'admin.description',
-                'order' => 2,
-                'type' => 'text',
+                'display_name' => 'Admin Description',
                 'value' => 'I am the Admin.',
-            ),
-            5 =>
-            array (
                 'details' => '',
-                'display_name' => 'Admin Loader',
+                'type' => 'text',
+                'order' => 2,
                 'group' => 'Admin',
+            ),
+            5 => 
+            array (
                 'id' => 8,
                 'key' => 'admin.loader',
-                'order' => 3,
-                'type' => 'image',
+                'display_name' => 'Admin Loader',
                 'value' => '',
-            ),
-            6 =>
-            array (
                 'details' => '',
-                'display_name' => 'Admin Icon Image',
+                'type' => 'image',
+                'order' => 3,
                 'group' => 'Admin',
+            ),
+            6 => 
+            array (
                 'id' => 9,
                 'key' => 'admin.icon_image',
-                'order' => 4,
-                'type' => 'image',
+                'display_name' => 'Admin Icon Image',
                 'value' => '',
-            ),
-            7 =>
-            array (
                 'details' => '',
-            'display_name' => 'Google Analytics Client ID (used for admin dashboard)',
+                'type' => 'image',
+                'order' => 4,
                 'group' => 'Admin',
+            ),
+            7 => 
+            array (
                 'id' => 10,
                 'key' => 'admin.google_analytics_client_id',
-                'order' => 1,
+            'display_name' => 'Google Analytics Client ID (used for admin dashboard)',
+                'value' => NULL,
+                'details' => '',
                 'type' => 'text',
-                'value' => null,
+                'order' => 1,
+                'group' => 'Admin',
             ),
-            8 =>
+            8 => 
             array (
-                'details' => null,
-                'display_name' => 'Favicon',
-                'group' => 'Site',
                 'id' => 11,
                 'key' => 'site.favicon',
-                'order' => 6,
+                'display_name' => 'Favicon',
+                'value' => 'settings/December2021/ZWp2Kc1if4Qq5yRno3Mo.png',
+                'details' => NULL,
                 'type' => 'image',
-                'value' => 'settings/November2021/v8BpQnBlBpJSKl2mpuB2.png',
+                'order' => 6,
+                'group' => 'Site',
             ),
-            9 =>
+            9 => 
             array (
-                'details' => null,
-                'display_name' => 'Homepage Redirect to Dashboard if Logged in',
-                'group' => 'Auth',
                 'id' => 12,
                 'key' => 'auth.dashboard_redirect',
-                'order' => 7,
-                'type' => 'checkbox',
+                'display_name' => 'Homepage Redirect to Dashboard if Logged in',
                 'value' => '0',
+                'details' => NULL,
+                'type' => 'checkbox',
+                'order' => 7,
+                'group' => 'Auth',
             ),
-            10 =>
+            10 => 
             array (
+                'id' => 13,
+                'key' => 'auth.email_or_username',
+                'display_name' => 'Users Login with Email or Username',
+                'value' => 'email',
                 'details' => '{
 "default" : "email",
 "options" : {
@@ -138,16 +142,16 @@ class SettingsTableSeeder extends Seeder
 "username": "Username"
 }
 }',
-                'display_name' => 'Users Login with Email or Username',
-                'group' => 'Auth',
-                'id' => 13,
-                'key' => 'auth.email_or_username',
-                'order' => 8,
                 'type' => 'select_dropdown',
-                'value' => 'email',
+                'order' => 8,
+                'group' => 'Auth',
             ),
-            11 =>
+            11 => 
             array (
+                'id' => 14,
+                'key' => 'auth.username_in_registration',
+                'display_name' => 'Username when Registering',
+                'value' => 'no',
                 'details' => '{
 "default" : "yes",
 "options" : {
@@ -155,25 +159,23 @@ class SettingsTableSeeder extends Seeder
 "no": "No, Have it automatically generated"
 }
 }',
-                'display_name' => 'Username when Registering',
-                'group' => 'Auth',
-                'id' => 14,
-                'key' => 'auth.username_in_registration',
-                'order' => 9,
                 'type' => 'select_dropdown',
-                'value' => 'no',
-            ),
-            12 =>
-            array (
-                'details' => null,
-                'display_name' => 'Verify Email during Sign Up',
+                'order' => 9,
                 'group' => 'Auth',
+            ),
+            12 => 
+            array (
                 'id' => 15,
                 'key' => 'auth.verify_email',
-                'order' => 10,
-                'type' => 'checkbox',
+                'display_name' => 'Verify Email during Sign Up',
                 'value' => '1',
+                'details' => NULL,
+                'type' => 'checkbox',
+                'order' => 10,
+                'group' => 'Auth',
             ),
         ));
+        
+        
     }
 }
