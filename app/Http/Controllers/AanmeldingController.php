@@ -4,10 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Models\Aanmelding;
 use App\Models\Actie;
+use Illuminate\Support\Facades\Auth;
 use Voyager;
 
 class AanmeldingController extends Controller
 {
+    public function index()
+    {
+        // Haal aanmeldingen van deze gebruiker op
+        $aanmeldingen = auth()->user()->aanmeldingen()->get();
+        return view('theme::aanmeldingen.index', compact('aanmeldingen'));
+    }
+
+    public function landing() {
+
+        if(Auth::check()) {
+            return redirect(route('aanmelding.form'));
+        }
+
+        // Display the landing page
+        return view('theme::aanmeldingen.landing');
+    }
+
+    public function aanmelden() {
+        // Display the landing page
+        return view('theme::aanmeldingen.form');
+    }
+
     public function approve($id)
     {
         $dataTypeAanmeldingen = Voyager::model('DataType')->where('slug', '=', 'aanmeldingen')->first();
@@ -24,7 +47,7 @@ class AanmeldingController extends Controller
         if ($aanmelding->status !== 'PENDING') {
             return back()
             ->with([
-                'message'    => __('aanmeldingen.approved_fail'),
+                'message'    => __('aanmeldingen.approve_fail'),
                 'alert-type' => 'error',
             ]);
         }
@@ -53,7 +76,7 @@ class AanmeldingController extends Controller
         return redirect()
             ->route("voyager.acties.index")
             ->with([
-                'message'    => __('aanmeldingen.approved_success'),
+                'message'    => __('aanmeldingen.approve_success'),
                 'alert-type' => 'success',
             ]);
     }

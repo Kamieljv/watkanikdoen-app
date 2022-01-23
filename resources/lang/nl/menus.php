@@ -12,7 +12,8 @@
 
 return [
     'hello' => 'Hallo',
-    'dashboard' => 'Dashboard',
+    'dashboard' => 'Mijn aanmeldingen',
+    'account' => 'Mijn account',
     'report_action' => 'Actie aanmelden',
     'blog' => 'Blog',
     'my_profile' => 'Mijn Profiel',

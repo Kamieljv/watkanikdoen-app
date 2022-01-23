@@ -8,7 +8,7 @@
 		<div class="w-full mr-6 col-span-4 md:col-span-1">
 
 			<div class="relative grid grid-cols-2 items-center justify-center w-full py-1 md:py-0 bg-white border rounded-lg border-gray-150">
-				<h3 class="col-span-2 px-6 py-3 md:pb-3 text-xs font-semibold leading-4 tracking-wider text-gray-500 uppercase">{{ __("menus.settings") }}</h3>
+				<h3 class="col-span-2 px-6 py-3 md:pb-3 text-xs font-semibold leading-4 tracking-wider text-gray-500 uppercase">{{ __("menus.account") }}</h3>
 
 				<a href="{{ route('settings', 'profile') }}" class="block col-span-1 md:col-span-2 relative w-full flex items-center px-6 py-3 text-sm font-medium leading-5 @if(Request::is('auth/settings/profile')){{ 'text-gray-900 bg-gray-50' }}@else{{ 'text-gray-600' }}@endif transition duration-150 ease-in-out rounded-md group hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50">
 					@svg('antdesign-user-o', ['style' => 'width: 20px; height: 20px;']) &nbsp;

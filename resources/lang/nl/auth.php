@@ -12,6 +12,7 @@
 
 return [
     'login' => 'login',
+    'register' => 'Maak een account',
     'new_password_setup' => 'Stel je nieuwe wachtwoord in',
     'username' => 'Gebruikersnaam',
 

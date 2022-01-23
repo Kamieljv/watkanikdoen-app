@@ -88,6 +88,7 @@ The analytics server is hosted on [http://watkanikdoen-analytics.herokuapp.com/]
 - [x] Menu-items in mobile authenticated menu (Blog, About, etc.)
 - [ ] Image compression after upload (on all upload types)
 - [ ] Automatic scout import after change in acties or related tables
+- [ ] Get the Blog working
 - [x] Map on Single Actie page if lat/lon is specified
 - [x] Restructure to get rid of `/wave`
 - [x] Update seeders and migrations to configure with correct non-wave paths and remove unnecessary tables

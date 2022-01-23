@@ -37,7 +37,7 @@
                     </a>
                 </span>
                 <span class="flex w-full rounded-md shadow-sm">
-                    <a href="#" class="flex items-center justify-center w-full px-4 py-3 text-base font-medium leading-6 text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-wave-700 focus:shadow-outline-wave active:bg-blue-700">
+                    <a href="{{ route('aanmelding.landing') }}" class="flex items-center justify-center w-full px-4 py-3 text-base font-medium leading-6 text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500">
                         {{__("menus.report_action")}}
                     </a>
                 </span>

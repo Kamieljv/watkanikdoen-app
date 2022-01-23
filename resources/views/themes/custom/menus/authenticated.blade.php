@@ -11,7 +11,7 @@
     </a>
     
     <span class="inline-flex rounded-md shadow-sm">
-        <button href="#" class="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-500 hover:bg-blue-600 focus:outline-none focus:border-indigo-700 focus:shadow-outline-wave active:bg-blue-700">
+        <button href="{{ route('aanmelding.form') }}" class="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-500 hover:bg-blue-600">
             {{ __("menus.report_action") }}
         </button>
     </span>
@@ -66,8 +66,11 @@
                                 @svg('antdesign-thunderbolt-o', ['style' => 'width: 20px; height: 20px']) &nbsp; Admin
                             </a>
                         @endif
+                        <a href="{{ route('aanmeldingen') }}" class="flex items-center px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">
+                            @svg('clarity-add-text-line', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ __("menus.dashboard")}}
+                        </a>
                         <a href="{{ route('settings') }}" class="flex items-center px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">
-                            @svg('antdesign-setting-o', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ __("menus.settings")}}
+                            @svg('antdesign-user-o', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ __("menus.account")}}
                         </a>
 
                     </div>

@@ -8,19 +8,8 @@ use Illuminate\Support\Facades\Route;
 
 class HomeController extends Controller
 {
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        if (setting('auth.dashboard_redirect') !== null) {
-            if (!Auth::guest()) {
-                return redirect('auth/dashboard');
-            }
-        }
-
         $seo = [
             'title'         => setting('site.title', 'WatKanIkDoen.nl'),
             'description'   => setting('site.description', 'Hét Startpunt voor Actief Burgerschap!'),

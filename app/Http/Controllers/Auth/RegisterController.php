@@ -32,7 +32,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'auth/dashboard';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -122,39 +122,6 @@ class RegisterController extends Controller
         }
 
         return $user;
-    }
-
-    /**
-     * Complete a new user registration after they have purchased
-     *
-     * @param  Request  $request
-     * @return redirect
-     */
-    public function complete(Request $request)
-    {
-
-        if (setting('auth.username_in_registration') && setting('auth.username_in_registration') === 'yes') {
-            $request->validate([
-                'name' => 'required|string|min:3|max:255',
-                'username' => 'required|string|max:20|unique:users,username,' . auth()->user()->id,
-                'password' => 'required|string|min:6',
-            ]);
-        } else {
-            $request->validate([
-                'name' => 'required|string|min:3|max:255',
-                'password' => 'required|string|min:6',
-            ]);
-        }
-
-        // Update the user info
-        $user = auth()->user();
-        $user->name = $request->name;
-        $user->username = $request->username;
-        $user->password = bcrypt($request->password);
-        $user->save();
-
-
-        return redirect()->route('dashboard')->with(['message' => 'Successfully updated your profile information.', 'message_type' => 'success']);
     }
 
     private function sendVerificationEmail($user)

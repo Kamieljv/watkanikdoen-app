@@ -17,7 +17,6 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BlogController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\NotificationController;
@@ -52,8 +51,11 @@ Route::get('acties/search', [ActieController::class, 'search'])->name('acties.se
 Route::get('actie/{actie}', [ActieController::class, 'actie'])->name('acties.actie');
 Route::get('organizer/{organizer}', [OrganizerController::class, 'organizer'])->name('organizers.organizer');
 
+// Acties aanmelden (guest)
+Route::get('acties/aanmelden', [AanmeldingController::class, 'landing'])->name('aanmelding.landing');
+
 // Blog routes
-Route::get('blog', [BlogController::class, 'index'])->name('blog');
+Route::get('blog/index', [BlogController::class, 'index'])->name('blog');
 Route::get('blog/{category}', [BlogController::class, 'category'])->name('blog.category');
 Route::get('blog/{category}/{post}', [BlogController::class, 'post'])->name('blog.post');
 
@@ -63,7 +65,10 @@ Route::get('{page}', [PageController::class, 'page'])->name('page');
 // Routes that require authemtication
 Route::group(['prefix' => 'auth', 'middleware' => 'auth'], function () {
     // Dashboard
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('aanmeldingen', [AanmeldingController::class, 'index'])->name('aanmeldingen');
+
+    // Acties aanmelden (authenticated)
+    Route::get('aanmelden/form', [AanmeldingController::class, 'aanmelden'])->name('aanmelding.form');
 
     // Settings
     Route::get('settings/{section?}', [SettingsController::class, 'index'])->name('settings');

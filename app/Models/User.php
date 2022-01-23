@@ -80,6 +80,11 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
         return $this->belongsToMany(Announcement::class);
     }
 
+    public function aanmeldingen()
+    {
+        return $this->hasMany(Aanmelding::class)->without('user');
+    }
+
     public function getAvatarPathAttribute()
     {
         return Storage::url($this->avatar);
