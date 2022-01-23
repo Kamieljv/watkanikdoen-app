@@ -28,8 +28,6 @@ use App\Http\Controllers\SettingsController;
 Auth::routes();
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('user/verify/{verification_code}', [RegisterController::class, 'verify'])->name('verify');
-Route::post('register/complete', [RegisterController::class, 'complete'])->name('register-complete');
-
 
 // Include voyager routes
 Route::group(['prefix' => 'admin'], function () {
@@ -68,7 +66,7 @@ Route::group(['prefix' => 'auth', 'middleware' => 'auth'], function () {
     Route::get('aanmeldingen', [AanmeldingController::class, 'index'])->name('aanmeldingen');
 
     // Acties aanmelden (authenticated)
-    Route::get('aanmelden/form', [AanmeldingController::class, 'aanmelden'])->name('aanmelding.form');
+    Route::get('aanmelden/form', [AanmeldingController::class, 'form'])->name('aanmelding.form');
 
     // Settings
     Route::get('settings/{section?}', [SettingsController::class, 'index'])->name('settings');
