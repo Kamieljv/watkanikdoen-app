@@ -33,6 +33,8 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2017-11-21 16:07:22',
                 'updated_at' => '2022-01-21 15:19:45',
                 'username' => 'admin',
+                'verification_code' => NULL,
+                'verified' => 1,
             ),
             1 => 
             array (
@@ -48,6 +50,8 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2021-11-24 17:25:15',
                 'updated_at' => '2021-11-29 09:53:29',
                 'username' => 'kamiel',
+                'verification_code' => NULL,
+                'verified' => 1,
             ),
         ));
     }
