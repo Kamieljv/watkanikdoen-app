@@ -28,6 +28,7 @@ class Aanmelding extends Model
 
     protected $fillable = [
         'user_id',
+        'organizer_ids',
         'title',
         'body',
         'externe_link',

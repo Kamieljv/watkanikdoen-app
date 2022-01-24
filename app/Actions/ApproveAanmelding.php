@@ -47,7 +47,6 @@ class ApproveAanmelding extends AbstractAction
      */
     public function shouldActionDisplayOnRow($row)
     {
-        Log::debug($row);
         return $row->status === "PENDING";
     }
 }

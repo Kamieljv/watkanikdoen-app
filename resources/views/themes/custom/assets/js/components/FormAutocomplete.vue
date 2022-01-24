@@ -1,6 +1,7 @@
 <template>
     <div class="relative">
         <div class="h-full">
+			<!-- The search input -->
             <t-input
                 @input="onChange"
                 v-model="search"
@@ -11,7 +12,9 @@
                 :disabled="hasValue"
                 :class="{'pr-8': hasValue}"
             />
-            <div 
+			<!-- The form input -->
+			<input type="hidden" :value="formValue" :name="formInputName" />
+            <div
                 v-if="hasValue"
                 class="absolute right-0 inset-y-0 flex items-center pr-3 ml-3 cursor-pointer"
                 @click="resetResult"
@@ -44,7 +47,7 @@
                 @click="setResult(result)"
                 class="autocomplete-result px-3 py-1 cursor-pointer"
                 :class="{ 'is-active': i === arrowCounter }"
-                v-html="result[dataAttribute]"
+                v-html="result[visibleAttribute]"
             >
             </li>
         </ul>
@@ -69,13 +72,22 @@ export default {
 			type: Number,
 			default: 3,
 		},
-		dataAttribute: {
+		visibleAttribute: {
 			type: String,
 			default: "name"
 		},
+		formAttribute: {
+			type: String,
+			default: "id"
+		},
+		formInputName: {
+			type: String,
+			default: ""
+		},
 		placeholder: {
 			type: String,
-			required: true,
+			required: false,
+			default: '',
 		}
 	},
 	data() {
@@ -87,6 +99,7 @@ export default {
 			hasValue: false,
 			arrowCounter: 0,
 			preventOpen: false,
+			formValue: null,
 		}
 	},
 	watch: {
@@ -107,7 +120,10 @@ export default {
 	methods: {
 		setResult(result) {
 			this.preventOpen = true
-			this.search = result[this.dataAttribute].replace(/(<([^>]+)>)/gi, "")
+			this.search = result[this.visibleAttribute].replace(/(<([^>]+)>)/gi, "")
+			if (!this.isAsync) {
+				this.formValue = result[this.formAttribute]
+			}
 			this.isOpen = false
 			this.hasValue = true
 			this.$emit("input", result)
@@ -116,11 +132,12 @@ export default {
 			this.search = ""
 			this.isOpen = false
 			this.hasValue = false
+			this.formValue = null
 			this.$emit("input", "")
 		},
 		filterResults() {
 			this.results = this.items.filter((item) => {
-				return item.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+				return item[this.visibleAttribute].toLowerCase().indexOf(this.search.toLowerCase()) > -1
 			})
 		},
 		onChange: _.debounce(function() {
@@ -131,7 +148,7 @@ export default {
 					this.isOpen = !this.preventOpen
 				} else {
 					this.filterResults()
-					this.isOpen = true
+					this.isOpen = !this.preventOpen
 				}
 			} else {
 				this.isOpen = false
@@ -155,7 +172,7 @@ export default {
 			}
 		},
 		onEnter() {
-			this.search = this.results[this.arrowCounter][this.dataAttribute].replace(/(<([^>]+)>)/gi, "")
+			this.search = this.results[this.arrowCounter][this.visibleAttribute].replace(/(<([^>]+)>)/gi, "")
 			this.isOpen = false
 			this.arrowCounter = 0
 		},

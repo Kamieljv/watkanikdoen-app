@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Aanmelding;
 use App\Models\Actie;
+use App\Models\Organizer;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,19 +45,20 @@ class AanmeldingController extends Controller
      */
     public function form()
     {
+        $organizers = Organizer::all()->toJson();
         // Display the landing page
-        return view('theme::aanmeldingen.form');
+        return view('theme::aanmeldingen.form', compact('organizers'));
     }
 
     public function create(Request $request)
     {
         Log::debug($request->all());
-
         $this->validator($request->all())->validate();
 
         try {
             $aanmelding = Aanmelding::create([
                 'user_id' => auth()->user()->id,
+                'organizer_ids' => implode(",", $request->get('organizer_ids')),
                 'title' => $request->get('title'),
                 'body' => $request->get('body'),
                 'externe_link' => $request->get('externe_link'),
@@ -112,6 +114,14 @@ class AanmeldingController extends Controller
             'image' => $aanmelding->image,
             'slug' => $this->createSlug($aanmelding->title),
         ]);
+
+        // Add a relationship entry for the ActieOrganizer if the organizer_id is passed
+        if ($aanmelding->organizer_ids) {
+            $aanmelding_ids = explode(",", $aanmelding->organizer_ids);
+            foreach($aanmelding_ids as $aanmelding_id) {
+                $actie->organizers()->save(Organizer::firstWhere('id', $aanmelding_id));
+            }
+        }
 
         $aanmelding->approve();
 

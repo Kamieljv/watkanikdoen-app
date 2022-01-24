@@ -1827,6 +1827,22 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{"model":"App\\\\Models\\\\User","table":"users","type":"belongsTo","column":"user_id","key":"id","label":"name","pivot_table":"aanmeldingen","pivot":"0","taggable":"0"}',
                 'order' => 14,
             ),
+            113 => 
+            array (
+                'id' => 190,
+                'data_type_id' => 21,
+                'field' => 'organizer_ids',
+                'type' => 'text',
+                'display_name' => 'Organizer Ids',
+                'required' => 0,
+                'browse' => 0,
+                'read' => 1,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{}',
+                'order' => 3,
+            ),
         ));
         
         

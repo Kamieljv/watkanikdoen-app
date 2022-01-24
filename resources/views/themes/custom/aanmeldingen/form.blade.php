@@ -99,14 +99,36 @@
                 </div>
             </div>
             <div class="col-span-1 space-y-3">
-                <div class="flex flex-col justify-start flex-1 p-5 overflow-hidden bg-white border shadow-md rounded-lg border-gray-150">
+                <div class="flex flex-col justify-start flex-1 p-5 bg-white border shadow-md rounded-lg border-gray-150">
                     <h3 class="text-lg font-medium leading-6 text-gray-900">
                         Organisator
                     </h3>
                     <p class="text-sm leading-5 text-gray-500 mt">
-                        Wie organiseert deze actie?
+                        Wie organiseert deze actie? Als je de organisator niet kunt vinden, mag je het veld leeg laten.
                     </p>
                     <div class="flex flex-col mt-5 space-y-3">
+                        {{-- Organizer --}}
+                        <div>
+                            <label for="externe_link" class="block text-sm font-medium leading-5 text-gray-700">
+                                {{ __("aanmeldingen.organizer") }}
+                            </label>
+                            <div class="mt-1 rounded-md shadow-sm">
+                                <t-rich-select 
+                                    id="category-selector"
+                                    :options="{{ $organizers }}"
+                                    text-attribute="name"
+                                    value="[{{ old('organizer_ids') }}]"
+                                    name="organizer_ids[]"
+                                    multiple
+                                    :close-on-select="false"
+                                />
+                            </div>
+                            @if ($errors->has('externe_link'))
+                                <div class="mt-1 text-red-500">
+                                    {{ $errors->first('externe_link') }}
+                                </div>
+                            @endif
+                        </div>
                         {{-- Externe link --}}
                         <div>
                             <label for="externe_link" class="block text-sm font-medium leading-5 text-gray-700">

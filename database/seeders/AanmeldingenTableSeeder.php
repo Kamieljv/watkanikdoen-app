@@ -23,7 +23,7 @@ class AanmeldingenTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'user_id' => 1,
-                'organizer_id' => 1,
+                'organizer_ids' => '1',
                 'title' => 'Test aanmelding',
                 'body' => '<p>Dit is een test</p>',
                 'externe_link' => '#',
@@ -40,7 +40,7 @@ class AanmeldingenTableSeeder extends Seeder
             array (
                 'id' => 2,
                 'user_id' => 1,
-                'organizer_id' => 2,
+                'organizer_ids' => '1',
                 'title' => 'Test aanmelding 2',
                 'body' => '<p>Dit is een test</p>',
                 'externe_link' => '#',
@@ -57,7 +57,7 @@ class AanmeldingenTableSeeder extends Seeder
             array (
                 'id' => 3,
                 'user_id' => 1,
-                'organizer_id' => 3,
+                'organizer_ids' => '1',
                 'title' => 'Test aanmelding 3',
                 'body' => '<p>Dit is een test</p>',
                 'externe_link' => '#',
