@@ -163,12 +163,10 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col items-center justify-center text-sm leading-5">
-            <span class="block w-full mt-5 rounded-md shadow-sm">
-                <button type="submit" class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-wave-700 focus:shadow-outline-wave active:bg-blue-700">
-                    {{ __("general.send_form") }}
-                </button>
-            </span>
+        <div class="max-w-4xl mx-auto px-5 lg:px-0 flex justify-end">
+            <button type="submit" class="flex justify-center px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-wave-700 focus:shadow-outline-wave active:bg-blue-700">
+                {{ __("general.send_form") }}
+            </button>
         </div>
     </form>
 @endsection

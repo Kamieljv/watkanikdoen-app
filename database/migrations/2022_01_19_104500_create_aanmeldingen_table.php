@@ -16,6 +16,7 @@ class CreateAanmeldingenTable extends Migration
         Schema::create('aanmeldingen', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
+            $table->integer('organizer_id');
             $table->string('title');
             $table->text('body');
             $table->text('externe_link');
