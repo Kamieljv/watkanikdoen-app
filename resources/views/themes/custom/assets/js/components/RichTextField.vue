@@ -7,7 +7,7 @@
             <button @click="editor.chain().focus().toggleItalic().run()" :class="{ 'is-active': editor.isActive('italic') }">
                 <svg-vue icon="editor/clarity-italic-line" style="fill: currentColor;"/>
             </button>
-            <button @click="editor.chain().focus().toggleUnderline().run()" :class="{ 'is-active': editor.isActive('italic') }">
+            <button @click="editor.chain().focus().toggleUnderline().run()" :class="{ 'is-active': editor.isActive('underline') }">
                 <svg-vue icon="editor/clarity-underline-line" style="fill: currentColor;"/>
             </button>
             <span class="divider" />
@@ -31,10 +31,10 @@
                 <svg-vue icon="editor/clarity-number-list-line" style="fill: currentColor;"/>
             </button>
             <span class="divider" />
-            <button @click="editor.chain().focus().toggleLink().run()" :class="{ 'is-active': editor.isActive('link') }">
+            <!-- <button @click="editor.chain().focus().toggleLink().run()" :class="{ 'is-active': editor.isActive('link') }">
                 <svg-vue icon="editor/clarity-link-line" style="fill: currentColor;"/>
-            </button>
-            <span class="divider" />
+            </button> -->
+            <!-- <span class="divider" /> -->
             <button @click="editor.chain().focus().undo().run()">
                 <svg-vue icon="editor/clarity-undo-line" style="fill: currentColor;"/>
             </button>
@@ -50,6 +50,8 @@
 <script>
 import { Editor, EditorContent } from '@tiptap/vue-2'
 import StarterKit from '@tiptap/starter-kit'
+import Underline from '@tiptap/extension-underline'
+// import Link from '@tiptap/extension-link'
 
 export default {
   components: {
@@ -83,6 +85,8 @@ export default {
             levels: [1, 2, 3],
             },
           }),
+          Underline,
+          // Link,
       ],
       onUpdate: () => {
         this.formValue = this.editor.getHTML()
