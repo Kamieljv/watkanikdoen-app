@@ -25,11 +25,12 @@ Vue.use(VueTailwind, VueTailwindSettings)
 import SvgVue from "svg-vue"
 Vue.use(SvgVue)
 
-import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
+import { LMap, LTileLayer, LMarker, LTooltip } from 'vue2-leaflet';
 import 'leaflet/dist/leaflet.css';
 Vue.component('LMap', LMap);
 Vue.component('l-tile-layer', LTileLayer);
 Vue.component('l-marker', LMarker);
+Vue.component("l-tooltip", LTooltip)
 
 /**
  * The following block of code may be used to automatically register your
@@ -41,3 +42,7 @@ Vue.component('l-marker', LMarker);
 
 const files = require.context("./", true, /\.vue$/i)
 files.keys().map(key => Vue.component(key.split("/").pop().split(".")[0], files(key).default))
+
+// Also load CoordinatesFormField from Voyager section
+import CoordinatesFormField from '../../../../../js/components/CoordinatesFormField'
+Vue.component('CoordinatesFormField', CoordinatesFormField)

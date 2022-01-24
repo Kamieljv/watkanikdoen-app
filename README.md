@@ -83,6 +83,7 @@ The analytics server is hosted on [http://watkanikdoen-analytics.herokuapp.com/]
 - [ ] Cookiemelding
 - [ ] Set proper (and working) toast messages in settings
 - [ ] Configure user roles (admin, moderator, user) and permissions in admin backend
+- [ ] Credits to Studio Mes (Designadvies door: '')
 - [x] Color theme tags
 - [ ] List of Organizations
 - [x] Menu-items in mobile authenticated menu (Blog, About, etc.)

@@ -11,7 +11,7 @@
                     v-on:keypress="onInputKeyPress"
                 /> -->
             </div>
-            <div class="col-md-3" v-if="showLatLng">
+            <div class="col-md-3" :class="{'hidden': !showLatLng}">
                 <label class="control-label">Lat (°N)</label>
                 <input
                     class="form-control"
@@ -24,7 +24,7 @@
                     v-on:keypress="onInputKeyPress"
                 />
             </div>
-            <div class="col-md-3" v-if="showLatLng">
+            <div class="col-md-3" :class="{'hidden': !showLatLng}">
                 <label class="control-label">Lon (°O)</label>
                 <input
                     class="form-control"
@@ -57,7 +57,7 @@
                 <l-tooltip
                     :options="tooltipOptions"
                 >
-                    Beweeg deze pin naar de gewenste locatie.
+                    Sleep mij naar de locatie.
                 </l-tooltip>
             </l-marker>
         </l-map>
@@ -84,11 +84,11 @@ export default {
 		},
 		showAutocomplete: {
 			type: Boolean,
-			default: true,
+			default: false,
 		},
 		showLatLng: {
 			type: Boolean,
-			default: true,
+			default: false,
 		},
 		zoom: {
 			type: Number,

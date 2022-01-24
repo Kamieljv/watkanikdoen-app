@@ -7,7 +7,7 @@ use App\Models\Actie;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 use Jenssegers\Date\Date;
 use Validator;
 
@@ -62,14 +62,14 @@ class AanmeldingController extends Controller
                 'externe_link' => $request->get('externe_link'),
                 'time_start' => Date::parse($request->get('time_start'))->format('Y-m-dTH:i'),
                 'time_end' => Date::parse($request->get('time_end'))->format('Y-m-dTH:i'),
-                'location' => $request->get('location'),
+                'location' => DB::raw("ST_GeomFromText('POINT({$request->get('location')['lng']} {$request->get('location')['lat']})')"),
                 'location_human' => $request->get('location_human'),
                 'image' => $request->get('image'),
             ]);
         } catch (QueryException $exception) {
             // You can check get the details of the error using `errorInfo`:
             $errorInfo = $exception->errorInfo;
-            return back()->with('error', $errorInfo[2]);
+            return back()->with('error', $errorInfo[2])->withInput();
         }
 
         return redirect(route('aanmeldingen'))->with('success', 'Successfully added Aanmelding.');
@@ -96,24 +96,22 @@ class AanmeldingController extends Controller
             ]);
         }
 
+        // Get coordinates from aanmelding
+        $coordinates = $aanmelding->getCoordinates()[0];
+
         // create new actie
-        $actie = new Actie();
-
-        $actieProperties = array_only($aanmelding->attributesToArray(), [
-            'user_id',
-            'title',
-            'body',
-            'externe_link',
-            'time_start',
-            'time_end',
-            'location',
-            'location_human',
-            'image',
+        $actie = Actie::create([
+            'user_id' => $aanmelding->user_id,
+            'title' => $aanmelding->title,
+            'body' => $aanmelding->body,
+            'externe_link' => $aanmelding->externe_link,
+            'time_start' => $aanmelding->time_start,
+            'time_end' => $aanmelding->time_end,
+            'location' => DB::raw("ST_GeomFromText('POINT({$coordinates['lng']} {$coordinates['lat']})')"),
+            'location_human' => $aanmelding->location_human,
+            'image' => $aanmelding->image,
+            'slug' => $this->createSlug($aanmelding->title),
         ]);
-        $actieProperties['slug'] = $this->createSlug($actieProperties['title']);
-
-        $actie->fill($actieProperties);
-        $actie->save();
 
         $aanmelding->approve();
 
@@ -139,7 +137,7 @@ class AanmeldingController extends Controller
             'externe_link' => 'required|string|url|max:500',
             'time_start' => 'required|date_format:Y-m-d\TH:i|after_or_equal:today',
             'time_end' => 'required|date_format:Y-m-d\TH:i|after:time_start',
-            'location' => 'string',
+            'location' => 'array:lat,lng',
             'location_human' => 'required|string|max:200',
             'image' => '',
         ]);
