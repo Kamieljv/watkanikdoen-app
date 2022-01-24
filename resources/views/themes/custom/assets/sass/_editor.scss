@@ -1,0 +1,47 @@
+.rich-text-editor {
+    min-height: 200px;
+    .menu {
+        margin-bottom: 5px;
+        & button {
+            width: 25px;
+            height: 25px;
+            line-height: 0;
+            text-align: center;
+            background: #ededed;
+            border-radius: 5px;
+            flex-shrink: 0;
+            padding: 2px;
+            &:hover {
+                background: #8b8b8b;
+            }
+            &.is-active {
+                background: #111111;
+                color:white;
+            }
+        }
+    }
+
+    .ProseMirror,
+    .ProseMirror-focused,
+    .ProseMirror:focus {
+        outline: none;
+        & ul, ol {
+            list-style: disc;
+            padding-left: 30px;
+            margin: 10px 0px;
+        }
+    }
+
+    .tiptap-vuetify-editor__content {
+        min-height: 200px;
+    }
+
+    .ProseMirror {
+        min-height: 180px;
+        padding: 1rem;
+    }
+
+    .divider {
+        border: 1px solid #e6e6e6;
+    }
+}

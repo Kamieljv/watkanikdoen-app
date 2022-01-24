@@ -12,9 +12,9 @@
 
 return [
     'hello' => 'Hallo',
-    'dashboard' => 'Mijn aanmeldingen',
+    'dashboard' => 'Mijn Dashboard',
     'account' => 'Mijn account',
-    'report_action' => 'Actie aanmelden',
+    'report_action' => 'Actie toevoegen',
     'blog' => 'Blog',
     'my_profile' => 'Mijn Profiel',
     'log_out' => 'Uitloggen',

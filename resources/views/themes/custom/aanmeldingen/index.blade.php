@@ -2,21 +2,23 @@
 
 
 @section('content')
-	<div class="flex flex-col px-8 mx-auto my-6 max-w-6xl xl:px-5">
-	    <div class="flex flex-col justify-start flex-1 mb-5 overflow-hidden bg-white border rounded-lg border-gray-150">
+	<div class="max-w-4xl mx-auto mt-10 px-5 lg:px-0 flex">
+		<a href="{{ route('home') }}" class="flex items-center text-sm font-bold cursor-pointer text-gray-700">
+			<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+			{{ __("acties.back_to_acties") }}
+		</a>
+	</div>
+	<div class="max-w-4xl mx-auto flex flex-col px-5 my-6 lg:px-0">
+	    <div class="flex flex-col justify-start flex-1 mb-5 overflow-hidden bg-white border shadow-md rounded-lg border-gray-150">
 	        <div class="flex flex-wrap items-center justify-between p-5 bg-white border-b border-gray-150 sm:flex-no-wrap">
-				<div class="flex items-center justify-center w-12 h-12 mr-5 rounded-lg bg-blue-100">
-					<svg class="w-6 h-6 text-wave-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-				</div>
 				<div class="relative flex-1">
-	                <h3 class="text-lg font-medium leading-6 text-gray-700">
+	                <h3 class="text-lg font-medium leading-6 text-gray-900">
 	                    Mijn Aangemelde Acties
 	                </h3>
 	                <p class="text-sm leading-5 text-gray-500 mt">
 	                    Bekijk en beheer de acties die jij hebt aangemeld
 	                </p>
 				</div>
-
 	        </div>
 	        <div class="flex flex-col">
 				<div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">

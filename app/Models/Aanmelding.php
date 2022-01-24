@@ -13,6 +13,18 @@ class Aanmelding extends Model
         'image_path',
     ];
 
+    protected $fillable = [
+        'user_id',
+        'title',
+        'body',
+        'externe_link',
+        'time_start',
+        'time_end',
+        'location',
+        'location_human',
+        'image',
+    ];
+
     public function getImagePathAttribute()
     {
         return $this->image ? Voyager::image($this->image) : null;

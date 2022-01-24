@@ -21,6 +21,7 @@ import VueTailwind from "vue-tailwind"
 import VueTailwindSettings from "../../VueTailwindSettings.js"
 Vue.use(VueTailwind, VueTailwindSettings)
 
+// SVG Vue
 import SvgVue from "svg-vue"
 Vue.use(SvgVue)
 

@@ -67,6 +67,7 @@ Route::group(['prefix' => 'auth', 'middleware' => 'auth'], function () {
 
     // Acties aanmelden (authenticated)
     Route::get('aanmelden/form', [AanmeldingController::class, 'form'])->name('aanmelding.form');
+    Route::post('aanmelden/form/create', [AanmeldingController::class, 'create'])->name('aanmelding.create');
 
     // Settings
     Route::get('settings/{section?}', [SettingsController::class, 'index'])->name('settings');

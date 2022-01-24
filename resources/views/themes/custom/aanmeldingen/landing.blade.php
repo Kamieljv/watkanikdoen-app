@@ -12,9 +12,9 @@
     <div class="max-w-4xl mx-auto mt-6 px-5 lg:px-0">
         <div class="max-w-4xl px-5 mx-auto prose prose-xl lg:px-0">
 
-            <h2 class="uppercase">Een actie aanmelden</h2>
+            <h2 class="uppercase">Een actie toevoegen</h2>
 
-            <p>Hier kun je gemakkelijk een actie aanmelden.</p>
+            <p>Hier kun je gemakkelijk een actie toevoegen.</p>
 
             <div class="flex justify-center mt-5">
                 <a href="{{ route('login') }}" class="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-500 hover:bg-blue-600 focus:outline-none focus:border-indigo-700 focus:shadow-outline-wave active:bg-blue-700">
