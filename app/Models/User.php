@@ -87,7 +87,7 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
 
     public function getAvatarPathAttribute()
     {
-        return Storage::url($this->avatar);
+        return $this->avatar ? Storage::url($this->avatar) : null;
     }
 
     /**

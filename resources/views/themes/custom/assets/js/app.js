@@ -25,6 +25,12 @@ Vue.use(VueTailwind, VueTailwindSettings)
 import SvgVue from "svg-vue"
 Vue.use(SvgVue)
 
+// Image upload/edit
+import 'exif-js'
+import VueCroppie from 'vue-croppie';
+import 'croppie/croppie.css' // import the croppie css manually
+Vue.use(VueCroppie);
+
 import { LMap, LTileLayer, LMarker, LTooltip } from 'vue2-leaflet';
 import 'leaflet/dist/leaflet.css';
 Vue.component('LMap', LMap);

@@ -77,6 +77,8 @@ The analytics server is hosted on [http://watkanikdoen-analytics.herokuapp.com/]
 - [ ] Add date filter to action page
 - [x] Minimize information passed to views
 - [ ] Make acties sortable
+- [ ] Image uploader: implement actual image delete (instead of hiding preview)
+- [ ] Images: delete on DB entry delete?
 - [ ] Static pages (About, Privacy policy, etc.)
 - [ ] Add flow for reporting new action and action moderation
 - [ ] Page analytics (e.g. Open Web Analytics, Umami or Plausible)

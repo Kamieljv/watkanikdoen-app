@@ -24,6 +24,7 @@
         "@tiptap/vue-2": "^2.0.0-beta.76",
         "alpinejs": "^3.7.0",
         "axios": "^0.24.0",
+        "exif-js": "^2.3.0",
         "glob-all": "^3.2.1",
         "laravel-mix": "^6.0.39",
         "laravel-mix-purgecss": "^6.0.0",
@@ -32,6 +33,7 @@
         "leaflet": "^1.7.1",
         "lodash": "^4.17.21",
         "postcss-scss": "^4.0.2",
+        "vue-croppie": "^2.0.2",
         "vue-tailwind": "^2.5.0",
         "vue2-leaflet": "^2.7.1"
     },

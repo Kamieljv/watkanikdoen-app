@@ -13,7 +13,7 @@
             <div class="col-span-2 space-y-3">
                 <div class="flex flex-col justify-start flex-1 p-5 overflow-hidden bg-white border shadow-md rounded-lg border-gray-150">
                     <h3 class="text-lg font-medium leading-6 text-gray-900">
-                        Titel, tekst & afbeelding
+                        Titel & teksten
                     </h3>
                     <p class="text-sm leading-5 text-gray-500 mt">
                         Omschrijf de actie zo goed als je kunt. Gebruik daarbij vooral ook teksten van de organisator, zolang je vermeldt waar deze vandaan komen.
@@ -181,6 +181,24 @@
                                 </div>
                             @endif
                         </div>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-start flex-1 mb-5 p-5 overflow-hidden bg-white border shadow-md rounded-lg border-gray-150">
+                    <h3 class="text-lg font-medium leading-6 text-gray-900">
+                        Afbeelding
+                    </h3>
+                    <p class="text-sm leading-5 text-gray-500 mt">
+                        Kies een afbeelding die bij de actie past.
+                    </p>
+                    <div class="flex flex-col mt-5 space-y-3 h-[150px]">
+                        {{-- Image --}}
+                        <form-image
+                            previous-image="{{ old('image') }}"
+                            field-name="image"
+                            viewport-type="square"
+                            default-color="var(--wkid-blue-light)"
+                            :width="1000"
+                        />
                     </div>
                 </div>
             </div>

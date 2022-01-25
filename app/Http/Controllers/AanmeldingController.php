@@ -9,6 +9,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Jenssegers\Date\Date;
 use Validator;
 
@@ -52,22 +53,26 @@ class AanmeldingController extends Controller
 
     public function create(Request $request)
     {
-        Log::debug($request->all());
         $this->validator($request->all())->validate();
 
         try {
             $aanmelding = Aanmelding::create([
                 'user_id' => auth()->user()->id,
-                'organizer_ids' => implode(",", $request->get('organizer_ids')),
-                'title' => $request->get('title'),
-                'body' => $request->get('body'),
-                'externe_link' => $request->get('externe_link'),
-                'time_start' => Date::parse($request->get('time_start'))->format('Y-m-dTH:i'),
-                'time_end' => Date::parse($request->get('time_end'))->format('Y-m-dTH:i'),
-                'location' => DB::raw("ST_GeomFromText('POINT({$request->get('location')['lng']} {$request->get('location')['lat']})')"),
-                'location_human' => $request->get('location_human'),
-                'image' => $request->get('image'),
+                'organizer_ids' => $request->organizer_ids ? implode(",", $request->organizer_ids) : '',
+                'title' => $request->title,
+                'body' => $request->body,
+                'externe_link' => $request->externe_link,
+                'time_start' => Date::parse($request->time_start)->format('Y-m-dTH:i'),
+                'time_end' => Date::parse($request->time_end)->format('Y-m-dTH:i'),
+                'location' => DB::raw("ST_GeomFromText('POINT({$request->location['lng']} {$request->location['lat']})')"),
+                'location_human' => $request->location_human,
             ]);
+            if ($request->image) {
+                $path = 'aanmeldingen/'. uniqid() . '.png';
+                Storage::disk(config('voyager.storage.disk'))->put($path, file_get_contents($request->image));
+                $aanmelding->image = $path;
+                $aanmelding->save();
+            }
         } catch (QueryException $exception) {
             // You can check get the details of the error using `errorInfo`:
             $errorInfo = $exception->errorInfo;

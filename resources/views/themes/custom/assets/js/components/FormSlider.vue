@@ -106,6 +106,9 @@ export default {
 			const progress = (this.value / this.max) * 100 + "%"
 			return this.$refs.range.style.setProperty("--webkit-progress", progress)
 		},
+		inputCaptured() {
+			return _.debounce(this.processInput, this.delay)
+		}
 	},
 	mounted() {
 		this.updateWebkitProgress
@@ -114,11 +117,6 @@ export default {
 		value: function() {
 			this.updateWebkitProgress
 		},
-	},
-	computed: {
-		inputCaptured() {
-			return _.debounce(this.processInput, this.delay)
-		}
 	},
 	methods: {
 		processInput(event) {

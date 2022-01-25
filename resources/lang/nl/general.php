@@ -24,6 +24,6 @@ return [
     'others' => 'anderen',
     'impersonation' => 'impersonatie',
     'back_to_dashboard' => 'Terug naar Dashboard',
-    'position_and_resize_photo' => 'Pas de grote en positie van je foto aan',
+    'position_and_resize_photo' => 'Pas de grootte en positie van je foto aan',
     'send_form' => 'Formulier verzenden',
 ];
