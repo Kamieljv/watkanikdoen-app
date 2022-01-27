@@ -106,6 +106,12 @@ class AanmeldingController extends Controller
         // Get coordinates from aanmelding
         $coordinates = $aanmelding->getCoordinates()[0];
 
+        // Move image to actie folder
+        $newImagePath = 'acties/' . explode("/", $aanmelding->image)[1];
+        Storage::disk(config('voyager.storage.disk'))->move($aanmelding->image, $newImagePath);
+        $aanmelding->image = $newImagePath;
+        $aanmelding->save();
+
         // create new actie
         $actie = Actie::create([
             'user_id' => $aanmelding->user_id,
@@ -116,7 +122,7 @@ class AanmeldingController extends Controller
             'time_end' => $aanmelding->time_end,
             'location' => DB::raw("ST_GeomFromText('POINT({$coordinates['lng']} {$coordinates['lat']})')"),
             'location_human' => $aanmelding->location_human,
-            'image' => $aanmelding->image,
+            'image' => $newImagePath,
             'slug' => $this->createSlug($aanmelding->title),
         ]);
 
