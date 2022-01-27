@@ -13,3 +13,37 @@
     margin-left: 5px;
     cursor: pointer;
 }
+
+// Profile image backup
+.no-profile-img {
+    float: left;
+    border-radius: 50%;
+    margin-right: 10px;
+    background-color: #046afe;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    &.small {
+        font-size: 20px;
+        height: 40px;
+        width: 40px;
+    }
+    &.large {
+        font-size: 30px;
+        height: 60px;
+        width: 60px;
+    }
+}
+.profile .dropdown-toggle img {
+    height: 40px;
+    width: 40px;
+}
+.profile-body {
+    text-align: left;
+}
+.nav.navbar-nav .dropdown-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
