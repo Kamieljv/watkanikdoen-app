@@ -16,6 +16,9 @@ window.Vue = require("vue").default
 import _ from "lodash"
 Vue.prototype.__ = str => _.get(window.i18n, str)
 
+// Add axios prototype to Vue
+Vue.prototype.$http = window.axios
+
 // VueTailwind for components
 import VueTailwind from "vue-tailwind"
 import VueTailwindSettings from "../../VueTailwindSettings.js"

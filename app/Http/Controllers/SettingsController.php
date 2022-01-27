@@ -32,7 +32,7 @@ class SettingsController extends Controller
         $authed_user->name = $request->name;
         $authed_user->email = $request->email;
         if ($request->avatar) {
-            $authed_user->avatar = $this->saveAvatar($request->avatar, $authed_user->username);
+            $authed_user->avatar = $this->saveAvatar($request->avatar, $authed_user->id);
         }
         $authed_user->save();
 
@@ -62,10 +62,25 @@ class SettingsController extends Controller
         return back()->with(['message' => 'Successfully updated your password.', 'message_type' => 'success']);
     }
 
-    private function saveAvatar($avatar, $filename)
+    private function saveAvatar($avatar, $id)
     {
-        $path = 'avatars/' . $filename . '.png';
+        $path = 'avatars/' . $id . '_' . uniqid() . '.png';
         Storage::disk(config('voyager.storage.disk'))->put($path, file_get_contents($avatar));
         return $path;
+    }
+
+    public function deleteAvatar($id) {
+        if (auth()->user()->id !== (int) $id) {
+            abort(403, 'Unauthorized action.');
+        } else {
+            if (Storage::disk(config('voyager.storage.disk'))->delete(auth()->user()->avatar)) {
+                $user = auth()->user();
+                $user->avatar = null;
+                $user->save();
+                return response()->json('succes');
+            } else {
+                return response()->json('something went wrong!');
+            }
+        }
     }
 }

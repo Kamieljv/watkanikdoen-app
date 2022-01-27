@@ -8,7 +8,7 @@
 				<input v-show="false" type="file" ref="upload" id="upload" @change="imageUploaded">
 				<input type="hidden" :value="cropped" :name="fieldName">
 				<div class="absolute bottom-0 w-full z-10 flex mb-3 space-x-1 items-center justify-center text-white">
-					<button v-if="preview" @click="clearInputs" class="flex items-center justify-center cursor-pointer w-10 h-10 bg-black bg-opacity-75 hover:bg-opacity-100 rounded-full">
+					<button v-if="preview" @click="deleteClick" class="flex items-center justify-center cursor-pointer w-10 h-10 bg-black bg-opacity-75 hover:bg-opacity-100 rounded-full">
 						<svg-vue icon="antdesign-delete-o" class="w-6 h-6" fill="currentColor" />
 					</button>
 					<button @click="uploadImage" class="flex items-center justify-center cursor-pointer w-10 h-10 bg-black bg-opacity-75 hover:bg-opacity-100 rounded-full">
@@ -18,46 +18,61 @@
 			</div>
 		</div>
 		<!-- Edit (Crop/Move/Zoom) Modal -->
-		<div id="upload-modal" class="fixed inset-0 z-[1001] overflow-y-auto" v-show="open">
-			<div class="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
-				<!-- Gray background -->
-				<div @click="cancel" class="fixed inset-0 bg-black opacity-50">
-				</div>
-				<!-- Actual modal -->
-				<div class="relative inline-block px-4 pt-5 pb-4 text-left bg-white rounded-lg shadow-xl mt-10" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
-					<div>
-						<div class="mt-3 text-center sm:mt-5">
-							<h3 class="mb-5 text-lg font-medium leading-6 text-gray-900" id="modal-headline">
-								{{ __("general.position_and_resize_photo") }}
-							</h3>
-							<vue-croppie
-								ref="croppieRef"
-								:boundary="{width: '100%', height: '300px'}"
-								:viewport="{ width: 300, height: 300 * ratio, 'type': viewportType }"
-								:enableResize="false"
-								v-show="!isLoading"
-							/>
-							<div v-show="isLoading" class="flex justify-center items-center h-20">
-								<svg class="animate-spin -ml-1 mr-3 h-8 w-8 text-gray-800" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-									<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-									<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-								</svg>
-							</div>
-						</div>
-					</div>
-					<div class="mt-5 sm:mt-6">
-						<span class="flex w-full rounded-md shadow-sm">
-							<button @click="cancel" class="inline-flex justify-center w-full px-4 py-2 mr-2 text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out bg-white border border-transparent border-gray-300 rounded-md shadow-sm hover:text-gray-500 active:text-gray-800 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue sm:text-sm sm:leading-5" type="button">
-								Annuleren
-							</button>
-							<button @click="crop" class="inline-flex justify-center w-full px-4 py-2 ml-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out border border-transparent rounded-md shadow-sm bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-wave-700 focus:shadow-outline-wave sm:text-sm sm:leading-5" id="apply-crop" type="button">
-								Toepassen
-							</button>
-						</span>
-					</div>
+		<t-modal
+			v-model="uploadOpen"
+			:hideCloseButton="true"
+		>
+			<template v-slot:header>
+				<h3 class="text-lg font-medium leading-6 text-gray-900" id="modal-headline">
+					{{ header }}
+				</h3>
+			</template>
+			<div class="mt-3 text-center sm:mt-5">
+				<vue-croppie
+					ref="croppieRef"
+					:boundary="{width: '100%', height: '300px'}"
+					:viewport="{ width: 300, height: 300 * ratio, 'type': viewportType }"
+					:enableResize="false"
+					v-show="!isLoading"
+				/>
+				<div v-show="isLoading" class="flex justify-center items-center h-20">
+					<svg class="animate-spin -ml-1 mr-3 h-8 w-8 text-gray-800" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+						<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+						<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+					</svg>
 				</div>
 			</div>
-		</div>
+
+			<template v-slot:footer>
+				<div class="flex justify-between">
+					<button @click="cancelUpload" class="inline-flex justify-center w-full px-4 py-2 mr-2 text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out bg-white border border-transparent border-gray-300 rounded-md shadow-sm hover:text-gray-500 active:text-gray-800 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue sm:text-sm sm:leading-5" type="button">
+						Annuleren
+					</button>
+					<button @click="crop" class="inline-flex justify-center w-full px-4 py-2 ml-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out border border-transparent rounded-md shadow-sm bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-wave-700 focus:shadow-outline-wave sm:text-sm sm:leading-5" id="apply-crop" type="button">
+						Toepassen
+					</button>
+				</div>
+			</template>
+		</t-modal>
+		<!-- Delete Modal -->
+		<t-modal
+			v-model="deleteOpen"
+			variant="danger"
+			header="Weet je zeker dat je de foto wil verwijderen?"
+			:hideCloseButton="true"
+		>
+			Als je op "Ja" klikt wordt de foto voor goed verwijderd.
+			<template v-slot:footer>
+				<div class="flex justify-between">
+					<button @click="cancelDelete" class="inline-flex justify-center w-full px-4 py-2 mr-2 text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out bg-white border border-transparent border-gray-300 rounded-md shadow-sm hover:text-gray-500 active:text-gray-800 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue sm:text-sm sm:leading-5" type="button">
+						Annuleren
+					</button>
+					<button @click="deleteImage" class="inline-flex justify-center w-full px-4 py-2 ml-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out border border-transparent rounded-md shadow-sm bg-[color:var(--wkid-red)] hover:bg-[color:var(--wkid-red-dark)] focus:outline-none focus:border-wave-700 focus:shadow-outline-wave sm:text-sm sm:leading-5" type="button">
+						Ja, ik weet het zeker
+					</button>
+				</div>
+			</template>
+		</t-modal>
     </div>
 </template>
 
@@ -65,6 +80,14 @@
 	export default {
 		name: "FormImage",
 		props: {
+			fieldName: {
+				type: String,
+				required: true,
+			},
+			deleteRoute: {
+				type: String,
+				default: '',
+			},
 			previousImage: {
 				type: String,
 				default: '',
@@ -73,9 +96,9 @@
 				type: String,
 				default: '',
 			},
-			fieldName: {
+			header: {
 				type: String,
-				required: true,
+				default: 'Position and Resize photo',
 			},
 			width: {
 				type: Number,
@@ -102,19 +125,20 @@
 			return {
 				cropped: '',
 				preview: '',
-				open: false,
+				uploadOpen: false,
+				deleteOpen: false,
 				isLoading: false,
 			}
 		},
 		mounted() {
-			this.preview = this.cropped = this.previousImage
+			this.preview = this.previousImage
 		},
 		methods: {
 			imageUploaded(e) {
 				var files = e.target.files || e.dataTransfer.files;
 				if (!files.length) return;
 
-				this.open = true;
+				this.uploadOpen = true;
 				this.isLoading = true;
 
 				var reader = new FileReader();
@@ -148,17 +172,30 @@
 				this.$refs.croppieRef.result(options, output => {
 					this.preview = this.cropped = output;
 					})
-				this.open = false
+				this.uploadOpen = false
 			},
-			cancel(e) {
-				// clear input field
-				this.clearInputs(e)
-				this.open = false
+			cancelUpload() {
+				this.clearInputs()
+				this.uploadOpen = false
 			},
-			clearInputs(e){
+			cancelDelete() {
+				this.deleteOpen = false
+			},
+			deleteClick(e){
 				e.preventDefault()
+				this.deleteOpen = true;
+			},
+			clearInputs(){
 				this.preview = ''
 				this.cropped = ''
+			},
+			deleteImage(){
+				this.clearInputs()
+				if (this.previousImage && this.deleteRoute) {
+					this.$http.post(this.deleteRoute).then((response) => {
+						this.deleteOpen = false
+					})
+				}
 			},
 			uploadImage(e){
 				e.preventDefault()

@@ -1,4 +1,4 @@
-import { TRichSelect, TCard, TInput } from "vue-tailwind/dist/components"
+import { TRichSelect, TCard, TInput, TModal } from "vue-tailwind/dist/components"
 const VueTailwindSettings = {
 	"t-rich-select": {
 		component: TRichSelect,
@@ -98,6 +98,52 @@ const VueTailwindSettings = {
 			variants: {
 				danger: "border-red-300 bg-red-50 placeholder-red-200 text-red-900",
 				success: "border-green-300 bg-green-50 placeholder-gray-400 text-green-900"
+			}
+		}
+	},
+	't-modal': {
+		component: TModal,
+		props: {
+		  	fixedClasses: {
+				overlay: 'z-[1001] overflow-auto scrolling-touch left-0 top-0 bottom-0 right-0 w-full h-full fixed bg-black/50',
+				wrapper: 'relative mx-auto mt-20 max-w-lg px-3 py-12',
+				modal: 'overflow-visible relative rounded-lg overflow-hidden',
+				body: 'p-3',
+				header: 'border-b rounded-t',
+				footer: ' p-3 rounded-b',
+				close: 'flex items-center justify-center rounded-full absolute right-0 top-0 -m-3 h-8 w-8 transition duration-100 ease-in-out focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50'
+		  	},
+		  	classes: {
+				overlay: '',
+				wrapper: '',
+				modal: 'bg-white shadow',
+				body: '',
+				header: 'border-gray-100 p-5',
+				footer: 'bg-gray-100',
+				close: 'bg-gray-100 text-gray-600 hover:bg-gray-200',
+				closeIcon: 'fill-current h-4 w-4',
+				overlayEnterClass: 'opacity-0',
+				overlayEnterActiveClass: 'transition ease-out duration-100',
+				overlayEnterToClass: 'opacity-100',
+				overlayLeaveClass: 'opacity-100',
+				overlayLeaveActiveClass: 'transition ease-in duration-75',
+				overlayLeaveToClass: 'opacity-0',
+				enterClass: '',
+				enterActiveClass: '',
+				enterToClass: '',
+				leaveClass: '',
+				leaveActiveClass: '',
+				leaveToClass: ''
+			},
+			variants: {
+				danger: {
+					overlay: '',
+					header: 'bg-[color:var(--wkid-red)] text-white p-3',
+					body: 'text-gray-900',
+					close: 'bg-red-50 text-red-700 hover:bg-red-200 border-red-100 border',
+					modal: 'bg-white shadow-lg',
+					footer: 'bg-red-50'
+				}
 			}
 		}
 	}

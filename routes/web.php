@@ -72,6 +72,7 @@ Route::group(['prefix' => 'auth', 'middleware' => 'auth'], function () {
     // Settings
     Route::get('settings/{section?}', [SettingsController::class, 'index'])->name('settings');
     Route::post('settings/profile', [SettingsController::class, 'profilePut'])->name('settings.profile.put');
+    Route::post('settings/profile/deleteAvatar/{id}', [SettingsController::class, 'deleteAvatar'])->name('settings.profile.deleteAvatar');
     Route::put('settings/security', [SettingsController::class, 'securityPut'])->name('settings.security.put');
 
     // Notifications & Announcements

@@ -85,6 +85,11 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
         return $this->hasMany(Aanmelding::class)->without('user');
     }
 
+    public function getAvatarAttribute($value)
+    {
+        return $value ?? config('voyager.user.default_avatar', null);
+    }
+
     public function getAvatarPathAttribute()
     {
         return $this->avatar ? Storage::url($this->avatar) : null;
