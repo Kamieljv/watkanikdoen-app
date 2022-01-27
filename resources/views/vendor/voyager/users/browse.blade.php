@@ -106,6 +106,8 @@
                                                     <img src="@if( !filter_var($data->{$row->field}, FILTER_VALIDATE_URL)){{ Voyager::image( $data->{$row->field} ) }}@else{{ $data->{$row->field} }}@endif" style="width:100px">
                                                 @elseif($row->type == 'relationship')
                                                     @include('voyager::formfields.relationship', ['view' => 'browse','options' => $row->details])
+                                                @elseif($row->field == 'role_id')
+                                                    {{ TCG\Voyager\Models\Role::where('id', $data->{$row->field})->first()->display_name }}
                                                 @elseif($row->type == 'select_multiple')
                                                     @if(property_exists($row->details, 'relationship'))
 
@@ -199,8 +201,8 @@
                                                 @endif
                                             @endforeach
                                             @canImpersonate
-                                                <a href="{{ route('impersonate', $data->{$data->getKeyName()}) }}" class="btn btn-sm btn-warning pull-right" style="margin-right:5px; background:#09cd9f;">
-                                                    <i class="voyager-people"></i> <span class="hidden-xs hidden-sm">Impersonate</span>
+                                                <a href="{{ route('impersonate', $data->{$data->getKeyName()}) }}" class="btn btn-sm btn-warning pull-right view" style="background:#09cd9f;" title="Impersonate">
+                                                    <i class="voyager-people"></i>
                                                 </a>
                                             @endCanImpersonate
                                         </td>

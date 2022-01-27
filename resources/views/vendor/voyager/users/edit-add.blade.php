@@ -23,6 +23,10 @@
                 {{ method_field("PUT") }}
             @endif
             {{ csrf_field() }}
+            {{-- Assign correct (edit/add) datatype data --}}
+            @php
+                $dataTypeRows = $dataType->{(isset($dataTypeContent->id) ? 'editRows' : 'addRows' )};
+            @endphp
 
             <div class="row">
                 <div class="col-md-8">
@@ -39,24 +43,25 @@
                         @endif
 
                         <div class="panel-body">
+                            {{-- Name --}}
                             <div class="form-group">
                                 <label for="name">{{ __('voyager::generic.name') }}</label>
                                 <input type="text" class="form-control" id="name" name="name" placeholder="{{ __('voyager::generic.name') }}"
                                        value="@if(isset($dataTypeContent->name)){{ $dataTypeContent->name }}@endif">
                             </div>
-
+                            {{-- Email --}}
                             <div class="form-group">
                                 <label for="email">{{ __('voyager::generic.email') }}</label>
                                 <input type="email" class="form-control" id="email" name="email" placeholder="{{ __('voyager::generic.email') }}"
                                        value="@if(isset($dataTypeContent->email)){{ $dataTypeContent->email }}@endif">
                             </div>
-
+                            {{-- Username --}}
                             <div class="form-group">
                                 <label for="username">Username</label>
                                 <input type="username" class="form-control" id="username" name="username" placeholder="Username"
                                        value="@if(isset($dataTypeContent->username)){{ $dataTypeContent->username }}@endif">
                             </div>
-
+                            {{-- Password --}}
                             <div class="form-group">
                                 <label for="password">{{ __('voyager::generic.password') }}</label>
                                 @if(isset($dataTypeContent->password))
@@ -65,44 +70,38 @@
                                 @endif
                                 <input type="password" class="form-control" id="password" name="password" value="" autocomplete="new-password">
                             </div>
-
-
+                            {{-- Role --}}
+                            <div class="form-group">
+                                <label for="role_id">Primary Role</label>
+                                @php 
+                                    $roles = TCG\Voyager\Models\Role::all(); 
+                                    $selectedId = ($dataTypeContent->role_id !== null) ? $dataTypeContent->role_id : $roles->where('name', config('voyager.user.default_role'))->first()->id;
+                                @endphp
+                                <select name="role_id" id="role_id" class="select2" placeholder="">
+                                    @foreach($roles as $role)
+                                        <option value="{{ $role->id }}" @if($role->id == $selectedId) selected @endif>{{ $role->display_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            {{-- Additional roles --}}
+                            <div class="form-group">
+                                {{-- Select row data --}}
                                 @php
-                                    $dataTypeRows = $dataType->{(isset($dataTypeContent->id) ? 'editRows' : 'addRows' )};
-
-                                    $row     = $dataTypeRows->where('field', 'user_belongsto_role_relationship')->first();
+                                    $row = $dataTypeRows->where('field', 'user_belongstomany_role_relationship')->first();
                                     if(is_string($row->details)){
                                         $options = json_decode($row->details);
                                     } else {
                                         $options = $row->details;
                                     }
                                 @endphp
-
-                                <div class="form-group">
-                                    <label for="role_id">Primary Role</label>
-                                    @php $roles = TCG\Voyager\Models\Role::all(); @endphp
-                                    <select name="role_id" id="role_id" class="select2" placeholder="">
-                                        @foreach($roles as $role)
-                                            <option value="{{ $role->id }}" @if($role->id == $dataTypeContent->role_id) selected @endif>{{ $role->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="additional_roles">{{ __('voyager::profile.roles_additional') }}</label>
-                                    @php
-                                        $row     = $dataTypeRows->where('field', 'user_belongstomany_role_relationship')->first();
-                                        if(is_string($row->details)){
-                                            $options = json_decode($row->details);
-                                        } else {
-                                            $options = $row->details;
-                                        }
-                                    @endphp
-                                    @include('voyager::formfields.relationship')
+                                <label for="additional_roles">{{ __('voyager::profile.roles_additional') }}</label>
+                                @include('voyager::formfields.relationship')
                                 </div>
                         </div>
                     </div>
                 </div>
-
+                {{-- Avatar --}}
+                @if ($dataTypeRows->where('field', 'avatar')->first() !== null)
                 <div class="col-md-4">
                     <div class="panel panel-bordered panel-warning">
                         <div class="panel-body">
@@ -115,6 +114,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
 
             <button type="submit" class="btn btn-primary pull-right save">
