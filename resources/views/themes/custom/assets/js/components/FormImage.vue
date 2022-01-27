@@ -193,9 +193,13 @@
 				this.clearInputs()
 				if (this.previousImage && this.deleteRoute) {
 					this.$http.post(this.deleteRoute).then((response) => {
+						document.getElementById('toast-container').innerHTML = response.data
 						this.deleteOpen = false
 					})
+				} else {
+					this.deleteOpen = false
 				}
+
 			},
 			uploadImage(e){
 				e.preventDefault()

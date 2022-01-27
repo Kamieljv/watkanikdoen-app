@@ -61,40 +61,22 @@ And you should be updated to the latest version :)
 For site analytics, we use [Umami](https://umami.is/), which is an open-source and self-hosted framework that enables simple analytics (pageviews, devices used and referrers).
 The analytics server is hosted on [http://watkanikdoen-analytics.herokuapp.com/](http://watkanikdoen-analytics.herokuapp.com/).
 
-## To Do
-- [x] Actie page pagination
-- [x] Add location, time to acties
-- [x] Make actie page filterable
-- [x] Add categories to acties
-- [x] Rename Events to Acties
-- [x] Create single action page
-- [x] Improve single action page responsiveness
-- [x] Implement organizers functionality
-- [x] Responsiveness of the home page
-- [x] Make organizer's overview pages
-- [x] Pagination of acties on home page
-- [x] Filter acties that have passed
-- [ ] Add date filter to action page
-- [x] Minimize information passed to views
-- [ ] Make acties sortable
-- [ ] Image uploader: implement actual image delete (instead of hiding preview)
-- [ ] Images: delete on DB entry delete?
+## To Do (prioritized)
+- [ ] Automatic scout import after change in acties or related tables
+- [ ] Images: find a way to delete unused images
 - [ ] Static pages (About, Privacy policy, etc.)
-- [ ] Add flow for reporting new action and action moderation
+- [ ] Add user notifications/emails (e.g. when action approved, when account verified etc.)
 - [ ] Page analytics (e.g. Open Web Analytics, Umami or Plausible)
-- [ ] Cookiemelding
-- [ ] Set proper (and working) toast messages in settings
+- [ ] Organize translation
+- [ ] Set proper (and working) toast messages throughout app
 - [ ] Configure user roles (admin, moderator, user) and permissions in admin backend
 - [ ] Credits to Studio Mes (Designadvies door: '')
-- [x] Color theme tags
 - [ ] List of Organizations
-- [x] Menu-items in mobile authenticated menu (Blog, About, etc.)
 - [ ] Image compression after upload (on all upload types)
-- [ ] Automatic scout import after change in acties or related tables
 - [ ] Get the Blog working
-- [x] Map on Single Actie page if lat/lon is specified
-- [x] Restructure to get rid of `/wave`
-- [x] Update seeders and migrations to configure with correct non-wave paths and remove unnecessary tables
+- [ ] Add date filter to action page
+- [ ] Make acties sortable
+- [ ] Cookiemelding
 - [ ] Localize Wave controller messages
 - [ ] Localize Voyager
 - [ ] Localize js messages

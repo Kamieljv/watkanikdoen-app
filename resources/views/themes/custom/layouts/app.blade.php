@@ -84,6 +84,8 @@
     <script src="{{ asset('themes/' . $theme->folder . '/js/app.js') }}"></script>
     @stack('scripts')
 
-    @include('theme::partials.toast')
+    <div id="toast-container">
+        @include('theme::partials.toast')
+    </div>
 </body>
 </html>

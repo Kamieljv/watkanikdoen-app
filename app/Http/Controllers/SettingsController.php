@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use TCG\Voyager\Http\Controllers\Controller;
 use Validator;
@@ -77,10 +78,13 @@ class SettingsController extends Controller
                 $user = auth()->user();
                 $user->avatar = null;
                 $user->save();
-                return response()->json('succes');
+                $type = 'success';
+                $message = __("settings.profile.avatar_delete_success");
             } else {
-                return response()->json('something went wrong!');
+                $type = 'error';
+                $message = __("settings.profile.avatar_delete_fail");
             }
+            return view('theme::partials.toast', compact('type', 'message'));
         }
     }
 }

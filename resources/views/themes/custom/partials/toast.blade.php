@@ -1,8 +1,11 @@
 @php
-    $type = null;
-    $message = null;
-    foreach(array('info', 'warning', 'success', 'error') as $messType)
-    if (session()->has($messType)) { $type = $messType; $message = session($messType); }
+    foreach(array('info', 'warning', 'success', 'error') as $messType) {
+        if (session()->has($messType)) { $type = $messType; $message = session($messType); }
+    }
+    if (!isset($type) || !isset($message)) {
+        $type = null;
+        $message = null;
+    }
 @endphp
 
 @if ($type !== null && $message !== null)
