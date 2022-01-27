@@ -156,10 +156,9 @@ return [
                 'classes'    => 'class-full-of-rum',
                 'icon_class' => 'voyager-person',
             ],
-            'Home' => [
+            'Go to Website' => [
                 'route'        => '/',
                 'icon_class'   => 'voyager-home',
-                'target_blank' => true,
             ],
             'Logout' => [
                 'route'      => 'voyager.logout',
