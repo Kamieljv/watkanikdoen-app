@@ -122,7 +122,7 @@
                                 </div>
                             </a>
                             {{-- <div class="text-sm">
-                                {!! $organizer->description !!}
+                                {!! filterScripts($organizer->description) !!}
                             </div> --}}
                         @endforeach
                     </div>
@@ -142,7 +142,7 @@
                     <span>{{ __("acties.description") }}</span>
                 </h3>
                 <div class="text-base">
-                    {!! $actie->body !!}
+                    {!! filterScripts($actie->body) !!}
                 </div>
             </div>
     </article>

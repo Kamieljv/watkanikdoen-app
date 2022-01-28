@@ -8,7 +8,7 @@
         </a>
     </div>
     <form role="form" method="POST" action="{{ route('aanmelding.create') }}">
-        @csrf
+        @if(!$viewOnly) @csrf @endif
         <div id="app" class="grid grid-cols-1 md:grid-cols-3 space-y-3 md:space-y-0 md:space-x-3 max-w-4xl mx-auto flex flex-col px-5 my-6 lg:px-0">
             <div class="col-span-2 space-y-3">
                 <div class="flex flex-col justify-start flex-1 p-5 overflow-hidden bg-white border shadow-md rounded-lg border-gray-150">
@@ -39,7 +39,9 @@
                                 {{ __("aanmeldingen.body") }}
                             </label>
                             @if($viewOnly)
-                                <div class="min-h-[200px] like-form-field">{!! $aanmelding->body !!}</div>
+                                <div class="min-h-[200px] like-form-field">
+                                    {!! filterScripts($aanmelding->body) !!}
+                                </div>
                             @else
                                 <rich-text-field
                                     name="body"
@@ -219,7 +221,7 @@
             </div>
         </div>
         <div class="max-w-4xl mx-auto px-5 lg:px-0 flex justify-end">
-            <button disabled="{{$viewOnly}}" type="submit" class="flex justify-center px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 disabled:bg-gray-400 focus:outline-none focus:border-wave-700 focus:shadow-outline-wave active:bg-blue-700">
+            <button @if($viewOnly){{'disabled'}}@endif type="submit" class="flex justify-center px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 disabled:bg-gray-400 focus:outline-none focus:border-wave-700 focus:shadow-outline-wave active:bg-blue-700">
                 {{ __("general.send_form") }}
             </button>
         </div>

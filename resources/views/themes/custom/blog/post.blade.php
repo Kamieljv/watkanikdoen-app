@@ -30,7 +30,7 @@
         </div>
 
         <div class="max-w-4xl mx-auto">
-            {!! $post->body !!}
+            {!! filterScripts($post->body) !!}
         </div>
 
     </article>

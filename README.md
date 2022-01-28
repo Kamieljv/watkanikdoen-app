@@ -64,6 +64,7 @@ The analytics server is hosted on [http://watkanikdoen-analytics.herokuapp.com/]
 ## To Do (prioritized)
 - [ ] Images: find a way to delete unused images
 - [x] Allow users to view aanmeldingen
+- [ ] Organize Requests
 - [ ] Static pages (About, Privacy policy, etc.)
 - [ ] Add user notifications/emails (e.g. when action approved, when account verified etc.)
 - [ ] Page analytics (e.g. Open Web Analytics, Umami or Plausible)

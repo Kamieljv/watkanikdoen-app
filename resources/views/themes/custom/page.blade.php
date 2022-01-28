@@ -23,7 +23,7 @@
                 <img width="1200" height="640" src="{{ $page->image() }}" alt="{{ $page->title }}" srcset="{{ $page->image() }}">
             @endif
 
-            {!! $page->body !!}
+            {!! filterScripts($page->body) !!}
 
         </article>
     </div>

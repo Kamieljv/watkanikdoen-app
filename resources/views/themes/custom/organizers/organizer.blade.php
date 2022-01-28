@@ -8,7 +8,7 @@
             {{ __("acties.back_to_acties") }}
         </a>
     </div>
-    
+
     <div class="max-w-4xl mx-auto mt-6 px-5 lg:px-0">
         <div class="flex flex-row gap-4 items-center">
             <div class="flex-shrink-0">
@@ -17,7 +17,7 @@
             <h1>{{ $organizer->name }}</h1>
         </div>
         <div class="mt-5 mb-10">
-            {!! $organizer->description !!}
+            {!! filterScripts($organizer->description) !!}
         </div>
         <div id="app">
             <h2>Acties georganiseerd door {{ $organizer->name }}</h2>

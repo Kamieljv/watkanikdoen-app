@@ -61,7 +61,7 @@ Route::get('blog/{category}/{post}', [BlogController::class, 'post'])->name('blo
 Route::get('{page}', [PageController::class, 'page'])->name('page');
 
 // Routes that require authemtication
-Route::group(['prefix' => 'auth', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'auth', 'middleware' => ['auth', 'xss']], function () {
     // Dashboard
     Route::get('dashboard', [AanmeldingController::class, 'index'])->name('dashboard');
 
