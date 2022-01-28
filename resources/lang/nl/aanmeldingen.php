@@ -13,8 +13,8 @@
 return [
     'approve' => 'Goedkeuren',
     'approved' => 'Goedgekeurd',
-    'approve_success' => 'Aanmelding succesvol goedgekeurd. De aanmelding is aan Acties toegevoegd.',
-    'approve_fail' => 'Aanmelding kon niet worden goedgekeurd. Mogelijk omdat deze al is goed- of afgekeurd.',
+    'approve_success' => 'Actie goedgekeurd en aan Acties toegevoegd.',
+    'approve_fail' => 'Actie kon niet worden goedgekeurd. Mogelijk omdat deze al is goed- of afgekeurd.',
     'pending' => 'in behandeling',
     'rejected' => 'afgewezen',
     'to_form' => 'Naar Formulier',
@@ -26,7 +26,8 @@ return [
     'location' => 'Locatie op de kaart',
     'location_human' => 'Locatienaam (bijv. "Museumplein, Amsterdam")',
     'organizer' => 'Organisator',
-    'date_reported' => 'Wanneer aangemeld',
+    'organizer(s)' => 'Organisator(en)',
+    'date_reported' => 'Wanneer toegevoegd',
     'status' => 'Status',
     'view' => 'Bekijk',
 ];

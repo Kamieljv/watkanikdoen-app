@@ -25,7 +25,7 @@
                                 {{ __("aanmeldingen.title") }}
                             </label>
                             <div class="mt-1 rounded-md shadow-sm">
-                                <input id="title" type="text" name="title" required class="w-full form-input" value="{{ old('title') }}" autofocus>
+                                <input @if($viewOnly){{'disabled'}}@endif id="title" type="text" name="title" required value="{{ $viewOnly ? $aanmelding->title : old('title') }}" autofocus>
                             </div>
                             @if ($errors->has('title'))
                                 <div class="mt-1 text-red-500">
@@ -38,10 +38,15 @@
                             <label for="body" class="block text-sm font-medium leading-5 text-gray-700">
                                 {{ __("aanmeldingen.body") }}
                             </label>
-                            <rich-text-field
-                                name="body"
-                                value="{{ old('body') }}"
-                            />
+                            @if($viewOnly)
+                                <div class="min-h-[200px] like-form-field">{!! $aanmelding->body !!}</div>
+                            @else
+                                <rich-text-field
+                                    name="body"
+                                    value="{{ $viewOnly ? $aanmelding->body : old('body') }}"
+                                    :disabled="@json($viewOnly)"
+                                />
+                            @endif
                             @if ($errors->has('body'))
                                 <div class="mt-1 text-red-500">
                                     {{ $errors->first('body') }}
@@ -64,7 +69,7 @@
                                 {{ __("aanmeldingen.location_human") }}
                             </label>
                             <div class="mt-1 rounded-md shadow-sm">
-                                <input id="location_human" type="text" name="location_human" required class="w-full form-input" value="{{ old('location_human') }}">
+                                <input @if($viewOnly){{'disabled'}}@endif id="location_human" type="text" name="location_human" required value="{{ $viewOnly ? $aanmelding->location_human : old('location_human') }}">
                             </div>
                             @if ($errors->has('location_human'))
                                 <div class="mt-1 text-red-500">
@@ -77,16 +82,21 @@
                                 {{ __("aanmeldingen.location") }}
                             </label>
                             @php
-                                $defaultCenter = old('location') &&
-                                    (old('location')['lat'] !== NULL)
-                                        ? [old('location')]
-                                        : [['lat' => config('voyager.maps.center.lat'), 'lng' => config('voyager.maps.center.lng')]];
+                                if ($viewOnly) {
+                                    $defaultCenter = [$aanmelding->coordinates];
+                                } else {
+                                    $defaultCenter = old('location') &&
+                                        (old('location')['lat'] !== NULL)
+                                            ? [old('location')]
+                                            : [['lat' => config('voyager.maps.center.lat'), 'lng' => config('voyager.maps.center.lng')]];
+                                }
                             @endphp
                             <div class="mt-1 rounded-md shadow-sm overflow-hidden">
                                 <coordinates-form-field
                                     :default-center="{{ json_encode($defaultCenter) }}"
                                     :zoom={{ config('voyager.maps.zoom') }}
                                     fieldname="location"
+                                    :disabled="@json($viewOnly)"
                                 />
                             </div>
                             @if ($errors->has('location'))
@@ -110,18 +120,22 @@
                         {{-- Organizer --}}
                         <div>
                             <label for="externe_link" class="block text-sm font-medium leading-5 text-gray-700">
-                                {{ __("aanmeldingen.organizer") }}
+                                {{ __("aanmeldingen.organizer(s)") }}
                             </label>
                             <div class="mt-1 rounded-md shadow-sm">
-                                <t-rich-select 
-                                    id="category-selector"
-                                    :options="{{ $organizers }}"
-                                    text-attribute="name"
-                                    value="[{{ old('organizer_ids') }}]"
-                                    name="organizer_ids[]"
-                                    multiple
-                                    :close-on-select="false"
-                                />
+                                @if($viewOnly)
+                                    <textarea disabled style="resize: none;">{{ implode(",\n", $organizers) }}</textarea>
+                                @else
+                                    <t-rich-select 
+                                        id="category-selector"
+                                        :options="{{ $organizers }}"
+                                        text-attribute="name"
+                                        value="[{{ old('organizer_ids') }}]"
+                                        name="organizer_ids[]"
+                                        multiple
+                                        :close-on-select="false"
+                                    />
+                                @endif
                             </div>
                             @if ($errors->has('externe_link'))
                                 <div class="mt-1 text-red-500">
@@ -135,7 +149,7 @@
                                 {{ __("aanmeldingen.externe_link") }}
                             </label>
                             <div class="mt-1 rounded-md shadow-sm">
-                                <input id="externe_link" type="url" name="externe_link" required class="w-full form-input" value="{{ old('externe_link') }}">
+                                <input @if($viewOnly){{'disabled'}}@endif id="externe_link" type="url" name="externe_link" required value="{{ $viewOnly ? $aanmelding->externe_link : old('externe_link') }}">
                             </div>
                             @if ($errors->has('externe_link'))
                                 <div class="mt-1 text-red-500">
@@ -159,7 +173,7 @@
                                 {{ __("aanmeldingen.time_start") }}
                             </label>
                             <div class="mt-1 rounded-md shadow-sm">
-                                <input type="datetime-local" id="time_start" name="time_start" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}" required class="w-full form-input" value="{{ old('time_start') }}">
+                                <input @if($viewOnly){{'disabled'}}@endif type="datetime-local" id="time_start" name="time_start" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}" required value="{{ $viewOnly ? $aanmelding->time_start : old('time_start') }}">
                             </div>
                             @if ($errors->has('time_start'))
                                 <div class="mt-1 text-red-500">
@@ -173,7 +187,7 @@
                                 {{ __("aanmeldingen.time_end") }}
                             </label>
                             <div class="mt-1 rounded-md shadow-sm">
-                                <input type="datetime-local" id="time_end" name="time_end" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}" required class="w-full form-input" value="{{ old('time_end') }}">
+                                <input @if($viewOnly){{'disabled'}}@endif type="datetime-local" id="time_end" name="time_end" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}" required value="{{ $viewOnly ? $aanmelding->time_end : old('time_end')}}">
                             </div>
                             @if ($errors->has('time_end'))
                                 <div class="mt-1 text-red-500">
@@ -193,18 +207,19 @@
                     <div class="flex flex-col mt-5 space-y-3 h-[150px]">
                         {{-- Image --}}
                         <form-image
-                            previous-image="{{ old('image') }}"
+                            previous-image="{{ $viewOnly ? $aanmelding->image_path : old('image') }}"
                             field-name="image"
                             viewport-type="square"
                             default-color="var(--wkid-blue-light)"
                             :width="1000"
+                            :disabled="@json($viewOnly)"
                         />
                     </div>
                 </div>
             </div>
         </div>
         <div class="max-w-4xl mx-auto px-5 lg:px-0 flex justify-end">
-            <button type="submit" class="flex justify-center px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-wave-700 focus:shadow-outline-wave active:bg-blue-700">
+            <button disabled="{{$viewOnly}}" type="submit" class="flex justify-center px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 disabled:bg-gray-400 focus:outline-none focus:border-wave-700 focus:shadow-outline-wave active:bg-blue-700">
                 {{ __("general.send_form") }}
             </button>
         </div>

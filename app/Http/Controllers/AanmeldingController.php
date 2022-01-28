@@ -24,7 +24,7 @@ class AanmeldingController extends Controller
     {
         // Haal aanmeldingen van deze gebruiker op
         $aanmeldingen = auth()->user()->aanmeldingen()->get();
-        return view('theme::aanmeldingen.index', compact('aanmeldingen'));
+        return view('theme::dashboard.index', compact('aanmeldingen'));
     }
 
     /**
@@ -47,8 +47,24 @@ class AanmeldingController extends Controller
     public function form()
     {
         $organizers = Organizer::all()->toJson();
+        $viewOnly = false;
         // Display the landing page
-        return view('theme::aanmeldingen.form', compact('organizers'));
+        return view('theme::aanmeldingen.form', compact('viewOnly', 'organizers'));
+    }
+    /**
+     * Displays the filled in Aanmelding form
+     */
+    public function view($id)
+    {
+        $aanmelding = auth()->user()->aanmeldingen()->firstWhere('id', $id);
+        if (!$aanmelding) {
+            abort(404);
+        } else {
+            $organizers = Organizer::whereIn('id', explode(",", $aanmelding->organizer_ids))
+                ->pluck('name')->all();
+            $viewOnly = true;
+            return view('theme::aanmeldingen.form', compact('viewOnly', 'organizers', 'aanmelding'));
+        }
     }
 
     public function create(Request $request)
@@ -74,12 +90,11 @@ class AanmeldingController extends Controller
                 $aanmelding->save();
             }
         } catch (QueryException $exception) {
-            // You can check get the details of the error using `errorInfo`:
             $errorInfo = $exception->errorInfo;
             return back()->with('error', $errorInfo[2])->withInput();
         }
 
-        return redirect(route('aanmeldingen'))->with('success', 'Successfully added Aanmelding.');
+        return redirect(route('dashboard'))->with('success', 'Successfully added Aanmelding.');
     }
 
     public function approve($id)
@@ -103,9 +118,6 @@ class AanmeldingController extends Controller
             ]);
         }
 
-        // Get coordinates from aanmelding
-        $coordinates = $aanmelding->getCoordinates()[0];
-
         // Move image to actie folder
         $newImagePath = 'acties/' . explode("/", $aanmelding->image)[1];
         Storage::disk(config('voyager.storage.disk'))->move($aanmelding->image, $newImagePath);
@@ -120,7 +132,7 @@ class AanmeldingController extends Controller
             'externe_link' => $aanmelding->externe_link,
             'time_start' => $aanmelding->time_start,
             'time_end' => $aanmelding->time_end,
-            'location' => DB::raw("ST_GeomFromText('POINT({$coordinates['lng']} {$coordinates['lat']})')"),
+            'location' => DB::raw("ST_GeomFromText('POINT({$aanmelding->coordinates['lng']} {$aanmelding->coordinates['lat']})')"),
             'location_human' => $aanmelding->location_human,
             'image' => $newImagePath,
             'slug' => $this->createSlug($aanmelding->title),

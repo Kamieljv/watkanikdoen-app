@@ -62,17 +62,16 @@ For site analytics, we use [Umami](https://umami.is/), which is an open-source a
 The analytics server is hosted on [http://watkanikdoen-analytics.herokuapp.com/](http://watkanikdoen-analytics.herokuapp.com/).
 
 ## To Do (prioritized)
-- [ ] Automatic scout import after change in acties or related tables
 - [ ] Images: find a way to delete unused images
+- [x] Allow users to view aanmeldingen
 - [ ] Static pages (About, Privacy policy, etc.)
 - [ ] Add user notifications/emails (e.g. when action approved, when account verified etc.)
 - [ ] Page analytics (e.g. Open Web Analytics, Umami or Plausible)
-- [ ] Organize translation
+- [ ] Organize translation (front end)
 - [ ] Set proper (and working) toast messages throughout app
 - [ ] Configure user roles (admin, moderator, user) and permissions in admin backend
 - [ ] Credits to Studio Mes (Designadvies door: '')
 - [ ] List of Organizations
-- [ ] Image compression after upload (on all upload types)
 - [ ] Get the Blog working
 - [ ] Add date filter to action page
 - [ ] Make acties sortable

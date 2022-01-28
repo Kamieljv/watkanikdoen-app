@@ -11,10 +11,10 @@
             border-radius: 5px;
             flex-shrink: 0;
             padding: 2px;
-            &:hover {
+            &:hover:not([disabled]) {
                 background: #8b8b8b;
             }
-            &.is-active {
+            &.is-active:not([disabled]) {
                 background: #111111;
                 color:white;
             }

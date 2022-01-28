@@ -64,16 +64,18 @@
   [type="week"],
   [multiple],
   textarea,
-  select {
+  select,
+  div.like-form-field {
     @apply appearance-none block w-full bg-gray-200 text-gray-700 border
       border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none
-      focus:bg-white focus:border-gray-500;
+      focus:bg-white focus:border-gray-500 focus:disabled:bg-gray-200
+      focus:disabled:border-gray-200 focus:disabled:ring-0;
   }
 
   [type="checkbox"] {
-    @apply text-[color:var(--wkid-blue)] border-gray-300 rounded shadow-sm
+    @apply text-[color:var(--wkid-blue)] border-gray-300 rounded-xl shadow-sm
       focus:border-[color:var(--wkid-blue)] focus:ring focus:ring-offset-0
-      focus:ring-blue-600 focus:ring-opacity-50 rounded-xl;
+      focus:ring-blue-600 focus:ring-opacity-50;
   }
 }
 

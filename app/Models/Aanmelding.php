@@ -24,6 +24,7 @@ class Aanmelding extends Model
 
     protected $appends = [
         'image_path',
+        'coordinates'
     ];
 
     protected $fillable = [
@@ -46,6 +47,12 @@ class Aanmelding extends Model
     public function getImagePathAttribute()
     {
         return $this->image ? Voyager::image($this->image) : null;
+    }
+
+    public function getCoordinatesAttribute()
+    {
+        $coords = $this->getCoordinates();
+        return (count($coords) === 0) ? null : $coords[0];
     }
 
     public function approve()

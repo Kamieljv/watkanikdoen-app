@@ -63,10 +63,11 @@ Route::get('{page}', [PageController::class, 'page'])->name('page');
 // Routes that require authemtication
 Route::group(['prefix' => 'auth', 'middleware' => 'auth'], function () {
     // Dashboard
-    Route::get('aanmeldingen', [AanmeldingController::class, 'index'])->name('aanmeldingen');
+    Route::get('dashboard', [AanmeldingController::class, 'index'])->name('dashboard');
 
     // Acties aanmelden (authenticated)
     Route::get('aanmelden/form', [AanmeldingController::class, 'form'])->name('aanmelding.form');
+    Route::get('aanmelden/view/{id}', [AanmeldingController::class, 'view'])->name('aanmelding.view');
     Route::post('aanmelden/form/create', [AanmeldingController::class, 'create'])->name('aanmelding.create');
 
     // Settings

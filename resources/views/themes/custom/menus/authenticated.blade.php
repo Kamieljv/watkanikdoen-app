@@ -33,7 +33,7 @@
                     @if (auth()->user()->avatar_path)
                         <img class="w-10 h-10 rounded-full" src="{{ auth()->user()->avatar_path . '?' . time() }}" alt="{{ auth()->user()->name }}'s Avatar">
                     @else
-                        <div class="flex items-center justify-center text-2xl w-10 h-10 rounded-full text-white bg-[color:var(--wkid-pink)]">{{ substr(auth()->user()->name, 0, 1) }}</div>
+                        <div class="flex items-center justify-center text-xl w-10 h-10 rounded-full text-white bg-[color:var(--wkid-pink)]">{{ substr(auth()->user()->name, 0, 1) }}</div>
                     @endif
                 </button>
             </div>
@@ -70,7 +70,7 @@
                                 @svg('antdesign-thunderbolt-o', ['style' => 'width: 20px; height: 20px']) &nbsp; Admin
                             </a>
                         @endif
-                        <a href="{{ route('aanmeldingen') }}" class="flex items-center px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">
+                        <a href="{{ route('dashboard') }}" class="flex items-center px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">
                             @svg('clarity-add-text-line', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ __("menus.dashboard")}}
                         </a>
                         <a href="{{ route('settings') }}" class="flex items-center px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">

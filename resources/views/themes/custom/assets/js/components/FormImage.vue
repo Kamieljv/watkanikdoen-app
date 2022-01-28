@@ -5,9 +5,9 @@
 			<img v-if="preview" id="preview" :src="preview" class="w-full h-full object-cover" :class="{'rounded-full': viewportType === 'circle'}">
 			<div v-else :class="{'rounded-full': viewportType === 'circle'}" class="flex items-center justify-center text-6xl w-full h-full text-white" :style="{background: defaultColor}">{{ defaultChar }}</div>
 			<div class="absolute inset-0 w-full h-full">
-				<input v-show="false" type="file" ref="upload" id="upload" @change="imageUploaded">
-				<input type="hidden" :value="cropped" :name="fieldName">
-				<div class="absolute bottom-0 w-full z-10 flex mb-3 space-x-1 items-center justify-center text-white">
+				<input v-if="!disabled" v-show="false" type="file" ref="upload" id="upload" @change="imageUploaded">
+				<input v-if="!disabled" type="hidden" :value="cropped" :name="fieldName">
+				<div v-if="!disabled" class="absolute bottom-0 w-full z-10 flex mb-3 space-x-1 items-center justify-center text-white">
 					<button v-if="preview" @click="deleteClick" class="flex items-center justify-center cursor-pointer w-10 h-10 bg-black bg-opacity-75 hover:bg-opacity-100 rounded-full">
 						<svg-vue icon="antdesign-delete-o" class="w-6 h-6" fill="currentColor" />
 					</button>
@@ -87,6 +87,10 @@
 			deleteRoute: {
 				type: String,
 				default: '',
+			},
+			disabled: {
+				type: Boolean,
+				default: false,
 			},
 			previousImage: {
 				type: String,

@@ -14,6 +14,7 @@
             <div class="col-md-3" :class="{'hidden': !showLatLng}">
                 <label class="control-label">Lat (°N)</label>
                 <input
+					:disabled="disabled"
                     class="form-control"
                     type="number"
                     step="any"
@@ -27,6 +28,7 @@
             <div class="col-md-3" :class="{'hidden': !showLatLng}">
                 <label class="control-label">Lon (°O)</label>
                 <input
+					:disabled="disabled"
                     class="form-control"
                     type="number"
                     step="any"
@@ -45,6 +47,7 @@
             id="map"
             :zoom="zoom"
             :center="center"
+			:options="{dragging: !disabled, scrollWheelZoom: !disabled}"
         >
             <l-tile-layer
                 :url="url"
@@ -52,10 +55,11 @@
             />
             <l-marker 
                 :lat-lng="center"
-                :draggable="true"
+                :draggable="!disabled"
                 @update:latLng="onMarkerDrag">
                 <l-tooltip
                     :options="tooltipOptions"
+					v-if="!disabled"
                 >
                     Sleep mij naar de locatie.
                 </l-tooltip>
@@ -97,6 +101,10 @@ export default {
 		fieldname: {
 			type: String,
 			required: true,
+		},
+		disabled: {
+			type: Boolean,
+			default: false,
 		}
 	},
 	data() {
