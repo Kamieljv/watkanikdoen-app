@@ -22,8 +22,8 @@
                         @if ($actie->image_path)
                             <img class="object-cover w-full h-48" src="{{ $actie->image_path ?? asset('images/default_thumbnail.png') }}" alt="">
                         @else
-                            <div class="h-[150px] bg-gradient-to-br from-[var(--wkid-red-light)] to-[var(--wkid-blue-light)] text-white flex items-center justify-center">
-                                @svg('custom-logo-icon', ['style' => 'stroke: currentColor; height: 52px;'])
+                            <div class="h-[150px] bg-gradient-to-r from-[var(--wkid-pink-light)] to-[var(--wkid-blue-light)] text-white flex items-center justify-center">
+                                @svg('custom-logo-icon', ['style' => 'fill: currentColor; height: 80px;'])
                             </div>
                         @endif
                         <ul class="themes-container p-2 absolute top-0 w-full">
