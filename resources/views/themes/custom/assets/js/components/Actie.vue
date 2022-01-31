@@ -11,8 +11,8 @@
             <div class="content flex flex-col h-full">
                 <div class="flex-shrink-0" style="position:relative;">
                     <img v-if="actie.image_path" class="object-cover w-full h-[150px]" :src="actie.image_path" alt="">
-                    <div v-else class="h-[150px] bg-gray-300 text-white flex items-center justify-center">
-                        <svg-vue icon="logo" style="stroke: currentColor; height: 52px;"></svg-vue>
+                    <div v-else class="h-[150px] bg-gray-300 text-gray-400 flex items-center justify-center">
+                        <svg-vue icon="logo-icon" style="fill: currentColor; height: 80px;"></svg-vue>
                     </div>
                     <ul class="themes-container p-2 absolute top-0 w-full">
                         <li

@@ -100,11 +100,7 @@ html {
     "Helvetica Neue",
     Arial,
     "Noto Sans",
-    sans-serif,
-    "Apple Color Emoji",
-    "Segoe UI Emoji",
-    "Segoe UI Symbol",
-    "Noto Color Emoji";
+    sans-serif;
 }
 
 h1,
@@ -113,7 +109,8 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: HussarBold, ui-sans-serif, system-ui, sans-serif;
+  font-family: Ubuntu, ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
 }
 
 .gradient-border-b,
@@ -125,10 +122,9 @@ h6 {
 
 #header.detatched {
   background-color: white;
-  color: black;
-
+  color: #111;
   & #header-logo-link {
-    color: var(--wkid-red);
+    color: #111;
   }
 }
 #header.fixed:not(.detatched) {
