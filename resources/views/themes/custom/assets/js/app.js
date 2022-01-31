@@ -28,6 +28,10 @@ Vue.use(VueTailwind, VueTailwindSettings)
 import SvgVue from "svg-vue"
 Vue.use(SvgVue)
 
+// Moment
+import moment from 'moment'
+Vue.prototype.moment = moment
+
 // Image upload/edit
 import 'exif-js'
 import VueCroppie from 'vue-croppie';

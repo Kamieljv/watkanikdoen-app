@@ -39,7 +39,7 @@ for (var i = 0; i < markAsRead.length; i++) {
 			var notificationRequest = new XMLHttpRequest()
 			notificationRequest.open("POST", url + "/auth/notification/read/" + notificationId, true)
 			notificationRequest.onreadystatechange = function () {
-				if (notificationRequest.readyState != 4 || notificationRequest.status != 200) { return
+				if (notificationRequest.readyState != 4 || notificationRequest.status != 200) {
 					var response = JSON.parse(notificationRequest.responseText)
 					document.getElementById("notification-li-" + response.listid).remove()
 					removedNotifications += 1

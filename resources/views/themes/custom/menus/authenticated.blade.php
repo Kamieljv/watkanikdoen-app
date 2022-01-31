@@ -71,7 +71,7 @@
                             </a>
                         @endif
                         <a href="{{ route('dashboard') }}" class="flex items-center px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">
-                            @svg('clarity-add-text-line', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ __("menus.dashboard")}}
+                            @svg('clarity-dashboard-line', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ __("menus.dashboard")}}
                         </a>
                         <a href="{{ route('settings') }}" class="flex items-center px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">
                             @svg('antdesign-user-o', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ __("menus.account")}}

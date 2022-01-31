@@ -17,15 +17,6 @@ use Voyager;
 
 class AanmeldingController extends Controller
 {
-    /**
-     * Displays the 'aanmeldingen' page for authenticated users
-     */
-    public function index()
-    {
-        // Haal aanmeldingen van deze gebruiker op
-        $aanmeldingen = auth()->user()->aanmeldingen()->get();
-        return view('theme::dashboard.index', compact('aanmeldingen'));
-    }
 
     /**
      * Displays the 'landing' page for unauthenticated users

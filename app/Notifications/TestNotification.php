@@ -55,7 +55,7 @@ class TestNotification extends Notification
     {
         return [
             'title' => 'My Title Here',
-            'icon' => '/storage/users/default.png',
+            'icon' => 'bell',
             'body' => 'This is the body content of the notification... Yada yada yada',
             'link' => 'https://google.com',
         ];

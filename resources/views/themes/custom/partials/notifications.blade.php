@@ -1,14 +1,14 @@
 @php $notifications_count = auth()->user()->unreadNotifications->count(); @endphp
 
 @if(!isset($show_all_notifications))
-    @php $unreadNotifications = auth()->user()->unreadNotifications->take(5); @endphp
+    @php $unreadNotifications = auth()->user()->unreadNotifications->take(3); @endphp
     <div id="notification-list" @click.away="open = false" class="header-icon flex items-center h-full" x-data="{ open: false }">
         <div id="notification-icon relative">
             <button @click="open = !open" class="relative p-1 ml-3 text-gray-500 transition duration-150 ease-in-out rounded-full hover:text-gray-700 focus:outline-none focus:text-gray-700 focus:bg-gray-100">
                 <svg class="w-7 h-7" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
                 </svg>
-                @if($unreadNotifications && $notifications_count > 0) <span id="notification-count" class="absolute top-0 right-0 flex items-center justify-center w-4 h-4 text-xs text-red-100 bg-red-500 rounded-full">{{ $notifications_count }}</span> @endif
+                @if($unreadNotifications && $notifications_count > 0) <span id="notification-count" class="absolute top-0 right-0 flex items-center justify-center w-4 h-4 text-xs font-extrabold text-red-100 bg-red-500 rounded-full">{{ $notifications_count }}</span> @endif
             </button>
         </div>
 @else
@@ -47,37 +47,37 @@
 
                 @foreach ($unreadNotifications as $index => $notification)
                     @php $notification_data = (object)$notification->data; @endphp
-                    <div id="notification-li-{{ $index + 1 }}" class="flex flex-col pb-5 border-b border-gray-200 @if(!isset($show_all_notifications)){{ 'hover:bg-gray-50' }}@endif">
-
-                        <a href="{{ @$notification_data->link }}" class="flex items-start p-5 pb-2">
-                            <div class="flex-shrink-0 pt-1">
-                                <img class="w-10 h-10 rounded-full" src="{{ @$notification_data->icon }}" alt="">
+                    <div id="notification-li-{{ $index + 1 }}" class="flex flex-col border-b border-gray-200 @if(!isset($show_all_notifications)){{ 'hover:bg-gray-50' }}@endif">
+                        <div class="flex items-start p-5">
+                            <div class="flex items-center justify-center text-xl w-10 h-10 rounded-full text-gray-400 bg-gray-100">
+                                @svg(@$notification_data->icon, ['style' => 'stroke: currentColor; height: 26px;'])
                             </div>
                             <div class="flex flex-col items-start flex-1 w-0 ml-3">
-                                <p class="text-sm leading-5 text-gray-600">
-                                    <span class="notification-highlight">{{ @$notification_data->title }}</span><br/>
-                                    {{ @$notification_data->body }}
-                                </p>
-                                <p class="mt-2 text-sm font-medium leading-5 text-gray-500">
+                                <a href="{{ @$notification_data->link }}">
+                                    <div class="text-sm leading-5 text-gray-700">
+                                        <span class="text-[15px] font-bold">{{ @$notification_data->title }}</span><br/>
+                                        <span class="font-medium">{{ @$notification_data->body }}</span>
+                                    </div>
+                                </a>
+                                <div class="flex space-x-3 w-full items-center justify-left mt-2 text-sm font-medium leading-5 text-gray-500">
                                     <span class="notification-datetime">{{ Date::parse(@$notification->created_at)->diffForHumans() }}</span>
-                                </p>
+                                    <span>•</span>
+                                    <span data-id="{{ $notification->id }}" data-listid="{{ $index+1 }}" class="flex justify-start text-xs text-gray-500 cursor-pointer hover:text-gray-700 mark-as-read hover:underline">
+                                        <svg class="absolute w-4 h-4 mt-1 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        {{ __("general.mark_as_read") }}
+                                    </span>
+                                </div>
                             </div>
-                        </a>
-                        <span data-id="{{ $notification->id }}" data-listid="{{ $index+1 }}" class="flex justify-start w-full py-1 pl-16 ml-1 text-xs text-gray-500 cursor-pointer k hover:text-gray-700 mark-as-read hover:underline">
-                            <svg class="absolute w-4 h-4 mt-1 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            {{ __("general.mark_as_read") }}
-                        </span>
-
+                        </div>
                     </div>
-
                 @endforeach
 
             </div>
 
         @if(!isset($show_all_notifications))
             <div id="notification-footer" class="flex items-center justify-center py-3 text-xs font-medium text-gray-600 bg-gray-100 border-t border-gray-200 ">
-                <a href="{{ route('notifications') }}">
+                <a href="{{ route('dashboard') }}">
                     <span uk-icon="icon: eye"></span>
                     {{ __("View") }} 
                     {{ __("notifications.all") }}

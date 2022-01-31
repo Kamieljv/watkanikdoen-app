@@ -17,6 +17,7 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\NotificationController;
@@ -63,7 +64,7 @@ Route::get('{page}', [PageController::class, 'page'])->name('page');
 // Routes that require authemtication
 Route::group(['prefix' => 'auth', 'middleware' => ['auth', 'xss']], function () {
     // Dashboard
-    Route::get('dashboard', [AanmeldingController::class, 'index'])->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Acties aanmelden (authenticated)
     Route::get('aanmelden/form', [AanmeldingController::class, 'form'])->name('aanmelding.form');
@@ -77,10 +78,9 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth', 'xss']], function () 
     Route::put('settings/security', [SettingsController::class, 'securityPut'])->name('settings.security.put');
 
     // Notifications & Announcements
-    Route::get('notifications', [NotificationController::class, 'index'])->name('notifications');
+    Route::get('notifications', [NotificationController::class, 'get'])->name('notifications');
     Route::get('announcements', [AnnouncementController::class, 'index'])->name('announcements');
     Route::get('announcement/{id}', [AnnouncementController::class, 'announcement'])->name('announcement');
     Route::post('announcements/read', [AnnouncementController::class, 'read'])->name('announcements.read');
-    Route::get('notifications', [NotificationController::class, 'index'])->name('notifications');
-    Route::post('notification/read/{id}', [NotificationController::class, 'delete'])->name('notification.read');
+    Route::post('notification/read/{id}', [NotificationController::class, 'read'])->name('notification.read');
 });

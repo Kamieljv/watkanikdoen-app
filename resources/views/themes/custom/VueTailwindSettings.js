@@ -1,4 +1,4 @@
-import { TRichSelect, TCard, TInput, TModal } from "vue-tailwind/dist/components"
+import { TRichSelect, TCard, TInput, TModal, TToggle } from "vue-tailwind/dist/components"
 const VueTailwindSettings = {
 	"t-rich-select": {
 		component: TRichSelect,
@@ -146,6 +146,9 @@ const VueTailwindSettings = {
 				}
 			}
 		}
+	},
+	"t-toggle": {
+		component: TToggle,
 	}
 }
 export default VueTailwindSettings
