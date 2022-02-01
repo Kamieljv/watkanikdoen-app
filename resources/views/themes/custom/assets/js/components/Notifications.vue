@@ -4,7 +4,7 @@
 			<div class="relative flex-1">
 				<h3 class="flex items-center text-lg font-medium leading-6 text-gray-900 space-x-3">
 					<span>{{ __("notifications.notifications") }}</span>
-					<div v-if="unreadNotifications > 0" id="notification-count" class="flex items-center justify-center w-7 h-7 pt-1 text-sm font-extrabold text-red-100 bg-red-500 rounded-full">
+					<div v-if="unreadNotifications > 0" id="notification-count" class="flex items-center justify-center w-7 h-7 text-base font-extrabold text-red-100 bg-red-500 rounded-full">
 						{{ unreadNotifications }}
 					</div>
 				</h3>
