@@ -5,7 +5,7 @@
  */
 
 require("./bootstrap")
-require("./wave")
+require("./custom")
 
 window.Vue = require("vue").default
 
