@@ -3,7 +3,7 @@
         <div class="content flex h-full p-3 justify-between border border-gray-200 mb-1 rounded-lg shadow-md ">
             <div class="flex space-x-3 justify-start items-center">
                 <img class="w-10 h-10 rounded-full" :src="organizer.logo_path" :alt="organizer.name">
-                <div class="flex flex-col">
+                <div class="flex flex-col overflow-hidden">
                     <p class="font-bold truncate">{{ organizer.name }}</p>
                     <ul class="sm:hidden pt-2 flex space-x-1">
                         <li

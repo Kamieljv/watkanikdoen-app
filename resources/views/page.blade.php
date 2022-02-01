@@ -10,7 +10,7 @@
     </div>
 
     <div class="max-w-4xl mx-auto mt-6 px-5 lg:px-0">
-        <article id="page-{{ $page->id }}" class="max-w-4xl px-5 mx-auto prose prose-xl lg:px-0">
+        <article id="page-{{ $page->id }}" class="max-w-4xl mx-auto prose prose-xl lg:px-0">
 
             <meta property="name" content="{{ $page->title }}">
             <meta property="author" typeof="Person" content="admin">

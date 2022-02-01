@@ -2,32 +2,32 @@
 <!-- Section 1 -->
 <footer class="@if(Request::is('/')){{ 'bg-white' }}@else{{ 'bg-gray-50' }}@endif">
     <div class="px-8 pt-16 mx-auto lg:px-12 xl:px-16 max-w-6xl">
-        <div class="flex flex-col items-center justify-between py-10 border-t border-solid lg:flex-row border-gray">
-            <a id="footer-logo-link" href="{{ route('home') }}">
-                @svg('custom-logo-icon', ['style' => 'stroke: black; height: 52px;'])
+        <div class="flex flex-col items-center justify-between py-10 border-t border-solid sm:flex-row border-gray">
+            <a id="footer-logo-link" href="{{ route('home') }}" class="text-gray-600">
+                @svg('custom-logo-icon', ['style' => 'fill: currentColor; height: 32px;'])
             </a>
-            <ul class="flex flex-wrap space-x-5 text-xs mt-5 lg:mt-0">
-                <li class="mb-6 text-center flex-full lg:flex-none lg:mb-0">&copy; {{ date('Y') }} {{ setting('site.title', 'Laravel Wave') }}</li>
-                <li class="lg:ml-6">
+            <ul class="flex flex-wrap space-x-5 text-xs mt-5 sm:mt-0">
+                <li class="mb-6 text-center flex-full sm:flex-none sm:mb-0">&copy; {{ date('Y') }} {{ setting('site.title', 'Laravel Wave') }}</li>
+                <li>
                     <a href="/privacybeleid" class="relative inline-block text-black group">
                         <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-0"></span>
                         <span>{{ __("Privacy Policy") }}</span>
                     </a>
                 </li>
-                <li class="lg:ml-6">
+                <li>
                     <a href="/over-ons" class="relative inline-block text-black group">
                         <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-0"></span>
                         <span>{{ __("menus.about_us") }}</span>
                     </a>
                 </li>
-                <li class="lg:ml-6">
+                <li>
                     <a href="/contact" class="relative inline-block text-black group">
                         <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-0"></span>
                         <span>{{ __("Contact") }}</span>
                     </a>
                 </li>
             </ul>
-            <ul class="flex items-center mt-5 space-x-5 lg:mt-0">
+            <ul class="flex items-center space-x-5 lg:mt-0">
                 <li>
                     <a href="https://www.instagram.com/watkanikdoen.nl/" class="text-gray-600 hover:text-gray-900">
                         <span class="sr-only">Instagram</span>
