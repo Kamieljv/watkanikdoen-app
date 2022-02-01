@@ -48,7 +48,7 @@
 					<button @click="cancelUpload" class="inline-flex justify-center w-full px-4 py-2 mr-2 text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out bg-white border border-transparent border-gray-300 rounded-md shadow-sm hover:text-gray-500 active:text-gray-800 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue sm:text-sm sm:leading-5" type="button">
 						Annuleren
 					</button>
-					<button @click="crop" class="inline-flex justify-center w-full px-4 py-2 ml-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out border border-transparent rounded-md shadow-sm bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-wave sm:text-sm sm:leading-5" id="apply-crop" type="button">
+					<button @click="crop" class="inline-flex justify-center w-full px-4 py-2 ml-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out border border-transparent rounded-md shadow-sm bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 sm:text-sm sm:leading-5" id="apply-crop" type="button">
 						Toepassen
 					</button>
 				</div>
@@ -67,7 +67,7 @@
 					<button @click="cancelDelete" class="inline-flex justify-center w-full px-4 py-2 mr-2 text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out bg-white border border-transparent border-gray-300 rounded-md shadow-sm hover:text-gray-500 active:text-gray-800 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue sm:text-sm sm:leading-5" type="button">
 						Annuleren
 					</button>
-					<button @click="deleteImage" class="inline-flex justify-center w-full px-4 py-2 ml-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out border border-transparent rounded-md shadow-sm bg-[color:var(--wkid-red)] hover:bg-[color:var(--wkid-red-dark)] focus:outline-none focus:border-blue-700 focus:shadow-outline-wave sm:text-sm sm:leading-5" type="button">
+					<button @click="deleteImage" class="inline-flex justify-center w-full px-4 py-2 ml-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out border border-transparent rounded-md shadow-sm bg-[color:var(--wkid-red)] hover:bg-[color:var(--wkid-red-dark)] focus:outline-none focus:border-blue-700 sm:text-sm sm:leading-5" type="button">
 						Ja, ik weet het zeker
 					</button>
 				</div>
