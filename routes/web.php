@@ -48,6 +48,8 @@ Route::get('/lang-{lang}.js', [LanguageController::class, 'show']);
 // Acties & Organizers
 Route::get('acties/search', [ActieController::class, 'search'])->name('acties.search');
 Route::get('actie/{actie}', [ActieController::class, 'actie'])->name('acties.actie');
+Route::get('organizers/index', [OrganizerController::class, 'index'])->name('organizers.index');
+Route::get('organizers/search', [OrganizerController::class, 'search'])->name('organizers.search');
 Route::get('organizer/{organizer}', [OrganizerController::class, 'organizer'])->name('organizers.organizer');
 
 // Acties aanmelden (guest)

@@ -13,8 +13,8 @@
                             @input="processQuery"
                         />
                     </div>
-                    <t-rich-select 
-                        id="category-selector"
+                    <t-rich-select
+                        id="theme-selector"
                         :options="themes"
                         textAttribute="name"
                         v-model="themesSelected"
@@ -51,10 +51,10 @@
                         <div class="bg-white h-1/3 sm:h-2/3"></div>
                     </div>
                     <div class="relative mx-auto max-w-7xl">
-                        <div 
+                        <div
                             class="grid gap-5 mx-auto mt-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
                             v-if="!isGeladen"
-                        >                                
+                        >
                             <t-card
                                 v-for="i in skeletonArray"
                                 :key="i"
@@ -72,7 +72,7 @@
                                 </template>
                             </t-card>
                         </div>
-                        <div 
+                        <div
                             v-else
                             class="grid gap-5 mx-auto mt-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
                         >
@@ -87,12 +87,12 @@
             </div>
         </div>
         <!-- Pagination -->
-        <pagination 
+        <pagination
             :current="currentPage"
             :total="total"
             :per-page="perPage"
             :baseLink="base_link"
-            @page-changed="getActies($event)"
+            @page-changed="getActies"
         />
     </div>
 </template>
@@ -232,7 +232,7 @@ export default {
 		},
 		async getCoordinates(obj) {
 			this.isGeladen = false
-			if (obj !== "") { 
+			if (obj !== "") {
 				axios.get("https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup", {
 					params: {
 						id: obj.id,

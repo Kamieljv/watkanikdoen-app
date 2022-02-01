@@ -51,6 +51,7 @@ The analytics server is hosted on [http://watkanikdoen-analytics.herokuapp.com/]
 - [ ] Images: find a way to delete unused images
 - [x] Allow users to view aanmeldingen
 - [ ] Refactor aanmelding -> report
+- [ ] Add filler for when search fields have no results (Organizers.vue and ActieAgenda.vue)
 - [ ] Fill dashboard with useful widgets
 - [ ] Organize Requests
 - [ ] Static pages (About, Privacy policy, etc.)

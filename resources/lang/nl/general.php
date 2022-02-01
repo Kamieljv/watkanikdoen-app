@@ -12,6 +12,7 @@
 return [
     'written_on' => 'Geschreven op ',
     'read_more' => 'Meer lezen...',
+    'more_info' => 'Meer info',
     'about' => 'Over',
     'about_us' => 'Over ons',
     'mark_as_read' => 'Markeer als gelezen',

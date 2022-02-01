@@ -16,6 +16,8 @@ return [
     'account' => 'Mijn account',
     'report_action' => 'Actie toevoegen',
     'blog' => 'Blog',
+    'about_us' => 'Over ons',
+    'organizers' => 'Organisatoren',
     'my_profile' => 'Mijn Profiel',
     'log_out' => 'Uitloggen',
     'log_in' => 'Inloggen',

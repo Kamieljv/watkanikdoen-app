@@ -12,6 +12,14 @@ class Organizer extends Model
         'link',
     ];
 
+    /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = ['themes:id,name,color,slug'];
+
+
     public function getLogoPathAttribute()
     {
         return $this->logo ? Voyager::image($this->logo) : null;
@@ -25,5 +33,10 @@ class Organizer extends Model
     public function acties()
     {
         return $this->hasMany(Actie::class, 'actie_organizer');
+    }
+
+    public function themes()
+    {
+        return $this->belongsToMany(Theme::class, 'organizer_theme');
     }
 }

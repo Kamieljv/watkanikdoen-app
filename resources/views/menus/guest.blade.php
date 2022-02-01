@@ -1,10 +1,10 @@
 <nav class="flex items-center justify-end flex-1 hidden w-full h-full space-x-10 lg:flex">
 
-    <a href="{{ route('blog') }}" class="text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-blue-600">
-        {{ __("Blog") }}
+    <a href="{{ route('organizers.index') }}" class="text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600">
+        {{ __("menus.organizers") }}
     </a>
-    <a href="/over-ons" class="hidden lg:block text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-blue-600">
-        {{ __("general.about_us") }}
+    <a href="/over-ons" class="hidden lg:block text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600">
+        {{ __("menus.about_us") }}
     </a>
     <a href="/contact" class="hidden lg:block text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-blue-600">
         {{ __("Contact") }}

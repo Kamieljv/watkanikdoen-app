@@ -17,7 +17,7 @@
                 <li class="lg:ml-6">
                     <a href="/over-ons" class="relative inline-block text-black group">
                         <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-0"></span>
-                        <span>{{ __("general.about_us") }}</span>
+                        <span>{{ __("menus.about_us") }}</span>
                     </a>
                 </li>
                 <li class="lg:ml-6">

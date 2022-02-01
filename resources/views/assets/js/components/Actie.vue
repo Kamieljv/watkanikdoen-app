@@ -63,7 +63,7 @@
                 <div class="flex items-center p-3 bg-gray-200">
                     <div class="flex-shrink-0">
                         <a href="#">
-                            <img class="w-10 h-10 rounded-full" :src="actie.organizers[0].logo_path" alt="">
+                            <img class="w-10 h-10 rounded-full" :src="actie.organizers[0].logo_path" :alt="actie.organizers[0].name">
                         </a>
                     </div>
                     <div class="ml-3">
@@ -82,32 +82,13 @@
 
 <script>
 export default {
-	name: "ActieAgenda",
+	name: "Actie",
 	props: {
 		actie: {
 			type: Object,
 			required: true,
 		}
 	},
-	data() {
-		return {
-		}
-	},
-	computed: {
-		//
-	},
-	watch: {
-		//
-	},
-	mounted() {
-	},
-	methods: {
-		//
-	}
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>
 
