@@ -24,8 +24,8 @@ mix.js('resources/js/app.js', 'js')
     .sass('resources/sass/app.scss', 'css');
 
 // public
-mix.js('resources/views/themes/custom/assets/js/app.js', 'themes/custom/js')
-    .sass('resources/views/themes/custom/assets/sass/wave.scss', 'themes/custom/css')
-	.tailwind('./resources/views/themes/custom/tailwind.config.js')
+mix.js('resources/views/assets/js/app.js', 'frontend/js')
+    .sass('resources/views/assets/sass/app.scss', 'frontend/css')
+	.tailwind('./resources/views/tailwind.config.js')
     .svgVue()
     .version();

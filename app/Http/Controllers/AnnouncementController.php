@@ -9,13 +9,13 @@ class AnnouncementController extends Controller
     public function index()
     {
         $announcements = Announcement::paginate(10);
-        return view('theme::announcements.index', compact('announcements'));
+        return view('announcements.index', compact('announcements'));
     }
 
     public function announcement($id)
     {
         $announcement = Announcement::find($id);
-        return view('theme::announcements.announcement', compact('announcement'));
+        return view('announcements.announcement', compact('announcement'));
     }
 
     public function read()

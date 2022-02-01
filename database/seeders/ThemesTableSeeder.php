@@ -22,22 +22,38 @@ class ThemesTableSeeder extends Seeder
             0 => 
             array (
                 'id' => 1,
-                'name' => 'Tailwind Theme',
-                'folder' => 'tailwind',
-                'active' => 0,
-                'version' => '1.0',
-                'created_at' => '2020-08-23 08:06:45',
-                'updated_at' => '2021-11-26 17:08:54',
+                'name' => 'Klimaat',
+                'slug' => 'klimaat',
+                'color' => '#61BB0C',
+                'created_at' => '2017-11-21 16:23:00',
+                'updated_at' => '2022-01-22 15:42:39',
             ),
             1 => 
             array (
                 'id' => 2,
-                'name' => 'Custom Theme',
-                'folder' => 'custom',
-                'active' => 1,
-                'version' => '1.0',
-                'created_at' => '2021-11-26 16:57:37',
-                'updated_at' => '2021-11-26 17:08:54',
+                'name' => 'Anti-racisme',
+                'slug' => 'anti-racisme',
+                'color' => '#F30060',
+                'created_at' => '2021-12-06 14:10:00',
+                'updated_at' => '2022-01-22 15:43:45',
+            ),
+            2 => 
+            array (
+                'id' => 3,
+                'name' => 'Dierenrechten',
+                'slug' => 'dierenrechten',
+                'color' => '#F27A12',
+                'created_at' => '2021-12-06 14:10:00',
+                'updated_at' => '2022-01-22 15:43:03',
+            ),
+            3 => 
+            array (
+                'id' => 4,
+                'name' => 'Wonen',
+                'slug' => 'wonen',
+                'color' => '#3B82F6',
+                'created_at' => '2021-12-06 14:10:00',
+                'updated_at' => '2022-01-22 15:43:21',
             ),
         ));
         

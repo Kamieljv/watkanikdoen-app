@@ -1,8 +1,8 @@
 /node_modules
 /public/hot
 /public/js
-/public/themes/custom/css
-/public/themes/custom/js
+/public/frontend/css
+/public/frontend/js
 /public/storage
 /public/.well-known
 /public/mix-manifest.json
@@ -10,7 +10,6 @@
 /vendor
 /.idea
 /.vagrant
-/wave-pro
 Homestead.json
 Homestead.yaml
 npm-debug.log

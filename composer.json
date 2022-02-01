@@ -13,8 +13,6 @@
         "blade-ui-kit/blade-icons": "^1.1",
         "codeat3/blade-ant-design-icons": "^1.2",
         "codeat3/blade-clarity-icons": "^1.3",
-        "devdojo/app": "0.11.0",
-        "devdojo/themes": "0.0.5",
         "ext-gd": "*",
         "ext-exif": "*",
         "fideloper/proxy": "^4.2",

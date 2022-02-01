@@ -17,7 +17,7 @@ class SettingsController extends Controller
         if (empty($section)) {
             return redirect(route('settings', 'profile'));
         }
-        return view('theme::settings.index', compact('section'));
+        return view('settings.index', compact('section'));
     }
 
     public function profilePut(Request $request)
@@ -45,7 +45,7 @@ class SettingsController extends Controller
 
         $validator = Validator::make($request->all(), [
             'current_password' => 'required',
-            'password' => 'required|confirmed|min:' . config('wave.auth.min_password_length'),
+            'password' => 'required|confirmed|min:' . config('app.auth.min_password_length'),
         ]);
 
         if ($validator->fails()) {
@@ -84,7 +84,7 @@ class SettingsController extends Controller
                 $type = 'error';
                 $message = __("settings.profile.avatar_delete_fail");
             }
-            return view('theme::partials.toast', compact('type', 'message'));
+            return view('partials.toast', compact('type', 'message'));
         }
     }
 }

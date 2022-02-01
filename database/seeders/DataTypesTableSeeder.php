@@ -166,12 +166,12 @@ class DataTypesTableSeeder extends Seeder
             8 => 
             array (
                 'id' => 12,
-                'name' => 'actie_themes',
-                'slug' => 'actie-themes',
-                'display_name_singular' => 'Actie Theme',
-                'display_name_plural' => 'Actie Themes',
+                'name' => 'themes',
+                'slug' => 'themes',
+                'display_name_singular' => 'Theme',
+                'display_name_plural' => 'Themes',
                 'icon' => NULL,
-                'model_name' => 'App\\Models\\ActieTheme',
+                'model_name' => 'App\\Models\\Theme',
                 'policy_name' => NULL,
                 'controller' => NULL,
                 'description' => NULL,

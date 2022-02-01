@@ -29,7 +29,7 @@ class AanmeldingController extends Controller
         }
 
         // Display the landing page
-        return view('theme::aanmeldingen.landing');
+        return view('aanmeldingen.landing');
     }
 
     /**
@@ -40,7 +40,7 @@ class AanmeldingController extends Controller
         $organizers = Organizer::all()->toJson();
         $viewOnly = false;
         // Display the landing page
-        return view('theme::aanmeldingen.form', compact('viewOnly', 'organizers'));
+        return view('aanmeldingen.form', compact('viewOnly', 'organizers'));
     }
     /**
      * Displays the filled in Aanmelding form
@@ -54,7 +54,7 @@ class AanmeldingController extends Controller
             $organizers = Organizer::whereIn('id', explode(",", $aanmelding->organizer_ids))
                 ->pluck('name')->all();
             $viewOnly = true;
-            return view('theme::aanmeldingen.form', compact('viewOnly', 'organizers', 'aanmelding'));
+            return view('aanmeldingen.form', compact('viewOnly', 'organizers', 'aanmelding'));
         }
     }
 

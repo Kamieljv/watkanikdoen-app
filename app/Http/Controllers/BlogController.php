@@ -18,7 +18,7 @@ class BlogController extends Controller
             'seo_description' => 'Our Blog',
         ];
 
-        return view('theme::blog.index', compact('posts', 'categories', 'seo'));
+        return view('blog.index', compact('posts', 'categories', 'seo'));
     }
 
     public function category($slug)
@@ -33,7 +33,7 @@ class BlogController extends Controller
             'seo_description' => $category->name . '- Blog',
         ];
 
-        return view('theme::blog.index', compact('posts', 'category', 'categories', 'seo'));
+        return view('blog.index', compact('posts', 'category', 'categories', 'seo'));
     }
 
     public function post($category, $slug)
@@ -46,6 +46,6 @@ class BlogController extends Controller
             'seo_description' => $post->seo_description,
         ];
 
-        return view('theme::blog.post', compact('post', 'seo'));
+        return view('blog.post', compact('post', 'seo'));
     }
 }

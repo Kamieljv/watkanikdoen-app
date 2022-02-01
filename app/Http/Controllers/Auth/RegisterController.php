@@ -60,14 +60,14 @@ class RegisterController extends Controller
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
                 'username' => 'required|string|max:20|unique:users',
-                'password' => 'required|string|min:6|confirmed',
+                'password' => 'required|string|min:'.config('app.auth.min_password_length').'|confirmed',
             ]);
         }
 
         return Validator::make($data, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:'.config('app.auth.min_password_length').'|confirmed',
         ]);
     }
 
@@ -131,7 +131,7 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-        return view('theme::auth.register');
+        return view('auth.register');
     }
 
     public function verify(Request $request, $verification_code)

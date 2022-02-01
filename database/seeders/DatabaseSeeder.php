@@ -31,16 +31,15 @@ class DatabaseSeeder extends Seeder
         $this->call(PostsTableSeeder::class);
         $this->call(SettingsTableSeeder::class);
         $this->call(TranslationsTableSeeder::class);
-        $this->call(ThemesTableSeeder::class);
-        $this->call(ThemeOptionsTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
         $this->call(OrganizersTableSeeder::class);
         $this->call(ActiesTableSeeder::class);
-        $this->call(ActieThemesTableSeeder::class);
-        $this->call(ActieActieThemeTableSeeder::class);
+        $this->call(ThemesTableSeeder::class);
+        $this->call(ActieThemeTableSeeder::class);
         $this->call(ActieCategoryTableSeeder::class);
         $this->call(ActieOrganizerTableSeeder::class);
         $this->call(AanmeldingenTableSeeder::class);
         $this->call(JobsTableSeeder::class);
+        $this->call(OrganizerThemeTableSeeder::class);
     }
 }

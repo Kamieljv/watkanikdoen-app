@@ -43,20 +43,6 @@ This can be done at `/admin/settings`. It reads and writes to the `settings` tab
 
 `php artisan iseed my_table`
 
-## Updating Wave
-
-Download a copy of the latest version (e.g. on GitHub). In the root folder you should see another folder named `wave`, you can simply replace this folder with the `wave` folder in your project. Carefull! Modifications in this folder might not be preserved.
-
-You will then need to re-autoload your dependencies by running:
-
-`composer dump-autoload`
-
-You may also need to clear the cache by running:
-
-`php artisan cache:clear`
-
-And you should be updated to the latest version :)
-
 ## Site Analytics
 For site analytics, we use [Umami](https://umami.is/), which is an open-source and self-hosted framework that enables simple analytics (pageviews, devices used and referrers).
 The analytics server is hosted on [http://watkanikdoen-analytics.herokuapp.com/](http://watkanikdoen-analytics.herokuapp.com/).
@@ -79,7 +65,6 @@ The analytics server is hosted on [http://watkanikdoen-analytics.herokuapp.com/]
 - [ ] Add date filter to action page
 - [ ] Make acties sortable
 - [ ] Cookiemelding
-- [ ] Localize Wave controller messages
 - [ ] Localize Voyager
 - [ ] Localize js messages
 

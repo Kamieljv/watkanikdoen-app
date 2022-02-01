@@ -54,7 +54,7 @@ class LoginController extends Controller
             session(['url.intended' => url()->previous()]);
         }
 
-        return view('theme::auth.login');
+        return view('auth.login');
     }
 
     protected function authenticated(Request $request, $user)

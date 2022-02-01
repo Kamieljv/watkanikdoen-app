@@ -25,6 +25,6 @@ class DashboardController extends Controller
         // Haal aanmeldingen van deze gebruiker op
         $aanmeldingen = auth()->user()->aanmeldingen()->get();
         $notifications = auth()->user()->notifications()->get();
-        return view('theme::dashboard.index', compact('aanmeldingen', 'notifications'));
+        return view('dashboard.index', compact('aanmeldingen', 'notifications'));
     }
 }

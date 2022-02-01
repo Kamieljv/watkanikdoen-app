@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ActieTheme;
+use App\Models\Theme;
 use Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -27,8 +27,8 @@ class HomeController extends Controller
             ];
         });
 
-        $themes = ActieTheme::all();
+        $themes = Theme::all();
 
-        return view('theme::home', compact('seo', 'routes', 'themes'));
+        return view('home', compact('seo', 'routes', 'themes'));
     }
 }

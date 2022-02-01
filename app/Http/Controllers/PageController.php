@@ -16,6 +16,6 @@ class PageController extends Controller
             'seo_description' => $page->meta_description,
         ];
 
-        return view('theme::page', compact('page', 'seo'));
+        return view('page', compact('page', 'seo'));
     }
 }

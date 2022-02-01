@@ -580,8 +580,8 @@ class PermissionsTableSeeder extends Seeder
             62 => 
             array (
                 'id' => 68,
-                'key' => 'browse_actie_themes',
-                'table_name' => 'actie_themes',
+                'key' => 'browse_themes',
+                'table_name' => 'themes',
                 'created_at' => '2021-12-18 16:24:23',
                 'updated_at' => '2021-12-18 16:24:23',
                 'permission_group_id' => NULL,
@@ -589,8 +589,8 @@ class PermissionsTableSeeder extends Seeder
             63 => 
             array (
                 'id' => 69,
-                'key' => 'read_actie_themes',
-                'table_name' => 'actie_themes',
+                'key' => 'read_themes',
+                'table_name' => 'themes',
                 'created_at' => '2021-12-18 16:24:23',
                 'updated_at' => '2021-12-18 16:24:23',
                 'permission_group_id' => NULL,
@@ -598,8 +598,8 @@ class PermissionsTableSeeder extends Seeder
             64 => 
             array (
                 'id' => 70,
-                'key' => 'edit_actie_themes',
-                'table_name' => 'actie_themes',
+                'key' => 'edit_themes',
+                'table_name' => 'themes',
                 'created_at' => '2021-12-18 16:24:23',
                 'updated_at' => '2021-12-18 16:24:23',
                 'permission_group_id' => NULL,
@@ -607,8 +607,8 @@ class PermissionsTableSeeder extends Seeder
             65 => 
             array (
                 'id' => 71,
-                'key' => 'add_actie_themes',
-                'table_name' => 'actie_themes',
+                'key' => 'add_themes',
+                'table_name' => 'themes',
                 'created_at' => '2021-12-18 16:24:23',
                 'updated_at' => '2021-12-18 16:24:23',
                 'permission_group_id' => NULL,
@@ -616,8 +616,8 @@ class PermissionsTableSeeder extends Seeder
             66 => 
             array (
                 'id' => 72,
-                'key' => 'delete_actie_themes',
-                'table_name' => 'actie_themes',
+                'key' => 'delete_themes',
+                'table_name' => 'themes',
                 'created_at' => '2021-12-18 16:24:23',
                 'updated_at' => '2021-12-18 16:24:23',
                 'permission_group_id' => NULL,

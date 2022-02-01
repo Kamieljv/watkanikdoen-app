@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "052f8860169fe7eeefe0964e653d2bf6",
+    "content-hash": "7a685f86b51cb2145b779cd28c3da273",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -1109,75 +1109,6 @@
                 }
             ],
             "time": "2022-01-04T17:06:45+00:00"
-        },
-        {
-            "name": "devdojo/app",
-            "version": "0.11",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/thedevdojo/app.git",
-                "reference": "74e09fb64751356a616a8ad24f4c596afc68b17f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/thedevdojo/app/zipball/74e09fb64751356a616a8ad24f4c596afc68b17f",
-                "reference": "74e09fb64751356a616a8ad24f4c596afc68b17f",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "DevDojo\\App\\": "/src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "authors": [
-                {
-                    "name": "Tony Lea",
-                    "email": "tnylea@gmail.com"
-                }
-            ],
-            "description": "This is the devdojo products app package",
-            "support": {
-                "issues": "https://github.com/thedevdojo/app/issues",
-                "source": "https://github.com/thedevdojo/app/tree/0.11"
-            },
-            "time": "2020-10-29T05:33:06+00:00"
-        },
-        {
-            "name": "devdojo/themes",
-            "version": "0.0.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/thedevdojo/themes.git",
-                "reference": "2ad678783d370de7a4aae1be75b6dd863971ac0e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/thedevdojo/themes/zipball/2ad678783d370de7a4aae1be75b6dd863971ac0e",
-                "reference": "2ad678783d370de7a4aae1be75b6dd863971ac0e",
-                "shasum": ""
-            },
-            "type": "library",
-            "extra": {
-                "hook": {
-                    "providers": [
-                        "DevDojo\\Themes\\ThemesServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "DevDojo\\Themes\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "description": "This is a themes package for Laravel",
-            "support": {
-                "issues": "https://github.com/thedevdojo/themes/issues",
-                "source": "https://github.com/thedevdojo/themes/tree/0.0.5"
-            },
-            "time": "2021-04-04T19:26:29+00:00"
         },
         {
             "name": "dflydev/dot-access-data",

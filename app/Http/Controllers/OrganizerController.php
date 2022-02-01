@@ -28,6 +28,6 @@ class OrganizerController extends VoyagerBaseController
             ];
         });
 
-        return view('theme::organizers.organizer', compact('organizer', 'seo', 'routes'));
+        return view('organizers.organizer', compact('organizer', 'seo', 'routes'));
     }
 }

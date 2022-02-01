@@ -19,7 +19,7 @@ class ActieController extends VoyagerBaseController
             'seo_description' => $actie->seo_description,
         ];
 
-        return view('theme::acties.actie', compact('actie', 'seo'));
+        return view('acties.actie', compact('actie', 'seo'));
     }
 
     public function search(Request $request)

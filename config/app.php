@@ -142,6 +142,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Authorization
+    |--------------------------------------------------------------------------
+    */
+    'auth' => [
+        'min_password_length' => 10,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Autoloaded Service Providers
     |--------------------------------------------------------------------------
     |
@@ -184,7 +193,6 @@ return [
          */
 
         Lab404\Impersonate\ImpersonateServiceProvider::class,
-        DevDojo\Themes\ThemesServiceProvider::class,
 
         /*
          * Application Service Providers...

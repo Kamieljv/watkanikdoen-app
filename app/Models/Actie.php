@@ -131,6 +131,6 @@ class Actie extends Model
 
     public function themes()
     {
-        return $this->belongsToMany(ActieTheme::class, 'actie_actie_theme');
+        return $this->belongsToMany(Theme::class, 'actie_theme');
     }
 }
