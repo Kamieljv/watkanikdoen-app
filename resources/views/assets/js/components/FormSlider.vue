@@ -24,6 +24,7 @@
                     '--thumb-border-radius': squaredThumb ? '0' : '50%',
                     '--thumb-color': disabled? 'gray' : thumbColor,
                     '--thumb-size': thumbSize,
+					'--webkit-thumb-offset': thumbOffset,
                 }"
                 :disabled="disabled"
             />
@@ -79,7 +80,7 @@ export default {
 		thumbSize: {
 			type: String,
 			required: false,
-			default: "13px",
+			default: "14px",
 		},
 		trackHeight: {
 			type: String,
@@ -108,6 +109,10 @@ export default {
 		},
 		inputCaptured() {
 			return _.debounce(this.processInput, this.delay)
+		},
+		thumbOffset() {
+			var size = Number(this.thumbSize.split('px')[0])
+			return (Math.max((size/2 - 1) * 0.5, 0) - size * 0.5) + 'px'
 		}
 	},
 	mounted() {
@@ -166,7 +171,7 @@ export default {
   border-radius: 50%;
   background-color: var(--thumb-color);
   cursor: pointer;
-  margin-top: calc(max((var(--thumb-size)/2 - 1px) * 0.5,0px) - var(--thumb-size) * 0.5);
+  margin-top: var(--webkit-thumb-offset);
 }
 .range-slider:active::-webkit-slider-thumb {
   transform: scale(1.2);
