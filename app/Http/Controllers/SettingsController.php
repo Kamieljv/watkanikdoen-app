@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 use TCG\Voyager\Http\Controllers\Controller;
 use Validator;
 
@@ -46,21 +47,20 @@ class SettingsController extends Controller
         $validator = Validator::make($request->all(), [
             'current_password' => 'required',
             'password' => 'required|confirmed|min:' . config('app.auth.min_password_length'),
-        ]);
-
-        if ($validator->fails()) {
-            return back()->with(['message' => $validator->errors()->first(), 'message_type' => 'danger']);
-        }
+        ])->validate();
 
         if (! Hash::check($request->current_password, $request->user()->password)) {
-            return back()->with(['message' => 'Incorrect current password entered.', 'message_type' => 'danger']);
+            $error = ValidationException::withMessages([
+                'current_password' => [__('settings.security.incorrect_current_password')],
+             ]);
+            throw $error;
         }
 
         auth()->user()->forceFill([
             'password' => bcrypt($request->password),
         ])->save();
 
-        return back()->with(['message' => 'Successfully updated your password.', 'message_type' => 'success']);
+        return back()->with('success', __('settings.security.password_update_success'));
     }
 
     private function saveAvatar($avatar, $id)

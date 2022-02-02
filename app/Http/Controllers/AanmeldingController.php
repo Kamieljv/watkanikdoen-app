@@ -85,7 +85,7 @@ class AanmeldingController extends Controller
             return back()->with('error', $errorInfo[2])->withInput();
         }
 
-        return redirect(route('dashboard'))->with('success', 'Successfully added Aanmelding.');
+        return redirect(route('dashboard'))->with('success', __('aanmeldingen.add_success'));
     }
 
     public function approve($id)

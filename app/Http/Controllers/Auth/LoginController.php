@@ -61,7 +61,7 @@ class LoginController extends Controller
     {
         if (setting('auth.verify_email') && !$user->verified) {
             $this->guard()->logout();
-            return redirect()->back()->with('warning', 'Please verify your email before logging into your account.');
+            return redirect()->back()->with('warning', __('auth.please_verify_email'));
         }
     }
 
@@ -78,7 +78,7 @@ class LoginController extends Controller
         $this->clearLoginAttempts($request);
 
         return $this->authenticated($request, $this->guard()->user())
-                ?: redirect()->intended($this->redirectPath())->with('success', 'Successfully logged in.');
+                ?: redirect()->intended($this->redirectPath());
     }
 
 

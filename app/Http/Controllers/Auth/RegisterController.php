@@ -143,7 +143,7 @@ class RegisterController extends Controller
         $user->email_verified_at = Carbon::now();
         $user->save();
 
-        return redirect()->route('login')->with(['message' => 'Successfully verified your email. You can now login.', 'message_type' => 'success']);
+        return redirect()->route('login')->with('success', __('auth.email_verify_success'));
     }
 
     /**
@@ -155,18 +155,25 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
-
-        event(new Registered($user = $this->create($request->all())));
+        $user = $this->create($request->all());
+        event(new Registered($user));
 
         if (setting('auth.verify_email')) {
-            // send email verification
-            return redirect()->route('login')->with(['message' => 'Thanks for signing up! Please check your email to verify your account.', 'message_type' => 'success']);
+            return redirect(route('registration.complete'))->with(['email' => $user->email]);
         } else {
             $this->guard()->login($user);
 
             return $this->registered($request, $user)
-                        ?: redirect($this->redirectPath())->with(['message' => 'Thanks for signing up!', 'message_type' => 'success']);
+                        ?: redirect($this->redirectPath())->with('success', __('auth.register_complete_heading'));
         }
+    }
+
+    /**
+     * Send user to the registration completed page
+     */
+    public function complete()
+    {
+        return view('auth.register-complete');
     }
 
     public function getUniqueUsernameFromEmail($email)

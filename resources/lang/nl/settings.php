@@ -17,6 +17,7 @@ return [
         'avatar_delete_fail' => 'Er is iets misgegaan.',
     ],
     'security' => [
-
+        'incorrect_current_password' => 'Het huidige wachtwoord is incorrect.',
+        'password_update_success' => 'Wachtwoord succesvol bijgewerkt.',
     ],
 ];

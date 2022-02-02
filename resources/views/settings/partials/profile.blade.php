@@ -17,6 +17,11 @@
 				<div class="mt-1 rounded-md shadow-sm">
 					<input id="name" type="text" name="name" value="{{ Auth::user()->name }}" required>
 				</div>
+				@if ($errors->has('name'))
+					<div class="mt-1 text-red-500">
+						{{ $errors->first('name') }}
+					</div>
+				@endif
 			</div>
 
 			<div class="mt-5">
@@ -24,10 +29,17 @@
 				<div class="mt-1 rounded-md shadow-sm">
 					<input id="email" type="text" name="email" value="{{ Auth::user()->email }}" required>
 				</div>
+				@if ($errors->has('email'))
+					<div class="mt-1 text-red-500">
+						{{ $errors->first('email') }}
+					</div>
+				@endif
 			</div>
 
 			<div class="flex justify-end w-full">
-				<button class="flex self-end justify-center w-auto px-4 py-2 mt-5 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 active:bg-blue-700" dusk="update-profile-button">{{ __("Save") }}</button>
+				<button class="flex self-end justify-center w-auto px-4 py-2 mt-5 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 active:bg-blue-700" dusk="update-profile-button">
+					{{ __("Save") }}
+				</button>
 			</div>
 		</div>
 	</div>

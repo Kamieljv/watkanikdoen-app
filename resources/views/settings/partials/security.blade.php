@@ -7,6 +7,11 @@
 				<input id="current_password" type="password" name="current_password"
 				class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 			</div>
+			@if ($errors->has('current_password'))
+				<div class="mt-1 text-red-500">
+					{{ $errors->first('current_password') }}
+				</div>
+			@endif
 		</div>
 
 		<div class="mt-5">
@@ -15,6 +20,11 @@
 				<input id="password" type="password" name="password"
 				class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 			</div>
+			@if ($errors->has('password'))
+				<div class="mt-1 text-red-500">
+					{{ $errors->first('password') }}
+				</div>
+			@endif
 		</div>
 
 		<div class="mt-5">
@@ -23,12 +33,19 @@
 				<input id="password_confirmation" type="password" name="password_confirmation" 
 				class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 			</div>
+			@if ($errors->has('password_confirmation'))
+				<div class="mt-1 text-red-500">
+					{{ $errors->first('password_confirmation') }}
+				</div>
+			@endif
 		</div>
 
 		<input type="hidden" name="_method" value="PUT">
 		{{ csrf_field() }}
 		<div class="flex justify-end w-full mt-2">
-			<button class="flex self-end justify-center w-auto px-4 py-2 mt-5 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 active:bg-blue-700" dusk="update-profile-button">Update</button>
+			<button class="flex self-end justify-center w-auto px-4 py-2 mt-5 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 active:bg-blue-700" dusk="update-profile-button">
+				{{ __("Save") }}
+			</button>
 		</div>
 	</div>
 </form>
