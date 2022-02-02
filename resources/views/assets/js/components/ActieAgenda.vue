@@ -73,7 +73,7 @@
                             </t-card>
                         </div>
                         <div
-                            v-else
+                            v-else-if="heeftActies"
                             class="grid gap-5 mx-auto mt-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
                         >
                             <actie
@@ -82,6 +82,11 @@
                                 :actie="actie"
                             />
                         </div>
+						<div v-else-if="isGeladen" class="flex justify-center items-center py-8">
+							<div class="text-gray-400">
+								<h3>{{__('general.no_results')}}</h3>
+							</div>
+						</div>
                     </div>
                 </div>
             </div>
@@ -131,7 +136,7 @@ export default {
 			distance: null,
 			defaultDistance: 100,
 			geoSuggestions: [],
-			isGeladen: true,
+			isGeladen: false,
 			heeftFout: false,
 			currentPage: null,
 			perPage: null,

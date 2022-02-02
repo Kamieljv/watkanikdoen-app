@@ -44,7 +44,7 @@
 								</div>
 							</div>
                         </div>
-                        <div v-else >
+                        <div v-else-if="heeftOrganizers" >
                             <organizer
                                 v-for="organizer in organizersFormatted"
                                 :key="organizer.id"
@@ -52,6 +52,11 @@
 								:route="organizerBaseRoute + organizer.slug"
                             />
                         </div>
+						<div v-else-if="isGeladen" class="flex justify-center items-center py-8">
+							<div class="text-gray-400">
+								<h3>{{__('general.no_results')}}</h3>
+							</div>
+						</div>
                     </div>
                 </div>
             </div>
@@ -87,7 +92,7 @@ export default {
 			organizers: [],
 			themesSelected: "",
 			query: "",
-			isGeladen: true,
+			isGeladen: false,
 			heeftFout: false,
 			currentPage: null,
 			perPage: null,
@@ -98,6 +103,9 @@ export default {
 	computed: {
 		skeletonArray() {
 			return [...Array(10).keys()]
+		},
+		heeftOrganizers() {
+			return (this.organizers.length > 0)
 		},
 		organizersFormatted() {
 			this.organizers.forEach((organizer) => {

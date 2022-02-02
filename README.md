@@ -53,21 +53,21 @@ The analytics server is hosted on [http://watkanikdoen-analytics.herokuapp.com/]
 - [ ] Refactor aanmelding -> report
 - [ ] Add filler for when search fields have no results (Organizers.vue and ActieAgenda.vue)
 - [ ] Fill dashboard with useful widgets
-- [ ] Organize Requests
+- [ ] Styling/content of existing emails
 - [ ] Static pages (About, Privacy policy, etc.)
 - [ ] Add user notifications/emails (e.g. when action approved, when account verified etc.)
 - [ ] Page analytics (e.g. Open Web Analytics, Umami or Plausible)
 - [ ] Organize translation (front end)
-- [ ] Set proper (and working) toast messages throughout app
+- [x] Set proper (and working) toast messages throughout app
 - [ ] Configure user roles (admin, moderator, user) and permissions in admin backend
 - [ ] Credits to Studio Mes (Designadvies door: '')
-- [ ] List of Organizations
+- [x] List of Organizations
 - [ ] Get the Blog working
 - [ ] Add date filter to action page
 - [ ] Make acties sortable
 - [ ] Cookiemelding
-- [ ] Localize Voyager
-- [ ] Localize js messages
+- [x] Localize Voyager
+- [x] Localize js messages
 
 ### Useful links
 - Compiling multiple JS environments (public site/admin) with Laravel Mix: https://github.com/omnichronous/multimix
