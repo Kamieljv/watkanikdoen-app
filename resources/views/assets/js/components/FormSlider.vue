@@ -79,7 +79,7 @@ export default {
 		thumbSize: {
 			type: String,
 			required: false,
-			default: "11px",
+			default: "13px",
 		},
 		trackHeight: {
 			type: String,
@@ -103,7 +103,7 @@ export default {
 	}, 
 	computed: {
 		updateWebkitProgress() {
-			const progress = (this.value / this.max) * 100 + "%"
+			const progress = ((this.value - this.min) / (this.max - this.min)) * 100 + "%"
 			return this.$refs.range.style.setProperty("--webkit-progress", progress)
 		},
 		inputCaptured() {
@@ -148,12 +148,13 @@ export default {
 .range-slider::before {
   position: absolute;
   content: "";
-  top: 13px;
+  top: 7px;
   left: 0;
   width: var(--webkit-progress);
   height: var(--track-height);
   background-color: var(--progress-color);
   cursor: pointer;
+  border-radius: 3px;
 }
 .range-slider::-webkit-slider-thumb {
   position: relative;
@@ -162,10 +163,10 @@ export default {
   border: 1px solid var(--thumb-border-color);
   height: var(--thumb-size);
   width: var(--thumb-size);
-  border-radius: var(--thumb-border-radius);
+  border-radius: 50%;
   background-color: var(--thumb-color);
   cursor: pointer;
-  margin: calc((var(--thumb-size) / 2) - var(--thumb-size)) 0 0 0;
+  margin-top: calc(max((var(--thumb-size)/2 - 1px) * 0.5,0px) - var(--thumb-size) * 0.5);
 }
 .range-slider:active::-webkit-slider-thumb {
   transform: scale(1.2);
