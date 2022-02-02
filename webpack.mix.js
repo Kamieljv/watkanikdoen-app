@@ -27,5 +27,6 @@ mix.js('resources/js/app.js', 'js')
 mix.js('resources/views/assets/js/app.js', 'frontend/js')
     .sass('resources/views/assets/sass/app.scss', 'frontend/css')
 	.tailwind('./resources/views/tailwind.config.js')
+    .copyDirectory('resources/fonts', 'public/fonts')
     .svgVue()
     .version();
