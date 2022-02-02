@@ -37,6 +37,12 @@ class OrganizerThemeTableSeeder extends Seeder
                 'organizer_id' => 1,
                 'theme_id' => 1,
             ),
+            3 => 
+            array (
+                'id' => 4,
+                'organizer_id' => 4,
+                'theme_id' => 4,
+            ),
         ));
         
         

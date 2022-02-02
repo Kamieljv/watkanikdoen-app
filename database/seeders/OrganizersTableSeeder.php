@@ -52,6 +52,17 @@ class OrganizersTableSeeder extends Seeder
                 'created_at' => '2022-01-03 16:41:14',
                 'updated_at' => '2022-01-03 16:41:14',
             ),
+            3 => 
+            array (
+                'id' => 4,
+                'name' => 'Woonprotest',
+                'description' => '<p>Beschrijving van het woonprotest. Test</p>',
+                'website' => 'https://woonprotest.nl/',
+                'logo' => 'organizers/235058505_340089034444955_5886266156536027391_n-resize-500.jpg',
+                'slug' => 'woonprotest',
+                'created_at' => '2022-02-02 13:51:00',
+                'updated_at' => '2022-02-02 14:04:01',
+            ),
         ));
         
         

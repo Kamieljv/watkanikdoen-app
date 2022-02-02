@@ -156,7 +156,7 @@ return [
                 'classes'    => 'class-full-of-rum',
                 'icon_class' => 'voyager-person',
             ],
-            'Go to Website' => [
+            'Naar Website' => [
                 'route'        => '/',
                 'icon_class'   => 'voyager-home',
             ],
