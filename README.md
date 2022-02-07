@@ -47,8 +47,14 @@ This can be done at `/admin/settings`. It reads and writes to the `settings` tab
 For site analytics, we use [Umami](https://umami.is/), which is an open-source and self-hosted framework that enables simple analytics (pageviews, devices used and referrers).
 The analytics server is hosted on [http://watkanikdoen-analytics.herokuapp.com/](http://watkanikdoen-analytics.herokuapp.com/).
 
+### Host with Docker
+- [https://overflow.no/blog/2020/9/26/setting-umami-analytics-linux-using-docker/](https://overflow.no/blog/2020/9/26/setting-umami-analytics-linux-using-docker/)
+- [https://github.com/mikecao/umami](https://github.com/mikecao/umami)
+
 ## To Do (prioritized)
 - [ ] Images: find a way to delete unused images
+- [ ] Check AVG data storage and delete requests
+- [ ] Check copyrights and open source websites
 - [x] Allow users to view aanmeldingen
 - [ ] Refactor aanmelding -> report
 - [ ] Add filler for when search fields have no results (Organizers.vue and ActieAgenda.vue)
@@ -68,6 +74,8 @@ The analytics server is hosted on [http://watkanikdoen-analytics.herokuapp.com/]
 - [ ] Cookiemelding
 - [x] Localize Voyager
 - [x] Localize js messages
+- [ ] `For additional security you should declare the allow-plugins config with a list of packages names that are allowed to run code. See https://getcomposer.org/allow-plugins
+You have until July 2022 to add the setting. Composer will then switch the default behavior to disallow all plugins.`
 
 ### Useful links
 - Compiling multiple JS environments (public site/admin) with Laravel Mix: https://github.com/omnichronous/multimix
