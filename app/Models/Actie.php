@@ -133,4 +133,8 @@ class Actie extends Model
     {
         return $this->belongsToMany(Theme::class, 'actie_theme');
     }
+
+    public function scopeAfgelopen() {
+        return $this->start_unix < time();
+    }
 }

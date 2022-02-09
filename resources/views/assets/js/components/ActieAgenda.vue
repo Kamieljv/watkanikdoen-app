@@ -41,6 +41,13 @@
                         :delay="400"
                         :disabled="!coordinatesPresent"
                     />
+					<div class="flex items-center space-x-3">
+						<t-toggle
+							v-model="showPast"
+							name="showPast"
+						/>
+						<label class="text-sm text-gray-600" for="showPast">Toon ook acties in het verleden</label>
+					</div>
                 </div>
             </div>
         </div>
@@ -136,6 +143,7 @@ export default {
 			distance: null,
 			defaultDistance: 100,
 			geoSuggestions: [],
+			showPast: false,
 			isGeladen: false,
 			heeftFout: false,
 			currentPage: null,
@@ -183,6 +191,9 @@ export default {
 		distance: function() {
 			this.getActies()
 		},
+		showPast: function() {
+			this.getActies()
+		},
 		coordinates: function() {
 			this.distance = (this.distance === null)? this.defaultDistance : this.distance
 		}
@@ -200,6 +211,7 @@ export default {
 					themes: this.themesSelected,
 					coordinates: this.coordinates,
 					distance: this.distance,
+					show_past: this.showPast,
 					page: page,
 					organizer: this.organizerId,
 				}

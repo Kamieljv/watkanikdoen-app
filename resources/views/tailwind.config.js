@@ -1,8 +1,8 @@
 module.exports = {
 	mode: "jit",
 	content: [
-		"./**/*.php",
-		"./*.php",
+		"./**/*.blade.php",
+		"./*.blade.php",
 		"./resources/views/assets/**/*.{scss,js,vue}",
 	],
 	theme: {
@@ -29,5 +29,7 @@ module.exports = {
 		"bg-black/50",
 		"shrink-0",
 		"z-[1001]",
+		"translate-x-full",
+		"translate-x-0"
 	]
 }

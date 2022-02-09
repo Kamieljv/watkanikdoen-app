@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
     <div class="max-w-4xl mx-auto mt-10 px-5 lg:px-0 flex">
         <a href="{{ route('home') }}" class="flex items-center text-sm font-bold cursor-pointer text-gray-700">
             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
@@ -28,7 +27,7 @@
                         @endif
                         <ul class="themes-container p-2 absolute top-0 w-full">
                             @foreach ($actie->themes as $actieTheme)
-                                <li 
+                                <li
                                     class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
                                 >
                                     <span class="text-gray-700">
@@ -38,7 +37,7 @@
                             @endforeach
                         </ul>
                         <div class="distance-container text-right p-2 absolute bottom-0 w-full">
-                            {{-- <div 
+                            {{-- <div
                                 v-if="actie.distance"
                                 class="relative self-start inline-block bg-[color:var(--wkid-yellow-light)] px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
                             >
@@ -49,6 +48,12 @@
                         </div>
                         {{-- Mobile title & details --}}
                         <div class="flex flex-col gap-3 not-prose p-3 pt-4 bg-white overflow-hidden block sm:hidden">
+                            @if($actie->afgelopen())
+                                <div class="w-full inline-flex bg-blue-50 items-center space-x-3 px-4 py-2 text-base font-medium leading-6 border border-[color:var(--wkid-message-info)] rounded-md text-[color:var(--wkid-message-info-dark)]">
+                                    @svg('clarity-info-standard-solid', ['style' => 'width: 20px; height: 20px'])
+                                    <span>{{ __("acties.passed") }}</span>
+                                </div>
+                            @endif
                             <h1 class="leading-none">
                                 <span>{{ $actie->title }}</span>
                             </h1>
@@ -92,7 +97,7 @@
                     @if ($actie->__geoloc)
                         <div class="flex-col gap-3 not-prose bg-white rounded-lg shadow-lg overflow-hidden">
                             <div id="app">
-                                <simple-map 
+                                <simple-map
                                     :center="{{ json_encode($actie->__geoloc) }}"
                                     :height="'200px'"
                                 >
@@ -107,7 +112,7 @@
                         @else
                             <h3>{{ __("acties.about_organizers") }}</h3>
                         @endif
-                        
+
                         @foreach ($actie->organizers as $organizer)
                             <a href="{{ $organizer->link }}">
                                 <div class="flex flex-row items-center">
@@ -131,6 +136,12 @@
 
             <div id="left-container" class="col-span-12 p-8 bg-white rounded-lg shadow-lg sm:col-span-8">
                 <div class="leading-none hidden sm:block">
+                    @if($actie->afgelopen())
+                        <div class="w-full inline-flex mb-5 bg-blue-50 items-center space-x-3 px-4 py-2 text-base font-medium leading-6 border border-[color:var(--wkid-message-info)] rounded-md text-[color:var(--wkid-message-info-dark)]">
+                            @svg('clarity-info-standard-solid', ['style' => 'width: 20px; height: 20px'])
+                            <span>{{ __("acties.passed") }}</span>
+                        </div>
+                    @endif
                     <h1>{{ $actie->title }}</h1>
                     @if (isset($actie->updated_at))
                         <span class="mt-0 italic text-sm font-normal">{{ __("acties.last_edit") }}: <time datetime="{{ Carbon\Carbon::parse($actie->updated_at)->toIso8601String() }}">{{ Date::parse($actie->updated_at)->format("j F Y") }}</time></span>
@@ -150,7 +161,7 @@
 @endsection
 
 @push('scripts')
-    <script type="application/javascript">      
+    <script type="application/javascript">
         var app = new Vue({
             el: '#app',
         });

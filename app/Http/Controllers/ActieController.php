@@ -24,14 +24,21 @@ class ActieController extends VoyagerBaseController
 
     public function search(Request $request)
     {
-        $acties = Actie::search($request->get('q'), function (SearchIndex $algolia, string $query, array $options) use ($request) {
+        $acties = Actie::search($request->q, function (SearchIndex $algolia, string $query, array $options) use ($request) {
+            // Filters for themes and organizers (facets)
             $options['facetFilters'] = [
-                preg_filter('/^/', 'themes.id:', $request->get('themes')), // theme filters
-                ['organizers.id:' . $request->get('organizer')], // organization filter
+                preg_filter('/^/', 'themes.id:', $request->themes), // theme filters
+                ['organizers.id:' . $request->organizer], // organization filter
             ];
-            $options['aroundLatLng'] = $request->get('coordinates') ?? '';
-            $options['aroundRadius'] = ($request->get('distance') ?? 9999) * 1000;
-            $options['filters'] = "start_unix > " . time();
+            // Fitlers for coordinates with radius
+            $options['aroundLatLng'] = $request->coordinates ?? '';
+            $options['aroundRadius'] = ($request->distance ?? 9999) * 1000;
+
+            // Filter for showing past actions
+            if ($request->show_past === 'false') {
+                $options['filters'] = "start_unix > " . time();
+            }
+
             return $algolia->search($query, $options);
         })
             ->within('acties_start_unix_asc')

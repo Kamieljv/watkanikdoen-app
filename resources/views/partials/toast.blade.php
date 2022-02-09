@@ -20,7 +20,6 @@
             x-transition:leave="transition ease-in duration-100"
             x-transition:leave-start="opacity-100"
             x-transition:leave-end="opacity-0"
-            style="background: var(--wkid-message-{{$type}}-light;"
             class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-lg cursor-pointer pointer-events-auto hover:-translate-1" x-cloak>
             <div class="relative overflow-hidden rounded-lg shadow-xs">
                 <div class="px-4 py-5">

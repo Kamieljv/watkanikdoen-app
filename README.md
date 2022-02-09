@@ -56,6 +56,7 @@ The analytics server is hosted on [http://watkanikdoen-analytics.herokuapp.com/]
 - [ ] Check AVG data storage and delete requests
 - [ ] Check copyrights and open source websites
 - [ ] Only show published acties/organizers
+- [ ] Make 404 page
 - [ ] Toggle to also show past acties
 - [ ] Actie toevoegen (unauth) pagina vullen
 - [x] Allow users to view aanmeldingen

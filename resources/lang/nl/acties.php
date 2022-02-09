@@ -25,4 +25,5 @@ return [
     'to_action_page' => 'Naar actiepagina',
     'last_edit' => 'Laatst bijgewerkt',
     'created_at' => 'Geplaatst op',
+    'passed' => 'Let op: Deze actie heeft al plaatsgevonden.',
 ];
