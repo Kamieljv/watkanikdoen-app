@@ -28,4 +28,5 @@ return [
     'position_and_resize_photo' => 'Pas de grootte en positie van je foto aan',
     'send_form' => 'Formulier verzenden',
     'no_results' => 'Geen resultaten',
+    '404_header' => 'Oeps! Pagina niet gevonden...',
 ];
