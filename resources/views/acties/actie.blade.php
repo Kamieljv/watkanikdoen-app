@@ -49,7 +49,7 @@
                         </div>
                         {{-- Mobile title & details --}}
                         <div class="flex flex-col gap-3 not-prose p-3 pt-4 bg-white overflow-hidden block sm:hidden">
-                            @if($actie->afgelopen())
+                            @if($actie->afgelopen)
                                 <div class="w-full inline-flex bg-blue-50 items-center space-x-3 px-4 py-2 text-base font-medium leading-6 border border-[color:var(--wkid-message-info)] rounded-md text-[color:var(--wkid-message-info-dark)]">
                                     @svg('clarity-info-standard-solid', ['style' => 'width: 20px; height: 20px'])
                                     <span>{{ __("acties.passed") }}</span>
@@ -137,7 +137,7 @@
 
             <div id="left-container" class="col-span-12 p-8 bg-white rounded-lg shadow-lg sm:col-span-8">
                 <div class="leading-none hidden sm:block">
-                    @if($actie->afgelopen())
+                    @if($actie->afgelopen)
                         <div class="w-full inline-flex mb-5 bg-blue-50 items-center space-x-3 px-4 py-2 text-base font-medium leading-6 border border-[color:var(--wkid-message-info)] rounded-md text-[color:var(--wkid-message-info-dark)]">
                             @svg('clarity-info-standard-solid', ['style' => 'width: 20px; height: 20px'])
                             <span>{{ __("acties.passed") }}</span>

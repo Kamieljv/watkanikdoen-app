@@ -55,13 +55,13 @@ The analytics server is hosted on [http://watkanikdoen-analytics.herokuapp.com/]
 - [ ] Images: find a way to delete unused images
 - [ ] Check AVG data storage and delete requests
 - [ ] Check copyrights and open source websites
-- [ ] Only show published acties/organizers
+- [x] Only show published acties
 - [ ] Make 404 page
-- [ ] Toggle to also show past acties
+- [x] Toggle to also show past acties
 - [ ] Actie toevoegen (unauth) pagina vullen
 - [x] Allow users to view aanmeldingen
 - [ ] Refactor aanmelding -> report
-- [ ] Add filler for when search fields have no results (Organizers.vue and ActieAgenda.vue)
+- [x] Add filler for when search fields have no results (Organizers.vue and ActieAgenda.vue)
 - [ ] Fill dashboard with useful widgets
 - [ ] Styling/content of existing emails
 - [ ] Static pages (About, Privacy policy, etc.)

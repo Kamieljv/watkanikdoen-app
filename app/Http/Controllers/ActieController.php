@@ -14,6 +14,10 @@ class ActieController extends VoyagerBaseController
 
         $actie = Actie::where('slug', '=', $slug)->firstOrFail();
 
+        if (!$actie->published) {
+            abort(404);
+        }
+
         $seo = [
             'seo_title' => $actie->title,
             'seo_description' => $actie->seo_description,

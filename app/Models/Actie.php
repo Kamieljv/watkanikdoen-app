@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Jenssegers\Date\Date;
@@ -134,7 +135,26 @@ class Actie extends Model
         return $this->belongsToMany(Theme::class, 'actie_theme');
     }
 
-    public function scopeAfgelopen() {
+    public function getAfgelopenAttribute() {
         return $this->start_unix < time();
+    }
+
+    public function getPublishedAttribute() {
+        return $this->status === "PUBLISHED";
+    }
+
+    public function scopePublished($query) {
+        return $query->where('status', 'PUBLISHED');
+    }
+
+    /**
+     * Modify the query used to retrieve models when making all of the models searchable.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    protected function makeAllSearchableUsing($query)
+    {
+        return $query->where('status', 'PUBLISHED'); // models need to be published to be in Algolia
     }
 }
