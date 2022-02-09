@@ -29,4 +29,5 @@ return [
     'send_form' => 'Formulier verzenden',
     'no_results' => 'Geen resultaten',
     '404_header' => 'Oeps! Pagina niet gevonden...',
+    '500_header' => 'Oeps! Er is iets misgegaan...',
 ];
