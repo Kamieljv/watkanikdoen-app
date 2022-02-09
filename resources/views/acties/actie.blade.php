@@ -29,8 +29,9 @@
                             @foreach ($actie->themes as $actieTheme)
                                 <li
                                     class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
+                                    style="background-color: {{ $actieTheme->color }}"
                                 >
-                                    <span class="text-gray-700">
+                                    <span class="text-white">
                                         {{ $actieTheme->name }}
                                     </span>
                                 </li>
