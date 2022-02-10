@@ -55,30 +55,29 @@ The analytics server is hosted on [http://watkanikdoen-analytics.herokuapp.com/]
 - [ ] Images: find a way to delete unused images
 - [ ] Check AVG data storage and delete requests
 - [ ] Check copyrights and open source websites
-- [x] Only show published acties
+- [ ] Separate storage server for images
 - [ ] Add small pop-up feedback form
-- [x] Make 404 page
-- [x] Toggle to also show past acties
 - [ ] Actie toevoegen (unauth) pagina vullen
-- [x] Allow users to view aanmeldingen
 - [ ] Refactor aanmelding -> report
-- [x] Add filler for when search fields have no results (Organizers.vue and ActieAgenda.vue)
+- [x] UI fixes for organizer pages
+- [ ] Add organizer website button on organizer page
+- [ ] Find a way to preserve images on pulling new changes
+- [ ] Bug: adding themes on Heroku
+- [ ] Pushing heroku without removing files
+- [ ] Nullable description for organizers
+- [ ] Locatie search in add actie (backend)
 - [ ] Fill dashboard with useful widgets
 - [ ] Styling/content of existing emails
 - [ ] Static pages (About, Privacy policy, etc.)
 - [ ] Add user notifications/emails (e.g. when action approved, when account verified etc.)
 - [ ] Page analytics (e.g. Open Web Analytics, Umami or Plausible)
 - [ ] Organize translation (front end)
-- [x] Set proper (and working) toast messages throughout app
 - [ ] Configure user roles (admin, moderator, user) and permissions in admin backend
 - [ ] Credits to Studio Mes (Designadvies door: '')
-- [x] List of Organizations
 - [ ] Get the Blog working
 - [ ] Add date filter to action page
 - [ ] Make acties sortable
 - [ ] Cookiemelding
-- [x] Localize Voyager
-- [x] Localize js messages
 - [ ] `For additional security you should declare the allow-plugins config with a list of packages names that are allowed to run code. See https://getcomposer.org/allow-plugins
 You have until July 2022 to add the setting. Composer will then switch the default behavior to disallow all plugins.`
 

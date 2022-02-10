@@ -21,6 +21,7 @@ return [
     'or_you_can_here' => 'of, je kunt hier ',
     'on' => 'op',
     'and' => 'en',
+    'go_to' => 'Ga naar',
     'other' => 'andere',
     'others' => 'anderen',
     'impersonation' => 'impersonatie',

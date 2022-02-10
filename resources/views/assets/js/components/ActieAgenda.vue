@@ -54,12 +54,10 @@
         <div class="row mx-auto max-w-6xl mb-8" >
             <div class="col" style="width: 100%">
                 <div class="relative mx-auto w-full">
-                    <div class="absolute inset-0">
-                        <div class="bg-white h-1/3 sm:h-2/3"></div>
-                    </div>
                     <div class="relative mx-auto max-w-7xl">
                         <div
                             class="grid gap-5 mx-auto mt-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+							:class="{'xl:grid-cols-2 lg:grid-cols-2': narrower}"
                             v-if="!isGeladen"
                         >
                             <t-card
@@ -82,7 +80,8 @@
                         <div
                             v-else-if="heeftActies"
                             class="grid gap-5 mx-auto mt-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-                        >
+							:class="{'xl:grid-cols-2 lg:grid-cols-2': narrower}"
+						>
                             <actie
                                 v-for="actie in actiesFormatted"
                                 :key="actie.id"
@@ -129,6 +128,10 @@ export default {
 			type: Boolean,
 			default: true,
 		},
+		narrower: {
+			type: Boolean,
+			default: false,
+		},
 		organizerId: {
 			type: Number,
 			default: null,
@@ -157,7 +160,8 @@ export default {
 			return [...Array(10+1).keys()].slice(1).map((v) => {return v * stepSize})
 		},
 		skeletonArray() {
-			return [...Array(10).keys()]
+			var n = this.narrower ? 6 : 10
+			return [...Array(n).keys()]
 		},
 		heeftActies() {
 			return (this.acties.length > 0)

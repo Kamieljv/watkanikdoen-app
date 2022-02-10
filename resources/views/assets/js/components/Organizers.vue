@@ -29,9 +29,6 @@
         <div class="row mx-auto max-w-6xl mb-8" >
             <div class="col" style="width: 100%">
                 <div class="relative mx-auto w-full">
-                    <div class="absolute inset-0">
-                        <div class="bg-white h-1/3 sm:h-2/3"></div>
-                    </div>
                     <div class="relative mx-auto max-w-7xl">
                         <div v-if="!isGeladen">
                         	<div v-for="i in skeletonArray"

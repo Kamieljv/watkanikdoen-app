@@ -1,6 +1,6 @@
 <template>
-    <a :href="route" class="sm:pointer-events-none">
-        <div class="content flex h-full p-3 justify-between border border-gray-200 mb-1 rounded-lg shadow-md ">
+    <a :href="route">
+        <div class="content flex h-full p-3 justify-between border border-gray-200 mb-1 rounded-lg shadow-md hover:shadow-lg hover:bg-gray-100">
             <div class="flex space-x-3 justify-start items-center">
                 <img class="w-10 h-10 rounded-full" :src="organizer.logo_path" :title="organizer.name">
                 <div class="flex flex-col overflow-hidden">
@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="flex justify-end items-center">
-                <ul class="hidden p-2 sm:flex space-x-1 border-r-0 sm:border-r border-gray-200">
+                <ul class="hidden p-2 sm:flex space-x-1">
                     <li
                         v-for="theme in organizer.themes"
                         :key="theme.id"
@@ -32,11 +32,6 @@
                         </span>
                     </li>
                 </ul>
-                <div class="p-2 hidden sm:block">
-                    <a :href="route" class="flex items-center justify-center w-full px-3 py-1 text-sm pointer-events-auto font-medium leading-6 text-blue-500 transition duration-150 ease-in-out border rounded-md border-1 border-blue-500 hover:bg-blue-500/25">
-                        {{__("general.more_info")}}
-                    </a>
-                </div>
             </div>
         </div>
     </a>

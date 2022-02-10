@@ -10,6 +10,7 @@ class Organizer extends Model
     protected $appends = [
         'logo_path',
         'link',
+        'website_human',
     ];
 
     /**
@@ -28,6 +29,11 @@ class Organizer extends Model
     public function getLinkAttribute()
     {
         return url('/organizer/' . $this->slug);
+    }
+
+    public function getWebsiteHumanAttribute()
+    {
+        return str_replace('www.', '', parse_url($this->website)['host']);
     }
 
     public function acties()
