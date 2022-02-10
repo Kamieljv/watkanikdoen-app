@@ -52,16 +52,11 @@ The analytics server is hosted on [http://watkanikdoen-analytics.herokuapp.com/]
 - [https://github.com/mikecao/umami](https://github.com/mikecao/umami)
 
 ## To Do (prioritized)
-- [ ] Images: find a way to delete unused images
 - [ ] Check AVG data storage and delete requests
 - [ ] Check copyrights and open source websites
-- [ ] Separate storage server for images
-- [ ] Add small pop-up feedback form
 - [ ] Actie toevoegen (unauth) pagina vullen
 - [ ] Refactor aanmelding -> report
-- [ ] Find a way to preserve images on pulling new changes
-- [ ] Pushing heroku without removing files
-- [ ] Locatie search in add actie (backend)
+- [ ] Change .gitignores so as to preserve images on pulling new changes
 - [ ] Fill dashboard with useful widgets
 - [ ] Styling/content of existing emails
 - [ ] Static pages (About, Privacy policy, etc.)
@@ -70,7 +65,6 @@ The analytics server is hosted on [http://watkanikdoen-analytics.herokuapp.com/]
 - [ ] Organize translation (front end)
 - [ ] Configure user roles (admin, moderator, user) and permissions in admin backend
 - [ ] Credits to Studio Mes (Designadvies door: '')
-- [ ] Get the Blog working
 - [ ] Add date filter to action page
 - [ ] Make acties sortable
 - [ ] Cookiemelding
