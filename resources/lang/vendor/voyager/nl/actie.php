@@ -4,7 +4,7 @@ return [
     'category'         => 'Event categorie',
     'content'          => 'Event inhoud',
     'details'          => 'Event details',
-    'excerpt'          => 'Excerpt <small>Korte beschrijving van dit Event</small>',
+    'excerpt'          => 'Excerpt',
     'image'            => 'Event afbeelding',
     'meta_description' => 'Meta beschrijving',
     'meta_keywords'    => 'Meta sleutelwoorden',

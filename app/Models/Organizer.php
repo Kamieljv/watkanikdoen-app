@@ -33,7 +33,10 @@ class Organizer extends Model
 
     public function getWebsiteHumanAttribute()
     {
-        return str_replace('www.', '', parse_url($this->website)['host']);
+        if ($this->website) {
+            return str_replace('www.', '', parse_url($this->website)['host']);
+        }
+        return null;
     }
 
     public function acties()
