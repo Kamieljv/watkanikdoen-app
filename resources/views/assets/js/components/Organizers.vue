@@ -106,7 +106,7 @@ export default {
 		},
 		organizersFormatted() {
 			this.organizers.forEach((organizer) => {
-				organizer.description = organizer.description.replace(/(<([^>]+)>)/gi, "")
+				organizer.description = organizer.description ? organizer.description.replace(/(<([^>]+)>)/gi, "") : null
 				return organizer
 			})
 			return this.organizers
