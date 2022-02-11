@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Theme;
 use App\Models\Organizer;
+use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +24,10 @@ class OrganizerController extends Controller
         });
 
         $themes = Theme::all();
+
+        // SEO
+        SEOTools::setTitle(__("organizers.title"));
+        SEOTools::setDescription(__("organizers.description"));
 
         return view('organizers.index', compact('routes', 'themes'));
     }
@@ -52,11 +57,6 @@ class OrganizerController extends Controller
 
         $organizer = Organizer::where('slug', '=', $slug)->firstOrFail();
 
-        $seo = [
-            'seo_title' => $organizer->name,
-            'seo_description' => $organizer->description,
-        ];
-
         // Definieer de routes waarmee de component evenementen kan ophalen
         $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
             return (strpos($route->uri, 'acties') !== false) && (strpos($route->uri, 'admin') === false);
@@ -67,6 +67,12 @@ class OrganizerController extends Controller
             ];
         });
 
-        return view('organizers.organizer', compact('organizer', 'seo', 'routes'));
+        // SEO
+        SEOTools::setTitle($organizer->name);
+        if ($organizer->description !== null) {
+            SEOTools::setDescription(substr(strip_tags($organizer->description), 0, 300));
+        }
+
+        return view('organizers.organizer', compact('organizer', 'routes'));
     }
 }

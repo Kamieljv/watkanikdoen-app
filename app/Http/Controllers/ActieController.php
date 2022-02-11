@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Algolia\AlgoliaSearch\SearchIndex;
 use App\Models\Actie;
+use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
 use TCG\Voyager\Http\Controllers\VoyagerBaseController;
 
@@ -18,12 +19,13 @@ class ActieController extends VoyagerBaseController
             abort(404);
         }
 
-        $seo = [
-            'seo_title' => $actie->title,
-            'seo_description' => $actie->seo_description,
-        ];
+        // SEO
+        SEOTools::setTitle($actie->title);
+        if ($actie->excerpt !== null) {
+            SEOTools::setDescription($actie->excerpt);
+        }
 
-        return view('acties.actie', compact('actie', 'seo'));
+        return view('acties.actie', compact('actie'));
     }
 
     public function search(Request $request)

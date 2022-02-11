@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Page;
+use Artesaos\SEOTools\Facades\SEOTools;
 
 class PageController extends Controller
 {
@@ -11,11 +12,12 @@ class PageController extends Controller
         $page = Page::where('slug', '=', $slug)
             ->where('status', '=', 'ACTIVE')->firstOrFail();
 
-        $seo = [
-            'seo_title' => $page->title,
-            'seo_description' => $page->meta_description,
-        ];
+        // SEO
+        SEOTools::setTitle($page->title);
+        if ($page->meta_description !== null) {
+            SEOTools::setDescription(substr(strip_tags($page->meta_description), 0, 300));
+        }
 
-        return view('page', compact('page', 'seo'));
+        return view('page', compact('page'));
     }
 }

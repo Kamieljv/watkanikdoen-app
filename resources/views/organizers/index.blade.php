@@ -10,10 +10,9 @@
     </div>
 
     <div class="max-w-4xl mx-auto mt-6 px-5 lg:px-0">
-        <h1>{{__("menus.organizers")}}</h1>
+        <h1>{{__("organizers.title")}}</h1>
         <p class="mt-4">
-            Alle organisatoren van demonstraties op één plek. Zou fantastisch zijn toch?
-            Mis je een organisator? Help ons mee dit overzicht compleet te maken.
+            {{__("organizers.description")}}
         </p>
     </div>
 
