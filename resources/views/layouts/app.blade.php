@@ -24,6 +24,10 @@
 
     <!-- Get Language file for Vue -->
     <script src="/lang-{{ app()->getLocale() }}.js"></script>
+    <!-- Umami Web Stats -->
+    @if(config('umami.key'))
+        <script async defer data-website-id="{{ config('umami.key') }}" src="{{ config('umami.url') }}/umami.js"></script>
+    @endif
 </head>
 <body class="flex flex-col min-h-screen @if(Request::is('/')){{ 'bg-white' }}@else{{ 'bg-gray-50' }}@endif">
 
