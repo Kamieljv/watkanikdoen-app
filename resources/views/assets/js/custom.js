@@ -63,3 +63,63 @@ for (var i = 0; i < markAsRead.length; i++) {
 /**********
  * END NOTIFICATION FUNCTIONALITY 
 **********/
+
+/**********
+ * COOKIE FUNCTIONALITY 
+**********/
+class CookieConsent {
+	constructor() {
+		this.banner = document.getElementById('cookie-consent')
+		this.editButton = document.getElementById('cookie-edit')
+		this.cookieName = 'CookieConsent'
+	}
+
+	start() {
+		// Add click listeners
+		this.editButton.addEventListener('click', () => this.editCookies())
+		document.getElementById('acceptCookies').addEventListener('click', () => this.acceptCookies())
+		document.getElementById('rejectCookies').addEventListener('click', () => this.rejectCookies())
+		
+		// check consent status
+		this.checkStatus()
+	}
+
+	checkStatus() {
+		switch (localStorage.getItem(this.cookieName)) {
+		  case 'true': // consent given
+			console.log('Cookie consent given')
+			this.editButton.classList.remove('hidden')
+			// allow UMAMI
+			break;
+		  case 'false': // consent NOT given
+			console.log('Cookie consent NOT given')
+		  	this.editButton.classList.remove('hidden')
+			break;
+		  default: // not yet decided
+			console.log('Cookie consent undecided')
+			this.banner.classList.remove('hidden')
+		}
+	}
+
+	acceptCookies() {
+		localStorage.setItem(this.cookieName, true)
+		this.banner.classList.add('hidden')
+		this.editButton.classList.remove('hidden')
+	}
+
+	rejectCookies() {
+		localStorage.setItem(this.cookieName, false)
+		this.banner.classList.add('hidden')
+		this.editButton.classList.remove('hidden')
+	}
+
+	editCookies() {
+		this.editButton.classList.add('hidden')
+		this.banner.classList.remove('hidden')
+	}
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+	window.cookieConsent = new CookieConsent()
+	window.cookieConsent.start()
+})

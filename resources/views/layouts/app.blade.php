@@ -24,6 +24,8 @@
 
     <!-- Get Language file for Vue -->
     <script src="/lang-{{ app()->getLocale() }}.js"></script>
+    <!-- Umami Web Stats -->
+    <script async defer data-website-id="86d1570d-f447-4ea2-9dfb-058118ce6b01" src="http://watkanikdoen-analytics.herokuapp.com/umami.js"></script>
 </head>
 <body class="flex flex-col min-h-screen @if(Request::is('/')){{ 'bg-white' }}@else{{ 'bg-gray-50' }}@endif">
 
@@ -53,6 +55,12 @@
     <script src="{{ asset('frontend/js/app.js') }}"></script>
     @stack('scripts')
 
+    <!-- Cookie notice -->
+    <div id="cookie-container" class="">
+        @include('partials.cookies')
+    </div>
+
+    <!-- Toast messages -->
     <div id="toast-container">
         @include('partials.toast')
     </div>
