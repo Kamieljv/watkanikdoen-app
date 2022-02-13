@@ -62,22 +62,22 @@ Cookie notice is created with [this package](https://github.com/manucaralmo/Glow
 - [ ] Check copyrights and open source websites
 - [ ] Actie toevoegen (unauth) pagina vullen
 - [ ] Refactor aanmelding -> report
-- [ ] Remove unused db columns in `acties`
+- [x] Remove unused db columns in `acties`
 - [ ] Change .gitignores so as to preserve images on pulling new changes
 - [ ] Fill dashboard with useful widgets
-- [ ] Specific SEO for acties (as articles with keywords)
-- [ ] Robots.txt for SEO
-- [ ] Styling/content of existing emails
+- [ ] :arrow_right: Specific SEO for acties (as articles with keywords)
+- [ ] :arrow_right: Robots.txt for SEO
+- [ ] :arrow_right: Styling/content of existing emails
 - [ ] Static pages (About, Privacy policy, etc.)
-- [ ] Add user notifications/emails (e.g. when action approved, when account verified etc.)
-- [ ] Page analytics (e.g. Open Web Analytics, Umami or Plausible)
-- [ ] Organize translation (front end)
+- [ ] :arrow_right: Add user notifications/emails (e.g. when action approved, when account verified etc.)
+- [x] Page analytics (e.g. Open Web Analytics, Umami or Plausible)
+- [ ] :arrow_right: Organize translation (front end)
 - [ ] Configure user roles (admin, moderator, user) and permissions in admin backend
 - [ ] Credits to Studio Mes (Designadvies door: '')
 - [ ] Add date filter to action page
 - [ ] Make acties sortable
-- [ ] Cookiemelding
-- [ ] `For additional security you should declare the allow-plugins config with a list of packages names that are allowed to run code. See https://getcomposer.org/allow-plugins
+- [x] Cookiemelding
+- [x] `For additional security you should declare the allow-plugins config with a list of packages names that are allowed to run code. See https://getcomposer.org/allow-plugins
 You have until July 2022 to add the setting. Composer will then switch the default behavior to disallow all plugins.`
 
 ### Useful links
