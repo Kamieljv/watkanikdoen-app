@@ -1024,7 +1024,7 @@ class DataRowsTableSeeder extends Seeder
                 'edit' => 1,
                 'add' => 1,
                 'delete' => 1,
-                'details' => '{}',
+                'details' => '{"validation":{"rule":"required"}}',
                 'order' => 3,
             ),
             63 => 
@@ -1040,7 +1040,7 @@ class DataRowsTableSeeder extends Seeder
                 'edit' => 1,
                 'add' => 1,
                 'delete' => 1,
-                'details' => '{}',
+                'details' => '{"validation":{"rule":"required"}}',
                 'order' => 5,
             ),
             64 => 
@@ -1056,7 +1056,7 @@ class DataRowsTableSeeder extends Seeder
                 'edit' => 1,
                 'add' => 1,
                 'delete' => 1,
-                'details' => '{}',
+                'details' => '{"validation":{"rule":"required"}}',
                 'order' => 6,
             ),
             65 => 
@@ -1168,7 +1168,7 @@ class DataRowsTableSeeder extends Seeder
                 'edit' => 1,
                 'add' => 1,
                 'delete' => 1,
-                'details' => '{}',
+                'details' => '{"validation":{"rule":"required"}}',
                 'order' => 7,
             ),
             72 => 
@@ -1184,7 +1184,7 @@ class DataRowsTableSeeder extends Seeder
                 'edit' => 1,
                 'add' => 1,
                 'delete' => 1,
-                'details' => '{}',
+                'details' => '{"validation":{"rule":"required"}}',
                 'order' => 8,
             ),
             73 => 
@@ -1200,7 +1200,7 @@ class DataRowsTableSeeder extends Seeder
                 'edit' => 1,
                 'add' => 1,
                 'delete' => 1,
-                'details' => '{}',
+                'details' => '{"validation":{"rule":"required"}}',
                 'order' => 12,
             ),
             74 => 
@@ -1322,7 +1322,7 @@ class DataRowsTableSeeder extends Seeder
                 'field' => 'acty_hasmany_actie_theme_relationship',
                 'type' => 'relationship',
                 'display_name' => 'Thema\'s',
-                'required' => 0,
+                'required' => 1,
                 'browse' => 1,
                 'read' => 1,
                 'edit' => 1,
@@ -1344,7 +1344,7 @@ class DataRowsTableSeeder extends Seeder
                 'edit' => 1,
                 'add' => 1,
                 'delete' => 1,
-                'details' => '{}',
+                'details' => '{"validation":{"rule":"required"}}',
                 'order' => 7,
             ),
             83 => 

@@ -1,6 +1,7 @@
 @php
     $edit = !is_null($dataTypeContent->getKey());
     $add  = is_null($dataTypeContent->getKey());
+    $dataTypeRows = $dataType->{($edit ? 'editRows' : 'addRows' )};
 @endphp
 
 @extends('voyager::master')
@@ -73,25 +74,28 @@
                 {{ method_field("PUT") }}
             @endif
             {{ csrf_field() }}
+            {{-- Form errors --}}
+            <div class="row">
+                <div class="col-md-6">
+                    @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                </div>
+            </div>
 
             <div class="row">
                 <div class="col-md-6">
                     <!-- ### TITLE ### -->
                     <div class="panel">
-                        @if (count($errors) > 0)
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
                         <div class="panel-heading">
                             <h3 class="panel-title">
-                                <i class="voyager-character"></i> {{ __('voyager::actie.title') }}
-                                <span class="panel-desc"> {{ __('voyager::actie.title_sub') }}</span>
+                                {{ __('voyager::actie.title') }}
                             </h3>
                         </div>
                         <div class="panel-body">
@@ -115,7 +119,6 @@
                                 '_field_trans' => get_field_translations($dataTypeContent, 'body')
                             ]) --}}
                             @php
-                                $dataTypeRows = $dataType->{($edit ? 'editRows' : 'addRows' )};
                                 $row = $dataTypeRows->where('field', 'body')->first();
                             @endphp
                             {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
@@ -143,7 +146,6 @@
                         <div class="panel-body">
                             <!-- MEDIA PICKER -->
                             @php
-                                $dataTypeRows = $dataType->{($edit ? 'editRows' : 'addRows' )};
                                 if ($dataTypeContent->{$row->field.'_'.($edit ? 'edit' : 'add')}) {
                                     $dataTypeContent->{$row->field} = $dataTypeContent->{$row->field.'_'.($edit ? 'edit' : 'add')};
                                 }
@@ -168,9 +170,6 @@
                             <h3 class="panel-title"><i class="icon wb-search"></i> {{ __('voyager::actie.actie_details') }}</h3>
                         </div>
                         <div class="panel-body">
-                            @php
-                                $dataTypeRows = $dataType->{($edit ? 'editRows' : 'addRows' )};
-                            @endphp
                             @foreach($dataTypeRows as $row)
                                 @if ($row->field === 'time_start')
                                     <div class="form-group @if($row->type == 'hidden') hidden @endif">
@@ -201,7 +200,7 @@
                             {{-- Externe link --}}
                             <div class="form-group">
                                 <label for="name">Externe link</label>
-                                <input required type="url" class="form-control" name="externe_link" value="{{ $dataTypeContent->externe_link ?? '' }}" />
+                                <input type="url" class="form-control" name="externe_link" value="{{ $dataTypeContent->externe_link ?? '' }}" />
                             </div>
                         </div>
                     </div>
@@ -211,9 +210,6 @@
                             <h3 class="panel-title">{{ __('voyager::actie.location') }}</h3>
                         </div>
                         <div class="panel-body">
-                            @php
-                                $dataTypeRows = $dataType->{($edit ? 'editRows' : 'addRows' )};
-                            @endphp
                             @foreach($dataTypeRows as $row)
                                 @if(in_array($row->field, ['location', 'location_human']))
                                     @php
