@@ -93,9 +93,6 @@
                                 <i class="voyager-character"></i> {{ __('voyager::actie.title') }}
                                 <span class="panel-desc"> {{ __('voyager::actie.title_sub') }}</span>
                             </h3>
-                            <div class="panel-actions">
-                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
-                            </div>
                         </div>
                         <div class="panel-body">
                             {{-- @include('voyager::multilingual.input-hidden', [
@@ -110,9 +107,6 @@
                     <div class="panel">
                         <div class="panel-heading">
                             <h3 class="panel-title">{{ __('voyager::actie.content') }}</h3>
-                            <div class="panel-actions">
-                                <a class="panel-action voyager-resize-full" data-toggle="panel-fullscreen" aria-hidden="true"></a>
-                            </div>
                         </div>
 
                         <div class="panel-body">
@@ -132,25 +126,19 @@
                     <div class="panel">
                         <div class="panel-heading">
                             <h3 class="panel-title">{{ __('voyager::actie.excerpt') }} <i class="voyager-info-circled" title="Deze beschrijving wordt gebruikt waar het aantal karakters beperkt is (bijvoorbeeld in Google-resultaten)."></i></h3>
-                            <div class="panel-actions">
-                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
-                            </div>
                         </div>
                         <div class="panel-body">
                             {{-- @include('voyager::multilingual.input-hidden', [
                                 '_field_name'  => 'excerpt',
                                 '_field_trans' => get_field_translations($dataTypeContent, 'excerpt')
                             ]) --}}
-                            <textarea class="form-control" name="excerpt">{{ $dataTypeContent->excerpt ?? '' }}</textarea>
+                            <textarea class="form-control" style="resize: vertical;" name="excerpt">{{ $dataTypeContent->excerpt ?? '' }}</textarea>
                         </div>
                     </div>
                     <!-- ### IMAGE ### -->
                     <div class="panel panel-bordered panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title"><i class="icon wb-image"></i> {{ __('voyager::actie.image') }}</h3>
-                            <div class="panel-actions">
-                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
-                            </div>
                         </div>
                         <div class="panel-body">
                             <!-- MEDIA PICKER -->
@@ -178,9 +166,6 @@
                     <div class="panel panel-bordered panel-info">
                         <div class="panel-heading">
                             <h3 class="panel-title"><i class="icon wb-search"></i> {{ __('voyager::actie.actie_details') }}</h3>
-                            <div class="panel-actions">
-                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
-                            </div>
                         </div>
                         <div class="panel-body">
                             @php
@@ -189,25 +174,22 @@
                             @foreach($dataTypeRows as $row)
                                 @if ($row->field === 'time_start')
                                     <div class="form-group @if($row->type == 'hidden') hidden @endif">
-                                        {{ $row->slugify }}
-                                        <label for="name">{{ $row->display_name }}</label>
-                                        {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                                        <label for="time_start">{{ $row->display_name }}</label>
+                                        <input class="form-control" type="datetime-local" name="time_start" value="{{$dataTypeContent->time_start ?? ''}}" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"/>
                                         @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
                                             {!! $after->handle($row, $dataType, $dataTypeContent) !!}
                                         @endforeach
                                     </div>
                                 @elseif ($row->field === 'time_end')
                                     <div class="form-group @if($row->type == 'hidden') hidden @endif">
-                                        {{ $row->slugify }}
-                                        <label for="name">{{ $row->display_name }}</label>
-                                        {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                                        <label for="time_end">{{ $row->display_name }}</label>
+                                        <input class="form-control" type="datetime-local" name="time_end" value="{{$dataTypeContent->time_end ?? ''}}" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"/>
                                         @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
                                             {!! $after->handle($row, $dataType, $dataTypeContent) !!}
                                         @endforeach
                                     </div>
                                 @elseif ($row->type === 'relationship')
                                     <div class="form-group @if($row->type == 'hidden') hidden @endif @if(isset($display_options->width)){{ 'col-md-' . $display_options->width }}@endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
-                                        {{ $row->slugify }}
                                         <label for="name">{{ $row->display_name }}</label>
                                         @include('voyager::formfields.relationship', ['options' => $row->details])
                                         @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
@@ -227,9 +209,6 @@
                     <div class="panel">
                         <div class="panel-heading">
                             <h3 class="panel-title">{{ __('voyager::actie.location') }}</h3>
-                            <div class="panel-actions">
-                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
-                            </div>
                         </div>
                         <div class="panel-body">
                             @php
@@ -257,9 +236,6 @@
                     <div class="panel panel panel-bordered panel-warning">
                         <div class="panel-heading">
                             <h3 class="panel-title"><i class="icon wb-clipboard"></i> {{ __('voyager::actie.publication_details') }}</h3>
-                            <div class="panel-actions">
-                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
-                            </div>
                         </div>
                         <div class="panel-body">
                             <div class="form-group">
@@ -282,7 +258,7 @@
                                     value="{{ $dataTypeContent->slug ?? '' }}">
                             </div>
                             <div class="form-group">
-                                <label for="status">{{ __('voyager::actie.status') }}</label>
+                                <label for="status">{{ __('voyager::actie.status') }}</label> <i class="voyager-info-circled" title="Alleen acties met de status 'gepubliceerd' zijn zichtbaar voor het publiek."></i>
                                 <select class="form-control" name="status">
                                     <option value="PUBLISHED"@if(isset($dataTypeContent->status) && $dataTypeContent->status == 'PUBLISHED') selected="selected"@endif>{{ __('voyager::actie.status_published') }}</option>
                                     <option value="DRAFT"@if(isset($dataTypeContent->status) && $dataTypeContent->status == 'DRAFT') selected="selected"@endif>{{ __('voyager::actie.status_draft') }}</option>
@@ -290,12 +266,12 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="keywords">{{ __('voyager::actie.keywords') }}</label>
+                                <label for="keywords">{{ __('voyager::actie.keywords') }}</label> <i class="voyager-info-circled" title="Keywords worden gebruikt om de actie beter vindbaar te maken met zoekmachines."></i>
                                 {{-- @include('voyager::multilingual.input-hidden', [
                                     '_field_name'  => 'keywords',
                                     '_field_trans' => get_field_translations($dataTypeContent, 'keywords')
                                 ]) --}}
-                                <textarea class="form-control" name="keywords">{{ $dataTypeContent->keywords ?? '' }}</textarea>
+                                <input type="text" class="form-control" name="keywords" value="{{ $dataTypeContent->keywords ?? '' }}" />
                             </div>
                         </div>
                     </div>

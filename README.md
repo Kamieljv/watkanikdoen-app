@@ -65,6 +65,8 @@ Cookie notice is created with [this package](https://github.com/manucaralmo/Glow
 - [ ] Remove unused db columns in `acties`
 - [ ] Change .gitignores so as to preserve images on pulling new changes
 - [ ] Fill dashboard with useful widgets
+- [ ] Specific SEO for acties (as articles with keywords)
+- [ ] Robots.txt for SEO
 - [ ] Styling/content of existing emails
 - [ ] Static pages (About, Privacy policy, etc.)
 - [ ] Add user notifications/emails (e.g. when action approved, when account verified etc.)
