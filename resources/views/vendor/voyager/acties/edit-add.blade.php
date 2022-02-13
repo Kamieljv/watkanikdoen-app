@@ -131,7 +131,7 @@
                     <!-- ### EXCERPT ### -->
                     <div class="panel">
                         <div class="panel-heading">
-                            <h3 class="panel-title">{{ __('voyager::actie.excerpt') }}</h3>
+                            <h3 class="panel-title">{{ __('voyager::actie.excerpt') }} <i class="voyager-info-circled" title="Deze beschrijving wordt gebruikt waar het aantal karakters beperkt is (bijvoorbeeld in Google-resultaten)."></i></h3>
                             <div class="panel-actions">
                                 <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
                             </div>
@@ -142,6 +142,85 @@
                                 '_field_trans' => get_field_translations($dataTypeContent, 'excerpt')
                             ]) --}}
                             <textarea class="form-control" name="excerpt">{{ $dataTypeContent->excerpt ?? '' }}</textarea>
+                        </div>
+                    </div>
+                    <!-- ### IMAGE ### -->
+                    <div class="panel panel-bordered panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="icon wb-image"></i> {{ __('voyager::actie.image') }}</h3>
+                            <div class="panel-actions">
+                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <!-- MEDIA PICKER -->
+                            @php
+                                $dataTypeRows = $dataType->{($edit ? 'editRows' : 'addRows' )};
+                                if ($dataTypeContent->{$row->field.'_'.($edit ? 'edit' : 'add')}) {
+                                    $dataTypeContent->{$row->field} = $dataTypeContent->{$row->field.'_'.($edit ? 'edit' : 'add')};
+                                }
+                            @endphp
+
+                            @foreach($dataTypeRows as $row)
+                                @if($row->type === 'media_picker')
+                                    @php
+                                        $display_options = $row->details->display ?? NULL;
+                                    @endphp
+
+                                    {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <!-- ### ACTIE DETAILS ### -->
+                    <div class="panel panel-bordered panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="icon wb-search"></i> {{ __('voyager::actie.actie_details') }}</h3>
+                            <div class="panel-actions">
+                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            @php
+                                $dataTypeRows = $dataType->{($edit ? 'editRows' : 'addRows' )};
+                            @endphp
+                            @foreach($dataTypeRows as $row)
+                                @if ($row->field === 'time_start')
+                                    <div class="form-group @if($row->type == 'hidden') hidden @endif">
+                                        {{ $row->slugify }}
+                                        <label for="name">{{ $row->display_name }}</label>
+                                        {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                                        @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
+                                            {!! $after->handle($row, $dataType, $dataTypeContent) !!}
+                                        @endforeach
+                                    </div>
+                                @elseif ($row->field === 'time_end')
+                                    <div class="form-group @if($row->type == 'hidden') hidden @endif">
+                                        {{ $row->slugify }}
+                                        <label for="name">{{ $row->display_name }}</label>
+                                        {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                                        @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
+                                            {!! $after->handle($row, $dataType, $dataTypeContent) !!}
+                                        @endforeach
+                                    </div>
+                                @elseif ($row->type === 'relationship')
+                                    <div class="form-group @if($row->type == 'hidden') hidden @endif @if(isset($display_options->width)){{ 'col-md-' . $display_options->width }}@endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                        {{ $row->slugify }}
+                                        <label for="name">{{ $row->display_name }}</label>
+                                        @include('voyager::formfields.relationship', ['options' => $row->details])
+                                        @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
+                                            {!! $after->handle($row, $dataType, $dataTypeContent) !!}
+                                        @endforeach
+                                    </div>
+                                @endif
+                            @endforeach
+                            {{-- Externe link --}}
+                            <div class="form-group">
+                                <label for="name">Externe link</label>
+                                <input required type="url" class="form-control" name="externe_link" value="{{ $dataTypeContent->externe_link ?? '' }}" />
+                            </div>
                         </div>
                     </div>
                     <!-- ### LOCATION ### -->
@@ -164,7 +243,6 @@
                                     <div class="form-group @if($row->type == 'hidden') hidden @endif @if(isset($display_options->width)){{ 'col-md-' . $display_options->width }}@endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
                                         {{ $row->slugify }}
                                         <label for="name">{{ $row->display_name }}</label>
-                                        
                                         {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
 
                                         @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
@@ -175,54 +253,10 @@
                             @endforeach
                         </div>
                     </div>
-                    <!-- ### OTHER ### -->
-                    <div class="panel">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">{{ __('voyager::actie.additional_fields') }}</h3>
-                            <div class="panel-actions">
-                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
-                            </div>
-                        </div>
-                        <div class="panel-body">
-                            @php
-                                $dataTypeRows = $dataType->{($edit ? 'editRows' : 'addRows' )};
-                                $exclude = ['title', 'body', 'excerpt', 'slug', 'status', 'category_id', 'user_id', 'featured', 'image', 'meta_description', 'meta_keywords', 'seo_title', 'location', 'location_human'];
-                            @endphp
-
-                            @foreach($dataTypeRows as $row)
-                                @if(!in_array($row->field, $exclude))
-                                    @php
-                                        $display_options = $row->details->display ?? NULL;
-                                    @endphp
-                                    @if (isset($row->details->formfields_custom))
-                                        @include('voyager::formfields.custom.' . $row->details->formfields_custom)
-                                    @else
-                                        <div class="form-group @if($row->type == 'hidden') hidden @endif @if(isset($display_options->width)){{ 'col-md-' . $display_options->width }}@endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
-                                            {{ $row->slugify }}
-                                            <label for="name">{{ $row->display_name }}</label>
-                                            @include('voyager::multilingual.input-hidden-bread-edit-add')
-                                            @if($row->type == 'relationship')
-                                                @include('voyager::formfields.relationship', ['options' => $row->details])
-                                            @else
-                                                {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
-                                            @endif
-
-                                            @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
-                                                {!! $after->handle($row, $dataType, $dataTypeContent) !!}
-                                            @endforeach
-                                        </div>
-                                    @endif
-                                @endif
-                            @endforeach
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-md-6">
-                    <!-- ### DETAILS ### -->
+                    <!-- ### PUBLICATION DETAILS ### -->
                     <div class="panel panel panel-bordered panel-warning">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="icon wb-clipboard"></i> {{ __('voyager::actie.details') }}</h3>
+                            <h3 class="panel-title"><i class="icon wb-clipboard"></i> {{ __('voyager::actie.publication_details') }}</h3>
                             <div class="panel-actions">
                                 <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
                             </div>
@@ -256,73 +290,12 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="featured">{{ __('voyager::generic.featured') }}</label>
-                                <input type="checkbox" name="featured"@if(isset($dataTypeContent->featured) && $dataTypeContent->featured) checked="checked"@endif>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ### IMAGE ### -->
-                    <div class="panel panel-bordered panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="icon wb-image"></i> {{ __('voyager::actie.image') }}</h3>
-                            <div class="panel-actions">
-                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
-                            </div>
-                        </div>
-                        <div class="panel-body">
-                            <!-- MEDIA PICKER -->
-                            @php
-                                $dataTypeRows = $dataType->{($edit ? 'editRows' : 'addRows' )};
-                                if ($dataTypeContent->{$row->field.'_'.($edit ? 'edit' : 'add')}) {
-                                    $dataTypeContent->{$row->field} = $dataTypeContent->{$row->field.'_'.($edit ? 'edit' : 'add')};
-                                }
-                            @endphp
-
-                            @foreach($dataTypeRows as $row)
-                                @if($row->type === 'media_picker')
-                                    @php
-                                        $display_options = $row->details->display ?? NULL;
-                                    @endphp
-
-                                    {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
-                                @endif
-                            @endforeach
-                        </div>
-                    </div>
-
-                    <!-- ### SEO CONTENT ### -->
-                    <div class="panel panel-bordered panel-info">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="icon wb-search"></i> {{ __('voyager::actie.seo_content') }}</h3>
-                            <div class="panel-actions">
-                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
-                            </div>
-                        </div>
-                        <div class="panel-body">
-                            <div class="form-group">
-                                <label for="meta_description">{{ __('voyager::actie.meta_description') }}</label>
+                                <label for="keywords">{{ __('voyager::actie.keywords') }}</label>
                                 {{-- @include('voyager::multilingual.input-hidden', [
-                                    '_field_name'  => 'meta_description',
-                                    '_field_trans' => get_field_translations($dataTypeContent, 'meta_description')
+                                    '_field_name'  => 'keywords',
+                                    '_field_trans' => get_field_translations($dataTypeContent, 'keywords')
                                 ]) --}}
-                                <textarea class="form-control" name="meta_description">{{ $dataTypeContent->meta_description ?? '' }}</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="meta_keywords">{{ __('voyager::actie.meta_keywords') }}</label>
-                                {{-- @include('voyager::multilingual.input-hidden', [
-                                    '_field_name'  => 'meta_keywords',
-                                    '_field_trans' => get_field_translations($dataTypeContent, 'meta_keywords')
-                                ]) --}}
-                                <textarea class="form-control" name="meta_keywords">{{ $dataTypeContent->meta_keywords ?? '' }}</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="seo_title">{{ __('voyager::actie.seo_title') }}</label>
-                                {{-- @include('voyager::multilingual.input-hidden', [
-                                    '_field_name'  => 'seo_title',
-                                    '_field_trans' => get_field_translations($dataTypeContent, 'seo_title')
-                                ]) --}}
-                                <input type="text" class="form-control" name="seo_title" placeholder="SEO Title" value="{{ $dataTypeContent->seo_title ?? '' }}">
+                                <textarea class="form-control" name="keywords">{{ $dataTypeContent->keywords ?? '' }}</textarea>
                             </div>
                         </div>
                     </div>

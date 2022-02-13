@@ -222,6 +222,7 @@ return [
         'image'            => 'Post Image',
         'meta_description' => 'Meta Description',
         'meta_keywords'    => 'Meta Keywords',
+        'keywords'         => 'Keywords',
         'new'              => 'Create New Post',
         'seo_content'      => 'SEO Content',
         'seo_title'        => 'Seo Title',

@@ -17,9 +17,9 @@ class CreateActiesTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('title');
-            $table->string('seo_title')->nullable();
             $table->text('excerpt')->nullable();
             $table->text('body');
+            $table->text('keywords')->nullable();
             $table->text('externe_link');
             $table->dateTime('time_start');
             $table->dateTime('time_end');
@@ -27,10 +27,7 @@ class CreateActiesTable extends Migration
             $table->string('location_human');
             $table->string('image')->nullable();
             $table->string('slug')->unique('posts_slug_unique');
-            $table->text('meta_description')->nullable();
-            $table->text('meta_keywords')->nullable();
             $table->enum('status', ['PUBLISHED', 'DRAFT', 'PENDING'])->default('DRAFT');
-            $table->boolean('featured')->default(false);
             $table->timestamps();
         });
     }
