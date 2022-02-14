@@ -29,6 +29,7 @@
         "laravel/ui": "^3.4",
         "livewire/livewire": "^2.8",
         "orangehill/iseed": "^3.0",
+        "spatie/laravel-sitemap": "^6.1",
         "tcg/voyager": "1.4.x-dev",
         "tymon/jwt-auth": "dev-develop"
     },
