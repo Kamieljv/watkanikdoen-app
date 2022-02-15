@@ -1,4 +1,8 @@
 /* Base */
+:root {
+    --wkid-pink: #f30060;
+    --wkid-blue: #0081ff;
+}
 
 body, body *:not(html):not(style):not(br):not(tr):not(code) {
     font-family: Avenir, Helvetica, sans-serif;
@@ -219,11 +223,11 @@ img {
 }
 
 .button-blue, .button-primary {
-    background-color: #3097D1;
-    border-top: 10px solid #3097D1;
-    border-right: 18px solid #3097D1;
-    border-bottom: 10px solid #3097D1;
-    border-left: 18px solid #3097D1;
+    background-color: var(--wkid-blue);
+    border-top: 10px solid var(--wkid-blue);
+    border-right: 18px solid var(--wkid-blue);
+    border-bottom: 10px solid var(--wkid-blue);
+    border-left: 18px solid var(--wkid-blue);
 }
 
 .button-green {

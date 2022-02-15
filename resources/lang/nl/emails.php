@@ -14,4 +14,5 @@ return [
     'announcements' => 'Mededelingen',
     'all'   => 'Alle Mededelingen',
     'view_all' => 'Bekijk Alle Mededelingen',
+    'salutation' => 'Het Watkanikdoen-team',
 ];

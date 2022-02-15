@@ -40,10 +40,10 @@
 @endforeach
 
 {{-- Salutation --}}
+@lang('Regards'),<br>
 @if (! empty($salutation))
 {{ $salutation }}
 @else
-@lang('Regards'),<br>
 {{ config('app.name') }}
 @endif
 

@@ -2,7 +2,7 @@
     {{-- Header --}}
     @slot('header')
         @component('mail::header', ['url' => config('app.url')])
-            {{ config('app.name') }}
+            @svg('custom-logo-full', ['style' => 'fill: var(--wkid-pink); height: 100%; width: 180px;'])
         @endcomponent
     @endslot
 

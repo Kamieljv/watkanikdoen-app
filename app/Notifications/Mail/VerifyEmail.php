@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Notifications;
+namespace App\Notifications\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -41,9 +41,11 @@ class VerifyEmail extends Notification
         $url = url('/user/verify/' . $this->user->verification_code);
 
         return (new MailMessage())
-                    ->line('Thanks for signing up, but before you can continue we need to verify your email.')
-                    ->action('Verify Email', $url)
-                    ->line('Thanks! See you soon.');
+                    ->subject(__("Verify Email Address") . ' | ' . config('app.name'))
+                    ->greeting(__("Dear") . ' ' . $this->user->name . ',')
+                    ->line(__("Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another."))
+                    ->action(__("Verify Email Address"), $url)
+                    ->salutation(__('emails.salutation'));
     }
 
     /**
