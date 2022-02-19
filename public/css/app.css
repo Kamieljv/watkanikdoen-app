@@ -1,4 +1,37 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);
+.border-0 {
+  border: 0;
+}
+
+div.custom-loader {
+  border: 5px solid #f3f3f3;
+  /* Light grey */
+  border-top: 5px solid #7e7e7e;
+  /* Blue */
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  -webkit-animation: spin 1s linear infinite;
+          animation: spin 1s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 .btn.approve,
 .btn.view {
   margin-left: 5px;

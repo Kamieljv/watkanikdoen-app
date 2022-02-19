@@ -70,7 +70,7 @@ Cookie notice is created with [this package](https://github.com/manucaralmo/Glow
 - [ ] Fill dashboard with useful widgets
 - [ ] :arrow_right: Specific SEO for acties (as articles with keywords)
 - [x] :arrow_right: Robots.txt for SEO
-- [ ] :arrow_right: Styling/content of existing emails
+- [x] :arrow_right: Styling/content of existing emails
 - [ ] Static pages (About, Privacy policy, etc.)
 - [ ] :arrow_right: Add user notifications/emails (e.g. when action approved, when account verified etc.)
 - [x] Page analytics (e.g. Open Web Analytics, Umami or Plausible)

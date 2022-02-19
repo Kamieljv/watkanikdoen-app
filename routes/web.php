@@ -68,6 +68,7 @@ Route::get('{page}', [PageController::class, 'page'])->name('page');
 Route::group(['prefix' => 'auth', 'middleware' => ['auth', 'xss']], function () {
     // Dashboard
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('dashboard/getStats', [DashboardController::class, 'getStats'])->name('dashboard.stats');
 
     // Acties aanmelden (authenticated)
     Route::get('aanmelden/form', [AanmeldingController::class, 'form'])->name('aanmelding.form');

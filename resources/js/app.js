@@ -2,6 +2,8 @@
  * This JS adds to the voyager base JS asset.
  * Vue, jQuery and BootstrapJS (among others) are loaded there.
  */
+window.axios = require('axios')
+Vue.prototype.$http = window.axios
 
 // Load Leaflet
 import { LMap, LTileLayer, LMarker, LTooltip } from "vue2-leaflet"
@@ -22,10 +24,3 @@ import "../../public/vendor/tcg/voyager/assets/js/plugins/paste/plugin.min.js"
 // Load additional components
 const files = require.context("./", true, /\.vue$/i)
 files.keys().map(key => Vue.component(key.split("/").pop().split(".")[0], files(key).default))
-
-// Mount Vue instances
-var coordinatesField = new Vue(
-	{
-		el: "#coordinates-formfield",
-	}
-)

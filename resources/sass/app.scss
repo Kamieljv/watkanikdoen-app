@@ -4,8 +4,25 @@
 // Variables
 @import "variables";
 
-// Bootstrap
-// @import "~bootstrap/scss/bootstrap";
+// Bootstrap-like helpers
+.border-0 {
+    border: 0;
+}
+
+// Simple Loader
+div.custom-loader {
+    border: 5px solid #f3f3f3; /* Light grey */
+    border-top: 5px solid #7e7e7e; /* Blue */
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 
 // Modify action buttons
 .btn.approve,

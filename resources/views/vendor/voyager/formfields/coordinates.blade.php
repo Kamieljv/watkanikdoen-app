@@ -7,7 +7,7 @@
         count($dataTypeContent->getCoordinates()) ? $dataTypeContent->getCoordinates() : [['lat' => config('voyager.maps.center.lat'), 'lng' => config('voyager.maps.center.lng')]];
 @endphp
 
-<div id="coordinates-formfield" class="coordinates-formfield">
+<div id="app" class="coordinates-formfield">
     <coordinates-form-field 
         ref="coordinates"
         :default-center="{{ json_encode($defaultCenter) }}"
@@ -18,3 +18,11 @@
     >
     </coordinates-form-field>
 </div>
+
+@push('javascript')
+    <script type="application/javascript">
+        var app = new Vue({
+            el: '#app',
+        });
+    </script>
+@endpush

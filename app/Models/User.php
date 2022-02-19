@@ -126,4 +126,8 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
     {
         $this->notify(new PasswordReset($token));
     }
+
+    public function scopeVerified($query) {
+        return $query->where('verified', 1);
+    }
 }
