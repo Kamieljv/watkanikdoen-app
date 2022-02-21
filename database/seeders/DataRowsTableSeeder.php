@@ -1703,7 +1703,7 @@ class DataRowsTableSeeder extends Seeder
             array (
                 'id' => 189,
                 'data_type_id' => 21,
-                'field' => 'aanmeldingen_belongsto_user_relationship',
+                'field' => 'reports_belongsto_user_relationship',
                 'type' => 'relationship',
                 'display_name' => 'users',
                 'required' => 0,
@@ -1712,7 +1712,7 @@ class DataRowsTableSeeder extends Seeder
                 'edit' => 1,
                 'add' => 1,
                 'delete' => 1,
-                'details' => '{"model":"App\\\\Models\\\\User","table":"users","type":"belongsTo","column":"user_id","key":"id","label":"name","pivot_table":"aanmeldingen","pivot":"0","taggable":"0"}',
+                'details' => '{"model":"App\\\\Models\\\\User","table":"users","type":"belongsTo","column":"user_id","key":"id","label":"name","pivot_table":"reports","pivot":"0","taggable":"0"}',
                 'order' => 14,
             ),
             106 => 

@@ -202,12 +202,12 @@ class DataTypesTableSeeder extends Seeder
             10 => 
             array (
                 'id' => 21,
-                'name' => 'aanmeldingen',
-                'slug' => 'aanmeldingen',
-                'display_name_singular' => 'Aanmelding',
-                'display_name_plural' => 'Aanmeldingen',
+                'name' => 'reports',
+                'slug' => 'reports',
+                'display_name_singular' => 'Report',
+                'display_name_plural' => 'Reports',
                 'icon' => 'voyager-question',
-                'model_name' => 'App\\Models\\Aanmelding',
+                'model_name' => 'App\\Models\\Report',
                 'policy_name' => NULL,
                 'controller' => NULL,
                 'description' => NULL,

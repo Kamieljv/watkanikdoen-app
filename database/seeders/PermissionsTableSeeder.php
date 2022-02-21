@@ -670,8 +670,8 @@ class PermissionsTableSeeder extends Seeder
             72 => 
             array (
                 'id' => 98,
-                'key' => 'browse_aanmeldingen',
-                'table_name' => 'aanmeldingen',
+                'key' => 'browse_reports',
+                'table_name' => 'reports',
                 'created_at' => '2022-01-19 15:46:35',
                 'updated_at' => '2022-01-19 15:46:35',
                 'permission_group_id' => NULL,
@@ -679,8 +679,8 @@ class PermissionsTableSeeder extends Seeder
             73 => 
             array (
                 'id' => 99,
-                'key' => 'read_aanmeldingen',
-                'table_name' => 'aanmeldingen',
+                'key' => 'read_reports',
+                'table_name' => 'reports',
                 'created_at' => '2022-01-19 15:46:35',
                 'updated_at' => '2022-01-19 15:46:35',
                 'permission_group_id' => NULL,
@@ -688,8 +688,8 @@ class PermissionsTableSeeder extends Seeder
             74 => 
             array (
                 'id' => 100,
-                'key' => 'edit_aanmeldingen',
-                'table_name' => 'aanmeldingen',
+                'key' => 'edit_reports',
+                'table_name' => 'reports',
                 'created_at' => '2022-01-19 15:46:35',
                 'updated_at' => '2022-01-19 15:46:35',
                 'permission_group_id' => NULL,
@@ -697,8 +697,8 @@ class PermissionsTableSeeder extends Seeder
             75 => 
             array (
                 'id' => 101,
-                'key' => 'add_aanmeldingen',
-                'table_name' => 'aanmeldingen',
+                'key' => 'add_reports',
+                'table_name' => 'reports',
                 'created_at' => '2022-01-19 15:46:35',
                 'updated_at' => '2022-01-19 15:46:35',
                 'permission_group_id' => NULL,
@@ -706,8 +706,8 @@ class PermissionsTableSeeder extends Seeder
             76 => 
             array (
                 'id' => 102,
-                'key' => 'delete_aanmeldingen',
-                'table_name' => 'aanmeldingen',
+                'key' => 'delete_reports',
+                'table_name' => 'reports',
                 'created_at' => '2022-01-19 15:46:35',
                 'updated_at' => '2022-01-19 15:46:35',
                 'permission_group_id' => NULL,

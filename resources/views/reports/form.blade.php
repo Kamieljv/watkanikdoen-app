@@ -7,7 +7,7 @@
             {{ __("acties.back_to_acties") }}
         </a>
     </div>
-    <form role="form" method="POST" action="{{ route('aanmelding.create') }}">
+    <form role="form" method="POST" action="{{ route('report.create') }}">
         @if(!$viewOnly) @csrf @endif
         <div id="app" class="grid grid-cols-1 md:grid-cols-3 space-y-3 md:space-y-0 md:space-x-3 max-w-4xl mx-auto flex flex-col px-5 my-6 lg:px-0">
             <div class="col-span-2 space-y-3">
@@ -22,10 +22,10 @@
                         {{-- Title --}}
                         <div>
                             <label for="title" class="block text-sm font-medium leading-5 text-gray-700">
-                                {{ __("aanmeldingen.title") }}
+                                {{ __("reports.title") }}
                             </label>
                             <div class="mt-1 rounded-md shadow-sm">
-                                <input @if($viewOnly){{'disabled'}}@endif id="title" type="text" name="title" required value="{{ $viewOnly ? $aanmelding->title : old('title') }}" autofocus>
+                                <input @if($viewOnly){{'disabled'}}@endif id="title" type="text" name="title" required value="{{ $viewOnly ? $report->title : old('title') }}" autofocus>
                             </div>
                             @if ($errors->has('title'))
                                 <div class="mt-1 text-red-500">
@@ -36,16 +36,16 @@
                         {{-- Body --}}
                         <div class="min-h-[200px]">
                             <label for="body" class="block text-sm font-medium leading-5 text-gray-700">
-                                {{ __("aanmeldingen.body") }}
+                                {{ __("reports.body") }}
                             </label>
                             @if($viewOnly)
                                 <div class="min-h-[200px] like-form-field">
-                                    {!! filterScripts($aanmelding->body) !!}
+                                    {!! filterScripts($report->body) !!}
                                 </div>
                             @else
                                 <rich-text-field
                                     name="body"
-                                    value="{{ $viewOnly ? $aanmelding->body : old('body') }}"
+                                    value="{{ $viewOnly ? $report->body : old('body') }}"
                                     :disabled="@json($viewOnly)"
                                 />
                             @endif
@@ -68,10 +68,10 @@
                         {{-- Location Human --}}
                         <div>
                             <label for="location_human" class="block text-sm font-medium leading-5 text-gray-700">
-                                {{ __("aanmeldingen.location_human") }}
+                                {{ __("reports.location_human") }}
                             </label>
                             <div class="mt-1 rounded-md shadow-sm">
-                                <input @if($viewOnly){{'disabled'}}@endif id="location_human" type="text" name="location_human" required value="{{ $viewOnly ? $aanmelding->location_human : old('location_human') }}">
+                                <input @if($viewOnly){{'disabled'}}@endif id="location_human" type="text" name="location_human" required value="{{ $viewOnly ? $report->location_human : old('location_human') }}">
                             </div>
                             @if ($errors->has('location_human'))
                                 <div class="mt-1 text-red-500">
@@ -81,11 +81,11 @@
                         </div>
                         <div>
                             <label for="location" class="block text-sm font-medium leading-5 text-gray-700">
-                                {{ __("aanmeldingen.location") }}
+                                {{ __("reports.location") }}
                             </label>
                             @php
                                 if ($viewOnly) {
-                                    $defaultCenter = [$aanmelding->coordinates];
+                                    $defaultCenter = [$report->coordinates];
                                 } else {
                                     $defaultCenter = old('location') &&
                                         (old('location')['lat'] !== NULL)
@@ -122,7 +122,7 @@
                         {{-- Organizer --}}
                         <div>
                             <label for="externe_link" class="block text-sm font-medium leading-5 text-gray-700">
-                                {{ __("aanmeldingen.organizer(s)") }}
+                                {{ __("reports.organizer(s)") }}
                             </label>
                             <div class="mt-1 rounded-md shadow-sm">
                                 @if($viewOnly)
@@ -148,10 +148,10 @@
                         {{-- Externe link --}}
                         <div>
                             <label for="externe_link" class="block text-sm font-medium leading-5 text-gray-700">
-                                {{ __("aanmeldingen.externe_link") }}
+                                {{ __("reports.externe_link") }}
                             </label>
                             <div class="mt-1 rounded-md shadow-sm">
-                                <input @if($viewOnly){{'disabled'}}@endif id="externe_link" type="url" name="externe_link" required value="{{ $viewOnly ? $aanmelding->externe_link : old('externe_link') }}">
+                                <input @if($viewOnly){{'disabled'}}@endif id="externe_link" type="url" name="externe_link" required value="{{ $viewOnly ? $report->externe_link : old('externe_link') }}">
                             </div>
                             @if ($errors->has('externe_link'))
                                 <div class="mt-1 text-red-500">
@@ -172,10 +172,10 @@
                         {{-- Time start --}}
                         <div class="w-full">
                             <label for="time_start" class="block text-sm font-medium leading-5 text-gray-700">
-                                {{ __("aanmeldingen.time_start") }}
+                                {{ __("reports.time_start") }}
                             </label>
                             <div class="mt-1 rounded-md shadow-sm">
-                                <input @if($viewOnly){{'disabled'}}@endif type="datetime-local" id="time_start" name="time_start" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}" required value="{{ $viewOnly ? $aanmelding->time_start : old('time_start') }}">
+                                <input @if($viewOnly){{'disabled'}}@endif type="datetime-local" id="time_start" name="time_start" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}" required value="{{ $viewOnly ? $report->time_start : old('time_start') }}">
                             </div>
                             @if ($errors->has('time_start'))
                                 <div class="mt-1 text-red-500">
@@ -186,10 +186,10 @@
                         {{-- Time end --}}
                         <div class="w-full">
                             <label for="time_end" class="block text-sm font-medium leading-5 text-gray-700">
-                                {{ __("aanmeldingen.time_end") }}
+                                {{ __("reports.time_end") }}
                             </label>
                             <div class="mt-1 rounded-md shadow-sm">
-                                <input @if($viewOnly){{'disabled'}}@endif type="datetime-local" id="time_end" name="time_end" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}" required value="{{ $viewOnly ? $aanmelding->time_end : old('time_end')}}">
+                                <input @if($viewOnly){{'disabled'}}@endif type="datetime-local" id="time_end" name="time_end" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}" required value="{{ $viewOnly ? $report->time_end : old('time_end')}}">
                             </div>
                             @if ($errors->has('time_end'))
                                 <div class="mt-1 text-red-500">
@@ -209,7 +209,7 @@
                     <div class="flex flex-col mt-5 space-y-3 h-[150px]">
                         {{-- Image --}}
                         <form-image
-                            previous-image="{{ $viewOnly ? $aanmelding->image_path : old('image') }}"
+                            previous-image="{{ $viewOnly ? $report->image_path : old('image') }}"
                             field-name="image"
                             viewport-type="square"
                             default-color="var(--wkid-blue-light)"

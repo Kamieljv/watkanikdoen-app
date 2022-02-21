@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Aanmelding;
+use App\Models\Report;
 use App\Models\Actie;
 use App\Models\Organizer;
 use App\Models\User;
@@ -19,14 +19,14 @@ use Voyager;
 class DashboardController extends Controller
 {
     /**
-     * Displays the 'aanmeldingen' page for authenticated users
+     * Displays the 'reports' page for authenticated users
      */
     public function index()
     {
-        // Haal aanmeldingen van deze gebruiker op
-        $aanmeldingen = auth()->user()->aanmeldingen()->get();
+        // Haal reports van deze gebruiker op
+        $reports = auth()->user()->reports()->get();
         $notifications = auth()->user()->notifications()->get();
-        return view('dashboard.index', compact('aanmeldingen', 'notifications'));
+        return view('dashboard.index', compact('reports', 'notifications'));
     }
 
     /**

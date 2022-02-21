@@ -64,7 +64,7 @@ Cookie notice is created with [this package](https://github.com/manucaralmo/Glow
 - [ ] Check AVG data storage and delete requests
 - [ ] Check copyrights and open source websites
 - [ ] Actie toevoegen (unauth) pagina vullen
-- [ ] Refactor aanmelding -> report
+- [x] Refactor aanmelding -> report
 - [x] Remove unused db columns in `acties`
 - [ ] Change .gitignores so as to preserve images on pulling new changes
 - [ ] Fill dashboard with useful widgets

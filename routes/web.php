@@ -11,7 +11,7 @@
 |
 */
 
-use App\Http\Controllers\AanmeldingController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ActieController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Auth\LoginController;
@@ -34,7 +34,7 @@ Route::get('register/complete', [RegisterController::class, 'complete'])->name('
 // Include voyager routes
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
-    Route::get('aanmelding/approve/{id}', [AanmeldingController::class, 'approve'])->name('aanmelding.approve');
+    Route::get('report/approve/{id}', [ReportController::class, 'approve'])->name('report.approve');
 });
 
 // Wave impersonation route
@@ -54,7 +54,7 @@ Route::get('organizers/search', [OrganizerController::class, 'search'])->name('o
 Route::get('organizer/{organizer}', [OrganizerController::class, 'organizer'])->name('organizers.organizer');
 
 // Acties aanmelden (guest)
-Route::get('acties/aanmelden', [AanmeldingController::class, 'landing'])->name('aanmelding.landing');
+Route::get('acties/aanmelden', [ReportController::class, 'landing'])->name('report.landing');
 
 // Blog routes
 Route::get('blog/index', [BlogController::class, 'index'])->name('blog');
@@ -71,9 +71,9 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth', 'xss']], function () 
     Route::get('dashboard/getStats', [DashboardController::class, 'getStats'])->name('dashboard.stats');
 
     // Acties aanmelden (authenticated)
-    Route::get('aanmelden/form', [AanmeldingController::class, 'form'])->name('aanmelding.form');
-    Route::get('aanmelden/view/{id}', [AanmeldingController::class, 'view'])->name('aanmelding.view');
-    Route::post('aanmelden/form/create', [AanmeldingController::class, 'create'])->name('aanmelding.create');
+    Route::get('aanmelden/form', [ReportController::class, 'form'])->name('report.form');
+    Route::get('aanmelden/view/{id}', [ReportController::class, 'view'])->name('report.view');
+    Route::post('aanmelden/form/create', [ReportController::class, 'create'])->name('report.create');
 
     // Settings
     Route::get('settings/{section?}', [SettingsController::class, 'index'])->name('settings');

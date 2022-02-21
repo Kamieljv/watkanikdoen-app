@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class AanmeldingenTableSeeder extends Seeder
+class ReportsTableSeeder extends Seeder
 {
 
     /**
@@ -16,15 +16,15 @@ class AanmeldingenTableSeeder extends Seeder
     {
         
 
-        \DB::table('aanmeldingen')->delete();
+        \DB::table('reports')->delete();
         
-        \DB::table('aanmeldingen')->insert(array (
+        \DB::table('reports')->insert(array (
             0 => 
             array (
                 'id' => 1,
                 'user_id' => 1,
                 'organizer_ids' => '1',
-                'title' => 'Test aanmelding',
+                'title' => 'Test report',
                 'body' => '<p>Dit is een test</p>',
                 'externe_link' => '#',
                 'time_start' => '2022-01-19 17:22:00',
@@ -41,7 +41,7 @@ class AanmeldingenTableSeeder extends Seeder
                 'id' => 2,
                 'user_id' => 1,
                 'organizer_ids' => '1',
-                'title' => 'Test aanmelding 2',
+                'title' => 'Test report 2',
                 'body' => '<p>Dit is een test</p>',
                 'externe_link' => '#',
                 'time_start' => '2022-01-19 17:22:00',
@@ -58,7 +58,7 @@ class AanmeldingenTableSeeder extends Seeder
                 'id' => 3,
                 'user_id' => 1,
                 'organizer_ids' => '1',
-                'title' => 'Test aanmelding 3',
+                'title' => 'Test report 3',
                 'body' => '<p>Dit is een test</p>',
                 'externe_link' => '#',
                 'time_start' => '2022-01-19 17:22:00',

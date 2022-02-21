@@ -5,11 +5,11 @@ namespace App\Actions;
 use Illuminate\Support\Facades\Log;
 use TCG\Voyager\Actions\AbstractAction;
 
-class ApproveAanmelding extends AbstractAction
+class ApproveReport extends AbstractAction
 {
     public function getTitle()
     {
-        return trans('aanmeldingen.approve');
+        return trans('reports.approve');
     }
 
     public function getIcon()
@@ -31,7 +31,7 @@ class ApproveAanmelding extends AbstractAction
 
     public function getDefaultRoute()
     {
-        return route('aanmelding.approve', $this->data->{$this->data->getKeyName()});
+        return route('report.approve', $this->data->{$this->data->getKeyName()});
     }
 
     /*
@@ -39,7 +39,7 @@ class ApproveAanmelding extends AbstractAction
      */
     public function shouldActionDisplayOnDataType()
     {
-        return $this->dataType->slug === 'aanmeldingen';
+        return $this->dataType->slug === 'reports';
     }
 
     /*

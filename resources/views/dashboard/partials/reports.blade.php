@@ -9,16 +9,16 @@
             </p>
         </div>
         <div>
-            <a href="{{ route('aanmelding.form') }}" class="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-500 hover:bg-blue-600">
+            <a href="{{ route('report.form') }}" class="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-500 hover:bg-blue-600">
                 Actie toevoegen
             </a>
         </div>
     </div>
-    <div id="reports-none" class="@if(count($aanmeldingen) > 0){{'hidden'}}@endif flex items-center justify-center h-24 w-full text-gray-600 font-medium">
+    <div id="reports-none" class="@if(count($reports) > 0){{'hidden'}}@endif flex items-center justify-center h-24 w-full text-gray-600 font-medium">
         @svg('clarity-add-text-line', ['class' => 'w-5 h-5 mr-3'])
         {{ __("dashboard.no_reports") }}
     </div>
-    @if(count($aanmeldingen) > 0)
+    @if(count($reports) > 0)
         <div class="flex flex-col">
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="pt-2 md:py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -27,27 +27,27 @@
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        {{ __("aanmeldingen.title") }}
+                                        {{ __("reports.title") }}
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        {{ __("aanmeldingen.organizer") }}
+                                        {{ __("reports.organizer") }}
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        {{ __("aanmeldingen.date_reported") }}
+                                        {{ __("reports.date_reported") }}
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        {{ __("aanmeldingen.status") }}
+                                        {{ __("reports.status") }}
                                     </th>
                                     <th scope="col" class="relative px-6 py-3">
                                     </th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                                @foreach ($aanmeldingen as $aanmelding)
+                                @foreach ($reports as $report)
                                     <tr>
                                         {{-- Title --}}
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {{ $aanmelding->title }}
+                                            {{ $report->title }}
                                         </td>
                                         {{-- Organizer --}}
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -68,7 +68,7 @@
                                         </td>
                                         {{-- Date Reported --}}
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {{ Date::parse($aanmelding->created_at)->diffForHumans() }}
+                                            {{ Date::parse($report->created_at)->diffForHumans() }}
                                         </td>
                                         {{-- Status --}}
                                         @php
@@ -80,15 +80,15 @@
                                         @endphp
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <span 
-                                                class="px-2 inline-flex text-xs lowercase leading-5 font-semibold rounded-full {{ $statusColorMap[$aanmelding->status] }}"
+                                                class="px-2 inline-flex text-xs lowercase leading-5 font-semibold rounded-full {{ $statusColorMap[$report->status] }}"
                                                 style=""
                                             >
-                                                {{ __("aanmeldingen." . strtolower($aanmelding->status)) }}
+                                                {{ __("reports." . strtolower($report->status)) }}
                                             </span>
                                         </td>
                                         {{-- Editing/Viewing --}}
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <a href="{{ route('aanmelding.view', $aanmelding->id) }}" class="text-[color:var(--wkid-blue)] hover:text-[color:var(--wkid-blue-dark)]">{{ __("aanmeldingen.view") }}</a>
+                                            <a href="{{ route('report.view', $report->id) }}" class="text-[color:var(--wkid-blue)] hover:text-[color:var(--wkid-blue-dark)]">{{ __("reports.view") }}</a>
                                         </td>
                                     </tr>
                                 @endforeach

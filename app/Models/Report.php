@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use TCG\Voyager\Traits\Spatial;
 use Voyager;
 
-class Aanmelding extends Model
+class Report extends Model
 {
     use Spatial;
 
@@ -19,8 +19,6 @@ class Aanmelding extends Model
      * @var bool
      */
     protected $geometryAsText = true;
-
-    protected $table = 'aanmeldingen';
 
     protected $appends = [
         'image_path',
@@ -63,7 +61,7 @@ class Aanmelding extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class)->without('aanmeldingen');
+        return $this->belongsTo(User::class)->without('reports');
     }
 
     /**
