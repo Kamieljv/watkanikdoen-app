@@ -104,7 +104,6 @@
 		methods: {
 			getVisitStats(websiteId, startDaysAgo, endDaysAgo) {
 				this.$http.get(`https://analytics.watkanikdoen.nl/api/website/${websiteId}/stats`, {
-					withCredentials: true,
 					headers: {
 						'Authorization': `Bearer ${this.umamiToken}`
 					},
@@ -114,7 +113,6 @@
 					}
 				}).then((response) => {
 					this.visitStats = response.data
-					console.log(this.visitStats)
 					this.isLoading.visit = false
 				}).catch((error) => {
 					console.log(error)
