@@ -547,22 +547,6 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 8,
             ),
-            33 => 
-            array (
-                'id' => 34,
-                'data_type_id' => 3,
-                'field' => 'avatar',
-                'type' => 'image',
-                'display_name' => 'avatar',
-                'required' => 0,
-                'browse' => 0,
-                'read' => 0,
-                'edit' => 0,
-                'add' => 0,
-                'delete' => 1,
-                'details' => '{}',
-                'order' => 9,
-            ),
             34 => 
             array (
                 'id' => 35,

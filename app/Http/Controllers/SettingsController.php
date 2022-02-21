@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Image;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
+
 use Illuminate\Validation\ValidationException;
 use TCG\Voyager\Http\Controllers\Controller;
 use Validator;
@@ -34,7 +37,7 @@ class SettingsController extends Controller
         $authed_user->name = $request->name;
         $authed_user->email = $request->email;
         if ($request->avatar) {
-            $authed_user->avatar = $this->saveAvatar($request->avatar, $authed_user->id);
+            $this->saveAvatar($request->avatar, $authed_user);
         }
         $authed_user->save();
 
@@ -63,10 +66,17 @@ class SettingsController extends Controller
         return back()->with('success', __('settings.security.password_update_success'));
     }
 
-    private function saveAvatar($avatar, $id)
+    private function saveAvatar($avatar, $user)
     {
-        $path = 'avatars/' . $id . '_' . uniqid() . '.png';
+        $ext = '.' . explode('/', mime_content_type($avatar))[1];
+        $path = 'avatars/' . md5($user->name . $user->email . microtime()) . $ext;
+        // Store the image on the server
         Storage::disk(config('voyager.storage.disk'))->put($path, file_get_contents($avatar));
+        // Create entry in db
+        Image::create([
+            'path' => $path,
+            'user_id' => $user->id,
+        ]);
         return $path;
     }
 
@@ -74,10 +84,8 @@ class SettingsController extends Controller
         if (auth()->user()->id !== (int) $id) {
             abort(403, 'Unauthorized action.');
         } else {
-            if (Storage::disk(config('voyager.storage.disk'))->delete(auth()->user()->avatar)) {
-                $user = auth()->user();
-                $user->avatar = null;
-                $user->save();
+            if (Storage::disk(config('voyager.storage.disk'))->delete(auth()->user()->image->path)) {
+                auth()->user()->image()->delete();
                 $type = 'success';
                 $message = __("settings.profile.avatar_delete_success");
             } else {

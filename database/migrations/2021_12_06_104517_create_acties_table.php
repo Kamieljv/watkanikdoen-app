@@ -15,7 +15,7 @@ class CreateActiesTable extends Migration
     {
         Schema::create('acties', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
+            $table->integer('user_id')->unsigned();
             $table->string('title');
             $table->text('excerpt')->nullable();
             $table->text('body');
@@ -29,6 +29,8 @@ class CreateActiesTable extends Migration
             $table->string('slug')->unique('posts_slug_unique');
             $table->enum('status', ['PUBLISHED', 'DRAFT', 'PENDING'])->default('DRAFT');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('NO ACTION')->onDelete('CASCADE');
         });
     }
 

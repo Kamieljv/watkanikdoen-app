@@ -67,6 +67,8 @@ Cookie notice is created with [this package](https://github.com/manucaralmo/Glow
 - [x] Refactor aanmelding -> report
 - [x] Remove unused db columns in `acties`
 - [ ] Change .gitignores so as to preserve images on pulling new changes
+- [ ] BUG: Restrict image formats to png and jpg in profile image uploader
+- [ ] Organize validation in Requests
 - [ ] Fill dashboard with useful widgets
 - [ ] :arrow_right: Specific SEO for acties (as articles with keywords)
 - [x] :arrow_right: Robots.txt for SEO

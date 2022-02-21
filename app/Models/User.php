@@ -31,16 +31,6 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
         'password', 'remember_token',
     ];
 
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array
-     */
-    protected $appends = [
-        'avatar_path',
-    ];
-
-
     public function profile($key)
     {
         $keyValue = $this->keyValue($key);
@@ -86,14 +76,9 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
         return $this->hasMany(Report::class)->without('user');
     }
 
-    public function getAvatarAttribute($value)
+    public function image()
     {
-        return $value ?? config('voyager.user.default_avatar', null);
-    }
-
-    public function getAvatarPathAttribute()
-    {
-        return $this->avatar ? Storage::url($this->avatar) : null;
+        return $this->hasOne(Image::class);
     }
 
     /**
