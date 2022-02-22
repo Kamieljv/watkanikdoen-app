@@ -18,8 +18,8 @@
                 <div class="content flex flex-col gap-4 h-full">
                     <!-- Image and tags -->
                     <div class="flex-shrink-0 not-prose rounded-lg shadow-lg overflow-hidden" style="position:relative;">
-                        @if ($actie->image_path)
-                            <img class="object-cover w-full h-48" src="{{ $actie->image_path ?? asset('images/default_thumbnail.png') }}" alt="">
+                        @if ($actie->image)
+                            <img class="object-cover w-full h-48" src="{{ $actie->image->url }}" alt="">
                         @else
                             <div class="h-[150px] bg-gradient-to-r from-[var(--wkid-pink-light)] to-[var(--wkid-blue-light)] text-white flex items-center justify-center">
                                 @svg('custom-logo-icon', ['style' => 'fill: currentColor; height: 80px;'])

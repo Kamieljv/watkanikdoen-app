@@ -20,6 +20,8 @@ class CreateImagesTable extends Migration
             $table->foreign('user_id')->references(['id'])->on('users')->onUpdate('NO ACTION')->onDelete('CASCADE');
             $table->integer('organizer_id')->unsigned()->nullable()->index('images_organizer_id_foreign');
             $table->foreign('organizer_id')->references(['id'])->on('organizers')->onUpdate('NO ACTION')->onDelete('CASCADE');
+            $table->integer('actie_id')->unsigned()->nullable()->index('images_actie_id_foreign');
+            $table->foreign('actie_id')->references(['id'])->on('acties')->onUpdate('NO ACTION')->onDelete('CASCADE');
             $table->timestamps();
         });
     }

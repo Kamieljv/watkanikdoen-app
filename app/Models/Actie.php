@@ -50,7 +50,6 @@ class Actie extends Model
      */
     protected $appends = [
         'link',
-        'image_path',
         'start',
         'start_unix',
         '_geoloc',
@@ -58,7 +57,6 @@ class Actie extends Model
 
     protected $hidden = [
         'location',
-        'id',
         'author_id',
         'status',
         'image',
@@ -70,7 +68,12 @@ class Actie extends Model
      *
      * @var array
      */
-    protected $with = ['organizers:id,name,logo,slug', 'categories:id,name', 'themes:id,name,color'];
+    protected $with = [
+        'organizers:id,name,logo,slug',
+        'categories:id,name',
+        'themes:id,name,color',
+        'image'
+    ];
 
     public function getLinkAttribute()
     {
@@ -133,6 +136,11 @@ class Actie extends Model
     public function themes()
     {
         return $this->belongsToMany(Theme::class, 'actie_theme');
+    }
+
+    public function image()
+    {
+        return $this->hasOne(Image::class);
     }
 
     public function getAfgelopenAttribute() {
