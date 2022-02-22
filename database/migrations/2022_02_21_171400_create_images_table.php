@@ -14,10 +14,12 @@ class CreateImagesTable extends Migration
     public function up()
     {
         Schema::create('images', function (Blueprint $table) {
-            $table->increments('id');
+            $table->string('key', 32)->unique(); // a hash based on the file path used to more efficiently index the db
             $table->string('path');
-            $table->integer('user_id')->unsigned()->index('images_user_id_foreign');
+            $table->integer('user_id')->unsigned()->nullable()->index('images_user_id_foreign');
             $table->foreign('user_id')->references(['id'])->on('users')->onUpdate('NO ACTION')->onDelete('CASCADE');
+            $table->integer('organizer_id')->unsigned()->nullable()->index('images_organizer_id_foreign');
+            $table->foreign('organizer_id')->references(['id'])->on('organizers')->onUpdate('NO ACTION')->onDelete('CASCADE');
             $table->timestamps();
         });
     }

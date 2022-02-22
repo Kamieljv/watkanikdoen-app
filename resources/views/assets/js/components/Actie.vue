@@ -63,7 +63,7 @@
                 <div class="flex items-center p-3 bg-gray-200">
                     <div class="flex-shrink-0">
                         <a :href="actie.organizers[0].link">
-                            <img class="w-10 h-10 rounded-full" :src="actie.organizers[0].logo_path" :alt="actie.organizers[0].name" :title="actie.organizers[0].name">
+                            <img class="w-10 h-10 rounded-full" :src="actie.organizers[0].image.url" :alt="actie.organizers[0].name" :title="actie.organizers[0].name">
                         </a>
                     </div>
                     <div class="ml-3">

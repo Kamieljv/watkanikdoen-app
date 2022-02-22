@@ -2,7 +2,7 @@
     <a :href="route">
         <div class="content flex h-full p-3 justify-between border border-gray-200 mb-1 rounded-lg shadow-md hover:shadow-lg hover:bg-gray-100">
             <div class="flex space-x-3 justify-start items-center">
-                <img class="w-10 h-10 rounded-full" :src="organizer.logo_path" :title="organizer.name">
+                <img class="w-10 h-10 rounded-full" :src="organizer.image.url" :title="organizer.name">
                 <div class="flex flex-col overflow-hidden">
                     <p class="font-bold truncate">{{ organizer.name }}</p>
                     <ul class="sm:hidden pt-2 flex space-x-1">

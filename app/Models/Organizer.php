@@ -8,7 +8,6 @@ use Voyager;
 class Organizer extends Model
 {
     protected $appends = [
-        'logo_path',
         'link',
         'website_human',
     ];
@@ -18,13 +17,10 @@ class Organizer extends Model
      *
      * @var array
      */
-    protected $with = ['themes:id,name,color,slug'];
-
-
-    public function getLogoPathAttribute()
-    {
-        return $this->logo ? Voyager::image($this->logo) : null;
-    }
+    protected $with = [
+        'themes:id,name,color,slug',
+        'image'
+    ];
 
     public function getLinkAttribute()
     {
@@ -47,5 +43,10 @@ class Organizer extends Model
     public function themes()
     {
         return $this->belongsToMany(Theme::class, 'organizer_theme');
+    }
+
+    public function image()
+    {
+        return $this->hasOne(Image::class);
     }
 }

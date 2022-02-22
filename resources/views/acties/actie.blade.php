@@ -118,7 +118,7 @@
                             <a href="{{ $organizer->link }}">
                                 <div class="flex flex-row items-center">
                                     <div class="flex-shrink-0">
-                                        <img class="w-10 h-10 rounded-full" src="{{ $organizer->logo_path }}" alt="">
+                                        <img class="w-10 h-10 rounded-full" src="{{ $organizer->image->url }}" alt="">
                                     </div>
                                     <div class="ml-3">
                                         <p class="text-sm font-medium hover:underline leading-5 text-gray-900">

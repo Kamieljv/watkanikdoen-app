@@ -7,10 +7,21 @@ use Voyager;
 
 class Image extends Model
 {
+    protected $primaryKey = 'key';
+
     protected $fillable = [
         'path',
-        'user_id'
+        'user_id',
+        'organizer_id'
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $model->key = md5($model->path);
+        });
+    }
 
     protected $appends = [
         'url',

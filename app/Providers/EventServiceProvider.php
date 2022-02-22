@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Listeners\AddImageRecord;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use TCG\Voyager\Events\BreadDataChanged;
+use TCG\Voyager\Events\MediaFileAdded;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -12,9 +15,12 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\Event' => [
-            'App\Listeners\EventListener',
+        MediaFileAdded::class => [
+            AddImageRecord::class,
         ],
+        BreadDataChanged::class => [
+            AddImageRecord::class,
+        ]
     ];
 
     /**
