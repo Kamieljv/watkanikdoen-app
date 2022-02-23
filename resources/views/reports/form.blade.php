@@ -209,7 +209,7 @@
                     <div class="flex flex-col mt-5 space-y-3 h-[150px]">
                         {{-- Image --}}
                         <form-image
-                            previous-image="{{ $viewOnly ? $report->image_path : old('image') }}"
+                            previous-image="{{ $viewOnly ? ($report->linked_image ? $report->linked_image->url : null) : old('image') }}"
                             field-name="image"
                             viewport-type="square"
                             default-color="var(--wkid-blue-light)"

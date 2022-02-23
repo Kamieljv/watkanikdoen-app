@@ -18,8 +18,8 @@
                 <div class="content flex flex-col gap-4 h-full">
                     <!-- Image and tags -->
                     <div class="flex-shrink-0 not-prose rounded-lg shadow-lg overflow-hidden" style="position:relative;">
-                        @if ($actie->image)
-                            <img class="object-cover w-full h-48" src="{{ $actie->image->url }}" alt="">
+                        @if ($actie->linked_image)
+                            <img class="object-cover w-full h-48" src="{{ $actie->linked_image->url }}" alt="">
                         @else
                             <div class="h-[150px] bg-gradient-to-r from-[var(--wkid-pink-light)] to-[var(--wkid-blue-light)] text-white flex items-center justify-center">
                                 @svg('custom-logo-icon', ['style' => 'fill: currentColor; height: 80px;'])
@@ -118,7 +118,9 @@
                             <a href="{{ $organizer->link }}">
                                 <div class="flex flex-row items-center">
                                     <div class="flex-shrink-0">
-                                        <img class="w-10 h-10 rounded-full" src="{{ $organizer->image->url }}" alt="">
+                                        @if($organizer->linked_image)
+                                            <img class="w-10 h-10 rounded-full" src="{{ $organizer->linked_image->url }}" alt="">
+                                        @endif
                                     </div>
                                     <div class="ml-3">
                                         <p class="text-sm font-medium hover:underline leading-5 text-gray-900">

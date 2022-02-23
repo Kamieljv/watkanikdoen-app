@@ -13,7 +13,9 @@
         <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
             <div class="w-full md:w-auto flex flex-row items-center space-x-5">
                 <div class="flex-shrink-0">
-                    <img class="w-[80px] h-[80px] rounded-full border-2 border-gray-300" src="{{ $organizer->image->url }}" alt="">
+                    @if($organizer->linked_image)
+                        <img class="w-[80px] h-[80px] rounded-full border-2 border-gray-300" src="{{ $organizer->linked_image->url }}" alt="">
+                    @endif
                 </div>
                 <h1>{{ $organizer->name }}</h1>
             </div>

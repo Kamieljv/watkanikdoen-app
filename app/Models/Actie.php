@@ -72,7 +72,7 @@ class Actie extends Model
         'organizers:id,name,logo,slug',
         'categories:id,name',
         'themes:id,name,color',
-        'image'
+        'linked_image'
     ];
 
     public function getLinkAttribute()
@@ -138,7 +138,7 @@ class Actie extends Model
         return $this->belongsToMany(Theme::class, 'actie_theme');
     }
 
-    public function image()
+    public function linked_image()
     {
         return $this->hasOne(Image::class);
     }

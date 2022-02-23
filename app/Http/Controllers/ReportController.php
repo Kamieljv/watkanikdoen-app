@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Report;
 use App\Models\Actie;
+use App\Models\Image;
 use App\Models\Organizer;
+use App\Models\Report;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -75,8 +76,16 @@ class ReportController extends Controller
                 'location_human' => $request->location_human,
             ]);
             if ($request->image) {
-                $path = 'reports/'. uniqid() . '.png';
+                $ext = '.' . explode('/', mime_content_type($request->image))[1];
+                $path = 'reports/' . md5($request->title . microtime()) . $ext;
+                // Store the image on the server
                 Storage::disk(config('voyager.storage.disk'))->put($path, file_get_contents($request->image));
+                // Create entry in db
+                Image::create([
+                    'path' => $path,
+                    'report_id' => $report->id,
+                ]);
+                // Also save image on the model
                 $report->image = $path;
                 $report->save();
             }
@@ -111,9 +120,7 @@ class ReportController extends Controller
 
         // Move image to actie folder
         $newImagePath = 'acties/' . explode("/", $report->image)[1];
-        Storage::disk(config('voyager.storage.disk'))->move($report->image, $newImagePath);
-        $report->image = $newImagePath;
-        $report->save();
+        Storage::disk(config('voyager.storage.disk'))->copy($report->image, $newImagePath);
 
         // create new actie
         $actie = Actie::create([
@@ -127,6 +134,10 @@ class ReportController extends Controller
             'location_human' => $report->location_human,
             'image' => $newImagePath,
             'slug' => $this->createSlug($report->title),
+        ]);
+        Image::create([
+            'path' => $newImagePath,
+            'actie_id' => $actie->id,
         ]);
 
         // Add a relationship entry for the ActieOrganizer if the organizer_id is passed

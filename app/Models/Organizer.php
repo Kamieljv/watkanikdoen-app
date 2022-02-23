@@ -19,7 +19,7 @@ class Organizer extends Model
      */
     protected $with = [
         'themes:id,name,color,slug',
-        'image'
+        'linked_image'
     ];
 
     public function getLinkAttribute()
@@ -45,7 +45,7 @@ class Organizer extends Model
         return $this->belongsToMany(Theme::class, 'organizer_theme');
     }
 
-    public function image()
+    public function linked_image()
     {
         return $this->hasOne(Image::class);
     }

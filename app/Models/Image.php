@@ -12,7 +12,9 @@ class Image extends Model
     protected $fillable = [
         'path',
         'user_id',
-        'organizer_id'
+        'actie_id',
+        'organizer_id',
+        'report_id'
     ];
 
     public static function boot()

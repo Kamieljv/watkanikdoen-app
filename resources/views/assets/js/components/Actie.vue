@@ -10,7 +10,7 @@
             <meta class="uk-margin-remove-adjacent" property="datePublished" :content="new Date(actie.created_at).toISOString()">
             <div class="content flex flex-col h-full">
                 <div class="flex-shrink-0" style="position:relative;">
-                    <img v-if="actie.image" class="object-cover w-full h-[150px]" :src="actie.image.url" alt="">
+                    <img v-if="actie.linked_image" class="object-cover w-full h-[150px]" :src="actie.linked_image.url" alt="">
                     <div v-else class="h-[150px] bg-gray-300 text-gray-400 flex items-center justify-center">
                         <svg-vue icon="logo-icon" style="fill: currentColor; height: 80px;"></svg-vue>
                     </div>
@@ -63,7 +63,7 @@
                 <div class="flex items-center p-3 bg-gray-200">
                     <div class="flex-shrink-0">
                         <a :href="actie.organizers[0].link">
-                            <img v-if="actie.organizers[0].image" class="w-10 h-10 rounded-full" :src="actie.organizers[0].image.url" :alt="actie.organizers[0].name" :title="actie.organizers[0].name">
+                            <img v-if="actie.organizers[0].linked_image" class="w-10 h-10 rounded-full" :src="actie.organizers[0].linked_image.url" :alt="actie.organizers[0].name" :title="actie.organizers[0].name">
                         </a>
                     </div>
                     <div class="ml-3">

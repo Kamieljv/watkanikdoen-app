@@ -76,7 +76,7 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
         return $this->hasMany(Report::class)->without('user');
     }
 
-    public function image()
+    public function linked_image()
     {
         return $this->hasOne(Image::class);
     }

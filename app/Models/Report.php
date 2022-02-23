@@ -21,7 +21,6 @@ class Report extends Model
     protected $geometryAsText = true;
 
     protected $appends = [
-        'image_path',
         'coordinates'
     ];
 
@@ -40,6 +39,10 @@ class Report extends Model
 
     protected $hidden = [
         'location'
+    ];
+
+    protected $with = [
+        'linked_image'
     ];
 
     public function getImagePathAttribute()
@@ -62,6 +65,11 @@ class Report extends Model
     public function user()
     {
         return $this->belongsTo(User::class)->without('reports');
+    }
+    
+    public function linked_image()
+    {
+        return $this->hasOne(Image::class);
     }
 
     /**
