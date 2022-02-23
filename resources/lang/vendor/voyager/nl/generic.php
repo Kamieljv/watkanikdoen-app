@@ -38,6 +38,7 @@ return [
     'exception'              => 'Uitzondering',
     'featured'               => 'Featured',
     'field_does_not_exist'   => 'Veld bestaat niet',
+    'file_explorer'          => 'File explorer',
     'how_to_use'             => 'Gebruikershandleiding',
     'index'                  => 'Index',
     'internal_error'         => 'Interne fout',

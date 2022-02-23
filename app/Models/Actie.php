@@ -75,6 +75,10 @@ class Actie extends Model
         'linked_image'
     ];
 
+    public function voyagerRoute($action) {
+        return route('voyager.organizers.'.$action, $this->id);
+    }
+
     public function getLinkAttribute()
     {
         return url('/actie/' . $this->slug);
@@ -140,7 +144,7 @@ class Actie extends Model
 
     public function linked_image()
     {
-        return $this->hasOne(Image::class);
+        return $this->hasOne(Image::class)->without('actie');
     }
 
     public function getAfgelopenAttribute() {

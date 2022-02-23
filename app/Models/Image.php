@@ -17,20 +17,60 @@ class Image extends Model
         'report_id'
     ];
 
-    public static function boot()
-    {
-        parent::boot();
-        static::creating(function ($model) {
-            $model->key = md5($model->path);
-        });
-    }
-
     protected $appends = [
         'url',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $model->key = md5($model->path); // has filepath as key
+            $model->size = filesize(storage_path('app/public/' . $model->path)) / 1000; // compute size in kB
+        });
+    }
+
     public function getUrlAttribute()
     {
         return Voyager::image($this->path);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class)->without('linked_image');
+    }
+
+    public function organizer()
+    {
+        return $this->belongsTo(Organizer::class)->without('linked_image');
+    }
+
+    public function actie()
+    {
+        return $this->belongsTo(Actie::class)->without('linked_image');
+    }
+
+    public function report()
+    {
+        return $this->belongsTo(Report::class)->without('linked_image');
+    }
+
+    public function linkedModel()
+    {
+        $links = array_values(array_filter([
+            $this->user,
+            $this->organizer,
+            $this->actie,
+            $this->report,
+        ]));
+        return $links ? $links[0] : null;
+    }
+
+    public function scopeHasLink($query)
+    {
+        return $query->where('user_id', '!=', null)
+                ->orWhere('organizer_id', '!=', null)
+                ->orWhere('actie_id', '!=', null)
+                ->orWhere('report_id', '!=', null);
     }
 }

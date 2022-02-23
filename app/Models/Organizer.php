@@ -22,6 +22,10 @@ class Organizer extends Model
         'linked_image'
     ];
 
+    public function voyagerRoute($action) {
+        return route('voyager.organizers.'.$action, $this->id);
+    }
+
     public function getLinkAttribute()
     {
         return url('/organizer/' . $this->slug);
@@ -47,6 +51,6 @@ class Organizer extends Model
 
     public function linked_image()
     {
-        return $this->hasOne(Image::class);
+        return $this->hasOne(Image::class)->without('organizer');
     }
 }

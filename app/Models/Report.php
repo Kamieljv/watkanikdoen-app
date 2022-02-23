@@ -45,6 +45,10 @@ class Report extends Model
         'linked_image'
     ];
 
+    public function voyagerRoute($action) {
+        return route('voyager.organizers.'.$action, $this->id);
+    }
+
     public function getImagePathAttribute()
     {
         return $this->image ? Voyager::image($this->image) : null;
@@ -66,10 +70,10 @@ class Report extends Model
     {
         return $this->belongsTo(User::class)->without('reports');
     }
-    
+
     public function linked_image()
     {
-        return $this->hasOne(Image::class);
+        return $this->hasOne(Image::class)->without('report');
     }
 
     /**
