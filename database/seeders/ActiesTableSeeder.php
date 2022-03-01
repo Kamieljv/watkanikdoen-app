@@ -22,7 +22,7 @@ class ActiesTableSeeder extends Seeder
             0 =>
             array (
                 'id' => 11,
-                'user_id' => 2,
+                'user_id' => 1,
                 'title' => 'Klimaatdemo',
                 'excerpt' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sagittis venenatis nibh, dapibus tempus ex ultrices sit amet.',
                 'body' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sagittis venenatis nibh, dapibus tempus ex ultrices sit amet. <strong>Donec bibendum purus venenatis sapien semper volutpat. Aliquam tincidunt convallis iaculis. Donec at ligula ac arcu fringilla lacinia sed id erat.</strong> Vestibulum non ex gravida, pretium urna eu, luctus justo. Pellentesque gravida porta scelerisque. Curabitur nulla neque, tristique eu ipsum at, gravida tempor nisl. Proin non iaculis magna. Praesent sed lectus vel nunc egestas pulvinar. <em>Integer tincidunt sem in vehicula commodo. </em></p>',
@@ -41,7 +41,7 @@ class ActiesTableSeeder extends Seeder
             1 =>
             array (
                 'id' => 12,
-                'user_id' => 2,
+                'user_id' => 1,
                 'title' => 'Black Lives Matter',
                 'excerpt' => null,
                 'body' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel leo massa. Suspendisse pharetra justo ut turpis suscipit, in auctor tellus dignissim. Donec orci tortor, aliquam eu mauris vitae, vestibulum porta mi. Ut leo augue, elementum nec malesuada sed, euismod vel nunc. Sed tincidunt dolor porttitor eros suscipit, in dignissim erat mollis. Vestibulum in rhoncus mauris, sit amet rutrum orci. Vestibulum at pulvinar nisl.</p>
@@ -100,7 +100,7 @@ class ActiesTableSeeder extends Seeder
             4 =>
             array (
                 'id' => 19,
-                'user_id' => 2,
+                'user_id' => 1,
                 'title' => 'Klimaatdemo',
                 'excerpt' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sagittis venenatis nibh, dapibus tempus ex ultrices sit amet.',
                 'body' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sagittis venenatis nibh, dapibus tempus ex ultrices sit amet. <strong>Donec bibendum purus venenatis sapien semper volutpat. Aliquam tincidunt convallis iaculis. Donec at ligula ac arcu fringilla lacinia sed id erat.</strong> Vestibulum non ex gravida, pretium urna eu, luctus justo. Pellentesque gravida porta scelerisque. Curabitur nulla neque, tristique eu ipsum at, gravida tempor nisl. Proin non iaculis magna. Praesent sed lectus vel nunc egestas pulvinar. <em>Integer tincidunt sem in vehicula commodo. </em></p>',
@@ -119,7 +119,7 @@ class ActiesTableSeeder extends Seeder
             5 =>
             array (
                 'id' => 20,
-                'user_id' => 2,
+                'user_id' => 1,
                 'title' => 'Klimaatdemo',
                 'excerpt' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sagittis venenatis nibh, dapibus tempus ex ultrices sit amet.',
                 'body' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sagittis venenatis nibh, dapibus tempus ex ultrices sit amet. <strong>Donec bibendum purus venenatis sapien semper volutpat. Aliquam tincidunt convallis iaculis. Donec at ligula ac arcu fringilla lacinia sed id erat.</strong> Vestibulum non ex gravida, pretium urna eu, luctus justo. Pellentesque gravida porta scelerisque. Curabitur nulla neque, tristique eu ipsum at, gravida tempor nisl. Proin non iaculis magna. Praesent sed lectus vel nunc egestas pulvinar. <em>Integer tincidunt sem in vehicula commodo. </em></p>',
@@ -138,7 +138,7 @@ class ActiesTableSeeder extends Seeder
             6 =>
             array (
                 'id' => 23,
-                'user_id' => 2,
+                'user_id' => 1,
                 'title' => 'Black Lives Matter',
                 'excerpt' => null,
                 'body' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel leo massa. Suspendisse pharetra justo ut turpis suscipit, in auctor tellus dignissim. Donec orci tortor, aliquam eu mauris vitae, vestibulum porta mi. Ut leo augue, elementum nec malesuada sed, euismod vel nunc. Sed tincidunt dolor porttitor eros suscipit, in dignissim erat mollis. Vestibulum in rhoncus mauris, sit amet rutrum orci. Vestibulum at pulvinar nisl.</p>
@@ -158,7 +158,7 @@ class ActiesTableSeeder extends Seeder
             7 =>
             array (
                 'id' => 24,
-                'user_id' => 2,
+                'user_id' => 1,
                 'title' => 'Black Lives Matter',
                 'excerpt' => null,
                 'body' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel leo massa. Suspendisse pharetra justo ut turpis suscipit, in auctor tellus dignissim. Donec orci tortor, aliquam eu mauris vitae, vestibulum porta mi. Ut leo augue, elementum nec malesuada sed, euismod vel nunc. Sed tincidunt dolor porttitor eros suscipit, in dignissim erat mollis. Vestibulum in rhoncus mauris, sit amet rutrum orci. Vestibulum at pulvinar nisl.</p>
@@ -178,7 +178,7 @@ class ActiesTableSeeder extends Seeder
             8 =>
             array (
                 'id' => 25,
-                'user_id' => 2,
+                'user_id' => 1,
                 'title' => 'Bio-industrie Protest',
                 'excerpt' => null,
                 'body' => '<p>Dit is de beschrijving. Lorem Ipsum lorem ipsum</p>',
