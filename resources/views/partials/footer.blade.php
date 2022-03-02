@@ -1,5 +1,4 @@
 
-<!-- Section 1 -->
 <footer class="@if(Request::is('/')){{ 'bg-white' }}@else{{ 'bg-gray-50' }}@endif">
     <div class="px-8 pt-16 mx-auto lg:px-12 xl:px-16 max-w-6xl">
         <div class="flex flex-col items-center justify-between py-10 border-t border-solid sm:flex-row border-gray">
@@ -56,6 +55,9 @@
         </div>
     </div>
 </footer>
+<div id="construction-warning" class="fixed w-full bottom-0 justify-center items-center py-3 bg-yellow-300 text-yellow-700 text-center">
+    <span>Let op: deze pagina wordt momenteel getest. De inhoud kan onvolledig zijn.</span>
+</div>
 
 @if(!auth()->guest() && auth()->user()->hasAnnouncements())
     @include('partials.announcements')
