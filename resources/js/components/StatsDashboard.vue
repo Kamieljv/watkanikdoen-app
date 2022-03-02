@@ -57,71 +57,71 @@
 </template>
 
 <script>
-	import moment from 'moment'
+import moment from "moment"
 
-	export default {
-		name: "StatsDashboard",
-		props: {
-			umamiToken: {
-				type: String,
-				required: true,
-			},
-			statsUrl: {
-				type: String,
-				required: true,
-			},
-			platformStatsRoute: {
-				type: String,
-				required: true,
-			},
-			days: {
-				type: Number,
-				default: 7,
-			}
+export default {
+	name: "StatsDashboard",
+	props: {
+		umamiToken: {
+			type: String,
+			required: true,
 		},
-		data() {
-			return {
-				visitStats: {},
-				platformStats: {},
-				isLoading: {
-					visit: true,
-					platform: true,
+		statsUrl: {
+			type: String,
+			required: true,
+		},
+		platformStatsRoute: {
+			type: String,
+			required: true,
+		},
+		days: {
+			type: Number,
+			default: 7,
+		}
+	},
+	data() {
+		return {
+			visitStats: {},
+			platformStats: {},
+			isLoading: {
+				visit: true,
+				platform: true,
+			},
+			isError: {
+				visit: false,
+				platform: false,
+			},
+		}
+	},
+	mounted() {
+		this.visitStats = ["pageviews", "uniques", "bounces", "totaltime"]
+			.reduce((acc,curr)=> (acc[curr]={value: "N/A", change: "N/A"},acc),{})
+		this.platformStats = ["acties", "users", "organizers"]
+			.reduce((acc,curr)=> (acc[curr]="N/A",acc),{})
+		this.getPlatformStats()
+		this.getVisitStats(2, this.days, 0)
+	},
+	methods: {
+		getVisitStats(websiteId, startDaysAgo, endDaysAgo) {
+			this.$http.get(`https://analytics.watkanikdoen.nl/api/website/${websiteId}/stats`, {
+				headers: {
+					"Authorization": `Bearer ${this.umamiToken}`
 				},
-				isError: {
-					visit: false,
-					platform: false,
-				},
-			}
+				params: {
+					start_at: moment().subtract(startDaysAgo, "days").unix()*1000,
+					end_at: moment().subtract(endDaysAgo, "days").unix()*1000
+				}
+			}).then((response) => {
+				this.visitStats = response.data
+				this.isLoading.visit = false
+			}).catch((error) => {
+				console.log(error)
+				this.isLoading.visit = false
+				this.isError.visit = true
+			})
 		},
-		mounted() {
-			this.visitStats = ['pageviews', 'uniques', 'bounces', 'totaltime']
-								.reduce((acc,curr)=> (acc[curr]={value: 'N/A', change: 'N/A'},acc),{})
-			this.platformStats = ['acties', 'users', 'organizers']
-								.reduce((acc,curr)=> (acc[curr]='N/A',acc),{})
-			this.getPlatformStats()
-			this.getVisitStats(2, this.days, 0)
-		},
-		methods: {
-			getVisitStats(websiteId, startDaysAgo, endDaysAgo) {
-				this.$http.get(`https://analytics.watkanikdoen.nl/api/website/${websiteId}/stats`, {
-					headers: {
-						'Authorization': `Bearer ${this.umamiToken}`
-					},
-					params: {
-						start_at: moment().subtract(startDaysAgo, 'days').unix()*1000,
-						end_at: moment().subtract(endDaysAgo, 'days').unix()*1000
-					}
-				}).then((response) => {
-					this.visitStats = response.data
-					this.isLoading.visit = false
-				}).catch((error) => {
-					console.log(error)
-					this.isLoading.visit = false
-					this.isError.visit = true
-				})
-			},
-			getPlatformStats() {
-				this.$http.get(this.platformStatsRoute)
+		getPlatformStats() {
+			this.$http.get(this.platformStatsRoute)
 				.then((response) => {
 					this.platformStats = response.data
 					this.isLoading.platform = false
@@ -130,9 +130,9 @@
 					this.isLoading.platform = false
 					this.isError.platform = true
 				})
-			}
 		}
 	}
+}
 </script>
 
 <style lang="scss" scoped>

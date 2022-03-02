@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Notifications\Mail\PasswordReset;
 use Illuminate\Notifications\Notifiable;
 use Lab404\Impersonate\Models\Impersonate;
-use Storage;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends \TCG\Voyager\Models\User implements JWTSubject
@@ -66,8 +65,9 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
         return !$this->announcements->contains($latest_announcement->id);
     }
 
-    public function voyagerRoute($action) {
-        return route('voyager.organizers.'.$action, $this->id);
+    public function voyagerRoute($action)
+    {
+        return route('voyager.organizers.' . $action, $this->id);
     }
 
     public function announcements()
@@ -116,7 +116,8 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
         $this->notify(new PasswordReset($token));
     }
 
-    public function scopeVerified($query) {
+    public function scopeVerified($query)
+    {
         return $query->where('verified', 1);
     }
 }

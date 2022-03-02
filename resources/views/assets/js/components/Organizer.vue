@@ -48,10 +48,10 @@ export default {
 			type: Object,
 			required: true,
 		},
-        route: {
-            type: String,
-            required: true,
-        }
+		route: {
+			type: String,
+			required: true,
+		}
 	},
 }
 </script>

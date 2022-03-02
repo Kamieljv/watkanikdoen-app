@@ -66,7 +66,7 @@ Cookie notice is created with [this package](https://github.com/manucaralmo/Glow
 - [ ] Actie toevoegen (unauth) pagina vullen
 - [x] Refactor aanmelding -> report
 - [x] Remove unused db columns in `acties`
-- [ ] Change .gitignores so as to preserve images on pulling new changes
+- [x] Change .gitignores so as to preserve images on pulling new changes
 - [ ] BUG: Restrict image formats to png and jpg in profile image uploader
 - [ ] Organize validation in Requests
 - [x] Organizer image fallbacks

@@ -3,7 +3,6 @@
 namespace App\Notifications\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -40,7 +39,7 @@ class PasswordReset extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+        return (new MailMessage())
                     ->subject(__("Reset Password") . ' | ' . config('app.name'))
                     ->greeting(__("Dear") . ',')
                     ->line(__("You are receiving this email because we received a password reset request for your account."))

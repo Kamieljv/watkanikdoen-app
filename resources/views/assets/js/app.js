@@ -29,20 +29,20 @@ import SvgVue from "svg-vue"
 Vue.use(SvgVue)
 
 // Moment
-import moment from 'moment'
+import moment from "moment"
 Vue.prototype.moment = moment
 
 // Image upload/edit
-import 'exif-js'
-import VueCroppie from 'vue-croppie';
-import 'croppie/croppie.css' // import the croppie css manually
-Vue.use(VueCroppie);
+import "exif-js"
+import VueCroppie from "vue-croppie"
+import "croppie/croppie.css" // import the croppie css manually
+Vue.use(VueCroppie)
 
-import { LMap, LTileLayer, LMarker, LTooltip } from 'vue2-leaflet';
-import 'leaflet/dist/leaflet.css';
-Vue.component('LMap', LMap);
-Vue.component('l-tile-layer', LTileLayer);
-Vue.component('l-marker', LMarker);
+import { LMap, LTileLayer, LMarker, LTooltip } from "vue2-leaflet"
+import "leaflet/dist/leaflet.css"
+Vue.component("LMap", LMap)
+Vue.component("l-tile-layer", LTileLayer)
+Vue.component("l-marker", LMarker)
 Vue.component("l-tooltip", LTooltip)
 
 /**
@@ -57,5 +57,5 @@ const files = require.context("./", true, /\.vue$/i)
 files.keys().map(key => Vue.component(key.split("/").pop().split(".")[0], files(key).default))
 
 // Also load CoordinatesFormField from Voyager section
-import CoordinatesFormField from '../../../js/components/CoordinatesFormField'
-Vue.component('CoordinatesFormField', CoordinatesFormField)
+import CoordinatesFormField from "../../../js/components/CoordinatesFormField"
+Vue.component("CoordinatesFormField", CoordinatesFormField)

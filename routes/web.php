@@ -11,7 +11,6 @@
 |
 */
 
-use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ActieController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Auth\LoginController;
@@ -23,6 +22,7 @@ use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrganizerController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingsController;
 
 // Authentication routes

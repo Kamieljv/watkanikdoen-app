@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Theme;
 use Artesaos\SEOTools\Facades\SEOTools;
-use Auth;
 use Illuminate\Support\Facades\Route;
 
 class HomeController extends Controller

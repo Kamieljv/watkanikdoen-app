@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
+use DB;
 use Illuminate\Database\Seeder;
 
 class SettingsTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -14,12 +14,12 @@ class SettingsTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
-        \DB::table('settings')->delete();
-        
-        \DB::table('settings')->insert(array (
-            0 => 
+
+        DB::table('settings')->delete();
+
+        DB::table('settings')->insert(array (
+            0 =>
             array (
                 'details' => '',
                 'display_name' => 'Site Title',
@@ -30,7 +30,7 @@ class SettingsTableSeeder extends Seeder
                 'type' => 'text',
                 'value' => 'Wat kan ik doen?',
             ),
-            1 => 
+            1 =>
             array (
                 'details' => '',
                 'display_name' => 'Site Description',
@@ -41,7 +41,7 @@ class SettingsTableSeeder extends Seeder
                 'type' => 'text',
                 'value' => 'Jouw startpunt voor actief burgerschap!',
             ),
-            2 => 
+            2 =>
             array (
                 'details' => '',
                 'display_name' => 'Google Analytics Tracking ID',
@@ -50,9 +50,9 @@ class SettingsTableSeeder extends Seeder
                 'key' => 'site.google_analytics_tracking_id',
                 'order' => 4,
                 'type' => 'text',
-                'value' => NULL,
+                'value' => null,
             ),
-            3 => 
+            3 =>
             array (
                 'details' => '',
                 'display_name' => 'Admin Title',
@@ -63,7 +63,7 @@ class SettingsTableSeeder extends Seeder
                 'type' => 'text',
                 'value' => 'Admin Paneel',
             ),
-            4 => 
+            4 =>
             array (
                 'details' => '',
                 'display_name' => 'Admin Description',
@@ -74,7 +74,7 @@ class SettingsTableSeeder extends Seeder
                 'type' => 'text',
                 'value' => 'Wat Kan Ik Doen',
             ),
-            5 => 
+            5 =>
             array (
                 'details' => '',
                 'display_name' => 'Admin Loader',
@@ -85,7 +85,7 @@ class SettingsTableSeeder extends Seeder
                 'type' => 'image',
                 'value' => '',
             ),
-            6 => 
+            6 =>
             array (
                 'details' => '',
                 'display_name' => 'Admin Icon Image',
@@ -96,7 +96,7 @@ class SettingsTableSeeder extends Seeder
                 'type' => 'image',
                 'value' => 'settings/February2022/lYMBBE35iQ8T5k0GbbtF.png',
             ),
-            7 => 
+            7 =>
             array (
                 'details' => '',
             'display_name' => 'Google Analytics Client ID (used for admin dashboard)',
@@ -105,11 +105,11 @@ class SettingsTableSeeder extends Seeder
                 'key' => 'admin.google_analytics_client_id',
                 'order' => 1,
                 'type' => 'text',
-                'value' => NULL,
+                'value' => null,
             ),
-            8 => 
+            8 =>
             array (
-                'details' => NULL,
+                'details' => null,
                 'display_name' => 'Homepage Redirect to Dashboard if Logged in',
                 'group' => 'Auth',
                 'id' => 12,
@@ -118,7 +118,7 @@ class SettingsTableSeeder extends Seeder
                 'type' => 'checkbox',
                 'value' => '0',
             ),
-            9 => 
+            9 =>
             array (
                 'details' => '{
 "default" : "email",
@@ -135,7 +135,7 @@ class SettingsTableSeeder extends Seeder
                 'type' => 'select_dropdown',
                 'value' => 'email',
             ),
-            10 => 
+            10 =>
             array (
                 'details' => '{
 "default" : "yes",
@@ -152,9 +152,9 @@ class SettingsTableSeeder extends Seeder
                 'type' => 'select_dropdown',
                 'value' => 'no',
             ),
-            11 => 
+            11 =>
             array (
-                'details' => NULL,
+                'details' => null,
                 'display_name' => 'Verify Email during Sign Up',
                 'group' => 'Auth',
                 'id' => 15,
@@ -164,7 +164,5 @@ class SettingsTableSeeder extends Seeder
                 'value' => '1',
             ),
         ));
-        
-        
     }
 }

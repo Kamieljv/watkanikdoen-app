@@ -92,9 +92,9 @@ export default {
 	},
 	methods: {
 		markAsRead(e) {
-			this.$http.post(this.readRoute + '/' + e.target.dataset.id).then((response) => {
+			this.$http.post(this.readRoute + "/" + e.target.dataset.id).then((response) => {
 				if (response.data.type == "success") {
-					Vue.set(this.notif[e.target.dataset.listid], 'read_at', new Date())
+					Vue.set(this.notif[e.target.dataset.listid], "read_at", new Date())
 				}
 			})
 		}

@@ -92,11 +92,11 @@ export default {
 			required: true,
 		}
 	},
-    computed: {
-        isAfgelopen() {
-            return this.actie.start_unix < Math.floor(new Date().getTime() / 1000)
-        }
-    }
+	computed: {
+		isAfgelopen() {
+			return this.actie.start_unix < Math.floor(new Date().getTime() / 1000)
+		}
+	}
 }
 </script>
 

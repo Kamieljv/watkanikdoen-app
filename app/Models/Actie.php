@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Jenssegers\Date\Date;
@@ -72,11 +71,12 @@ class Actie extends Model
         'organizers:id,name,logo,slug',
         'categories:id,name',
         'themes:id,name,color',
-        'linked_image'
+        'linked_image',
     ];
 
-    public function voyagerRoute($action) {
-        return route('voyager.organizers.'.$action, $this->id);
+    public function voyagerRoute($action)
+    {
+        return route('voyager.organizers.' . $action, $this->id);
     }
 
     public function getLinkAttribute()
@@ -147,15 +147,18 @@ class Actie extends Model
         return $this->hasOne(Image::class)->without('actie');
     }
 
-    public function getAfgelopenAttribute() {
+    public function getAfgelopenAttribute()
+    {
         return $this->start_unix < time();
     }
 
-    public function getPublishedAttribute() {
+    public function getPublishedAttribute()
+    {
         return $this->status === "PUBLISHED";
     }
 
-    public function scopePublished($query) {
+    public function scopePublished($query)
+    {
         return $query->where('status', 'PUBLISHED');
     }
 

@@ -48,59 +48,59 @@
 </template>
 
 <script>
-import { Editor, EditorContent } from '@tiptap/vue-2'
-import StarterKit from '@tiptap/starter-kit'
-import Underline from '@tiptap/extension-underline'
+import { Editor, EditorContent } from "@tiptap/vue-2"
+import StarterKit from "@tiptap/starter-kit"
+import Underline from "@tiptap/extension-underline"
 // import Link from '@tiptap/extension-link'
 
 export default {
-  components: {
-    EditorContent,
-  },
+	components: {
+		EditorContent,
+	},
 
-  props: {
-    value: {
-      type: String,
-      default: '',
-    },
-    name: {
-      type: String,
-      default: '',
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    }
-  },
+	props: {
+		value: {
+			type: String,
+			default: "",
+		},
+		name: {
+			type: String,
+			default: "",
+		},
+		disabled: {
+			type: Boolean,
+			default: false,
+		}
+	},
 
-  data() {
-    return {
-      editor: null,
-      formValue: null,
-    }
-  },
+	data() {
+		return {
+			editor: null,
+			formValue: null,
+		}
+	},
 
-  mounted() {
-    this.editor = new Editor({
-      content: this.value,
-      extensions: [
-          StarterKit.configure({
-            heading: {
-            levels: [1, 2, 3],
-            },
-          }),
-          Underline,
-          // Link,
-      ],
-      editable: !this.disabled,
-      onUpdate: () => {
-        this.formValue = this.editor.getHTML()
-      },
-    })
-    this.formValue = this.editor.getHTML()
-  },
-  beforeDestroy() {
-    this.editor.destroy()
-  },
+	mounted() {
+		this.editor = new Editor({
+			content: this.value,
+			extensions: [
+				StarterKit.configure({
+					heading: {
+						levels: [1, 2, 3],
+					},
+				}),
+				Underline,
+				// Link,
+			],
+			editable: !this.disabled,
+			onUpdate: () => {
+				this.formValue = this.editor.getHTML()
+			},
+		})
+		this.formValue = this.editor.getHTML()
+	},
+	beforeDestroy() {
+		this.editor.destroy()
+	},
 }
 </script>

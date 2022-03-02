@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
+use DB;
 use Illuminate\Database\Seeder;
 
 class ThemesTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -14,12 +14,12 @@ class ThemesTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
-        \DB::table('themes')->delete();
-        
-        \DB::table('themes')->insert(array (
-            0 => 
+
+        DB::table('themes')->delete();
+
+        DB::table('themes')->insert(array (
+            0 =>
             array (
                 'id' => 1,
                 'name' => 'Klimaat',
@@ -28,7 +28,7 @@ class ThemesTableSeeder extends Seeder
                 'created_at' => '2017-11-21 16:23:00',
                 'updated_at' => '2022-01-22 15:42:39',
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'name' => 'Anti-racisme',
@@ -37,7 +37,7 @@ class ThemesTableSeeder extends Seeder
                 'created_at' => '2021-12-06 14:10:00',
                 'updated_at' => '2022-01-22 15:43:45',
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'name' => 'Dierenrechten',
@@ -46,7 +46,7 @@ class ThemesTableSeeder extends Seeder
                 'created_at' => '2021-12-06 14:10:00',
                 'updated_at' => '2022-01-22 15:43:03',
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 4,
                 'name' => 'Wonen',
@@ -56,7 +56,5 @@ class ThemesTableSeeder extends Seeder
                 'updated_at' => '2022-01-22 15:43:21',
             ),
         ));
-        
-        
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Voyager;
 
 class Organizer extends Model
 {
@@ -19,11 +18,12 @@ class Organizer extends Model
      */
     protected $with = [
         'themes:id,name,color,slug',
-        'linked_image'
+        'linked_image',
     ];
 
-    public function voyagerRoute($action) {
-        return route('voyager.organizers.'.$action, $this->id);
+    public function voyagerRoute($action)
+    {
+        return route('voyager.organizers.' . $action, $this->id);
     }
 
     public function getLinkAttribute()

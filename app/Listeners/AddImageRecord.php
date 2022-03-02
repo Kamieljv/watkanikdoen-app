@@ -3,9 +3,6 @@
 namespace App\Listeners;
 
 use App\Models\Image;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use TCG\Voyager\Events\MediaFileAdded;
-
 use Illuminate\Support\Facades\Log;
 
 class AddImageRecord
