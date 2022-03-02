@@ -1,5 +1,4 @@
 
-<!-- Section 1 -->
 <footer class="@if(Request::is('/')){{ 'bg-white' }}@else{{ 'bg-gray-50' }}@endif">
     <div class="px-8 pt-16 mx-auto lg:px-12 xl:px-16 max-w-6xl">
         <div class="flex flex-col items-center justify-between py-10 border-t border-solid sm:flex-row border-gray">
@@ -62,16 +61,3 @@
 @endif
 
 @yield('javascript')
-
-@if(setting('site.google_analytics_tracking_id', ''))
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ setting('site.google_analytics_tracking_id') }}"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', '{{ setting("site.google_analytics_tracking_id") }}');
-    </script>
-
-@endif
