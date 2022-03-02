@@ -99,7 +99,7 @@
 			this.platformStats = ['acties', 'users', 'organizers']
 								.reduce((acc,curr)=> (acc[curr]='N/A',acc),{})
 			this.getPlatformStats()
-			this.getVisitStats(2, this.days, 0)
+			this.getVisitStats(1, this.days, 0)
 		},
 		methods: {
 			getVisitStats(websiteId, startDaysAgo, endDaysAgo) {
