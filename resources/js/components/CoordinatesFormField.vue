@@ -1,17 +1,23 @@
 <template>
     <div>
         <div class="form-group">
-            <div class="col-md-6" v-if="showAutocomplete">
-                <!-- <label class="control-label">Zoek locatie</label>
+			<div class="w-full">
+				<label>
+					<input name="hasNoLatLng" v-model="hasNoLatLng" type="checkbox"/>
+					Deze actie heeft geen specifieke locatie.
+				</label>
+			</div>
+            <!-- <div class="col-md-6" v-if="showAutocomplete">
+                <label class="control-label">Zoek locatie</label>
                 <input
                     class="form-control"
                     type="text"
                     placeholder="Zoek een locatie..."
                     id="places-autocomplete"
                     v-on:keypress="onInputKeyPress"
-                /> -->
-            </div>
-            <div class="col-md-3" :class="{'hidden': !showLatLng}">
+                />
+            </div> -->
+            <div v-if="showLatLng && !hasNoLatLng" class="w-full">
                 <label class="control-label">Lat (°N)</label>
                 <input
 					:disabled="disabled"
@@ -25,7 +31,7 @@
                     v-on:keypress="onInputKeyPress"
                 />
             </div>
-            <div class="col-md-3" :class="{'hidden': !showLatLng}">
+            <div v-if="showLatLng && !hasNoLatLng" class="w-full">
                 <label class="control-label">Lon (°O)</label>
                 <input
 					:disabled="disabled"
@@ -44,6 +50,7 @@
         </div>
 
         <l-map
+			v-if="!hasNoLatLng"
             id="map"
             :zoom="zoom"
             :center="center"
@@ -105,6 +112,10 @@ export default {
 		disabled: {
 			type: Boolean,
 			default: false,
+		},
+		unedited: {
+			type: Boolean,
+			default: true,
 		}
 	},
 	data() {
@@ -117,7 +128,8 @@ export default {
 			lng: "",
 			tooltipOptions: {
 				permanent: true,
-			}
+			},
+			hasNoLatLng: false,
 		}
 	},
 	computed: {
@@ -129,8 +141,18 @@ export default {
 		}
 	},
 	mounted() {
-		this.lat = this.defaultCenter[0].lat
-		this.lng = this.defaultCenter[0].lng
+		this.hasNoLatLng = this.unedited
+	},
+	watch: {
+		hasNoLatLng: function(newVal) {
+			if (newVal) {
+				this.lat = null
+				this.lng = null
+			} else {
+				this.lat = this.defaultCenter[0].lat
+				this.lng = this.defaultCenter[0].lng
+			}
+		}
 	},
 	methods: {
 		setLatLng: function(lat, lng) {
