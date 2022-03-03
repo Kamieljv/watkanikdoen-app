@@ -94,7 +94,7 @@ class SettingsTableSeeder extends Seeder
                 'key' => 'admin.icon_image',
                 'order' => 4,
                 'type' => 'image',
-                'value' => 'settings/February2022/lYMBBE35iQ8T5k0GbbtF.png',
+                'value' => 'images/admin_logo.png',
             ),
             7 =>
             array (

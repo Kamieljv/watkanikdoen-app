@@ -14,7 +14,7 @@
     @if($admin_favicon == '')
         <link rel="shortcut icon" href="{{ voyager_asset('images/logo-icon.png') }}" type="image/png">
     @else
-        <link rel="shortcut icon" href="{{ Voyager::image($admin_favicon) }}" type="image/png">
+        <link rel="shortcut icon" href="{{ asset($admin_favicon) }}" type="image/png">
     @endif
 
     <script src="http://localhost:8098"></script>

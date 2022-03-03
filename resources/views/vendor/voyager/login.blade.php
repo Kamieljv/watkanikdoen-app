@@ -31,7 +31,7 @@
                         @if($admin_logo_img == '')
                             <img class="w-10 h-auto" src="{{ voyager_asset('images/logo-icon-light.png') }}" alt="Logo Icon">
                         @else
-                            <img class="w-10 h-auto" src="{{ Voyager::image($admin_logo_img) }}" alt="Logo Icon">
+                            <img class="w-10 h-auto" src="{{ asset($admin_logo_img) }}" alt="Logo Icon">
                         @endif
                         <div class="flex flex-col justify-center w-auto h-full">
                             <p>Sign in to your account below</p>
