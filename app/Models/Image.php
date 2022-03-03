@@ -14,7 +14,7 @@ class Image extends Model
         'user_id',
         'actie_id',
         'organizer_id',
-        'report_id'
+        'report_id',
     ];
 
     protected $appends = [

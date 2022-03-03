@@ -6,64 +6,70 @@
 
 // Bootstrap-like helpers
 .border-0 {
-    border: 0;
+  border: 0;
 }
 
 // Simple Loader
 div.custom-loader {
-    border: 5px solid #f3f3f3; /* Light grey */
-    border-top: 5px solid #7e7e7e; /* Blue */
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    animation: spin 1s linear infinite;
+  border: 5px solid #f3f3f3; /* Light grey */
+  border-top: 5px solid #7e7e7e; /* Blue */
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 // Modify action buttons
 .btn.approve,
 .btn.view {
-    margin-left: 5px;
-    cursor: pointer;
+  margin-left: 5px;
+  cursor: pointer;
 }
 
 // Profile image backup
 .no-profile-img {
-    float: left;
-    border-radius: 50%;
-    margin-right: 10px;
-    background-color: #046afe;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    &.small {
-        font-size: 20px;
-        height: 40px;
-        width: 40px;
-    }
-    &.large {
-        font-size: 30px;
-        height: 60px;
-        width: 60px;
-    }
-}
-.profile .dropdown-toggle img {
+  float: left;
+  border-radius: 50%;
+  margin-right: 10px;
+  background-color: #046afe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+
+  &.small {
+    font-size: 20px;
     height: 40px;
     width: 40px;
+  }
+
+  &.large {
+    font-size: 30px;
+    height: 60px;
+    width: 60px;
+  }
 }
+
+.profile .dropdown-toggle img {
+  height: 40px;
+  width: 40px;
+}
+
 .profile-body {
-    text-align: left;
+  text-align: left;
 }
+
 .nav.navbar-nav .dropdown-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: right;
+  display: flex;
+  align-items: center;
+  justify-content: right;
 }
+
 .table {
-    color: #444a51;
+  color: #444a51;
 }

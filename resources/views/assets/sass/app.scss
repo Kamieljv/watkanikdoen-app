@@ -123,24 +123,30 @@ h6 {
 #header.detatched {
   background-color: white;
   color: #111;
+
   & #header-logo-link {
     color: #111;
   }
 }
+
 #header.fixed:not(.detatched) {
   & .header-icon button {
-    color:white;
+    color: white;
+
     &:hover {
       background: #ffffff3d;
     }
+
     &:focus {
       color: #1f2937;
       background: white;
     }
   }
+
   & .transparent-button a {
     color: white;
     border-color: white;
+
     &:hover {
       background: #ffffff3d;
     }

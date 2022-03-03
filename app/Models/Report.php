@@ -21,7 +21,7 @@ class Report extends Model
     protected $geometryAsText = true;
 
     protected $appends = [
-        'coordinates'
+        'coordinates',
     ];
 
     protected $fillable = [
@@ -38,15 +38,16 @@ class Report extends Model
     ];
 
     protected $hidden = [
-        'location'
+        'location',
     ];
 
     protected $with = [
-        'linked_image'
+        'linked_image',
     ];
 
-    public function voyagerRoute($action) {
-        return route('voyager.organizers.'.$action, $this->id);
+    public function voyagerRoute($action)
+    {
+        return route('voyager.organizers.' . $action, $this->id);
     }
 
     public function getImagePathAttribute()

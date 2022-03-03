@@ -15,6 +15,10 @@
                 <div class="flex-shrink-0">
                     @if($organizer->linked_image)
                         <img class="w-[80px] h-[80px] rounded-full border-2 border-gray-300" src="{{ $organizer->linked_image->url }}" alt="">
+                    @else
+                        <div class="flex items-center justify-center text-4xl w-[80px] h-[80px]  rounded-full bg-gray-500 text-white border-gray-300">
+                            {{ substr($organizer->name, 0, 1) }}
+                        </div>
                     @endif
                 </div>
                 <h1>{{ $organizer->name }}</h1>

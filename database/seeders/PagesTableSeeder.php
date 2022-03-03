@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
+use DB;
 use Illuminate\Database\Seeder;
 
 class PagesTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -14,12 +14,12 @@ class PagesTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
-        \DB::table('pages')->delete();
-        
-        \DB::table('pages')->insert(array (
-            0 => 
+
+        DB::table('pages')->delete();
+
+        DB::table('pages')->insert(array (
+            0 =>
             array (
                 'author_id' => 1,
             'body' => '<p><em><span style="font-weight: 400;">Watkanikdoen </span></em><span style="font-weight: 400;">is een onafhankelijk platform waarop alle initiatieven te vinden zijn, die zich inzetten voor een eerlijke, inclusieve en duurzame wereld, die in Nederland georganiseerd worden en die burgers inspireren om in actie te komen. Alle demonstraties, stakingen, inzamelacties, petities, meet-ups, marsen en sit-ins zijn voortaan in &eacute;&eacute;n oogopslag bij elkaar te vinden. </span><em><span style="font-weight: 400;">Watkanikdoen</span></em><span style="font-weight: 400;"> zet zich in voor een sterke en actieve democratie met &eacute;&eacute;n helder doel: het bevorderen van een inclusieve, eerlijke en duurzame samenleving door het stimuleren van actief burgerschap. Wij richten ons hierbij op de (potenti&euml;le) actievoerder tussen de 18 en 28 jaar.&nbsp;</span></p>
@@ -34,7 +34,7 @@ class PagesTableSeeder extends Seeder
                 'created_at' => '2018-03-30 03:04:51',
                 'excerpt' => 'This is the about page.',
                 'id' => 2,
-                'image' => NULL,
+                'image' => null,
                 'meta_description' => 'Dit is de over ons pagina.',
                 'meta_keywords' => 'about',
                 'slug' => 'over-ons',
@@ -42,7 +42,7 @@ class PagesTableSeeder extends Seeder
                 'title' => 'Over ons',
                 'updated_at' => '2022-01-18 21:32:01',
             ),
-            1 => 
+            1 =>
             array (
                 'author_id' => 1,
                 'body' => '<p>Dit is het privacybeleid.</p>
@@ -50,7 +50,7 @@ class PagesTableSeeder extends Seeder
                 'created_at' => '2022-01-05 10:18:41',
                 'excerpt' => 'Privacybeleid.',
                 'id' => 3,
-                'image' => NULL,
+                'image' => null,
                 'meta_description' => 'Lees hier meer over ons privacybeleid.',
                 'meta_keywords' => 'privacy',
                 'slug' => 'privacybeleid',
@@ -58,14 +58,14 @@ class PagesTableSeeder extends Seeder
                 'title' => 'Privacybeleid',
                 'updated_at' => '2022-01-18 21:25:02',
             ),
-            2 => 
+            2 =>
             array (
                 'author_id' => 1,
                 'body' => '<p>Dit is de contactpagina.</p>',
                 'created_at' => '2022-01-11 09:53:31',
                 'excerpt' => 'Dit is de contactpagina.',
                 'id' => 4,
-                'image' => NULL,
+                'image' => null,
                 'meta_description' => 'Dit is de contactpagina.',
                 'meta_keywords' => 'contact',
                 'slug' => 'contact',
@@ -74,7 +74,5 @@ class PagesTableSeeder extends Seeder
                 'updated_at' => '2022-01-11 09:53:31',
             ),
         ));
-        
-        
     }
 }

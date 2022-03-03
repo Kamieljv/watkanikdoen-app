@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
+use DB;
 use Illuminate\Database\Seeder;
 
 class JobsTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -14,11 +14,8 @@ class JobsTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
-        \DB::table('jobs')->delete();
-        
-        
-        
+
+        DB::table('jobs')->delete();
     }
 }

@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
+use DB;
 use Illuminate\Database\Seeder;
 
 class PermissionGroupsTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -14,11 +14,8 @@ class PermissionGroupsTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
-        \DB::table('permission_groups')->delete();
-        
-        
-        
+
+        DB::table('permission_groups')->delete();
     }
 }

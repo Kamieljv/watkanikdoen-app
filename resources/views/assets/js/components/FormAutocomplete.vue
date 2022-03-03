@@ -87,7 +87,7 @@ export default {
 		placeholder: {
 			type: String,
 			required: false,
-			default: '',
+			default: "",
 		}
 	},
 	data() {

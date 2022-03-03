@@ -111,8 +111,8 @@ export default {
 			return _.debounce(this.processInput, this.delay)
 		},
 		thumbOffset() {
-			var size = Number(this.thumbSize.split('px')[0])
-			return (Math.max((size/2 - 1) * 0.5, 0) - size * 0.5) + 'px'
+			var size = Number(this.thumbSize.split("px")[0])
+			return (Math.max((size/2 - 1) * 0.5, 0) - size * 0.5) + "px"
 		}
 	},
 	mounted() {

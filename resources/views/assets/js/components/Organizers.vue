@@ -112,7 +112,7 @@ export default {
 			return this.organizers
 		},
 		organizerBaseRoute() {
-			return this.routes['organizers.organizer'].uri.split("{")[0];
+			return this.routes["organizers.organizer"].uri.split("{")[0]
 		}
 	},
 	watch: {

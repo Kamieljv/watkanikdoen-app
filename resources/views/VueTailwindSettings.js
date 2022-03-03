@@ -101,48 +101,48 @@ const VueTailwindSettings = {
 			}
 		}
 	},
-	't-modal': {
+	"t-modal": {
 		component: TModal,
 		props: {
 		  	fixedClasses: {
-				overlay: 'z-[1001] overflow-auto scrolling-touch left-0 top-0 bottom-0 right-0 w-full h-full fixed bg-black/50',
-				wrapper: 'relative mx-auto mt-20 max-w-lg px-3 py-12',
-				modal: 'overflow-visible relative rounded-lg overflow-hidden',
-				body: 'p-3',
-				header: 'border-b rounded-t',
-				footer: ' p-3 rounded-b',
-				close: 'flex items-center justify-center rounded-full absolute right-0 top-0 -m-3 h-8 w-8 transition duration-100 ease-in-out focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50'
+				overlay: "z-[1001] overflow-auto scrolling-touch left-0 top-0 bottom-0 right-0 w-full h-full fixed bg-black/50",
+				wrapper: "relative mx-auto mt-20 max-w-lg px-3 py-12",
+				modal: "overflow-visible relative rounded-lg overflow-hidden",
+				body: "p-3",
+				header: "border-b rounded-t",
+				footer: " p-3 rounded-b",
+				close: "flex items-center justify-center rounded-full absolute right-0 top-0 -m-3 h-8 w-8 transition duration-100 ease-in-out focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50"
 		  	},
 		  	classes: {
-				overlay: '',
-				wrapper: '',
-				modal: 'bg-white shadow',
-				body: '',
-				header: 'border-gray-100 p-5',
-				footer: 'bg-gray-100',
-				close: 'bg-gray-100 text-gray-600 hover:bg-gray-200',
-				closeIcon: 'fill-current h-4 w-4',
-				overlayEnterClass: 'opacity-0',
-				overlayEnterActiveClass: 'transition ease-out duration-100',
-				overlayEnterToClass: 'opacity-100',
-				overlayLeaveClass: 'opacity-100',
-				overlayLeaveActiveClass: 'transition ease-in duration-75',
-				overlayLeaveToClass: 'opacity-0',
-				enterClass: '',
-				enterActiveClass: '',
-				enterToClass: '',
-				leaveClass: '',
-				leaveActiveClass: '',
-				leaveToClass: ''
+				overlay: "",
+				wrapper: "",
+				modal: "bg-white shadow",
+				body: "",
+				header: "border-gray-100 p-5",
+				footer: "bg-gray-100",
+				close: "bg-gray-100 text-gray-600 hover:bg-gray-200",
+				closeIcon: "fill-current h-4 w-4",
+				overlayEnterClass: "opacity-0",
+				overlayEnterActiveClass: "transition ease-out duration-100",
+				overlayEnterToClass: "opacity-100",
+				overlayLeaveClass: "opacity-100",
+				overlayLeaveActiveClass: "transition ease-in duration-75",
+				overlayLeaveToClass: "opacity-0",
+				enterClass: "",
+				enterActiveClass: "",
+				enterToClass: "",
+				leaveClass: "",
+				leaveActiveClass: "",
+				leaveToClass: ""
 			},
 			variants: {
 				danger: {
-					overlay: '',
-					header: 'bg-[color:var(--wkid-red)] text-white p-3',
-					body: 'text-gray-900',
-					close: 'bg-red-50 text-red-700 hover:bg-red-200 border-red-100 border',
-					modal: 'bg-white shadow-lg',
-					footer: 'bg-red-50'
+					overlay: "",
+					header: "bg-[color:var(--wkid-red)] text-white p-3",
+					body: "text-gray-900",
+					close: "bg-red-50 text-red-700 hover:bg-red-200 border-red-100 border",
+					modal: "bg-white shadow-lg",
+					footer: "bg-red-50"
 				}
 			}
 		}
@@ -151,42 +151,42 @@ const VueTailwindSettings = {
 		component: TToggle,
 		props: {
 			fixedClasses: {
-				wrapper: 'relative inline-flex flex-shrink-0 cursor-pointer transition-colors ease-in-out duration-200',
-				wrapperChecked: 'relative inline-flex flex-shrink-0 cursor-pointer transition-colors ease-in-out duration-200  border-2 border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50',
-				wrapperDisabled: 'relative inline-flex flex-shrink-0 cursor-pointer transition-colors ease-in-out duration-200 opacity-50 cursor-not-allowed',
-				wrapperCheckedDisabled: 'relative inline-flex flex-shrink-0 cursor-pointer transition-colors ease-in-out duration-200 opacity-50 cursor-not-allowed border-2 border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50',
-				button: 'inline-block absolute transform translate-x-0 transition ease-in-out duration-200',
-				buttonChecked: 'inline-block absolute transform translate-x-full transition ease-in-out duration-200',
-				checkedPlaceholder: 'inline-block',
-				uncheckedPlaceholder: 'inline-block'
+				wrapper: "relative inline-flex flex-shrink-0 cursor-pointer transition-colors ease-in-out duration-200",
+				wrapperChecked: "relative inline-flex flex-shrink-0 cursor-pointer transition-colors ease-in-out duration-200  border-2 border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50",
+				wrapperDisabled: "relative inline-flex flex-shrink-0 cursor-pointer transition-colors ease-in-out duration-200 opacity-50 cursor-not-allowed",
+				wrapperCheckedDisabled: "relative inline-flex flex-shrink-0 cursor-pointer transition-colors ease-in-out duration-200 opacity-50 cursor-not-allowed border-2 border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50",
+				button: "inline-block absolute transform translate-x-0 transition ease-in-out duration-200",
+				buttonChecked: "inline-block absolute transform translate-x-full transition ease-in-out duration-200",
+				checkedPlaceholder: "inline-block",
+				uncheckedPlaceholder: "inline-block"
 			},
 			classes: {
-				wrapper: 'bg-gray-300 rounded-full border-2 border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50',
-				wrapperChecked: 'bg-blue-500 rounded-full',
-				wrapperDisabled: 'bg-gray-100 rounded-full border-2 border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50',
-				wrapperCheckedDisabled: 'bg-blue-500',
-				button: 'h-5 w-5 rounded-full bg-white shadow flex items-center justify-center text-gray-400 text-xs',
-				buttonChecked: 'h-5 w-5 rounded-full bg-white shadow flex items-center justify-center text-blue-500 text-xs',
-				checkedPlaceholder: 'rounded-full w-5 h-5 flex items-center justify-center text-gray-400 text-xs',
-				uncheckedPlaceholder: 'rounded-full w-5 h-5 flex items-center justify-center text-gray-400 text-xs'
+				wrapper: "bg-gray-300 rounded-full border-2 border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50",
+				wrapperChecked: "bg-blue-500 rounded-full",
+				wrapperDisabled: "bg-gray-100 rounded-full border-2 border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50",
+				wrapperCheckedDisabled: "bg-blue-500",
+				button: "h-5 w-5 rounded-full bg-white shadow flex items-center justify-center text-gray-400 text-xs",
+				buttonChecked: "h-5 w-5 rounded-full bg-white shadow flex items-center justify-center text-blue-500 text-xs",
+				checkedPlaceholder: "rounded-full w-5 h-5 flex items-center justify-center text-gray-400 text-xs",
+				uncheckedPlaceholder: "rounded-full w-5 h-5 flex items-center justify-center text-gray-400 text-xs"
 			},
 			variants: {
 				danger: {
-				wrapperChecked: 'bg-red-500 rounded-full',
-				wrapperCheckedDisabled: 'bg-red-500 rounded-full'
+					wrapperChecked: "bg-red-500 rounded-full",
+					wrapperCheckedDisabled: "bg-red-500 rounded-full"
 				},
 				success: {
-				wrapperChecked: 'bg-green-500 rounded-full',
-				wrapperCheckedDisabled: 'bg-green-500 rounded-full'
+					wrapperChecked: "bg-green-500 rounded-full",
+					wrapperCheckedDisabled: "bg-green-500 rounded-full"
 				},
 				box: {
-				wrapper: 'bg-gray-100 rounded-sm border-2 border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50',
-				wrapperChecked: 'bg-blue-500 rounded-sm',
-				wrapperCheckedDisabled: 'bg-blue-500 rounded-sm',
-				button: 'h-6 w-6 rounded-sm bg-white shadow flex items-center justify-center text-gray-400 text-xs',
-				buttonChecked: 'h-6 w-6 rounded-sm  bg-white shadow flex items-center justify-center text-blue-500 text-xs',
-				checkedPlaceholder: 'rounded-sm w-6 h-6 flex items-center justify-center text-gray-400 text-xs',
-				uncheckedPlaceholder: 'rounded-sm w-6 h-6 flex items-center justify-center text-gray-400 text-xs'
+					wrapper: "bg-gray-100 rounded-sm border-2 border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50",
+					wrapperChecked: "bg-blue-500 rounded-sm",
+					wrapperCheckedDisabled: "bg-blue-500 rounded-sm",
+					button: "h-6 w-6 rounded-sm bg-white shadow flex items-center justify-center text-gray-400 text-xs",
+					buttonChecked: "h-6 w-6 rounded-sm  bg-white shadow flex items-center justify-center text-blue-500 text-xs",
+					checkedPlaceholder: "rounded-sm w-6 h-6 flex items-center justify-center text-gray-400 text-xs",
+					uncheckedPlaceholder: "rounded-sm w-6 h-6 flex items-center justify-center text-gray-400 text-xs"
 				}
 			}
 		}

@@ -28,27 +28,27 @@ L.Icon.Default.mergeOptions({
 })
 
 export default {
-  name: "SimpleMap",
-  props: {
-	center: {
-		type: Object,
-		required: true,
+	name: "SimpleMap",
+	props: {
+		center: {
+			type: Object,
+			required: true,
+		},
+		height: {
+			type: String,
+			required: true,
+		}
 	},
-	height: {
-		type: String,
-		required: true,
-	}
-  },
-  data() {
-    return {
-      zoom: 10,
-      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-      attribution:
-        '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      mapOptions: {
-		zoomControl: false,
-      },
-    };
-  },
-};
+	data() {
+		return {
+			zoom: 10,
+			url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+			attribution:
+        "&copy; <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors",
+			mapOptions: {
+				zoomControl: false,
+			},
+		}
+	},
+}
 </script>

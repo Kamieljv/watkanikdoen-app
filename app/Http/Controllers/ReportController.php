@@ -13,12 +13,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Jenssegers\Date\Date;
 use Validator;
-
 use Voyager;
 
 class ReportController extends Controller
 {
-
     /**
      * Displays the 'landing' page for unauthenticated users
      */
@@ -143,7 +141,7 @@ class ReportController extends Controller
         // Add a relationship entry for the ActieOrganizer if the organizer_id is passed
         if ($report->organizer_ids) {
             $report_ids = explode(",", $report->organizer_ids);
-            foreach($report_ids as $report_id) {
+            foreach ($report_ids as $report_id) {
                 $actie->organizers()->save(Organizer::firstWhere('id', $report_id));
             }
         }

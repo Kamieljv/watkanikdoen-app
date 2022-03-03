@@ -2,7 +2,7 @@
  * This JS adds to the voyager base JS asset.
  * Vue, jQuery and BootstrapJS (among others) are loaded there.
  */
-window.axios = require('axios')
+window.axios = require("axios")
 Vue.prototype.$http = window.axios
 
 // Load Leaflet

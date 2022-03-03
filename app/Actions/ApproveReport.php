@@ -2,7 +2,6 @@
 
 namespace App\Actions;
 
-use Illuminate\Support\Facades\Log;
 use TCG\Voyager\Actions\AbstractAction;
 
 class ApproveReport extends AbstractAction

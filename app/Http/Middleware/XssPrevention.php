@@ -18,7 +18,7 @@ class XssPrevention
     {
         // Get all inputs from request, if any
         $input = $request->all();
-        array_walk_recursive($input, function(&$input) {
+        array_walk_recursive($input, function (&$input) {
             // strip all tags, except allowed ones
             $input = strip_tags($input, ['a', 'strong', 'li', 'ul', 'ol', 'u', 'i', 'h1', 'h2', 'h3', 'em', 'p', 'br']);
         });

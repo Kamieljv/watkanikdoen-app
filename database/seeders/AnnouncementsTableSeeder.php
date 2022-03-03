@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
+use DB;
 use Illuminate\Database\Seeder;
 
 class AnnouncementsTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -14,12 +14,12 @@ class AnnouncementsTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
-        \DB::table('announcements')->delete();
-        
-        \DB::table('announcements')->insert(array (
-            0 => 
+
+        DB::table('announcements')->delete();
+
+        DB::table('announcements')->insert(array (
+            0 =>
             array (
                 'id' => 1,
                 'title' => 'Wave 1.0 Released',
@@ -30,7 +30,7 @@ class AnnouncementsTableSeeder extends Seeder
             'created_at' => '2018-05-20 23:19:00',
             'updated_at' => '2018-05-21 00:38:02',
         ),
-        1 => 
+        1 =>
         array (
             'id' => 2,
             'title' => 'Wave 2.0 Released',
@@ -47,7 +47,7 @@ class AnnouncementsTableSeeder extends Seeder
             'created_at' => '2020-03-20 23:19:00',
             'updated_at' => '2021-11-24 19:54:32',
         ),
-        2 => 
+        2 =>
         array (
             'id' => 3,
             'title' => 'Test Announcement',
@@ -56,8 +56,6 @@ class AnnouncementsTableSeeder extends Seeder
             'created_at' => '2021-11-29 09:15:20',
             'updated_at' => '2021-11-29 09:15:21',
         ),
-    ));
-        
-        
+        ));
     }
 }

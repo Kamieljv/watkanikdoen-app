@@ -77,138 +77,138 @@
 </template>
 
 <script>
-	export default {
-		name: "FormImage",
-		props: {
-			fieldName: {
-				type: String,
-				required: true,
-			},
-			deleteRoute: {
-				type: String,
-				default: '',
-			},
-			disabled: {
-				type: Boolean,
-				default: false,
-			},
-			previousImage: {
-				type: String,
-				default: '',
-			},
-			previousBase64: {
-				type: String,
-				default: '',
-			},
-			header: {
-				type: String,
-				default: 'Position and Resize photo',
-			},
-			width: {
-				type: Number,
-				default: 250,
-			},
-			ratio: {
-				type: Number,
-				default: 0.7,
-			},
-			viewportType: {
-				type: String,
-				default: 'square',
-			},
-			defaultChar: {
-				type: String,
-				default: '?',
-			},
-			defaultColor: {
-				type: String,
-				default: 'var(--wkid-pink)',
-			},
+export default {
+	name: "FormImage",
+	props: {
+		fieldName: {
+			type: String,
+			required: true,
 		},
-		data() {
-			return {
-				cropped: '',
-				preview: '',
-				uploadOpen: false,
-				deleteOpen: false,
-				isLoading: false,
+		deleteRoute: {
+			type: String,
+			default: "",
+		},
+		disabled: {
+			type: Boolean,
+			default: false,
+		},
+		previousImage: {
+			type: String,
+			default: "",
+		},
+		previousBase64: {
+			type: String,
+			default: "",
+		},
+		header: {
+			type: String,
+			default: "Position and Resize photo",
+		},
+		width: {
+			type: Number,
+			default: 250,
+		},
+		ratio: {
+			type: Number,
+			default: 0.7,
+		},
+		viewportType: {
+			type: String,
+			default: "square",
+		},
+		defaultChar: {
+			type: String,
+			default: "?",
+		},
+		defaultColor: {
+			type: String,
+			default: "var(--wkid-pink)",
+		},
+	},
+	data() {
+		return {
+			cropped: "",
+			preview: "",
+			uploadOpen: false,
+			deleteOpen: false,
+			isLoading: false,
+		}
+	},
+	mounted() {
+		this.preview = this.previousImage
+	},
+	methods: {
+		imageUploaded(e) {
+			var files = e.target.files || e.dataTransfer.files
+			if (!files.length) return
+
+			this.uploadOpen = true
+			this.isLoading = true
+
+			var reader = new FileReader()
+			reader.onload = e => {
+				this.$refs.croppieRef.bind({
+					url: e.target.result
+				}).then(function(){
+					var sliders = document.getElementsByClassName("cr-slider")
+					for (var i = 0; i < sliders.length; i++) {
+						sliders[i].setAttribute("min", "0.067")
+						sliders[i].setAttribute("max", "1.5")
+						sliders[i].setAttribute("aria-valuenow", "0.15")
+					}
+				})
 			}
+
+			reader.readAsDataURL(files[0])
+
+			setTimeout(() => {
+				this.isLoading = false
+			}, 800)
 		},
-		mounted() {
-			this.preview = this.previousImage
+		crop() {
+			// Current option will return a base64 version of the uploaded image with a size of 600px X 450px.
+			let options = {
+				type: "base64",
+				size: { width: this.width, height: this.width * this.ratio  },
+				format: "png",
+				circle: false,
+			}
+			this.$refs.croppieRef.result(options, output => {
+				this.preview = this.cropped = output
+			})
+			this.uploadOpen = false
 		},
-		methods: {
-			imageUploaded(e) {
-				var files = e.target.files || e.dataTransfer.files;
-				if (!files.length) return;
-
-				this.uploadOpen = true;
-				this.isLoading = true;
-
-				var reader = new FileReader();
-				reader.onload = e => {
-					this.$refs.croppieRef.bind({
-						url: e.target.result
-					}).then(function(){
-						var sliders = document.getElementsByClassName('cr-slider')
-						for (var i = 0; i < sliders.length; i++) {
-							sliders[i].setAttribute('min', '0.067')
-							sliders[i].setAttribute('max', '1.5')
-							sliders[i].setAttribute('aria-valuenow', '0.15')
-						}
-					})
-				}
-
-				reader.readAsDataURL(files[0]);
-
-				setTimeout(() => {
-					this.isLoading = false;
-				}, 800);
-			},
-			crop() {
-				// Current option will return a base64 version of the uploaded image with a size of 600px X 450px.
-				let options = {
-					type: 'base64',
-					size: { width: this.width, height: this.width * this.ratio  },
-					format: 'png',
-					circle: false,
-				};
-				this.$refs.croppieRef.result(options, output => {
-					this.preview = this.cropped = output;
-					})
-				this.uploadOpen = false
-			},
-			cancelUpload() {
-				this.clearInputs()
-				this.uploadOpen = false
-			},
-			cancelDelete() {
-				this.deleteOpen = false
-			},
-			deleteClick(e){
-				e.preventDefault()
-				this.deleteOpen = true;
-			},
-			clearInputs(){
-				this.preview = ''
-				this.cropped = ''
-			},
-			deleteImage(){
-				this.clearInputs()
-				if (this.previousImage && this.deleteRoute) {
-					this.$http.post(this.deleteRoute).then((response) => {
-						document.getElementById('toast-container').innerHTML = response.data
-						this.deleteOpen = false
-					})
-				} else {
+		cancelUpload() {
+			this.clearInputs()
+			this.uploadOpen = false
+		},
+		cancelDelete() {
+			this.deleteOpen = false
+		},
+		deleteClick(e){
+			e.preventDefault()
+			this.deleteOpen = true
+		},
+		clearInputs(){
+			this.preview = ""
+			this.cropped = ""
+		},
+		deleteImage(){
+			this.clearInputs()
+			if (this.previousImage && this.deleteRoute) {
+				this.$http.post(this.deleteRoute).then((response) => {
+					document.getElementById("toast-container").innerHTML = response.data
 					this.deleteOpen = false
-				}
-
-			},
-			uploadImage(e){
-				e.preventDefault()
-				this.$refs.upload.click()
+				})
+			} else {
+				this.deleteOpen = false
 			}
+
 		},
-	}
+		uploadImage(e){
+			e.preventDefault()
+			this.$refs.upload.click()
+		}
+	},
+}
 </script>

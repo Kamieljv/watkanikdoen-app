@@ -6,10 +6,7 @@ use App\Models\Image;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Log;
-
 use Illuminate\Validation\ValidationException;
 use TCG\Voyager\Http\Controllers\Controller;
 use Validator;
@@ -80,7 +77,8 @@ class SettingsController extends Controller
         return $path;
     }
 
-    public function deleteAvatar($id) {
+    public function deleteAvatar($id)
+    {
         if (auth()->user()->id !== (int) $id) {
             abort(403, 'Unauthorized action.');
         } else {

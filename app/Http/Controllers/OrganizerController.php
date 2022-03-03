@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Theme;
 use App\Models\Organizer;
+use App\Models\Theme;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -36,8 +36,8 @@ class OrganizerController extends Controller
     {
         $organizers = new Organizer();
         if ($request->q) {
-            $organizers = $organizers->where('name', 'LIKE', '%'.$request->q.'%')
-                            ->orWhere('description', 'LIKE', '%'.$request->q.'%');
+            $organizers = $organizers->where('name', 'LIKE', '%' . $request->q . '%')
+                            ->orWhere('description', 'LIKE', '%' . $request->q . '%');
         }
         if ($request->themes) {
             $organizers = $organizers->whereHas('themes', function (Builder $query) use ($request) {
