@@ -58,6 +58,12 @@
     <script src="{{ asset('frontend/js/app.js') }}"></script>
     @stack('scripts')
 
+    <!-- Cookie notice -->
+    <div id="cookie-container" class="">
+        @include('partials.cookies')
+    </div>
+
+    <!-- Toast messages -->
     <div id="toast-container">
         @include('partials.toast')
     </div>
