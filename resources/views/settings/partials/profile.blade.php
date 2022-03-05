@@ -2,7 +2,7 @@
 	<div class="relative flex flex-col p-6">
 		<div id="app" class="flex justify-start w-full mb-8 w-32 h-32 lg:m-b0">
 			<form-image
-				previous-image="{{ auth()->user()->image ? auth()->user()->image->url . '?' . time() : '' }}"
+				previous-image="{{ auth()->user()->linked_image ? auth()->user()->linked_image->url . '?' . time() : '' }}"
 				field-name="avatar"
 				viewport-type="circle"
 				default-char="{{ substr(auth()->user()->name, 0, 1) }}"

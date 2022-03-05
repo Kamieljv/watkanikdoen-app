@@ -82,8 +82,8 @@ class SettingsController extends Controller
         if (auth()->user()->id !== (int) $id) {
             abort(403, 'Unauthorized action.');
         } else {
-            if (Storage::disk(config('voyager.storage.disk'))->delete(auth()->user()->image->path)) {
-                auth()->user()->image()->delete();
+            if (Storage::disk(config('voyager.storage.disk'))->delete(auth()->user()->linked_image->path)) {
+                auth()->user()->linked_image()->delete();
                 $type = 'success';
                 $message = __("settings.profile.avatar_delete_success");
             } else {
