@@ -5,7 +5,7 @@
             <a id="footer-logo-link" href="{{ route('home') }}" class="text-gray-600">
                 @svg('custom-logo-icon', ['style' => 'fill: currentColor; height: 32px;'])
             </a>
-            <ul class="flex flex-wrap flex-col space-y-3 space-x-0 sm:space-y-0 sm:flex-row sm:space-x-5 text-xs my-5 sm:mt-0">
+            <ul class="flex flex-wrap flex-col space-y-3 space-x-0 sm:space-y-0 sm:flex-row sm:space-x-5 text-xs my-5 sm:my-0">
                 <li class="text-center flex-full sm:flex-none sm:mb-0">&copy; {{ date('Y') }} {{ setting('site.title', 'Wat kan ik doen?') }}</li>
                 <li class="text-center">
                     <a href="/privacybeleid" class="relative inline-block text-black group">

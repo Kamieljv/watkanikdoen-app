@@ -43,9 +43,7 @@
                         <h3 class="truncate uppercase text-xl font-semibold leading-7 text-gray-900">
                             {{ actie.title }}
                         </h3>
-                        <p class="mt-1 line-clamp-3 text-sm text-gray-500">
-                            {{ actie.body }}
-                        </p>
+                        <p class="mt-1 line-clamp-3 text-sm text-gray-500" v-html="actie.body"></p>
                     </div>
                 </div>
                 <div class="flex flex-col grow justify-between flex-1 bg-white">
