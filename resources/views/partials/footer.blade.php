@@ -59,8 +59,8 @@
     <span>Let op: deze pagina wordt momenteel getest. De inhoud kan onvolledig zijn.</span>
 </div>
 
-@if(!auth()->guest() && auth()->user()->hasAnnouncements())
+{{-- @if(!auth()->guest() && auth()->user()->hasAnnouncements())
     @include('partials.announcements')
-@endif
+@endif --}}
 
 @yield('javascript')
