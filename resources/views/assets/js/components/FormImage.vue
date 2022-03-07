@@ -1,7 +1,7 @@
 <template>
     <div class="w-full h-full">
 		<!-- Form input element -->
-        <div class="relative w-full h-full">
+        <div class="relative w-32 h-full">
 			<img v-if="preview" id="preview" :src="preview" class="w-full h-full object-cover" :class="{'rounded-full': viewportType === 'circle'}">
 			<div v-else :class="{'rounded-full': viewportType === 'circle'}" class="flex items-center justify-center text-6xl w-full h-full text-white" :style="{background: defaultColor}">{{ defaultChar }}</div>
 			<div class="absolute inset-0 w-full h-full">
@@ -16,6 +16,10 @@
 					</button>
 				</div>
 			</div>
+		</div>
+		<!-- Error space -->
+		<div class="w-full mt-1 text-red-500">
+			{{ error }}
 		</div>
 		<!-- Edit (Crop/Move/Zoom) Modal -->
 		<t-modal
@@ -124,6 +128,10 @@ export default {
 			type: String,
 			default: "var(--wkid-pink)",
 		},
+		maxSize: {
+			type: Number,
+			default: 5000000, // in bytes
+		}
 	},
 	data() {
 		return {
@@ -132,6 +140,7 @@ export default {
 			uploadOpen: false,
 			deleteOpen: false,
 			isLoading: false,
+			error: "",
 		}
 	},
 	mounted() {
@@ -139,8 +148,19 @@ export default {
 	},
 	methods: {
 		imageUploaded(e) {
+			this.error = ""
+			
 			var files = e.target.files || e.dataTransfer.files
+			// check if we have a file, if it is the correct format and size
 			if (!files.length) return
+			if(!/\.(jpe?g|png|gif)$/i.test(files[0].name)) {
+				this.error = "Je kunt alleen bestanden uploaden met het type .jpg, .jpeg, .png of .gif."
+				return
+			}
+			if (files[0].size > this.maxSize) {
+				this.error = "Je kunt alleen bestanden uploaden kleiner dan 5MB."
+				return
+			}
 
 			this.uploadOpen = true
 			this.isLoading = true

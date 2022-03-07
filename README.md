@@ -63,12 +63,15 @@ Cookie notice is created with [this package](https://github.com/manucaralmo/Glow
 ## To Do (prioritized)
 - [ ] Check copyrights and open source websites
 - [ ] Actie toevoegen (unauth) pagina vullen
-- [ ] BUG: Restrict image formats to png and jpg in profile image uploader
+- [x] BUG: Restrict image formats to png and jpg in profile image uploader
 - [ ] Organize validation in Requests
 - [ ] :arrow_right: Specific SEO for acties (as articles with keywords)
 - [ ] :arrow_right: Add user notifications/emails (e.g. when action approved, when account verified etc.)
 - [ ] Configure user roles (admin, moderator, user) and permissions in admin backend
-- [ ] Credits to Studio Mes (Designadvies door: '')
+- [x] Credits to Studio Mes (Designadvies door: '')
+- [ ] Reverify when changing email address
+- [ ] Expiry on verification code
+- [ ] Admin: users table verified checkmark
 
 ### Useful links
 - Compiling multiple JS environments (public site/admin) with Laravel Mix: https://github.com/omnichronous/multimix

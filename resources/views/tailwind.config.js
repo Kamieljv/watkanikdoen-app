@@ -21,6 +21,7 @@ module.exports = {
 		"-my-2.5",
 		"-ml-1.5",
 		"-mt-1",
+		"mt-20",
 		"animate-pulse",
 		"animate-spin",
 		"bg-[color:var(--wkid-blue)]",
