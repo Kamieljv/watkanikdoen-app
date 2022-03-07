@@ -34,20 +34,20 @@ class OrganizerController extends Controller
 
     public function search(Request $request)
     {
-        $organizers = new Organizer();
+        $query = Organizer::query();
         if ($request->q) {
-            $organizers = $organizers->where('name', 'LIKE', '%' . $request->q . '%')
-                            ->orWhere('description', 'LIKE', '%' . $request->q . '%');
-        }
-        if ($request->themes) {
-            $organizers = $organizers->whereHas('themes', function (Builder $query) use ($request) {
-                $query->where('theme_id', '=', $request->themes[0]);
-                foreach (array_splice($request->themes, 1) as $key => $theme_id) {
-                    $query->orWhere('theme_id', '=', $theme_id);
-                }
+            $query->where(function ($q) use ($request) {
+                $q->where('name', 'LIKE', '%' . $request->q . '%')
+                    ->orWhere('description', 'LIKE', '%' . $request->q . '%');
             });
         }
-        $organizers = $organizers->paginate(12);
+        if ($request->themes) {
+            $requestThemes = $request->themes;
+            $query->whereHas('themes', function ($q) use ($requestThemes) {
+                $q->whereIn('theme_id', $requestThemes);
+            });
+        }
+        $organizers = $query->paginate(12);
 
         return response()->json(['organizers' => $organizers]);
     }
