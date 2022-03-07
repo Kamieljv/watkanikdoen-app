@@ -70,8 +70,8 @@ Cookie notice is created with [this package](https://github.com/manucaralmo/Glow
 - [ ] Configure user roles (admin, moderator, user) and permissions in admin backend
 - [x] Credits to Studio Mes (Designadvies door: '')
 - [ ] Reverify when changing email address
-- [ ] Expiry on verification code
-- [ ] Admin: users table verified checkmark
+- [x] Expiry on verification code
+- [x] Admin: users table verified checkmark
 
 ### Useful links
 - Compiling multiple JS environments (public site/admin) with Laravel Mix: https://github.com/omnichronous/multimix
