@@ -77,6 +77,20 @@
       focus:border-[color:var(--wkid-blue)] focus:ring focus:ring-offset-0
       focus:ring-blue-600 focus:ring-opacity-50;
   }
+
+  p,
+  label,
+  li,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    & a {
+      @apply font-medium transition duration-150 ease-in-out text-[color:var(--wkid-blue)] focus:outline-none hover:underline hover:text-[color:var(--wkid-blue-dark)]
+    }
+  }
 }
 
 @tailwind components;

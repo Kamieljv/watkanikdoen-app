@@ -74,7 +74,7 @@ Cookie notice is created with [this package](https://github.com/manucaralmo/Glow
 - [x] Admin: users table verified checkmark
 - [x] Checkboxes for accepting terms on account creation (privacy & algemene voorwaarden)
 - [ ] BUG: actie-toevoegen formulier geeft error in productie
-- [ ] Generalize link styling
+- [x] Generalize link styling
 
 ### Useful links
 - Compiling multiple JS environments (public site/admin) with Laravel Mix: https://github.com/omnichronous/multimix
