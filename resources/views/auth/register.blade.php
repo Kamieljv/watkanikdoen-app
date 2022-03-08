@@ -93,7 +93,7 @@
                         @endif
                     </div>
                     <div class="mt-6">
-                        <div class="h-captcha" data-sitekey="145fb025-89d9-49c9-99bc-3585346b8823"></div>
+                        <div class="h-captcha" data-sitekey="{{env('H_CAPTCHA_KEY')}}"></div>
                         @if ($errors->has('h-captcha-response'))
                             <div class="mt-1 text-red-500">
                                 {{ $errors->first('h-captcha-response') }}
