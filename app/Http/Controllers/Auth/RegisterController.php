@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Notifications\Mail\VerifyEmail;
+use App\Rules\ValidHCaptcha;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -55,19 +56,11 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        if (setting('auth.username_in_registration') && setting('auth.username_in_registration') === 'yes') {
-            return Validator::make($data, [
-                'name' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|unique:users',
-                'username' => 'required|string|max:20|unique:users',
-                'password' => 'required|string|min:' . config('app.auth.min_password_length') . '|confirmed',
-            ]);
-        }
-
         return Validator::make($data, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:' . config('app.auth.min_password_length') . '|confirmed',
+            'h-captcha-response' => ['required', new ValidHCaptcha()],
         ]);
     }
 

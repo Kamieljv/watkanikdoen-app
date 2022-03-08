@@ -92,7 +92,14 @@
                             </div>
                         @endif
                     </div>
-
+                    <div class="mt-6">
+                        <div class="h-captcha" data-sitekey="145fb025-89d9-49c9-99bc-3585346b8823"></div>
+                        @if ($errors->has('h-captcha-response'))
+                            <div class="mt-1 text-red-500">
+                                {{ $errors->first('h-captcha-response') }}
+                            </div>
+                        @endif
+                    </div>
                     <div class="flex flex-col items-center justify-center text-sm leading-5">
                         <span class="block w-full mt-5 rounded-md shadow-sm">
                             <button type="submit" class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 active:bg-blue-700">

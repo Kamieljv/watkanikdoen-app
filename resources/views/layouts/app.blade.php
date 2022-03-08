@@ -29,6 +29,8 @@
     @if(config('umami.key'))
         <script async defer data-website-id="{{ config('umami.key') }}" src="{{ config('umami.url') }}/umami.js"></script>
     @endif
+    {{-- hCaptcha --}}
+    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 </head>
 <body class="flex flex-col min-h-screen @if(Request::is('/')){{ 'bg-white' }}@else{{ 'bg-gray-50' }}@endif">
 
