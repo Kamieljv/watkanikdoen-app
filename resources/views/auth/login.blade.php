@@ -7,16 +7,23 @@
             <h2 class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-900 lg:text-5xl">
                 {{ __("Log In") }}
             </h2>
-            <p class="mt-4 text-sm leading-5 text-center text-gray-600 max-w">
+            {{-- <p class="mt-4 text-sm leading-5 text-center text-gray-600 max-w">
                 {{ __("general.or_you_can_here") }}
                 <a href="{{ route('register') }}" class="font-medium transition duration-150 ease-in-out text-[color:var(--wkid-blue)] focus:outline-none hover:underline hover:text-[color:var(--wkid-blue-dark)]">
                     {{ __("Register") }}
                 </a>
-            </p>
+            </p> --}}
         </div>
 
         <div class="mt-8 mx-5 sm:mx-auto sm:w-full sm:max-w-md">
             <div class="px-4 py-8 bg-white border shadow border-gray-50 sm:rounded-lg sm:px-10">
+                <p class="mb-2 text-sm">{{ __("auth.no_account?") }}</p>
+                <span class="block w-full rounded-md shadow-sm">
+                    <a href="{{ route('register') }}" class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-blue-600 transition duration-150 ease-in-out border border-transparent rounded-md border-1 border-blue-600 hover:bg-blue-200">
+                        {{ __("auth.register") }}
+                    </a>
+                </span>
+                <hr class="my-5">
                 <form action="#" method="POST">
                     @csrf
                     <div>
