@@ -72,8 +72,9 @@ Cookie notice is created with [this package](https://github.com/manucaralmo/Glow
 - [ ] Reverify when changing email address
 - [x] Expiry on verification code
 - [x] Admin: users table verified checkmark
-- [ ] Checkboxes for accepting terms on account creation (privacy & algemene voorwaarden)
+- [x] Checkboxes for accepting terms on account creation (privacy & algemene voorwaarden)
 - [ ] BUG: actie-toevoegen formulier geeft error in productie
+- [ ] Generalize link styling
 
 ### Useful links
 - Compiling multiple JS environments (public site/admin) with Laravel Mix: https://github.com/omnichronous/multimix

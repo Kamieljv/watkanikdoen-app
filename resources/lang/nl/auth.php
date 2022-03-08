@@ -24,4 +24,5 @@ return [
     'failed'   => 'Deze combinatie van e-mailadres en wachtwoord is niet geldig.',
     'password' => 'Het opgegeven wachtwoord is onjuist.',
     'throttle' => 'Te veel mislukte loginpogingen. Probeer het over :seconds seconden nogmaals.',
+    'accept_terms' => 'Ik ga akkoord met de <a class="underline font-bold" href=":terms">Voorwaarden</a> en het <a class="underline font-bold" href=":privacypolicy">Privacybeleid</a>.',
 ];
