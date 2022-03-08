@@ -80,7 +80,7 @@
                     </div>
                     <!-- Details -->
                     <div class="sm:flex flex-col gap-3 not-prose p-3 bg-white rounded-lg shadow-lg overflow-hidden hidden">
-                        <h3>{{ __("acties.details") }}</h3>
+                        <h4>{{ __("acties.details") }}</h4>
                         <div class="details-container text-sm text-gray-500">
                             <div class="flex items-center text-sm leading-5 text-gray-700">
                                 @svg('antdesign-clock-circle-o', ['class' => 'shrink-0', 'style' => 'width: 20px; height: 20px'])
@@ -109,9 +109,9 @@
                     <!-- About the organizer -->
                     <div class="not-prose flex flex-col gap-3 p-3 bg-white rounded-lg shadow-lg overflow-hidden">
                         @if (count($actie->organizers) > 1)
-                            <h3>{{ __("acties.about_organizers") }}</h3>
+                            <h4>{{ __("acties.about_organizers") }}</h4>
                         @else
-                            <h3>{{ __("acties.about_organizers") }}</h3>
+                            <h4>{{ __("acties.about_organizer") }}</h4>
                         @endif
 
                         @foreach ($actie->organizers as $organizer)
@@ -120,6 +120,10 @@
                                     <div class="flex-shrink-0">
                                         @if($organizer->linked_image)
                                             <img class="w-10 h-10 rounded-full" src="{{ $organizer->linked_image->url }}" alt="">
+                                        @else
+                                            <div class="flex items-center justify-center text-xl w-10 h-10 rounded-full bg-gray-500 text-white border-gray-300">
+                                                {{ substr($organizer->name, 0, 1) }}
+                                            </div>
                                         @endif
                                     </div>
                                     <div class="ml-3">
