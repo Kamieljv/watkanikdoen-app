@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use DB;
 use Illuminate\Database\Seeder;
 
 class PermissionsTableSeeder extends Seeder
 {
+
     /**
      * Auto generated seed file
      *
@@ -14,704 +14,751 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
+        
 
-
-        DB::table('permissions')->delete();
-
-        DB::table('permissions')->insert(array (
-            0 =>
+        \DB::table('permissions')->delete();
+        
+        \DB::table('permissions')->insert(array (
+            0 => 
             array (
+                'created_at' => '2018-06-22 20:15:45',
                 'id' => 1,
                 'key' => 'browse_admin',
-                'table_name' => null,
-                'created_at' => '2018-06-22 20:15:45',
+                'permission_group_id' => NULL,
+                'table_name' => NULL,
                 'updated_at' => '2018-06-22 20:15:45',
-                'permission_group_id' => null,
             ),
-            1 =>
+            1 => 
             array (
+                'created_at' => '2018-06-22 20:15:45',
                 'id' => 2,
                 'key' => 'browse_bread',
-                'table_name' => null,
-                'created_at' => '2018-06-22 20:15:45',
+                'permission_group_id' => NULL,
+                'table_name' => NULL,
                 'updated_at' => '2018-06-22 20:15:45',
-                'permission_group_id' => null,
             ),
-            2 =>
+            2 => 
             array (
+                'created_at' => '2018-06-22 20:15:45',
                 'id' => 3,
                 'key' => 'browse_database',
-                'table_name' => null,
-                'created_at' => '2018-06-22 20:15:45',
+                'permission_group_id' => NULL,
+                'table_name' => NULL,
                 'updated_at' => '2018-06-22 20:15:45',
-                'permission_group_id' => null,
             ),
-            3 =>
+            3 => 
             array (
+                'created_at' => '2018-06-22 20:15:45',
                 'id' => 4,
                 'key' => 'browse_media',
-                'table_name' => null,
-                'created_at' => '2018-06-22 20:15:45',
+                'permission_group_id' => NULL,
+                'table_name' => NULL,
                 'updated_at' => '2018-06-22 20:15:45',
-                'permission_group_id' => null,
             ),
-            4 =>
+            4 => 
             array (
+                'created_at' => '2018-06-22 20:15:45',
                 'id' => 5,
                 'key' => 'browse_compass',
-                'table_name' => null,
-                'created_at' => '2018-06-22 20:15:45',
+                'permission_group_id' => NULL,
+                'table_name' => NULL,
                 'updated_at' => '2018-06-22 20:15:45',
-                'permission_group_id' => null,
             ),
-            5 =>
+            5 => 
             array (
+                'created_at' => '2018-06-22 20:15:45',
                 'id' => 6,
                 'key' => 'browse_menus',
+                'permission_group_id' => NULL,
                 'table_name' => 'menus',
-                'created_at' => '2018-06-22 20:15:45',
                 'updated_at' => '2018-06-22 20:15:45',
-                'permission_group_id' => null,
             ),
-            6 =>
+            6 => 
             array (
+                'created_at' => '2018-06-22 20:15:45',
                 'id' => 7,
                 'key' => 'read_menus',
+                'permission_group_id' => NULL,
                 'table_name' => 'menus',
-                'created_at' => '2018-06-22 20:15:45',
                 'updated_at' => '2018-06-22 20:15:45',
-                'permission_group_id' => null,
             ),
-            7 =>
+            7 => 
             array (
+                'created_at' => '2018-06-22 20:15:45',
                 'id' => 8,
                 'key' => 'edit_menus',
+                'permission_group_id' => NULL,
                 'table_name' => 'menus',
-                'created_at' => '2018-06-22 20:15:45',
                 'updated_at' => '2018-06-22 20:15:45',
-                'permission_group_id' => null,
             ),
-            8 =>
+            8 => 
             array (
+                'created_at' => '2018-06-22 20:15:45',
                 'id' => 9,
                 'key' => 'add_menus',
+                'permission_group_id' => NULL,
                 'table_name' => 'menus',
-                'created_at' => '2018-06-22 20:15:45',
                 'updated_at' => '2018-06-22 20:15:45',
-                'permission_group_id' => null,
             ),
-            9 =>
+            9 => 
             array (
+                'created_at' => '2018-06-22 20:15:45',
                 'id' => 10,
                 'key' => 'delete_menus',
+                'permission_group_id' => NULL,
                 'table_name' => 'menus',
-                'created_at' => '2018-06-22 20:15:45',
                 'updated_at' => '2018-06-22 20:15:45',
-                'permission_group_id' => null,
             ),
-            10 =>
+            10 => 
             array (
+                'created_at' => '2018-06-22 20:15:45',
                 'id' => 11,
                 'key' => 'browse_roles',
+                'permission_group_id' => NULL,
                 'table_name' => 'roles',
-                'created_at' => '2018-06-22 20:15:45',
                 'updated_at' => '2018-06-22 20:15:45',
-                'permission_group_id' => null,
             ),
-            11 =>
+            11 => 
             array (
+                'created_at' => '2018-06-22 20:15:45',
                 'id' => 12,
                 'key' => 'read_roles',
+                'permission_group_id' => NULL,
                 'table_name' => 'roles',
-                'created_at' => '2018-06-22 20:15:45',
                 'updated_at' => '2018-06-22 20:15:45',
-                'permission_group_id' => null,
             ),
-            12 =>
+            12 => 
             array (
+                'created_at' => '2018-06-22 20:15:45',
                 'id' => 13,
                 'key' => 'edit_roles',
+                'permission_group_id' => NULL,
                 'table_name' => 'roles',
-                'created_at' => '2018-06-22 20:15:45',
                 'updated_at' => '2018-06-22 20:15:45',
-                'permission_group_id' => null,
             ),
-            13 =>
+            13 => 
             array (
+                'created_at' => '2018-06-22 20:15:45',
                 'id' => 14,
                 'key' => 'add_roles',
+                'permission_group_id' => NULL,
                 'table_name' => 'roles',
-                'created_at' => '2018-06-22 20:15:45',
                 'updated_at' => '2018-06-22 20:15:45',
-                'permission_group_id' => null,
             ),
-            14 =>
+            14 => 
             array (
+                'created_at' => '2018-06-22 20:15:45',
                 'id' => 15,
                 'key' => 'delete_roles',
+                'permission_group_id' => NULL,
                 'table_name' => 'roles',
-                'created_at' => '2018-06-22 20:15:45',
                 'updated_at' => '2018-06-22 20:15:45',
-                'permission_group_id' => null,
             ),
-            15 =>
+            15 => 
             array (
+                'created_at' => '2018-06-22 20:15:45',
                 'id' => 16,
                 'key' => 'browse_users',
+                'permission_group_id' => NULL,
                 'table_name' => 'users',
-                'created_at' => '2018-06-22 20:15:45',
                 'updated_at' => '2018-06-22 20:15:45',
-                'permission_group_id' => null,
             ),
-            16 =>
+            16 => 
             array (
+                'created_at' => '2018-06-22 20:15:45',
                 'id' => 17,
                 'key' => 'read_users',
+                'permission_group_id' => NULL,
                 'table_name' => 'users',
-                'created_at' => '2018-06-22 20:15:45',
                 'updated_at' => '2018-06-22 20:15:45',
-                'permission_group_id' => null,
             ),
-            17 =>
+            17 => 
             array (
+                'created_at' => '2018-06-22 20:15:45',
                 'id' => 18,
                 'key' => 'edit_users',
+                'permission_group_id' => NULL,
                 'table_name' => 'users',
-                'created_at' => '2018-06-22 20:15:45',
                 'updated_at' => '2018-06-22 20:15:45',
-                'permission_group_id' => null,
             ),
-            18 =>
+            18 => 
             array (
+                'created_at' => '2018-06-22 20:15:45',
                 'id' => 19,
                 'key' => 'add_users',
+                'permission_group_id' => NULL,
                 'table_name' => 'users',
-                'created_at' => '2018-06-22 20:15:45',
                 'updated_at' => '2018-06-22 20:15:45',
-                'permission_group_id' => null,
             ),
-            19 =>
+            19 => 
             array (
+                'created_at' => '2018-06-22 20:15:45',
                 'id' => 20,
                 'key' => 'delete_users',
+                'permission_group_id' => NULL,
                 'table_name' => 'users',
-                'created_at' => '2018-06-22 20:15:45',
                 'updated_at' => '2018-06-22 20:15:45',
-                'permission_group_id' => null,
             ),
-            20 =>
+            20 => 
             array (
+                'created_at' => '2018-06-22 20:15:45',
                 'id' => 21,
                 'key' => 'browse_settings',
+                'permission_group_id' => NULL,
                 'table_name' => 'settings',
-                'created_at' => '2018-06-22 20:15:45',
                 'updated_at' => '2018-06-22 20:15:45',
-                'permission_group_id' => null,
             ),
-            21 =>
+            21 => 
             array (
+                'created_at' => '2018-06-22 20:15:45',
                 'id' => 22,
                 'key' => 'read_settings',
+                'permission_group_id' => NULL,
                 'table_name' => 'settings',
-                'created_at' => '2018-06-22 20:15:45',
                 'updated_at' => '2018-06-22 20:15:45',
-                'permission_group_id' => null,
             ),
-            22 =>
+            22 => 
             array (
+                'created_at' => '2018-06-22 20:15:45',
                 'id' => 23,
                 'key' => 'edit_settings',
+                'permission_group_id' => NULL,
                 'table_name' => 'settings',
-                'created_at' => '2018-06-22 20:15:45',
                 'updated_at' => '2018-06-22 20:15:45',
-                'permission_group_id' => null,
             ),
-            23 =>
+            23 => 
             array (
+                'created_at' => '2018-06-22 20:15:45',
                 'id' => 24,
                 'key' => 'add_settings',
+                'permission_group_id' => NULL,
                 'table_name' => 'settings',
-                'created_at' => '2018-06-22 20:15:45',
                 'updated_at' => '2018-06-22 20:15:45',
-                'permission_group_id' => null,
             ),
-            24 =>
+            24 => 
             array (
+                'created_at' => '2018-06-22 20:15:45',
                 'id' => 25,
                 'key' => 'delete_settings',
+                'permission_group_id' => NULL,
                 'table_name' => 'settings',
-                'created_at' => '2018-06-22 20:15:45',
                 'updated_at' => '2018-06-22 20:15:45',
-                'permission_group_id' => null,
             ),
-            25 =>
+            25 => 
             array (
+                'created_at' => '2018-06-22 20:15:46',
                 'id' => 26,
                 'key' => 'browse_categories',
+                'permission_group_id' => NULL,
                 'table_name' => 'categories',
-                'created_at' => '2018-06-22 20:15:46',
                 'updated_at' => '2018-06-22 20:15:46',
-                'permission_group_id' => null,
             ),
-            26 =>
+            26 => 
             array (
+                'created_at' => '2018-06-22 20:15:46',
                 'id' => 27,
                 'key' => 'read_categories',
+                'permission_group_id' => NULL,
                 'table_name' => 'categories',
-                'created_at' => '2018-06-22 20:15:46',
                 'updated_at' => '2018-06-22 20:15:46',
-                'permission_group_id' => null,
             ),
-            27 =>
+            27 => 
             array (
+                'created_at' => '2018-06-22 20:15:46',
                 'id' => 28,
                 'key' => 'edit_categories',
+                'permission_group_id' => NULL,
                 'table_name' => 'categories',
-                'created_at' => '2018-06-22 20:15:46',
                 'updated_at' => '2018-06-22 20:15:46',
-                'permission_group_id' => null,
             ),
-            28 =>
+            28 => 
             array (
+                'created_at' => '2018-06-22 20:15:46',
                 'id' => 29,
                 'key' => 'add_categories',
+                'permission_group_id' => NULL,
                 'table_name' => 'categories',
-                'created_at' => '2018-06-22 20:15:46',
                 'updated_at' => '2018-06-22 20:15:46',
-                'permission_group_id' => null,
             ),
-            29 =>
+            29 => 
             array (
+                'created_at' => '2018-06-22 20:15:46',
                 'id' => 30,
                 'key' => 'delete_categories',
+                'permission_group_id' => NULL,
                 'table_name' => 'categories',
-                'created_at' => '2018-06-22 20:15:46',
                 'updated_at' => '2018-06-22 20:15:46',
-                'permission_group_id' => null,
             ),
-            30 =>
+            30 => 
             array (
+                'created_at' => '2018-06-22 20:15:46',
                 'id' => 31,
                 'key' => 'browse_posts',
+                'permission_group_id' => NULL,
                 'table_name' => 'posts',
-                'created_at' => '2018-06-22 20:15:46',
                 'updated_at' => '2018-06-22 20:15:46',
-                'permission_group_id' => null,
             ),
-            31 =>
+            31 => 
             array (
+                'created_at' => '2018-06-22 20:15:46',
                 'id' => 32,
                 'key' => 'read_posts',
+                'permission_group_id' => NULL,
                 'table_name' => 'posts',
-                'created_at' => '2018-06-22 20:15:46',
                 'updated_at' => '2018-06-22 20:15:46',
-                'permission_group_id' => null,
             ),
-            32 =>
+            32 => 
             array (
+                'created_at' => '2018-06-22 20:15:46',
                 'id' => 33,
                 'key' => 'edit_posts',
+                'permission_group_id' => NULL,
                 'table_name' => 'posts',
-                'created_at' => '2018-06-22 20:15:46',
                 'updated_at' => '2018-06-22 20:15:46',
-                'permission_group_id' => null,
             ),
-            33 =>
+            33 => 
             array (
+                'created_at' => '2018-06-22 20:15:46',
                 'id' => 34,
                 'key' => 'add_posts',
+                'permission_group_id' => NULL,
                 'table_name' => 'posts',
-                'created_at' => '2018-06-22 20:15:46',
                 'updated_at' => '2018-06-22 20:15:46',
-                'permission_group_id' => null,
             ),
-            34 =>
+            34 => 
             array (
+                'created_at' => '2018-06-22 20:15:46',
                 'id' => 35,
                 'key' => 'delete_posts',
+                'permission_group_id' => NULL,
                 'table_name' => 'posts',
-                'created_at' => '2018-06-22 20:15:46',
                 'updated_at' => '2018-06-22 20:15:46',
-                'permission_group_id' => null,
             ),
-            35 =>
+            35 => 
             array (
+                'created_at' => '2018-06-22 20:15:46',
                 'id' => 36,
                 'key' => 'browse_pages',
+                'permission_group_id' => NULL,
                 'table_name' => 'pages',
-                'created_at' => '2018-06-22 20:15:46',
                 'updated_at' => '2018-06-22 20:15:46',
-                'permission_group_id' => null,
             ),
-            36 =>
+            36 => 
             array (
+                'created_at' => '2018-06-22 20:15:46',
                 'id' => 37,
                 'key' => 'read_pages',
+                'permission_group_id' => NULL,
                 'table_name' => 'pages',
-                'created_at' => '2018-06-22 20:15:46',
                 'updated_at' => '2018-06-22 20:15:46',
-                'permission_group_id' => null,
             ),
-            37 =>
+            37 => 
             array (
+                'created_at' => '2018-06-22 20:15:46',
                 'id' => 38,
                 'key' => 'edit_pages',
+                'permission_group_id' => NULL,
                 'table_name' => 'pages',
-                'created_at' => '2018-06-22 20:15:46',
                 'updated_at' => '2018-06-22 20:15:46',
-                'permission_group_id' => null,
             ),
-            38 =>
+            38 => 
             array (
+                'created_at' => '2018-06-22 20:15:46',
                 'id' => 39,
                 'key' => 'add_pages',
+                'permission_group_id' => NULL,
                 'table_name' => 'pages',
-                'created_at' => '2018-06-22 20:15:46',
                 'updated_at' => '2018-06-22 20:15:46',
-                'permission_group_id' => null,
             ),
-            39 =>
+            39 => 
             array (
+                'created_at' => '2018-06-22 20:15:46',
                 'id' => 40,
                 'key' => 'delete_pages',
+                'permission_group_id' => NULL,
                 'table_name' => 'pages',
-                'created_at' => '2018-06-22 20:15:46',
                 'updated_at' => '2018-06-22 20:15:46',
-                'permission_group_id' => null,
             ),
-            40 =>
+            40 => 
             array (
+                'created_at' => '2018-06-22 20:15:46',
                 'id' => 41,
                 'key' => 'browse_hooks',
-                'table_name' => null,
-                'created_at' => '2018-06-22 20:15:46',
+                'permission_group_id' => NULL,
+                'table_name' => NULL,
                 'updated_at' => '2018-06-22 20:15:46',
-                'permission_group_id' => null,
             ),
-            41 =>
+            41 => 
             array (
+                'created_at' => '2018-05-20 21:08:14',
                 'id' => 42,
                 'key' => 'browse_announcements',
+                'permission_group_id' => NULL,
                 'table_name' => 'announcements',
-                'created_at' => '2018-05-20 21:08:14',
                 'updated_at' => '2018-05-20 21:08:14',
-                'permission_group_id' => null,
             ),
-            42 =>
+            42 => 
             array (
+                'created_at' => '2018-05-20 21:08:14',
                 'id' => 43,
                 'key' => 'read_announcements',
+                'permission_group_id' => NULL,
                 'table_name' => 'announcements',
-                'created_at' => '2018-05-20 21:08:14',
                 'updated_at' => '2018-05-20 21:08:14',
-                'permission_group_id' => null,
             ),
-            43 =>
+            43 => 
             array (
+                'created_at' => '2018-05-20 21:08:14',
                 'id' => 44,
                 'key' => 'edit_announcements',
+                'permission_group_id' => NULL,
                 'table_name' => 'announcements',
-                'created_at' => '2018-05-20 21:08:14',
                 'updated_at' => '2018-05-20 21:08:14',
-                'permission_group_id' => null,
             ),
-            44 =>
+            44 => 
             array (
+                'created_at' => '2018-05-20 21:08:14',
                 'id' => 45,
                 'key' => 'add_announcements',
+                'permission_group_id' => NULL,
                 'table_name' => 'announcements',
-                'created_at' => '2018-05-20 21:08:14',
                 'updated_at' => '2018-05-20 21:08:14',
-                'permission_group_id' => null,
             ),
-            45 =>
+            45 => 
             array (
+                'created_at' => '2018-05-20 21:08:14',
                 'id' => 46,
                 'key' => 'delete_announcements',
+                'permission_group_id' => NULL,
                 'table_name' => 'announcements',
-                'created_at' => '2018-05-20 21:08:14',
                 'updated_at' => '2018-05-20 21:08:14',
-                'permission_group_id' => null,
             ),
-            46 =>
+            46 => 
             array (
+                'created_at' => '2017-11-21 16:31:00',
                 'id' => 47,
                 'key' => 'browse_themes',
+                'permission_group_id' => NULL,
                 'table_name' => 'admin',
-                'created_at' => '2017-11-21 16:31:00',
                 'updated_at' => '2017-11-21 16:31:00',
-                'permission_group_id' => null,
             ),
-            47 =>
+            47 => 
             array (
+                'created_at' => '2018-06-22 13:55:03',
                 'id' => 48,
                 'key' => 'browse_hooks',
+                'permission_group_id' => NULL,
                 'table_name' => 'hooks',
-                'created_at' => '2018-06-22 13:55:03',
                 'updated_at' => '2018-06-22 13:55:03',
-                'permission_group_id' => null,
             ),
-            48 =>
+            48 => 
             array (
+                'created_at' => '2018-06-22 13:55:03',
                 'id' => 49,
                 'key' => 'read_hooks',
+                'permission_group_id' => NULL,
                 'table_name' => 'hooks',
-                'created_at' => '2018-06-22 13:55:03',
                 'updated_at' => '2018-06-22 13:55:03',
-                'permission_group_id' => null,
             ),
-            49 =>
+            49 => 
             array (
+                'created_at' => '2018-06-22 13:55:03',
                 'id' => 50,
                 'key' => 'edit_hooks',
+                'permission_group_id' => NULL,
                 'table_name' => 'hooks',
-                'created_at' => '2018-06-22 13:55:03',
                 'updated_at' => '2018-06-22 13:55:03',
-                'permission_group_id' => null,
             ),
-            50 =>
+            50 => 
             array (
+                'created_at' => '2018-06-22 13:55:03',
                 'id' => 51,
                 'key' => 'add_hooks',
+                'permission_group_id' => NULL,
                 'table_name' => 'hooks',
-                'created_at' => '2018-06-22 13:55:03',
                 'updated_at' => '2018-06-22 13:55:03',
-                'permission_group_id' => null,
             ),
-            51 =>
+            51 => 
             array (
+                'created_at' => '2018-06-22 13:55:03',
                 'id' => 52,
                 'key' => 'delete_hooks',
+                'permission_group_id' => NULL,
                 'table_name' => 'hooks',
-                'created_at' => '2018-06-22 13:55:03',
                 'updated_at' => '2018-06-22 13:55:03',
-                'permission_group_id' => null,
             ),
-            52 =>
+            52 => 
             array (
+                'created_at' => '2018-07-03 04:50:28',
                 'id' => 53,
                 'key' => 'browse_plans',
+                'permission_group_id' => NULL,
                 'table_name' => 'plans',
-                'created_at' => '2018-07-03 04:50:28',
                 'updated_at' => '2018-07-03 04:50:28',
-                'permission_group_id' => null,
             ),
-            53 =>
+            53 => 
             array (
+                'created_at' => '2018-07-03 04:50:28',
                 'id' => 54,
                 'key' => 'read_plans',
+                'permission_group_id' => NULL,
                 'table_name' => 'plans',
-                'created_at' => '2018-07-03 04:50:28',
                 'updated_at' => '2018-07-03 04:50:28',
-                'permission_group_id' => null,
             ),
-            54 =>
+            54 => 
             array (
+                'created_at' => '2018-07-03 04:50:28',
                 'id' => 55,
                 'key' => 'edit_plans',
+                'permission_group_id' => NULL,
                 'table_name' => 'plans',
-                'created_at' => '2018-07-03 04:50:28',
                 'updated_at' => '2018-07-03 04:50:28',
-                'permission_group_id' => null,
             ),
-            55 =>
+            55 => 
             array (
+                'created_at' => '2018-07-03 04:50:28',
                 'id' => 56,
                 'key' => 'add_plans',
+                'permission_group_id' => NULL,
                 'table_name' => 'plans',
-                'created_at' => '2018-07-03 04:50:28',
                 'updated_at' => '2018-07-03 04:50:28',
-                'permission_group_id' => null,
             ),
-            56 =>
+            56 => 
             array (
+                'created_at' => '2018-07-03 04:50:28',
                 'id' => 57,
                 'key' => 'delete_plans',
+                'permission_group_id' => NULL,
                 'table_name' => 'plans',
-                'created_at' => '2018-07-03 04:50:28',
                 'updated_at' => '2018-07-03 04:50:28',
-                'permission_group_id' => null,
             ),
-            57 =>
+            57 => 
             array (
+                'created_at' => '2021-11-24 16:23:01',
                 'id' => 58,
                 'key' => 'browse_acties',
+                'permission_group_id' => NULL,
                 'table_name' => 'acties',
-                'created_at' => '2021-11-24 16:23:01',
                 'updated_at' => '2021-11-24 16:23:01',
-                'permission_group_id' => null,
             ),
-            58 =>
+            58 => 
             array (
+                'created_at' => '2021-11-24 16:23:01',
                 'id' => 59,
                 'key' => 'read_acties',
+                'permission_group_id' => NULL,
                 'table_name' => 'acties',
-                'created_at' => '2021-11-24 16:23:01',
                 'updated_at' => '2021-11-24 16:23:01',
-                'permission_group_id' => null,
             ),
-            59 =>
+            59 => 
             array (
+                'created_at' => '2021-11-24 16:23:01',
                 'id' => 60,
                 'key' => 'edit_acties',
+                'permission_group_id' => NULL,
                 'table_name' => 'acties',
-                'created_at' => '2021-11-24 16:23:01',
                 'updated_at' => '2021-11-24 16:23:01',
-                'permission_group_id' => null,
             ),
-            60 =>
+            60 => 
             array (
+                'created_at' => '2021-11-24 16:23:01',
                 'id' => 61,
                 'key' => 'add_acties',
+                'permission_group_id' => NULL,
                 'table_name' => 'acties',
-                'created_at' => '2021-11-24 16:23:01',
                 'updated_at' => '2021-11-24 16:23:01',
-                'permission_group_id' => null,
             ),
-            61 =>
+            61 => 
             array (
+                'created_at' => '2021-11-24 16:23:01',
                 'id' => 62,
                 'key' => 'delete_acties',
+                'permission_group_id' => NULL,
                 'table_name' => 'acties',
-                'created_at' => '2021-11-24 16:23:01',
                 'updated_at' => '2021-11-24 16:23:01',
-                'permission_group_id' => null,
             ),
-            62 =>
+            62 => 
             array (
+                'created_at' => '2021-12-18 16:24:23',
                 'id' => 68,
                 'key' => 'browse_themes',
+                'permission_group_id' => NULL,
                 'table_name' => 'themes',
-                'created_at' => '2021-12-18 16:24:23',
                 'updated_at' => '2021-12-18 16:24:23',
-                'permission_group_id' => null,
             ),
-            63 =>
+            63 => 
             array (
+                'created_at' => '2021-12-18 16:24:23',
                 'id' => 69,
                 'key' => 'read_themes',
+                'permission_group_id' => NULL,
                 'table_name' => 'themes',
-                'created_at' => '2021-12-18 16:24:23',
                 'updated_at' => '2021-12-18 16:24:23',
-                'permission_group_id' => null,
             ),
-            64 =>
+            64 => 
             array (
+                'created_at' => '2021-12-18 16:24:23',
                 'id' => 70,
                 'key' => 'edit_themes',
+                'permission_group_id' => NULL,
                 'table_name' => 'themes',
-                'created_at' => '2021-12-18 16:24:23',
                 'updated_at' => '2021-12-18 16:24:23',
-                'permission_group_id' => null,
             ),
-            65 =>
+            65 => 
             array (
+                'created_at' => '2021-12-18 16:24:23',
                 'id' => 71,
                 'key' => 'add_themes',
+                'permission_group_id' => NULL,
                 'table_name' => 'themes',
-                'created_at' => '2021-12-18 16:24:23',
                 'updated_at' => '2021-12-18 16:24:23',
-                'permission_group_id' => null,
             ),
-            66 =>
+            66 => 
             array (
+                'created_at' => '2021-12-18 16:24:23',
                 'id' => 72,
                 'key' => 'delete_themes',
+                'permission_group_id' => NULL,
                 'table_name' => 'themes',
-                'created_at' => '2021-12-18 16:24:23',
                 'updated_at' => '2021-12-18 16:24:23',
-                'permission_group_id' => null,
             ),
-            67 =>
+            67 => 
             array (
+                'created_at' => '2022-01-03 15:53:00',
                 'id' => 73,
                 'key' => 'browse_organizers',
+                'permission_group_id' => NULL,
                 'table_name' => 'organizers',
-                'created_at' => '2022-01-03 15:53:00',
                 'updated_at' => '2022-01-03 15:53:00',
-                'permission_group_id' => null,
             ),
-            68 =>
+            68 => 
             array (
+                'created_at' => '2022-01-03 15:53:00',
                 'id' => 74,
                 'key' => 'read_organizers',
+                'permission_group_id' => NULL,
                 'table_name' => 'organizers',
-                'created_at' => '2022-01-03 15:53:00',
                 'updated_at' => '2022-01-03 15:53:00',
-                'permission_group_id' => null,
             ),
-            69 =>
+            69 => 
             array (
+                'created_at' => '2022-01-03 15:53:00',
                 'id' => 75,
                 'key' => 'edit_organizers',
+                'permission_group_id' => NULL,
                 'table_name' => 'organizers',
-                'created_at' => '2022-01-03 15:53:00',
                 'updated_at' => '2022-01-03 15:53:00',
-                'permission_group_id' => null,
             ),
-            70 =>
+            70 => 
             array (
+                'created_at' => '2022-01-03 15:53:00',
                 'id' => 76,
                 'key' => 'add_organizers',
+                'permission_group_id' => NULL,
                 'table_name' => 'organizers',
-                'created_at' => '2022-01-03 15:53:00',
                 'updated_at' => '2022-01-03 15:53:00',
-                'permission_group_id' => null,
             ),
-            71 =>
+            71 => 
             array (
+                'created_at' => '2022-01-03 15:53:00',
                 'id' => 77,
                 'key' => 'delete_organizers',
+                'permission_group_id' => NULL,
                 'table_name' => 'organizers',
-                'created_at' => '2022-01-03 15:53:00',
                 'updated_at' => '2022-01-03 15:53:00',
-                'permission_group_id' => null,
             ),
-            72 =>
+            72 => 
             array (
+                'created_at' => '2022-01-19 15:46:35',
                 'id' => 98,
                 'key' => 'browse_reports',
+                'permission_group_id' => NULL,
                 'table_name' => 'reports',
-                'created_at' => '2022-01-19 15:46:35',
                 'updated_at' => '2022-01-19 15:46:35',
-                'permission_group_id' => null,
             ),
-            73 =>
+            73 => 
             array (
+                'created_at' => '2022-01-19 15:46:35',
                 'id' => 99,
                 'key' => 'read_reports',
+                'permission_group_id' => NULL,
                 'table_name' => 'reports',
-                'created_at' => '2022-01-19 15:46:35',
                 'updated_at' => '2022-01-19 15:46:35',
-                'permission_group_id' => null,
             ),
-            74 =>
+            74 => 
             array (
+                'created_at' => '2022-01-19 15:46:35',
                 'id' => 100,
                 'key' => 'edit_reports',
+                'permission_group_id' => NULL,
                 'table_name' => 'reports',
-                'created_at' => '2022-01-19 15:46:35',
                 'updated_at' => '2022-01-19 15:46:35',
-                'permission_group_id' => null,
             ),
-            75 =>
+            75 => 
             array (
+                'created_at' => '2022-01-19 15:46:35',
                 'id' => 101,
                 'key' => 'add_reports',
+                'permission_group_id' => NULL,
                 'table_name' => 'reports',
-                'created_at' => '2022-01-19 15:46:35',
                 'updated_at' => '2022-01-19 15:46:35',
-                'permission_group_id' => null,
             ),
-            76 =>
+            76 => 
             array (
+                'created_at' => '2022-01-19 15:46:35',
                 'id' => 102,
                 'key' => 'delete_reports',
+                'permission_group_id' => NULL,
                 'table_name' => 'reports',
-                'created_at' => '2022-01-19 15:46:35',
                 'updated_at' => '2022-01-19 15:46:35',
-                'permission_group_id' => null,
+            ),
+            77 => 
+            array (
+                'created_at' => '2022-03-09 14:06:44',
+                'id' => 103,
+                'key' => 'browse_images',
+                'permission_group_id' => NULL,
+                'table_name' => 'images',
+                'updated_at' => '2022-03-09 14:06:44',
+            ),
+            78 => 
+            array (
+                'created_at' => '2022-03-09 14:06:44',
+                'id' => 104,
+                'key' => 'read_images',
+                'permission_group_id' => NULL,
+                'table_name' => 'images',
+                'updated_at' => '2022-03-09 14:06:44',
+            ),
+            79 => 
+            array (
+                'created_at' => '2022-03-09 14:06:44',
+                'id' => 105,
+                'key' => 'edit_images',
+                'permission_group_id' => NULL,
+                'table_name' => 'images',
+                'updated_at' => '2022-03-09 14:06:44',
+            ),
+            80 => 
+            array (
+                'created_at' => '2022-03-09 14:06:44',
+                'id' => 106,
+                'key' => 'add_images',
+                'permission_group_id' => NULL,
+                'table_name' => 'images',
+                'updated_at' => '2022-03-09 14:06:44',
+            ),
+            81 => 
+            array (
+                'created_at' => '2022-03-09 14:06:44',
+                'id' => 107,
+                'key' => 'delete_images',
+                'permission_group_id' => NULL,
+                'table_name' => 'images',
+                'updated_at' => '2022-03-09 14:06:44',
             ),
         ));
+        
+        
     }
 }

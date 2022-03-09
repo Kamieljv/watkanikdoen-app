@@ -32,7 +32,7 @@ class SettingsController extends Controller
         $authed_user = auth()->user();
 
         $authed_user->name = $request->name;
-        $authed_user->email = $request->email;
+        // $authed_user->email = $request->email;
         if ($request->avatar) {
             $this->saveAvatar($request->avatar, $authed_user);
         }

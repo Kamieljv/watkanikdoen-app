@@ -6,18 +6,19 @@
         <div class="flex flex-col justify-center py-10 sm:py-20 sm:px-6 lg:px-8">
             <div class="sm:mx-auto sm:w-full sm:max-w-md">
                 <h2 class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-900 lg:text-5xl">
-                    {{ __("Register") }}
+                    {{ __("auth.register") }}
                 </h2>
-                <p class="mt-4 text-sm leading-5 text-center text-gray-600 max-w">
-                    {{ __("general.or_you_can_here") }}
-                    <a href="{{ route('login') }}" class="font-medium transition duration-150 ease-in-out text-[color:var(--wkid-blue)] focus:outline-none hover:underline hover:text-[color:var(--wkid-blue-dark)]">
-                        {{ __("Log In") }}
-                    </a>
-                </p>
             </div>
 
         <div class="mt-8 mx-5 sm:mx-auto sm:w-full sm:max-w-md">
             <div class="px-4 py-8 bg-white border shadow border-gray-50 sm:rounded-lg sm:px-10">
+                <p class="mb-2 text-sm">{{ __("auth.account?") }}</p>
+                <span class="block w-full rounded-md shadow-sm">
+                    <a href="{{ route('login') }}" class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-blue-600 transition duration-150 ease-in-out border border-transparent rounded-md border-1 border-blue-600 hover:bg-blue-200">
+                        {{ __("Log In") }}
+                    </a>
+                </span>
+                <hr class="my-5">
                 <form role="form" method="POST" action="@if(setting('billing.card_upfront')){{ route('register-subscribe') }}@else{{ route('register') }}@endif">
                     @csrf
 
@@ -92,10 +93,37 @@
                             </div>
                         @endif
                     </div>
-
+                    <div class="mt-6">
+                        <div class="h-captcha" data-sitekey="{{env('H_CAPTCHA_KEY')}}"></div>
+                        @if ($errors->has('h-captcha-response'))
+                            <div class="mt-1 text-red-500">
+                                {{ $errors->first('h-captcha-response') }}
+                            </div>
+                        @endif
+                    </div>
+                    <div class="mt-6 flex">
+                        <input name="terms" type="checkbox" id="termsCheckbox" class="mr-2">
+                        <label for="termsCheckbox" class="text-sm text-gray-900">
+                            {!! __("auth.accept_terms", [
+                                'terms' => '/voorwaarden', 
+                                'privacypolicy' => '/privacybeleid'
+                                ])
+                            !!}
+                        </label>
+                    </div>
+                    @if ($errors->has('terms'))
+                        <div class="mt-1 text-red-500">
+                            {{ $errors->first('terms') }}
+                        </div>
+                    @endif
                     <div class="flex flex-col items-center justify-center text-sm leading-5">
                         <span class="block w-full mt-5 rounded-md shadow-sm">
-                            <button type="submit" class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 active:bg-blue-700">
+                            <button
+                                id="submitBtn"
+                                type="submit"
+                                class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 active:bg-blue-700 disabled:bg-gray-200 disabled:text-gray-900 disabled:cursor-not-allowed"
+                                disabled
+                            >
                                 {{ __("Register") }}
                             </button>
                         </span>
@@ -105,3 +133,14 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script type="text/javascript">
+        var submit = document.getElementById('submitBtn'),
+            checkbox = document.getElementById('termsCheckbox'),
+            disableSubmit = function(e) {
+                submit.disabled = !this.checked
+            };
+        checkbox.addEventListener('change', disableSubmit);
+    </script>
+@endpush
