@@ -40,7 +40,7 @@
         @include('partials.header')
     @endif
 
-    <main class="flex-grow overflow-x-hidden">
+    <main class="flex-grow overflow-x-hidden min-h-[500px]">
         @yield('content')
     </main>
 

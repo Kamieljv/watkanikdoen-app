@@ -62,7 +62,7 @@ Cookie notice is created with [this package](https://github.com/manucaralmo/Glow
 
 ## To Do (prioritized)
 - [ ] Check copyrights and open source websites
-- [ ] Actie toevoegen (unauth) pagina vullen
+- [x] Actie toevoegen (unauth) pagina vullen
 - [x] BUG: Restrict image formats to png and jpg in profile image uploader
 - [ ] Organize validation in Requests
 - [ ] :arrow_right: Specific SEO for acties (as articles with keywords)
