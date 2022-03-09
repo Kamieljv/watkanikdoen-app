@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="form-group">
-			<div class="w-full">
+			<div class="w-full text-sm my-2 mx-1">
 				<label>
 					<input name="hasNoLatLng" v-model="hasNoLatLng" type="checkbox"/>
 					Deze actie heeft geen specifieke locatie.
@@ -116,6 +116,10 @@ export default {
 		unedited: {
 			type: Boolean,
 			default: true,
+		},
+		frontend: {
+			type: Boolean,
+			default: false,
 		}
 	},
 	data() {
@@ -141,7 +145,7 @@ export default {
 		}
 	},
 	mounted() {
-		this.hasNoLatLng = this.unedited
+		this.hasNoLatLng = this.unedited && !this.frontend
 	},
 	watch: {
 		hasNoLatLng: function(newVal) {

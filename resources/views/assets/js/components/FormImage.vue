@@ -1,7 +1,7 @@
 <template>
     <div class="w-full h-full">
 		<!-- Form input element -->
-        <div class="relative w-32 h-full">
+        <div class="relative h-32 h-full" :class="{'w-32': viewportType === 'circle'}">
 			<img v-if="preview" id="preview" :src="preview" class="w-full h-full object-cover" :class="{'rounded-full': viewportType === 'circle'}">
 			<div v-else :class="{'rounded-full': viewportType === 'circle'}" class="flex items-center justify-center text-6xl w-full h-full text-white" :style="{background: defaultColor}">{{ defaultChar }}</div>
 			<div class="absolute inset-0 w-full h-full">

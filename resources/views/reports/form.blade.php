@@ -99,6 +99,7 @@
                                     :zoom={{ config('voyager.maps.zoom') }}
                                     fieldname="location"
                                     :disabled="@json($viewOnly)"
+                                    :frontend="true"
                                 />
                             </div>
                             @if ($errors->has('location'))
@@ -206,7 +207,7 @@
                     <p class="text-sm leading-5 text-gray-500 mt">
                         Kies een afbeelding die bij de actie past.
                     </p>
-                    <div class="flex flex-col mt-5 space-y-3 h-[150px]">
+                    <div class="flex flex-col mt-5 space-y-3">
                         {{-- Image --}}
                         <form-image
                             previous-image="{{ $viewOnly ? ($report->linked_image ? $report->linked_image->url : null) : old('image') }}"
