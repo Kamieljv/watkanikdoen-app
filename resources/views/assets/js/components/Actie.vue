@@ -43,9 +43,7 @@
                         <h3 class="truncate uppercase text-xl font-semibold leading-7 text-gray-900">
                             {{ actie.title }}
                         </h3>
-                        <p class="mt-1 line-clamp-3 text-sm text-gray-500">
-                            {{ actie.body }}
-                        </p>
+                        <p class="mt-1 line-clamp-3 text-sm text-gray-500" v-html="actie.body"></p>
                     </div>
                 </div>
                 <div class="flex flex-col grow justify-between flex-1 bg-white">
@@ -72,7 +70,7 @@
                     <div class="ml-3">
                         <p class="text-sm leading-5 text-gray-900">
                             {{ __("acties.organized_by") }}
-                            <a :href="actie.organizers[0].link" class="font-medium hover:underline">
+                            <a :href="actie.organizers[0].link" class="font-medium hover:underline" style="color: inherit;">
                                 {{ actie.organizers[0].name }}</a>
                             <span v-if="actie.organizers.length > 1"> {{__('general.and')}} <span class="font-medium">{{actie.organizers.length - 1}} {{(actie.organizers.length - 1 > 1)? __('general.others') : __('general.other')}}</span></span>
                         </p>

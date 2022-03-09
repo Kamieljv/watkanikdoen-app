@@ -75,6 +75,7 @@ return [
         'string'  => ':Attribute moet tussen :min en :max karakters zijn.',
     ],
     'boolean'              => ':Attribute moet ja of nee zijn.',
+    'captcha'              => 'Ongeldige CAPTCHA. Probeer opnieuw de hCaptcha challenge te volbrengen.',
     'confirmed'            => ':Attribute bevestiging komt niet overeen.',
     'current_password'     => 'Huidig wachtwoord is onjuist.',
     'date'                 => ':Attribute moet een datum bevatten.',

@@ -30,8 +30,8 @@
         <div id="profile-dropdown" @click.away="open = false" class="flex items-center h-full ml-3" x-data="{ open: false }">
             <div>
                 <button @click="open = !open" class="flex text-sm transition duration-150 ease-in-out border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 hover:border-gray-300" id="user-menu" aria-label="User menu" aria-haspopup="true" x-bind:aria-expanded="open" aria-expanded="true">
-                    @if (auth()->user()->image)
-                        <img class="w-10 h-10 rounded-full" src="{{ auth()->user()->image->url . '?' . time() }}" alt="{{ auth()->user()->name }}'s Avatar">
+                    @if (auth()->user()->linked_image)
+                        <img class="w-10 h-10 rounded-full" src="{{ auth()->user()->linked_image->url . '?' . time() }}" alt="{{ auth()->user()->name }}'s Avatar">
                     @else
                         <div class="flex items-center justify-center text-xl w-10 h-10 rounded-full text-white bg-[color:var(--wkid-pink)]">{{ substr(auth()->user()->name, 0, 1) }}</div>
                     @endif
@@ -59,12 +59,6 @@
                     @endImpersonating
                     <div class="border-t border-gray-100"></div>
                     <div class="py-1">
-
-                        <div class="block px-4 py-1">
-                            <span class="inline-block px-2 my-1 -ml-1 text-xs font-medium leading-5 text-gray-600 bg-gray-200 rounded">
-                                {{ auth()->user()->role->display_name }}
-                            </span>
-                        </div>
                         @if( !auth()->guest() && auth()->user()->can('browse_admin') )
                             <a href="{{ route('voyager.dashboard') }}" class="flex items-center px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">
                                 @svg('antdesign-thunderbolt-o', ['style' => 'width: 20px; height: 20px']) &nbsp; Admin
