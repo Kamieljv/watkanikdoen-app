@@ -14,7 +14,7 @@ class CreateImagesTable extends Migration
     public function up()
     {
         Schema::create('images', function (Blueprint $table) {
-            $table->string('key', 32)->unique(); // a hash based on the file path used to more efficiently index the db
+            $table->string('key', 32); // a hash based on the file path used to more efficiently index the db
             $table->string('path');
             $table->float('size', 10, 2);
             $table->integer('user_id')->unsigned()->nullable()->index('images_user_id_foreign');
@@ -26,6 +26,7 @@ class CreateImagesTable extends Migration
             $table->integer('report_id')->unsigned()->nullable()->index('images_report_id_foreign');
             $table->foreign('report_id')->references(['id'])->on('reports')->onUpdate('NO ACTION')->onDelete('CASCADE');
             $table->timestamps();
+            $table->unique(['key', 'user_id', 'organizer_id', 'actie_id', 'report_id']);
         });
     }
 
