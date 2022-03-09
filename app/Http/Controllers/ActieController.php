@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Algolia\AlgoliaSearch\SearchIndex;
 use App\Models\Actie;
+use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
 use TCG\Voyager\Http\Controllers\VoyagerBaseController;
@@ -23,6 +24,9 @@ class ActieController extends VoyagerBaseController
         SEOTools::setTitle($actie->title);
         if ($actie->excerpt !== null) {
             SEOTools::setDescription($actie->excerpt);
+        }
+        if ($actie->keywords !== null) {
+            SEOMeta::setKeywords($actie->keywords);
         }
 
         return view('acties.actie', compact('actie'));
