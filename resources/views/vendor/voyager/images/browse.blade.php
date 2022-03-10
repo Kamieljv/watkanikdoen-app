@@ -11,11 +11,11 @@
             <a href="{{ route('voyager.'.$dataType->slug.'.create') }}" class="btn btn-success btn-add-new">
                 <i class="voyager-plus"></i> <span>{{ __('voyager::generic.add_new') }}</span>
             </a>
-        @endcan
+        @endcan --}}
         @can('delete', app($dataType->model_name))
-            @include('voyager::partials.bulk-delete')
+            @include('voyager::partials.delete-unlinked')
         @endcan
-        @can('edit', app($dataType->model_name))
+        {{--@can('edit', app($dataType->model_name))
             @if(!empty($dataType->order_column) && !empty($dataType->order_display_column))
                 <a href="{{ route('voyager.'.$dataType->slug.'.order') }}" class="btn btn-primary btn-add-new">
                     <i class="voyager-list"></i> <span>{{ __('voyager::bread.order') }}</span>
@@ -120,9 +120,9 @@
                                         @endphp
                                         <td>
                                             @if ($data->{$row->field} < 1000 )
-                                                {{ $data->{$row->field} . ' KB' }}
+                                                {{ round($data->{$row->field}, 0) . ' KB' }}
                                             @else
-                                                {{ $data->{$row->field} / 1000 . ' MB'}}
+                                                {{ round($data->{$row->field} / 1000, 2) . ' MB'}}
                                             @endif
                                         </td>
                                         {{-- Linked to --}}
@@ -135,7 +135,7 @@
                                                     {{$model->title ?? $model->name ?? 'Link'}}
                                                 </a>
                                             @else
-                                                -
+                                                Ongekoppeld
                                             @endif
                                         </td>
                                         {{-- Object type --}}
