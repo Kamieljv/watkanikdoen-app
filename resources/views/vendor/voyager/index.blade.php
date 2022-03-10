@@ -14,7 +14,8 @@
 
         <div id="app" class="stats-container">
             <stats-dashboard
-                umami-token="{{config('umami.token')}}"
+                umami-username="{{config('umami.username')}}"
+                umami-password="{{config('umami.password')}}"
                 stats-url="{{config('umami.url')}}"
                 platform-stats-route="{{route('dashboard.stats')}}"
             />

@@ -73,4 +73,12 @@ class Image extends Model
                 ->orWhere('actie_id', '!=', null)
                 ->orWhere('report_id', '!=', null);
     }
+
+    public function scopeNotHasLink($query)
+    {
+        return $query->whereNull('user_id')
+                ->whereNull('organizer_id')
+                ->whereNull('actie_id')
+                ->whereNull('report_id');
+    }
 }
