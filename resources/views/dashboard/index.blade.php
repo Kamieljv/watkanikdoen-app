@@ -15,6 +15,7 @@
 			{{-- Notifications --}}
 			<div class="col-span-1">
 				<notifications
+					id="notifications"
 					:notifications="{{ $notifications }}"
 					read-route="{{ route('notification.read', '') }}"
 				/>
