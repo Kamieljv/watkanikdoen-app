@@ -62,10 +62,6 @@ import moment from "moment"
 export default {
 	name: "StatsDashboard",
 	props: {
-		umamiToken: {
-			type: String,
-			required: true,
-		},
 		statsUrl: {
 			type: String,
 			required: true,
@@ -77,7 +73,15 @@ export default {
 		days: {
 			type: Number,
 			default: 7,
-		}
+		},
+		umamiUsername: {
+			type: String,
+			required: true,
+		},
+		umamiPassword: {
+			type: String,
+			required: true,
+		},
 	},
 	data() {
 		return {
@@ -99,25 +103,30 @@ export default {
 		this.platformStats = ["acties", "users", "organizers"]
 			.reduce((acc,curr)=> (acc[curr]="N/A",acc),{})
 		this.getPlatformStats()
-		this.getVisitStats(2, this.days, 0)
+		this.getVisitStats(this.days, 0)
 	},
 	methods: {
-		getVisitStats(websiteId, startDaysAgo, endDaysAgo) {
-			this.$http.get(`https://analytics.watkanikdoen.nl/api/website/${websiteId}/stats`, {
-				headers: {
-					"Authorization": `Bearer ${this.umamiToken}`
-				},
-				params: {
-					start_at: moment().subtract(startDaysAgo, "days").unix()*1000,
-					end_at: moment().subtract(endDaysAgo, "days").unix()*1000
-				}
+		getVisitStats(startDaysAgo, endDaysAgo) {
+			this.$http.post(`https://analytics.watkanikdoen.nl/api/auth/login`, {
+				"username": this.umamiUsername,
+				"password": this.umamiPassword,
 			}).then((response) => {
-				this.visitStats = response.data
-				this.isLoading.visit = false
-			}).catch((error) => {
-				console.log(error)
-				this.isLoading.visit = false
-				this.isError.visit = true
+				this.$http.get(`https://analytics.watkanikdoen.nl/api/website/1/stats`, {
+					headers: {
+						"Authorization": `Bearer ${response.data.token}`
+					},
+					params: {
+						start_at: moment().subtract(startDaysAgo, "days").unix()*1000,
+						end_at: moment().subtract(endDaysAgo, "days").unix()*1000
+					}
+				}).then((response) => {
+					this.visitStats = response.data
+					this.isLoading.visit = false
+				}).catch((error) => {
+					console.log(error)
+					this.isLoading.visit = false
+					this.isError.visit = true
+				})
 			})
 		},
 		getPlatformStats() {
