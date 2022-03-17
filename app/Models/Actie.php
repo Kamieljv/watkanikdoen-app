@@ -147,6 +147,11 @@ class Actie extends Model
         return $this->hasOne(Image::class)->without('actie');
     }
 
+    public function report()
+    {
+        return $this->hasOne(Report::class);
+    }
+
     public function getAfgelopenAttribute()
     {
         return $this->start_unix < time();

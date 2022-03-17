@@ -4,7 +4,7 @@
 			<div class="relative flex-1">
 				<h3 class="flex items-center text-lg font-medium leading-6 text-gray-900 space-x-3">
 					<span>{{ __("notifications.notifications") }}</span>
-					<div v-if="unreadNotifications > 0" id="notification-count" class="flex items-center justify-center w-7 h-7 text-base font-extrabold text-red-100 bg-red-500 rounded-full">
+					<div v-if="unreadNotifications > 0" id="notification-count" class="flex items-center justify-center w-5 h-5 text-sm font-extrabold text-red-100 bg-red-500 rounded-full">
 						{{ unreadNotifications }}
 					</div>
 				</h3>
@@ -19,17 +19,17 @@
 			{{ __("dashboard.no_notifications") }}
 		</div>
 
-		<div class="relative max-h-[400px] overflow-y-scroll">
+		<div id="notification-ul" class="relative max-h-[400px] overflow-y-scroll">
 			<div
 				v-for="(n, i) in notificationsProcessed"
 				:key="n.id"
 			 	:id="'notification-li-' + i"
-				class="flex flex-col border-b border-gray-200"
+				class="flex flex-col border-b border-gray-200 w-full"
 				:class="{'bg-blue-50': n.unread, 'hover:bg-gray-100': !n.unread}"
 			>
 				<div class="flex items-start p-5">
 					<div class="flex-shrink-0 pt-1">
-						<div class="flex items-center justify-center text-xl w-10 h-10 rounded-full text-gray-400" :class="{'text-white bg-[color:var(--wkid-blue)]': n.unread, 'bg-gray-100': !n.unread}">
+						<div class="flex items-center justify-center text-xl w-10 h-10 rounded-full text-white" :class="{'text-white bg-[color:var(--wkid-blue)]': n.unread, 'bg-gray-100': !n.unread}">
 							<svg-vue :icon="n.data.icon" style="stroke: currentColor; height: 26px;" />
 						</div>
 					</div>
@@ -40,8 +40,8 @@
 								<span :class="{'font-bold': n.unread}">{{ n.data.body }}</span>
 							</div>
 						</a>
-						<div class="flex space-x-3 w-full items-center justify-left mt-2 text-sm font-medium leading-5 text-gray-500">
-							<span class="notification-datetime">{{ moment(n.created_at).fromNow() }}</span>
+						<div class="flex space-x-3 w-full items-center justify-left mt-2 text-xs font-medium leading-5 text-gray-500">
+							<span class="notification-datetime text-xs">{{ moment(n.created_at).fromNow() }}</span>
 							<span v-if="n.unread">•</span>
 							<span v-if="n.unread" @click="markAsRead" :data-id="n.id" :data-listid="i" class="flex justify-start text-xs text-gray-500 cursor-pointer hover:text-gray-700 mark-as-read hover:underline">
 								<svg class="absolute w-4 h-4 mt-1 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
@@ -101,3 +101,16 @@ export default {
 	},
 }
 </script>
+
+<style lang="scss" scoped>
+	#notification-ul {
+		/* Hide scrollbar for Chrome, Safari and Opera */
+		&::-webkit-scrollbar {
+			display: none;
+		}
+
+		/* Hide scrollbar for IE, Edge and Firefox */
+		-ms-overflow-style: none;  /* IE and Edge */
+		scrollbar-width: none;  /* Firefox */
+	}
+</style>

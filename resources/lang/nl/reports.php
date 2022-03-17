@@ -31,4 +31,6 @@ return [
     'date_reported' => 'Wanneer toegevoegd',
     'status' => 'Status',
     'view' => 'Bekijk',
+    'accepted_notif_title' => 'Toegevoegde actie geaccepteerd',
+    'accepted_notif_body' => 'De actie \':title\' is geaccepteerd. Klik om te bekijken.',
 ];

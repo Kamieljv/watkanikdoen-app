@@ -59,7 +59,7 @@
                                         <span class="font-medium">{{ @$notification_data->body }}</span>
                                     </div>
                                 </a>
-                                <div class="flex space-x-3 w-full items-center justify-left mt-2 text-sm font-medium leading-5 text-gray-500">
+                                <div class="flex space-x-3 w-full items-center justify-left mt-2 text-xs font-medium leading-5 text-gray-500">
                                     <span class="notification-datetime">{{ Date::parse(@$notification->created_at)->diffForHumans() }}</span>
                                     <span>•</span>
                                     <span data-id="{{ $notification->id }}" data-listid="{{ $index+1 }}" class="flex justify-start text-xs text-gray-500 cursor-pointer hover:text-gray-700 mark-as-read hover:underline">
