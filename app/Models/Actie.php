@@ -149,7 +149,7 @@ class Actie extends Model
 
     public function report()
     {
-        return $this->hasOne(Report::class);
+        return $this->hasOne(Report::class)->without('actie');
     }
 
     public function getAfgelopenAttribute()

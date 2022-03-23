@@ -88,7 +88,11 @@
                                         </td>
                                         {{-- Editing/Viewing --}}
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <a href="{{ route('report.view', $report->id) }}" class="text-[color:var(--wkid-blue)] hover:text-[color:var(--wkid-blue-dark)]">{{ __("reports.view") }}</a>
+                                            @if($report->status === 'APPROVED' && isset($report->actie))
+                                                <a href="{{ $report->actie->link }}" class="text-[color:var(--wkid-blue)] hover:text-[color:var(--wkid-blue-dark)]">{{ __("reports.view") }}</a>
+                                            @else
+                                                <a href="{{ route('report.view', $report->id) }}" class="text-[color:var(--wkid-blue)] hover:text-[color:var(--wkid-blue-dark)]">{{ __("reports.view") }}</a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
