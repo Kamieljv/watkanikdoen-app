@@ -14,14 +14,18 @@
 						</div>
 						<div v-else class="flex border-0">
 							<div v-for="stat in Object.keys(visitStats)" :key="stat" class="stat-container">
-								<p>{{stat}}</p>
+								<p>{{names[stat]}}</p>
 								<div v-if="!isLoading.visit" class="flex border-0">
-									<h2 class="stat-number">{{visitStats[stat].value}}{{stat == 'totaltime' ? 's' : ''}}</h2>
+									<h2 class="stat-number">{{visitStats[stat].value}}</h2>
 									<span
 										class="change"
-										:class="{positive: visitStats[stat].change > 0, negative: visitStats[stat].change < 0}"
+										:class="{
+											positive: visitStats[stat].change > 0 || visitStats[stat].change[0] !== '-',
+											negative: visitStats[stat].change < 0 || visitStats[stat].change[0] === '-',
+											bounce: stat === 'bouncerate',
+										}"
 									>
-										{{visitStats[stat].change}}{{stat == 'totaltime' ? 's' : ''}}
+										{{visitStats[stat].change}}
 									</span>
 								</div>
 								<div v-else class="custom-loader"></div>
@@ -95,10 +99,16 @@ export default {
 				visit: false,
 				platform: false,
 			},
+			names: {
+				'pageviews': 'pageviews',
+				'uniques': 'visitors',
+				'bouncerate': 'bounce rate',
+				'avgtime': 'average visit',
+			}
 		}
 	},
 	mounted() {
-		this.visitStats = ["pageviews", "uniques", "bounces", "totaltime"]
+		this.visitStats = ["pageviews", "uniques", "bouncerate", "avgtime"]
 			.reduce((acc,curr)=> (acc[curr]={value: "N/A", change: "N/A"},acc),{})
 		this.platformStats = ["acties", "users", "organizers"]
 			.reduce((acc,curr)=> (acc[curr]="N/A",acc),{})
@@ -120,7 +130,7 @@ export default {
 						end_at: moment().subtract(endDaysAgo, "days").unix()*1000
 					}
 				}).then((response) => {
-					this.visitStats = response.data
+					this.processData(response.data);
 					this.isLoading.visit = false
 				}).catch((error) => {
 					console.log(error)
@@ -139,6 +149,56 @@ export default {
 					this.isLoading.platform = false
 					this.isError.platform = true
 				})
+		},
+		processData(data) {
+			const { pageviews, uniques, bounces, totaltime } = data || {};
+			const num = Math.min(data && uniques.value, data && bounces.value);
+			const diffs = data && {
+				pageviews: pageviews.value - pageviews.change,
+				uniques: uniques.value - uniques.change,
+				bounces: bounces.value - bounces.change,
+				totaltime: totaltime.value - totaltime.change,
+			};
+			var computedStats = {
+				bouncerate: {
+					value: Number(uniques.value ? (num / uniques.value) * 100 : 0).toFixed(0) + '%',
+					change: Number(uniques.value && uniques.change
+						? (num / uniques.value) * 100 -
+							(Math.min(diffs.uniques, diffs.bounces) / diffs.uniques) * 100 || 0
+						: 0).toFixed(0) + '%',
+				},
+				avgtime: {
+					value: this.formatShortTime(Math.abs(totaltime.value && pageviews.value
+						? totaltime.value / (pageviews.value - bounces.value)
+						: 0)),
+					change: this.formatShortTime(Math.abs(totaltime.value && pageviews.value
+						? (diffs.totaltime / (diffs.pageviews - diffs.bounces) -
+							totaltime.value / (pageviews.value - bounces.value)) *
+							-1 || 0
+						: 0)),
+				},
+			}
+			this.visitStats = Object.fromEntries(
+				Object.entries({ ...data, ...computedStats }).filter((key) =>
+					Object.keys(this.visitStats).includes(key[0])
+				)
+			);
+		},
+		formatShortTime(secs, space = ' ') {
+			const time = moment.utc(secs * 1000)
+			const minutes = time.minutes()
+			const seconds = time.seconds()
+
+			let t = '';
+
+			if (minutes > 0) t += `${minutes}m${space}`;
+			if (seconds > 0) t += `${seconds}s${space}`;
+
+			if (!t) {
+				return `0s`;
+			}
+
+			return t;
 		}
 	}
 }
@@ -160,6 +220,9 @@ export default {
 		font-weight: 600;
 		&.positive {
 			color: green;
+			&.bounce {
+				color: red;
+			}
 			&::before {
 				content: '+';
 				margin-left: 5px;
@@ -169,6 +232,9 @@ export default {
 		&.negative {
 			margin-left: 5px;
 			color: red;
+			&.bounce {
+				color: green;
+			}
 		}
 	}
 </style>
