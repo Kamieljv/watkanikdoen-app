@@ -70,3 +70,6 @@ Cookie notice is created with [this package](https://github.com/manucaralmo/Glow
 - For Search: [Algolia](https://algolia.com) (Potential free credits for NGOs via [this form](https://www.algolia.com/for-open-source/)).
 - For Dutch Cities: [PDOK API](https://www.pdok.nl/restful-api/-/article/pdok-locatieserver-1#/paths/~1lookup/get)
 
+## To Do
+- [ ] Strengere wachtwoordeisen
+- [ ] In actie formulier: bent u organisator? en bericht aan ons
