@@ -10,9 +10,9 @@ return [
          * The default configurations to be used by the meta generator.
          */
         'defaults'       => [
-            'title'        => 'Wat kan ik doen?', // set false to total remove
+            'title'        => config('brand.title'), // set false to total remove
             'titleBefore'  => false, // Put defaults.title before page title, like 'It's Over 9000! - Dashboard'
-            'description'  => 'Welkom bij jouw startpunt voor actief burgerschap! Vind demonstraties in heel Nederland voor thema\'s die jij belangrijk vindt.', // set false to total remove
+            'description'  => config('brand.description'), // set false to total remove
             'separator'    => ' | ',
             'keywords'     => [],
             'url'          => config('app.url'),
@@ -38,11 +38,11 @@ return [
          * The default configurations to be used by the opengraph generator.
          */
         'defaults' => [
-            'title'       => 'Wat kan ik doen?', // set false to total remove
-            'description' => 'Welkom bij jouw startpunt voor actief burgerschap! Vind demonstraties in heel Nederland voor thema\'s die jij belangrijk vindt.', // set false to total remove
+            'title'       => config('brand.title'), // set false to total remove
+            'description' => config('brand.description'), // set false to total remove
             'url'         => null, // Set null for using Url::current(), set false to total remove
             'type'        => 'website',
-            'site_name'   => 'Wat kan ik doen?',
+            'site_name'   => config('brand.title'),
             'images'      => [config('app.url') . '/images/Logo_wit_op_roze.png'],
             'locale'      => 'nl_NL',
         ],
@@ -61,8 +61,8 @@ return [
          * The default configurations to be used by the json-ld generator.
          */
         'defaults' => [
-            'title'       => 'Wat kan ik doen?', // set false to total remove
-            'description' => 'Welkom bij jouw startpunt voor actief burgerschap! Vind demonstraties in heel Nederland voor thema\'s die jij belangrijk vindt.', // set false to total remove
+            'title'       => config('brand.title'), // set false to total remove
+            'description' => config('brand.description'), // set false to total remove
             'url'         => 'current', // Set to null or 'full' to use Url::full(), set to 'current' to use Url::current(), set false to total remove
             'type'        => 'WebPage',
             'images'      => [],

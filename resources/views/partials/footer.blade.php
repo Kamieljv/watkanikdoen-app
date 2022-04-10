@@ -6,7 +6,7 @@
                 @svg('custom-logo-icon', ['style' => 'fill: currentColor; height: 32px;'])
             </a>
             <ul class="flex flex-wrap flex-col space-y-3 space-x-0 sm:space-y-0 sm:flex-row sm:space-x-5 text-xs text-gray-600 my-5 sm:my-0">
-                <li class="text-center flex-full sm:flex-none sm:mb-0">&copy; {{ date('Y') }} {{ setting('site.title', 'Wat kan ik doen?') }}</li>
+                <li class="text-center flex-full sm:flex-none sm:mb-0">&copy; {{ date('Y') }} {{ config('brand.title') }}</li>
                 <li class="text-center">
                     <a href="/privacybeleid" class="relative inline-block group" style="color: inherit;">
                         <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-0"></span>

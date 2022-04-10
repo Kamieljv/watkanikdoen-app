@@ -3,7 +3,6 @@
 namespace App\Listeners;
 
 use App\Models\Image;
-use Illuminate\Support\Facades\Log;
 
 class AddImageRecord
 {

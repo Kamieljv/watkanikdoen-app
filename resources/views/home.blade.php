@@ -5,15 +5,15 @@
         <div id="image-banner" style="background-image:url(images/Banner_nocolor.jpg);"
         class="h-[300px] bg-center bg-cover grayscale brightness-[0.7] contrast-[1.5]"></div>
         <div id="gradient-banner" class="absolute inset-0 bg-gradient-to-r from-[var(--wkid-pink)] to-[var(--wkid-blue)] opacity-70"></div>
-        <h1 class="absolute w-full bottom-0 text-center leading-[0.7] text-white uppercase text-4xl md:text-5xl md:leading-[0.7]">Wat kan ik doen?</h1>
+        <h1 class="absolute w-full bottom-0 text-center leading-[0.7] text-white uppercase text-4xl md:text-5xl md:leading-[0.7]">
+            {{ config('brand.title') }}
+        </h1>
     </div>
     <div class="row">
         <div id="welcome" class="md:max-w-2xl px-3 md:px-0 my-8 m-auto text-center flex flex-col items-center justify-center">
             @svg('custom-vormpje', ['style' => 'fill: var(--wkid-blue-light); height: 100px; opacity: 0.2; position: absolute'])
             <p class="relative">
-                Welkom op de startpagina voor actief burgerschap.<br/>
-                Vind demonstraties, organisaties, en meer voor de thema's die jij
-                belangrijk vindt.
+                {!! config('brand.description_html') !!}
             </p>
         </div>
     </div>

@@ -6,6 +6,7 @@ use App\Models\Actie;
 use App\Models\Image;
 use App\Models\Organizer;
 use App\Models\Report;
+use App\Notifications\ReportAccepted;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -117,8 +118,10 @@ class ReportController extends Controller
         }
 
         // Move image to actie folder
-        $newImagePath = 'acties/' . explode("/", $report->image)[1];
-        Storage::disk(config('voyager.storage.disk'))->copy($report->image, $newImagePath);
+        if ($report->image) {
+            $newImagePath = 'acties/' . explode("/", $report->image)[1];
+            Storage::disk(config('voyager.storage.disk'))->copy($report->image, $newImagePath);
+        }
 
         // create new actie
         $actie = Actie::create([
@@ -128,15 +131,17 @@ class ReportController extends Controller
             'externe_link' => $report->externe_link,
             'time_start' => $report->time_start,
             'time_end' => $report->time_end,
-            'location' => DB::raw("ST_GeomFromText('POINT({$report->coordinates['lng']} {$report->coordinates['lat']})')"),
+            'location' => $report->coordinates ? DB::raw("ST_GeomFromText('POINT({$report->coordinates['lng']} {$report->coordinates['lat']})')") : null,
             'location_human' => $report->location_human,
-            'image' => $newImagePath,
+            'image' => $report->image ? $newImagePath : '',
             'slug' => $this->createSlug($report->title),
         ]);
-        Image::create([
-            'path' => $newImagePath,
-            'actie_id' => $actie->id,
-        ]);
+        if (isset($newImagePath)) {
+            Image::create([
+                'path' => $newImagePath,
+                'actie_id' => $actie->id,
+            ]);
+        }
 
         // Add a relationship entry for the ActieOrganizer if the organizer_id is passed
         if ($report->organizer_ids) {
@@ -147,6 +152,9 @@ class ReportController extends Controller
         }
 
         $report->approve();
+
+        $report->actie_id = $actie->id;
+        $report->save();
 
         return redirect()
             ->route("voyager.acties.index")
