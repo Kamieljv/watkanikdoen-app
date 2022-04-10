@@ -77,6 +77,11 @@ class Report extends Model
         return $this->hasOne(Image::class)->without('report');
     }
 
+    public function actie()
+    {
+        return $this->belongsTo(Actie::class)->without('report');
+    }
+
     /**
      * Get a new query builder for the model's table.
      * Manipulate in case we need to convert geometrical fields to text.
