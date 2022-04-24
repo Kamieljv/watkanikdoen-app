@@ -15,7 +15,7 @@ class OrganizerController extends Controller
     {
         // Definieer de routes waarmee de component evenementen kan ophalen
         $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
-            return (strpos($route->uri, 'organizers') !== false || strpos($route->uri, 'organizer') !== false) && (strpos($route->uri, 'admin') === false);
+            return (strpos($route->uri, 'organisatoren') !== false || strpos($route->uri, 'organisator') !== false) && (strpos($route->uri, 'admin') === false);
         })->map(function ($route) {
             return [
                 'uri' => '/' . $route->uri,
