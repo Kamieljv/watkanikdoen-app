@@ -20,7 +20,7 @@ class HomeController extends Controller
             ];
         });
 
-        $themes = Theme::all();
+        $themes = Theme::orderBy('name', 'ASC')->get();
 
         // SEO
         SEOTools::setTitle('Home');

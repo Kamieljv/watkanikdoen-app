@@ -19,10 +19,12 @@
                         textAttribute="name"
                         v-model="themesSelected"
                         :multiple="true"
-                        :hideSearchBox="true"
                         :closeOnSelect="false"
                         placeholder="Thema..."
-                    />
+						searchBoxPlaceholder="Zoeken..."
+						:minimumResultsForSearch="5"
+						noResultsText="Geen resultaten"
+					/>
                 </div>
             </div>
         </div>

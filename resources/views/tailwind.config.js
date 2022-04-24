@@ -32,6 +32,7 @@ module.exports = {
 		"shrink-0",
 		"z-[1001]",
 		"translate-x-full",
-		"translate-x-0"
+		"translate-x-0",
+		"overflow-auto",
 	]
 }
