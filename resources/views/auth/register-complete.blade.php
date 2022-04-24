@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@php
+    if (!session('email')) {
+        abort(404);
+    }
+@endphp
+
 @section('content')
 
     <div class="flex flex-col justify-center pb-10 sm:pb-20 sm:px-6 lg:px-8">
