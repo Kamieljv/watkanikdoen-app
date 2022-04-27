@@ -91,7 +91,11 @@ class Actie extends Model
 
     public function getStartAttribute()
     {
-        return Date::parse($this->time_start)->format('j M Y, G:i');
+        if ($this->time_start) {
+            return Date::parse($this->time_start)->format('j M Y, G:i');
+        } else {
+            return null;
+        }
     }
 
     public function getStartUnixAttribute()

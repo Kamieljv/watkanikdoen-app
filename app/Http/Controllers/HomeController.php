@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Theme;
+use App\Models\Category;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Support\Facades\Route;
 
@@ -21,10 +22,11 @@ class HomeController extends Controller
         });
 
         $themes = Theme::orderBy('name', 'ASC')->get();
+        $categories = Category::orderBy('name', 'ASC')->get();
 
         // SEO
         SEOTools::setTitle('Home');
 
-        return view('home', compact('routes', 'themes'));
+        return view('home', compact('routes', 'themes', 'categories'));
     }
 }

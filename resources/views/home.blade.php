@@ -21,6 +21,7 @@
         <actie-agenda
             :routes="{{ $routes }}"
             :themes="{{ $themes }}"
+            :categories="{{ $categories }}"
         >
         </actie-agenda>
     </div>

@@ -64,14 +64,18 @@
                                 <span class="mt-0 italic text-sm font-normal">{{ __("acties.created_at") }}: {{ $actie->created_at }}</span>
                             @endif
                             <div class="details-container text-sm text-gray-500">
-                                <div class="flex items-center text-sm leading-5 text-gray-700">
-                                    @svg('antdesign-clock-circle-o', ['class' => 'shrink-0', 'style' => 'width: 20px; height: 20px'])
-                                    &nbsp; <span class="font-medium">{{ $actie->start }}</span><br/>
-                                </div>
-                                <div class="flex items-center text-sm leading-5 text-gray-700">
-                                    @svg('antdesign-environment-o', ['class' => 'shrink-0', 'style' => 'width: 20px; height: 20px'])
-                                    &nbsp; <span class="font-medium">{{ $actie->location_human }}</span>
-                                </div>
+                                @if($actie->start)
+                                    <div class="flex items-center text-sm leading-5 text-gray-700">
+                                        @svg('antdesign-clock-circle-o', ['class' => 'shrink-0', 'style' => 'width: 20px; height: 20px'])
+                                        &nbsp; <span class="font-medium">{{ $actie->start }}</span><br/>
+                                    </div>
+                                @endif
+                                @if($actie->location_human)
+                                    <div class="flex items-center text-sm leading-5 text-gray-700">
+                                        @svg('antdesign-environment-o', ['class' => 'shrink-0', 'style' => 'width: 20px; height: 20px'])
+                                        &nbsp; <span class="font-medium">{{ $actie->location_human }}</span>
+                                    </div>
+                                @endif
                             </div>
                             <a href="{{ $actie->externe_link }}" class="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
                                 @svg('antdesign-link-o', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ __("acties.to_action_page") }}
@@ -82,14 +86,18 @@
                     <div class="sm:flex flex-col gap-3 not-prose p-3 bg-white rounded-lg shadow-lg overflow-hidden hidden">
                         <h4>{{ __("acties.details") }}</h4>
                         <div class="details-container text-sm text-gray-500">
-                            <div class="flex items-center text-sm leading-5 text-gray-700">
-                                @svg('antdesign-clock-circle-o', ['class' => 'shrink-0', 'style' => 'width: 20px; height: 20px'])
-                                &nbsp; <span class="font-medium">{{ $actie->start }}</span><br/>
-                            </div>
-                            <div class="flex items-center text-sm leading-5 text-gray-700">
-                                @svg('antdesign-environment-o', ['class' => 'shrink-0', 'style' => 'width: 20px; height: 20px'])
-                                &nbsp; <span class="font-medium">{{ $actie->location_human }}</span>
-                            </div>
+                            @if($actie->start)
+                                <div class="flex items-center text-sm leading-5 text-gray-700">
+                                    @svg('antdesign-clock-circle-o', ['class' => 'shrink-0', 'style' => 'width: 20px; height: 20px'])
+                                    &nbsp; <span class="font-medium">{{ $actie->start }}</span><br/>
+                                </div>
+                            @endif
+                            @if($actie->location_human)
+                                <div class="flex items-center text-sm leading-5 text-gray-700">
+                                    @svg('antdesign-environment-o', ['class' => 'shrink-0', 'style' => 'width: 20px; height: 20px'])
+                                    &nbsp; <span class="font-medium">{{ $actie->location_human }}</span>
+                                </div>
+                            @endif
                         </div>
                         <a href="{{ $actie->externe_link }}" class="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
                             @svg('antdesign-link-o', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ __("acties.to_action_page") }}
