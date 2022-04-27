@@ -36,6 +36,7 @@
         "node-sass": "^6.0.1",
         "postcss-scss": "^4.0.2",
         "uuid": "^8.3.2",
+        "vee-validate": "^3.4.14",
         "vue-croppie": "^2.0.2",
         "vue-tailwind": "^2.5.0",
         "vue2-leaflet": "^2.7.1"
