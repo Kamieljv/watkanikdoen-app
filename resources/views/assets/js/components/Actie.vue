@@ -14,7 +14,7 @@
                     <div v-else class="h-[150px] bg-gray-300 text-gray-400 flex items-center justify-center">
                         <svg-vue icon="logo-icon" style="fill: currentColor; height: 80px;"></svg-vue>
                     </div>
-                    <ul class="themes-container p-2 absolute top-0 w-full">
+                    <ul v-if="actie.themes.length <= 2" class="themes-container p-2 absolute top-0 w-full">
                         <li
                             v-for="theme in actie.themes"
                             :key="theme.id"
@@ -23,6 +23,23 @@
                         >
                             <span class="text-white" rel="theme">
                                 {{ theme.name }}
+                            </span>
+                        </li>
+                    </ul>
+                    <ul v-else class="themes-container p-2 absolute top-0 w-full">
+                        <li
+                            class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
+                            :style="{backgroundColor: actie.themes[0].color}"
+                        >
+                            <span class="text-white" rel="theme">
+                                {{ actie.themes[0].name }}
+                            </span>
+                        </li>
+                        <li
+                            class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
+                        >
+                            <span class="text-gray-800" rel="theme">
+                                +{{ actie.themes.length - 1 }} thema's
                             </span>
                         </li>
                     </ul>
