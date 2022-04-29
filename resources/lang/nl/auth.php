@@ -11,13 +11,15 @@
 */
 
 return [
-    'login' => 'login',
+    'login' => 'inloggen',
     'register' => 'Maak een account',
     'no_account?' => 'Nog geen account?',
     'account?' => 'Heb je al een account?',
     'new_password_setup' => 'Stel je nieuwe wachtwoord in',
     'username' => 'Gebruikersnaam',
+    'remember_me' => 'Onthouden',
     'send_reset_link' => 'Stuur me een link',
+    'forgot_password?' => 'Wachtwoord vergeten?',
     'password_reset_success' => 'Uw wachtwoord is opnieuw ingesteld.',
     'register_complete_heading' => 'Welkom! Uw account is aangemaakt',
     'register_complete_body' => 'Voordat je kunt inloggen, vragen we je eerst uw e-mailadres te verifiëren. We hebben een e-mail gestuurd naar',
