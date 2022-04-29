@@ -19,7 +19,7 @@
                     v-html="responseMessage"
                     class="p-3 text-sm rounded-md success"
                 ></div>
-                <div v-else-if="success == false" class="p-3 text-sm rounded-md failed">
+                <div v-else-if="success == false" class="p-3 text-sm rounded-md failure">
                     {{ __("auth.reset_link_send_failed") }}
                 </div>
                 <form v-if="success == null" action="#" method="POST">
@@ -38,12 +38,11 @@
                         <span class="block w-full rounded-md shadow-sm">
                             <a @click="submit" class="flex justify-center w-full px-4 py-2 text-sm cursor-pointer font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 active:bg-blue-700">
                                 {{ __("auth.send_reset_link") }}
+                                <div v-if="isLoading" class="custom-loader"></div>
                             </a>
                         </span>
                     </div>
-
                 </form>
-
             </div>
         </div>
     </div>
@@ -77,18 +76,22 @@ export default {
 			email: '',
             responseMessage: '',
             success: null,
+            isLoading: false,
         }
 	},
     methods: {
         submit: async function() {
+            this.isLoading = true
             this.$http.post(this.routes.password_reset, {
                 email: this.email,
                 _token: this.csrf,
             }).then((response) => {
                 this.responseMessage = response.data.message
                 this.success = true
+                this.isLoading = true
             }).catch((err) => {
                 this.success = false
+                this.isLoading = true
             })
         }
     }
@@ -99,7 +102,7 @@ export default {
         color: var(--wkid-message-success-dark);
         background: var(--wkid-message-success-light);
     }
-    .failed {
+    .failure {
         color: var(--wkid-message-error-dark);
         background: var(--wkid-message-error-light);
     }

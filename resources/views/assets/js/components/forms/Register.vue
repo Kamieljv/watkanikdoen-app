@@ -15,77 +15,89 @@
                     </a>
                 </span>
                 <hr class="my-5">
-                <form role="form" method="POST" :action="routes.register">
-                    <slot name="csrf"/>
+                <div v-if="Object.keys(errors).length > 0" class="p-3 mb-3 text-sm rounded-md failure">
+                    <span
+                        v-for="error in Object.keys(errors)"
+                        :key="error"
+                    >
+                        {{ errors[error][0] }}
+                    </span>
+                </div>
+                <ValidationObserver
+                    ref="validator"
+                >
+                    <form role="form" method="POST" :action="routes.register">
+                        <slot name="csrf"/>
 
-                    <!-- Name -->
-                    <FormField
-                        v-model="name"
-                        label="Naam"
-                        name="name"
-                        type="text"
-                        :rules="{max: 50}"
-                        autocomplete="name"
-                        required
-                    />
+                        <!-- Name -->
+                        <FormField
+                            v-model="name"
+                            label="Naam"
+                            name="name"
+                            type="text"
+                            :rules="{max: 50}"
+                            autocomplete="name"
+                            required
+                        />
 
-                    <!-- Email -->
-                    <FormField
-                        v-model="email"
-                        label="E-mailadres"
-                        name="email"
-                        type="email"
-                        :rules="{max: 70, email: true}"
-                        autocomplete="email"
-                        required
-                    />
+                        <!-- Email -->
+                        <FormField
+                            v-model="email"
+                            label="E-mailadres"
+                            name="email"
+                            type="email"
+                            :rules="{max: 70, email: true}"
+                            autocomplete="email"
+                            required
+                        />
 
-                    <!-- Password -->
-                    <FormField
-                        v-model="password"
-                        label="Wachtwoord"
-                        name="password"
-                        type="password"
-                        :rules="{min: minPasswordLength}"
-                        autocomplete="new-password"
-                        password
-                        required
-                    />
+                        <!-- Password -->
+                        <FormField
+                            v-model="password"
+                            label="Wachtwoord"
+                            name="password"
+                            type="password"
+                            :rules="{min: minPasswordLength}"
+                            autocomplete="new-password"
+                            password
+                            required
+                        />
 
-                    <!-- Password Confirmation -->
-                    <FormField
-                        v-model="password"
-                        label="Wachtwoord bevestigen"
-                        name="password_confirmation"
-                        type="password"
-                        :rules="{min: minPasswordLength}"
-                        autocomplete="new-password"
-                        password
-                        required
-                    />
-                    
-                    <div class="mt-6">
-                        <div class="h-captcha" :data-sitekey="hCaptchaKey"></div>
-                    </div>
+                        <!-- Password Confirmation -->
+                        <FormField
+                            v-model="passwordConfirm"
+                            label="Wachtwoord bevestigen"
+                            name="password_confirmation"
+                            type="password"
+                            :rules="{min: minPasswordLength, confirmed: {target: 'password'}}"
+                            autocomplete="new-password"
+                            password
+                            required
+                        />
 
-                    <div class="mt-6 flex">
-                        <input v-model="termsApproved" name="terms" type="checkbox" id="termsCheckbox" class="mr-2">
-                        <label for="termsCheckbox" class="text-sm text-gray-900" v-html="termsText">
-                        </label>
-                    </div>
-                    <div class="flex flex-col items-center justify-center text-sm leading-5">
-                        <span class="block w-full mt-5 rounded-md shadow-sm">
-                            <button
-                                id="submitBtn"
-                                type="submit"
-                                class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 active:bg-blue-700 disabled:bg-gray-200 disabled:text-gray-900 disabled:cursor-not-allowed"
-                                :disabled="!termsApproved"
-                            >
-                                {{ __("auth.register") }}
-                            </button>
-                        </span>
-                    </div>
-                </form>
+                        <div class="mt-6">
+                            <div class="h-captcha" :data-sitekey="hCaptchaKey"></div>
+                        </div>
+
+                        <div class="mt-6 flex">
+                            <input v-model="termsApproved" name="terms" type="checkbox" id="termsCheckbox" class="mr-2">
+                            <label for="termsCheckbox" class="text-sm text-gray-900" v-html="termsText">
+                            </label>
+                        </div>
+                        <div class="flex flex-col items-center justify-center text-sm leading-5">
+                            <span class="block w-full mt-5 rounded-md shadow-sm">
+                                <button
+                                    id="submitBtn"
+                                    type="submit"
+                                    class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 active:bg-blue-700 disabled:bg-gray-200 disabled:text-gray-900 disabled:cursor-not-allowed"
+                                    :disabled="!termsApproved"
+                                >
+                                    {{ __("auth.register") }}
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                </ValidationObserver>
             </div>
         </div>
     </div>
@@ -117,12 +129,17 @@ export default {
             type: String,
             required: true,
         },
+        errors: {
+            type: Object|Array,
+            default: () => {}
+        },
     },
     data() {
 		return {
             name: '',
 			email: '',
             password: '',
+            passwordConfirm: '',
             termsApproved: false,
         }
 	},
@@ -135,4 +152,9 @@ export default {
     }
 }
 </script>
-
+<style scoped>
+    .failure {
+        color: var(--wkid-message-error-dark);
+        background: var(--wkid-message-error-light);
+    }
+</style>

@@ -16,6 +16,7 @@
             :routes="{{ json_encode($routes) }}"
             h-captcha-key="{{ env('H_CAPTCHA_KEY') }}"
             :min-password-length="{{ config('app.auth.min_password_length') }}"
+            :errors="{{ $errors }}"
         >
             <template v-slot:csrf>
                 {{ csrf_field() }}
