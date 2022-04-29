@@ -9,7 +9,6 @@
 @endphp
 
 @section('content')
-{{ var_dump($errors) }}
     <div id="app">
         <Login
             :routes="{{ json_encode($routes) }}"

@@ -15,7 +15,7 @@
                     </a>
                 </span>
                 <hr class="my-5">
-                <form action="#" method="POST" class="space-y-3">
+                <form :action="routes.login" method="POST" class="space-y-3">
                     <slot name="csrf"/>
 
                     <!-- Email -->
@@ -35,7 +35,7 @@
                         label="Wachtwoord"
                         name="password"
                         type="password"
-                        :rules="{max: minPasswordLength}"
+                        :rules="{min: minPasswordLength}"
                         :show-required-mark="false"
                         autocomplete="password"
                         password
