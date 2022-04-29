@@ -1769,7 +1769,7 @@ class DataRowsTableSeeder extends Seeder
                 'browse' => 1,
                 'data_type_id' => 14,
                 'delete' => 1,
-                'details' => '{"model":"App\\\\Models\\\\Theme","table":"themes","type":"belongsToMany","column":"id","key":"id","label":"name","pivot_table":"organizer_theme","pivot":"1","taggable":"0"}',
+                'details' => '{"model":"App\\\\Models\\\\Theme","table":"themes","type":"belongsToMany","column":"id","key":"id","label":"name","pivot_table":"organizer_theme","pivot":"1","taggable":"1"}',
                 'display_name' => 'Themes',
                 'edit' => 1,
                 'field' => 'organizer_belongstomany_theme_relationship',
