@@ -2,6 +2,14 @@
     <form :action="routes.profile_put" method="POST" enctype="multipart/form-data">
         <slot name="csrf"/>
 		<div class="relative flex flex-col p-6">
+			<div v-if="Object.keys(errors).length > 0" class="p-3 mb-3 text-sm rounded-md failure">
+				<span
+					v-for="error in Object.keys(errors)"
+					:key="error"
+				>
+					{{ errors[error][0] }}
+				</span>
+			</div>
 			<div class="flex justify-start w-full mb-8 w-full h-32 lg:m-b0">
 				<form-image
 					:previous-image="previousImage"
@@ -62,7 +70,11 @@ export default {
         user: {
             type: Object,
             required: true,
-        }
+        },
+		errors: {
+            type: Object|Array,
+            default: () => {}
+        },
     },
     data() {
 		return {
@@ -81,4 +93,10 @@ export default {
     },
 }
 </script>
+<style scoped>
+    .failure {
+        color: var(--wkid-message-error-dark);
+        background: var(--wkid-message-error-light);
+    }
+</style>
 
