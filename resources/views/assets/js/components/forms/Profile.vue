@@ -48,16 +48,12 @@
 <script>
 
 import { ValidationProvider } from 'vee-validate';
-import { caseHelper } from '../../mixins/caseHelper';
 
 export default {
 	name: "Profile",
     components: {
         ValidationProvider,
     },
-    mixins: [
-        caseHelper,
-    ],
     props: {
         routes: {
             type: Object,
