@@ -16,6 +16,7 @@ return [
     'about' => 'Over',
     'about_us' => 'Over ons',
     'mark_as_read' => 'Markeer als gelezen',
+    'save' => 'Opslaan',
     'or' => 'of',
     'or_back_to' => 'of, keer terug naar ',
     'or_you_can_here' => 'of, je kunt hier ',

@@ -35,7 +35,6 @@
                         label="Wachtwoord"
                         name="password"
                         type="password"
-                        :rules="{min: minPasswordLength}"
                         :show-required-mark="false"
                         autocomplete="password"
                         password
