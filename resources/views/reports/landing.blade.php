@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@php
+    $routes = [
+        'profile_put' => route('settings.profile.put'),
+    ];
+@endphp
+
 @section('content')
 
     <div class="max-w-4xl mx-auto mt-10 px-5 lg:px-0 flex">
@@ -10,30 +16,20 @@
     </div>
 
     <div class="max-w-4xl mx-auto mt-6 px-5 lg:px-0">
-        <div class="max-w-4xl px-5 mx-auto prose prose-xl lg:px-0">
-            <h2>Een actie toevoegen</h2>
-            <p>Super dat je een actie wilt toevoegen! Op deze manier werk je met ons mee om de
-                website volledig te maken.
-                Om een actie toe te voegen vragen we je om in te loggen of een account aan te maken.
-                Dit is nodig om je op de hoogte te houden van de status van de aangemelde actie.
-            </p>
-        </div>
-    </div>
-
-    <div class="mt-8 mx-5 sm:mx-auto sm:w-full sm:max-w-md">
-        <div class="px-4 py-8 bg-white border shadow border-gray-50 sm:rounded-lg sm:px-10">
-            <p class="mb-2 text-sm">{{ __("auth.no_account?") }}</p>
-            <span class="block w-full rounded-md shadow-sm">
-                <a href="{{ route('register') }}" class="secondary w-full">
-                    {{ __("auth.register") }}
-                </a>
-            </span>
-            <span class="block w-full mt-6 rounded-md shadow-sm">
-                <a type="submit" class="primary w-full">
-                    {{ __("Log In") }}
-                </a>
-            </span>
+        <div id="app">
+            <Add-Actie
+                :routes="{{ json_encode($routes) }}"
+            >
+            </Add-Actie>
         </div>
     </div>
 
 @endsection
+
+@push('scripts')
+	<script type="application/javascript">
+		var app = new Vue({
+			el: '#app',
+		});
+	</script>
+@endpush
