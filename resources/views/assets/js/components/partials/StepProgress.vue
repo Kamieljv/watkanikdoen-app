@@ -2,8 +2,8 @@
     <div>
         <div class="w-full h-20 mt-8">
             <ul class="progressbar flex justify-between">
-                <li class="" :class="[i <= currentStep + 1 ? 'active' : '', widthClass]" v-for="i in steps.length" :key="i">
-                    {{ steps[i-1] }}
+                <li class="" :class="[i <= currentStep + 1 ? 'active' : '']" v-for="i in steps.length" :key="i" :style="{width: widthPerc}">
+                    <p class="text-sm">{{ steps[i-1] }}</p>
                 </li>
             </ul>
         </div>
@@ -26,8 +26,8 @@ export default {
         }
     },
     computed: {
-        widthClass: function() {
-            return 'w-1/' + this.steps.length
+        widthPerc: function() {
+            return 100 / this.steps.length + '%'
         }
     }
 }

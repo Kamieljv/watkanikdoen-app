@@ -10,7 +10,7 @@
             <form @submit.prevent="passes(nextStep)" class="form">
                 <transition name="slide" mode="out-in" appear>
                     <div v-if="activeIndex === 0" class="p-6 bg-white rounded-md shadow-md min-h-[300px]" :key="0">
-                        <h2>Een actie toevoegen</h2>
+                        <h2>Start: Een actie toevoegen</h2>
                         <p>Super dat je een actie wilt toevoegen! Op deze manier werk je met ons mee om de
                             website volledig te maken.
                             Om een actie toe te voegen vragen we je om in te loggen of een account aan te maken.
@@ -18,27 +18,25 @@
                         </p>
                     </div>
                     <div v-else-if="activeIndex === 1" class="p-6 bg-white rounded-md shadow-md min-h-[300px]" :key="1">
-                        <h2>This is step {{activeIndex}}.</h2>
-                        <p>Super dat je een actie wilt toevoegen! Op deze manier werk je met ons mee om de
-                            website volledig te maken.
-                            Om een actie toe te voegen vragen we je om in te loggen of een account aan te maken.
-                            Dit is nodig om je op de hoogte te houden van de status van de aangemelde actie.
+                        <h2>Organisator kiezen/toevoegen</h2>
+                        <p>Hier kun je een organisator kiezen/toevoegen.
                         </p>
                     </div>
                     <div v-else-if="activeIndex === 2" class="p-6 bg-white rounded-md shadow-md min-h-[300px]" :key="2">
-                        <h2>This is step {{activeIndex}}.</h2>
+                        <h2>Actiedetails beschrijven</h2>
+                        <p>Hier komt het actieformulier</p>
+                    </div>
+                    <div v-else-if="activeIndex === 3" class="p-6 bg-white rounded-md shadow-md min-h-[300px]" :key="3">
+                        <h2>Account registreren</h2>
                         <p>Super dat je een actie wilt toevoegen! Op deze manier werk je met ons mee om de
                             website volledig te maken.
                             Om een actie toe te voegen vragen we je om in te loggen of een account aan te maken.
                             Dit is nodig om je op de hoogte te houden van de status van de aangemelde actie.
                         </p>
                     </div>
-                    <div v-else class="p-6 bg-white rounded-md shadow-md min-h-[300px]" :key="3">
-                        <h2>This is step {{activeIndex}}.</h2>
-                        <p>Super dat je een actie wilt toevoegen! Op deze manier werk je met ons mee om de
-                            website volledig te maken.
-                            Om een actie toe te voegen vragen we je om in te loggen of een account aan te maken.
-                            Dit is nodig om je op de hoogte te houden van de status van de aangemelde actie.
+                    <div v-else class="p-6 bg-white rounded-md shadow-md min-h-[300px]" :key="4">
+                        <h2>Klaar!</h2>
+                        <p>Dankjewel!
                         </p>
                     </div>
                 </transition>
@@ -78,10 +76,11 @@ export default {
     data: () => ({
         activeIndex: 0,
         steps: [
-            'Stap 1',
-            'Stap 2',
-            'Stap 3',
-            'Stap 4'
+            'Start',
+            'Organisator kiezen/toevoegen',
+            'Actie beschrijven',
+            'Account registreren',
+            'Klaar!'
         ],
     }),
     computed: {
