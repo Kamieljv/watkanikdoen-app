@@ -65,6 +65,8 @@
             'search',
             'number',
             'email',
+            'date',
+            'datetime-local',
           ].includes(value);
         },
       },

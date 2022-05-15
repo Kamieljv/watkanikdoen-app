@@ -52,19 +52,40 @@ extend('is_not', {
 });
 
 extend('before', {
-  validate: (value, args) => new Date(value) < new Date(args.date),
+  validate: (value, { otherValue} ) => new Date(value) < new Date(otherValue),
   params: ['date'],
   message: 'Kies een datum voor {date}.',
+}, {
+  hasTarget: true
 });
 
 extend('after', {
-  validate: (value, args) => new Date(value) > new Date(args.date),
-  params: ['date'],
-  message: (fieldName, placeholders) => `Kies een datum na ${new Date(placeholders.date).toLocaleDateString('nl-NL')}.`,
+  params: ['target'],
+  validate: (value, {target}) => new Date(value) > new Date(target),
+  message: 'Kies een datum na {target}.',
+}, {
+  hasTarget: true
+});
+
+extend('afterToday', {
+  validate: (value) => new Date(value) > new Date(),
+  message: 'Kies een datum na vandaag.',
 });
 
 extend('regex', {
   validate: (value, params) => new RegExp(params.exp).test(value),
   params: ['exp'],
   message: 'Het formaat van het {_field_} veld is niet geldig.',
+});
+
+extend('url', {
+  validate(value) {
+    var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+      '(([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}' + // domain name
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+      '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+    return pattern.test(value);
+  },
+  message: 'Vul een geldige URL in.'
 });

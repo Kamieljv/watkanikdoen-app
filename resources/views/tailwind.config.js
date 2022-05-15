@@ -33,5 +33,7 @@ module.exports = {
 		"translate-x-0",
 		"overflow-auto",
 		"justify-end",
+		"divide-x",
+		"divide-y"
 	]
 }

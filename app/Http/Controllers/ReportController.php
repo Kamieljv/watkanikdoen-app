@@ -23,13 +23,14 @@ class ReportController extends Controller
      */
     public function landing()
     {
+        $organizers = Organizer::all()->toJson();
 
         if (Auth::check()) {
             return redirect(route('report.form'));
         }
 
         // Display the landing page
-        return view('reports.landing');
+        return view('reports.landing', compact('organizers'));
     }
 
     /**

@@ -2,8 +2,12 @@
 
 @php
     $routes = [
-        'profile_put' => route('settings.profile.put'),
+        'report_create' => route('report.create'),
     ];
+    $defaultCenter = old('location') &&
+        (old('location')['lat'] !== NULL)
+            ? [old('location')]
+            : [['lat' => config('voyager.maps.center.lat'), 'lng' => config('voyager.maps.center.lng')]];
 @endphp
 
 @section('content')
@@ -19,6 +23,9 @@
         <div id="app">
             <Add-Actie
                 :routes="{{ json_encode($routes) }}"
+                :default-center="{{ json_encode($defaultCenter) }}"
+                :zoom={{ config('voyager.maps.zoom') }}
+                :organizers="{{ $organizers }}"
             >
             </Add-Actie>
         </div>

@@ -25,7 +25,7 @@
                     type="number"
                     step="any"
                     :name="latName"
-                    placeholder="19.6400"
+                    :placeholder="latName"
                     v-model="lat"
                     @change="onLatLngInputChange"
                     v-on:keypress="onInputKeyPress"
@@ -39,7 +39,7 @@
                     type="number"
                     step="any"
                     :name="lngName"
-                    placeholder="-155.9969"
+                    :placeholder="lngName"
                     v-model="lng"
                     @change="onLatLngInputChange"
                     v-on:keypress="onInputKeyPress"
@@ -128,8 +128,8 @@ export default {
 			url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
 			attribution:
                     "&copy; <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors",
-			lat: "",
-			lng: "",
+			lat: null,
+			lng: null,
 			tooltipOptions: {
 				permanent: true,
 			},
@@ -145,7 +145,7 @@ export default {
 		}
 	},
 	mounted() {
-		this.hasNoLatLng = this.unedited && !this.frontend
+		this.hasNoLatLng = (this.unedited && !this.frontend) || (!this.unedited && (!this.lat || !this.lng))
 	},
 	watch: {
 		hasNoLatLng: function(newVal) {
@@ -156,6 +156,13 @@ export default {
 				this.lat = this.defaultCenter[0].lat
 				this.lng = this.defaultCenter[0].lng
 			}
+			this.center = latLng(this.lat, this.lng)
+		},
+		center: {
+			handler: function(value) {
+				this.$emit('input', value)
+			}, 
+			deep: true
 		}
 	},
 	methods: {

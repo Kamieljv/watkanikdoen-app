@@ -1,9 +1,9 @@
 <template>
     <div>
-        <div class="w-full h-20 mt-8">
+        <div class="w-full h-20 mt-8 sm:mb-4">
             <ul class="progressbar flex justify-between">
                 <li class="" :class="[i <= currentStep + 1 ? 'active' : '']" v-for="i in steps.length" :key="i" :style="{width: widthPerc}">
-                    <p class="text-sm">{{ steps[i-1] }}</p>
+                    <p class="text-sm hidden sm:block">{{ steps[i-1] }}</p>
                 </li>
             </ul>
         </div>

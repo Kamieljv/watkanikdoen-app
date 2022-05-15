@@ -79,7 +79,11 @@ export default {
 			formValue: null,
 		}
 	},
-
+    watch: {
+        formValue: function(value) {
+            this.$emit('input', value)
+        }
+    },
 	mounted() {
 		this.editor = new Editor({
 			content: this.value,

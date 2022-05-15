@@ -9,7 +9,7 @@
         <ValidationObserver v-slot="{ passes }">
             <form @submit.prevent="passes(nextStep)" class="form">
                 <transition name="slide" mode="out-in" appear>
-                    <div v-if="activeIndex === 0" class="p-6 bg-white rounded-md shadow-md min-h-[300px]" :key="0">
+                    <div v-if="activeIndex === 0" class="p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="0">
                         <h2>Start: Een actie toevoegen</h2>
                         <p>Super dat je een actie wilt toevoegen! Op deze manier werk je met ons mee om de
                             website volledig te maken.
@@ -17,16 +17,23 @@
                             Dit is nodig om je op de hoogte te houden van de status van de aangemelde actie.
                         </p>
                     </div>
-                    <div v-else-if="activeIndex === 1" class="p-6 bg-white rounded-md shadow-md min-h-[300px]" :key="1">
+                    <div v-else-if="activeIndex === 1" class="p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="1">
                         <h2>Organisator kiezen/toevoegen</h2>
                         <p>Hier kun je een organisator kiezen/toevoegen.
                         </p>
                     </div>
-                    <div v-else-if="activeIndex === 2" class="p-6 bg-white rounded-md shadow-md min-h-[300px]" :key="2">
+                    <div v-else-if="activeIndex === 2" class="p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="2">
                         <h2>Actiedetails beschrijven</h2>
-                        <p>Hier komt het actieformulier</p>
+                        <Actie-Form
+                            v-model="report"
+                            :report="report"
+                            :routes="routes"
+                            :default-center="defaultCenter"
+                            :zoom="zoom"
+                            :organizers="organizers"
+                        ></Actie-Form>
                     </div>
-                    <div v-else-if="activeIndex === 3" class="p-6 bg-white rounded-md shadow-md min-h-[300px]" :key="3">
+                    <div v-else-if="activeIndex === 3" class="p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="3">
                         <h2>Account registreren</h2>
                         <p>Super dat je een actie wilt toevoegen! Op deze manier werk je met ons mee om de
                             website volledig te maken.
@@ -34,7 +41,7 @@
                             Dit is nodig om je op de hoogte te houden van de status van de aangemelde actie.
                         </p>
                     </div>
-                    <div v-else class="p-6 bg-white rounded-md shadow-md min-h-[300px]" :key="4">
+                    <div v-else class="p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="4">
                         <h2>Klaar!</h2>
                         <p>Dankjewel!
                         </p>
@@ -72,9 +79,21 @@ export default {
             type: Object,
             required: true,
         },
+        defaultCenter: {
+			type: Array,
+			required: true,
+		},
+		zoom: {
+			type: Number,
+			required: true,
+		},
+        organizers: {
+            type: Array,
+            required: true,
+        }
     },
     data: () => ({
-        activeIndex: 0,
+        activeIndex: 2,
         steps: [
             'Start',
             'Organisator kiezen/toevoegen',
@@ -82,6 +101,7 @@ export default {
             'Account registreren',
             'Klaar!'
         ],
+        report: {}
     }),
     computed: {
         isLastStep() {
@@ -99,6 +119,14 @@ export default {
                 return this.submit();
             }
             this.activeIndex++;
+        }
+    },
+    watch: {
+        report: {
+            handler: function (value) {
+                console.log(value)
+            },
+            deep: true
         }
     }
 };
