@@ -6,6 +6,7 @@
     :required="required"
     :show-helper-text="showHelperText"
     v-bind="$attrs"
+    :validation-mode="validationMode"
   >
     <input
       :id="id"
@@ -102,6 +103,10 @@
         type: String,
         default: '',
       },
+      validationMode: {
+        type: String,
+        default: 'eager',
+      }
     },
     data() {
       return {

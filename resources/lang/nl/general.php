@@ -27,6 +27,8 @@ return [
     'others' => 'anderen',
     'next' => 'Volgende',
     'previous' => 'Vorige',
+    'add' => 'Toevoegen',
+    'delete' => 'Verwijderen',
     'impersonation' => 'impersonatie',
     'back_to_dashboard' => 'Terug naar Dashboard',
     'position_and_resize_photo' => 'Pas de grootte en positie van je foto aan',

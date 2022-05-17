@@ -3,12 +3,14 @@
         <div class="grid grid-cols-1 md:grid-cols-3 max-w-4xl mx-auto flex-col my-6 md:divide-x">
             <div class="col-span-2 space-y-3">
                 <div class="flex flex-col justify-start flex-1 overflow-hidden bg-white border-gray-150">
-                    <h3 class="text-lg font-medium leading-6 text-gray-900">
-                        Titel & teksten
-                    </h3>
-                    <p class="text-sm leading-5 text-gray-500 mt">
-                        Omschrijf de actie zo goed als je kunt. Gebruik daarbij vooral ook teksten van de organisator, zolang je vermeldt waar deze vandaan komen.
-                    </p>
+                    <div class="flex flex-col mt-5 md:pr-5">
+                        <h3 class="text-lg font-medium leading-6 text-gray-900">
+                            Titel & teksten
+                        </h3>
+                        <p class="text-sm leading-5 text-gray-500">
+                            Omschrijf de actie zo goed als je kunt. Gebruik daarbij vooral ook teksten van de organisator, zolang je vermeldt waar deze vandaan komen.
+                        </p>
+                    </div>
                     <div class="flex flex-col mt-5 md:pr-5 space-y-3">
                         <!-- Title -->
                         <FormField
@@ -70,29 +72,12 @@
             <div class="col-span-1 space-y-3">
                 <div class="flex flex-col justify-start flex-1 md:pl-5 bg-white border-gray-150">
                     <h3 class="text-lg font-medium leading-6 text-gray-900">
-                        Organisator
+                        Link naar de organisatiepagina
                     </h3>
                     <p class="text-sm leading-5 text-gray-500 mt">
-                        Wie organiseert deze actie? Als je de organisator niet kunt vinden, mag je het veld leeg laten.
+                        Waar kunnen bezoekers meer informatie over deze actie vinden?
                     </p>
                     <div class="flex flex-col mt-5 space-y-3">
-                        <!-- Organizer -->
-                        <div>
-                            <label for="externe_link" class="block text-sm font-medium leading-5 text-gray-700">
-                                {{ __("reports.organizer(s)") }}
-                            </label>
-                            <div class="mt-1 rounded-md shadow-sm">
-                                <t-rich-select 
-                                    id="category-selector"
-                                    :options="organizers"
-                                    v-model="report.organizers"
-                                    text-attribute="name"
-                                    name="organizer_ids[]"
-                                    multiple
-                                    :close-on-select="false"
-                                />
-                            </div>
-                        </div>
                         <!-- Externe link -->
                         <FormField
                             v-model="report.externe_link"
@@ -171,10 +156,6 @@ export default {
         caseHelper,
     ],
     props: {
-        routes: {
-            type: Object,
-            required: true,
-        },
         defaultCenter: {
 			type: Array,
 			required: true,
@@ -183,10 +164,6 @@ export default {
 			type: Number,
 			required: true,
 		},
-        organizers: {
-            type: Array,
-            required: true,
-        },
         report: {
             type: Object,
             required: true

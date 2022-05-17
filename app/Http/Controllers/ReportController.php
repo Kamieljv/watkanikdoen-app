@@ -6,11 +6,12 @@ use App\Models\Actie;
 use App\Models\Image;
 use App\Models\Organizer;
 use App\Models\Report;
-use App\Notifications\ReportAccepted;
+use App\Models\Theme;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Jenssegers\Date\Date;
 use Validator;
@@ -23,14 +24,22 @@ class ReportController extends Controller
      */
     public function landing()
     {
-        $organizers = Organizer::all()->toJson();
+        // Definieer de routes waarmee de component evenementen kan ophalen
+        $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
+            return (strpos($route->uri, 'organisatoren') !== false || strpos($route->uri, 'organisator') !== false) && (strpos($route->uri, 'admin') === false);
+        })->map(function ($route) {
+            return [
+                'uri' => '/' . $route->uri,
+                'methods' => $route->methods,
+            ];
+        })->toArray();
 
         if (Auth::check()) {
             return redirect(route('report.form'));
         }
 
         // Display the landing page
-        return view('reports.landing', compact('organizers'));
+        return view('reports.landing', compact('routes'));
     }
 
     /**

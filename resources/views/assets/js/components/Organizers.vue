@@ -3,7 +3,7 @@
         <div class="row mx-auto max-w-6xl">
             <div id="filter-container" class="row my-3">
                 <h3 class="mt-8 mb-3 text-sm text-gray-900">Zoek & Filter</h3>
-                <div id="filter-wrapper" class="col grid gap-3 grid-cols-2">
+                <div id="filter-wrapper" class="col grid gap-3" :class="{'grid-cols-2': themes.length > 0}">
                     <div>
                         <t-input
                             type="text"
@@ -14,6 +14,7 @@
                         />
                     </div>
                     <t-rich-select
+						v-if="themes.length > 0"
                         id="theme-selector"
                         :options="themes"
                         textAttribute="name"
@@ -49,7 +50,11 @@
                                 :key="organizer.id"
                                 :organizer="organizer"
 								:route="organizerBaseRoute + organizer.slug"
-                            />
+								:show-themes="showThemes"
+								:mode="mode"
+								:selected-initial="organizer.selected"
+								@input="updateOrganizersSelected($event, organizer)"
+                            >{{organizer.selected}}</organizer>
                         </div>
 						<div v-else-if="isGeladen" class="flex justify-center items-center py-8">
 							<div class="text-gray-400">
@@ -62,6 +67,7 @@
         </div>
         <!-- Pagination -->
         <pagination
+			:v-show="showPagination"
             :current="currentPage"
             :total="total"
             :per-page="perPage"
@@ -74,7 +80,7 @@
 <script>
 import Pagination from "./Pagination.vue"
 export default {
-	name: "Organizations",
+	name: "Organizers",
 	components: {Pagination},
 	props: {
 		routes: {
@@ -85,11 +91,32 @@ export default {
 			type: Array,
 			default: () => [],
 		},
+		showThemes: {
+			type: Boolean, 
+			default: true,
+		},
+		showPagination: {
+			type: Boolean, 
+			default: true
+		},
+		max: {
+			type: Number,
+			default: null,
+		},
+		mode: {
+			type: String,
+			default: 'list',
+		},
+		organizersSelected: {
+			type: Array,
+			default: false,
+		}
 	},
 	data() {
 		return {
 			organizers: [],
 			themesSelected: "",
+			organizersSel: this.organizersSelected,
 			query: "",
 			isGeladen: false,
 			heeftFout: false,
@@ -109,13 +136,14 @@ export default {
 		organizersFormatted() {
 			this.organizers.forEach((organizer) => {
 				organizer.description = organizer.description ? organizer.description.replace(/(<([^>]+)>)/gi, "") : null
+				organizer.selected = this.isSelected(organizer)
 				return organizer
 			})
 			return this.organizers
 		},
 		organizerBaseRoute() {
 			return this.routes["organizers.organizer"].uri.split("{")[0]
-		}
+		},
 	},
 	watch: {
 		query: function() {
@@ -123,6 +151,9 @@ export default {
 		},
 		themesSelected: function() {
 			this.getOrganizers()
+		},
+		organizersSelected: function() {
+			this.organizersSel = this.organizersSelected
 		}
 	},
 	mounted() {
@@ -154,6 +185,27 @@ export default {
 		processQuery: _.debounce(function(input) {
 			this.query = input
 		}, 500),
+		updateOrganizersSelected: function(value, organizer) {
+			if (value === true) {
+				this.organizersSel.push(organizer)
+			} else {
+				this.organizersSel = this.organizersSel.filter((v) => {
+					if (!('id' in organizer)) {
+						return true
+					}
+					return v.id !== organizer.id
+				})
+			}
+			this.$emit('input', this.organizersSel)
+		},
+		isSelected: function(organizer) {
+			return !!this.organizersSel.find((v) => {
+				if (!('id' in v)) {
+					return false
+				}
+				return v.id === organizer.id
+			})
+		},
 	}
 }
 </script>

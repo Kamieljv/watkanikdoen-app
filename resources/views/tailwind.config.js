@@ -34,6 +34,7 @@ module.exports = {
 		"overflow-auto",
 		"justify-end",
 		"divide-x",
-		"divide-y"
+		"divide-y",
+		"col-span-3",
 	]
 }

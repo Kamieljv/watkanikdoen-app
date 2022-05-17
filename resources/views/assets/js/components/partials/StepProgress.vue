@@ -2,7 +2,13 @@
     <div>
         <div class="w-full h-20 mt-8 sm:mb-4">
             <ul class="progressbar flex justify-between">
-                <li class="" :class="[i <= currentStep + 1 ? 'active' : '']" v-for="i in steps.length" :key="i" :style="{width: widthPerc}">
+                <li 
+                    :class="{'active': (i-1) <= current, 'cursor-pointer': ((i - current) === 0 || (i-1) < current)}" 
+                    v-for="i in steps.length" 
+                    :key="i" 
+                    :style="{width: widthPerc}"
+                    @click="setCurrentStep(i)"
+                >
                     <p class="text-sm hidden sm:block">{{ steps[i-1] }}</p>
                 </li>
             </ul>
@@ -23,11 +29,25 @@ export default {
     },
     data () {
         return {
+            current: this.currentStep
         }
     },
     computed: {
         widthPerc: function() {
             return 100 / this.steps.length + '%'
+        }
+    },
+    watch: {
+        currentStep() {
+            this.current = this.currentStep
+        }
+    },
+    methods: {
+        setCurrentStep: function(i) {
+            if ((i - this.current) === 0 || (i-1) < this.current) {
+                this.current = i-1
+                this.$emit('input', this.current)
+            }
         }
     }
 }

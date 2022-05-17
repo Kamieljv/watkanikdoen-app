@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @php
-    $routes = [
+    array_push($routes, [
         'report_create' => route('report.create'),
-    ];
+    ]);
     $defaultCenter = old('location') &&
         (old('location')['lat'] !== NULL)
             ? [old('location')]
@@ -25,7 +25,6 @@
                 :routes="{{ json_encode($routes) }}"
                 :default-center="{{ json_encode($defaultCenter) }}"
                 :zoom={{ config('voyager.maps.zoom') }}
-                :organizers="{{ $organizers }}"
             >
             </Add-Actie>
         </div>

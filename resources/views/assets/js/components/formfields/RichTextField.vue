@@ -82,6 +82,10 @@ export default {
     watch: {
         formValue: function(value) {
             this.$emit('input', value)
+        },
+        value: function() {
+            this.formValue = this.value
+            console.log(this.value, this.formValue)
         }
     },
 	mounted() {
