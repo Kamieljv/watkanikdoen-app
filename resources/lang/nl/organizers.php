@@ -12,7 +12,7 @@
 
 return [
     'title' => 'Organisatoren',
-    'description' => 'Alle organisatoren van demonstraties op één plek. Zou fantastisch zijn toch? Mis je een organisator? Help ons mee dit overzicht compleet te maken.',
+    'sub_title' => 'Alle organisatoren van demonstraties op één plek. Zou fantastisch zijn toch? Mis je een organisator? Help ons mee dit overzicht compleet te maken.',
     'name' => 'Naam',
     'description' => 'Beschrijving',
     'website' => 'Website',

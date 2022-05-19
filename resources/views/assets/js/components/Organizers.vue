@@ -109,7 +109,7 @@ export default {
 		},
 		organizersSelected: {
 			type: Array,
-			default: false,
+			default: () => [],
 		}
 	},
 	data() {
