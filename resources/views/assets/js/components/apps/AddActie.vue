@@ -36,12 +36,13 @@
                     ></Actie-Form>
                 </div>
                 <div v-else-if="activeIndex === 3" class="p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="3">
-                    <h2>Account registreren</h2>
-                    <p>Super dat je een actie wilt toevoegen! Op deze manier werk je met ons mee om de
-                        website volledig te maken.
-                        Om een actie toe te voegen vragen we je om in te loggen of een account aan te maken.
-                        Dit is nodig om je op de hoogte te houden van de status van de aangemelde actie.
-                    </p>
+                    <h2>Wie ben jij?</h2>
+                    <LoginOrRegister
+                        :routes="routes"
+                        :min-password-length="minPasswordLength"
+                        :async="true"
+                        :h-captcha-key="hCaptchaKey"
+                    />
                 </div>
                 <div v-else class="p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="4">
                     <h2>Klaar!</h2>
@@ -87,14 +88,22 @@ export default {
 			type: Number,
 			required: true,
 		},
+        hCaptchaKey: {
+            type: String,
+            required: true,
+        },
+        minPasswordLength: {
+            type: Number,
+            default: 10,
+        },
     },
     data: () => ({
-        activeIndex: 1,
+        activeIndex: 3,
         steps: [
             'Start',
             'Organisator kiezen/toevoegen',
             'Actie beschrijven',
-            'Account registreren',
+            'Wie ben jij?',
             'Klaar!'
         ],
         report: {},

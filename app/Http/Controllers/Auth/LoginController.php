@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {

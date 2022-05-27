@@ -1,21 +1,23 @@
 <template>
-    <div class="flex flex-col justify-center py-10 sm:py-20 sm:px-6 lg:px-8">
+    <div class="flex flex-col" :class="{'justify-center py-10 sm:py-20 sm:px-6 lg:px-8': !async}">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <h2 class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-900 lg:text-5xl">
                 {{ __("auth.register") }}
             </h2>
         </div>
 
-        <div class="mt-8 mx-5 sm:mx-auto sm:w-full sm:max-w-md">
-            <div class="px-4 py-8 bg-white border shadow border-gray-50 sm:rounded-lg sm:px-10">
-                <p class="mb-2 text-sm">{{ __("auth.account?") }}</p>
-                <span class="block w-full rounded-md shadow-sm">
-                    <a :href="routes.login" class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-blue-600 transition duration-150 ease-in-out border border-transparent rounded-md border-1 border-blue-600 hover:bg-blue-200">
-                        {{ this.sentenceCase(__("auth.login")) }}
-                    </a>
-                </span>
-                <hr class="my-5">
-                <div v-if="Object.keys(errors).length > 0" class="p-3 mb-3 text-sm rounded-md failure">
+        <div :class="{'mt-8 mx-5 sm:mx-auto sm:w-full sm:max-w-md': !async}">
+            <div class="px-4 py-8 bg-white sm:px-10" :class="{'border shadow border-gray-50 sm:rounded-lg': !async}">
+                <div v-if="!async">
+                    <p class="mb-2 text-sm">{{ __("auth.account?") }}</p>
+                    <span class="block w-full rounded-md shadow-sm">
+                        <a :href="routes.login" class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-blue-600 transition duration-150 ease-in-out border border-transparent rounded-md border-1 border-blue-600 hover:bg-blue-200">
+                            {{ this.sentenceCase(__("auth.login")) }}
+                        </a>
+                    </span>
+                    <hr class="my-5">
+                </div>
+                <div v-if="errors && Object.keys(errors).length > 0" class="p-3 mb-3 text-sm rounded-md failure">
                     <span
                         v-for="error in Object.keys(errors)"
                         :key="error"
@@ -130,9 +132,13 @@ export default {
             required: true,
         },
         errors: {
-            type: Object|Array,
+            type: Object,
             default: () => {}
         },
+        async: {
+            type: Boolean,
+            default: false,
+        }
     },
     data() {
 		return {

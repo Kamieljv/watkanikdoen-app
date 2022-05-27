@@ -12,6 +12,7 @@
     <div id="app">
         <Login
             :routes="{{ json_encode($routes) }}"
+            :errors="{{ $errors }}"
             remember="{{ old('remember') }}"
             :min-password-length="{{ config('app.auth.min_password_length') }}"
         >

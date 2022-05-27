@@ -1,21 +1,26 @@
 <template>
-    <div class="flex flex-col justify-center py-10 sm:py-20 sm:px-6 lg:px-8">
+    <div class="flex flex-col" :class="{'justify-center py-10 sm:py-20 sm:px-6 lg:px-8': !async}">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <h2 class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-900 lg:text-5xl">
                 {{ this.sentenceCase(__("auth.login")) }}
             </h2>
         </div>
 
-        <div class="mt-8 mx-5 sm:mx-auto sm:w-full sm:max-w-md">
-            <div class="px-4 py-8 bg-white border shadow border-gray-50 sm:rounded-lg sm:px-10">
-                <p class="mb-2 text-sm">{{ __("auth.no_account?") }}</p>
-                <span class="block w-full rounded-md shadow-sm">
-                    <a :href="routes.register" class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-blue-600 transition duration-150 ease-in-out border border-transparent rounded-md border-1 border-blue-600 hover:bg-blue-200">
-                        {{ __("auth.register") }}
-                    </a>
-                </span>
-                <hr class="my-5">
-                <form :action="routes.login" method="POST" class="space-y-3">
+        <div :class="{'mt-8 mx-5 sm:mx-auto sm:w-full sm:max-w-md': !async}">
+            <div class="px-4 py-8 bg-white sm:px-10" :class="{'border shadow border-gray-50 sm:rounded-lg': !async}">
+                <div v-if="!async">
+                    <p class="mb-2 text-sm">{{ __("auth.no_account?") }}</p>
+                    <span class="block w-full rounded-md shadow-sm">
+                        <a :href="routes.register" class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-blue-600 transition duration-150 ease-in-out border border-transparent rounded-md border-1 border-blue-600 hover:bg-blue-200">
+                            {{ __("auth.register") }}
+                        </a>
+                    </span>
+                    <hr class="my-5">
+                </div>
+                <div v-if="errors.length != 0" class="error-container rounded-sm p-3">
+                    <p v-for="e in errors" :key="e[0]" class="italic text-sm">{{e[0]}}</p>
+                </div>
+                <form ref="form" @submit.prevent="handleSubmit" :action="routes.login"  method="POST" class="space-y-3">
                     <slot name="csrf"/>
 
                     <!-- Email -->
@@ -87,14 +92,22 @@ export default {
             type: Object,
             required: true,
         },
+        errors: {
+            type: [Array, Object],
+            default: () => []
+        },
         remember: {
             type: String,
-            default: false,
+            default: "off",
         },
         minPasswordLength: {
             type: Number,
             default: 10,
         },
+        async: {
+            type: Boolean,
+            default: false,
+        }
     },
     data() {
 		return {
@@ -102,6 +115,26 @@ export default {
             password: '',
         }
 	},
+    methods: {
+        handleSubmit() {
+            if (this.async) {
+                this.$http.post(this.routes.login, {
+                    "email": this.email,
+                    "password": this.password,
+                }).then((response) => {
+                    console.log(response)
+                })
+            } else {
+                this.$refs.form.submit()
+            }
+        }
+    }
 }
 </script>
+<style lang="scss" scoped>
+    .error-container {
+        color: var(--wkid-message-error-dark);
+        background-color: var(--wkid-message-error-light);
+    }
+</style>
 

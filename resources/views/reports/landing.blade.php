@@ -1,8 +1,10 @@
 @extends('layouts.app')
 
 @php
-    array_push($routes, [
+    $routes = array_merge($routes, [
         'report_create' => route('report.create'),
+        'login' => route('login'),
+        'register' => route('register'),
     ]);
     $defaultCenter = old('location') &&
         (old('location')['lat'] !== NULL)
@@ -25,6 +27,8 @@
                 :routes="{{ json_encode($routes) }}"
                 :default-center="{{ json_encode($defaultCenter) }}"
                 :zoom={{ config('voyager.maps.zoom') }}
+                :min-password-length="{{ config('app.auth.min_password_length') }}"
+                h-captcha-key="{{ env('H_CAPTCHA_KEY') }}"
             >
             </Add-Actie>
         </div>
