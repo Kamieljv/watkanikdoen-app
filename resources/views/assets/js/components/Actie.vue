@@ -52,7 +52,7 @@
                                 class="relative self-start inline-block bg-gray-100 px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
                             >
                                 <span class="flex items-center text-gray-800" rel="theme">
-                                    &nbsp; {{ category.name }}<br/>
+                                    {{ category.name }}
                                 </span>
                             </li>
                         </ul>
