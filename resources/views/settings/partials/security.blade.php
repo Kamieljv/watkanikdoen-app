@@ -42,8 +42,8 @@
 
 		<input type="hidden" name="_method" value="PUT">
 		{{ csrf_field() }}
-		<div class="flex justify-end w-full mt-2">
-			<button class="flex self-end justify-center w-auto px-4 py-2 mt-5 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 active:bg-blue-700" dusk="update-profile-button">
+		<div class="flex justify-end w-full mt-3">
+			<button class="primary self-end w-auto">
 				{{ __("Save") }}
 			</button>
 		</div>

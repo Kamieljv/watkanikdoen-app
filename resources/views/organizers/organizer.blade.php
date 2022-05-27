@@ -31,6 +31,20 @@
             @endif
         </div>
         <div class="mt-5 mb-10 min-h-20">
+            <ul class="pt-2 flex space-x-1">
+                @foreach ($organizer->themes as $theme)
+                    <li
+                        class="relative self-start inline-block px-2 py-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
+                        style="background-color: {{ $theme->color}}"
+                    >
+                        <span class="text-white">
+                            {{ $theme->name }}
+                        </span>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+        <div class="mt-5 mb-10 min-h-20">
             @if ($organizer->description !== NULL)
                 {!! filterScripts($organizer->description) !!}
             @endif
@@ -50,7 +64,7 @@
 @endsection
 
 @push('scripts')
-    <script type="application/javascript">      
+    <script type="application/javascript">
         var app = new Vue({
             el: '#app',
         });

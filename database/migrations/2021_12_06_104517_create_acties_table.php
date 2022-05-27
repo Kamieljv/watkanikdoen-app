@@ -21,10 +21,10 @@ class CreateActiesTable extends Migration
             $table->text('body');
             $table->text('keywords')->nullable();
             $table->text('externe_link');
-            $table->dateTime('time_start');
-            $table->dateTime('time_end');
+            $table->dateTime('time_start')->nullable();
+            $table->dateTime('time_end')->nullable();
             $table->point('location')->nullable();
-            $table->string('location_human');
+            $table->string('location_human')->nullable();
             $table->string('image')->nullable();
             $table->string('slug')->unique('posts_slug_unique');
             $table->enum('status', ['PUBLISHED', 'DRAFT', 'PENDING'])->default('DRAFT');

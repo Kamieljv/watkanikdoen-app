@@ -3,7 +3,7 @@
         <div v-if="filterable" class="row mx-auto max-w-6xl">
             <div id="filter-container" class="row my-3">
                 <h3 class="mt-8 mb-3 text-sm text-gray-900">Zoek & Filter</h3>
-                <div id="filter-wrapper" class="col grid gap-3 grid-cols-2 md:grid-cols-4">
+                <div id="filter-wrapper" class="col grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-5">
                     <div>
                         <t-input
                             type="text"
@@ -22,6 +22,16 @@
                         :hideSearchBox="true"
                         :closeOnSelect="false"
                         placeholder="Thema..."
+                    />
+					<t-rich-select
+                        id="category-selector"
+                        :options="categories"
+                        textAttribute="name"
+                        v-model="categoriesSelected"
+                        :multiple="true"
+                        :hideSearchBox="true"
+                        :closeOnSelect="false"
+                        placeholder="Categorie..."
                     />
                     <form-autocomplete
                         :items="geoSuggestions"
@@ -124,6 +134,10 @@ export default {
 			type: Array,
 			default: () => [],
 		},
+		categories: {
+			type: Array,
+			default: () => [],
+		},
 		filterable: {
 			type: Boolean,
 			default: true,
@@ -141,6 +155,7 @@ export default {
 		return {
 			acties: [],
 			themesSelected: "",
+			categoriesSelected: "",
 			query: "",
 			coordinates: "",
 			distance: null,
@@ -192,6 +207,9 @@ export default {
 		themesSelected: function() {
 			this.getActies()
 		},
+		categoriesSelected: function() {
+			this.getActies()
+		},
 		distance: function() {
 			this.getActies()
 		},
@@ -213,6 +231,7 @@ export default {
 				params: {
 					q: this.query,
 					themes: this.themesSelected,
+					categories: this.categoriesSelected,
 					coordinates: this.coordinates,
 					distance: this.distance,
 					show_past: this.showPast,

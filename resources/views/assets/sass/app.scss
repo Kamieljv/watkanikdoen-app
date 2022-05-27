@@ -91,6 +91,17 @@
       @apply font-medium transition duration-150 ease-in-out text-[color:var(--wkid-blue)] focus:outline-none hover:underline hover:text-[color:var(--wkid-blue-dark)]
     }
   }
+  a.link {
+    @apply font-medium transition duration-150 ease-in-out text-blue-600 hover:text-blue-500 focus:outline-none focus:underline;
+  }
+  button, a {
+    &.primary {
+      @apply flex justify-center px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 active:bg-blue-700;
+    }
+    &.secondary {
+      @apply flex justify-center px-4 py-2 text-sm font-medium text-blue-600 transition duration-150 ease-in-out border border-transparent rounded-md border-blue-600 hover:bg-blue-200;
+    }
+  }
 }
 
 @tailwind components;

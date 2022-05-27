@@ -5,7 +5,7 @@ return [
     'customRanking' => ['desc(created_at)', 'desc(updated_at)'],
     'removeStopWords' => null,
     'disableTypoToleranceOnAttributes' => ['slug'],
-    'attributesForFaceting' => ['filterOnly(themes.id)', 'filterOnly(organizers.id)'],
+    'attributesForFaceting' => ['filterOnly(themes.id)', 'filterOnly(organizers.id)', 'filterOnly(categories.id)'],
     'unretrievableAttributes' => null,
     'ignorePlurals' => null,
     'queryLanguages' => ['nl', 'en'],

@@ -38,6 +38,7 @@ class ActieController extends VoyagerBaseController
             // Filters for themes and organizers (facets)
             $options['facetFilters'] = [
                 preg_filter('/^/', 'themes.id:', $request->themes), // theme filters
+                preg_filter('/^/', 'categories.id:', $request->categories), // theme filters
                 ['organizers.id:' . $request->organizer], // organization filter
             ];
             // Fitlers for coordinates with radius

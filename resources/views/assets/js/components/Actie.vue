@@ -14,7 +14,7 @@
                     <div v-else class="h-[150px] bg-gray-300 text-gray-400 flex items-center justify-center">
                         <svg-vue icon="logo-icon" style="fill: currentColor; height: 80px;"></svg-vue>
                     </div>
-                    <ul class="themes-container p-2 absolute top-0 w-full">
+                    <ul v-if="actie.themes.length <= 2" class="themes-container p-2 absolute top-0 w-full">
                         <li
                             v-for="theme in actie.themes"
                             :key="theme.id"
@@ -26,7 +26,36 @@
                             </span>
                         </li>
                     </ul>
-                    <div class="distance-container text-left p-2 absolute bottom-0 w-full">
+                    <ul v-else class="themes-container p-2 absolute top-0 w-full">
+                        <li
+                            class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
+                            :style="{backgroundColor: actie.themes[0].color}"
+                        >
+                            <span class="text-white" rel="theme">
+                                {{ actie.themes[0].name }}
+                            </span>
+                        </li>
+                        <li
+                            class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
+                        >
+                            <span class="text-gray-800" rel="theme">
+                                +{{ actie.themes.length - 1 }} thema's
+                            </span>
+                        </li>
+                    </ul>
+                    <div class="text-left p-2 absolute bottom-0 w-full">
+                        <ul
+                            v-for="category in actie.categories"
+                            :key="category.id"
+                        >
+                            <li
+                                class="relative self-start inline-block bg-gray-100 px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
+                            >
+                                <span class="flex items-center text-gray-800" rel="theme">
+                                    &nbsp; {{ category.name }}<br/>
+                                </span>
+                            </li>
+                        </ul>
                         <div
                             v-if="actie.distance"
                             class="relative self-start inline-block bg-[color:#8a8a8a7d] px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
@@ -48,11 +77,11 @@
                 </div>
                 <div class="flex flex-col grow justify-between flex-1 bg-white">
                     <div class="details-container text-sm text-gray-500 p-3">
-                        <div class="flex items-center mb-1 text-sm leading-5 text-gray-700">
+                        <div v-if="actie.start" class="flex items-center mb-1 text-sm leading-5 text-gray-700">
                             <svg-vue icon="antdesign-clock-circle-o" class="shrink-0" style="stroke: currentColor; height: 20px;"></svg-vue>
                             &nbsp; <span class="font-medium">{{ actie.start }}</span><br/>
                         </div>
-                        <div class="flex items-center text-sm leading-5 text-gray-700">
+                        <div v-if="actie.location_human" class="flex items-center text-sm leading-5 text-gray-700">
                             <svg-vue icon="antdesign-environment-o" class="shrink-0" style="stroke: currentColor; height: 20px;"></svg-vue>
                             &nbsp; <span class="font-medium truncate">{{ actie.location_human }}</span>
                         </div>

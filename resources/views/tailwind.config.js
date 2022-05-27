@@ -1,10 +1,8 @@
 module.exports = {
 	mode: "jit",
-	content: [
-		"./**/*.blade.php",
-		"./*.blade.php",
-		"./resources/views/assets/**/*.{scss,js,vue}",
-	],
+	content: require('fast-glob').sync([
+        './**/*.{blade.php,md,html,vue}'  // Added 'vue'
+	],{ dot: true }),
 	theme: {
 		//
 	},
@@ -32,6 +30,7 @@ module.exports = {
 		"shrink-0",
 		"z-[1001]",
 		"translate-x-full",
-		"translate-x-0"
+		"translate-x-0",
+		"overflow-auto",
 	]
 }
