@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -78,8 +77,31 @@ class LoginController extends Controller
 
         $this->clearLoginAttempts($request);
 
+        if ($request->expectsJson()) {
+            return response(['status' => 'success', 'user' => auth()->user()], 200);
+        }
+
         return $this->authenticated($request, $this->guard()->user())
                 ?: redirect()->intended($this->redirectPath());
+    }
+
+    /**
+     * Get the failed login response instance.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        if ($request->expectsJson()) {
+            return response(['status' => 'failed', 'message' => trans('auth.failed')], 200);
+        } else {
+            throw ValidationException::withMessages([
+                $this->username() => [trans('auth.failed')],
+            ]);
+        }
     }
 
 

@@ -34,10 +34,6 @@ class ReportController extends Controller
             ];
         })->toArray();
 
-        if (Auth::check()) {
-            return redirect(route('report.form'));
-        }
-
         // Display the landing page
         return view('reports.landing', compact('routes'));
     }

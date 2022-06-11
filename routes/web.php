@@ -73,7 +73,6 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth', 'xss']], function () 
     Route::get('dashboard/getStats', [DashboardController::class, 'getStats'])->name('dashboard.stats');
 
     // Acties aanmelden (authenticated)
-    Route::get('aanmelden/form', [ReportController::class, 'form'])->name('report.form');
     Route::get('aanmelden/view/{id}', [ReportController::class, 'view'])->name('report.view');
     Route::post('aanmelden/form/create', [ReportController::class, 'create'])->name('report.create');
 

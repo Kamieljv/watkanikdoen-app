@@ -29,6 +29,7 @@
                 :zoom={{ config('voyager.maps.zoom') }}
                 :min-password-length="{{ config('app.auth.min_password_length') }}"
                 h-captcha-key="{{ env('H_CAPTCHA_KEY') }}"
+                :user="{{ auth()->user() ? auth()->user() : '{}' }}"
             >
             </Add-Actie>
         </div>

@@ -42,6 +42,8 @@
                         :min-password-length="minPasswordLength"
                         :async="true"
                         :h-captcha-key="hCaptchaKey"
+                        :user="user"
+                        @done="authDone"
                     />
                 </div>
                 <div v-else class="p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="4">
@@ -92,6 +94,9 @@ export default {
             type: String,
             required: true,
         },
+        user: {
+            type: Object,
+        },
         minPasswordLength: {
             type: Number,
             default: 10,
@@ -108,6 +113,7 @@ export default {
         ],
         report: {},
         selectedOrganizers: [],
+        currentUser: null,
     }),
     computed: {
         isLastStep() {
@@ -119,6 +125,9 @@ export default {
             }
             return false
         }
+    },
+    mounted() {
+        this.currentUser = this.user
     },
     methods: {
         submit() {
@@ -132,6 +141,10 @@ export default {
             } else {
                 this.activeIndex++;
             }
+        },
+        authDone(user) {
+            this.currentUser = user
+            this.activeIndex += 1
         }
     },
     watch: {

@@ -85,7 +85,6 @@ export default {
         },
         value: function() {
             this.formValue = this.value
-            console.log(this.value, this.formValue)
         }
     },
 	mounted() {

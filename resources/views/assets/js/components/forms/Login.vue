@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col" :class="{'justify-center py-10 sm:py-20 sm:px-6 lg:px-8': !async}">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
-            <h2 class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-900 lg:text-5xl">
+            <h2 class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-900">
                 {{ this.sentenceCase(__("auth.login")) }}
             </h2>
         </div>
@@ -17,8 +17,8 @@
                     </span>
                     <hr class="my-5">
                 </div>
-                <div v-if="errors.length != 0" class="error-container rounded-sm p-3">
-                    <p v-for="e in errors" :key="e[0]" class="italic text-sm">{{e[0]}}</p>
+                <div v-if="currentErrors.length > 0" class="error-container rounded-sm p-3">
+                    <p v-for="e in currentErrors" :key="e" class="italic text-sm">{{e}}</p>
                 </div>
                 <form ref="form" @submit.prevent="handleSubmit" :action="routes.login"  method="POST" class="space-y-3">
                     <slot name="csrf"/>
@@ -113,6 +113,7 @@ export default {
 		return {
 			email: '',
             password: '',
+            currentErrors: '',
         }
 	},
     methods: {
@@ -122,12 +123,22 @@ export default {
                     "email": this.email,
                     "password": this.password,
                 }).then((response) => {
-                    console.log(response)
+                    if (response.data.status == 'success') {
+                        this.currentErrors = []
+                        this.$emit('done', response.data.user)
+                    } else {
+                        this.currentErrors = [response.data.message]
+                    }
                 })
             } else {
                 this.$refs.form.submit()
             }
         }
+    }, 
+    mounted() {
+        this.currentErrors = this.errors.map((k, v) => {
+            return v
+        })
     }
 }
 </script>
