@@ -19,8 +19,9 @@
                         textAttribute="name"
                         v-model="themesSelected"
                         :multiple="true"
-                        :hideSearchBox="true"
                         :closeOnSelect="false"
+						searchBoxPlaceholder="Zoeken..."
+						:minimumResultsForSearch="5"
                         placeholder="Thema..."
                     />
 					<t-rich-select
@@ -29,8 +30,9 @@
                         textAttribute="name"
                         v-model="categoriesSelected"
                         :multiple="true"
-                        :hideSearchBox="true"
                         :closeOnSelect="false"
+						searchBoxPlaceholder="Zoeken..."
+						:minimumResultsForSearch="5"
                         placeholder="Categorie..."
                     />
                     <form-autocomplete
