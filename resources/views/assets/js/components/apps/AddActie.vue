@@ -6,8 +6,9 @@
             v-model="activeIndex"
         >
         </step-progress>
-        {{report}}
         {{selectedOrganizers}}
+        {{report}}
+        {{currentUser}}
 
         <ValidationObserver>
             <transition name="slide" mode="out-in" appear>
@@ -23,12 +24,14 @@
                     <h2>Kies organisator(en)</h2>
                     <organizer-form
                         v-model="selectedOrganizers"
+                        :selected-organizers="selectedOrganizers"
                         :routes="routes"
                     />
                 </div>
                 <div v-else-if="activeIndex === 2" class="p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="2">
                     <h2>Actiedetails beschrijven</h2>
                     <Actie-Form
+                        ref="actieForm"
                         v-model="report"
                         :report="report"
                         :default-center="defaultCenter"
@@ -42,7 +45,7 @@
                         :min-password-length="minPasswordLength"
                         :async="true"
                         :h-captcha-key="hCaptchaKey"
-                        :user="user"
+                        :user="currentUser"
                         @done="authDone"
                     />
                 </div>
@@ -57,7 +60,7 @@
                     class="secondary">
                     {{ __('general.previous') }}
                 </button>
-                <button class="primary"  @click.prevent="activeIndex++" :disabled="nextDisabled">
+                <button class="primary"  @click.prevent="handleNext" :disabled="nextDisabled">
                     {{ isLastStep ? __('general.send_form') : __('general.next') }}
                 </button>
             </div>
@@ -71,9 +74,6 @@ import { caseHelper } from '../../mixins/caseHelper';
 
 export default {
 	name: "AddActie",
-    components: {
-        //
-    },
     mixins: [
         caseHelper,
     ],
@@ -103,7 +103,7 @@ export default {
         },
     },
     data: () => ({
-        activeIndex: 3,
+        activeIndex: 2,
         steps: [
             'Start',
             'Organisator kiezen/toevoegen',
@@ -113,14 +113,17 @@ export default {
         ],
         report: {},
         selectedOrganizers: [],
-        currentUser: null,
+        currentUser: {},
     }),
     computed: {
         isLastStep() {
             return this.activeIndex === this.steps.length - 1;
         },
         nextDisabled() {
-            if (this.activeIndex === 1 && this.selectedOrganizers.length == 0) {
+            if ((this.activeIndex === 1 && this.selectedOrganizers.length == 0) ||
+                (this.activeIndex === 3 && Object.keys(this.currentUser).length === 0)
+                ) 
+            {
                 return true
             }
             return false
@@ -135,26 +138,32 @@ export default {
             // You could also validate manually like this.
             // this.$refs.registerForm.validate(); // this is 'async' use `await` or `then`.
         },
-        stepValidation() {
+        handleNext() {
             if (this.activeIndex === 1 && this.selectedOrganizers.length == 0) {
                 this.error = 'Set an organizer first'
+            } else if (this.activeIndex === 2) {
+                this.$refs.actieForm.$refs.actieValidator.validate().then((result) => {
+                    if (result) { 
+                        this.activeIndex++ 
+                    }
+                })
             } else {
-                this.activeIndex++;
+                this.activeIndex++
             }
         },
         authDone(user) {
             this.currentUser = user
-            this.activeIndex += 1
+            this.activeIndex++
         }
     },
-    watch: {
-        report: {
-            handler: function (value) {
-                console.log(value)
-            },
-            deep: true
-        }
-    }
+    // watch: {
+    //     report: {
+    //         handler: function (value) {
+    //             console.log(value)
+    //         },
+    //         deep: true
+    //     }
+    // }
 };
 </script>
 <style scoped>

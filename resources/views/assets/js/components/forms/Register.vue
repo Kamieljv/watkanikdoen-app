@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col" :class="{'justify-center py-10 sm:py-20 sm:px-6 lg:px-8': !async}">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
-            <h2 class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-900 lg:text-5xl">
+            <h2 class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-900">
                 {{ __("auth.register") }}
             </h2>
         </div>
@@ -17,18 +17,18 @@
                     </span>
                     <hr class="my-5">
                 </div>
-                <div v-if="errors && Object.keys(errors).length > 0" class="p-3 mb-3 text-sm rounded-md failure">
-                    <span
-                        v-for="error in Object.keys(errors)"
+                <div v-if="currentErrors && Object.keys(currentErrors).length > 0" class="p-3 mb-3 text-sm rounded-md failure">
+                    <p
+                        v-for="error in Object.keys(currentErrors)"
                         :key="error"
                     >
-                        {{ errors[error][0] }}
-                    </span>
+                        {{ currentErrors[error][0] }}
+                    </p>
                 </div>
                 <ValidationObserver
                     ref="validator"
                 >
-                    <form role="form" method="POST" :action="routes.register">
+                    <form ref="register_form" role="form" method="POST" @submit.prevent="handleSubmit" :action="routes.register">
                         <slot name="csrf"/>
 
                         <!-- Name -->
@@ -147,14 +147,39 @@ export default {
             password: '',
             passwordConfirm: '',
             termsApproved: false,
+            currentErrors: null,
         }
 	},
+    methods: {
+        handleSubmit() {
+            if (this.async) {
+                var formData = new FormData(this.$refs.register_form)
+                var data = {}
+                for (const [key, value] of formData) {
+                    data[key] = value
+                }
+                this.$http.post(this.routes.register, data).then((response) => {
+                    if (response.data.status == 'success') {
+                        this.currentErrors = []
+                        this.$emit('done', response.data.user)
+                    }
+                }).catch((error) => {
+                    this.currentErrors = error.response.data.errors
+                })
+            } else {
+                this.$refs.register_form.submit()
+            }
+        }
+    },
     computed: {
         termsText() {
             return this.__("auth.accept_terms")
                 .replace(':terms', this.routes.terms)
                 .replace(':privacypolicy', this.routes.privacypolicy);
         }
+    },
+    mounted () {
+        this.currentErrors = this.errors
     }
 }
 </script>

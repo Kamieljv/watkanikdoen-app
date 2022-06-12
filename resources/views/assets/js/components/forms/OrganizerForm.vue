@@ -127,6 +127,10 @@ export default {
             type: Object,
             required: true,
         },
+        selectedOrganizers: {
+            type: Array,
+            default: () => [],
+        }
     },
     data() {
 		return {
@@ -137,7 +141,7 @@ export default {
         }
 	},
     methods: {
-        addOrganizer: function(e) {
+        addOrganizer: function() {
             this.$refs.organizerValidator.validate().then((result) => {
                 if (result) {
                     this.organizersSelected.push({
@@ -162,6 +166,9 @@ export default {
                 return v.id !== organizer.id
             })
         }
+    },
+    mounted() {
+        this.organizersSelected = this.selectedOrganizers.length > 0 ? this.selectedOrganizers : []
     },
     watch: {
         organizersSelected: function(value) {

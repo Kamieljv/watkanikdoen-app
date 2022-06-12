@@ -20,6 +20,7 @@
                     :min-password-length="minPasswordLength"
                     :h-captcha-key="hCaptchaKey"
                     :async="true"
+                    @done="authDone"
                 />
             </div>
         </div>
@@ -69,7 +70,6 @@ export default {
     },
     methods: {
         authDone: function(user) {
-            console.log(user)
             this.currentUser = user
             this.$emit('done', user)
         }

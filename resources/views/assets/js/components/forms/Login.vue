@@ -20,7 +20,7 @@
                 <div v-if="currentErrors.length > 0" class="error-container rounded-sm p-3">
                     <p v-for="e in currentErrors" :key="e" class="italic text-sm">{{e}}</p>
                 </div>
-                <form ref="form" @submit.prevent="handleSubmit" :action="routes.login"  method="POST" class="space-y-3">
+                <form ref="login_form" @submit.prevent="handleSubmit" :action="routes.login"  method="POST" class="space-y-3">
                     <slot name="csrf"/>
 
                     <!-- Email -->
@@ -131,7 +131,7 @@ export default {
                     }
                 })
             } else {
-                this.$refs.form.submit()
+                this.$refs.login_form.submit()
             }
         }
     }, 
