@@ -51,6 +51,7 @@
 import { Editor, EditorContent } from "@tiptap/vue-2"
 import StarterKit from "@tiptap/starter-kit"
 import Underline from "@tiptap/extension-underline"
+import CharacterCount from '@tiptap/extension-character-count'
 // import Link from '@tiptap/extension-link'
 
 export default {
@@ -70,7 +71,11 @@ export default {
 		disabled: {
 			type: Boolean,
 			default: false,
-		}
+		},
+        maxCharacters: {
+            type: Number,
+            default: 16000
+        }
 	},
 
 	data() {
@@ -88,6 +93,7 @@ export default {
         }
     },
 	mounted() {
+        const limit = this.maxCharacters
 		this.editor = new Editor({
 			content: this.value,
 			extensions: [
@@ -97,6 +103,9 @@ export default {
 					},
 				}),
 				Underline,
+                CharacterCount.configure({
+                    limit,
+                }),
 				// Link,
 			],
 			editable: !this.disabled,

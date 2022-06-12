@@ -10,6 +10,7 @@ use App\Models\Theme;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -39,16 +40,6 @@ class ReportController extends Controller
     }
 
     /**
-     * Displays the form to create a new Report
-     */
-    public function form()
-    {
-        $organizers = Organizer::all()->toJson();
-        $viewOnly = false;
-        // Display the landing page
-        return view('reports.form', compact('viewOnly', 'organizers'));
-    }
-    /**
      * Displays the filled in Report form
      */
     public function view($id)
@@ -70,21 +61,22 @@ class ReportController extends Controller
 
         try {
             $report = Report::create([
-                'user_id' => auth()->user()->id,
-                'organizer_ids' => $request->organizer_ids ? implode(",", $request->organizer_ids) : '',
-                'title' => $request->title,
-                'body' => $request->body,
-                'externe_link' => $request->externe_link,
-                'time_start' => Date::parse($request->time_start)->format('Y-m-dTH:i'),
-                'time_end' => Date::parse($request->time_end)->format('Y-m-dTH:i'),
-                'location' => $request->location ? DB::raw("ST_GeomFromText('POINT({$request->location['lng']} {$request->location['lat']})')") : null,
-                'location_human' => $request->location_human,
+                'user_id' => $request->userId,
+                // 'organizer_ids' => $request->organizer_ids ? implode(",", $request->organizer_ids) : '',
+                'title' => $request->report['title'],
+                'body' => $request->report['body'] ?? null,
+                'externe_link' => $request->report['externe_link'],
+                'time_start' => Date::parse($request->report['time_start'])->format('Y-m-dTH:i'),
+                'time_end' => Date::parse($request->report['time_end'])->format('Y-m-dTH:i'),
+                'location' => isset($request->report['location']) ?
+                    DB::raw("ST_GeomFromText('POINT({$request->report['location']['lng']} {$request->report['location']['lat']})')") : null,
+                'location_human' => $request->report['location_human'],
             ]);
-            if ($request->image) {
-                $ext = '.' . explode('/', mime_content_type($request->image))[1];
-                $path = 'reports/' . md5($request->title . microtime()) . $ext;
+            if (isset($request->report['image'])) {
+                $ext = '.' . explode('/', mime_content_type($request->report['image']))[1];
+                $path = 'reports/' . md5($request->report['title'] . microtime()) . $ext;
                 // Store the image on the server
-                Storage::disk(config('voyager.storage.disk'))->put($path, file_get_contents($request->image));
+                Storage::disk(config('voyager.storage.disk'))->put($path, file_get_contents($request->report['image']));
                 // Create entry in db
                 Image::create([
                     'path' => $path,
@@ -98,8 +90,11 @@ class ReportController extends Controller
             $errorInfo = $exception->errorInfo;
             return back()->with('error', $errorInfo[2])->withInput();
         }
-
-        return redirect(route('dashboard'))->with('success', __('reports.add_success'));
+        if (auth()->user()) {
+            return redirect(route('dashboard'))->with('success', __('reports.add_success'));
+        } else {
+            return back()->with('success', __('reports.add_success'));
+        }
     }
 
     public function approve($id)
@@ -179,14 +174,20 @@ class ReportController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'title' => 'required|string|max:255',
-            'body' => 'required|string|max:16000',
-            'externe_link' => 'required|string|url|max:500',
-            'time_start' => 'required|date_format:Y-m-d\TH:i|after_or_equal:today',
-            'time_end' => 'required|date_format:Y-m-d\TH:i|after:time_start',
-            'location' => 'array:lat,lng',
-            'location_human' => 'required|string|max:200',
-            'image' => '',
+            'userId' => 'required|integer',
+
+            'report.title' => 'required|string|max:255',
+            'report.body' => 'required|string|max:16000',
+            'report.externe_link' => 'required|string|url|max:500',
+            'report.time_start' => 'required|date_format:Y-m-d\TH:i|after_or_equal:today',
+            'report.time_end' => 'required|date_format:Y-m-d\TH:i|after:time_start',
+            'report.location' => 'array:lat,lng',
+            'report.location_human' => 'required|string|max:200',
+            'report.image' => '',
+
+            'organizers.*.name' => 'required|string|max:80',
+            'organizers.*.description' => 'string|max:16000',
+            'organizers.*.website' => 'required|string|url|max:500',
         ]);
     }
 

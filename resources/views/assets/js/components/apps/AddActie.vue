@@ -60,8 +60,11 @@
                     class="secondary">
                     {{ __('general.previous') }}
                 </button>
-                <button class="primary"  @click.prevent="handleNext" :disabled="nextDisabled">
-                    {{ isLastStep ? __('general.send_form') : __('general.next') }}
+                <button v-if="!isLastStep" class="primary"  @click.prevent="handleNext" :disabled="nextDisabled">
+                    {{ __('general.next') }}
+                </button>
+                <button v-else class="primary"  @click.prevent="submit">
+                    {{ __('general.send_form') }}
                 </button>
             </div>
         </ValidationObserver>
@@ -103,7 +106,7 @@ export default {
         },
     },
     data: () => ({
-        activeIndex: 2,
+        activeIndex: 4,
         steps: [
             'Start',
             'Organisator kiezen/toevoegen',
@@ -134,9 +137,15 @@ export default {
     },
     methods: {
         submit() {
-            console.log("Submitting to server!");
-            // You could also validate manually like this.
-            // this.$refs.registerForm.validate(); // this is 'async' use `await` or `then`.
+            var organizers = JSON.parse('[ { "id": 1, "name": "Greenpeace", "description": "This is a description for Greenpeace.", "website": "https://greenpeace.com", "logo": "organizers/greenpeace_logo.jpg", "slug": "greenpeace", "created_at": "2022-01-03T15:57:37.000000Z", "updated_at": "2022-01-03T15:57:37.000000Z", "link": "http://localhost:8000/organizer/greenpeace", "website_human": "greenpeace.com", "themes": [ { "id": 1, "name": "Klimaat", "color": "#61BB0C", "slug": "klimaat", "pivot": { "organizer_id": 1, "theme_id": 1 } }, { "id": 12, "name": "Vluchtelingen", "color": "#f6ff75", "slug": "vluchtelingen", "pivot": { "organizer_id": 1, "theme_id": 12 } } ], "linked_image": null, "selected": false } ]')
+            var report = JSON.parse('{ "body": "<p></p>", "title": "asdfasdf", "externe_link": "https://sdf.nl", "location_human": "asdf", "time_start": "2022-10-01T10:00", "time_end": "2022-10-01T11:00" }')
+            this.$http.post(this.routes['report_create'], {
+                userId: 1, //this.currentUser.id,
+                organizers: organizers, //this.selectedOrganizers, 
+                report: report, //this.report,
+            }).then((response) => {
+                console.log(response)
+            })
         },
         handleNext() {
             if (this.activeIndex === 1 && this.selectedOrganizers.length == 0) {

@@ -55,7 +55,7 @@ Route::get('organisatoren/index', [OrganizerController::class, 'index'])->name('
 Route::get('organisatoren/search', [OrganizerController::class, 'search'])->name('organizers.search');
 Route::get('organisator/{organizer}', [OrganizerController::class, 'organizer'])->name('organizers.organizer');
 
-// Acties aanmelden (guest)
+// Acties aanmelden
 Route::get('acties/aanmelden', [ReportController::class, 'landing'])->name('report.landing');
 
 // Blog routes
