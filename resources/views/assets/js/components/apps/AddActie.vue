@@ -50,11 +50,19 @@
                             @done="authDone"
                         />
                     </div>
-                    <div v-else class="p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="4">
-                        <h2>Controleren... en versturen!</h2>
-                        <p>
-                        </p>
-                        
+                    <div v-else class="flex flex-col justify-between p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="4">
+                        <div>
+                            <h2>Controleren... en versturen!</h2>
+                            <p>...</p>
+                        </div>
+                        <div v-if="currentErrors && Object.keys(currentErrors).length > 0" class="p-3 text-sm rounded-md failure">
+                            <p
+                                v-for="error in Object.keys(currentErrors)"
+                                :key="error"
+                            >
+                                {{ currentErrors[error][0] }}
+                            </p>
+                        </div>
                     </div>
                 </transition>
                 <div class="flex mt-5" :class="{'justify-end': activeIndex === 0, 'justify-between': activeIndex > 0}">
@@ -72,7 +80,7 @@
             </ValidationObserver>
         </div>
         <div v-else>
-            <div class="flex items-center max-w-4xl mx-auto my-6 bg-white rounded-md shadow-md min-h-[300px]">
+            <div class="flex justify-center items-center max-w-4xl mx-auto my-6 bg-white rounded-md shadow-md min-h-[300px]">
                 <SuccessBlock message="Gelukt! Bedankt voor je bijdrage!"/>
             </div>
         </div>
@@ -126,6 +134,7 @@ export default {
         selectedOrganizers: [],
         currentUser: {},
         sent: false,
+        currentErrors: [],
     }),
     computed: {
         isLastStep() {
@@ -146,7 +155,7 @@ export default {
     },
     methods: {
         submit() {
-            var organizers = JSON.parse('[ { "id": 1, "name": "Greenpeace", "description": "This is a description for Greenpeace.", "website": "https://greenpeace.com", "logo": "organizers/greenpeace_logo.jpg", "slug": "greenpeace", "created_at": "2022-01-03T15:57:37.000000Z", "updated_at": "2022-01-03T15:57:37.000000Z", "link": "http://localhost:8000/organizer/greenpeace", "website_human": "greenpeace.com", "themes": [ { "id": 1, "name": "Klimaat", "color": "#61BB0C", "slug": "klimaat", "pivot": { "organizer_id": 1, "theme_id": 1 } }, { "id": 12, "name": "Vluchtelingen", "color": "#f6ff75", "slug": "vluchtelingen", "pivot": { "organizer_id": 1, "theme_id": 12 } } ], "linked_image": null, "selected": false } ]')
+            var organizers = JSON.parse('[ { "name": "Greenpeace123", "description": "This is a description for Greenpeace.", "website": "https://greenpeace.com", "logo": "organizers/greenpeace_logo.jpg", "slug": "greenpeace", "created_at": "2022-01-03T15:57:37.000000Z", "updated_at": "2022-01-03T15:57:37.000000Z", "link": "http://localhost:8000/organizer/greenpeace", "website_human": "greenpeace.com", "themes": [ { "id": 1, "name": "Klimaat", "color": "#61BB0C", "slug": "klimaat", "pivot": { "organizer_id": 1, "theme_id": 1 } }, { "id": 12, "name": "Vluchtelingen", "color": "#f6ff75", "slug": "vluchtelingen", "pivot": { "organizer_id": 1, "theme_id": 12 } } ], "linked_image": null, "selected": false } ]')
             var report = JSON.parse('{ "body": "<p></p>", "title": "asdfasdf", "externe_link": "https://sdf.nl", "location_human": "asdf", "time_start": "2022-10-01T10:00", "time_end": "2022-10-01T11:00" }')
             this.$http.post(this.routes['report_create'], {
                 userId: 1, //this.currentUser.id,
@@ -156,14 +165,14 @@ export default {
                 if (response.data.status === 'success') {
                     this.sent = true
                 } else {
-                    console.log(response.data)
+                    this.currentErrors = {error: [response.data.message]}
                 }
+            }).catch((error) => {
+                this.currentErrors = error.response.data.errors
             })
         },
         handleNext() {
-            if (this.activeIndex === 1 && this.selectedOrganizers.length == 0) {
-                this.error = 'Set an organizer first'
-            } else if (this.activeIndex === 2) {
+            if (this.activeIndex === 2) {
                 this.$refs.actieForm.$refs.actieValidator.validate().then((result) => {
                     if (result) { 
                         this.activeIndex++ 
@@ -177,15 +186,7 @@ export default {
             this.currentUser = user
             this.activeIndex++
         }
-    },
-    // watch: {
-    //     report: {
-    //         handler: function (value) {
-    //             console.log(value)
-    //         },
-    //         deep: true
-    //     }
-    // }
+    }
 };
 </script>
 <style scoped>
@@ -203,5 +204,9 @@ export default {
 
     .slide-leave-to {
         opacity: 0;
+    }
+    .failure {
+        color: var(--wkid-message-error-dark);
+        background: var(--wkid-message-error-light);
     }
 </style>

@@ -11,6 +11,13 @@ class Organizer extends Model
         'website_human',
     ];
 
+    protected $fillable = [
+        'name',
+        'description',
+        'website',
+        'slug',
+    ];
+
     /**
      * The relations to eager load on every query.
      *

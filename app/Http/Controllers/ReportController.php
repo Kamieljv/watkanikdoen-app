@@ -60,6 +60,7 @@ class ReportController extends Controller
         $this->validator($request->all())->validate();
 
         try {
+            // create report
             $report = Report::create([
                 'user_id' => $request->userId,
                 // 'organizer_ids' => $request->organizer_ids ? implode(",", $request->organizer_ids) : '',
@@ -86,27 +87,30 @@ class ReportController extends Controller
                 $report->image = $path;
                 $report->save();
             }
+            // create organizers
+            if (count($request->organizers) > 0) {
+                foreach($request->organizers as $organizer) {
+                    if (!isset($organizer['id'])) {
+                        Organizer::create([
+                            'name' => $organizer['name'],
+                            'description' => $organizer['description'] ?? null,
+                            'website' => $organizer['website'],
+                            'slug' => $this->createSlug($organizer['name'], Organizer::class),
+                        ]);
+                    }
+                }   
+            }
         } catch (QueryException $exception) {
             $errorInfo = $exception->errorInfo;
             return response([
                 'status' => 'error',
                 'message' => $errorInfo[2],
-                'redirect' => route('dashboard'),
             ], 200);
         }
-        if (auth()->user()) {
-            return response([
-                'status' => 'success',
-                'message' => __('reports.add_success'),
-                'redirect' => route('dashboard'),
-            ], 200);
-        } else {
-            return response([
-                'status' => 'success',
-                'message' => __('reports.add_success'),
-                'redirect' => route('home'),
-            ], 200);
-        }
+        return response([
+            'status' => 'success',
+            'message' => __('reports.add_success'),
+        ], 200);
     }
 
     public function approve($id)
@@ -197,16 +201,18 @@ class ReportController extends Controller
             'report.location_human' => 'required|string|max:200',
             'report.image' => '',
 
-            'organizers.*.name' => 'required|string|max:80',
+            'organizers.*.name' => 'required|string|unique:organizers|max:80',
             'organizers.*.description' => 'string|max:16000',
             'organizers.*.website' => 'required|string|url|max:500',
+        ], [
+            'organizers.*.name.unique' => 'De organisatornaam :input bestaat al.'
         ]);
     }
 
-    protected function createSlug($title)
+    protected function createSlug($title, $model = Actie::class)
     {
         $slug = str_slug($title);
-        $allSlugs = Actie::select('slug')->where('slug', '=', $slug)->get();
+        $allSlugs = $model::select('slug')->where('slug', '=', $slug)->get();
         if (! $allSlugs->contains('slug', $slug)) {
             return $slug;
         }
