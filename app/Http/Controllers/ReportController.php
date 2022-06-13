@@ -88,12 +88,24 @@ class ReportController extends Controller
             }
         } catch (QueryException $exception) {
             $errorInfo = $exception->errorInfo;
-            return back()->with('error', $errorInfo[2])->withInput();
+            return response([
+                'status' => 'error',
+                'message' => $errorInfo[2],
+                'redirect' => route('dashboard'),
+            ], 200);
         }
         if (auth()->user()) {
-            return redirect(route('dashboard'))->with('success', __('reports.add_success'));
+            return response([
+                'status' => 'success',
+                'message' => __('reports.add_success'),
+                'redirect' => route('dashboard'),
+            ], 200);
         } else {
-            return back()->with('success', __('reports.add_success'));
+            return response([
+                'status' => 'success',
+                'message' => __('reports.add_success'),
+                'redirect' => route('home'),
+            ], 200);
         }
     }
 
