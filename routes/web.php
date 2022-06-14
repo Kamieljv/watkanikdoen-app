@@ -36,6 +36,7 @@ Route::get('register/complete', [RegisterController::class, 'complete'])->name('
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
     Route::get('report/approve/{id}', [ReportController::class, 'approve'])->name('report.approve');
+    Route::get('organizer/approve/{id}', [OrganizerController::class, 'approve'])->name('organizer.approve');
     Route::post('images/delete_unlinked', [ImageController::class, 'deleteUnlinked'])->name('images.delete_unlinked');
 });
 

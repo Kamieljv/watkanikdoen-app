@@ -83,7 +83,7 @@
                                                 class="px-2 inline-flex text-xs lowercase leading-5 font-semibold rounded-full {{ $statusColorMap[$report->status] }}"
                                                 style=""
                                             >
-                                                {{ __("reports." . strtolower($report->status)) }}
+                                                {{ __("general." . strtolower($report->status)) }}
                                             </span>
                                         </td>
                                         {{-- Editing/Viewing --}}

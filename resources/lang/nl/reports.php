@@ -11,13 +11,7 @@
 */
 
 return [
-    'approve' => 'Goedkeuren',
-    'approved' => 'Goedgekeurd',
-    'approve_success' => 'Actie goedgekeurd en aan Acties toegevoegd.',
-    'approve_fail' => 'Actie kon niet worden goedgekeurd. Mogelijk omdat deze al is goed- of afgekeurd.',
     'add_success' => 'Bedankt voor uw bijdrage! We nemen de actie in behandeling en komen zo snel mogelijk bij u terug.',
-    'pending' => 'in behandeling',
-    'rejected' => 'afgewezen',
     'to_form' => 'Naar Formulier',
     'title' => 'Titel',
     'body' => 'Beschrijving',

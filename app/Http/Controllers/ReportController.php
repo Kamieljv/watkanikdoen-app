@@ -129,7 +129,7 @@ class ReportController extends Controller
         if ($report->status !== 'PENDING') {
             return back()
             ->with([
-                'message'    => __('reports.approve_fail'),
+                'message'    => __('general.approve_fail', ['entity' => 'Actie']),
                 'alert-type' => 'error',
             ]);
         }
@@ -176,7 +176,7 @@ class ReportController extends Controller
         return redirect()
             ->route("voyager.acties.index")
             ->with([
-                'message'    => __('reports.approve_success'),
+                'message'    => __('general.approve_success', ['entity' => 'Actie']),
                 'alert-type' => 'success',
             ]);
     }

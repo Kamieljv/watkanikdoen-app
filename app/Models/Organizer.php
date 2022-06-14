@@ -46,6 +46,12 @@ class Organizer extends Model
         return null;
     }
 
+    public function approve()
+    {
+        $this->status = 'APPROVED';
+        $this->save();
+    }
+
     public function acties()
     {
         return $this->hasMany(Actie::class, 'actie_organizer');
