@@ -8,9 +8,9 @@
             <ul class="flex flex-wrap flex-col space-y-3 space-x-0 sm:space-y-0 sm:flex-row sm:space-x-5 text-xs text-gray-600 my-5 sm:my-0">
                 <li class="text-center flex-full sm:flex-none sm:mb-0">&copy; {{ date('Y') }} {{ config('brand.title') }}</li>
                 <li class="text-center">
-                    <a href="/privacybeleid" class="relative inline-block group" style="color: inherit;">
+                    <a href="/voorwaarden-en-privacyverklaring" class="relative inline-block group" style="color: inherit;">
                         <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-0"></span>
-                        <span>{{ __("Privacy Policy") }}</span>
+                        <span>{{ __("Terms and Privacypolicy") }}</span>
                     </a>
                 </li>
                 <li class="text-center">

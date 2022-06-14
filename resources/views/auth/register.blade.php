@@ -104,11 +104,7 @@
                     <div class="mt-6 flex">
                         <input name="terms" type="checkbox" id="termsCheckbox" class="mr-2">
                         <label for="termsCheckbox" class="text-sm text-gray-900">
-                            {!! __("auth.accept_terms", [
-                                'terms' => '/voorwaarden', 
-                                'privacypolicy' => '/privacybeleid'
-                                ])
-                            !!}
+                            {!! __("auth.accept_terms", ['terms' => '/voorwaarden-en-privacyverklaring']) !!}
                         </label>
                     </div>
                     @if ($errors->has('terms'))

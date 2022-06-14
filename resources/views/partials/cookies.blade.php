@@ -9,8 +9,8 @@
         <div class="mb-2 flex justify-between">
             <div>
                 We gebruiken uitsluitend functionele en analytische cookies (die u niet kunt weigeren) en delen geen data met derden.
-                Lees meer over onze cookies in het
-                <a href="/privacybeleid" target="_blank" class="font-bold hover:underline">Privacybeleid</a>.
+                Lees meer over onze cookies in de
+                <a href="/voorwaarden-en-privacyverklaring" target="_blank" class="font-bold hover:underline">Voorwaarden en Privacyverklaring</a>.
                 Bij bezoek aan deze website gaat u hiermee akkoord.
             </div>
             <button id="acceptCookies" class="hidden md:block px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-gray-700 hover:bg-gray-900">
