@@ -200,10 +200,9 @@ class ReportController extends Controller
             'report.location' => 'array:lat,lng',
             'report.location_human' => 'required|string|max:200',
             'report.image' => '',
-
-            'organizers.*.name' => 'required|string|unique:organizers|max:80',
-            'organizers.*.description' => 'string|max:16000',
-            'organizers.*.website' => 'required|string|url|max:500',
+            'organizers.*.name' => 'sometimes|required|string|unique:organizers|max:80',
+            'organizers.*.description' => 'sometimes|string|max:16000',
+            'organizers.*.website' => 'sometimes|required|string|url|max:500',
         ], [
             'organizers.*.name.unique' => 'De organisatornaam :input bestaat al.'
         ]);
