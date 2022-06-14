@@ -71,7 +71,7 @@ class ReportController extends Controller
                 'externe_link' => $request->externe_link,
                 'time_start' => Date::parse($request->time_start)->format('Y-m-dTH:i'),
                 'time_end' => Date::parse($request->time_end)->format('Y-m-dTH:i'),
-                'location' => DB::raw("ST_GeomFromText('POINT({$request->location['lng']} {$request->location['lat']})')"),
+                'location' => $request->location ? DB::raw("ST_GeomFromText('POINT({$request->location['lng']} {$request->location['lat']})')") : null,
                 'location_human' => $request->location_human,
             ]);
             if ($request->image) {
