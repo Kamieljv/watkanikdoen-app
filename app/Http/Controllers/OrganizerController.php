@@ -99,7 +99,7 @@ class OrganizerController extends Controller
 
         // check if user who submitted this action is verified
         $user = User::findOrFail($organizer->user_id);
-        if (!$user->verified == '1') {
+        if (!$user->verified === 1) {
             return back()
             ->with([
                 'message'    => __('general.approve_fail_user_not_verified', ['entity' => 'Organisator']),

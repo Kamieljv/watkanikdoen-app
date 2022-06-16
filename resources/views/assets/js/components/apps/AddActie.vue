@@ -155,16 +155,13 @@ export default {
     },
     methods: {
         submit() {
-            var organizers = JSON.parse('[ { "id": 6, "name": "Greenpeace123", "description": "This is a description for Greenpeace.", "website": "https://greenpeace.com", "logo": null, "slug": "greenpeace123", "created_at": "2022-06-13T17:09:56.000000Z", "updated_at": "2022-06-14T15:58:34.000000Z", "user_id": 1, "status": "APPROVED", "link": "http://localhost:8000/organizer/greenpeace123", "website_human": "greenpeace.com", "themes": [], "linked_image": null, "selected": true }, { "name": "kjhk", "description": "<p></p>", "website": "https://stophoutrook.nu/" } ]')
-            .map((org) => {
+            var organizers = this.selectedOrganizers.map((org) => {
                 return ('id' in org)? {id: org.id} : org
             })
-            console.log(organizers)
-            var report = JSON.parse('{ "body": "<p></p>", "title": "asdfasdf", "externe_link": "https://sdf.nl", "location_human": "asdf", "time_start": "2022-10-01T10:00", "time_end": "2022-10-01T11:00" }')
             this.$http.post(this.routes['report_create'], {
-                userId: 1, //this.currentUser.id,
-                organizers: organizers, //this.selectedOrganizers, 
-                report: report, //this.report,
+                userId: this.currentUser.id,
+                organizers: organizers,
+                report: this.report,
             }).then((response) => {
                 if (response.data.status === 'success') {
                     this.sent = true

@@ -41,6 +41,7 @@ return [
     'approve_success' => ':entity goedgekeurd.',
     'approve_fail' => ':entity kon niet worden goedgekeurd. Mogelijk omdat deze al is goed- of afgekeurd.',
     'approve_fail_user_not_verified' => ':entity kon niet worden goedgekeurd omdat de bijbehorende gebruiker niet geverifieerd is.',
+    'approve_fail_organizer_not_approved' => ':entity kon niet worden goedgekeurd omdat de bijbehorende Organisator niet goedgekeurd is.',
     'pending' => 'in behandeling',
     'rejected' => 'afgewezen',
 ];

@@ -60,10 +60,29 @@ class ReportController extends Controller
         $this->validator($request->all())->validate();
 
         try {
+            // create organizers
+            $organizer_ids = [];
+            if (count($request->organizers) > 0) {
+                foreach($request->organizers as $organizer) {
+                    if (!isset($organizer['id'])) {
+                        $org = Organizer::create([
+                            'name' => $organizer['name'],
+                            'description' => $organizer['description'] ?? null,
+                            'website' => $organizer['website'],
+                            'slug' => $this->createSlug($organizer['name'], Organizer::class),
+                            'user_id' => $request->userId,
+                        ]);
+                        array_push($organizer_ids, $org->id);
+                    } else {
+                        array_push($organizer_ids, $organizer['id']);
+                    }
+                }   
+            }
+
             // create report
             $report = Report::create([
                 'user_id' => $request->userId,
-                // 'organizer_ids' => $request->organizer_ids ? implode(",", $request->organizer_ids) : '',
+                'organizer_ids' => $organizer_ids ? implode(",", $organizer_ids) : '',
                 'title' => $request->report['title'],
                 'body' => $request->report['body'] ?? null,
                 'externe_link' => $request->report['externe_link'],
@@ -86,19 +105,6 @@ class ReportController extends Controller
                 // Also save image on the model
                 $report->image = $path;
                 $report->save();
-            }
-            // create organizers
-            if (count($request->organizers) > 0) {
-                foreach($request->organizers as $organizer) {
-                    if (!isset($organizer['id'])) {
-                        Organizer::create([
-                            'name' => $organizer['name'],
-                            'description' => $organizer['description'] ?? null,
-                            'website' => $organizer['website'],
-                            'slug' => $this->createSlug($organizer['name'], Organizer::class),
-                        ]);
-                    }
-                }   
             }
         } catch (QueryException $exception) {
             $errorInfo = $exception->errorInfo;
@@ -164,7 +170,15 @@ class ReportController extends Controller
         if ($report->organizer_ids) {
             $report_ids = explode(",", $report->organizer_ids);
             foreach ($report_ids as $report_id) {
-                $actie->organizers()->save(Organizer::firstWhere('id', $report_id));
+                $org = Organizer::firstWhere('id', $report_id);
+                if ($org->status !== 'APPROVED') {
+                    return back()
+                    ->with([
+                        'message'    => __('general.approve_fail_organizer_not_approved', ['entity' => 'Actie']),
+                        'alert-type' => 'error',
+                    ]);
+                }
+                $actie->organizers()->save($org);
             }
         }
 
