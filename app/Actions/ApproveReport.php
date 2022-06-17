@@ -8,7 +8,7 @@ class ApproveReport extends AbstractAction
 {
     public function getTitle()
     {
-        return trans('reports.approve');
+        return trans('general.approve');
     }
 
     public function getIcon()
@@ -30,7 +30,11 @@ class ApproveReport extends AbstractAction
 
     public function getDefaultRoute()
     {
-        return route('report.approve', $this->data->{$this->data->getKeyName()});
+        if ($this->dataType->slug === 'reports') {
+            return route('report.approve', $this->data->{$this->data->getKeyName()});
+        } else if ($this->dataType->slug === 'organizers') {
+            return route('organizer.approve', $this->data->{$this->data->getKeyName()});
+        }
     }
 
     /*
@@ -38,7 +42,7 @@ class ApproveReport extends AbstractAction
      */
     public function shouldActionDisplayOnDataType()
     {
-        return $this->dataType->slug === 'reports';
+        return in_array($this->dataType->slug, ['reports', 'organizers']);
     }
 
     /*

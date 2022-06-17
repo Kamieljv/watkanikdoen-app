@@ -11,6 +11,14 @@ class Organizer extends Model
         'website_human',
     ];
 
+    protected $fillable = [
+        'name',
+        'description',
+        'website',
+        'slug',
+        'user_id',
+    ];
+
     /**
      * The relations to eager load on every query.
      *
@@ -37,6 +45,12 @@ class Organizer extends Model
             return str_replace('www.', '', parse_url($this->website)['host']);
         }
         return null;
+    }
+
+    public function approve()
+    {
+        $this->status = 'APPROVED';
+        $this->save();
     }
 
     public function acties()

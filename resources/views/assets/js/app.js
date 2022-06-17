@@ -32,6 +32,11 @@ Vue.use(SvgVue)
 import moment from "moment"
 Vue.prototype.moment = moment
 
+// Vee-validate
+import {ValidationObserver} from 'vee-validate';
+Vue.component('ValidationObserver', ValidationObserver);
+require('./validations')
+
 // Image upload/edit
 import "exif-js"
 import VueCroppie from "vue-croppie"

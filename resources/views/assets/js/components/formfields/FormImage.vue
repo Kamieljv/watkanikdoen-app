@@ -230,5 +230,10 @@ export default {
 			this.$refs.upload.click()
 		}
 	},
+	watch: {
+		cropped: function(value) {
+			this.$emit('input', value)
+		}
+	}
 }
 </script>

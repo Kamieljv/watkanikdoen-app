@@ -77,3 +77,7 @@ div.custom-loader {
 .table {
   color: #444a51;
 }
+
+table.dataTable tbody tr.pending {
+  background-color: #cefdb9;
+}

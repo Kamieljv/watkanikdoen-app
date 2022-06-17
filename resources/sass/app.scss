@@ -70,6 +70,10 @@ div.custom-loader {
   justify-content: right;
 }
 
+// Modify tables
 .table {
   color: #444a51;
+}
+table.dataTable tbody tr.pending {
+  background-color: #cefdb9;
 }
