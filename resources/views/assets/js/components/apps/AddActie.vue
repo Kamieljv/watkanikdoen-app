@@ -10,11 +10,13 @@
             <ValidationObserver>
                 <transition name="slide" mode="out-in" appear>
                     <div v-if="activeStep.key === 'start'" class="p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="0">
-                        <h2>Start: Een actie toevoegen</h2>
+                        <h2>Een actie toevoegen</h2>
                         <p>Super dat je een actie wilt toevoegen! Op deze manier werk je met ons mee om de
                             website volledig te maken.
                             Om een actie toe te voegen vragen we je om in te loggen of een account aan te maken.
                             Dit is nodig om je op de hoogte te houden van de status van de aangemelde actie.
+                            <br/><br/>
+                            Klik op 'Volgende' om door te gaan.
                         </p>
                     </div>
                     <div v-else-if="activeStep.key === 'organizer'" class="p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="1">
@@ -46,18 +48,21 @@
                             @done="authDone"
                         />
                     </div>
-                    <div v-else class="flex flex-col justify-between p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="4">
+                    <div v-if="activeStep.key === 'confirm'" class="flex flex-col justify-between p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="4">
                         <div>
-                            <h2>Controleren... en versturen!</h2>
-                            <p>...</p>
+                            <h2>Bevestig en verzend je actie</h2>
+                            {{selectedOrganizers.map((org)=>{return org.name})}}
                         </div>
-                        <div v-if="currentErrors && Object.keys(currentErrors).length > 0" class="p-3 text-sm rounded-md failure">
-                            <p
-                                v-for="error in Object.keys(currentErrors)"
-                                :key="error"
-                            >
-                                {{ currentErrors[error][0] }}
-                            </p>
+                        <div>
+                            <p class="text-sm leading-5 text-gray-500">Bij het verzenden van dit formulier ga je akkoord met onze <a href="/voorwaarden-en-privacyverklaring">Voorwaarden en Privacyverklaring</a></p>
+                            <div v-if="currentErrors && Object.keys(currentErrors).length > 0" class="p-3 text-sm rounded-md failure">
+                                <p
+                                    v-for="error in Object.keys(currentErrors)"
+                                    :key="error"
+                                >
+                                    {{ currentErrors[error][0] }}
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </transition>
@@ -118,7 +123,7 @@ export default {
         },
     },
     data: () => ({
-        activeIndex: 0,
+        activeIndex: 3,
         steps: [
             {
                 key: 'start',

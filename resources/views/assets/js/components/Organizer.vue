@@ -14,7 +14,7 @@
                 </div>
                 <div class="flex flex-col overflow-hidden">
                     <p class="font-bold truncate">{{ organizer.name }}</p>
-                    <ul class="sm:hidden pt-2 flex space-x-1">
+                    <ul v-if="showThemes" class="sm:hidden pt-2 flex space-x-1">
                         <li
                             v-for="theme in organizer.themes"
                             :key="theme.id"

@@ -1,9 +1,9 @@
 <template>
     <ValidationObserver ref="actieValidator">
-        <div class="grid grid-cols-1 md:grid-cols-3 max-w-4xl mx-auto flex-col my-6 md:divide-x">
+        <div class="grid grid-cols-1 md:grid-cols-3 max-w-4xl mx-auto flex-col my-6 md:divide-x space-y-3">
             <div class="col-span-2 space-y-3">
                 <div class="flex flex-col justify-start flex-1 overflow-hidden bg-white border-gray-150">
-                    <div class="flex flex-col mt-5 md:pr-5">
+                    <div class="flex flex-col md:pr-5">
                         <h3 class="text-lg font-medium leading-6 text-gray-900">
                             Titel & teksten
                         </h3>
