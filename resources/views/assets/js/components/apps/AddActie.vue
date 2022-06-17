@@ -77,7 +77,7 @@
         </div>
         <div v-else>
             <div class="flex justify-center items-center max-w-4xl mx-auto my-6 bg-white rounded-md shadow-md min-h-[300px]">
-                <SuccessBlock message="Gelukt! Bedankt voor je bijdrage!"/>
+                <SuccessGIF src="https://thumbs.gfycat.com/GrossSpryAfricangoldencat-max-1mb.gif" message="Gelukt! Bedankt voor je bijdrage!"/>
             </div>
         </div>
     </div>
@@ -144,7 +144,7 @@ export default {
         report: {},
         selectedOrganizers: [],
         currentUser: {},
-        sent: false,
+        sent: true,
         currentErrors: [],
     }),
     computed: {
@@ -155,8 +155,8 @@ export default {
             return this.activeIndex === this.steps.length - 1;
         },
         nextDisabled() {
-            if ((this.activeIndex === 1 && this.selectedOrganizers.length == 0) ||
-                (this.activeIndex === 3 && Object.keys(this.currentUser).length === 0)
+            if ((this.activeStep.key === 'organizer' && this.selectedOrganizers.length == 0) ||
+                (this.activeStep.key === 'user' && Object.keys(this.currentUser).length === 0)
                 ) 
             {
                 return true
@@ -190,7 +190,7 @@ export default {
             })
         },
         handleNext() {
-            if (this.activeIndex === 2) {
+            if (this.activeStep.key === 'actie') {
                 this.$refs.actieForm.$refs.actieValidator.validate().then((result) => {
                     if (result) { 
                         this.activeIndex++ 
