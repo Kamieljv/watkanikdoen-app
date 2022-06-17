@@ -61,8 +61,8 @@
                                     :zoom="zoom"
                                     fieldname="location"
                                     :frontend="true"
-                                    :unedited="!('center' in report)"
-                                    v-model="report.center"
+                                    :unedited="!('location' in report)"
+                                    v-model="report.location"
                                 />
                             </div>
                         </div>

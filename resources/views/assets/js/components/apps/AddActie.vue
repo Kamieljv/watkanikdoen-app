@@ -166,7 +166,7 @@ export default {
     },
     mounted() {
         this.currentUser = this.user
-        if (this.currentUser.length > 0) {
+        if (Object.keys(this.currentUser).length > 0) {
             this.steps = this.steps.filter((s) => s.key !== 'user')
         }
     },
