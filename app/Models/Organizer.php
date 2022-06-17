@@ -16,6 +16,7 @@ class Organizer extends Model
         'description',
         'website',
         'slug',
+        'user_id',
     ];
 
     /**

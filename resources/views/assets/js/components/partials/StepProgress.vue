@@ -9,7 +9,7 @@
                     :style="{width: widthPerc}"
                     @click="setCurrentStep(i)"
                 >
-                    <p class="text-sm hidden sm:block">{{ steps[i-1] }}</p>
+                    <p class="text-sm hidden sm:block">{{ steps[i-1].title }}</p>
                 </li>
             </ul>
         </div>

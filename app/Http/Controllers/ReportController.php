@@ -140,10 +140,36 @@ class ReportController extends Controller
             ]);
         }
 
+        // Add a relationship entry for the ActieOrganizer if the organizer_id is passed
+        if ($report->organizer_ids) {
+            $organizer_ids = explode(",", $report->organizer_ids);
+            $organizers = [];
+            foreach ($organizer_ids as $org_id) {
+                $org = Organizer::firstWhere('id', $org_id);
+                if ($org->status !== 'APPROVED') {
+                    return back()
+                    ->with([
+                        'message'    => __('general.approve_fail_organizer_not_approved', ['entity' => 'Actie']),
+                        'alert-type' => 'error',
+                    ]);
+                }
+                array_push($organizers, $org);
+            }
+        }
+
         // Move image to actie folder
         if ($report->image) {
             $newImagePath = 'acties/' . explode("/", $report->image)[1];
-            Storage::disk(config('voyager.storage.disk'))->copy($report->image, $newImagePath);
+            try {
+                Storage::disk(config('voyager.storage.disk'))->copy($report->image, $newImagePath);
+            } catch (\Throwable $e) {
+                return back()
+                    ->with([
+                        'message'    => __('general.approve_fail_error_message', ['entity' => 'Actie', 'error' => $e->getMessage()]),
+                        'alert-type' => 'error',
+                    ]);
+            }
+            
         }
 
         // create new actie
@@ -166,21 +192,12 @@ class ReportController extends Controller
             ]);
         }
 
-        // Add a relationship entry for the ActieOrganizer if the organizer_id is passed
-        if ($report->organizer_ids) {
-            $report_ids = explode(",", $report->organizer_ids);
-            foreach ($report_ids as $report_id) {
-                $org = Organizer::firstWhere('id', $report_id);
-                if ($org->status !== 'APPROVED') {
-                    return back()
-                    ->with([
-                        'message'    => __('general.approve_fail_organizer_not_approved', ['entity' => 'Actie']),
-                        'alert-type' => 'error',
-                    ]);
-                }
+        // attach organizers to actie
+        if (isset($organizers)) {
+            foreach ($organizers as $org) {
                 $actie->organizers()->save($org);
             }
-        }
+        }        
 
         $report->approve();
 

@@ -7,13 +7,9 @@
                 v-model="activeIndex"
             >
             </step-progress>
-            {{selectedOrganizers}}
-            {{report}}
-            {{currentUser}}
-
             <ValidationObserver>
                 <transition name="slide" mode="out-in" appear>
-                    <div v-if="activeIndex === 0" class="p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="0">
+                    <div v-if="activeStep.key === 'start'" class="p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="0">
                         <h2>Start: Een actie toevoegen</h2>
                         <p>Super dat je een actie wilt toevoegen! Op deze manier werk je met ons mee om de
                             website volledig te maken.
@@ -21,7 +17,7 @@
                             Dit is nodig om je op de hoogte te houden van de status van de aangemelde actie.
                         </p>
                     </div>
-                    <div v-else-if="activeIndex === 1" class="p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="1">
+                    <div v-else-if="activeStep.key === 'organizer'" class="p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="1">
                         <h2>Kies organisator(en)</h2>
                         <organizer-form
                             v-model="selectedOrganizers"
@@ -29,7 +25,7 @@
                             :routes="routes"
                         />
                     </div>
-                    <div v-else-if="activeIndex === 2" class="p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="2">
+                    <div v-else-if="activeStep.key === 'actie'" class="p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="2">
                         <h2>Actiedetails beschrijven</h2>
                         <Actie-Form
                             ref="actieForm"
@@ -39,7 +35,7 @@
                             :zoom="zoom"
                         ></Actie-Form>
                     </div>
-                    <div v-else-if="activeIndex === 3" class="p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="3">
+                    <div v-else-if="activeStep.key === 'user' && currentUser !== {}" class="p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="3">
                         <h2>Wie ben jij?</h2>
                         <LoginOrRegister
                             :routes="routes"
@@ -122,13 +118,28 @@ export default {
         },
     },
     data: () => ({
-        activeIndex: 4,
+        activeIndex: 0,
         steps: [
-            'Start',
-            'Organisator kiezen/toevoegen',
-            'Actie beschrijven',
-            'Wie ben jij?',
-            'Bevestigen'
+            {
+                key: 'start',
+                title: 'Start'
+            },
+            {
+                key: 'organizer',
+                title: 'Organisator kiezen/toevoegen'
+            },
+            {
+                key: 'actie',
+                title: 'Actie beschrijven'
+            },
+            {
+                key: 'user',
+                title: 'Wie ben jij?'
+            },
+            {
+                key: 'confirm',
+                title: 'Bevestigen'
+            }
         ],
         report: {},
         selectedOrganizers: [],
@@ -137,6 +148,9 @@ export default {
         currentErrors: [],
     }),
     computed: {
+        activeStep() {
+            return this.steps[this.activeIndex]
+        },
         isLastStep() {
             return this.activeIndex === this.steps.length - 1;
         },
@@ -152,6 +166,9 @@ export default {
     },
     mounted() {
         this.currentUser = this.user
+        if (this.currentUser.length > 0) {
+            this.steps = this.steps.filter((s) => s.key !== 'user')
+        }
     },
     methods: {
         submit() {
