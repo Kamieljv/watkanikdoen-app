@@ -144,7 +144,7 @@ export default {
         report: {},
         selectedOrganizers: [],
         currentUser: {},
-        sent: true,
+        sent: false,
         currentErrors: [],
     }),
     computed: {
