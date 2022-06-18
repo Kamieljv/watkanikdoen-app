@@ -1,58 +1,25 @@
 @extends('layouts.app')
 
+@php
+    $routes = [
+        'login' => route('login'),
+        'password_reset' => route('password.email'),
+    ];
+@endphp
+
 @section('content')
-
-<div class="flex flex-col justify-center py-20 sm:px-6 lg:px-8">
-        <div class="sm:mx-auto sm:w-full sm:max-w-md">
-            <h2 class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-900 lg:text-5xl">
-                {{ __("Reset Password") }}
-            </h2>
-            <p class="mt-4 text-sm leading-5 text-center text-gray-600 max-w">
-                {{ __("general.or_back_to") }}
-                <a href="{{ route('login') }}" class="link">
-                    {{ __('auth.login') }}
-                </a>
-            </p>
-        </div>
-
-        <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-
-            @if (session('status'))
-                <div class="p-3 mb-3 text-sm text-indigo-500 bg-indigo-100">
-                    {{ session('status') }}
-                </div>
-            @endif
-
-            <div class="px-4 py-8 bg-white border shadow border-gray-50 sm:rounded-lg sm:px-10">
-                <form action="{{ route('password.email') }}" method="POST">
-                    @csrf
-
-                    <div>
-                        <label for="email" class="block text-sm font-medium leading-5 text-gray-700">
-                            {{ __("Email Address") }}
-                        </label>
-                        <div class="mt-3 rounded-md shadow-sm">
-                            <input id="email" type="email" name="email" required class="w-full form-input">
-                        </div>
-                        @if ($errors->has('email'))
-                            <div class="mt-1 text-red-500">
-                                {{ $errors->first('email') }}
-                            </div>
-                        @endif
-                    </div>
-
-                    <div class="mt-6">
-                        <span class="block w-full rounded-md shadow-sm">
-                            <button type="submit" class="primary w-full">
-                                {{ __("auth.send_reset_link") }}
-                            </button>
-                        </span>
-                    </div>
-
-                </form>
-
-            </div>
-        </div>
+    <div id="app">
+        <Forgot-Password
+            :routes="{{ json_encode($routes) }}"
+            csrf="{{ csrf_token() }}"
+        />
     </div>
-
 @endsection
+
+@push('scripts')
+    <script type="application/javascript">
+        var app = new Vue({
+            el: '#app',
+        });
+    </script>
+@endpush

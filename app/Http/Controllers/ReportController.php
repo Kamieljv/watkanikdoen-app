@@ -6,11 +6,13 @@ use App\Models\Actie;
 use App\Models\Image;
 use App\Models\Organizer;
 use App\Models\Report;
-use App\Notifications\ReportAccepted;
+use App\Models\Theme;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Jenssegers\Date\Date;
 use Validator;
@@ -23,25 +25,20 @@ class ReportController extends Controller
      */
     public function landing()
     {
-
-        if (Auth::check()) {
-            return redirect(route('report.form'));
-        }
+        // Definieer de routes waarmee de component evenementen kan ophalen
+        $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
+            return (strpos($route->uri, 'organisatoren') !== false || strpos($route->uri, 'organisator') !== false) && (strpos($route->uri, 'admin') === false);
+        })->map(function ($route) {
+            return [
+                'uri' => '/' . $route->uri,
+                'methods' => $route->methods,
+            ];
+        })->toArray();
 
         // Display the landing page
-        return view('reports.landing');
+        return view('reports.landing', compact('routes'));
     }
 
-    /**
-     * Displays the form to create a new Report
-     */
-    public function form()
-    {
-        $organizers = Organizer::all()->toJson();
-        $viewOnly = false;
-        // Display the landing page
-        return view('reports.form', compact('viewOnly', 'organizers'));
-    }
     /**
      * Displays the filled in Report form
      */
@@ -63,22 +60,43 @@ class ReportController extends Controller
         $this->validator($request->all())->validate();
 
         try {
+            // create organizers
+            $organizer_ids = [];
+            if (count($request->organizers) > 0) {
+                foreach($request->organizers as $organizer) {
+                    if (!isset($organizer['id'])) {
+                        $org = Organizer::create([
+                            'name' => $organizer['name'],
+                            'description' => $organizer['description'] ?? null,
+                            'website' => $organizer['website'],
+                            'slug' => $this->createSlug($organizer['name'], Organizer::class),
+                            'user_id' => $request->userId,
+                        ]);
+                        array_push($organizer_ids, $org->id);
+                    } else {
+                        array_push($organizer_ids, $organizer['id']);
+                    }
+                }   
+            }
+
+            // create report
             $report = Report::create([
-                'user_id' => auth()->user()->id,
-                'organizer_ids' => $request->organizer_ids ? implode(",", $request->organizer_ids) : '',
-                'title' => $request->title,
-                'body' => $request->body,
-                'externe_link' => $request->externe_link,
-                'time_start' => Date::parse($request->time_start)->format('Y-m-dTH:i'),
-                'time_end' => Date::parse($request->time_end)->format('Y-m-dTH:i'),
-                'location' => $request->location ? DB::raw("ST_GeomFromText('POINT({$request->location['lng']} {$request->location['lat']})')") : null,
-                'location_human' => $request->location_human,
+                'user_id' => $request->userId,
+                'organizer_ids' => $organizer_ids ? implode(",", $organizer_ids) : '',
+                'title' => $request->report['title'],
+                'body' => $request->report['body'] ?? null,
+                'externe_link' => $request->report['externe_link'],
+                'time_start' => Date::parse($request->report['time_start'])->format('Y-m-dTH:i'),
+                'time_end' => Date::parse($request->report['time_end'])->format('Y-m-dTH:i'),
+                'location' => isset($request->report['location']) ?
+                    DB::raw("ST_GeomFromText('POINT({$request->report['location']['lng']} {$request->report['location']['lat']})')") : null,
+                'location_human' => $request->report['location_human'],
             ]);
-            if ($request->image) {
-                $ext = '.' . explode('/', mime_content_type($request->image))[1];
-                $path = 'reports/' . md5($request->title . microtime()) . $ext;
+            if (isset($request->report['image'])) {
+                $ext = '.' . explode('/', mime_content_type($request->report['image']))[1];
+                $path = 'reports/' . md5($request->report['title'] . microtime()) . $ext;
                 // Store the image on the server
-                Storage::disk(config('voyager.storage.disk'))->put($path, file_get_contents($request->image));
+                Storage::disk(config('voyager.storage.disk'))->put($path, file_get_contents($request->report['image']));
                 // Create entry in db
                 Image::create([
                     'path' => $path,
@@ -90,10 +108,15 @@ class ReportController extends Controller
             }
         } catch (QueryException $exception) {
             $errorInfo = $exception->errorInfo;
-            return back()->with('error', $errorInfo[2])->withInput();
+            return response([
+                'status' => 'error',
+                'message' => $errorInfo[2],
+            ], 200);
         }
-
-        return redirect(route('dashboard'))->with('success', __('reports.add_success'));
+        return response([
+            'status' => 'success',
+            'message' => __('reports.add_success'),
+        ], 200);
     }
 
     public function approve($id)
@@ -112,15 +135,41 @@ class ReportController extends Controller
         if ($report->status !== 'PENDING') {
             return back()
             ->with([
-                'message'    => __('reports.approve_fail'),
+                'message'    => __('general.approve_fail', ['entity' => 'Actie']),
                 'alert-type' => 'error',
             ]);
+        }
+
+        // Add a relationship entry for the ActieOrganizer if the organizer_id is passed
+        if ($report->organizer_ids) {
+            $organizer_ids = explode(",", $report->organizer_ids);
+            $organizers = [];
+            foreach ($organizer_ids as $org_id) {
+                $org = Organizer::firstWhere('id', $org_id);
+                if ($org->status !== 'APPROVED') {
+                    return back()
+                    ->with([
+                        'message'    => __('general.approve_fail_organizer_not_approved', ['entity' => 'Actie']),
+                        'alert-type' => 'error',
+                    ]);
+                }
+                array_push($organizers, $org);
+            }
         }
 
         // Move image to actie folder
         if ($report->image) {
             $newImagePath = 'acties/' . explode("/", $report->image)[1];
-            Storage::disk(config('voyager.storage.disk'))->copy($report->image, $newImagePath);
+            try {
+                Storage::disk(config('voyager.storage.disk'))->copy($report->image, $newImagePath);
+            } catch (\Throwable $e) {
+                return back()
+                    ->with([
+                        'message'    => __('general.approve_fail_error_message', ['entity' => 'Actie', 'error' => $e->getMessage()]),
+                        'alert-type' => 'error',
+                    ]);
+            }
+            
         }
 
         // create new actie
@@ -143,13 +192,12 @@ class ReportController extends Controller
             ]);
         }
 
-        // Add a relationship entry for the ActieOrganizer if the organizer_id is passed
-        if ($report->organizer_ids) {
-            $report_ids = explode(",", $report->organizer_ids);
-            foreach ($report_ids as $report_id) {
-                $actie->organizers()->save(Organizer::firstWhere('id', $report_id));
+        // attach organizers to actie
+        if (isset($organizers)) {
+            foreach ($organizers as $org) {
+                $actie->organizers()->save($org);
             }
-        }
+        }        
 
         $report->approve();
 
@@ -159,7 +207,7 @@ class ReportController extends Controller
         return redirect()
             ->route("voyager.acties.index")
             ->with([
-                'message'    => __('reports.approve_success'),
+                'message'    => __('general.approve_success', ['entity' => 'Actie']),
                 'alert-type' => 'success',
             ]);
     }
@@ -173,21 +221,28 @@ class ReportController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'title' => 'required|string|max:255',
-            'body' => 'required|string|max:16000',
-            'externe_link' => 'required|string|url|max:500',
-            'time_start' => 'required|date_format:Y-m-d\TH:i|after_or_equal:today',
-            'time_end' => 'required|date_format:Y-m-d\TH:i|after:time_start',
-            'location' => 'array:lat,lng',
-            'location_human' => 'required|string|max:200',
-            'image' => '',
+            'userId' => 'required|integer',
+
+            'report.title' => 'required|string|max:255',
+            'report.body' => 'required|string|max:16000',
+            'report.externe_link' => 'required|string|url|max:500',
+            'report.time_start' => 'required|date_format:Y-m-d\TH:i|after_or_equal:today',
+            'report.time_end' => 'required|date_format:Y-m-d\TH:i|after:time_start',
+            'report.location' => 'array:lat,lng',
+            'report.location_human' => 'required|string|max:200',
+            'report.image' => '',
+            'organizers.*.name' => 'sometimes|required|string|unique:organizers|max:80',
+            'organizers.*.description' => 'sometimes|string|max:16000',
+            'organizers.*.website' => 'sometimes|required|string|url|max:500',
+        ], [
+            'organizers.*.name.unique' => 'De organisatornaam :input bestaat al.'
         ]);
     }
 
-    protected function createSlug($title)
+    protected function createSlug($title, $model = Actie::class)
     {
         $slug = str_slug($title);
-        $allSlugs = Actie::select('slug')->where('slug', '=', $slug)->get();
+        $allSlugs = $model::select('slug')->where('slug', '=', $slug)->get();
         if (! $allSlugs->contains('slug', $slug)) {
             return $slug;
         }

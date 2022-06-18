@@ -30,8 +30,8 @@
   --wkid-message-error-dark: var(--wkid-red-dark);
   --wkid-message-info-light: var(--wkid-blue-light);
   --wkid-message-warning-light: #ffc38b;
-  --wkid-message-success-light: #97ee82;
-  --wkid-message-error-light: var(--wkid-red-light);
+  --wkid-message-success-light: #e0fbd9;
+  --wkid-message-error-light: #ffc5bd;
 }
 
 // Tailwind CSS
@@ -96,10 +96,10 @@
   }
   button, a {
     &.primary {
-      @apply flex justify-center px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 active:bg-blue-700;
+      @apply flex justify-center px-4 py-2 text-sm font-medium cursor-pointer text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none active:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed;
     }
     &.secondary {
-      @apply flex justify-center px-4 py-2 text-sm font-medium text-blue-600 transition duration-150 ease-in-out border border-transparent rounded-md border-blue-600 hover:bg-blue-200;
+      @apply flex justify-center px-4 py-2 text-sm font-medium cursor-pointer text-blue-600 transition duration-150 ease-in-out border border-transparent rounded-md border-blue-600 hover:bg-blue-200;
     }
   }
 }

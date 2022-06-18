@@ -36,6 +36,7 @@ Route::get('register/complete', [RegisterController::class, 'complete'])->name('
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
     Route::get('report/approve/{id}', [ReportController::class, 'approve'])->name('report.approve');
+    Route::get('organizer/approve/{id}', [OrganizerController::class, 'approve'])->name('organizer.approve');
     Route::post('images/delete_unlinked', [ImageController::class, 'deleteUnlinked'])->name('images.delete_unlinked');
 });
 
@@ -55,7 +56,7 @@ Route::get('organisatoren/index', [OrganizerController::class, 'index'])->name('
 Route::get('organisatoren/search', [OrganizerController::class, 'search'])->name('organizers.search');
 Route::get('organisator/{organizer}', [OrganizerController::class, 'organizer'])->name('organizers.organizer');
 
-// Acties aanmelden (guest)
+// Acties aanmelden
 Route::get('acties/aanmelden', [ReportController::class, 'landing'])->name('report.landing');
 
 // Blog routes
@@ -73,7 +74,6 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth', 'xss']], function () 
     Route::get('dashboard/getStats', [DashboardController::class, 'getStats'])->name('dashboard.stats');
 
     // Acties aanmelden (authenticated)
-    Route::get('aanmelden/form', [ReportController::class, 'form'])->name('report.form');
     Route::get('aanmelden/view/{id}', [ReportController::class, 'view'])->name('report.view');
     Route::post('aanmelden/form/create', [ReportController::class, 'create'])->name('report.create');
 

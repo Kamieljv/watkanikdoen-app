@@ -1,7 +1,7 @@
 module.exports = {
 	mode: "jit",
 	content: require('fast-glob').sync([
-        './**/*.{blade.php,md,html,vue}'  // Added 'vue'
+        './**/*.{blade.php,md,html,vue}'
 	],{ dot: true }),
 	theme: {
 		//
@@ -32,5 +32,9 @@ module.exports = {
 		"translate-x-full",
 		"translate-x-0",
 		"overflow-auto",
+		"justify-end",
+		"divide-x",
+		"divide-y",
+		"col-span-3",
 	]
 }

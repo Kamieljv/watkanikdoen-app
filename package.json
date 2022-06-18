@@ -18,6 +18,7 @@
         "@tailwindcss/forms": "^0.4.0",
         "@tailwindcss/line-clamp": "^0.3.1",
         "@tailwindcss/typography": "^0.5.0",
+        "@tiptap/extension-character-count": "^2.0.0-beta.26",
         "@tiptap/extension-link": "^2.0.0-beta.36",
         "@tiptap/extension-underline": "^2.0.0-beta.22",
         "@tiptap/starter-kit": "^2.0.0-beta.174",
@@ -36,6 +37,7 @@
         "node-sass": "^6.0.1",
         "postcss-scss": "^4.0.2",
         "uuid": "^8.3.2",
+        "vee-validate": "^3.4.14",
         "vue-croppie": "^2.0.2",
         "vue-tailwind": "^2.5.0",
         "vue2-leaflet": "^2.7.1"

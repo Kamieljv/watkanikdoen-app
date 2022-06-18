@@ -30,6 +30,15 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
         'password', 'remember_token',
     ];
 
+    /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = [
+        'linked_image',
+    ];
+
     public function profile($key)
     {
         $keyValue = $this->keyValue($key);

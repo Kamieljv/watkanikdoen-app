@@ -11,6 +11,14 @@ class Organizer extends Model
         'website_human',
     ];
 
+    protected $fillable = [
+        'name',
+        'description',
+        'website',
+        'slug',
+        'user_id',
+    ];
+
     /**
      * The relations to eager load on every query.
      *
@@ -39,6 +47,12 @@ class Organizer extends Model
         return null;
     }
 
+    public function approve()
+    {
+        $this->status = 'APPROVED';
+        $this->save();
+    }
+
     public function acties()
     {
         return $this->hasMany(Actie::class, 'actie_organizer');
@@ -52,5 +66,15 @@ class Organizer extends Model
     public function linked_image()
     {
         return $this->hasOne(Image::class)->without('organizer');
+    }
+    
+    public function getPublishedAttribute()
+    {
+        return $this->status === "PUBLISHED";
+    }
+
+    public function scopePublished($query)
+    {
+        return $query->where('status', 'PUBLISHED');
     }
 }

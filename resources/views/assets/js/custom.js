@@ -77,7 +77,9 @@ class CookieConsent {
 	start() {
 		// Add click listeners
 		// this.editButton.addEventListener('click', () => this.editCookies())
-		document.getElementById('acceptCookies').addEventListener('click', () => this.acceptCookies())
+		document.querySelectorAll('.acceptCookiesBtn').forEach(el => {
+			el.addEventListener('click', () => this.acceptCookies())
+		})
 		// document.getElementById('rejectCookies').addEventListener('click', () => this.rejectCookies())
 		
 		// check consent status

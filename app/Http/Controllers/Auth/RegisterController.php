@@ -61,7 +61,7 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:' . config('app.auth.min_password_length') . '|confirmed',
             'terms' => 'required',
-            'h-captcha-response' => ['required', new ValidHCaptcha()],
+            // 'h-captcha-response' => ['required', new ValidHCaptcha()],
         ]);
     }
 
@@ -153,7 +153,11 @@ class RegisterController extends Controller
         event(new Registered($user));
 
         if (setting('auth.verify_email')) {
-            return redirect(route('registration.complete'))->with(['email' => $user->email]);
+            if ($request->expectsJson()) {
+                return response(['status' => 'success', 'user' => $user], 200);
+            } else {
+                return redirect(route('registration.complete'))->with(['email' => $user->email]);
+            }
         } else {
             $this->guard()->login($user);
 
