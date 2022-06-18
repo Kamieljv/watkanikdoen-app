@@ -67,4 +67,14 @@ class Organizer extends Model
     {
         return $this->hasOne(Image::class)->without('organizer');
     }
+    
+    public function getPublishedAttribute()
+    {
+        return $this->status === "PUBLISHED";
+    }
+
+    public function scopePublished($query)
+    {
+        return $query->where('status', 'PUBLISHED');
+    }
 }

@@ -49,7 +49,7 @@ class OrganizerController extends Controller
                 $q->whereIn('theme_id', $requestThemes);
             });
         }
-        $organizers = $query->orderBy('name', 'ASC')->paginate(12);
+        $organizers = $query->orderBy('name', 'ASC')->published()->paginate(12);
 
         return response()->json(['organizers' => $organizers]);
     }
