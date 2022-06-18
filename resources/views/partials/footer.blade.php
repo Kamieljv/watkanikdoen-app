@@ -55,9 +55,6 @@
         </div>
     </div>
 </footer>
-<div id="construction-warning" class="fixed w-full bottom-0 justify-center items-center py-3 bg-yellow-300 text-yellow-700 text-center">
-    <span>Let op: deze pagina wordt momenteel getest. De inhoud kan onvolledig zijn.</span>
-</div>
 
 {{-- @if(!auth()->guest() && auth()->user()->hasAnnouncements())
     @include('partials.announcements')
