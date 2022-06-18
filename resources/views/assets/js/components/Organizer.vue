@@ -1,5 +1,5 @@
 <template>
-    <a :href="route" @click.prevent="toggleSelect" :title="titleText">
+    <a :href="route" @click="clickOrganizer" :title="titleText">
         <div id="wrapper" 
             class="content flex h-full p-3 justify-between items-center border border-gray-200 mb-1 rounded-lg shadow-md hover:shadow-lg truncate" 
             :class="{
@@ -94,11 +94,15 @@ export default {
         }
     },
     methods: {
-        toggleSelect() {
+        clickOrganizer(e) {
             if (['select', 'remove'].includes(this.mode)) {
-                this.selected = !this.selected
-                this.$emit('input', this.selected)
+                e.preventDefault()
+                this.toggleSelect()
             }
+        },
+        toggleSelect() {
+            this.selected = !this.selected
+            this.$emit('input', this.selected)
         },
     }
 }
