@@ -36,7 +36,7 @@ class Organizer extends Model
 
     public function getLinkAttribute()
     {
-        return url('/organizer/' . $this->slug);
+        return url('/organisator/' . $this->slug);
     }
 
     public function getWebsiteHumanAttribute()
