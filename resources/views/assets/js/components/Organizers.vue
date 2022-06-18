@@ -169,13 +169,18 @@ export default {
 					themes: this.themesSelected,
 					page: page,
 					organizer: this.organizerId,
+					limit: this.max ?? null
 				}
 			}).then((response) => {
-				this.organizers = response.data.organizers.data
-				this.currentPage = response.data.organizers.current_page
-				this.perPage = response.data.organizers.per_page
-				this.total = response.data.organizers.total
-				this.base_link = response.data.organizers.first_page_url
+				if ('per_page' in response.data.organizers) {
+					this.organizers = response.data.organizers.data
+					this.currentPage = response.data.organizers.current_page
+					this.perPage = response.data.organizers.per_page
+					this.total = response.data.organizers.total
+					this.base_link = response.data.organizers.first_page_url
+				} else {
+					this.organizers = response.data.organizers
+				}
 			}).catch((error) => {
 				this.heeftFout = true
 			}).finally(() => {

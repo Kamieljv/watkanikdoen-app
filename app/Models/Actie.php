@@ -172,13 +172,12 @@ class Actie extends Model
     }
 
     /**
-     * Modify the query used to retrieve models when making all of the models searchable.
+     * Determine if the model should be searchable.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return bool
      */
-    protected function makeAllSearchableUsing($query)
+    public function shouldBeSearchable()
     {
-        return $query->where('status', 'PUBLISHED'); // models need to be published to be in Algolia
+        return $this->published;
     }
 }

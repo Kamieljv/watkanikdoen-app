@@ -49,7 +49,11 @@ class OrganizerController extends Controller
                 $q->whereIn('theme_id', $requestThemes);
             });
         }
-        $organizers = $query->orderBy('name', 'ASC')->published()->paginate(12);
+        if ($request->limit) {
+            $organizers = $query->orderBy('name', 'ASC')->published()->limit(5)->get();
+        } else {
+            $organizers = $query->orderBy('name', 'ASC')->published()->paginate(12);
+        }
 
         return response()->json(['organizers' => $organizers]);
     }

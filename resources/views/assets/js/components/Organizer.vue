@@ -1,12 +1,13 @@
 <template>
     <a :href="route" @click.prevent="toggleSelect" :title="titleText">
         <div id="wrapper" 
-            class="content flex h-full p-3 justify-between items-center border border-gray-200 mb-1 rounded-lg shadow-md hover:shadow-lg" 
+            class="content flex h-full p-3 justify-between items-center border border-gray-200 mb-1 rounded-lg shadow-md hover:shadow-lg truncate" 
             :class="{
                 'hover:bg-gray-100': mode !== 'remove', 
                 'hover:bg-red-100': mode === 'remove',
                 'selected': selected && mode === 'select'
-            }">
+            }"
+            :title="organizer.name">
             <div class="flex space-x-3 justify-start items-center">
                 <img v-if="organizer.linked_image" class="w-10 h-10 rounded-full" :src="organizer.linked_image.url" :title="organizer.name">
                 <div v-else class="flex items-center justify-center text-xl w-10 h-10 rounded-full bg-gray-500 text-white">
