@@ -44,7 +44,7 @@
                 @endforeach
             </ul>
         </div>
-        <div class="mt-5 mb-10 min-h-20">
+        <div class="mt-5 mb-10 min-h-20 html-output">
             @if ($organizer->description !== NULL)
                 {!! filterScripts($organizer->description) !!}
             @endif

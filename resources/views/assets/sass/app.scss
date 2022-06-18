@@ -138,6 +138,16 @@ h6 {
   font-weight: 600;
 }
 
+.html-output {
+  & ol, ul {
+    padding-left: 40px;
+    margin-top: 16px;
+  }
+  & ul {
+    list-style: disc;
+  }
+}
+
 .gradient-border-b,
 #header.detatched {
   padding-bottom: 2px;
