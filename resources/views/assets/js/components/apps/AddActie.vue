@@ -51,10 +51,12 @@
                     <div v-if="activeStep.key === 'confirm'" class="flex flex-col justify-between p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="4">
                         <div>
                             <h2>Bevestig en verzend je actie</h2>
-                            {{selectedOrganizers.map((org)=>{return org.name})}}
+                            <p>Ben je helemaal klaar? Klik dan op 'Verzenden'.
+                                <br/><br/>
+                                We gaan zo snel mogelijk aan de slag om je inzending te toetsen aan onze waarden: inclusiviteit, eerlijkheid en duurzaamheid!</p>
                         </div>
                         <div>
-                            <p class="text-sm leading-5 text-gray-500">Bij het verzenden van dit formulier ga je akkoord met onze <a href="/voorwaarden-en-privacyverklaring">Voorwaarden en Privacyverklaring</a></p>
+                            <p class="text-sm leading-5 text-gray-500">Bij het verzenden van dit formulier ga je akkoord met onze <a href="/voorwaarden-en-privacyverklaring">Voorwaarden en Privacyverklaring</a>.</p>
                             <div v-if="currentErrors && Object.keys(currentErrors).length > 0" class="p-3 text-sm rounded-md failure">
                                 <p
                                     v-for="error in Object.keys(currentErrors)"
