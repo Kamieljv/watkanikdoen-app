@@ -14,7 +14,7 @@ class AddStatusToOrganizersTable extends Migration
     public function up()
     {
         Schema::table('organizers', function (Blueprint $table) {
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->enum('status', ['PENDING', 'APPROVED', 'REJECTED', 'PUBLISHED'])->default('PENDING');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('NO ACTION')->onDelete('CASCADE');
         });
