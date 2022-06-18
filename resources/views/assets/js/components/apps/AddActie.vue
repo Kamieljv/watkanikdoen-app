@@ -125,7 +125,7 @@ export default {
         },
     },
     data: () => ({
-        activeIndex: 3,
+        activeIndex: 0,
         steps: [
             {
                 key: 'start',
