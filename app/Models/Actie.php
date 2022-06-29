@@ -106,7 +106,14 @@ class Actie extends Model
     public function getgeolocAttribute()
     {
         $coords = $this->getCoordinates();
-        return (count($coords) === 0) ? null : $coords[0];
+        if (count($coords) === 0) {
+            return null;
+        } else { 
+            return [
+                'lat' => floatval($coords[0]['lat']),
+                'lng' => floatval($coords[0]['lng'])
+            ];
+        }
     }
 
     /**
