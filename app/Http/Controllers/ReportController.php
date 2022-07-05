@@ -6,11 +6,9 @@ use App\Models\Actie;
 use App\Models\Image;
 use App\Models\Organizer;
 use App\Models\Report;
-use App\Models\Theme;
+use App\Rules\Website;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -225,15 +223,16 @@ class ReportController extends Controller
 
             'report.title' => 'required|string|max:255',
             'report.body' => 'required|string|max:16000',
-            'report.externe_link' => 'required|string|url|max:500',
+            'report.externe_link' => ['required', 'string', 'max:500', new Website()],
             'report.time_start' => 'required|date_format:Y-m-d\TH:i|after_or_equal:today',
             'report.time_end' => 'required|date_format:Y-m-d\TH:i|after:time_start',
             'report.location' => 'array:lat,lng',
             'report.location_human' => 'required|string|max:200',
             'report.image' => '',
+            
             'organizers.*.name' => 'sometimes|required|string|unique:organizers|max:80',
             'organizers.*.description' => 'sometimes|string|max:16000',
-            'organizers.*.website' => 'sometimes|required|string|url|max:500',
+            'organizers.*.website' => ['sometimes', 'required', 'string', 'max:500', new Website()]
         ], [
             'organizers.*.name.unique' => 'De organisatornaam :input bestaat al.'
         ]);

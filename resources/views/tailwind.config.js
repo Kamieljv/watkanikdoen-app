@@ -36,5 +36,6 @@ module.exports = {
 		"divide-x",
 		"divide-y",
 		"col-span-3",
+		"overflow-scroll"
 	]
 }

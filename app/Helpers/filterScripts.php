@@ -3,7 +3,7 @@
 function filterScripts($html)
 {
     $dom = new DOMDocument();
-    $dom->loadHTML($html);
+    $dom->loadHTML('<?xml encoding="utf-8" ?>' . $html);
 
     $script = $dom->getElementsByTagName('script');
 
