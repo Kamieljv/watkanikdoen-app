@@ -178,6 +178,12 @@ class Actie extends Model
         return $query->where('status', 'PUBLISHED');
     }
 
+    public function publish()
+    {
+        $this->status = 'PUBLISHED';
+        $this->save();
+    }
+
     /**
      * Determine if the model should be searchable.
      *

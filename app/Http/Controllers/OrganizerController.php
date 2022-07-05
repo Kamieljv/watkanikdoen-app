@@ -121,4 +121,34 @@ class OrganizerController extends Controller
                 'alert-type' => 'success',
             ]);
     }
+
+    public function publish($id)
+    {
+        $dataTypeOrganizers = Voyager::model('DataType')->where('slug', '=', 'organizers')->first();
+
+        // Check permissions
+        $this->authorize('edit', app($dataTypeOrganizers->model_name));
+
+        // get report data
+        $organizer = Organizer::findOrFail($id);
+
+        // check if status is actually approved
+        if ($organizer->status !== 'APPROVED') {
+            return back()
+            ->with([
+                'message'    => __('general.publish_fail', ['entity' => 'Organisator']),
+                'alert-type' => 'error',
+            ]);
+        }
+
+        // change organizer status
+        $organizer->publish();
+
+        return redirect()
+            ->route("voyager.organizers.index")
+            ->with([
+                'message'    => __('general.publish_success', ['entity' => 'Organisator']),
+                'alert-type' => 'success',
+            ]);
+    }
 }

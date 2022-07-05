@@ -53,6 +53,12 @@ class Organizer extends Model
         $this->save();
     }
 
+    public function publish()
+    {
+        $this->status = 'PUBLISHED';
+        $this->save();
+    }
+
     public function acties()
     {
         return $this->hasMany(Actie::class, 'actie_organizer');

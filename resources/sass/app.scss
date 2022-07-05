@@ -26,9 +26,14 @@ div.custom-loader {
 
 // Modify action buttons
 .btn.approve,
-.btn.view {
+.btn.view,
+.btn.publish {
   margin-left: 5px;
   cursor: pointer;
+}
+
+.btn.publish {
+  background: #e626bf;
 }
 
 // Profile image backup
