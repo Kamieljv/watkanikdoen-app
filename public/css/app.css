@@ -86,3 +86,6 @@ div.custom-loader {
 table.dataTable tbody tr.pending {
   background-color: #cefdb9;
 }
+table.dataTable th.actions {
+  min-width: 135px;
+}
