@@ -8,7 +8,7 @@ const VueTailwindSettings = {
 				buttonWrapper: "inline-block relative w-full h-full",
 				selectButton: "w-full h-full flex text-left justify-between items-center cursor-pointer",
 				selectButtonLabel: "block truncate",
-				selectButtonTagWrapper: "flex overflow-hidden",
+				selectButtonTagWrapper: "flex overflow-scroll",
 				selectButtonTag: "",
 				selectButtonTagText: "px-3",
 				selectButtonTagDeleteButton: "-ml-1.5 h-full hover:bg-[color:var(--wkid-blue-dark)] hover:shadow-sm inline-flex items-center px-2 transition",

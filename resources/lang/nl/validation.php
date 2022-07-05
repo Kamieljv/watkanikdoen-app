@@ -172,6 +172,7 @@ return [
     'uploaded'             => 'Het uploaden van :attribute is mislukt.',
     'url'                  => ':Attribute moet een geldig URL zijn.',
     'uuid'                 => ':Attribute moet een geldig UUID zijn.',
+    'website'              => ':Attribute moet een geldige website zijn.',
     'custom'               => [
         'attribute-name' => [
             'rule-name' => 'custom-message',
