@@ -2,7 +2,8 @@
 
 namespace App\Providers;
 
-use App\Actions\ApproveReport;
+use App\Actions\Approve;
+use App\Actions\Publish;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Throwable;
@@ -22,7 +23,8 @@ class AppServiceProvider extends ServiceProvider
         }
         $this->setSchemaDefaultLength();
 
-        Voyager::addAction(ApproveReport::class);
+        Voyager::addAction(Approve::class);
+        Voyager::addAction(Publish::class);
     }
 
     /**

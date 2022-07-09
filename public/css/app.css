@@ -33,9 +33,14 @@ div.custom-loader {
   }
 }
 .btn.approve,
-.btn.view {
+.btn.view,
+.btn.publish {
   margin-left: 5px;
   cursor: pointer;
+}
+
+.btn.publish {
+  background: #e626bf;
 }
 
 .no-profile-img {
@@ -80,4 +85,7 @@ div.custom-loader {
 
 table.dataTable tbody tr.pending {
   background-color: #cefdb9;
+}
+table.dataTable th.actions {
+  min-width: 135px;
 }
