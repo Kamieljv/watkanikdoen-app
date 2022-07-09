@@ -4,16 +4,16 @@ namespace App\Actions;
 
 use TCG\Voyager\Actions\AbstractAction;
 
-class ApproveReport extends AbstractAction
+class Publish extends AbstractAction
 {
     public function getTitle()
     {
-        return trans('general.approve');
+        return trans('general.publish');
     }
 
     public function getIcon()
     {
-        return 'voyager-check-circle';
+        return 'voyager-upload';
     }
 
     public function getPolicy()
@@ -24,16 +24,16 @@ class ApproveReport extends AbstractAction
     public function getAttributes()
     {
         return [
-            'class' => 'btn btn-sm btn-primary btn-success pull-right approve',
+            'class' => 'btn btn-sm btn-primary pull-right publish',
         ];
     }
 
     public function getDefaultRoute()
     {
-        if ($this->dataType->slug === 'reports') {
-            return route('report.approve', $this->data->{$this->data->getKeyName()});
+        if ($this->dataType->slug === 'acties') {
+            return route('actie.publish', $this->data->{$this->data->getKeyName()});
         } else if ($this->dataType->slug === 'organizers') {
-            return route('organizer.approve', $this->data->{$this->data->getKeyName()});
+            return route('organizer.publish', $this->data->{$this->data->getKeyName()});
         }
     }
 
@@ -42,7 +42,7 @@ class ApproveReport extends AbstractAction
      */
     public function shouldActionDisplayOnDataType()
     {
-        return in_array($this->dataType->slug, ['reports', 'organizers']);
+        return in_array($this->dataType->slug, ['acties', 'organizers']);
     }
 
     /*
@@ -50,6 +50,7 @@ class ApproveReport extends AbstractAction
      */
     public function shouldActionDisplayOnRow($row)
     {
-        return $row->status === "PENDING";
+        // in case of organizers "APPROVED", in case of acties "DRAFT"
+        return $row->status === "APPROVED" || $row->status === "DRAFT";
     }
 }

@@ -26,9 +26,14 @@ div.custom-loader {
 
 // Modify action buttons
 .btn.approve,
-.btn.view {
+.btn.view,
+.btn.publish {
   margin-left: 5px;
   cursor: pointer;
+}
+
+.btn.publish {
+  background: #e626bf;
 }
 
 // Profile image backup
@@ -74,6 +79,11 @@ div.custom-loader {
 .table {
   color: #444a51;
 }
-table.dataTable tbody tr.pending {
-  background-color: #cefdb9;
+table.dataTable {
+  & tbody tr.pending {
+    background-color: #cefdb9;
+  }
+  & th.actions {
+    min-width: 135px;
+  }
 }

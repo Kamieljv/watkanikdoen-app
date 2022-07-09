@@ -42,7 +42,11 @@ return [
     'approve_fail' => ':entity kon niet worden goedgekeurd. Mogelijk omdat deze al is goed- of afgekeurd.',
     'approve_fail_error_message' => ':entity kon niet worden goedgekeurd. Error: :error',
     'approve_fail_user_not_verified' => ':entity kon niet worden goedgekeurd omdat de bijbehorende gebruiker niet geverifieerd is.',
-    'approve_fail_organizer_not_approved' => ':entity kon niet worden goedgekeurd omdat de bijbehorende Organisator niet goedgekeurd is.',
+    'approve_fail_organizer_not_published' => ':entity kon niet worden goedgekeurd omdat de bijbehorende Organisator niet gepubliceerd is.',
+    'publish' => 'Publiceren',
+    'published' => 'Gepubliceerd',
+    'publish_success' => ':entity gepubliceerd.',
+    'publish_fail' => ':entity kon niet worden gepubliceerd. Mogelijk omdat deze al is gepubliceerd.',
     'pending' => 'in behandeling',
     'rejected' => 'afgewezen',
 ];

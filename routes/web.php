@@ -37,6 +37,8 @@ Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
     Route::get('report/approve/{id}', [ReportController::class, 'approve'])->name('report.approve');
     Route::get('organizer/approve/{id}', [OrganizerController::class, 'approve'])->name('organizer.approve');
+    Route::get('actie/publish/{id}', [ActieController::class, 'publish'])->name('actie.publish');
+    Route::get('organizer/publish/{id}', [OrganizerController::class, 'publish'])->name('organizer.publish');
     Route::post('images/delete_unlinked', [ImageController::class, 'deleteUnlinked'])->name('images.delete_unlinked');
 });
 

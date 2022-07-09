@@ -144,10 +144,10 @@ class ReportController extends Controller
             $organizers = [];
             foreach ($organizer_ids as $org_id) {
                 $org = Organizer::firstWhere('id', $org_id);
-                if ($org->status !== 'APPROVED') {
+                if ($org->status !== 'PUBLISHED') {
                     return back()
                     ->with([
-                        'message'    => __('general.approve_fail_organizer_not_approved', ['entity' => 'Actie']),
+                        'message'    => __('general.approve_fail_organizer_not_published', ['entity' => 'Actie']),
                         'alert-type' => 'error',
                     ]);
                 }
