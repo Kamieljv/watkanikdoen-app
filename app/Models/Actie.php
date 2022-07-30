@@ -49,7 +49,7 @@ class Actie extends Model
      */
     protected $appends = [
         'link',
-        'start',
+        'start_end',
         'start_unix',
         '_geoloc',
     ];
@@ -84,15 +84,22 @@ class Actie extends Model
         return url('/actie/' . $this->slug);
     }
 
-    public function getImagePathAttribute()
+    public function getStartEndAttribute()
     {
-        return $this->image ? Voyager::image($this->image) : null;
-    }
+        if ($this->time_start && $this->time_end) {
+            $start = Date::parse($this->time_start);
+            $end = Date::parse($this->time_end);
 
-    public function getStartAttribute()
-    {
-        if ($this->time_start) {
-            return Date::parse($this->time_start)->format('j M Y, G:i');
+            if ($start->format('Y-m-d') == $end->format('Y-m-d')) {
+                // start and end on same day
+                return $start->format('j M Y, G:i') . '-' . $end->format('G:i');
+            } else if ($start->diffInDays($end) < 3) {
+                // start and end < 3 days difference
+                return $start->format('j M Y, G:i') . ' ' . __('general.until') . ' ' . $end->format('j M Y, G:i');
+            } else {
+                // start and end >= 3 days difference
+                return $start->format('j M Y') . ' ' . __('general.until') . ' ' . $end->format('j M Y');
+            }
         } else {
             return null;
         }
@@ -165,7 +172,7 @@ class Actie extends Model
 
     public function getAfgelopenAttribute()
     {
-        return $this->start_unix < time();
+        return Date::parse($this->time_end)->timestamp < time();
     }
 
     public function getPublishedAttribute()
