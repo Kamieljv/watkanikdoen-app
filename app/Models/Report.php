@@ -50,11 +50,6 @@ class Report extends Model
         return route('voyager.organizers.' . $action, $this->id);
     }
 
-    public function getImagePathAttribute()
-    {
-        return $this->image ? Voyager::image($this->image) : null;
-    }
-
     public function getCoordinatesAttribute()
     {
         $coords = $this->getCoordinates();

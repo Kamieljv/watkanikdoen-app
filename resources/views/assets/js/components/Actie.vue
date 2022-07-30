@@ -77,9 +77,9 @@
                 </div>
                 <div class="flex flex-col grow justify-between flex-1 bg-white">
                     <div class="details-container text-sm text-gray-500 p-3">
-                        <div v-if="actie.start" class="flex items-center mb-1 text-sm leading-5 text-gray-700">
+                        <div v-if="actie.start_end" class="flex items-center mb-1 text-sm leading-5 text-gray-700">
                             <svg-vue icon="antdesign-clock-circle-o" class="shrink-0" style="stroke: currentColor; height: 20px;"></svg-vue>
-                            &nbsp; <span class="font-medium">{{ actie.start }}</span><br/>
+                            &nbsp; <span class="font-medium">{{ actie.start_end }}</span><br/>
                         </div>
                         <div v-if="actie.location_human" class="flex items-center text-sm leading-5 text-gray-700">
                             <svg-vue icon="antdesign-environment-o" class="shrink-0" style="stroke: currentColor; height: 20px;"></svg-vue>
@@ -121,7 +121,7 @@ export default {
 	},
 	computed: {
 		isAfgelopen() {
-			return this.actie.start_unix < Math.floor(new Date().getTime() / 1000)
+			return new Date(this.actie.time_end) < new Date()
 		}
 	}
 }
