@@ -74,6 +74,14 @@ class Actie extends Model
         'linked_image',
     ];
 
+    public static function boot() {
+        parent::boot();
+        static::creating(function($model) {
+            // remove 'header' tags and content from body
+            $model->body = preg_replace('~<header(.*?)</header>~Usi', "", $model->body);
+        });
+    }
+
     public function voyagerRoute($action)
     {
         return route('voyager.organizers.' . $action, $this->id);
