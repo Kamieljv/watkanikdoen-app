@@ -64,10 +64,10 @@
                                 <span class="mt-0 italic text-sm font-normal">{{ __("acties.created_at") }}: {{ $actie->created_at }}</span>
                             @endif
                             <div class="details-container text-sm text-gray-500">
-                                @if($actie->start)
+                                @if($actie->start_end)
                                     <div class="flex items-center text-sm leading-5 text-gray-700">
                                         @svg('antdesign-clock-circle-o', ['class' => 'shrink-0', 'style' => 'width: 20px; height: 20px'])
-                                        &nbsp; <span class="font-medium">{{ $actie->start }}</span><br/>
+                                        &nbsp; <span class="font-medium">{{ $actie->start_end }}</span><br/>
                                     </div>
                                 @endif
                                 @if($actie->location_human)
@@ -86,10 +86,10 @@
                     <div class="sm:flex flex-col gap-3 not-prose p-3 bg-white rounded-lg shadow-lg overflow-hidden hidden">
                         <h4>{{ __("acties.details") }}</h4>
                         <div class="details-container text-sm text-gray-500">
-                            @if($actie->start)
+                            @if($actie->start_end)
                                 <div class="flex items-center text-sm leading-5 text-gray-700">
                                     @svg('antdesign-clock-circle-o', ['class' => 'shrink-0', 'style' => 'width: 20px; height: 20px'])
-                                    &nbsp; <span class="font-medium">{{ $actie->start }}</span><br/>
+                                    &nbsp; <span class="font-medium">{{ $actie->start_end }}</span><br/>
                                 </div>
                             @endif
                             @if($actie->location_human)

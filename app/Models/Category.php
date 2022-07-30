@@ -11,7 +11,7 @@ class Category extends Model
         parent::boot();
         static::creating(function ($model) {
             if (!isset($model->slug)) {
-                $model->slug = $model->name;
+                $model->slug = preg_replace('/[^A-Za-z0-9\-]/', '_', $model->name);
             }
         });
     }

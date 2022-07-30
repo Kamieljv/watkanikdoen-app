@@ -103,7 +103,7 @@
                                 '_field_name'  => 'title',
                                 '_field_trans' => get_field_translations($dataTypeContent, 'title')
                             ]) --}}
-                            <input type="text" class="form-control" id="title" name="title" placeholder="{{ __('voyager::generic.title') }}" value="{{ $dataTypeContent->title ?? '' }}">
+                            <input type="text" class="form-control" id="title" name="title" placeholder="{{ __('voyager::generic.title') }}" value="{{ old('title', $dataTypeContent->title ?? '') }}">
                         </div>
                     </div>
 
@@ -135,7 +135,7 @@
                                 '_field_name'  => 'excerpt',
                                 '_field_trans' => get_field_translations($dataTypeContent, 'excerpt')
                             ]) --}}
-                            <textarea class="form-control" style="resize: vertical;" name="excerpt">{{ $dataTypeContent->excerpt ?? '' }}</textarea>
+                            <textarea class="form-control" style="resize: vertical;" name="excerpt">{{ old('excerpt', $dataTypeContent->excerpt ?? '') }}</textarea>
                         </div>
                     </div>
                     <!-- ### IMAGE ### -->
@@ -174,7 +174,7 @@
                                 @if ($row->field === 'time_start')
                                     <div class="form-group @if($row->type == 'hidden') hidden @endif">
                                         <label for="time_start">{{ $row->display_name }}</label>
-                                        <input class="form-control" type="datetime-local" name="time_start" value="{{$dataTypeContent->time_start ?? ''}}" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"/>
+                                        <input class="form-control" type="datetime-local" name="time_start" value="{{old('time_start', $dataTypeContent->time_start ?? '')}}" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"/>
                                         @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
                                             {!! $after->handle($row, $dataType, $dataTypeContent) !!}
                                         @endforeach
@@ -182,7 +182,7 @@
                                 @elseif ($row->field === 'time_end')
                                     <div class="form-group @if($row->type == 'hidden') hidden @endif">
                                         <label for="time_end">{{ $row->display_name }}</label>
-                                        <input class="form-control" type="datetime-local" name="time_end" value="{{$dataTypeContent->time_end ?? ''}}" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"/>
+                                        <input class="form-control" type="datetime-local" name="time_end" value="{{old('time_end', $dataTypeContent->time_end ?? '')}}" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"/>
                                         @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
                                             {!! $after->handle($row, $dataType, $dataTypeContent) !!}
                                         @endforeach
@@ -200,7 +200,7 @@
                             {{-- Externe link --}}
                             <div class="form-group">
                                 <label for="name">Externe link</label>
-                                <input type="url" class="form-control" name="externe_link" value="{{ $dataTypeContent->externe_link ?? '' }}" />
+                                <input type="url" class="form-control" name="externe_link" value="{{ old('externe_link', $dataTypeContent->externe_link ?? '') }}" />
                             </div>
                         </div>
                     </div>
@@ -267,7 +267,7 @@
                                     '_field_name'  => 'keywords',
                                     '_field_trans' => get_field_translations($dataTypeContent, 'keywords')
                                 ]) --}}
-                                <input type="text" class="form-control" name="keywords" value="{{ $dataTypeContent->keywords ?? '' }}" />
+                                <input type="text" class="form-control" name="keywords" value="{{ old('keywords', $dataTypeContent->keywords ?? '') }}" />
                             </div>
                         </div>
                     </div>
