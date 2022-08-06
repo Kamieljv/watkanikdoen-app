@@ -11,6 +11,11 @@
             </div>
             <div>
                 <nav class="grid row-gap-8">
+                    <a href="/hoe-werkt-het" class="flex items-center px-8 py-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">
+                        <div class="text-base font-medium leading-6 text-gray-900">
+                            {{__('menus.hoe_werkt_het')}}
+                        </div>
+                    </a>
                     <a href="{{route('organizers.index')}}" class="flex items-center px-8 py-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">
                         <div class="text-base font-medium leading-6 text-gray-900">
                             {{__('menus.organizers')}}

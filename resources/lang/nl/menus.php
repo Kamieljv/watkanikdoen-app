@@ -18,6 +18,7 @@ return [
     'blog' => 'Blog',
     'about_us' => 'Over ons',
     'organizers' => 'Organisatoren',
+    'hoe_werkt_het' => 'Hoe werkt het?',
     'my_profile' => 'Mijn Profiel',
     'log_out' => 'Uitloggen',
     'log_in' => 'Inloggen',
