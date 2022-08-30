@@ -7,9 +7,9 @@
 					triggerLabel="Zoek & Filter"
 					:isOpen="false"
 				>
-					<div slot="left-icon">
-						<svg-vue icon="clarity-filter-solid" class="w-5 h-5 mr-3" />
-					</div>
+					<!-- <template v-slot:left-icon>
+						<svg-vue icon="clarity-filter-solid" />
+					</template> -->
 					<div id="filter-wrapper" class="col grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-5">
 						<div>
 							<t-input
@@ -60,13 +60,7 @@
 							:delay="400"
 							:disabled="!coordinatesPresent"
 						/>
-						<div class="flex items-center space-x-3">
-							<t-toggle
-								v-model="showPast"
-								name="showPast"
-							/>
-							<label class="text-sm text-gray-600" for="showPast">Toon ook acties in het verleden</label>
-						</div>
+						<label class="text-sm text-gray-600" for="showPast">Toon ook acties in het verleden</label>
 					</div>
 				</Collapsible>
             </div>
