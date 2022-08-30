@@ -12,7 +12,7 @@
     <div class="max-w-4xl mx-auto mt-6 px-5 lg:px-0">
         <h1>{{__("organizers.title")}}</h1>
         <p class="mt-4">
-            {{__("organizers.sub_title")}}
+            {!!__("organizers.sub_title")!!}
         </p>
     </div>
 
