@@ -7,9 +7,6 @@
 					triggerLabel="Zoek & Filter"
 					:isOpen="false"
 				>
-					<!-- <template v-slot:left-icon>
-						<svg-vue icon="clarity-filter-solid" />
-					</template> -->
 					<div id="filter-wrapper" class="col grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-5">
 						<div>
 							<t-input

@@ -12,7 +12,6 @@
     >
       <slot name="trigger">
         <div class="customTrigger flex items-center justify-between p-4">
-            <!-- <slot name="left-icon"></slot> -->
             <h3 class="text-sm text-gray-800">{{ triggerLabel }}</h3>
             <svg-vue icon="heroicon-s-chevron-down" />
         </div>
