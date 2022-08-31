@@ -12,7 +12,12 @@
     >
       <slot name="trigger">
         <div class="customTrigger flex items-center justify-between p-4">
-            <h3 class="text-sm text-gray-800">{{ triggerLabel }}</h3>
+            <div class="flex space-x-3">
+              <h3 class="text-sm text-gray-800">{{ triggerLabel }}</h3>
+              <div v-if="filterCount" id="notification-count" class="flex items-center justify-center w-5 h-5 text-sm font-extrabold text-white bg-gray-500 rounded-full">
+                {{filterCount}}
+              </div>
+            </div>
             <svg-vue icon="heroicon-s-chevron-down" />
         </div>
       </slot>
@@ -56,6 +61,10 @@ export default {
     triggerLabel: {
       type: String,
       default: 'Open me',
+    },
+    filterCount: {
+      type: Number,
+      default: null,
     },
     transitionDuration: {
       type: String,
@@ -117,7 +126,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.Collapsible__content {
+.Collapsible__content:not(.Collapsible__content--open) {
   overflow: hidden;
 }
 
