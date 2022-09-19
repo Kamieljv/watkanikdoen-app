@@ -155,17 +155,17 @@ class Actie extends Model
 
     public function organizers()
     {
-        return $this->belongsToMany(Organizer::class, 'actie_organizer');
+        return $this->belongsToMany(Organizer::class);
     }
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'actie_category');
+        return $this->belongsToMany(Category::class);
     }
 
     public function themes()
     {
-        return $this->belongsToMany(Theme::class, 'actie_theme');
+        return $this->belongsToMany(Theme::class);
     }
 
     public function linked_image()
