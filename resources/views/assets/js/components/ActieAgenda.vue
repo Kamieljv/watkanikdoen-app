@@ -5,6 +5,7 @@
 				<Collapsible 
 					id="filter-collapsible"
 					triggerLabel="Zoek & Filter"
+					icon="clarity-filter-solid"
 					:filter-count="filterCount"
 					:isOpen="false"
 				>

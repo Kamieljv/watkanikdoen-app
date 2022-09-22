@@ -12,13 +12,14 @@
     >
       <slot name="trigger">
         <div class="customTrigger flex items-center justify-between p-4">
-            <div class="flex space-x-3">
-              <h3 class="text-sm text-gray-800">{{ triggerLabel }}</h3>
+            <div class="flex items-center space-x-3 text-gray-800">
+              <svg-vue v-if="icon" :icon="icon" style="width: 18px" />
+              <h3 class="text-sm" style="line-height: 1.5rem">{{ triggerLabel }}</h3>
               <div v-if="filterCount" id="notification-count" class="flex items-center justify-center w-5 h-5 text-sm font-extrabold text-white bg-gray-500 rounded-full">
                 {{filterCount}}
               </div>
             </div>
-            <svg-vue icon="heroicon-s-chevron-down" />
+            <svg-vue class="flippable" icon="heroicon-s-chevron-down" />
         </div>
       </slot>
     </button>
@@ -65,6 +66,10 @@ export default {
     filterCount: {
       type: Number,
       default: null,
+    },
+    icon: {
+      type: String,
+      default: ''
     },
     transitionDuration: {
       type: String,
@@ -148,7 +153,7 @@ export default {
 }
 
 
-.Collapsible__trigger.Collapsible__trigger--open svg {
+.Collapsible__trigger.Collapsible__trigger--open svg.flippable {
   transform: rotate(0.5turn);
 }
 .customTrigger {
