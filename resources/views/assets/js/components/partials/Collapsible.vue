@@ -1,5 +1,5 @@
 <template>
-  <div class="Collapsible">
+  <div class="Collapsible bg-gray-100 rounded-md">
     <button
       @click.prevent="handleClick"
       type="button"
@@ -11,24 +11,15 @@
       }"
     >
       <slot name="trigger">
-        <div class="customTrigger">
-            <slot name="left-icon"></slot>
-            <h3 class="mt-8 mb-3 text-sm text-gray-900">{{ triggerLabel }}</h3>
-            <svg
-                aria-hidden="true"
-                focusable="false"
-                data-prefix="fas"
-                data-icon="chevron-down"
-                class="svg-inline--fa fa-chevron-down fa-w-14"
-                role="img"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
-            >
-                <path
-                fill="currentColor"
-                d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"
-                />
-            </svg>
+        <div class="customTrigger flex items-center justify-between p-4">
+            <div class="flex items-center space-x-3 text-gray-800">
+              <svg-vue v-if="icon" :icon="icon" style="width: 18px" />
+              <h3 class="text-sm" style="line-height: 1.5rem">{{ triggerLabel }}</h3>
+              <div v-if="filterCount" id="notification-count" class="flex items-center justify-center w-5 h-5 text-sm font-extrabold text-white bg-gray-500 rounded-full">
+                {{filterCount}}
+              </div>
+            </div>
+            <svg-vue class="flippable" icon="heroicon-s-chevron-down" />
         </div>
       </slot>
     </button>
@@ -49,7 +40,7 @@
       }"
       @transitionend="handleEnd"
     >
-      <div class="Collapsible__contentInner" ref="inner">
+      <div class="Collapsible__contentInner p-4 bg-gray-50 border-t border-gray-200" ref="inner">
         <slot></slot>
       </div>
     </div>
@@ -71,6 +62,14 @@ export default {
     triggerLabel: {
       type: String,
       default: 'Open me',
+    },
+    filterCount: {
+      type: Number,
+      default: null,
+    },
+    icon: {
+      type: String,
+      default: ''
     },
     transitionDuration: {
       type: String,
@@ -131,13 +130,9 @@ export default {
 };
 </script>
 
-<style scoped>
-.Collapsible__content {
+<style scoped lang="scss">
+.Collapsible__content:not(.Collapsible__content--open) {
   overflow: hidden;
-}
-
-.Collapsible__contentInner {
-  height: auto;
 }
 
 .Collapsible__trigger {
@@ -158,7 +153,7 @@ export default {
 }
 
 
-.Collapsible__trigger.Collapsible__trigger--open svg {
+.Collapsible__trigger.Collapsible__trigger--open svg.flippable {
   transform: rotate(0.5turn);
 }
 .customTrigger {

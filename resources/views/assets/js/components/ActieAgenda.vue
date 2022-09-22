@@ -5,21 +5,21 @@
 				<Collapsible 
 					id="filter-collapsible"
 					triggerLabel="Zoek & Filter"
+					icon="clarity-filter-solid"
+					:filter-count="filterCount"
 					:isOpen="false"
 				>
-					<div slot="left-icon">
-						<svg-vue icon="clarity-filter-solid" class="w-5 h-5 mr-3" />
-					</div>
 					<div id="filter-wrapper" class="col grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-5">
-						<div>
-							<t-input
-								type="text"
-								placeholder="Zoeken..."
-								:autofocus="true"
-								v-model="query"
-								@input="processQuery"
-							/>
-						</div>
+						<FormField
+                            v-model="query"
+							:value="query"
+                            name="query"
+                            type="text"
+							placeholder="Zoeken..."
+                            @input="processQuery"
+							:clearable="true"
+							classes="block w-full h-full px-3 py-2 transition duration-100 ease-in-out border rounded shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed text-black placeholder-gray-400 bg-white border-gray-300 focus:border-blue-500"
+                        />
 						<t-rich-select
 							id="theme-selector"
 							:options="themes"
@@ -43,6 +43,7 @@
 							placeholder="Categorie..."
 						/>
 						<form-autocomplete
+							ref="geoSearch"
 							:items="geoSuggestions"
 							:isAsync="true"
 							@change="getGeoSuggestions"
@@ -67,6 +68,9 @@
 							/>
 							<label class="text-sm text-gray-600" for="showPast">Toon ook acties in het verleden</label>
 						</div>
+						<button v-on:click="resetFilters" v-if="filterCount" class="gray uppercase">
+							Filter(s) wissen
+						</button>
 					</div>
 				</Collapsible>
             </div>
@@ -208,6 +212,10 @@ export default {
 		},
 		coordinatesPresent() {
 			return this.coordinates !== ""
+		},
+		filterCount() {
+			var filters = [this.query, this.themesSelected, this.categoriesSelected, this.coordinates, this.showPast]
+			return filters.filter(f => (!!f && !(f.length === 0))).length
 		}
 	},
 	watch: {
@@ -297,6 +305,13 @@ export default {
 				this.coordinates = ""
 				this.getActies()
 			}
+		},
+		resetFilters() {
+			this.themesSelected = []
+			this.categoriesSelected = []
+			this.query = ""
+			this.$refs.geoSearch.resetResult()
+			this.showPast = false
 		}
 	}
 }

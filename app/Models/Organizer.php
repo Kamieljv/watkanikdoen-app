@@ -42,6 +42,9 @@ class Organizer extends Model
     public function getWebsiteHumanAttribute()
     {
         if ($this->website) {
+            if (substr($this->website, 0, 4) != 'http') {
+                $this->website = '//' . $this->website;
+            }
             return str_replace('www.', '', parse_url($this->website)['host']);
         }
         return null;
