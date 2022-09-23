@@ -1,14 +1,14 @@
 
 
-<div class="fixed inset-x-0 bottom-0 z-[1002] flex items-end justify-center px-4 py-6 sm:p-6 sm:items-start sm:justify-start">
-    <div id="cookie-consent" class="hidden w-full p-6 bg-white text-gray-800 rounded-xl shadow-[0_9px_25px_0_rgba(0,0,0,0.3)] border-gray-400">
+<div class="fixed inset-x-0 bottom-0 z-[1002] flex items-end justify-center sm:items-start sm:justify-start">
+    <div id="cookie-consent" class="hidden w-full p-6 mx-4 my-6 bg-white text-gray-800 rounded-xl shadow-[0_9px_25px_0_rgba(0,0,0,0.3)] border-gray-400">
         <h3 class="mb-5">
             @svg('custom-phosphor-cookie-light', ['style' => 'fill: currentColor; height: 32px; width: auto; display: inline;'])
             We gebruiken cookies
         </h3>
         <div class="mb-2 flex justify-between items-center">
             <div>
-                We gebruiken uitsluitend functionele en analytische cookies (die u niet kunt weigeren) en delen geen data met derden.
+                We gebruiken uitsluitend functionele cookies (om ingelogd te blijven) en analytische cookies (voor het bijhouden van bezoekersstatistieken) en delen geen data met derden.
                 Lees meer over onze cookies in de
                 <a href="/voorwaarden-en-privacyverklaring" target="_blank" class="font-bold hover:underline">Voorwaarden en Privacyverklaring</a>.
                 Bij bezoek aan deze website gaat u hiermee akkoord.
