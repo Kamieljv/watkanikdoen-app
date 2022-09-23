@@ -64,12 +64,12 @@ class Organizer extends Model
 
     public function acties()
     {
-        return $this->hasMany(Actie::class, 'actie_organizer');
+        return $this->hasMany(Actie::class);
     }
 
     public function themes()
     {
-        return $this->belongsToMany(Theme::class, 'organizer_theme');
+        return $this->belongsToMany(Theme::class);
     }
 
     public function linked_image()
