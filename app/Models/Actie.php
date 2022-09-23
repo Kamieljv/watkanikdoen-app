@@ -192,6 +192,10 @@ class Actie extends Model
     {
         return $query->where('status', 'PUBLISHED');
     }
+    public function scopeToekomstig($query)
+    {
+        return $query->where('time_end', '>', Date::now()->toDateTimeString());
+    }
 
     public function publish()
     {
