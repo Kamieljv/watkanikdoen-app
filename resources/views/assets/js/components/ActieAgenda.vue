@@ -2,65 +2,77 @@
     <div>
         <div v-if="filterable" class="row mx-auto max-w-6xl">
             <div id="filter-container" class="row my-3">
-                <h3 class="mt-8 mb-3 text-sm text-gray-900">Zoek & Filter</h3>
-                <div id="filter-wrapper" class="col grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-5">
-                    <div>
-                        <t-input
-                            type="text"
-                            placeholder="Zoeken..."
-                            :autofocus="true"
+				<Collapsible 
+					id="filter-collapsible"
+					triggerLabel="Zoek & Filter"
+					icon="clarity-filter-solid"
+					:filter-count="filterCount"
+					:isOpen="false"
+				>
+					<div id="filter-wrapper" class="col grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-5">
+						<FormField
                             v-model="query"
+							:value="query"
+                            name="query"
+                            type="text"
+							placeholder="Zoeken..."
                             @input="processQuery"
+							:clearable="true"
+							classes="block w-full h-full px-3 py-2 transition duration-100 ease-in-out border rounded shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed text-black placeholder-gray-400 bg-white border-gray-300 focus:border-blue-500"
                         />
-                    </div>
-                    <t-rich-select
-                        id="theme-selector"
-                        :options="themes"
-                        textAttribute="name"
-                        v-model="themesSelected"
-                        :multiple="true"
-                        :closeOnSelect="false"
-						searchBoxPlaceholder="Zoeken..."
-						:minimumResultsForSearch="5"
-                        placeholder="Thema..."
-                    />
-					<t-rich-select
-                        id="category-selector"
-                        :options="categories"
-                        textAttribute="name"
-                        v-model="categoriesSelected"
-                        :multiple="true"
-                        :closeOnSelect="false"
-						searchBoxPlaceholder="Zoeken..."
-						:minimumResultsForSearch="5"
-                        placeholder="Categorie..."
-                    />
-                    <form-autocomplete
-                        :items="geoSuggestions"
-                        :isAsync="true"
-                        @change="getGeoSuggestions"
-                        @input="getCoordinates"
-                        placeholder="Plaatsnaam"
-                    />
-                    <form-slider
-                        thumbColor="var(--wkid-blue)"
-                        progressColor="var(--wkid-blue)"
-                        unit="km"
-                        :min="10"
-                        :max="150"
-                        v-model="distance"
-                        :currentValue="defaultDistance"
-                        :delay="400"
-                        :disabled="!coordinatesPresent"
-                    />
-					<div class="flex items-center space-x-3">
-						<t-toggle
-							v-model="showPast"
-							name="showPast"
+						<t-rich-select
+							id="theme-selector"
+							:options="themes"
+							textAttribute="name"
+							v-model="themesSelected"
+							:multiple="true"
+							:closeOnSelect="false"
+							searchBoxPlaceholder="Zoeken..."
+							:minimumResultsForSearch="5"
+							placeholder="Thema..."
 						/>
-						<label class="text-sm text-gray-600" for="showPast">Toon ook acties in het verleden</label>
+						<t-rich-select
+							id="category-selector"
+							:options="categories"
+							textAttribute="name"
+							v-model="categoriesSelected"
+							:multiple="true"
+							:closeOnSelect="false"
+							searchBoxPlaceholder="Zoeken..."
+							:minimumResultsForSearch="5"
+							placeholder="Categorie..."
+						/>
+						<form-autocomplete
+							ref="geoSearch"
+							:items="geoSuggestions"
+							:isAsync="true"
+							@change="getGeoSuggestions"
+							@input="getCoordinates"
+							placeholder="Plaatsnaam"
+						/>
+						<form-slider
+							thumbColor="var(--wkid-blue)"
+							progressColor="var(--wkid-blue)"
+							unit="km"
+							:min="10"
+							:max="150"
+							v-model="distance"
+							:currentValue="defaultDistance"
+							:delay="400"
+							:disabled="!coordinatesPresent"
+						/>
+						<div class="flex items-center space-x-3">
+							<t-toggle
+								v-model="showPast"
+								name="showPast"
+							/>
+							<label class="text-sm text-gray-600" for="showPast">Toon ook acties in het verleden</label>
+						</div>
+						<button v-on:click="resetFilters" v-if="filterCount" class="gray uppercase">
+							Filter(s) wissen
+						</button>
 					</div>
-                </div>
+				</Collapsible>
             </div>
         </div>
         <div class="row mx-auto max-w-6xl mb-8" >
@@ -200,6 +212,10 @@ export default {
 		},
 		coordinatesPresent() {
 			return this.coordinates !== ""
+		},
+		filterCount() {
+			var filters = [this.query, this.themesSelected, this.categoriesSelected, this.coordinates, this.showPast]
+			return filters.filter(f => (!!f && !(f.length === 0))).length
 		}
 	},
 	watch: {
@@ -289,6 +305,13 @@ export default {
 				this.coordinates = ""
 				this.getActies()
 			}
+		},
+		resetFilters() {
+			this.themesSelected = []
+			this.categoriesSelected = []
+			this.query = ""
+			this.$refs.geoSearch.resetResult()
+			this.showPast = false
 		}
 	}
 }
