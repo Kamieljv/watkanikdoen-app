@@ -181,9 +181,16 @@ export default {
     },
     methods: {
         submit() {
+            // build organizers data object
             var organizers = this.selectedOrganizers.map((org) => {
                 return ('id' in org)? {id: org.id} : org
             })
+            // remove report properties with null value
+            Object.keys(this.report).forEach(k => {
+                if (this.report[k] === null) {
+                    delete this.report[k];
+                }
+            });
             this.$http.post(this.routes['report_create'], {
                 userId: this.currentUser.id,
                 organizers: organizers,
