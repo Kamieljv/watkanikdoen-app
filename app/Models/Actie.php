@@ -118,6 +118,18 @@ class Actie extends Model
         return Date::parse($this->time_start)->timestamp;
     }
 
+    public function getPageviewsTextAttribute()
+    {
+        if ($this->pageviews) {
+            if ($this->pageviews > 1000) {
+                $rounded = round($this->pageviews / 1000, 1);
+                return strval($rounded) . 'k';
+            }
+            return strval($this->pageviews);
+        }
+        return false;
+    }
+
     public function getgeolocAttribute()
     {
         $coords = $this->getCoordinates();
@@ -191,6 +203,10 @@ class Actie extends Model
     public function scopePublished($query)
     {
         return $query->where('status', 'PUBLISHED');
+    }
+    public function scopeToekomstig($query)
+    {
+        return $query->where('time_end', '>', Date::now()->toDateTimeString());
     }
 
     public function publish()

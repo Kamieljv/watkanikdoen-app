@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Algolia\AlgoliaSearch\SearchIndex;
 use App\Models\Actie;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\SEOTools;
@@ -35,27 +34,43 @@ class ActieController extends VoyagerBaseController
 
     public function search(Request $request)
     {
-        $acties = Actie::search($request->q, function (SearchIndex $algolia, string $query, array $options) use ($request) {
-            // Filters for themes and organizers (facets)
-            $options['facetFilters'] = [
-                preg_filter('/^/', 'themes.id:', $request->themes), // theme filters
-                preg_filter('/^/', 'categories.id:', $request->categories), // theme filters
-                ['organizers.id:' . $request->organizer], // organization filter
-            ];
-            // Fitlers for coordinates with radius
-            $options['aroundLatLng'] = $request->coordinates ?? '';
-            $options['aroundRadius'] = ($request->distance ?? 9999) * 1000;
-
-            // Filter for showing past actions
-            if ($request->show_past === 'false') {
-                $options['filters'] = "start_unix > " . time();
-            }
-
-            return $algolia->search($query, $options);
-        })
-            ->within('acties_start_unix_asc')
-            ->paginate(12);
-
+        $query = Actie::query();
+        if ($request->q) {
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'LIKE', '%' . $request->q . '%')
+                    ->orWhere('body', 'LIKE', '%' . $request->q . '%');
+            });
+        }
+        if ($request->themes) {
+            $requestThemes = $request->themes;
+            $query->whereHas('themes', function ($q) use ($requestThemes) {
+                $q->whereIn('theme_id', $requestThemes);
+            });
+        }
+        if ($request->categories) {
+            $requestCategories = $request->categories;
+            $query->whereHas('categories', function ($q) use ($requestCategories) {
+                $q->whereIn('category_id', $requestCategories);
+            });
+        }
+        if ($request->organizer) {
+            $requestOrganizer = $request->organizer;
+            $query->whereHas('organizer', function ($q) use ($requestOrganizer) {
+                $q->whereIn('organizer_id', $requestOrganizer);
+            });
+        }
+        if ($request->coordinates) {
+            $coordinates = explode(',', $request->coordinates);
+            $radius = ($request->distance ?? 9999) * 1000;
+            $query->whereRaw("ST_Distance_Sphere(location, ST_GeomFromText('POINT({$coordinates[1]} {$coordinates[0]})')) <= {$radius}");
+        }
+        if ($request->show_past === 'false') {
+            $acties = $query->published()->toekomstig()->paginate(12);
+        } else {
+            $acties = $query->published()->paginate(12);
+        }
+        
+        
         return response()->json(['acties' => $acties]);
     }
 
