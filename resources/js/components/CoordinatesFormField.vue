@@ -1,22 +1,21 @@
 <template>
     <div>
-        <div class="form-group">
-			<div class="w-full text-sm my-2 mx-1">
+        <div class="form-group mb-2">
+			<div class="w-full text-sm my-2 mb-5 mx-1">
 				<label>
 					<input name="hasNoLatLng" v-model="hasNoLatLng" type="checkbox"/>
 					Deze actie heeft geen specifieke locatie.
 				</label>
 			</div>
-            <!-- <div class="col-md-6" v-if="showAutocomplete">
-                <label class="control-label">Zoek locatie</label>
-                <input
-                    class="form-control"
-                    type="text"
-                    placeholder="Zoek een locatie..."
-                    id="places-autocomplete"
-                    v-on:keypress="onInputKeyPress"
-                />
-            </div> -->
+            <form-autocomplete
+				v-if="!hasNoLatLng"
+				ref="geoSearch"
+				:items="geoSuggestions"
+				:isAsync="true"
+				@change="getGeoSuggestions"
+				@input="getCoordinates"
+				placeholder="Zoek een adres..."
+			/>
             <div v-if="showLatLng && !hasNoLatLng" class="w-full">
                 <label class="control-label">Lat (°N)</label>
                 <input
@@ -52,7 +51,7 @@
         <l-map
 			v-if="!hasNoLatLng"
             id="map"
-            :zoom="zoom"
+            :zoom="mapZoom"
             :center="center"
 			:options="{dragging: !disabled, scrollWheelZoom: !disabled}"
         >
@@ -85,6 +84,9 @@ L.Icon.Default.mergeOptions({
 	shadowUrl: require("leaflet/dist/images/marker-shadow.png").default,
 })
 
+// Load formfield
+import FormAutocomplete from '../../views/assets/js/components/formfields/FormAutocomplete'
+
 import { latLng } from "leaflet"
 export default {
 	name: "CoordinatesFormField",
@@ -92,10 +94,6 @@ export default {
 		defaultCenter: {
 			type: Array,
 			required: true,
-		},
-		showAutocomplete: {
-			type: Boolean,
-			default: false,
 		},
 		showLatLng: {
 			type: Boolean,
@@ -122,6 +120,7 @@ export default {
 			default: false,
 		}
 	},
+	components: {"form-autocomplete": FormAutocomplete},
 	data() {
 		return {
 			center: this.defaultCenter[0],
@@ -130,10 +129,12 @@ export default {
                     "&copy; <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors",
 			lat: null,
 			lng: null,
+			mapZoom: 10,
+			geoSuggestions: [],
 			tooltipOptions: {
 				permanent: true,
 			},
-			hasNoLatLng: false,
+			hasNoLatLng: false,	
 		}
 	},
 	computed: {
@@ -146,6 +147,7 @@ export default {
 	},
 	mounted() {
 		this.hasNoLatLng = (this.unedited && !this.frontend) || (!this.unedited && (!this.lat || !this.lng))
+		this.mapZoom = this.zoom
 	},
 	watch: {
 		hasNoLatLng: function(newVal) {
@@ -185,6 +187,40 @@ export default {
 		moveMapAndMarker: function(lat, lng) {
 			this.center = latLng(lat, lng)
 		},
+		async getGeoSuggestions(geoQuery) {
+			axios.get("https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest", {
+				params: {
+					q: geoQuery,
+					rows: 5,
+					fl: "id,weergavenaam",
+					fq: "type:adres",
+				}
+			}).then((data) => {
+				this.geoSuggestions = Object.keys(data.data.highlighting).map((key) => {
+					return {
+						id: key,
+						name: data.data.highlighting[key].suggest[0]
+					}
+				})
+			})
+		},
+		async getCoordinates(obj) {
+			if (obj !== "") {
+				axios.get("https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup", {
+					params: {
+						id: obj.id,
+						rows: 1,
+					}
+				}).then((data) => {
+					let pointString = data.data.response.docs[0].centroide_ll
+					this.coordinates = pointString.slice(6,pointString.length-1).split(" ").reverse()
+					this.center = latLng(this.coordinates[0], this.coordinates[1])
+					this.mapZoom = 17
+				})
+			} else {
+				this.coordinates = ""
+			}
+		}
 	}
 }
 </script>
@@ -198,4 +234,3 @@ export default {
         z-index: 400;
     }
 </style>
-
