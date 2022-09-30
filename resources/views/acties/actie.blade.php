@@ -58,11 +58,20 @@
                             <h1 class="leading-none">
                                 <span>{{ $actie->title }}</span>
                             </h1>
-                            @if (isset($actie->updated_at))
-                                <span class="mt-0 italic text-sm font-normal">{{ __("acties.last_edit") }}: {{ $actie->updated_at }}</span>
-                            @else
-                                <span class="mt-0 italic text-sm font-normal">{{ __("acties.created_at") }}: {{ $actie->created_at }}</span>
-                            @endif
+                            <div class="flex justify-between">
+                                <span class="mt-0 italic text-sm font-normal">
+                                    @if (isset($actie->updated_at))
+                                        {{ __("acties.last_edit") }}: {{ $actie->updated_at }}
+                                    @else
+                                        {{ __("acties.created_at") }}: {{ $actie->created_at }}
+                                    @endif
+                                </span>
+                                @if($actie->pageviewsText)
+                                    <span class="text-sm bold font-normal flex" title="Aantal keer dat de pagina is bekeken">
+                                        @svg('antdesign-eye', ['style' => 'width: 20px; height: 20px']) {{ $actie->pageviewsText }}
+                                    </span>
+                                @endif
+                            </div>
                             <div class="details-container text-sm text-gray-500">
                                 @if($actie->start_end)
                                     <div class="flex items-center text-sm leading-5 text-gray-700">
@@ -158,11 +167,20 @@
                         </div>
                     @endif
                     <h1>{{ $actie->title }}</h1>
-                    @if (isset($actie->updated_at))
-                        <span class="mt-0 italic text-sm font-normal">{{ __("acties.last_edit") }}: <time datetime="{{ Carbon\Carbon::parse($actie->updated_at)->toIso8601String() }}">{{ Date::parse($actie->updated_at)->format("j F Y") }}</time></span>
-                    @else
-                        <span class="mt-0 italic text-sm font-normal">{{ __("acties.created_at") }}: <time datetime="{{ Carbon\Carbon::parse($actie->created_at)->toIso8601String() }}">{{ Date::parse($actie->created_at)->format("j F Y") }}</time></span>
-                    @endif
+                    <div class="flex justify-between">
+                        <span class="mt-0 italic text-sm font-normal">
+                            @if (isset($actie->updated_at))
+                                {{ __("acties.last_edit") }}: {{ $actie->updated_at }}
+                            @else
+                                {{ __("acties.created_at") }}: {{ $actie->created_at }}
+                            @endif
+                        </span>
+                        @if($actie->pageviewsText)
+                            <span class="text-sm bold font-normal flex" title="Aantal keer dat de pagina is bekeken">
+                                @svg('antdesign-eye', ['style' => 'width: 20px; height: 20px']) {{ $actie->pageviewsText }}
+                            </span>
+                        @endif
+                    </div>
                 </div>
                 <h3 class="leading-none block sm:hidden mt-0">
                     <span>{{ __("acties.description") }}</span>
