@@ -16,7 +16,6 @@
     <coordinates-form-field 
         ref="coordinates"
         :default-center="{{ json_encode($defaultCenter) }}"
-        :show-autocomplete="{{ $showAutocomplete }}"
         :show-lat-lng="{{ $showLatLng }}"
         :zoom={{ config('voyager.maps.zoom') }}
         :fieldname="'{{ $row->field }}'"

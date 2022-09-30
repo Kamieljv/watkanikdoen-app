@@ -29,10 +29,10 @@
         </div>
 
         <ul
-        id="autocomplete-results"
-        v-show="isOpen"
-        class="absolute bg-white w-full z-[99] rounded-lg overflow-hidden mt-1"
-        v-bind:class="{'flex align-center justify-center': isLoading}"
+			id="autocomplete-results"
+			v-show="isOpen"
+			class="absolute bg-white w-full z-[1001] rounded-lg overflow-hidden mt-1"
+			v-bind:class="{'flex align-center justify-center': isLoading}"
         >
             <li
                 class="loading w-full flex align-center justify-center"
@@ -179,11 +179,13 @@ export default {
 	}
 }
 </script>
-
-<style>
+<style lang="scss" scoped>
+	@import "../../../sass/app.scss";
+</style>
+<style> 
     .autocomplete-result.is-active,
     .autocomplete-result:hover {
-        background-color: var(--wkid-blue);
+        background-color: var(--wkid-blue, #1683FB);
         color: white;
     }
 
