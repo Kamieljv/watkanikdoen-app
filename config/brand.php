@@ -2,6 +2,6 @@
 
 return [
     'title' => 'Wat kan ik doen?',
-    'description' => 'Welkom bij hét overzicht van protestacties in Nederland. Hier vind je alles over de demonstraties en organisaties die bijdragen aan een inclusieve, duurzame en eerlijke wereld. Doe mee!',
-    'description_html' => 'Welkom bij hét overzicht van protestacties in Nederland.<br>Hier vind je alles over de demonstraties en organisaties die bijdragen aan een inclusieve,<br>duurzame en eerlijke wereld. Doe mee!',
+    'description' => 'Welkom bij dé demonstratie-agenda van vandaag en morgen. Sta op en voer actie voor een inclusieve, duurzame en eerlijke wereld! 📣 ',
+    'description_html' => 'Welkom bij dé <strong>demonstratie-agenda</strong> van vandaag en morgen.<br>Sta op en <strong>voer actie</strong> voor een inclusieve, duurzame en eerlijke wereld! 📣',
 ];
