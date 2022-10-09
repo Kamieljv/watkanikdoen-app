@@ -42,20 +42,20 @@ class ActieController extends VoyagerBaseController
             });
         }
         if ($request->themes) {
-            $requestThemes = $request->themes;
+            $requestThemes = is_array($request->themes) ? $request->themes : array($request->themes);
             $query->whereHas('themes', function ($q) use ($requestThemes) {
                 $q->whereIn('theme_id', $requestThemes);
             });
         }
         if ($request->categories) {
-            $requestCategories = $request->categories;
+            $requestCategories = is_array($request->categories) ? $request->categories : array($request->categories);
             $query->whereHas('categories', function ($q) use ($requestCategories) {
                 $q->whereIn('category_id', $requestCategories);
             });
         }
         if ($request->organizer) {
-            $requestOrganizer = $request->organizer;
-            $query->whereHas('organizer', function ($q) use ($requestOrganizer) {
+            $requestOrganizer = is_array($request->organizer) ? $request->organizer : array($request->organizer);
+            $query->whereHas('organizers', function ($q) use ($requestOrganizer) {
                 $q->whereIn('organizer_id', $requestOrganizer);
             });
         }
