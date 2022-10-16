@@ -146,6 +146,8 @@ export default {
 		}
 	},
 	mounted() {
+		this.lat = this.defaultCenter[0].lat
+		this.lng = this.defaultCenter[0].lng
 		this.hasNoLatLng = (this.unedited && !this.frontend) || (!this.unedited && (!this.lat || !this.lng))
 		this.mapZoom = this.zoom
 	},
