@@ -133,8 +133,8 @@
 </template>
 
 <script>
-import { geoHelper } from "../mixins/geoHelper"
-import Pagination from "./Pagination.vue"
+import { geoHelper } from "../../mixins/geoHelper"
+import Pagination from "../partials/Pagination.vue"
 export default {
 	name: "ActieAgenda",
 	components: {Pagination},

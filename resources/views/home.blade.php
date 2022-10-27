@@ -18,12 +18,12 @@
         </div>
     </div>
     <div id="app" class="px-3 xl:px-5">
-        <actie-agenda
+        <home-agenda
             :routes="{{ $routes }}"
             :themes="{{ $themes }}"
             :categories="{{ $categories }}"
         >
-        </actie-agenda>
+        </home-agenda>
     </div>
 @endsection
 

@@ -64,12 +64,18 @@ class ActieController extends VoyagerBaseController
             $radius = ($request->distance ?? 9999) * 1000;
             $query->whereRaw("ST_Distance_Sphere(location, ST_GeomFromText('POINT({$coordinates[1]} {$coordinates[0]})')) <= {$radius}");
         }
+
+        $query->published()->orderBy('time_start');
+
         if ($request->show_past === 'false') {
-            $acties = $query->published()->orderBy('time_start')->toekomstig()->paginate(12);
-        } else {
-            $acties = $query->published()->orderBy('time_start')->paginate(12);
+            $query->toekomstig();
         }
-        
+
+        if ($request->limit) {
+            $acties = $query->limit($request->limit)->get();
+        } else {
+            $acties = $query->paginate(12);
+        }
         
         return response()->json(['acties' => $acties]);
     }

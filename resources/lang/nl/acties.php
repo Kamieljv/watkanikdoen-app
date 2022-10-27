@@ -15,6 +15,7 @@ return [
     'subtitle' => 'Bekijk hieronder waarvoor jij je wil inzetten!',
     'category' => 'Categorie',
     'categories' => 'Categoriën',
+    'by' => 'Door',
     'written_by' => 'Geschreven door ',
     'organized_by' => 'Georganiseerd door ',
     'back_to_acties' => 'Terug naar Acties',
