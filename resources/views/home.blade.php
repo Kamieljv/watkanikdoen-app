@@ -17,13 +17,16 @@
             </p>
         </div>
     </div>
-    <div id="app" class="px-3 xl:px-5">
+    <div id="app" class="xl:px-5">
         <home-agenda
             :routes="{{ $routes }}"
             :themes="{{ $themes }}"
             :categories="{{ $categories }}"
         >
         </home-agenda>
+        <public-stats
+            route="{{ route('dashboard.public_stats') }}"
+        />
     </div>
 @endsection
 

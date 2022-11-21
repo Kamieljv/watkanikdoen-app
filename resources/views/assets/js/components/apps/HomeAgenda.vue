@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="row mx-auto max-w-6xl mb-8" >
+        <div class="row mx-auto max-w-6xl px-3 mb-8" >
             <div class="col" style="width: 100%">
                 <div class="relative mx-auto w-full">
                     <div class="relative mx-auto max-w-7xl">

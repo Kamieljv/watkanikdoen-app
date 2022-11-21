@@ -20,7 +20,7 @@ class DashboardController extends Controller
     }
 
     /**
-     * Gets some statistics
+     * Gets statistics
      */
     public function getStats()
     {
@@ -30,6 +30,19 @@ class DashboardController extends Controller
         return response()->json([
             'acties' => $acties,
             'users' => $users,
+            'organizers' => $organizers,
+        ]);
+    }
+
+    /**
+     * Gets public statistics
+     */
+    public function getPublicStats()
+    {
+        $acties = Actie::published()->count();
+        $organizers = Organizer::count();
+        return response()->json([
+            'acties' => $acties,
             'organizers' => $organizers,
         ]);
     }

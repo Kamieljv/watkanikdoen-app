@@ -61,6 +61,9 @@ Route::get('organisator/{organizer}', [OrganizerController::class, 'organizer'])
 // Acties aanmelden
 Route::get('acties/aanmelden', [ReportController::class, 'landing'])->name('report.landing');
 
+// Public statistics route
+Route::get('dashboard/getPublicStats', [DashboardController::class, 'getPublicStats'])->name('dashboard.public_stats');
+
 // Blog routes
 Route::get('blog/index', [BlogController::class, 'index'])->name('blog');
 Route::get('blog/{category}', [BlogController::class, 'category'])->name('blog.category');
@@ -69,7 +72,7 @@ Route::get('blog/{category}/{post}', [BlogController::class, 'post'])->name('blo
 // General page route
 Route::get('{page}', [PageController::class, 'page'])->name('page');
 
-// Routes that require authemtication
+// Routes that require authentication
 Route::group(['prefix' => 'auth', 'middleware' => ['auth', 'xss']], function () {
     // Dashboard
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');

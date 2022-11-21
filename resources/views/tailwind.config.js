@@ -26,6 +26,7 @@ module.exports = {
 		"bg-[color:var(--wkid-blue)]",
 		"hover:bg-[color:var(--wkid-blue-dark)]",
 		"bg-[color:var(--wkid-blue-dark)]",
+		"bg-[color:var(--wkid-yellow)]",
 		"bg-black/50",
 		"text-[color:var(--wkid-pink)]",
 		"shrink-0",
