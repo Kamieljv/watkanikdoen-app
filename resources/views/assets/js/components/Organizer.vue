@@ -8,12 +8,12 @@
                 'selected': selected && mode === 'select'
             }"
             :title="organizer.name">
-            <div class="flex space-x-3 justify-start items-center">
+            <div class="flex w-full space-x-3 justify-start items-center">
                 <img v-if="organizer.linked_image" class="w-10 h-10 rounded-full" :src="organizer.linked_image.url" :title="organizer.name">
                 <div v-else class="flex items-center justify-center text-xl w-10 h-10 rounded-full bg-gray-500 text-white">
                     {{ organizer.name.charAt(0) }}
                 </div>
-                <div class="flex flex-col overflow-hidden">
+                <div class="flex flex-1 flex-col overflow-hidden">
                     <p class="font-bold truncate">{{ organizer.name }}</p>
                     <ul v-if="showThemes" class="sm:hidden pt-2 flex space-x-1">
                         <li
