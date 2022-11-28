@@ -72,6 +72,9 @@
                 {{ __('voyager::media.crop') }}
             </button>
         </div>
+        <div class="btn-group offset-left">
+            <input name="search" placeholder="{{ __('voyager::media.search') }}" class="form-control" value="" v-model="query" />
+        </div>
     </div>
     <div id="uploadPreview" style="display:none;" v-if="allowUpload"></div>
     <div id="uploadProgress" class="progress active progress-striped" v-if="allowUpload">
@@ -395,6 +398,10 @@
                 type: Boolean,
                 default: true
             },
+            allowSearch: {
+                type: Boolean, 
+                default: true
+            },
             allowDelete: {
                 type: Boolean,
                 default: true
@@ -441,6 +448,7 @@
                 current_folder: this.basePath,
 		  		selected_files: [],
                 files: [],
+                query: '',
 		  		is_loading: true,
                 hidden_element: null,
                 isExpanded: this.expanded,
@@ -459,6 +467,11 @@
                 return this.selected_files[0];
             }
         },
+        watch: {
+            query: function(val) {
+                this.getFiles()
+            }
+        },
         methods: {
             getFiles: function() {
                 var vm = this;
@@ -466,7 +479,7 @@
                 $.post('{{ route('voyager.media.files') }}', { folder: vm.current_folder, _token: '{{ csrf_token() }}', details: vm.details }, function(data) {
                     vm.files = [];
                     for (var i = 0, file; file = data[i]; i++) {
-                        if (vm.filter(file)) {
+                        if (vm.filter(file) && (file.type == 'folder' || vm.search(file, vm.query))) {
                             vm.files.push(file);
                         }
                     }
@@ -592,6 +605,14 @@
                 }
 
                 return false;
+            },
+            search: function(file, query) {
+                console.log(file.name.toLowerCase(), query.toLowerCase())
+                if (file.name.toLowerCase().includes(query.toLowerCase())) {
+                    return true;
+                } else {
+                    return false;
+                }
             },
             addFileToInput: function(file) {
                 if (file.type != 'folder') {
