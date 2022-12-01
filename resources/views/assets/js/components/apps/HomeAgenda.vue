@@ -4,27 +4,41 @@
             <div class="col" style="width: 100%">
                 <div class="relative mx-auto w-full">
                     <div class="relative mx-auto max-w-7xl">
-                        <div
-                            class="grid gap-5 mx-auto mt-12 md:grid-cols-2"
-                            v-if="!isGeladen"
-                        >
-                            <t-card
-                                v-for="i in skeletonArray"
-                                :key="i"
-                                variant="skeleton"
-                                class="rounded-lg shadow-md overflow-hidden"
-                            >
-                                <template v-slot:header>
-                                    <div class="h-6 w-20 inline-block bg-gray-100 rounded"/>
-                                </template>
-                                <div class="relative h-6 w-full inline-block bg-gray-200 rounded"></div>
-                                <div class="relative h-3 w-full inline-block bg-gray-200 rounded"></div>
+						<div v-if="!isGeladen">
+							<div
+								class="grid gap-5 mx-auto mt-12 md:grid-cols-2"
+							>
+								<t-card
+									v-for="i in Array(2).keys()"
+									:key="i"
+									variant="skeleton"
+									class="rounded-lg shadow-md overflow-hidden"
+								>
+									<template v-slot:header>
+										<div class="h-6 w-20 inline-block bg-gray-100 rounded"/>
+									</template>
+									<div class="relative h-6 w-full inline-block bg-gray-200 rounded"></div>
+									<div class="relative h-3 w-full inline-block bg-gray-200 rounded"></div>
 
-                                <template v-slot:footer >
-                                    <div class="rounded-full bg-gray-200 h-10 w-10"></div>
-                                </template>
-                            </t-card>
-                        </div>
+									<template v-slot:footer >
+										<div class="rounded-full bg-gray-200 h-10 w-10"></div>
+									</template>
+								</t-card>
+							</div>
+							<div class="grid gap-5 mx-auto mt-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+								<t-card
+									v-for="i in Array(3).keys()"
+									:key="i"
+									variant="skeleton"
+									class="rounded-lg shadow-md overflow-hidden"
+								>
+									<div class="relative h-6 w-full inline-block bg-gray-200 rounded"></div>
+									<div class="relative h-3 w-full inline-block bg-gray-200 rounded"></div>
+									<div class="relative h-3 w-full inline-block bg-gray-200 rounded"></div>
+									<div class="relative h-3 w-full inline-block bg-gray-200 rounded"></div>
+								</t-card>
+							</div>
+						</div>
                         <div
                             v-else-if="heeftActies"
 						>
@@ -63,10 +77,6 @@ export default {
 			type: Object,
 			required: true,
 		},
-		narrower: {
-			type: Boolean,
-			default: false,
-		},
 	},
 	data() {
 		return {
@@ -76,10 +86,6 @@ export default {
 		}
 	},
 	computed: {
-		skeletonArray() {
-			var n = this.narrower ? 6 : 10
-			return [...Array(n).keys()]
-		},
 		heeftActies() {
 			return (this.acties.length > 0)
 		},

@@ -33,17 +33,4 @@ class DashboardController extends Controller
             'organizers' => $organizers,
         ]);
     }
-
-    /**
-     * Gets public statistics
-     */
-    public function getPublicStats()
-    {
-        $acties = Actie::published()->count();
-        $organizers = Organizer::count();
-        return response()->json([
-            'acties' => $acties,
-            'organizers' => $organizers,
-        ]);
-    }
 }

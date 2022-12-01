@@ -17,16 +17,33 @@
             </p>
         </div>
     </div>
-    <div id="app" class="xl:px-5">
+    <div id="app">
         <home-agenda
             :routes="{{ $routes }}"
             :themes="{{ $themes }}"
             :categories="{{ $categories }}"
         >
         </home-agenda>
-        <public-stats
-            route="{{ route('dashboard.public_stats') }}"
-        />
+        <!-- Statistics section -->
+		<div id="stats-section" v-if="!isError" class="row py-10 px-3 text-white bg-[color:var(--wkid-blue)]">
+			<div class="flex flex-col mx-auto max-w-6xl px-3 items-center">
+				<h1>De cijfers tot nu toe...</h1>
+				<div class="flex w-full my-8">
+					<div class="flex-col w-1/3 text-center">
+						<span class="stat text-5xl font-bold scroll-reveal" data-val="{{$stats["acties"]}}">0</span>
+						<p>acties</p>
+					</div>
+					<div class="flex-col w-1/3 text-center">
+						<span class="stat text-5xl font-bold scroll-reveal" data-val="{{$stats["organizers"]}}">0</span>
+						<p>organisatoren</p>
+					</div>
+					<div class="flex-col w-1/3 text-center">
+						<span class="stat text-5xl font-bold scroll-reveal" data-val="{{$stats["themes"]}}">0</span>
+						<p>thema's</p>
+					</div>
+				</div>
+			</div>
+		</div>
     </div>
 @endsection
 
@@ -35,5 +52,33 @@
         var app = new Vue({
             el: '#app',
         });
+
+        function animateValue(obj, start, end, duration) {
+			let startTimestamp = null;
+			const step = (timestamp) => {
+				if (!startTimestamp) startTimestamp = timestamp;
+				const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+				obj.innerHTML = Math.floor(progress * (end - start) - start);
+				if (progress < 1) {
+					window.requestAnimationFrame(step);
+				}
+			};
+			window.requestAnimationFrame(step);
+		}
+
+        const observer = new IntersectionObserver(entries => {
+			// Loop over the entries
+			entries.forEach(entry => {
+				// If the element is visible
+				console.log(entry, entry.target)
+				if (entry.isIntersecting) {
+					// Add the animation class
+					animateValue(entry.target, 0, Number(entry.target.dataset.val), 500);
+				}
+			});
+		});
+		// Add observers to all stat elements
+		const stats = document.querySelectorAll('span.stat');
+		stats.forEach((s) => observer.observe(s));
     </script>
 @endpush
