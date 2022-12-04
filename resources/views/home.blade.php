@@ -18,14 +18,16 @@
         </div>
     </div>
     <div id="app">
-        <home-agenda
-            :routes="{{ $routes }}"
-            :themes="{{ $themes }}"
-            :categories="{{ $categories }}"
-        >
-        </home-agenda>
+		<div style="min-height:610px">
+			<home-agenda
+				:routes="{{ $routes }}"
+				:themes="{{ $themes }}"
+				:categories="{{ $categories }}"
+			>
+        	</home-agenda>
+		</div>
         <!-- Statistics section -->
-		<div id="stats-section" v-if="!isError" class="row py-10 px-3 text-white bg-[color:var(--wkid-blue)]">
+		<div id="stats-section" class="row py-10 px-3 text-white bg-[color:var(--wkid-blue)]">
 			<div class="flex flex-col mx-auto max-w-6xl px-3 items-center">
 				<h1>De cijfers tot nu toe...</h1>
 				<div class="flex w-full my-8">
@@ -53,6 +55,8 @@
             el: '#app',
         });
 
+		// console.log(document.querySelector('#agenda-container').innerHTML)
+
         function animateValue(obj, start, end, duration) {
 			let startTimestamp = null;
 			const step = (timestamp) => {
@@ -70,7 +74,6 @@
 			// Loop over the entries
 			entries.forEach(entry => {
 				// If the element is visible
-				console.log(entry, entry.target)
 				if (entry.isIntersecting) {
 					// Add the animation class
 					animateValue(entry.target, 0, Number(entry.target.dataset.val), 500);
