@@ -26,36 +26,75 @@
 			>
         	</home-agenda>
 		</div>
-        <!-- Statistics section -->
-		<div id="stats-section" class="row py-10 px-3 text-white bg-[color:var(--wkid-blue)]">
+		{{-- Who are we? --}}
+		<div id="whoarewe-section" class="row py-20 px-3 text-white">
 			<div class="flex flex-col mx-auto max-w-6xl px-3 items-center">
-				<h1>De cijfers tot nu toe...</h1>
-				<div class="flex w-full my-8">
+				<h1>Wat is Watkanikdoen.nl?</h1>
+				<p>Test test</p>
+			</div>
+		</div>
+		{{-- Organizers --}}
+		<div id="organizers-section" class="row py-20 px-3 text-gray-800">
+			<div class="grid grid-cols-3 mx-auto max-w-6xl px-3 items-center">
+				<div class="col-span-1 text-right">
+					<h1>Organisatoren</h1>
+				</div>
+				<div class="col-span-2 flex flex-col"> 
+					<h1>Organisatoren: van klimaat tot anti-racisme</h1>
+					<p>Test test</p>
+				</div>
+			</div>
+		</div>
+        <!-- Statistics -->
+		<div id="stats-section" class="row relative py-20 px-3 text-white overflow-hidden bg-[color:var(--wkid-blue)]">
+			<div class="flex flex-col mx-auto max-w-6xl px-3 items-center">
+				<h1>Er gebeurt hier al ontzettend veel!</h1>
+				<div class="flex w-full mt-10">
 					<div class="flex-col w-1/3 text-center">
-						<span class="stat text-5xl font-bold scroll-reveal" data-val="{{$stats["acties"]}}">0</span>
-						<p>acties</p>
+						<span class="stat font-bold scroll-reveal" data-val="{{$stats["acties"]}}">0</span>
+						<p class="font-bold text-2xl">acties</p>
 					</div>
 					<div class="flex-col w-1/3 text-center">
-						<span class="stat text-5xl font-bold scroll-reveal" data-val="{{$stats["organizers"]}}">0</span>
-						<p>organisatoren</p>
+						<span class="stat font-bold scroll-reveal" data-val="{{$stats["organizers"]}}">0</span>
+						<p class="font-bold text-2xl">organisatoren</p>
 					</div>
 					<div class="flex-col w-1/3 text-center">
-						<span class="stat text-5xl font-bold scroll-reveal" data-val="{{$stats["themes"]}}">0</span>
-						<p>thema's</p>
+						<span class="stat font-bold scroll-reveal" data-val="{{$stats["themes"]}}">0</span>
+						<p class="font-bold text-2xl">thema's</p>
 					</div>
 				</div>
 			</div>
 		</div>
     </div>
 @endsection
+<style>
+	.stat {
+		font-size: 5rem;
+		line-height: 4rem;
+	}
+	#whoarewe-section {
+		position: relative;
+		background: var(--wkid-pink);  
+		background: linear-gradient(to top left, var(--wkid-pink), #91368b);  
+		width: 100%;
+	}
+	#stats-section {
+		background: var(--wkid-blue);  
+		background: linear-gradient(to top left, var(--wkid-blue), #ca467a);  
+		width: 100%;
+	}
 
+	.ball {
+		position: absolute;
+		border-radius: 100%;
+		opacity: 0.3;
+	}
+</style>
 @push('scripts')
     <script type="application/javascript">
         var app = new Vue({
             el: '#app',
         });
-
-		// console.log(document.querySelector('#agenda-container').innerHTML)
 
         function animateValue(obj, start, end, duration) {
 			let startTimestamp = null;
@@ -80,8 +119,55 @@
 				}
 			});
 		});
+
 		// Add observers to all stat elements
 		const stats = document.querySelectorAll('span.stat');
 		stats.forEach((s) => observer.observe(s));
+
+		// Background animation for stats
+		const colors = ["#ffffff"];
+
+		const numBalls = 10;
+		const balls = [];
+
+		for (let i = 0; i < numBalls; i++) {
+			let ball = document.createElement("div");
+			ball.classList.add("ball");
+			ball.style.background = colors[Math.floor(Math.random() * colors.length)];
+			ball.style.left = `${Math.floor(Math.random() * 100)}%`;
+			ball.style.top = `${Math.floor(Math.random() * 100)}%`;
+			ball.style.transform = `scale(${0.5+Math.random()})`;
+			ball.style.width = `${0.4+Math.random()}em`;
+			ball.style.height = ball.style.width;
+			
+			balls.push(ball);
+			document.getElementById('stats-section').appendChild(ball);
+		}
+
+		// Keyframes
+		balls.forEach((el, i, ra) => {
+			let to = {
+				x: Math.random() * (i % 2 === 0 ? -11 : 11),
+				y: Math.random() * (i % 2 === 0 ? -5 : 5)
+			};
+			let to2 = {
+				x: Math.random() * (i % 2 === 0 ? -11 : 11),
+				y: Math.random() * (i % 2 === 0 ? -5 : 5)
+			};
+
+			let anim = el.animate(
+				[
+					{ transform: "translate(0, 0)" },
+					{ transform: `translate(${to.x}rem, ${to.y}rem)` }
+				],
+				{
+					duration: (Math.random() + 1) * 2000, // random duration
+					direction: "alternate",
+					fill: "both",
+					iterations: Infinity,
+					easing: "ease-in-out"
+				}
+			);
+		});
     </script>
 @endpush
