@@ -26,4 +26,5 @@ return [
     'last_edit' => 'Laatst bijgewerkt',
     'created_at' => 'Geplaatst op',
     'passed' => 'Let op: Deze actie heeft al plaatsgevonden.',
+    'admin_message' => 'Je bent ingelogd als administrator',
 ];

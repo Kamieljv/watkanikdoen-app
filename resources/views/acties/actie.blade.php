@@ -7,6 +7,14 @@
             {{ __("acties.back_to_acties") }}
         </a>
     </div>
+    @if($isAdmin)
+        <div class="max-w-4xl mx-auto mt-10 px-5 lg:px-0 mt-4">
+            <div class="flex p-3 rounded-md bg-gray-700 text-white justify-between">
+                {{__('acties.admin_message')}}
+                <a href="/admin/acties/{{$actie->id}}/edit" class="italic hover:underline">Actie bewerken</a>
+            </div>
+        </div>
+    @endif
     <article id="post-{{ $actie->id }}" class="max-w-4xl px-5 mb-4 mx-auto prose lg:px-0 mt-6">
         <meta property="name" content="{{ $actie->title }}">
         <meta property="author" typeof="Person" content="admin">
