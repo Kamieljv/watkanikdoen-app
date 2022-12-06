@@ -24,7 +24,7 @@
                 <h1>{{ $organizer->name }}</h1>
             </div>
             @if($organizer->website !== NULL)
-                <a href="{{ $organizer->website }}" class="w-full md:w-auto inline-flex space-x-3 items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
+                <a href="{{ $organizer->website }}" target="_blank" class="w-full md:w-auto inline-flex space-x-3 items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
                     @svg('antdesign-link-o', ['style' => 'width: 20px; height: 20px'])
                     <span>{{ __("general.go_to") . ' ' . $organizer->website_human }}</span>
                 </a>
