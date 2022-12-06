@@ -9,8 +9,8 @@
     </div>
     @if($isAdmin)
         <div class="max-w-4xl mx-auto mt-10 px-5 lg:px-0 mt-4">
-            <div class="flex p-3 rounded-md bg-gray-700 text-white justify-between">
-                {{__('acties.admin_message')}}
+            <div class="flex p-3 rounded-md bg-gray-600 text-white justify-between">
+                {{__('general.admin_message')}}
                 <a href="/admin/acties/{{$actie->id}}/edit" class="italic hover:underline">Actie bewerken</a>
             </div>
         </div>

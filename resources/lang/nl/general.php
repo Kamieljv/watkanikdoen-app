@@ -50,4 +50,5 @@ return [
     'publish_fail' => ':entity kon niet worden gepubliceerd. Mogelijk omdat deze al is gepubliceerd.',
     'pending' => 'in behandeling',
     'rejected' => 'afgewezen',
+    'admin_message' => 'Je bent ingelogd als administrator',
 ];
