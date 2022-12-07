@@ -35,7 +35,7 @@
                             ref="actieForm"
                             v-model="report"
                             :report="report"
-                            :default-center="defaultCenter"
+                            :default-center="('location' in report) ? [report.location] : defaultCenter"
                             :zoom="zoom"
                         ></Actie-Form>
                     </div>
