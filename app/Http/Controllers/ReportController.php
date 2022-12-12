@@ -6,6 +6,8 @@ use App\Models\Actie;
 use App\Models\Image;
 use App\Models\Organizer;
 use App\Models\Report;
+use App\Models\User;
+use App\Notifications\Mail\ReportReceived;
 use App\Rules\Website;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -69,6 +71,7 @@ class ReportController extends Controller
                             'website' => $organizer['website'],
                             'slug' => $this->createSlug($organizer['name'], Organizer::class),
                             'user_id' => $request->userId,
+                            'status' => 'PENDING',
                         ]);
                         array_push($organizer_ids, $org->id);
                     } else {
@@ -111,6 +114,11 @@ class ReportController extends Controller
                 'message' => $errorInfo[2],
             ], 200);
         }
+
+        // Send email notification to admin
+        $admin = User::where('username', 'admin')->first();
+        $admin->notify(new ReportReceived($report));
+
         return response([
             'status' => 'success',
             'message' => __('reports.add_success'),
