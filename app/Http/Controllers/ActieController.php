@@ -3,14 +3,38 @@
 namespace App\Http\Controllers;
 
 use App\Models\Actie;
+use App\Models\Category;
+use App\Models\Theme;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use TCG\Voyager\Http\Controllers\VoyagerBaseController;
 use Voyager;
 
 class ActieController extends VoyagerBaseController
 {
+    public function agenda()
+    {
+        // Definieer de routes waarmee de component evenementen kan ophalen
+        $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
+            return (strpos($route->uri, 'acties') !== false) && (strpos($route->uri, 'admin') === false);
+        })->map(function ($route) {
+            return [
+                'uri' => '/' . $route->uri,
+                'methods' => $route->methods,
+            ];
+        });
+
+        $themes = Theme::orderBy('name', 'ASC')->get();
+        $categories = Category::orderBy('name', 'ASC')->get();
+
+        // SEO
+        SEOTools::setTitle('Acties');
+
+        return view('acties.agenda', compact('routes', 'themes', 'categories'));
+    }
+
     public function actie($slug)
     {
 

@@ -52,6 +52,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/lang-{lang}.js', [LanguageController::class, 'show']);
 
 // Acties & Organizers
+Route::get('acties', [ActieController::class, 'agenda'])->name('acties.agenda');
 Route::get('acties/search', [ActieController::class, 'search'])->name('acties.search');
 Route::get('actie/{actie}', [ActieController::class, 'actie'])->name('acties.actie');
 Route::get('organisatoren/index', [OrganizerController::class, 'index'])->name('organizers.index');

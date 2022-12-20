@@ -12,7 +12,7 @@
 
 return [
     'title' => 'Acties',
-    'subtitle' => 'Bekijk hieronder waarvoor jij je wil inzetten!',
+    'sub_title' => 'Bekijk hieronder waarvoor jij je wil inzetten!',
     'category' => 'Categorie',
     'categories' => 'Categoriën',
     'by' => 'Door',

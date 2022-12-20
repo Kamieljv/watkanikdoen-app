@@ -38,10 +38,10 @@
 			<div class="grid grid-cols-3 mx-auto max-w-6xl px-3 items-center">
 				<div class="col-span-1 text-right">
 					<h1>Organisatoren</h1>
+					<p>Zonder organisator geen actie. Alle organisatoren zijn gekoppeld aan een of meerdere thema's.</p>
 				</div>
 				<div class="col-span-2 flex flex-col"> 
-					<h1>Organisatoren: van klimaat tot anti-racisme</h1>
-					<p>Test test</p>
+					{{-- Show highlighted organizers here --}}
 				</div>
 			</div>
 		</div>
