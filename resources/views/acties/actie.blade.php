@@ -45,15 +45,20 @@
                                 </li>
                             @endforeach
                         </ul>
-                        <div class="distance-container text-right p-2 absolute bottom-0 w-full">
-                            {{-- <div
-                                v-if="actie.distance"
-                                class="relative self-start inline-block bg-[color:var(--wkid-yellow-light)] px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
+                        <div class="text-left p-2 absolute bottom-0 w-full">
+                            <ul
+                                class="categories-container flex flex-wrap"
                             >
-                                <span class="text-white" rel="theme">
-                                    <i class="fas fa-location-arrow"></i> &nbsp; {{ actie.distance + ' km' }}<br/>
-                                </span>
-                            </div> --}}
+                                @foreach($actie->categories as $actieCategorie)
+                                    <li
+                                        class="relative self-start inline-block bg-gray-100 px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
+                                    >
+                                        <span class="flex items-center text-gray-800" rel="categorie">
+                                            {{ $actieCategorie->name }}
+                                        </span>
+                                    </li>
+                                @endforeach
+                            </ul>
                         </div>
                         {{-- Mobile title & details --}}
                         <div class="flex flex-col gap-3 not-prose p-3 pt-4 bg-white overflow-hidden block sm:hidden">
