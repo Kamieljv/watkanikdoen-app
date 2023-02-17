@@ -19,6 +19,7 @@ return [
     'about_us' => 'Over ons',
     'organizers' => 'Organisatoren',
     'hoe_werkt_het' => 'Hoe werkt het?',
+    'word_vrijwilliger' => 'Word vrijwilliger',
     'my_profile' => 'Mijn Profiel',
     'log_out' => 'Uitloggen',
     'log_in' => 'Inloggen',
