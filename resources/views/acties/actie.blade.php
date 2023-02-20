@@ -24,30 +24,30 @@
         <div class="grid grid-cols-12 max-w-4xl mx-auto mt-6 gap-5">
             <div id="right-container" class="col-span-12 sm:order-last sm:col-span-4">
                 <div class="content flex flex-col gap-4 h-full">
-                    <!-- Image and tags -->
-                    <div class="flex-shrink-0 not-prose rounded-lg shadow-lg overflow-hidden" style="position:relative;">
-                        @if ($actie->linked_image)
-                            <img class="object-cover w-full h-48" src="{{ $actie->linked_image->url }}" alt="">
-                        @else
-                            <div class="h-[150px] bg-gradient-to-r from-[var(--wkid-pink-light)] to-[var(--wkid-blue-light)] text-white flex items-center justify-center">
-                                @svg('custom-logo-icon', ['style' => 'fill: currentColor; height: 80px;'])
-                            </div>
-                        @endif
-                        <ul class="themes-container p-2 absolute top-0 w-full">
-                            @foreach ($actie->themes as $actieTheme)
-                                <li
-                                    class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
-                                    style="background-color: {{ $actieTheme->color }}"
-                                >
-                                    <span class="text-white">
-                                        {{ $actieTheme->name }}
-                                    </span>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <div class="text-left p-2 absolute bottom-0 w-full">
+                    <div class="flex-shrink-0 not-prose relative rounded-lg shadow-lg overflow-hidden">
+                        <!-- Image and tags -->
+                        <div class="relative w-full h-48">
+                            @if ($actie->linked_image)
+                                <img class="object-cover w-full h-full" src="{{ $actie->linked_image->url }}" alt="">
+                            @else
+                                <div class="h-full bg-gradient-to-r from-[var(--wkid-pink-light)] to-[var(--wkid-blue-light)] text-white flex items-center justify-center">
+                                    @svg('custom-logo-icon', ['style' => 'fill: currentColor; height: 80px;'])
+                                </div>
+                            @endif
+                            <ul class="themes-container p-2 absolute top-0 w-full">
+                                @foreach ($actie->themes as $actieTheme)
+                                    <li
+                                        class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
+                                        style="background-color: {{ $actieTheme->color }}"
+                                    >
+                                        <span class="text-white">
+                                            {{ $actieTheme->name }}
+                                        </span>
+                                    </li>
+                                @endforeach
+                            </ul>
                             <ul
-                                class="categories-container flex flex-wrap"
+                                class="categories-container p-2 absolute bottom-0 w-full flex flex-wrap"
                             >
                                 @foreach($actie->categories as $actieCategorie)
                                     <li
