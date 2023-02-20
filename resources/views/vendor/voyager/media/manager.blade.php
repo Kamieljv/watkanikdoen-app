@@ -984,4 +984,10 @@
     min-width: 200px;
     max-width: 250px;
 }
+
+#content {
+    max-height: 500px;
+    overflow-y: scroll;
+}
+
 </style>
