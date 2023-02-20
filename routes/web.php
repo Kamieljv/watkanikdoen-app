@@ -25,6 +25,7 @@ use App\Http\Controllers\OrganizerController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\SubscriberController;
 
 // Authentication routes
 Auth::routes();
@@ -65,6 +66,11 @@ Route::get('acties/aanmelden', [ReportController::class, 'landing'])->name('repo
 Route::get('blog/index', [BlogController::class, 'index'])->name('blog');
 Route::get('blog/{category}', [BlogController::class, 'category'])->name('blog.category');
 Route::get('blog/{category}/{post}', [BlogController::class, 'post'])->name('blog.post');
+
+// Newsletter (subscriber) routes
+Route::post('subscriber/create', [SubscriberController::class, 'store'])->name('subscribers.store');
+Route::get('subscriber/delete', [SubscriberController::class, 'delete'])->name('subscribers.delete');
+Route::get('subscriber/verify/{id}/{hash}', [SubscriberController::class, 'verify'])->name('subscribers.verify');
 
 // General page route
 Route::get('{page}', [PageController::class, 'page'])->name('page');
