@@ -68,6 +68,7 @@ Route::get('blog/{category}', [BlogController::class, 'category'])->name('blog.c
 Route::get('blog/{category}/{post}', [BlogController::class, 'post'])->name('blog.post');
 
 // Newsletter (subscriber) routes
+Route::get('nieuwsbrief', [SubscriberController::class, 'landing'])->name('subscribers.landing');
 Route::post('subscriber/create', [SubscriberController::class, 'store'])->name('subscribers.store');
 Route::get('subscriber/delete', [SubscriberController::class, 'delete'])->name('subscribers.delete');
 Route::get('subscriber/verify/{id}/{hash}', [SubscriberController::class, 'verify'])->name('subscribers.verify');

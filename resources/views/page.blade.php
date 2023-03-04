@@ -28,17 +28,4 @@
         </article>
     </div>
 
-    <form action="{{ route('subscribers.store') }}" method="post">
-        @csrf
-        <input type="email" name="email">
-        <input type="submit" value="submit">
-    </form>
-
-
-    @if (session('subscribed'))
-        <div class="alert alert-success">
-            {{ session('subscribed') }}
-        </div>
-    @endif
-
 @endsection

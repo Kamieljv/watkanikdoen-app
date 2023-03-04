@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\ValidHCaptcha;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreSubscriberRequest extends FormRequest
@@ -16,8 +17,13 @@ class StoreSubscriberRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'email' => 'required|email|unique:subscribers,email',
         ];
+
+        if (env('APP_ENV') == 'production') {
+            $rules['h-captcha-response'] = ['required', new ValidHCaptcha()];
+        }
+        return $rules;
     }
 }

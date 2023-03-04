@@ -6,9 +6,7 @@ use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-// use App\Events\SubscriberCreated;
-use App\Events\SubscriberDeleted;
-use Notifications\SubscriberVerifyEmail;
+use App\Notifications\Mail\SubscriberVerifyEmail;
 
 class Subscriber extends Model
 {
@@ -19,12 +17,6 @@ class Subscriber extends Model
     protected $fillable = [
         'email',
     ];
-
-    // protected $dispatchesEvents = [
-    //     'created' => SubscriberCreated::class,
-    //     'deleted' => SubscriberDeleted::class,
-    // ];
-
 
     /**
      * Determine if the user has verified their email address.

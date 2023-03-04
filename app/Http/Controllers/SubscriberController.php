@@ -17,18 +17,22 @@ use App\Exceptions\SubscriberVerificationException;
 
 class SubscriberController extends Controller
 {
+    public function landing()
+    {
+        return view('newsletter.landing');
+    }
+
     public function store(StoreSubscriberRequest $request)
     {
         $subscriber = Subscriber::create($request->all());
 
         if (config('newsletter.verify')) {
             $subscriber->sendEmailVerificationNotification();
-            return redirect()->route(config('newsletter.redirect_url'))
-                ->with('subscribed', __('Please verify your email address!'));
         }
 
-        return redirect()->route(config('newsletter.redirect_url'))
-            ->with('subscribed', __('You are successfully subscribed to our list!'));
+        return response()->json([
+            'status' => 'created',
+        ], 201);
     }
 
     public function delete(DeleteSubscriberRequest $request)
@@ -51,12 +55,10 @@ class SubscriberController extends Controller
         if ($subscriber->hasVerifiedEmail()) {
             return $request->wantsJson()
                 ? new Response('', 204)
-                : redirect($this->redirectPath());
+                : redirect()->route(config('newsletter.redirect_url'));
         }
 
-        if ($subscriber->markEmailAsVerified()) {
-            event(new SubscriberVerified($subscriber));
-        }
+        $subscriber->markEmailAsVerified();
 
         return $request->wantsJson()
             ? new Response('', 204)
