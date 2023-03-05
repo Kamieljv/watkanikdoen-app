@@ -22,6 +22,14 @@ class SubscriberController extends Controller
         return view('newsletter.landing');
     }
 
+    public function verified()
+    {
+        if (!(session()->has('error') || session()->has('success'))) {
+            return redirect()->route('home');
+        }
+        return view('newsletter.verified');
+    }
+
     public function store(StoreSubscriberRequest $request)
     {
         $subscriber = Subscriber::create($request->all());
@@ -44,24 +52,16 @@ class SubscriberController extends Controller
     public function verify(VerifySubscriberRequest $request)
     {
         $subscriber = Subscriber::find($request->id);
-        if (!hash_equals((string) $request->route('id'), (string) $subscriber->getKey())) {
-            throw new SubscriberVerificationException;
+        if (!hash_equals((string) $request->route('id'), (string) $subscriber->getKey()) || 
+            !hash_equals((string) $request->route('hash'), sha1($subscriber->getEmailForVerification()))
+        ) {
+            return redirect()->route('subscribers.verified')->with('error', __('newsletter.verified_error'));
         }
 
-        if (!hash_equals((string) $request->route('hash'), sha1($subscriber->getEmailForVerification()))) {
-            throw new SubscriberVerificationException;
+        if (!$subscriber->hasVerifiedEmail()) {
+            $subscriber->markEmailAsVerified();
         }
 
-        if ($subscriber->hasVerifiedEmail()) {
-            return $request->wantsJson()
-                ? new Response('', 204)
-                : redirect()->route(config('newsletter.redirect_url'));
-        }
-
-        $subscriber->markEmailAsVerified();
-
-        return $request->wantsJson()
-            ? new Response('', 204)
-            : redirect()->route(config('newsletter.redirect_url'))->with('verified', __('You are successfully subscribed to our list!'));
+        return redirect()->route('subscribers.verified')->with('success', __('newsletter.verified_success'));
     }
 }

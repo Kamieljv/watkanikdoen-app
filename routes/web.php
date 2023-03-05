@@ -72,6 +72,7 @@ Route::get('nieuwsbrief', [SubscriberController::class, 'landing'])->name('subsc
 Route::post('subscriber/create', [SubscriberController::class, 'store'])->name('subscribers.store');
 Route::get('subscriber/delete', [SubscriberController::class, 'delete'])->name('subscribers.delete');
 Route::get('subscriber/verify/{id}/{hash}', [SubscriberController::class, 'verify'])->name('subscribers.verify');
+Route::get('subscriber/verified', [SubscriberController::class, 'verified'])->name('subscribers.verified');
 
 // General page route
 Route::get('{page}', [PageController::class, 'page'])->name('page');
