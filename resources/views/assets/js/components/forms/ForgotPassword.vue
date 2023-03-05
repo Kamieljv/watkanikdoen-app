@@ -88,10 +88,10 @@ export default {
             }).then((response) => {
                 this.responseMessage = response.data.message
                 this.success = true
-                this.isLoading = true
+                this.isLoading = false
             }).catch((err) => {
                 this.success = false
-                this.isLoading = true
+                this.isLoading = false
             })
         }
     }

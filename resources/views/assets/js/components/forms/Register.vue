@@ -175,7 +175,6 @@ export default {
         termsText() {
             return this.__("auth.accept_terms")
                 .replace(':terms', this.routes.terms)
-                .replace(':privacypolicy', this.routes.privacypolicy);
         }
     },
     mounted () {
