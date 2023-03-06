@@ -20,5 +20,6 @@ return [
     'verified_success' => 'Je hebt je aangemeld voor onze nieuwsbrief en je e-mailadres bevestigd. Welkom!',
     'verified_error' => 'Er is iets misgegaan in de aanmelding voor de nieuwsbrief. Probeer het opnieuw of stuur een e-mail naar info@watkanikdoen.nl.',
     'title_unsubscribed' => 'Afmelding nieuwsbrief',
-    'unsubscribed' => 'Je hebt je afgemeld voor de Watkanikdoen.nl-nieuwsbrief.'
+    'unsubscribed' => 'Je hebt je afgemeld voor de Watkanikdoen.nl-nieuwsbrief.',
+    'unsubscribe_error' => 'Er is iets misgegaan met het afmelden van de nieuwsbrief.'
 ];

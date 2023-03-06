@@ -2,18 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Validation\Rule;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Storage;
-use App\Events\SubscriberVerified;
 use App\Models\Subscriber;
 use App\Http\Requests\StoreSubscriberRequest;
-use App\Http\Requests\DeleteSubscriberRequest;
 use App\Http\Requests\VerifySubscriberRequest;
-use App\Exceptions\SubscriberVerificationException;
+use Validator;
 
 class SubscriberController extends Controller
 {
@@ -43,10 +38,24 @@ class SubscriberController extends Controller
         ], 201);
     }
 
-    public function delete(DeleteSubscriberRequest $request)
+    public function delete(Request $request)
     {
-        $request->subscriber()->delete();
-        return view('subscribe.deleted');
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/')->with('error', __("newsletter.unsubscribe_error"));
+        }
+        
+        try {
+            $subscriber = Subscriber::where('email', $request->email)->firstOrFail();
+        } catch (ModelNotFoundException $e) {
+            return redirect('/')->with('error', __("newsletter.unsubscribe_error"));
+        }
+        
+        $subscriber->delete();
+        return view('newsletter.unsubscribed');
     }
 
     public function verify(VerifySubscriberRequest $request)
