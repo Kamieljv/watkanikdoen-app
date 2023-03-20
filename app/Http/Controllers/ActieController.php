@@ -53,7 +53,13 @@ class ActieController extends VoyagerBaseController
             SEOMeta::setKeywords($actie->keywords);
         }
 
-        return view('acties.actie', compact('actie'));
+        // Pass admin attribute
+        $isAdmin = false;
+        if (auth()->user()) {
+            $isAdmin = auth()->user()->hasRole('admin');
+        }
+
+        return view('acties.actie', compact('actie', 'isAdmin'));
     }
 
     public function search(Request $request)

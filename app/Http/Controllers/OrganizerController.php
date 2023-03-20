@@ -79,7 +79,13 @@ class OrganizerController extends Controller
             SEOTools::setDescription(substr(strip_tags($organizer->description), 0, 300));
         }
 
-        return view('organizers.organizer', compact('organizer', 'routes'));
+        // Pass admin attribute
+        $isAdmin = false;
+        if (auth()->user()) {
+            $isAdmin = auth()->user()->hasRole('admin');
+        }
+
+        return view('organizers.organizer', compact('organizer', 'routes', 'isAdmin'));
     }
 
     public function approve($id)

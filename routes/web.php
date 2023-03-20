@@ -25,6 +25,7 @@ use App\Http\Controllers\OrganizerController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\SubscriberController;
 
 // Authentication routes
 Auth::routes();
@@ -69,6 +70,13 @@ Route::get('dashboard/getPublicStats', [DashboardController::class, 'getPublicSt
 Route::get('blog/index', [BlogController::class, 'index'])->name('blog');
 Route::get('blog/{category}', [BlogController::class, 'category'])->name('blog.category');
 Route::get('blog/{category}/{post}', [BlogController::class, 'post'])->name('blog.post');
+
+// Newsletter (subscriber) routes
+Route::get('nieuwsbrief', [SubscriberController::class, 'landing'])->name('subscribers.landing');
+Route::post('subscriber/create', [SubscriberController::class, 'store'])->name('subscribers.store');
+Route::get('subscriber/delete', [SubscriberController::class, 'delete'])->name('subscribers.delete');
+Route::get('subscriber/verify/{id}/{hash}', [SubscriberController::class, 'verify'])->name('subscribers.verify');
+Route::get('subscriber/verified', [SubscriberController::class, 'verified'])->name('subscribers.verified');
 
 // General page route
 Route::get('{page}', [PageController::class, 'page'])->name('page');

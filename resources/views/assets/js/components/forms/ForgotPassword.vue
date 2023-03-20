@@ -37,8 +37,8 @@
                     <div class="mt-6">
                         <span class="block w-full rounded-md shadow-sm">
                             <a @click="submit" class="flex justify-center w-full px-4 py-2 text-sm cursor-pointer font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 active:bg-blue-700">
-                                {{ __("auth.send_reset_link") }}
-                                <div v-if="isLoading" class="custom-loader"></div>
+                                <span v-if="!isLoading">{{ __("auth.send_reset_link") }}</span>
+                                <div v-else class="custom-loader"></div>
                             </a>
                         </span>
                     </div>
@@ -88,10 +88,10 @@ export default {
             }).then((response) => {
                 this.responseMessage = response.data.message
                 this.success = true
-                this.isLoading = true
+                this.isLoading = false
             }).catch((err) => {
                 this.success = false
-                this.isLoading = true
+                this.isLoading = false
             })
         }
     }
@@ -105,6 +105,15 @@ export default {
     .failure {
         color: var(--wkid-message-error-dark);
         background: var(--wkid-message-error-light);
+    }
+
+    div.custom-loader {
+        border: 4px solid white;
+        border-top: 4px solid transparent;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        animation: spin 1s linear infinite;
     }
 </style>
 

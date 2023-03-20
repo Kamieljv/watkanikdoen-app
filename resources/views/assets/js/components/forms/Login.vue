@@ -93,8 +93,8 @@ export default {
             required: true,
         },
         errors: {
-            type: [Array, Object],
-            default: () => []
+            type: Object,
+            default: () => {}
         },
         remember: {
             type: String,
@@ -136,9 +136,7 @@ export default {
         }
     }, 
     mounted() {
-        this.currentErrors = this.errors.map((k, v) => {
-            return v
-        })
+        this.currentErrors = Object.values(this.errors).map((v) => v[0])
     }
 }
 </script>

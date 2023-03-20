@@ -14,7 +14,7 @@
                     <div v-else class="h-[150px] bg-gray-300 text-gray-400 flex items-center justify-center">
                         <svg-vue icon="logo-icon" style="fill: currentColor; height: 80px;"></svg-vue>
                     </div>
-                    <ul v-if="actie.themes.length <= 2" class="themes-container p-2 absolute top-0 w-full">
+                    <ul v-if="actie.themes.length <= 2" class="themes-container flex flex-wrap p-2 absolute top-0 w-full">
                         <li
                             v-for="theme in actie.themes"
                             :key="theme.id"
@@ -26,7 +26,7 @@
                             </span>
                         </li>
                     </ul>
-                    <ul v-else class="themes-container p-2 absolute top-0 w-full">
+                    <ul v-else class="themes-container flex flex-wrap p-2 absolute top-0 w-full">
                         <li
                             class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-white after:uppercase bg-gray-100 rounded"
                             :style="{backgroundColor: actie.themes[0].color}"
@@ -45,14 +45,35 @@
                     </ul>
                     <div class="text-left p-2 absolute bottom-0 w-full">
                         <ul
-                            v-for="category in actie.categories"
-                            :key="category.id"
+                            class="categories-container flex flex-wrap"
+                            v-if="actie.categories.length <= 2"
                         >
                             <li
+                                v-for="category in actie.categories"
+                                :key="category.id"
                                 class="relative self-start inline-block bg-gray-100 px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
                             >
-                                <span class="flex items-center text-gray-800" rel="theme">
+                                <span class="flex items-center text-gray-800" rel="categorie">
                                     {{ category.name }}
+                                </span>
+                            </li>
+                        </ul>
+                        <ul
+                            class="categories-container flex flex-wrap w-full"
+                            v-else
+                        >
+                            <li
+                                class="relative self-start inline-block px-2 py-1 mr-1 mt-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
+                            >
+                                <span class="text-gray-800" rel="categorie">
+                                    {{ actie.categories[0].name }}
+                                </span>
+                            </li>
+                            <li
+                                class="relative self-start inline-block px-2 py-1 mr-1 mt-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
+                            >
+                                <span class="text-gray-800" rel="categorie">
+                                    +{{ actie.categories.length - 1 }} categoriën
                                 </span>
                             </li>
                         </ul>

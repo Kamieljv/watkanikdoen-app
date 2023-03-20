@@ -7,6 +7,14 @@
             {{ __("acties.back_to_acties") }}
         </a>
     </div>
+    @if($isAdmin)
+        <div class="max-w-4xl mx-auto mt-10 px-5 lg:px-0 mt-4">
+            <div class="flex p-3 rounded-md bg-gray-600 text-white justify-between">
+                {{__('general.admin_message')}}
+                <a href="/admin/acties/{{$actie->id}}/edit" class="italic hover:underline">Actie bewerken</a>
+            </div>
+        </div>
+    @endif
     <article id="post-{{ $actie->id }}" class="max-w-4xl px-5 mb-4 mx-auto prose lg:px-0 mt-6">
         <meta property="name" content="{{ $actie->title }}">
         <meta property="author" typeof="Person" content="admin">
@@ -16,36 +24,41 @@
         <div class="grid grid-cols-12 max-w-4xl mx-auto mt-6 gap-5">
             <div id="right-container" class="col-span-12 sm:order-last sm:col-span-4">
                 <div class="content flex flex-col gap-4 h-full">
-                    <!-- Image and tags -->
-                    <div class="flex-shrink-0 not-prose rounded-lg shadow-lg overflow-hidden" style="position:relative;">
-                        @if ($actie->linked_image)
-                            <img class="object-cover w-full h-48" src="{{ $actie->linked_image->url }}" alt="">
-                        @else
-                            <div class="h-[150px] bg-gradient-to-r from-[var(--wkid-pink-light)] to-[var(--wkid-blue-light)] text-white flex items-center justify-center">
-                                @svg('custom-logo-icon', ['style' => 'fill: currentColor; height: 80px;'])
-                            </div>
-                        @endif
-                        <ul class="themes-container p-2 absolute top-0 w-full">
-                            @foreach ($actie->themes as $actieTheme)
-                                <li
-                                    class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
-                                    style="background-color: {{ $actieTheme->color }}"
-                                >
-                                    <span class="text-white">
-                                        {{ $actieTheme->name }}
-                                    </span>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <div class="distance-container text-right p-2 absolute bottom-0 w-full">
-                            {{-- <div
-                                v-if="actie.distance"
-                                class="relative self-start inline-block bg-[color:var(--wkid-yellow-light)] px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
+                    <div class="flex-shrink-0 not-prose relative rounded-lg shadow-lg overflow-hidden">
+                        <!-- Image and tags -->
+                        <div class="relative w-full h-48">
+                            @if ($actie->linked_image)
+                                <img class="object-cover w-full h-full" src="{{ $actie->linked_image->url }}" alt="">
+                            @else
+                                <div class="h-full bg-gradient-to-r from-[var(--wkid-pink-light)] to-[var(--wkid-blue-light)] text-white flex items-center justify-center">
+                                    @svg('custom-logo-icon', ['style' => 'fill: currentColor; height: 80px;'])
+                                </div>
+                            @endif
+                            <ul class="themes-container p-2 absolute top-0 w-full">
+                                @foreach ($actie->themes as $actieTheme)
+                                    <li
+                                        class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
+                                        style="background-color: {{ $actieTheme->color }}"
+                                    >
+                                        <span class="text-white">
+                                            {{ $actieTheme->name }}
+                                        </span>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            <ul
+                                class="categories-container p-2 absolute bottom-0 w-full flex flex-wrap"
                             >
-                                <span class="text-white" rel="theme">
-                                    <i class="fas fa-location-arrow"></i> &nbsp; {{ actie.distance + ' km' }}<br/>
-                                </span>
-                            </div> --}}
+                                @foreach($actie->categories as $actieCategorie)
+                                    <li
+                                        class="relative self-start inline-block bg-gray-100 px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
+                                    >
+                                        <span class="flex items-center text-gray-800" rel="categorie">
+                                            {{ $actieCategorie->name }}
+                                        </span>
+                                    </li>
+                                @endforeach
+                            </ul>
                         </div>
                         {{-- Mobile title & details --}}
                         <div class="flex flex-col gap-3 not-prose p-3 pt-4 bg-white overflow-hidden block sm:hidden">
@@ -86,7 +99,7 @@
                                     </div>
                                 @endif
                             </div>
-                            <a href="{{ $actie->externe_link }}" class="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
+                            <a href="{{ $actie->externe_link }}" target="_blank" class="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
                                 @svg('antdesign-link-o', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ __("acties.to_action_page") }}
                             </a>
                         </div>
@@ -108,7 +121,7 @@
                                 </div>
                             @endif
                         </div>
-                        <a href="{{ $actie->externe_link }}" class="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
+                        <a href="{{ $actie->externe_link }}" target="_blank" class="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
                             @svg('antdesign-link-o', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ __("acties.to_action_page") }}
                         </a>
                     </div>
