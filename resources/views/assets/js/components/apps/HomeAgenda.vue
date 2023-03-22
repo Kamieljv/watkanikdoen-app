@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="row mx-auto max-w-6xl px-3 mb-8" >
+        <div class="row mx-auto max-w-6xl px-3" >
             <div class="col" style="width: 100%">
                 <div class="relative mx-auto w-full">
                     <div class="relative mx-auto max-w-7xl">
@@ -17,7 +17,7 @@
 									<template v-slot:header>
 										<div class="h-6 w-20 inline-block bg-gray-100 rounded"/>
 									</template>
-									<div class="relative h-6 w-full inline-block bg-gray-200 rounded"></div>
+									<div class="relative h-6 w-full mb-3 inline-block bg-gray-200 rounded"></div>
 									<div class="relative h-3 w-full inline-block bg-gray-200 rounded"></div>
 
 									<template v-slot:footer >
@@ -25,18 +25,20 @@
 									</template>
 								</t-card>
 							</div>
-							<div class="grid gap-5 mx-auto mt-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-								<t-card
-									v-for="i in Array(3).keys()"
+							<div class="grid gap-5 mb-12 mx-auto mt-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+								<div
+									v-for="i in Array(6).keys()"
 									:key="i"
-									variant="skeleton"
-									class="rounded-lg shadow-md overflow-hidden"
+									class="rounded-lg shadow-md overflow-hidden animate-pulse grid grid-cols-3"
 								>
-									<div class="relative h-6 w-full inline-block bg-gray-200 rounded"></div>
-									<div class="relative h-3 w-full inline-block bg-gray-200 rounded"></div>
-									<div class="relative h-3 w-full inline-block bg-gray-200 rounded"></div>
-									<div class="relative h-3 w-full inline-block bg-gray-200 rounded"></div>
-								</t-card>
+									<div class="flex-shrink-0 h-full col-span-1 bg-gray-200"></div>
+									<div class="flex flex-col col-span-2 p-3 justify-between flex-1 bg-white">
+										<div class="relative h-6 mb-3 w-full inline-block bg-gray-200 rounded"></div>
+										<div class="relative h-3 mb-1 w-full inline-block bg-gray-200 rounded"></div>
+										<div class="relative h-3 mb-1 w-full inline-block bg-gray-200 rounded"></div>
+										<div class="relative h-6 w-20 inline-block bg-gray-200 rounded mt-3"></div>
+									</div>
+								</div>
 							</div>
 						</div>
                         <div
@@ -51,10 +53,18 @@
 							</div>
 							<div class="grid gap-5 mx-auto mt-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
 								<actie-small
-									v-for="actie in actiesFormatted.slice(2, 5)"
+									v-for="actie in actiesFormatted.slice(2, 8)"
 									:key="actie.id"
 									:actie="actie"
 								/>
+							</div>
+							<div class="flex items-center justify-center my-12">
+								<a href="/acties">
+									<button class="primary flex items-center">
+										<p class="text-lg">Bekijk alle acties</p>
+										<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 ml-1" style="transform: rotate(180deg);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+									</button>
+								</a>
 							</div>
                         </div>
 						<div v-else-if="isGeladen" class="flex justify-center items-center py-8">
@@ -104,13 +114,13 @@ export default {
 		getActies: _.debounce(async function getActies(page = 1) {
 			this.isGeladen = false
 			this.heeftFout = false
-			axios.get(this.routes["acties.search"].uri, {
+			axios.get('http://0.0.0.0:8080/watkanikdoen.nl/acties/search', { //this.routes["acties.search"].uri, {
 				params: {
 					show_past: false,
 					limit: 5
 				}
 			}).then((response) => {
-				this.acties = response.data.acties
+				this.acties = response.data.acties.data
 			}).catch((error) => {
 				this.heeftFout = true
 			}).finally(() => {

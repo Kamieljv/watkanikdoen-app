@@ -93,7 +93,7 @@
                         <h3 class="truncate uppercase text-xl font-semibold leading-7 text-gray-900">
                             {{ actie.title }}
                         </h3>
-                        <span class="text-sm font-bold text-[color:var(--wkid-pink)]">{{actie.location_human.toUpperCase()}} | {{actie.start_end.toUpperCase()}}</span>
+                        <p class="text-sm font-bold text-[color:var(--wkid-pink)]">{{actie.location_human.toUpperCase()}}<br/>{{actie.start_end.toUpperCase()}}</p>
                         <p class="my-2 line-clamp-3 text-sm text-gray-500" v-html="actie.body"></p>
                     </div>
                 </div>

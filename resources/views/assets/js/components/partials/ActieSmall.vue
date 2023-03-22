@@ -8,47 +8,35 @@
             <meta property="author" typeof="Person" content="admin">
             <meta property="dateModified" :content="new Date(actie.updated_at).toISOString()">
             <meta class="uk-margin-remove-adjacent" property="datePublished" :content="new Date(actie.created_at).toISOString()">
-            <div class="content flex flex-row h-full">
-                <div class="flex-shrink-0 relative hidden lg:block">
+            <div class="content h-full grid grid-cols-3">
+                <div class="flex-shrink-0 col-span-1 relative">
                     <img v-if="actie.linked_image" class="object-cover h-full" :src="actie.linked_image.url" alt="">
                     <div v-else class="h-full bg-gray-300 text-gray-400 flex items-center justify-center">
                         <svg-vue icon="logo-icon" style="fill: currentColor; height: 80px;"></svg-vue>
                     </div>
                 </div>
-                <div class="flex flex-col justify-between flex-1 bg-white">
-                    <div class="title-body-container p-3 h-full overflow-hidden relative">
-                        <h3 class="truncate uppercase text-xl font-semibold leading-7 text-gray-900">
-                            {{ actie.title }}
-                        </h3>
-                        <span class="text-sm font-bold text-[color:var(--wkid-pink)]">{{actie.start_end.toUpperCase()}}</span>
-                        <div class="mb-2">
-                            <p class="text-sm leading-5 text-gray-900">
-                                {{ __("acties.by") }}
-                                <a :href="actie.organizers[0].link" class="font-medium hover:underline" style="color: inherit;">
-                                    {{ actie.organizers[0].name }}</a>
-                                <span v-if="actie.organizers.length > 1"> {{__('general.and')}} <span class="font-medium">{{actie.organizers.length - 1}} {{(actie.organizers.length - 1 > 1)? __('general.others') : __('general.other')}}</span></span>
-                            </p>
+                <div class="flex flex-col col-span-2 justify-between flex-1 bg-white">
+                    <div class="title-body-container p-3 h-full overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <h3 class="line-clamp-2 uppercase text-xl font-semibold leading-5 text-gray-900">
+                                {{ actie.title }}
+                            </h3>
+                            <span class="text-sm font-bold text-[color:var(--wkid-pink)]">{{actie.start_end.toUpperCase()}}</span>
+                            <div class="mb-2">
+                                <p class="text-sm leading-5 text-gray-900 line-clamp-2">
+                                    {{ __("acties.by") }}
+                                    <a :href="actie.organizers[0].link" class="font-medium hover:underline" style="color: inherit;">
+                                        {{ actie.organizers[0].name }}</a>
+                                    <span v-if="actie.organizers.length > 1"> {{__('general.and')}} <span class="font-medium">{{actie.organizers.length - 1}} {{(actie.organizers.length - 1 > 1)? __('general.others') : __('general.other')}}</span></span>
+                                </p>
+                            </div>
                         </div>
                         <div>
-                            <ul
-                                v-for="category in actie.categories"
-                                :key="category.id"
-                            >
-                                <li
-                                    class="relative self-start inline-block bg-gray-100 px-2 py-1 mr-1 mb-1 text-xs font-medium text-gray-400 uppercase bg-gray-100 rounded"
-                                >
-                                    <span class="flex items-center text-gray-800" rel="theme">
-                                        {{ category.name }}
-                                    </span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <ul v-if="actie.themes.length <= 2" class="themes-container w-full">
+                            <ul v-if="actie.themes.length < 2" class="themes-container w-full">
                                 <li
                                     v-for="theme in actie.themes"
                                     :key="theme.id"
-                                    class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium uppercase bg-gray-100 rounded"
+                                    class="relative self-start inline-block px-2 py-1 mr-1 text-xs font-medium uppercase bg-gray-100 rounded"
                                     :style="{backgroundColor: theme.color}"
                                 >
                                     <span class="text-white" rel="theme">
@@ -58,7 +46,7 @@
                             </ul>
                             <ul v-else class="themes-container w-full">
                                 <li
-                                    class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium uppercase bg-gray-100 rounded"
+                                    class="relative self-start inline-block px-2 py-1 mr-1 text-xs font-medium uppercase bg-gray-100 rounded"
                                     :style="{backgroundColor: actie.themes[0].color}"
                                 >
                                     <span class="text-white" rel="theme">
@@ -66,10 +54,10 @@
                                     </span>
                                 </li>
                                 <li
-                                    class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium uppercase bg-gray-100 rounded"
+                                    class="relative self-start inline-block px-2 py-1 mr-1 text-xs font-medium uppercase bg-gray-100 rounded"
                                 >
                                     <span class="text-gray-800" rel="theme">
-                                        +{{ actie.themes.length - 1 }} thema's
+                                        +{{ actie.themes.length - 1 }}
                                     </span>
                                 </li>
                             </ul>
