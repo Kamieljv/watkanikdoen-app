@@ -27,8 +27,11 @@
         	</home-agenda>
 		</div>
 		{{-- Who are we? --}}
-		<div id="whoarewe-section" class="row py-20 px-3 text-white">
-			<div class="flex flex-col mx-auto max-w-6xl px-3 items-center">
+		<div id="whoarewe-section" class="row text-white relative overflow-hidden" style="height: 300px">
+			<div class="absolute left-[20%] opacity-20" style="top: -110%">
+				@svg('logo-icon', ['style' => 'width: 800px;fill: #fff'])
+			</div>
+			<div class="absolute w-full top-1/2 -translate-y-2/4 flex flex-col mx-auto  items-center">
 				<h1>Wat is Watkanikdoen.nl?</h1>
 				<p>Test test</p>
 			</div>
