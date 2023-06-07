@@ -15,7 +15,11 @@ class HomeController extends Controller
     {
         // Definieer de routes waarmee de component evenementen kan ophalen
         $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
-            return (strpos($route->uri, 'acties') !== false) && (strpos($route->uri, 'admin') === false);
+            return in_array($route->uri, [
+                'acties/search',
+                'organisatoren/search',
+                'organisator/{organizer}'
+            ]);
         })->map(function ($route) {
             return [
                 'uri' => '/' . $route->uri,
@@ -33,9 +37,13 @@ class HomeController extends Controller
             'themes' => Theme::count()
         ];
 
+        // $organizer = Organizer::all()->map(function ($o) {
+        //     return $o->only(['id', 'name']);
+        // });;
+
         // SEO
         SEOTools::setTitle('Home');
 
-        return view('home', compact('routes', 'themes', 'categories', 'stats'));
+        return view('home', compact('routes', 'stats'));
     }
 }

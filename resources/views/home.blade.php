@@ -21,8 +21,6 @@
 		<div style="min-height:610px">
 			<home-agenda
 				:routes="{{ $routes }}"
-				:themes="{{ $themes }}"
-				:categories="{{ $categories }}"
 			>
         	</home-agenda>
 		</div>
@@ -38,13 +36,15 @@
 		</div>
 		{{-- Organizers --}}
 		<div id="organizers-section" class="row py-20 px-3 text-gray-800">
-			<div class="grid grid-cols-3 mx-auto max-w-6xl px-3 items-center">
-				<div class="col-span-1 text-right">
+			<div class="grid grid-cols-3 mx-auto max-w-6xl px-3 items-center divide-x">
+				<div class="col-span-1 text-right pr-5">
 					<h1>Organisatoren</h1>
 					<p>Zonder organisator geen actie. Alle organisatoren zijn gekoppeld aan een of meerdere thema's.</p>
 				</div>
-				<div class="col-span-2 flex flex-col"> 
-					{{-- Show highlighted organizers here --}}
+				<div class="col-span-2 flex flex-col pl-5"> 
+					<organizers-featured
+						:routes="{{ $routes }}"
+					/>
 				</div>
 			</div>
 		</div>

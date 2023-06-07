@@ -49,6 +49,12 @@ class OrganizerController extends Controller
                 $q->whereIn('theme_id', $requestThemes);
             });
         }
+        if ($request->onlyFeatured) {
+
+            if ($request->onlyFeatured === 'true') {
+                $query->where('featured', 1);
+            }
+        }
         if ($request->limit) {
             $organizers = $query->orderBy('name', 'ASC')->published()->limit($request->limit)->get();
         } else {
