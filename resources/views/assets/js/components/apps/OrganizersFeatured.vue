@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="row mx-auto max-w-6xl mb-8" >
+        <div class="row mx-auto max-w-6xl" >
             <div class="col" style="width: 100%">
                 <div class="relative mx-auto w-full">
                     <div class="relative mx-auto max-w-7xl">
@@ -10,10 +10,10 @@
 								class="animate-pulse flex p-3 justify-between border border-gray-200 mb-1 rounded-lg shadow-md"
 							>
 								<div class="flex space-x-3 w-full justify-start items-center">
-									<div class="w-10 h-10 rounded-full bg-gray-200"></div>
-									<div class="flex flex-col">
-										<div class="relative h-6 w-1/3 inline-block bg-gray-200 rounded"></div>
-										<div class="relative h-6 w-full inline-block bg-gray-200 rounded"></div>
+									<div class="flex w-16 h-16 shrink-0 rounded-full bg-gray-200"></div>
+									<div class="flex flex-col w-full">
+										<div class="relative h-6 w-1/3 mb-1 inline-block bg-gray-200 rounded"></div>
+										<div class="relative h-4 w-full inline-block bg-gray-200 rounded"></div>
 									</div>
 								</div>
 							</div>

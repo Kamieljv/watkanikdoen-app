@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div v-if="showThemes" class="flex justify-end items-center">
-                <ul class="flex p-2 space-x-1">
+                <ul class="hidden sm:flex p-2 space-x-1">
                     <li
                         v-for="theme in organizer.themes"
                         :key="theme.id"

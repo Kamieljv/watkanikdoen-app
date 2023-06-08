@@ -27,7 +27,7 @@
 							</div>
 							<div class="grid gap-5 mb-12 mx-auto mt-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
 								<div
-									v-for="i in Array(6).keys()"
+									v-for="i in Array(3).keys()"
 									:key="i"
 									class="rounded-lg shadow-md overflow-hidden animate-pulse grid grid-cols-3"
 								>
@@ -61,7 +61,7 @@
 							<div class="flex items-center justify-center my-12">
 								<a href="/acties">
 									<button class="primary flex items-center hover:translate-x-[0.250rem]">
-										<p class="text-lg">Bekijk alle acties</p>
+										<p class="text-lg">{{__('acties.view_all_actions')}}</p>
 										<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 ml-1" style="transform: rotate(180deg);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
 									</button>
 								</a>
@@ -114,13 +114,13 @@ export default {
 		getActies: _.debounce(async function getActies(page = 1) {
 			this.isGeladen = false
 			this.heeftFout = false
-			axios.get('http://0.0.0.0:8080/watkanikdoen.nl/acties/search', { //this.routes["acties.search"].uri, {
+			axios.get(this.routes["acties.search"].uri, {
 				params: {
 					show_past: false,
 					limit: 5
 				}
 			}).then((response) => {
-				this.acties = response.data.acties.data
+				this.acties = response.data.acties
 			}).catch((error) => {
 				this.heeftFout = true
 			}).finally(() => {

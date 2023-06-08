@@ -18,4 +18,5 @@ return [
     'website' => 'Website',
     'logo' => 'Logo',
     'none_selected' => 'Geen organisatoren geselecteerd',
+    'view_all_organizers' => 'Bekijk alle organisatoren',
 ];

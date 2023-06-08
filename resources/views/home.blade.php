@@ -25,41 +25,59 @@
         	</home-agenda>
 		</div>
 		{{-- Who are we? --}}
-		<div id="whoarewe-section" class="row text-white relative overflow-hidden" style="height: 300px">
-			<div class="absolute left-[20%] opacity-20" style="top: -110%">
+		<div id="whoarewe-section" class="row h-[370px] md:h-[300px] text-white relative overflow-hidden">
+			<div class="absolute left-[-30%] md:left-[20%] top-[-70%] md:top-[-110%] opacity-20">
 				@svg('logo-icon', ['style' => 'width: 800px;fill: #fff'])
 			</div>
-			<div class="absolute w-full top-1/2 -translate-y-2/4 flex flex-col mx-auto  items-center">
+			<div class="absolute w-full top-1/2 -translate-y-2/4 flex flex-col mx-auto text-center items-center">
 				<h1>Wat is Watkanikdoen.nl?</h1>
-				<p>Test test</p>
+				<div class="w-full px-8 md:w-1/2 text-center font-medium mt-3">
+					<p>
+						Wij geloven dat iedereen wel iets heeft om de straat voor op te gaan. 
+						Of het je nu gaat om de klimaatcrisis, institutioneel racisme of dierenrechten. Daarom ontwikkelen we digitale tools
+						die het makkelijker maken voor jou om je stem te laten horen en jouw plek in een beweging te vinden.
+					</p>
+				</div>
 			</div>
 		</div>
 		{{-- Organizers --}}
 		<div id="organizers-section" class="row py-20 px-3 text-gray-800">
-			<div class="grid grid-cols-3 mx-auto max-w-6xl px-3 items-center divide-x">
-				<div class="col-span-1 text-right pr-5">
+			<div class="grid grid-cols-1 md:grid-cols-3 mx-auto max-w-6xl px-3 items-center md:divide-x">
+				<div class="col-span-1 text-left md:text-right pr-5 mb-8 md:mb-0">
 					<h1>Organisatoren</h1>
 					<p>Zonder organisator geen actie. Alle organisatoren zijn gekoppeld aan een of meerdere thema's.</p>
 				</div>
-				<div class="col-span-2 flex flex-col pl-5"> 
+				<div class="col-span-2 flex flex-col md:pl-5"> 
 					<organizers-featured
 						:routes="{{ $routes }}"
 					/>
 				</div>
 			</div>
+			<div class="flex items-center justify-center mt-12">
+				<a href="/organisatoren/index">
+					<button class="primary flex items-center hover:translate-x-[0.250rem]">
+						<p class="text-lg">{{__('organizers.view_all_organizers')}}</p>
+						<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 ml-1" style="transform: rotate(180deg);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+					</button>
+				</a>
+			</div>
 		</div>
         <!-- Statistics -->
-		<div id="stats-section" class="row relative py-20 px-3 text-white overflow-hidden bg-[color:var(--wkid-blue)]">
-			<div class="flex flex-col mx-auto max-w-6xl px-3 items-center">
-				<h1>Er gebeurt hier al ontzettend veel!</h1>
-				<div class="flex w-full mt-10">
+		<div id="stats-section" class="row relative py-20 md:py-32 px-3 text-white overflow-hidden bg-[color:var(--wkid-blue)]">
+			<div class="flex flex-col mx-auto max-w-6xl px-3 items-center text-center">
+				<h1>Er is genoeg wat jij kan doen!</h1>
+				<div class="flex flex-col md:flex-row w-full space-y-14 md:space-y-0 mt-10 items-center">
 					<div class="flex-col w-1/3 text-center">
-						<span class="stat font-bold scroll-reveal" data-val="{{$stats["acties"]}}">0</span>
-						<p class="font-bold text-2xl">acties</p>
+						<a href="/acties">
+							<span class="stat font-bold scroll-reveal" data-val="{{$stats["acties"]}}">0</span>
+							<p class="font-bold text-2xl">acties</p>
+						</a>
 					</div>
 					<div class="flex-col w-1/3 text-center">
-						<span class="stat font-bold scroll-reveal" data-val="{{$stats["organizers"]}}">0</span>
-						<p class="font-bold text-2xl">organisatoren</p>
+						<a href="/organisatoren/index">
+							<span class="stat font-bold scroll-reveal" data-val="{{$stats["organizers"]}}">0</span>
+							<p class="font-bold text-2xl">organisatoren</p>
+						</a>
 					</div>
 					<div class="flex-col w-1/3 text-center">
 						<span class="stat font-bold scroll-reveal" data-val="{{$stats["themes"]}}">0</span>
