@@ -9,7 +9,7 @@
         </a>
     </div>
 
-    <div class="max-w-6xl mx-auto mt-6 px-5 lg:px-0">
+    <div class="max-w-6xl mx-auto mt-6 mb-40 px-5 lg:px-0">
         <article id="page-{{ $page->id }}" class="max-w-6xl mx-auto prose prose-xl lg:px-0">
 
             <meta property="name" content="{{ $page->title }}">
