@@ -20,7 +20,7 @@ class DashboardController extends Controller
     }
 
     /**
-     * Gets some statistics
+     * Gets statistics
      */
     public function getStats()
     {
