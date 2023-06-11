@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import Pagination from "./Pagination.vue"
+import Pagination from "../partials/Pagination.vue"
 export default {
 	name: "Organizers",
 	components: {Pagination},

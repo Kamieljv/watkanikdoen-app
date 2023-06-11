@@ -12,12 +12,13 @@
 
 return [
     'title' => 'Acties',
-    'subtitle' => 'Bekijk hieronder waarvoor jij je wil inzetten!',
+    'sub_title' => 'Bekijk hieronder waarvoor jij je wil inzetten!',
     'category' => 'Categorie',
     'categories' => 'Categoriën',
+    'by' => 'Door',
     'written_by' => 'Geschreven door ',
     'organized_by' => 'Georganiseerd door ',
-    'back_to_acties' => 'Terug naar Acties',
+    'back_to_home' => 'Terug naar Home',
     'about_organizer' => 'Over de organisator',
     'about_organizers' => 'Over de organisatoren',
     'details' => 'Details',
@@ -26,4 +27,5 @@ return [
     'last_edit' => 'Laatst bijgewerkt',
     'created_at' => 'Geplaatst op',
     'passed' => 'Let op: Deze actie heeft al plaatsgevonden.',
+    'view_all_actions' => 'Bekijk alle acties',
 ];

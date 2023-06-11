@@ -18,7 +18,7 @@
                         <li
                             v-for="theme in actie.themes"
                             :key="theme.id"
-                            class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
+                            class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-white uppercase bg-gray-100 rounded"
                             :style="{backgroundColor: theme.color}"
                         >
                             <span class="text-white" rel="theme">
@@ -28,7 +28,7 @@
                     </ul>
                     <ul v-else class="themes-container flex flex-wrap p-2 absolute top-0 w-full">
                         <li
-                            class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
+                            class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-white after:uppercase bg-gray-100 rounded"
                             :style="{backgroundColor: actie.themes[0].color}"
                         >
                             <span class="text-white" rel="theme">
@@ -36,7 +36,7 @@
                             </span>
                         </li>
                         <li
-                            class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
+                            class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-white uppercase bg-gray-100 rounded"
                         >
                             <span class="text-gray-800" rel="theme">
                                 +{{ actie.themes.length - 1 }} thema's
@@ -89,23 +89,12 @@
                     </div>
                 </div>
                 <div class="flex flex-col justify-between flex-1 bg-white">
-                    <div class="title-body-container p-3 h-[110px] overflow-hidden relative">
+                    <div class="title-body-container p-3 overflow-hidden relative">
                         <h3 class="truncate uppercase text-xl font-semibold leading-7 text-gray-900">
                             {{ actie.title }}
                         </h3>
-                        <p class="mt-1 line-clamp-3 text-sm text-gray-500" v-html="actie.body"></p>
-                    </div>
-                </div>
-                <div class="flex flex-col grow justify-between flex-1 bg-white">
-                    <div class="details-container text-sm text-gray-500 p-3">
-                        <div v-if="actie.start_end" class="flex items-center mb-1 text-sm leading-5 text-gray-700">
-                            <svg-vue icon="antdesign-clock-circle-o" class="shrink-0" style="stroke: currentColor; height: 20px;"></svg-vue>
-                            &nbsp; <span class="font-medium">{{ actie.start_end }}</span><br/>
-                        </div>
-                        <div v-if="actie.location_human" class="flex items-center text-sm leading-5 text-gray-700">
-                            <svg-vue icon="antdesign-environment-o" class="shrink-0" style="stroke: currentColor; height: 20px;"></svg-vue>
-                            &nbsp; <span class="font-medium truncate">{{ actie.location_human }}</span>
-                        </div>
+                        <p class="text-sm font-bold text-[color:var(--wkid-pink)]">{{actie.location_human.toUpperCase()}}<br/>{{actie.start_end.toUpperCase()}}</p>
+                        <p class="my-2 line-clamp-3 text-sm text-gray-500" v-html="actie.body"></p>
                     </div>
                 </div>
                 <div class="flex items-center p-3 bg-gray-200">

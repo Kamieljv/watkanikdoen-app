@@ -3,14 +3,38 @@
 namespace App\Http\Controllers;
 
 use App\Models\Actie;
+use App\Models\Category;
+use App\Models\Theme;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use TCG\Voyager\Http\Controllers\VoyagerBaseController;
 use Voyager;
 
 class ActieController extends VoyagerBaseController
 {
+    public function agenda()
+    {
+        // Definieer de routes waarmee de component evenementen kan ophalen
+        $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
+            return (strpos($route->uri, 'acties') !== false) && (strpos($route->uri, 'admin') === false);
+        })->map(function ($route) {
+            return [
+                'uri' => '/' . $route->uri,
+                'methods' => $route->methods,
+            ];
+        });
+
+        $themes = Theme::orderBy('name', 'ASC')->get();
+        $categories = Category::orderBy('name', 'ASC')->get();
+
+        // SEO
+        SEOTools::setTitle('Acties');
+
+        return view('acties.agenda', compact('routes', 'themes', 'categories'));
+    }
+
     public function actie($slug)
     {
 
@@ -70,12 +94,18 @@ class ActieController extends VoyagerBaseController
             $radius = ($request->distance ?? 9999) * 1000;
             $query->whereRaw("ST_Distance_Sphere(location, ST_GeomFromText('POINT({$coordinates[1]} {$coordinates[0]})')) <= {$radius}");
         }
+
+        $query->published()->orderBy('time_start');
+
         if ($request->show_past === 'false') {
-            $acties = $query->published()->orderBy('time_start')->toekomstig()->paginate(12);
-        } else {
-            $acties = $query->published()->orderBy('time_start')->paginate(12);
+            $query->toekomstig();
         }
-        
+
+        if ($request->limit) {
+            $acties = $query->limit($request->limit)->get();
+        } else {
+            $acties = $query->paginate(12);
+        }
         
         return response()->json(['acties' => $acties]);
     }

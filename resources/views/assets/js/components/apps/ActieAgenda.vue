@@ -93,9 +93,8 @@
                                 <template v-slot:header>
                                     <div class="h-6 w-20 inline-block bg-gray-100 rounded"/>
                                 </template>
-                                <div class="relative h-6 w-full inline-block bg-gray-200 rounded"></div>
-                                <div class="relative h-3 w-full inline-block bg-gray-200 rounded"></div>
-
+								<div class="relative h-6 w-full inline-block bg-gray-200 rounded"></div>
+								<div class="relative h-3 w-full inline-block bg-gray-200 rounded"></div>
                                 <template v-slot:footer >
                                     <div class="rounded-full bg-gray-200 h-10 w-10"></div>
                                 </template>
@@ -133,8 +132,8 @@
 </template>
 
 <script>
-import { geoHelper } from "../mixins/geoHelper"
-import Pagination from "./Pagination.vue"
+import { geoHelper } from "../../mixins/geoHelper"
+import Pagination from "../partials/Pagination.vue"
 export default {
 	name: "ActieAgenda",
 	components: {Pagination},
