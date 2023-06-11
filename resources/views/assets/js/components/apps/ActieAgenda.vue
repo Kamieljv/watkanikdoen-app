@@ -244,7 +244,7 @@ export default {
 		getActies: _.debounce(async function getActies(page = 1) {
 			this.isGeladen = false
 			this.heeftFout = false
-			axios.get('http://0.0.0.0:8080/watkanikdoen.nl/acties/search', {//this.routes["acties.search"].uri, {
+			axios.get(this.routes["acties.search"].uri, {
 				params: {
 					q: this.query,
 					themes: this.themesSelected,
