@@ -25,7 +25,7 @@
         	</home-agenda>
 		</div>
 		{{-- Who are we? --}}
-		<div id="whoarewe-section" class="row h-[370px] md:h-[300px] text-white relative overflow-hidden">
+		<div id="whoarewe-section" class="row h-[450px] md:h-[370px] text-white relative overflow-hidden">
 			<div class="absolute left-[-30%] md:left-[20%] top-[-70%] md:top-[-110%] opacity-20">
 				@svg('logo-icon', ['style' => 'width: 800px;fill: #fff'])
 			</div>
@@ -65,7 +65,7 @@
         <!-- Statistics -->
 		<div id="stats-section" class="row relative py-20 md:py-32 px-3 text-white overflow-hidden bg-[color:var(--wkid-blue)]">
 			<div class="flex flex-col mx-auto max-w-6xl px-3 items-center text-center">
-				<h1>Er is genoeg wat jij kan doen!</h1>
+				<h1>Er is genoeg wat jíj kan doen!</h1>
 				<div class="flex flex-col md:flex-row w-full space-y-14 md:space-y-0 mt-10 items-center">
 					<div class="flex-col w-1/3 text-center">
 						<a href="/acties">
@@ -84,6 +84,27 @@
 						<p class="font-bold text-2xl">thema's</p>
 					</div>
 				</div>
+			</div>
+		</div>
+		{{-- Newsletter --}}
+		<div id="newsletter-section" class="row py-20 px-3 text-gray-800">
+			<div class="w-full flex flex-col mx-auto text-center items-center">
+				<h1>Op de hoogte blijven van onze ontwikkelingen?</h1>
+				<div class="w-full px-8 md:w-1/2 text-center font-medium mt-3">
+					<p>
+						Nieuwe features? Samenwerkingen? Een recap van de gaafste acties van de afgelopen periode?
+						We zijn begonnen met een nieuwsbrief, waarmee we abonnees op de hoogte houden van nieuwe ontwikkelingen
+						op dit platform. Meld je aan!
+					</p>
+				</div>
+			</div>
+			<div class="flex items-center justify-center mt-12">
+				<a href="/nieuwsbrief">
+					<button class="primary flex items-center hover:translate-x-[0.250rem]">
+						<p class="text-lg">{{__('newsletter.subscribe_call_to_action')}}</p>
+						<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 ml-1" style="transform: rotate(180deg);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+					</button>
+				</a>
 			</div>
 		</div>
     </div>
