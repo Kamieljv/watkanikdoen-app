@@ -16,7 +16,7 @@
             </p>
         </div>
     </div>
-    <div id="app" class="px-3 xl:px-5">
+    <div id="app" class="px-3 xl:px-5 mb-40">
         <actie-agenda
             :routes="{{ $routes }}"
             :themes="{{ $themes }}"
