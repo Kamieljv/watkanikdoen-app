@@ -38,6 +38,14 @@
 						die het makkelijker maken voor jou om je stem te laten horen en jouw plek in een beweging te vinden.
 					</p>
 				</div>
+				<div class="flex items-center justify-center mt-12">
+					<a href="/over-ons">
+						<button class="secondary-white flex items-center hover:translate-x-[0.250rem]">
+							<p class="text-lg">{{__('general.about_us')}}</p>
+							<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 ml-1" style="transform: rotate(180deg);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+						</button>
+					</a>
+				</div>
 			</div>
 		</div>
 		{{-- Organizers --}}
@@ -67,19 +75,19 @@
 			<div class="flex flex-col mx-auto max-w-6xl px-3 items-center text-center">
 				<h1>Er is genoeg wat jíj kan doen!</h1>
 				<div class="flex flex-col md:flex-row w-full space-y-14 md:space-y-0 mt-10 items-center">
-					<div class="flex-col w-1/3 text-center">
+					<div class="flex-col w-full md:w-1/3 text-center">
 						<a href="/acties">
 							<span class="stat font-bold scroll-reveal" data-val="{{$stats["acties"]}}">0</span>
 							<p class="font-bold text-2xl">acties</p>
 						</a>
 					</div>
-					<div class="flex-col w-1/3 text-center">
+					<div class="flex-col w-full md:w-1/3 text-center">
 						<a href="/organisatoren/index">
 							<span class="stat font-bold scroll-reveal" data-val="{{$stats["organizers"]}}">0</span>
 							<p class="font-bold text-2xl">organisatoren</p>
 						</a>
 					</div>
-					<div class="flex-col w-1/3 text-center">
+					<div class="flex-col w-full md:w-1/3 text-center">
 						<span class="stat font-bold scroll-reveal" data-val="{{$stats["themes"]}}">0</span>
 						<p class="font-bold text-2xl">thema's</p>
 					</div>
