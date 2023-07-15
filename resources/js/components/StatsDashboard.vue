@@ -121,7 +121,7 @@ export default {
 				"username": this.umamiUsername,
 				"password": this.umamiPassword,
 			}).then((response) => {
-				this.$http.get(`https://analytics.watkanikdoen.nl/api/website/1/stats`, {
+				this.$http.get(`https://analytics.watkanikdoen.nl/api/websites/1/stats`, {
 					headers: {
 						"Authorization": `Bearer ${response.data.token}`
 					},
