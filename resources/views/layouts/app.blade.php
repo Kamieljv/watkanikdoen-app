@@ -27,7 +27,7 @@
     <script src="/lang-{{ app()->getLocale() }}.js"></script>
     <!-- Umami Web Stats -->
     @if(config('umami.key'))
-        <script async defer data-website-id="{{ config('umami.key') }}" src="{{ config('umami.url') }}/umami.js"></script>
+        <script async defer data-website-id="{{ config('umami.key') }}" src="{{ config('umami.url') }}/script.js"></script>
     @endif
     {{-- hCaptcha --}}
     <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
