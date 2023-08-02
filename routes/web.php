@@ -78,6 +78,9 @@ Route::get('subscriber/delete', [SubscriberController::class, 'delete'])->name('
 Route::get('subscriber/verify/{id}/{hash}', [SubscriberController::class, 'verify'])->name('subscribers.verify');
 Route::get('subscriber/verified', [SubscriberController::class, 'verified'])->name('subscribers.verified');
 
+// Widget route
+Route::get('widget', [HomeController::class, 'index'])->name('widget');
+
 // General page route
 Route::get('{page}', [PageController::class, 'page'])->name('page');
 
