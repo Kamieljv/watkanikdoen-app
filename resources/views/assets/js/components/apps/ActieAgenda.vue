@@ -271,7 +271,7 @@ export default {
 			this.query = input
 		}, 500),
 		async getGeoSuggestions(geoQuery) {
-			axios.get("https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest", {
+			axios.get("https://api.pdok.nl/bzk/locatieserver/search/v3_1/suggest", {
 				params: {
 					q: geoQuery,
 					rows: 5,
@@ -290,10 +290,10 @@ export default {
 		async getCoordinates(obj) {
 			this.isGeladen = false
 			if (obj !== "") {
-				axios.get("https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup", {
+				axios.get("https://api.pdok.nl/bzk/locatieserver/search/v3_1/lookup", {
 					params: {
 						id: obj.id,
-						rows: 1,
+						fl: 'centroide_ll',
 					}
 				}).then((data) => {
 					let pointString = data.data.response.docs[0].centroide_ll
