@@ -1,6 +1,6 @@
 <nav class="flex items-center justify-end hidden w-full h-full space-x-10 lg:flex">
-    <a href="/hoe-werkt-het" class="text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600">
-        {{ __("menus.hoe_werkt_het") }}
+    <a href="/acties" class="text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600">
+        {{ __("menus.acties") }}
     </a>
     <a href="/word-vrijwilliger" class="text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600">
         {{ __("menus.word_vrijwilliger") }}

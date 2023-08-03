@@ -16,6 +16,7 @@ return [
     'account' => 'Mijn account',
     'report_action' => 'Actie toevoegen',
     'blog' => 'Blog',
+    'acties' => 'Acties',
     'about_us' => 'Over ons',
     'organizers' => 'Organisatoren',
     'hoe_werkt_het' => 'Hoe werkt het?',
