@@ -24,16 +24,12 @@
 
     <!-- Get Language file for Vue -->
     <script src="/lang-{{ app()->getLocale() }}.js"></script>
-    <!-- Umami Web Stats -->
-    @if(config('umami.key'))
-        <script async defer data-website-id="{{ config('umami.key') }}" src="{{ config('umami.url') }}/script.js"></script>
-    @endif
 </head>
 <body class="flex flex-col min-h-screen @if(Request::is('/')){{ 'bg-white' }}@else{{ 'bg-gray-50' }}@endif">
 
     @include('partials.widget-header')
 
-    <main class="flex-grow overflow-x-hidden min-h-[500px]">
+    <main class="flex-grow overflow-x-hidden min-h-[500px] mt-10">
         @yield('content')
     </main>
 
@@ -53,14 +49,5 @@
     <script src="{{ asset('frontend/js/app.js') }}"></script>
     @stack('scripts')
 
-    <!-- Cookie notice -->
-    <div id="cookie-container" class="">
-        @include('partials.cookies')
-    </div>
-{{-- 
-    <!-- Toast messages -->
-    <div id="toast-container">
-        @include('partials.toast')
-    </div> --}}
 </body>
 </html>

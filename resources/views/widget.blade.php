@@ -3,7 +3,7 @@
 @section('content')
 
     <div id="app">
-		<div style="min-height:610px">
+		<div>
 			<widget-agenda
 				:routes="{{ $routes }}"
 			>
