@@ -70,6 +70,25 @@ Cookie notice is created with [this package](https://github.com/manucaralmo/Glow
 - For Search: [Algolia](https://algolia.com) (Potential free credits for NGOs via [this form](https://www.algolia.com/for-open-source/)).
 - For Dutch Cities: [PDOK API](https://api.pdok.nl/bzk/locatieserver/search/v3_1/ui/)
 
-## To Do
-- [ ] Strengere wachtwoordeisen
-- [ ] In actie formulier: bent u organisator? en bericht aan ons
+## Embedding
+You can embed a part of the Watkanikdoen.nl website into your own webpage, using our 'widget'.
+The following exaxmple shows an example of an embedding.
+
+```html
+<html>
+    <iframe width="100%" height="500" src="https://watkanikdoen.nl/widget?limit=100&show_past=false" style="border: none" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen >
+    </iframe>
+</html>
+```
+
+You can use the following parameters (all optional) to filter the results of the acties api:
+
+- **q**: The query string to search in title and description
+- **keywords**: A comma-separated list of keywords to filter
+- **themes**: an array of themes to filter by, e.g. `...&themes[]=16&themes[]=28&...`
+- **categories**: an array of categories to filter by, same syntax as **themes**
+- **organizer**: the organizer id
+- **coordinates**: comma-separated latitude and longitude required for distance filter, e.g. `...&coordinates=52.04603756,5.68489658&...`
+- **distance**: the maximum distance (in km) from **coordinates** an action have
+- **show_past**: boolean, whether to show past actions
+- **limit**: maximum number of actions to return

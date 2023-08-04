@@ -24,6 +24,7 @@ module.exports = {
 		"animate-pulse",
 		"animate-spin",
 		"bg-[color:var(--wkid-blue)]",
+		"bg-[color:var(--wkid-pink)]",
 		"hover:bg-[color:var(--wkid-blue-dark)]",
 		"bg-[color:var(--wkid-blue-dark)]",
 		"bg-[color:var(--wkid-yellow)]",

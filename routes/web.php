@@ -26,6 +26,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SubscriberController;
+use App\Http\Controllers\WidgetController;
 
 // Authentication routes
 Auth::routes();
@@ -77,6 +78,9 @@ Route::post('subscriber/create', [SubscriberController::class, 'store'])->name('
 Route::get('subscriber/delete', [SubscriberController::class, 'delete'])->name('subscribers.delete');
 Route::get('subscriber/verify/{id}/{hash}', [SubscriberController::class, 'verify'])->name('subscribers.verify');
 Route::get('subscriber/verified', [SubscriberController::class, 'verified'])->name('subscribers.verified');
+
+// Widget route
+Route::get('widget', [WidgetController::class, 'index'])->name('widget');
 
 // General page route
 Route::get('{page}', [PageController::class, 'page'])->name('page');
