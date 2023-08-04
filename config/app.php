@@ -263,4 +263,16 @@ return [
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | X-Frame-Options route whitelist
+    |--------------------------------------------------------------------------
+    |
+    | This array of uri's will be whitelisted in the X-Frame-Options (allowed 
+    | in iframes).
+    |
+    */
+    'xframe_whitelist' => [
+        'widget'
+    ],
 ];
