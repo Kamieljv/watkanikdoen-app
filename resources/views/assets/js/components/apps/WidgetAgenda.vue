@@ -29,6 +29,7 @@
 									v-for="actie in actiesFormatted"
 									:key="actie.id"
 									:actie="actie"
+									:targetBlank="true"
 								/>
 							</div>
 							<div class="flex items-center justify-center my-12">
