@@ -58,8 +58,6 @@ class WidgetController extends Controller
         } else {
             $acties = $query->paginate(12);
         }
-
-        Log::debug($acties);
         
         return view('widget', compact('acties'));
     }
