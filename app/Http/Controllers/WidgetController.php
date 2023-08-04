@@ -3,43 +3,64 @@
 namespace App\Http\Controllers;
 
 use App\Models\Actie;
-use App\Models\Category;
-use App\Models\Organizer;
-use App\Models\Theme;
-use Artesaos\SEOTools\Facades\SEOTools;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 class WidgetController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Definieer de routes waarmee de component evenementen kan ophalen
-        $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
-            return in_array($route->uri, [
-                'acties/search',
-                'organisatoren/search',
-                'organisator/{organizer}'
-            ]);
-        })->map(function ($route) {
-            return [
-                'uri' => '/' . $route->uri,
-                'methods' => $route->methods,
-            ];
-        });
+        $query = Actie::query();
+        if ($request->q) {
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'LIKE', '%' . $request->q . '%')
+                    ->orWhere('body', 'LIKE', '%' . $request->q . '%');
+            });
+        }
+        if ($request->keywords) {
+            foreach (explode(',', $request->keywords) as $kw) {
+                $query->where(function ($q) use ($kw) {
+                    $q->where('keywords', 'LIKE', '%' . $kw . '%');
+                });
+            }
+        }
+        if ($request->themes) {
+            $requestThemes = is_array($request->themes) ? $request->themes : array($request->themes);
+            $query->whereHas('themes', function ($q) use ($requestThemes) {
+                $q->whereIn('theme_id', $requestThemes);
+            });
+        }
+        if ($request->categories) {
+            $requestCategories = is_array($request->categories) ? $request->categories : array($request->categories);
+            $query->whereHas('categories', function ($q) use ($requestCategories) {
+                $q->whereIn('category_id', $requestCategories);
+            });
+        }
+        if ($request->organizer) {
+            $requestOrganizer = is_array($request->organizer) ? $request->organizer : array($request->organizer);
+            $query->whereHas('organizers', function ($q) use ($requestOrganizer) {
+                $q->whereIn('organizer_id', $requestOrganizer);
+            });
+        }
+        if ($request->coordinates) {
+            $coordinates = explode(',', $request->coordinates);
+            $radius = ($request->distance ?? 9999) * 1000;
+            $query->whereRaw("ST_Distance_Sphere(location, ST_GeomFromText('POINT({$coordinates[1]} {$coordinates[0]})')) <= {$radius}");
+        }
 
-        $themes = Theme::orderBy('name', 'ASC')->get();
-        $categories = Category::orderBy('name', 'ASC')->get();
+        $query->published()->orderBy('time_start');
 
-        // Platform Statistics
-        $stats = [
-            'acties' => Actie::published()->count(),
-            'organizers' => Organizer::published()->count(),
-            'themes' => Theme::count()
-        ];
+        if ($request->show_past === 'false') {
+            $query->toekomstig();
+        }
 
-        // SEO
-        SEOTools::setTitle('Widget');
+        if ($request->limit) {
+            $acties = $query->limit($request->limit)->get();
+        } else {
+            $acties = $query->paginate(12);
+        }
 
-        return view('widget', compact('routes', 'stats'));
+        Log::debug($acties);
+        
+        return view('widget', compact('acties'));
     }
 }

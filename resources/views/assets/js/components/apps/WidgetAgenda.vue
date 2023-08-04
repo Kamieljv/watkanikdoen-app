@@ -4,27 +4,10 @@
             <div class="col" style="width: 100%">
                 <div class="relative mx-auto w-full">
                     <div class="relative mx-auto max-w-7xl">
-						<div v-if="!isGeladen">
-							<div class="grid gap-5 mb-12 mx-auto mt-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-								<div
-									v-for="i in Array(3).keys()"
-									:key="i"
-									class="rounded-lg shadow-md overflow-hidden animate-pulse grid grid-cols-3"
-								>
-									<div class="flex-shrink-0 h-full col-span-1 bg-gray-200"></div>
-									<div class="flex flex-col col-span-2 p-3 justify-between flex-1 bg-white">
-										<div class="relative h-6 mb-3 w-full inline-block bg-gray-200 rounded"></div>
-										<div class="relative h-3 mb-1 w-full inline-block bg-gray-200 rounded"></div>
-										<div class="relative h-3 mb-1 w-full inline-block bg-gray-200 rounded"></div>
-										<div class="relative h-6 w-20 inline-block bg-gray-200 rounded mt-3"></div>
-									</div>
-								</div>
-							</div>
-						</div>
                         <div
-                            v-else-if="heeftActies"
+                            v-if="heeftActies"
 						>
-							<div class="grid gap-5 mx-auto mt-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+							<div class="grid gap-5 mx-auto mt-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
 								<actie-small
 									v-for="actie in actiesFormatted"
 									:key="actie.id"
@@ -55,16 +38,15 @@
 
 <script>
 export default {
-	name: "HomeAgenda",
+	name: "WidgetAgenda",
 	props: {
-		routes: {
-			type: Object,
+		acties: {
+			type: Array,
 			required: true,
 		},
 	},
 	data() {
 		return {
-			acties: [],
 			isGeladen: false,
 			heeftFout: false,
 		}
@@ -80,27 +62,6 @@ export default {
 			})
 			return this.acties
 		}
-	},
-	mounted() {
-		this.getActies()
-	},
-	methods: {
-		getActies: _.debounce(async function getActies(page = 1) {
-			this.isGeladen = false
-			this.heeftFout = false
-			axios.get(this.routes["acties.search"].uri, {
-				params: {
-					show_past: false,
-					limit: 5
-				}
-			}).then((response) => {
-				this.acties = response.data.acties
-			}).catch((error) => {
-				this.heeftFout = true
-			}).finally(() => {
-				this.isGeladen = true
-			})
-		}, 500)
 	}
 }
 </script>

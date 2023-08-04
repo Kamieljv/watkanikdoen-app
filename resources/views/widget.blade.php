@@ -5,7 +5,7 @@
     <div id="app">
 		<div>
 			<widget-agenda
-				:routes="{{ $routes }}"
+				:acties="{{ $acties }}"
 			>
         	</widget-agenda>
 		</div>

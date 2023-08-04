@@ -29,7 +29,7 @@
 
     @include('partials.widget-header')
 
-    <main class="flex-grow overflow-x-hidden min-h-[500px] mt-10">
+    <main class="flex-grow overflow-x-hidden mt-24">
         @yield('content')
     </main>
 
