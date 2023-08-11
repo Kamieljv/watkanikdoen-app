@@ -16,7 +16,8 @@
             <stats-dashboard
                 umami-username="{{config('umami.username')}}"
                 umami-password="{{config('umami.password')}}"
-                stats-url="{{config('umami.url')}}"
+                umami-url="{{config('umami.url')}}"
+                umami-website-id="{{config('umami.websiteId')}}"
                 platform-stats-route="{{route('dashboard.stats')}}"
             />
         </div>

@@ -6,7 +6,7 @@
                     <div class="panel-body">
 						<div class="flex border-0" style="justify-content: space-between;">
 							<h2>Bezoekersstatistieken</h2>
-							<a :href="statsUrl" class="btn btn-info">Meer statistieken</a>
+							<a :href="umamiUrl" class="btn btn-info">Meer statistieken</a>
 						</div>
 						<p>Laatste {{days}} dagen vergeleken met de {{days}} dagen daarvoor</p>
 						<div v-if="isError.visit" class="error-message">
@@ -66,10 +66,6 @@ import moment from "moment"
 export default {
 	name: "StatsDashboard",
 	props: {
-		statsUrl: {
-			type: String,
-			required: true,
-		},
 		platformStatsRoute: {
 			type: String,
 			required: true,
@@ -83,6 +79,14 @@ export default {
 			required: true,
 		},
 		umamiPassword: {
+			type: String,
+			required: true,
+		},
+		umamiUrl: {
+			type: String,
+			required: true,
+		},
+		umamiWebsiteId: {
 			type: String,
 			required: true,
 		},
@@ -117,11 +121,11 @@ export default {
 	},
 	methods: {
 		getVisitStats(startDaysAgo, endDaysAgo) {
-			this.$http.post(`https://analytics.watkanikdoen.nl/api/auth/login`, {
+			this.$http.post(`${this.umamiUrl}/api/auth/login`, {
 				"username": this.umamiUsername,
 				"password": this.umamiPassword,
 			}).then((response) => {
-				this.$http.get(`https://analytics.watkanikdoen.nl/api/websites/1/stats`, {
+				this.$http.get(`${this.umamiUrl}/api/websites/${this.umamiWebsiteId}/stats`, {
 					headers: {
 						"Authorization": `Bearer ${response.data.token}`
 					},
