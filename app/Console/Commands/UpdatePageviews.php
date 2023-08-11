@@ -50,7 +50,7 @@ class UpdatePageviews extends Command
         // save token
         $token = json_decode($response->body())->token;
         // make metrics request
-        $response = Http::withToken($token)->get(config('umami.url') . '/api/websites/1/metrics', [
+        $response = Http::withToken($token)->get(config('umami.url') . '/api/websites/' . config('umami.websiteId') . '/metrics', [
             'start_at' => Date::createFromDate(2000, 01, 01)->timestamp * 1000,
             'end_at' => Date::now()->timestamp * 1000,
             'type' => 'url'
