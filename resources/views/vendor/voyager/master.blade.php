@@ -17,11 +17,6 @@
         <link rel="shortcut icon" href="{{ asset($admin_favicon) }}" type="image/png">
     @endif
 
-    <script src="http://localhost:8098"></script>
-
-    
-
-
 
     <!-- App CSS -->
     <link rel="stylesheet" href="{{ voyager_asset('css/app.css') }}">
