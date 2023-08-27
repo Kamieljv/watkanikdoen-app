@@ -31,6 +31,13 @@
                             {{__('menus.about_us')}}
                         </div>
                     </a>
+                    <div class="px-8 pt-6">
+                        <span class="flex w-full rounded-md shadow-sm">
+                            <a href="{{ route('report.landing') }}" class="flex items-center justify-center w-full px-4 py-3 text-base font-medium leading-6 text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500">
+                                {{__("menus.report_action")}}
+                            </a>
+                        </span>
+                    </div>
                 </nav>
             </div>
         </div>
