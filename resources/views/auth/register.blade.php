@@ -5,7 +5,7 @@
         'login' => route('login'),
         'forgot_password' => route('password.request'),
         'register' => route('register'),
-        'terms' => '/voorwaarden',
+        'terms' => '/voorwaarden-en-privacyverklaring',
         'privacypolicy' => '/privacybeleid',
     ];
 @endphp
