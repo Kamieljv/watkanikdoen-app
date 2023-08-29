@@ -2,8 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Support\Facades\Log;
-
 use Closure;
 
 class XFrameOptions
@@ -19,10 +17,11 @@ class XFrameOptions
     {
         $response = $next($request);
 
-
-        // Remove X-Frame-Options for all route whitelisted in config
-        if (in_array($request->route()->uri(), config('app.xframe_whitelist'))) {
-            $response->headers->set('X-Frame-Options', '', true);
+        // Remove X-Frame-Options for all routes whitelisted in config
+        if ($request->route() !== null) {
+            if (in_array($request->route()->uri(), config('app.xframe_whitelist'))) {
+                $response->headers->set('X-Frame-Options', '', true);
+            }
         } else {
             // set SAMEORIGIN for all other routes
             $response->headers->set('X-Frame-Options', 'SAMEORIGIN', false);
