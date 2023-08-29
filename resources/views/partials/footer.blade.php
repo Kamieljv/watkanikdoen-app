@@ -50,6 +50,14 @@
                 </li>
             </ul>
         </div>
+        <div class="flex flex-col items-center justify-center pb-10 sm:flex-row">
+            <div>
+                <p class="text-xs pb-4">Dit initiatief wordt gesteund door: </p>
+                <a id="footer-fnv" href="https://youngandunited.nl">
+                    @svg('custom-fnv-yu', ['style' => 'fill: currentColor; height: 50px;'])
+                </a>
+            </div>
+        </div>
     </div>
 </footer>
 
