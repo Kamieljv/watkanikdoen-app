@@ -107,7 +107,6 @@
     &.gray {
       @apply flex justify-center px-4 py-2 text-sm font-medium cursor-pointer text-gray-600 transition duration-150 ease-in-out border border-transparent rounded-md bg-gray-200 hover:bg-gray-300;
     }
-
   }
 }
 
@@ -214,6 +213,15 @@ svg {
 #wave3 {
   animation-duration: 7s;
   opacity: 0.3;
+}
+
+.alert-success {
+  color: var(--wkid-message-success-dark);
+  background: var(--wkid-message-success-light);
+}
+.alert-warning {
+  color: var(--wkid-message-warning-dark);
+  background: var(--wkid-message-warning-light);
 }
 
 @keyframes drop {
