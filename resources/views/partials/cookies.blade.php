@@ -4,14 +4,13 @@
     <div id="cookie-consent" class="hidden w-full p-6 mx-4 my-6 bg-white text-gray-800 rounded-xl shadow-[0_9px_25px_0_rgba(0,0,0,0.3)] border-gray-400">
         <h3 class="mb-5">
             @svg('custom-phosphor-cookie-light', ['style' => 'fill: currentColor; height: 32px; width: auto; display: inline;'])
-            We gebruiken cookies
+            We gebruiken functionele cookies, maar tracken je niet
         </h3>
         <div class="mb-2 flex justify-between items-center">
             <div>
                 We gebruiken uitsluitend functionele cookies (om ingelogd te blijven) en analytische cookies (voor het bijhouden van bezoekersstatistieken) en delen geen data met derden.
                 Lees meer over onze cookies in de
                 <a href="/voorwaarden-en-privacyverklaring" target="_blank" class="font-bold hover:underline">Voorwaarden en Privacyverklaring</a>.
-                Bij bezoek aan deze website gaat u hiermee akkoord.
             </div>
             <button class="acceptCookiesBtn hidden md:block px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-gray-700 hover:bg-gray-900">
                 Oké
