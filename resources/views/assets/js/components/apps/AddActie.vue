@@ -55,10 +55,10 @@
                             <h2>Bevestig en verzend je actie</h2>
                             <p>Ben je helemaal klaar? Klik dan op 'Verzenden'.
                                 <br/><br/>
-                                We gaan zo snel mogelijk aan de slag om je inzending te toetsen aan onze waarden: inclusiviteit, eerlijkheid en duurzaamheid!</p>
+                                We gaan zo snel mogelijk aan de slag om je inzending te toetsen aan onze <a href="/welke-acties-plaatsen-we">voorwaarden voor plaatsing</a></p>
                         </div>
                         <div>
-                            <p class="text-sm leading-5 text-gray-500">Bij het verzenden van dit formulier ga je akkoord met onze <a href="/voorwaarden-en-privacyverklaring">Voorwaarden en Privacyverklaring</a>.</p>
+                            <p class="text-sm leading-5 text-gray-500">Bij het verzenden van dit formulier ga je akkoord met onze <a href="/algemene-voorwaarden-en-privacyverklaring">Voorwaarden en Privacyverklaring</a>.</p>
                             <div v-if="currentErrors && Object.keys(currentErrors).length > 0" class="mt-2 p-3 text-sm rounded-md failure">
                                 <p
                                     v-for="error in Object.keys(currentErrors)"
