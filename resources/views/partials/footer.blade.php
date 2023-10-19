@@ -13,6 +13,11 @@
                     </a>
                 </li>
                 <li class="text-center">
+                    <a href="/welke-acties-plaatsen-we" class="relative inline-block group" style="color: inherit;">
+                        <span>{{ __("menus.welke_acties_plaatsen_we") }}</span>
+                    </a>
+                </li>
+                <li class="text-center">
                     <a href="/over-ons" class="relative inline-block group" style="color: inherit;">
                         <span>{{ __("menus.about_us") }}</span>
                     </a>
