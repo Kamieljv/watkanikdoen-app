@@ -5,14 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Jenssegers\Date\Date;
-use Laravel\Scout\Searchable;
 use TCG\Voyager\Traits\Spatial;
 use Voyager;
 
 class Actie extends Model
 {
     use Spatial;
-    use Searchable;
 
     protected $spatial = ['location'];
 
@@ -213,15 +211,5 @@ class Actie extends Model
     {
         $this->status = 'PUBLISHED';
         $this->save();
-    }
-
-    /**
-     * Determine if the model should be searchable.
-     *
-     * @return bool
-     */
-    public function shouldBeSearchable()
-    {
-        return $this->published;
     }
 }
