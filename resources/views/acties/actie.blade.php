@@ -99,6 +99,19 @@
                                     </div>
                                 @endif
                             </div>
+                            @if($actie->disobedient === 1)
+                                <div
+                                    class="p-3 text-sm rounded-md alert-warning"
+                                >
+                                    <div class="inline-flex items-center mb-3">
+                                        @svg('antdesign-warning-o', ['style' => 'width: 20px; height: 20px'])  &nbsp; 
+                                        <span class="font-bold">Burgerlijke ongehoorzaamheid</span>
+                                    </div>
+                                    <div>
+                                        {!! __("acties.civdis_text") !!}
+                                    </div>
+                                </div>
+                            @endif
                             <a href="{{ $actie->externe_link }}" target="_blank" class="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
                                 @svg('antdesign-link-o', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ __("acties.to_action_page") }}
                             </a>
@@ -124,6 +137,19 @@
                         <a href="{{ $actie->externe_link }}" target="_blank" class="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
                             @svg('antdesign-link-o', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ __("acties.to_action_page") }}
                         </a>
+                        @if($actie->disobedient === 1)
+                            <div
+                                class="p-3 text-sm rounded-md alert-warning"
+                            >
+                                <div class="inline-flex items-center mb-3">
+                                    @svg('antdesign-warning-o', ['style' => 'width: 20px; height: 20px'])  &nbsp; 
+                                    <span class="font-bold">Burgerlijke ongehoorzaamheid</span>
+                                </div>
+                                <div>
+                                    {!! __("acties.civdis_text") !!}
+                                </div>
+                            </div>
+                        @endif
                     </div>
                     @if ($actie->__geoloc)
                         <div class="flex-col gap-3 not-prose bg-white rounded-lg shadow-lg overflow-hidden">

@@ -28,4 +28,6 @@ return [
     'created_at' => 'Geplaatst op',
     'passed' => 'Let op: Deze actie heeft al plaatsgevonden.',
     'view_all_actions' => 'Bekijk alle acties',
+    'civdis_text' => 'Bij deze actie worden mogelijk regels overtreden. Geweldloosheid staat hierbij voorop. 
+                    Lees de <a href="/welke-acties-plaatsen-we" class="link">toelichting over burgerlijke ongehoorzaamheid</a> voor meer informatie.',
 ];
