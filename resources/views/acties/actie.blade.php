@@ -103,12 +103,12 @@
                                 <div
                                     class="p-3 text-sm rounded-md alert-warning"
                                 >
-                                    <div class="inline-flex items-center">
+                                    <div class="inline-flex items-center mb-3">
                                         @svg('antdesign-warning-o', ['style' => 'width: 20px; height: 20px'])  &nbsp; 
                                         <span class="font-bold">Burgerlijke ongehoorzaamheid</span>
                                     </div>
                                     <div>
-                                        {{ __("acties.civdis_text") }}
+                                        {!! __("acties.civdis_text") !!}
                                     </div>
                                 </div>
                             @endif
@@ -141,12 +141,12 @@
                             <div
                                 class="p-3 text-sm rounded-md alert-warning"
                             >
-                                <div class="inline-flex items-center">
+                                <div class="inline-flex items-center mb-3">
                                     @svg('antdesign-warning-o', ['style' => 'width: 20px; height: 20px'])  &nbsp; 
                                     <span class="font-bold">Burgerlijke ongehoorzaamheid</span>
                                 </div>
                                 <div>
-                                    {{ __("acties.civdis_text") }}
+                                    {!! __("acties.civdis_text") !!}
                                 </div>
                             </div>
                         @endif

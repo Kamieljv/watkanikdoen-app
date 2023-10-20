@@ -222,6 +222,9 @@ svg {
 .alert-warning {
   color: var(--wkid-message-warning-dark);
   background: var(--wkid-message-warning-light);
+  & a {
+    @apply font-medium transition duration-150 text-[color:var(--wkid-message-warning-dark)] underline ease-in-out focus:outline-none focus:underline;
+  }
 }
 
 @keyframes drop {
