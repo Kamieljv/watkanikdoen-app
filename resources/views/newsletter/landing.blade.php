@@ -3,7 +3,7 @@
 @php
     $routes = [
         'subscribe' => route('subscribers.store'),
-        'terms' => '/voorwaarden-en-privacyverklaring',
+        'terms' => '/algemene-voorwaarden-en-privacyverklaring',
     ];
 @endphp
 
