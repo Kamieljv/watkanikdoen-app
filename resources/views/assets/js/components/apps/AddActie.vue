@@ -16,6 +16,8 @@
                             Om een actie toe te voegen vragen we je om in te loggen of een account aan te maken.
                             Dit is nodig om je op de hoogte te houden van de status van de aangemelde actie.
                             <br/><br/>
+                            We plaatsen alleen acties die voldoen aan onze voorwaarden. Bekijk hiervoor de pagina <a href="/welke-acties-plaatsen-we">Welke acties plaatsen we?</a>.
+                            <br/><br/>
                             Heb je vragen? Neem een kijkje op de <a href="/hoe-werkt-het">Hoe werkt het?</a>-pagina of neem <a href="/contact">contact</a> met ons op.
                             <br/><br/>
                             Klik op 'Volgende' om door te gaan.
