@@ -202,6 +202,18 @@
                                 <label for="name">Externe link</label>
                                 <input type="url" class="form-control" name="externe_link" value="{{ old('externe_link', $dataTypeContent->externe_link ?? '') }}" />
                             </div>
+                            {{-- Disobedient --}}
+                            <div class="form-group">
+                                <label for="disobedient">Burgerlijk ongehoorzaam</label><br>
+                                <input 
+                                    type="checkbox"
+                                    name="disobedient"
+                                    class="toggleswitch"
+                                    data-on="Ja"
+                                    data-off="Nee"
+                                    value="on"
+                                    @if(old('disobedient', $dataTypeContent->disobedient ?? '') == '1') checked @endif >
+                            </div>
                         </div>
                     </div>
                     <!-- ### LOCATION ### -->
