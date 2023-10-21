@@ -38,6 +38,7 @@ class Actie extends Model
         'slug',
         'image',
         'status',
+        'disobedient',
     ];
 
     /**
