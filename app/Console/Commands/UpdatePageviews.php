@@ -51,8 +51,8 @@ class UpdatePageviews extends Command
         $token = json_decode($response->body())->token;
         // make metrics request
         $response = Http::withToken($token)->get(config('umami.url') . '/api/websites/' . config('umami.websiteId') . '/metrics', [
-            'start_at' => Date::createFromDate(2000, 01, 01)->timestamp * 1000,
-            'end_at' => Date::now()->timestamp * 1000,
+            'startAt' => Date::createFromDate(2000, 01, 01)->timestamp * 1000,
+            'endAt' => Date::now()->timestamp * 1000,
             'type' => 'url'
         ]);
         // declare pagestats and filter for acties only

@@ -130,8 +130,8 @@ export default {
 						"Authorization": `Bearer ${response.data.token}`
 					},
 					params: {
-						start_at: moment().subtract(startDaysAgo, "days").unix()*1000,
-						end_at: moment().subtract(endDaysAgo, "days").unix()*1000
+						startAt: moment().subtract(startDaysAgo, "days").unix()*1000,
+						endAt: moment().subtract(endDaysAgo, "days").unix()*1000
 					}
 				}).then((response) => {
 					this.processData(response.data);
