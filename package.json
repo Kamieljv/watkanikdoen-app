@@ -15,6 +15,7 @@
         "lint-php-fix": "./vendor/bin/phpcbf ."
     },
     "dependencies": {
+        "@babel/traverse": ">=7.23.2",
         "@tailwindcss/forms": "^0.4.0",
         "@tailwindcss/line-clamp": "^0.3.1",
         "@tailwindcss/typography": "^0.5.0",
@@ -32,6 +33,7 @@
         "laravel-mix-svg-vue": "^0.4.1",
         "laravel-mix-tailwind": "^0.1.2",
         "leaflet": "^1.7.1",
+        "loader-utils": "^2.0.3",
         "lodash": "^4.17.21",
         "moment": "^2.29.1",
         "node-sass": "^9.0.0",
@@ -40,7 +42,8 @@
         "vee-validate": "^3.4.14",
         "vue-croppie": "^2.0.2",
         "vue-tailwind": "^2.5.0",
-        "vue2-leaflet": "^2.7.1"
+        "vue2-leaflet": "^2.7.1",
+        "webpack": ">=5.76.0"
     },
     "devDependencies": {
         "@popperjs/core": "^2.10.2",
