@@ -561,7 +561,7 @@
                     }
                     //Todo: add other types
                 } else {
-                    return file.type.includes(type);
+                   return file.type == type;
                 }
 
                 return false;
@@ -588,7 +588,7 @@
                 if (this.allowedTypes.length > 0) {
                     if (file.type != 'folder') {
                         for (var i = 0, type; type = this.allowedTypes[i]; i++) {
-                            if (file.type.includes(type)) {
+                            if (file.type == type) {
                                 return true;
                             }
                         }
