@@ -2,7 +2,7 @@
 
 @section('content')
 
-	<div class="grid grid-cols-4 gap-3 px-8 mx-auto my-6 max-w-6xl xl:px-5">
+	<div class="grid grid-cols-4 gap-3 px-8 mx-auto mt-6 max-w-6xl xl:px-5 mb-40">
 
 		<!-- Left Settings Menu -->
 		<div class="w-full mr-6 col-span-4 md:col-span-1">

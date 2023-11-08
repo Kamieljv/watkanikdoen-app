@@ -8,7 +8,7 @@
 			{{ __("acties.back_to_home") }}
 		</a>
 	</div>
-	<div id="app" class="max-w-6xl mx-auto flex flex-col px-5 my-6 lg:px-0">
+	<div id="app" class="max-w-6xl mx-auto flex flex-col px-5 mt-6 mb-40 lg:px-0">
 		{{-- Reports --}}
 	    @include('dashboard.partials.reports')
 		<div class="grid grid-cols-1 md:grid-cols-2">

@@ -15,7 +15,7 @@
             </div>
         </div>
     @endif
-    <article id="post-{{ $actie->id }}" class="max-w-4xl px-5 mb-4 mx-auto prose lg:px-0 mt-6">
+    <article id="post-{{ $actie->id }}" class="max-w-4xl px-5 mb-40 mx-auto prose lg:px-0 mt-6">
         <meta property="name" content="{{ $actie->title }}">
         <meta property="author" typeof="Person" content="admin">
         <meta property="dateModified" content="{{ Carbon\Carbon::parse($actie->updated_at)->toIso8601String() }}">
