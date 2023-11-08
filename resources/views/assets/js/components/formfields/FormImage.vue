@@ -3,7 +3,7 @@
 		<!-- Form input element -->
         <div class="relative h-32 h-full" :class="{'w-32': viewportType === 'circle'}">
 			<img v-if="preview" id="preview" :src="preview" class="w-full h-full object-cover" :class="{'rounded-full': viewportType === 'circle'}">
-			<div v-else :class="{'rounded-full': viewportType === 'circle'}" class="flex items-center justify-center text-6xl w-full h-full text-white" :style="{background: defaultColor}">{{ defaultChar }}</div>
+			<div v-else :class="{'rounded-full': viewportType === 'circle'}" class="flex items-center justify-center rounded-sm text-6xl w-full h-full text-white" :style="{background: defaultColor}">{{ defaultChar }}</div>
 			<div class="absolute inset-0 w-full h-full">
 				<input v-if="!disabled" v-show="false" type="file" ref="upload" id="upload" @change="imageUploaded">
 				<input v-if="!disabled" type="hidden" :value="cropped" :name="fieldName">

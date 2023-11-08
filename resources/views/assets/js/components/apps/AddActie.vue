@@ -88,7 +88,7 @@
         </div>
         <div v-else>
             <div class="flex justify-center items-center max-w-4xl mx-auto my-6 bg-white rounded-md shadow-md min-h-[300px]">
-                <SuccessGIF src="https://thumbs.gfycat.com/GrossSpryAfricangoldencat-max-1mb.gif" message="Gelukt! Bedankt voor je bijdrage!"/>
+                <SuccessGIF src="/images/protest_signs.gif" title="Gelukt! Bedankt voor je bijdrage!" message="We zullen je aanmelding zo snel mogelijk beoordelen."/>
             </div>
         </div>
     </div>
