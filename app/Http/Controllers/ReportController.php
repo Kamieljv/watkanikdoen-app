@@ -79,7 +79,6 @@ class ReportController extends Controller
                     }
                 }   
             }
-
             // create report
             $report = Report::create([
                 'user_id' => $request->userId,
@@ -87,8 +86,8 @@ class ReportController extends Controller
                 'title' => $request->report['title'],
                 'body' => $request->report['body'] ?? null,
                 'externe_link' => $request->report['externe_link'],
-                'time_start' => Date::parse($request->report['time_start'])->format('Y-m-dTH:i'),
-                'time_end' => Date::parse($request->report['time_end'])->format('Y-m-dTH:i'),
+                'time_start' => Date::parse($request->report['time_start'])->format('Y-m-d\TH:i'),
+                'time_end' => Date::parse($request->report['time_end'])->format('Y-m-d\TH:i'),
                 'location' => isset($request->report['location']) ?
                     DB::raw("ST_GeomFromText('POINT({$request->report['location']['lng']} {$request->report['location']['lat']})')") : null,
                 'location_human' => $request->report['location_human'],
