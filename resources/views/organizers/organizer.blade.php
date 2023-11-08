@@ -63,6 +63,7 @@
                 :filterable="false"
                 :organizer-id="{{ $organizer->id }}"
                 :narrower="true"
+                :skeletons="2"
             >
             </actie-agenda>
         </div>

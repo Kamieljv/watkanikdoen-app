@@ -44,6 +44,16 @@ class ActieController extends VoyagerBaseController
             abort(404);
         }
 
+        $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
+            return (strpos($route->uri, 'acties') !== false) && (strpos($route->uri, 'admin') === false);
+        })->map(function ($route) {
+            return [
+                'uri' => '/' . $route->uri,
+                'methods' => $route->methods,
+            ];
+        });
+
+
         // SEO
         SEOTools::setTitle($actie->title);
         if ($actie->excerpt !== null) {
@@ -59,7 +69,16 @@ class ActieController extends VoyagerBaseController
             $isAdmin = auth()->user()->hasRole('admin');
         }
 
-        return view('acties.actie', compact('actie', 'isAdmin'));
+        // count acties with the same theme
+        $actieThemes = array_column($actie->themes->toArray(), 'id');
+        $count_same_theme = Actie::query()
+            ->whereHas('themes', function ($q) use ($actieThemes) {
+                $q->whereIn('theme_id', $actieThemes);
+            }) // where theme in $actieThemes
+            ->whereNot('id', $actie->id) // exclude current action
+            ->published()->toekomstig()->count();
+
+        return view('acties.actie', compact('actie', 'routes', 'isAdmin', 'count_same_theme'));
     }
 
     public function search(Request $request)
