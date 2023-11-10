@@ -56,13 +56,14 @@
                 {!! filterScripts($organizer->description) !!}
             @endif
         </div>
-        <div id="app">
+        <div id="app" class="mb-40">
             <h3 class="text-gray-800">Acties georganiseerd door {{ $organizer->name }}</h3>
             <actie-agenda
                 :routes="{{ $routes }}"
                 :filterable="false"
                 :organizer-id="{{ $organizer->id }}"
                 :narrower="true"
+                :skeletons="2"
             >
             </actie-agenda>
         </div>

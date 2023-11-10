@@ -17,7 +17,7 @@
     </div>
 
     <div class="max-w-6xl mx-auto mt-6 px-5">
-        <div id="app">
+        <div id="app" class="mb-40">
             <organizers
                 :routes="{{ $routes }}"
                 :themes="{{ $themes }}"

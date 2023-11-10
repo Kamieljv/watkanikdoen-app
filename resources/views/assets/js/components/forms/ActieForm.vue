@@ -124,7 +124,7 @@
                     <p class="text-sm leading-5 text-gray-500 mt">
                         Kies een afbeelding die bij de actie past.
                     </p>
-                    <div class="flex flex-col mt-5 space-y-3">
+                    <div class="flex flex-col h-32 mt-5 space-y-3">
                         <!-- Image -->
                         <form-image
                             v-model="report.image"

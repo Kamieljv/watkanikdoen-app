@@ -162,12 +162,28 @@ export default {
 		organizerId: {
 			type: Number,
 			default: null,
+		},
+		themeIds: {
+			type: Array,
+			default: () => [],
+		},
+		excludeIds: {
+			type: Array,
+			default: () => [],
+		},
+		skeletons: {
+			type: Number,
+			default: 10,
+		},
+		limit: {
+			type: Number,
+			default: null,
 		}
 	},
 	data() {
 		return {
 			acties: [],
-			themesSelected: "",
+			themesSelected: null,
 			categoriesSelected: "",
 			query: "",
 			coordinates: "",
@@ -188,8 +204,7 @@ export default {
 			return [...Array(10+1).keys()].slice(1).map((v) => {return v * stepSize})
 		},
 		skeletonArray() {
-			var n = this.narrower ? 6 : 10
-			return [...Array(n).keys()]
+			return [...Array(this.skeletons).keys()]
 		},
 		heeftActies() {
 			return (this.acties.length > 0)
@@ -247,7 +262,7 @@ export default {
 			axios.get(this.routes["acties.search"].uri, {
 				params: {
 					q: this.query,
-					themes: this.themesSelected,
+					themes: this.themesSelected ?? this.themeIds,
 					categories: this.categoriesSelected,
 					coordinates: this.coordinates,
 					distance: this.distance,
@@ -256,7 +271,7 @@ export default {
 					organizer: this.organizerId,
 				}
 			}).then((response) => {
-				this.acties = response.data.acties.data
+				this.acties = this.processActiesArray(response.data.acties.data)
 				this.currentPage = response.data.acties.current_page
 				this.perPage = response.data.acties.per_page
 				this.total = response.data.acties.total
@@ -267,6 +282,9 @@ export default {
 				this.isGeladen = true
 			})
 		}, 500),
+		processActiesArray: function(acties) {
+			return acties.filter((a) => !this.excludeIds.includes(a.id)).slice(0, this.limit ?? 999)
+		},
 		processQuery: _.debounce(function(input) {
 			this.query = input
 		}, 500),
