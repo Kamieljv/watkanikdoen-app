@@ -16,6 +16,9 @@ class CreateQuestionsTable extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('question');
+            $table->text('description');
+            $table->string('subject');
+            $table->enum('status', ['INACTIVE', 'ACTIVE'])->default('ACTIVE');
             $table->timestamps();
         });
     }

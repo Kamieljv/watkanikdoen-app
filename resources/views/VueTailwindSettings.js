@@ -1,4 +1,4 @@
-import { TRichSelect, TCard, TInput, TModal, TToggle } from "vue-tailwind/dist/components"
+import { TRichSelect, TCard, TInput, TModal, TToggle, TRadioGroup } from "vue-tailwind/dist/components"
 const VueTailwindSettings = {
 	"t-rich-select": {
 		component: TRichSelect,
@@ -189,6 +189,21 @@ const VueTailwindSettings = {
 					uncheckedPlaceholder: "rounded-sm w-6 h-6 flex items-center justify-center text-gray-400 text-xs"
 				}
 			}
+		}
+	},
+	"t-radio-group": {
+		component: TRadioGroup,
+		props: {
+			classes: {
+				groupWrapper: 'flex flex-col',
+				label: '',
+				input: 'text-blue-500 transition duration-100 ease-in-out border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed',
+				inputWrapper: 'inline-flex',
+				wrapper: 'inline-flex items-center space-x-2',
+				// labelChecked: '',
+				// inputWrapperChecked: '',
+				// wrapperChecked: '',
+			  }
 		}
 	}
 }
