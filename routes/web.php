@@ -12,6 +12,7 @@
 */
 
 use App\Http\Controllers\ActieController;
+use App\Http\Controllers\ActieWijzerController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BlogController;
@@ -62,6 +63,9 @@ Route::get('organisator/{organizer}', [OrganizerController::class, 'organizer'])
 
 // Acties aanmelden
 Route::get('acties/aanmelden', [ReportController::class, 'landing'])->name('report.landing');
+
+// ActieWijzer
+Route::get('actiewijzer', [ActieWijzerController::class, 'landing'])->name('actiewijzer.landing');
 
 // Public statistics route
 Route::get('dashboard/getPublicStats', [DashboardController::class, 'getPublicStats'])->name('dashboard.public_stats');

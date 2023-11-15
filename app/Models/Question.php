@@ -14,8 +14,23 @@ class Question extends Model
         'question',
     ];
 
+    /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = [
+        'answers',
+    ];
+
     public function answers()
     {
         return $this->hasMany(Answer::class);
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'ACTIVE');
+    }
+
 }
