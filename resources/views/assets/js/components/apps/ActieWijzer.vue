@@ -9,7 +9,7 @@
             </step-progress>
             <ValidationObserver>
                 <Transition name="slide" mode="out-in" appear>
-                    <question :question="questions[activeIndex]" :key="activeIndex" @input="handleInput" class="p-8 bg-white rounded-md shadow-md min-h-[300px]">
+                    <question :question="currentQuestion" :value="answersGiven[currentQuestion.id]" :key="activeIndex" @input="handleInput" class="p-8 bg-white rounded-md shadow-md min-h-[300px]">
                     </question>
                 </Transition>
                 <div class="flex mt-5" :class="{'justify-end': activeIndex === 0, 'justify-between': activeIndex > 0}">
@@ -17,7 +17,7 @@
                         class="secondary">
                         {{ __('general.previous') }}
                     </button>
-                    <button v-if="!isLastStep" class="primary" @click.prevent="activeIndex++" :disabled="nextDisabled">
+                    <button v-if="!isLastStep" class="primary" @click.prevent="activeIndex++">
                         {{ __('general.next') }}
                     </button>
                     <button v-else class="primary"  @click.prevent="submit">
@@ -31,6 +31,7 @@
                 <SuccessGIF src="/images/protest_signs.gif" title="Gelukt! Bedankt voor je bijdrage!" message="We zullen je aanmelding zo snel mogelijk beoordelen."/>
             </div>
         </div>
+        {{ answersGiven }}{{ activeIndex }}
     </div>
 </template>
 
@@ -53,6 +54,9 @@ export default {
         activeIndex: 0,
         sent: false,
         currentErrors: [],
+        answersGiven: {},
+        scores: {},
+        scoresAggregated: {},
     }),
     computed: {
         steps() {
@@ -64,22 +68,35 @@ export default {
         isLastStep() {
             return this.activeIndex === this.steps.length - 1;
         },
-        nextDisabled() {
-            if ((this.activeStep.key === 'organizer' && this.selectedOrganizers.length == 0) ||
-                (this.activeStep.key === 'user' && Object.keys(this.currentUser).length === 0)
-                ) 
-            {
-                return true
-            }
-            return false
-        }
+        currentQuestion() {
+            return this.questions[this.activeIndex];
+        },
     },
     methods: {
-        handleInput(i) {
-            console.log(i)
+        handleInput(input) {
+            this.answersGiven[this.questions[this.activeIndex].id] = input;
+        },
+        addScores(newScores) {
+            this.scores[this.questions[this.activeIndex].id] = JSON.parse(newScores);
+            this.aggregateScores()
+        },
+        aggregateScores() {
+            this.scoresAggregated = {};
+            Object.keys(this.scores).forEach((key) => {
+                Object.keys(this.scores[key]).forEach((dim) => {
+                    if (Object.keys(this.scoresAggregated).includes(dim)) {
+                        this.scoresAggregated[dim] += this.scores[key][dim];
+                    } else {
+                        this.scoresAggregated[dim] = this.scores[key][dim];
+                    }
+                })
+            })
+        },
+        submit() {
+            window.location.href = "http://stackoverflow.com";
         }
     }
-};
+}; 
 </script>
 <style scoped>
     h2 {
@@ -87,10 +104,10 @@ export default {
     }
     
     .slide-enter-active {
-        transition: all 0.25s ease-in-out;
+        transition: all 0.75s ease-in-out;
     }
     .slide-leave-active {
-        transition: all 0.25s ease-in-out;
+        transition: all 0.75s ease-in-out;
     }
 
     .slide-enter-from {

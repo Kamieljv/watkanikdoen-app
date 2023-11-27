@@ -38,6 +38,7 @@ module.exports = {
 		"justify-end",
 		"divide-x",
 		"divide-y",
+		"space-x-2",
 		"col-span-3",
 		"overflow-scroll"
 	]
