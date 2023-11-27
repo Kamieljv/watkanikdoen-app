@@ -3,8 +3,10 @@
         <h1 class="mb-3">{{question.question}}</h1>
         
         <t-radio-group 
-            v-model="value" 
+            v-model="data" 
             :options="answers"
+            text-attribute="answer"
+            value-attribute="id"
             @change="updateInput">
         </t-radio-group>
     </div>
@@ -17,19 +19,32 @@ export default {
             type: Object,
             required: true,
         },
+        value: {
+            type: Number,
+            default: null
+        }
     },
     data: () => ({
-        value: null
+        data: null
     }),
+    
     computed: {
         answers() {
-            return this.question.answers.map(a => a.answer)
+            return this.question.answers
         },
     },
     methods: {
         updateInput() {
-            this.$emit('input', this.value);
+            this.$emit('input', this.data);
         },
-    }
+    },
+    watch: {
+      value: {
+        immediate: true,
+        handler: function(newVal) {
+          this.data = newVal;
+        },
+      },
+    },
 }
 </script>
