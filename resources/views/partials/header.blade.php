@@ -1,4 +1,4 @@
-<header id="header" x-data="{ mobileMenuOpen: false }" class="border-b-2 border-gray-100 relative z-30 gradient-border-b">
+<header id="header" x-data="{ mobileMenuOpen: false }" class="border-gray-100 relative z-30 gradient-border-b">
     <div class="px-3 md:px-8 mx-auto xl:px-0 max-w-6xl border-b-1 border-[#cecece8c]">
         <div class="flex items-center justify-between h-20 md:h-24 md:justify-start md:space-x-6">
             <div class="inline-flex h-5/6 w-1/3 md:w-1/4">
@@ -22,3 +22,10 @@
         @include('menus.authenticated-mobile')
     @endif
 </header>
+@php 
+    $announcement = \App\Models\Announcement::orderby('created_at', 'DESC')->first(); 
+    $slug = basename(parse_url(url()->current(), PHP_URL_PATH));
+@endphp
+@if($announcement && trim($announcement->url, '/') != $slug)
+    @include('partials.announcements')
+@endif
