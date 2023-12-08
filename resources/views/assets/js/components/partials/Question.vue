@@ -34,13 +34,6 @@ export default {
         },
     },
     watch: {
-      value: {
-        immediate: true,
-        handler: function(newVal) {
-            this.data = newVal;
-            this.$emit('input', this.data);
-        },
-      },
       data: function () {
         this.$emit('input', this.data);
       }
