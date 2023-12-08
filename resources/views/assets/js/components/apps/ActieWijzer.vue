@@ -74,7 +74,7 @@ export default {
     },
     methods: {
         handleInput(input) {
-            this.answersGiven[this.questions[this.activeIndex].id] = input;
+            this.$set(this.answersGiven, this.questions[this.activeIndex].id, input)
         },
         addScores(newScores) {
             this.scores[this.questions[this.activeIndex].id] = JSON.parse(newScores);
@@ -104,10 +104,10 @@ export default {
     }
     
     .slide-enter-active {
-        transition: all 0.75s ease-in-out;
+        transition: all 0.5s ease-in-out;
     }
     .slide-leave-active {
-        transition: all 0.75s ease-in-out;
+        transition: all 0.5s ease-in-out;
     }
 
     .slide-enter-from {
