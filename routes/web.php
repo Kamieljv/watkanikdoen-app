@@ -12,7 +12,6 @@
 */
 
 use App\Http\Controllers\ActieController;
-// use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BlogController;
@@ -103,8 +102,5 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth', 'xss']], function () 
 
     // Notifications & Announcements
     Route::get('notifications', [NotificationController::class, 'get'])->name('notifications');
-    // Route::get('announcements', [AnnouncementController::class, 'index'])->name('announcements');
-    // Route::get('announcement/{id}', [AnnouncementController::class, 'announcement'])->name('announcement');
-    // Route::post('announcements/read', [AnnouncementController::class, 'read'])->name('announcements.read');
     Route::post('notification/read/{id}', [NotificationController::class, 'read'])->name('notification.read');
 });
