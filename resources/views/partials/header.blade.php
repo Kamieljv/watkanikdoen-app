@@ -27,5 +27,5 @@
     $slug = basename(parse_url(url()->current(), PHP_URL_PATH));
 @endphp
 @if($announcement && trim($announcement->url, '/') != $slug)
-    @include('partials.announcements')
+    @include('partials.announcement')
 @endif

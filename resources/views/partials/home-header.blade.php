@@ -4,7 +4,7 @@
     $show_announcement = $announcement && trim($announcement->url, '/') != $slug
 @endphp
 @if($show_announcement)
-    @include('partials.announcements')
+    @include('partials.announcement')
 @endif
 <header id="header" x-data="{ mobileMenuOpen: false }" class="fixed inset-x-0 text-white z-30 transition-all duration-100 {{ $show_announcement ? "top-12" : "top-0" }}">
     <div class="px-3 md:px-8 mx-auto xl:px-0 max-w-6xl border-b-1 border-[#cecece8c]">
