@@ -66,8 +66,4 @@
     </div>
 </footer>
 
-{{-- @if(!auth()->guest() && auth()->user()->hasAnnouncements())
-    @include('partials.announcements')
-@endif --}}
-
 @yield('javascript')
