@@ -35,10 +35,9 @@
         <!-- DEBUG -->
         <p>Answersgiven: {{ answersGiven }}</p>
         <p>Answers: {{ answers }}</p>
-        <p>Scores: {{ dimension_scores}}</p>
-        
-        <p>{{ activeIndex }}</p>
-        <p>{{currentQuestion}}</p>
+        <p>Scores: {{ dimensionScoresNamed}}</p>
+        <p>Dimensions: {{ dimensions}}</p>
+
     </div>
 </template>
 
@@ -56,6 +55,14 @@ export default {
             type: Array,
             required: true,
         },
+        dimensions: {
+            type: Array,
+            required: true,
+        },
+        resultRoute: {
+            type: String,
+            required: true,
+        }
     },
     data: () => ({
         activeIndex: 0,
@@ -80,6 +87,9 @@ export default {
         answers() {
             return this.questions.map((q) => q.answers).flat()
         },
+        dimensionScoresNamed() {
+            return Object.entries(this.dimension_scores).reduce((a, [k, v]) => ({ ...a, [this.dimensions.find(d => d.id == k).name.toLowerCase()]: v}), {}) 
+        }
     },
     methods: {
         handleInput(input) {
@@ -87,7 +97,9 @@ export default {
             this.computeDimensionScores();
         },
         submit() {
-            window.location.href = "http://stackoverflow.com";
+            var url = new URL(this.resultRoute);
+            url.search = new URLSearchParams(this.dimensionScoresNamed)
+            window.location.href = url.href;
         },
         computeDimensionScores() {
             // reset dimension_scores
@@ -101,7 +113,6 @@ export default {
                     this.$set(this.dimension_scores, k, value)
                 })
             });
-            console.log(this.dimension_scores);       
         }
     },
 }; 

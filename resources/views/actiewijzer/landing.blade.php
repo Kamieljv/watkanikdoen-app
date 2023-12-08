@@ -13,6 +13,8 @@
         <div id="app">
             <Actie-Wijzer
                 :questions="{{ json_encode($questions) }}"
+                :dimensions="{{ json_encode($dimensions) }}"
+                :result-route="'{{ $result_route }}'"
             >
         </div>
     </div>
