@@ -31,7 +31,14 @@
                 <SuccessGIF src="/images/protest_signs.gif" title="Gelukt! Bedankt voor je bijdrage!" message="We zullen je aanmelding zo snel mogelijk beoordelen."/>
             </div>
         </div>
-        {{ answersGiven }}{{ activeIndex }}
+
+        <!-- DEBUG -->
+        <p>Answersgiven: {{ answersGiven }}</p>
+        <p>Answers: {{ answers }}</p>
+        <p>Scores: {{ dimension_scores}}</p>
+        
+        <p>{{ activeIndex }}</p>
+        <p>{{currentQuestion}}</p>
     </div>
 </template>
 
@@ -55,8 +62,7 @@ export default {
         sent: false,
         currentErrors: [],
         answersGiven: {},
-        scores: {},
-        scoresAggregated: {},
+        dimension_scores: {},
     }),
     computed: {
         steps() {
@@ -71,31 +77,33 @@ export default {
         currentQuestion() {
             return this.questions[this.activeIndex];
         },
+        answers() {
+            return this.questions.map((q) => q.answers).flat()
+        },
     },
     methods: {
         handleInput(input) {
-            this.$set(this.answersGiven, this.questions[this.activeIndex].id, input)
-        },
-        addScores(newScores) {
-            this.scores[this.questions[this.activeIndex].id] = JSON.parse(newScores);
-            this.aggregateScores()
-        },
-        aggregateScores() {
-            this.scoresAggregated = {};
-            Object.keys(this.scores).forEach((key) => {
-                Object.keys(this.scores[key]).forEach((dim) => {
-                    if (Object.keys(this.scoresAggregated).includes(dim)) {
-                        this.scoresAggregated[dim] += this.scores[key][dim];
-                    } else {
-                        this.scoresAggregated[dim] = this.scores[key][dim];
-                    }
-                })
-            })
+            this.$set(this.answersGiven, this.questions[this.activeIndex].id, input);
+            this.computeDimensionScores();
         },
         submit() {
             window.location.href = "http://stackoverflow.com";
+        },
+        computeDimensionScores() {
+            // reset dimension_scores
+            this.dimension_scores = {};
+            // get full answer objects (with dimensions)
+            var answersGivenFull = this.answers.filter((a) => Object.values(this.answersGiven).includes(a.id))
+            // sum the dimension scores for each answer
+            answersGivenFull.forEach((a) => {
+                Object.entries(JSON.parse(a.dimension_scores)).forEach(([k, v]) => {
+                    var value = this.dimension_scores.hasOwnProperty(k) ? this.dimension_scores[k] + v : v;
+                    this.$set(this.dimension_scores, k, value)
+                })
+            });
+            console.log(this.dimension_scores);       
         }
-    }
+    },
 }; 
 </script>
 <style scoped>
