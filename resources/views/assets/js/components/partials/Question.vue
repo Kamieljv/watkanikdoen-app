@@ -7,8 +7,9 @@
             :options="answers"
             text-attribute="answer"
             value-attribute="id"
-            @change="updateInput">
+        >
         </t-radio-group>
+        
     </div>
 </template>
 <script>
@@ -27,24 +28,22 @@ export default {
     data: () => ({
         data: null
     }),
-    
     computed: {
         answers() {
             return this.question.answers
-        },
-    },
-    methods: {
-        updateInput() {
-            this.$emit('input', this.data);
         },
     },
     watch: {
       value: {
         immediate: true,
         handler: function(newVal) {
-          this.data = newVal;
+            this.data = newVal;
+            this.$emit('input', this.data);
         },
       },
+      data: function () {
+        this.$emit('input', this.data);
+      }
     },
 }
 </script>
