@@ -17,7 +17,6 @@ class CreateAnswersTable extends Migration
             $table->increments('id');
             $table->string('answer');
             $table->unsignedInteger('question_id')->index('answers_question_id_foreign');
-            $table->json('dimension_scores');
             $table->foreign(['question_id'])->references(['id'])->on('questions')->onUpdate('NO ACTION')->onDelete('CASCADE');
             $table->timestamps();
         });

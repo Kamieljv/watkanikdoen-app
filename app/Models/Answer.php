@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Question;
+use App\Models\Dimension;
 use Illuminate\Database\Eloquent\Model;
 
 class Answer extends Model
@@ -13,11 +14,19 @@ class Answer extends Model
     protected $fillable = [
         'answer',
         'question_id',
-        'dimension_scores',
+    ];
+
+    protected $with = [
+        'dimensions'
     ];
 
     public function question()
     {
         return $this->belongsTo(Question::class);
+    }
+
+    public function dimensions()
+    {
+        return $this->belongsToMany(Dimension::class)->withPivot('score');
     }
 }
