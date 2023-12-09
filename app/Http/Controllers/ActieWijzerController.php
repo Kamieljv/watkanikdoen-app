@@ -19,4 +19,8 @@ class ActieWijzerController extends Controller
         // Display the landing page
         return view('actiewijzer.landing', compact('questions', 'dimensions', 'result_route'));
     }
+
+    public function scoreAnswerDimension() {
+        //
+    }
 }
