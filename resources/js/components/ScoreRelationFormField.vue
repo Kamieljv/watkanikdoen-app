@@ -2,9 +2,9 @@
 	<div>
 		<div v-for="e in entitiesWithValues" :key="e.id">
 			<label :for="e.name">{{e.name}}</label>
-			<input type="range" :id="e.name" :name="e.name" min="0" max="10" :value="e.value" step="1" @change="handleChange" />
+			<input type="number" :id="e.id" :name="'dim_' + e.name" min="0" max="10" :value="e.value" step="1" @change="handleChange" />
+			<button :data-id="e.id" @click="handleSubmit">OK</button>
 		</div>
-		{{entitiesWithValues}}
 	</div>
 </template>
 
@@ -24,30 +24,35 @@
 			currentScores: {
 				type: Array,
 				required: true,
+			},
+			currentId: {
+				type: Number,
+				required: true,
 			}
 		},
 		data() {
 			return {
-				//
-			}
-		},
-		computed: {
-			entitiesWithValues: function() {
-				return this.entities.map((e) => {
-					var current = this.currentScores.find((c) => c.id === e.id);
-					e.value = current ? current.pivot.score : null;
-					return e
-				});
+				entitiesWithValues: []
 			}
 		},
 		mounted() {
-		},
-		watch: {
-			//
+			this.entitiesWithValues = this.entities.map((e) => {
+				var current = this.currentScores.find((c) => c.id === e.id);
+				e.value = current ? current.pivot.score : null;
+				return e
+			});
 		},
 		methods: {
 			handleChange(e) {
-				console.log(e);
+				this.$set(this.entitiesWithValues.find((c) => c.id == e.target.id), 'value', e.target.value);
+			},
+			handleSubmit(e) {
+				e.preventDefault();
+				this.$http.post(this.scoreRoute, {
+					'answer_id': this.currentId,
+					'dimension_id': parseInt(e.target.dataset.id),
+					'score': parseInt(this.entitiesWithValues.find((c) => c.id == e.target.dataset.id).value)
+				})
 			}
 		}
 	}

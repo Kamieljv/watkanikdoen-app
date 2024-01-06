@@ -102,6 +102,7 @@
                                         :entities="{{ json_encode(\App\Models\Dimension::get()->toArray())}}"
                                         :score-route="{{ json_encode(route('actiewijzer.score_answer_dimension'))}}"
                                         :current-scores="{{ json_encode(\App\Models\Answer::find($dataTypeContent->getKey())->dimensions) }}"
+                                        :current-id="{{ \App\Models\Answer::find($dataTypeContent->getKey())->id }}"
                                 />
                             </div>
 
