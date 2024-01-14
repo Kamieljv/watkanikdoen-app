@@ -555,14 +555,14 @@
                 return this.selected_files.includes(file);
             },
             fileIs: function(file, type) {
-                if (typeof file === 'string') {
-                    if (type == 'image') {
-                        return this.endsWithAny(['jpg', 'jpeg', 'png', 'bmp'], file.toLowerCase());
-                    }
-                    //Todo: add other types
-                } else {
-                   return file.type == type;
+                var type_string = (typeof file === 'string') ? file.toLowerCase() : file.type.toLowerCase();
+                if (type == 'image') {
+                    return this.endsWithAny(['jpg', 'jpeg', 'png', 'bmp'], type_string.toLowerCase());
                 }
+                else {
+                    return type_string == type
+                }
+                //Todo: add other types
 
                 return false;
 			},

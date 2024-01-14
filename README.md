@@ -12,6 +12,10 @@
 
 - Run the server with `php artisan serve`
 
+### 3. Log in using the admin account
+
+- Log in with the username `admin@admin.com` and password `admin12345`. Change the password after logging in.
+
 ## Modifying BREAD
 Configuration of the Voyager admin panel are saved in database tables. The defaults are seeded by files in `database/seeders`. Any changes need to be kept up to date in these seeders, to ensure easy deployment. 
 
