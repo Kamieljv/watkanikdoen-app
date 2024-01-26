@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Question;
 use App\Models\Dimension;
+use App\Models\Theme;
 use Illuminate\Http\Request;
 
 class ActieWijzerController extends Controller
@@ -15,10 +16,11 @@ class ActieWijzerController extends Controller
     {
         $questions = Question::active()->get()->toArray();
         $dimensions = Dimension::all()->toArray();
+        $themes = Theme::all()->toArray();
         $result_route = route('actiewijzer.result');
 
         // Display the landing page
-        return view('actiewijzer.landing', compact('questions', 'dimensions', 'result_route'));
+        return view('actiewijzer.landing', compact('questions', 'dimensions', 'themes', 'result_route'));
     }
 
     public function scoreAnswerDimension() {

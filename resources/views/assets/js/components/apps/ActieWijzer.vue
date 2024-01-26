@@ -9,8 +9,14 @@
             </step-progress>
             <ValidationObserver>
                 <Transition name="slide" mode="out-in" appear>
-                    <question :question="currentQuestion" :value="answersGiven[currentQuestion.id]" :key="activeIndex" @input="handleInput" class="p-8 bg-white rounded-md shadow-md min-h-[300px]">
-                    </question>
+                    <div v-if="currentQuestion.subject == 'Thema'">
+                        <theme-question :question="currentQuestion" :themes="themes" :value="themesSelected" :key="activeIndex" @input="handleThemeInput" class="p-8 bg-white rounded-md shadow-md min-h-[300px]">
+                        </theme-question>
+                    </div>
+                    <div v-else>
+                        <question :question="currentQuestion" :value="answersGiven[currentQuestion.id]" :key="activeIndex" @input="handleInput" class="p-8 bg-white rounded-md shadow-md min-h-[300px]">
+                        </question>
+                    </div>
                 </Transition>
                 <div class="flex mt-5" :class="{'justify-end': activeIndex === 0, 'justify-between': activeIndex > 0}">
                     <button v-if="activeIndex > 0" type="button" @click.prevent="activeIndex--"
@@ -35,6 +41,7 @@
         <!-- DEBUG -->
         <p>Answersgiven: {{ answersGiven }}</p>
         <p>Scores: {{ dimension_scores}}</p>
+        <p>Themes: {{ themesSelected }}</p>
 
     </div>
 </template>
@@ -57,6 +64,10 @@ export default {
             type: Array,
             required: true,
         },
+        themes: {
+            type: Array,
+            required: true,
+        },
         resultRoute: {
             type: String,
             required: true,
@@ -68,6 +79,7 @@ export default {
         currentErrors: [],
         answersGiven: {},
         dimension_scores: {},
+        themesSelected: [],
     }),
     computed: {
         steps() {
@@ -90,6 +102,9 @@ export default {
         handleInput(input) {
             this.$set(this.answersGiven, this.questions[this.activeIndex].id, input);
             this.computeDimensionScores();
+        },
+        handleThemeInput(input) {
+            this.themesSelected = input
         },
         submit() {
             var url = new URL(this.resultRoute);
