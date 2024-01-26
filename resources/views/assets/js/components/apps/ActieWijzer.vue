@@ -34,9 +34,7 @@
 
         <!-- DEBUG -->
         <p>Answersgiven: {{ answersGiven }}</p>
-        <p>Answers: {{ answers }}</p>
-        <p>Scores: {{ dimensionScoresNamed}}</p>
-        <p>Dimensions: {{ dimensions}}</p>
+        <p>Scores: {{ dimension_scores}}</p>
 
     </div>
 </template>
@@ -87,9 +85,6 @@ export default {
         answers() {
             return this.questions.map((q) => q.answers).flat()
         },
-        dimensionScoresNamed() {
-            return Object.entries(this.dimension_scores).reduce((a, [k, v]) => ({ ...a, [this.dimensions.find(d => d.id == k).name.toLowerCase()]: v}), {}) 
-        }
     },
     methods: {
         handleInput(input) {
@@ -98,7 +93,7 @@ export default {
         },
         submit() {
             var url = new URL(this.resultRoute);
-            url.search = new URLSearchParams(this.dimensionScoresNamed)
+            url.search = new URLSearchParams(this.dimension_scores)
             window.location.href = url.href;
         },
         computeDimensionScores() {
@@ -108,9 +103,9 @@ export default {
             var answersGivenFull = this.answers.filter((a) => Object.values(this.answersGiven).includes(a.id))
             // sum the dimension scores for each answer
             answersGivenFull.forEach((a) => {
-                Object.entries(JSON.parse(a.dimension_scores)).forEach(([k, v]) => {
-                    var value = this.dimension_scores.hasOwnProperty(k) ? this.dimension_scores[k] + v : v;
-                    this.$set(this.dimension_scores, k, value)
+                a.dimensions.forEach((d) => {
+                    var newValue = this.dimension_scores.hasOwnProperty(d.name) ? this.dimension_scores[d.name] + d.pivot.score : d.pivot.score;
+                    this.$set(this.dimension_scores, d.name, newValue)
                 })
             });
         }

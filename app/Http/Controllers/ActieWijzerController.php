@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Question;
 use App\Models\Dimension;
+use Illuminate\Http\Request;
 
 class ActieWijzerController extends Controller
 {
@@ -22,5 +23,18 @@ class ActieWijzerController extends Controller
 
     public function scoreAnswerDimension() {
         //
+    }
+
+    public function result(Request $request) {
+
+        $dimension_names = Dimension::all()->pluck('name')->toArray();
+        $request_filtered = $request->only($dimension_names);
+
+        $scores = array_filter($request_filtered, function($v) {
+            return intval($v) && intval($v) >= config('app.actiewijzer.min_score') && intval($v) <= config('app.actiewijzer.max_score');
+        });
+
+
+        return view('actiewijzer.result', compact('scores'));
     }
 }
