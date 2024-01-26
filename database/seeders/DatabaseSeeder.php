@@ -42,5 +42,7 @@ class DatabaseSeeder extends Seeder
         $this->call(OrganizerThemeTableSeeder::class);
         $this->call(QuestionsTableSeeder::class);
         $this->call(AnswersTableSeeder::class);
+        $this->call(DimensionsTableSeeder::class);
+        $this->call(AnswerDimensionTableSeeder::class);
     }
 }
