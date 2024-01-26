@@ -21,17 +21,73 @@ class AnswerDimensionTableSeeder extends Seeder
         \DB::table('answer_dimension')->insert(array (
             0 => 
             array (
-                'id' => 1,
-                'answer_id' => 4,
+                'answer_id' => 1,
                 'dimension_id' => 1,
+                'id' => 3,
                 'score' => 1,
             ),
             1 => 
             array (
-                'id' => 2,
-                'answer_id' => 5,
+                'answer_id' => 2,
                 'dimension_id' => 1,
+                'id' => 4,
                 'score' => 10,
+            ),
+            2 => 
+            array (
+                'answer_id' => 3,
+                'dimension_id' => 3,
+                'id' => 5,
+                'score' => 10,
+            ),
+            3 => 
+            array (
+                'answer_id' => 4,
+                'dimension_id' => 3,
+                'id' => 6,
+                'score' => 7,
+            ),
+            4 => 
+            array (
+                'answer_id' => 5,
+                'dimension_id' => 3,
+                'id' => 7,
+                'score' => 4,
+            ),
+            5 => 
+            array (
+                'answer_id' => 6,
+                'dimension_id' => 3,
+                'id' => 8,
+                'score' => 1,
+            ),
+            6 => 
+            array (
+                'answer_id' => 7,
+                'dimension_id' => 4,
+                'id' => 9,
+                'score' => 10,
+            ),
+            7 => 
+            array (
+                'answer_id' => 8,
+                'dimension_id' => 4,
+                'id' => 10,
+                'score' => 7,
+            ),
+            8 => 
+            array (
+                'answer_id' => 9,
+                'dimension_id' => 4,
+                'id' => 11,
+                'score' => 4,
+            ),
+            9 => 
+            array (
+                'answer_id' => 10,
+                'dimension_id' => 4,
+                'id' => 12,
+                'score' => 1,
             ),
         ));
         

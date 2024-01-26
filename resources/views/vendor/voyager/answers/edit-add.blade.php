@@ -95,13 +95,16 @@
                             @endforeach
 
                             {{-- Score Relation field to couple dimensions with scores --}}
+                            @php 
+                                $answer = \App\Models\Answer::find($dataTypeContent->getKey());
+                            @endphp
                             <div id="app" class="form-group col-md-12">
                                 <label class="control-label" for="name">Dimension scores</label>
 
                                 <score-relation-form-field
                                         :entities="{{ json_encode(\App\Models\Dimension::get()->toArray())}}"
                                         :score-route="{{ json_encode(route('actiewijzer.score_answer_dimension'))}}"
-                                        :current-scores="{{ json_encode(\App\Models\Answer::find($dataTypeContent->getKey())->dimensions) }}"
+                                        :current-scores="{{ json_encode($answer ? ($answer->dimensions) : array()) }}"
                                 />
                             </div>
 
