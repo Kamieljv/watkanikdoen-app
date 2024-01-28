@@ -11,7 +11,28 @@
 
     <div class="max-w-4xl mx-auto mt-6 mb-40 px-5 lg:px-0">
         <div id="app">
-            {{ var_dump($scores) }}
+
+            {{-- Themes --}}
+            @if(key_exists('themes', $scores))
+                <h2>Omdat je je voor
+                    @foreach($scores['themes'] as $key=>$theme)
+                        <span class="underline underline-offset-2" style="text-decoration-color: {{ $theme->color }}; text-decoration-thickness: 4px;">
+                            {{ $theme->name }}</span>
+                        @if ($key < $scores['themes']->count() - 2), @endif
+                        @if ($key == $scores['themes']->count() - 2) en @endif
+                    @endforeach
+                    wil inzetten
+                </h2>
+                <actie-agenda
+                    :routes="{{ $routes }}"
+                    :filterable="false"
+                    :theme-ids="{{ json_encode(array_column($scores['themes']->toArray(), 'id')) }}"
+                    :narrower="true"
+                    :skeletons="2"
+                    :limit="4"
+                >
+                </actie-agenda>
+            @endif
         </div>
     </div>
 

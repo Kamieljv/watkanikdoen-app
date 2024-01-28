@@ -118,8 +118,9 @@ export default {
         },
         submit() {
             var url = new URL(this.resultRoute);
-            const params = {...this.dimension_scores, ...{'themes': this.themesSelected}}
-            url.search = new URLSearchParams(params)
+            var url_params = new URLSearchParams(this.dimension_scores)
+            this.themesSelected.forEach(id => url_params.append('themes[]', id))
+            url.search = url_params
             window.location.href = url.href;
         },
         computeDimensionScores() {
