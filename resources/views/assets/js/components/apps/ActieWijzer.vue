@@ -23,12 +23,16 @@
                         class="secondary">
                         {{ __('general.previous') }}
                     </button>
-                    <button v-if="!isLastStep" class="primary" @click.prevent="activeIndex++">
-                        {{ __('general.next') }}
-                    </button>
-                    <button v-else class="primary"  @click.prevent="submit">
+                    <button v-if="isLastStep" class="primary"  @click.prevent="submit">
                         {{ __('general.send_form') }}
                     </button>
+                    <button v-else-if="validInput" class="primary" @click.prevent="activeIndex++">
+                        {{ __('general.next') }}
+                    </button>
+                    <button v-else class="primary" disabled>
+                        {{ __('general.next') }}
+                    </button>
+                    
                 </div>
             </ValidationObserver>
         </div>
@@ -94,6 +98,12 @@ export default {
         currentQuestion() {
             return this.questions[this.activeIndex];
         },
+        validInput() {
+            if (this.questions[this.activeIndex].subject == 'Thema') {
+                return this.themesSelected.length > 0
+            }
+            return true
+        },
         answers() {
             return this.questions.map((q) => q.answers).flat()
         },
@@ -108,7 +118,8 @@ export default {
         },
         submit() {
             var url = new URL(this.resultRoute);
-            url.search = new URLSearchParams(this.dimension_scores)
+            const params = {...this.dimension_scores, ...{'themes': this.themesSelected}}
+            url.search = new URLSearchParams(params)
             window.location.href = url.href;
         },
         computeDimensionScores() {
