@@ -14,6 +14,7 @@
             <Actie-Wijzer
                 :questions="{{ json_encode($questions) }}"
                 :dimensions="{{ json_encode($dimensions) }}"
+                :themes="{{ json_encode($themes) }}"
                 :result-route="'{{ $result_route }}'"
             >
         </div>

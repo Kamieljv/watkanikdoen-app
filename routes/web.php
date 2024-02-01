@@ -67,7 +67,7 @@ Route::get('acties/aanmelden', [ReportController::class, 'landing'])->name('repo
 
 // ActieWijzer
 Route::get('actiewijzer', [ActieWijzerController::class, 'landing'])->name('actiewijzer.landing');
-Route::get('actiewijzer/result', [ActieWijzerController::class, 'landing'])->name('actiewijzer.result');
+Route::get('actiewijzer/result', [ActieWijzerController::class, 'result'])->name('actiewijzer.result');
 
 // Public statistics route
 Route::get('dashboard/getPublicStats', [DashboardController::class, 'getPublicStats'])->name('dashboard.public_stats');

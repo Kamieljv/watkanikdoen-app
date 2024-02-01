@@ -9,20 +9,30 @@
             </step-progress>
             <ValidationObserver>
                 <Transition name="slide" mode="out-in" appear>
-                    <question :question="currentQuestion" :value="answersGiven[currentQuestion.id]" :key="activeIndex" @input="handleInput" class="p-8 bg-white rounded-md shadow-md min-h-[300px]">
-                    </question>
+                    <div v-if="currentQuestion.subject == 'Thema'">
+                        <theme-question :question="currentQuestion" :themes="themes" :value="themesSelected" :key="activeIndex" @input="handleThemeInput" class="p-8 bg-white rounded-md shadow-md min-h-[300px]">
+                        </theme-question>
+                    </div>
+                    <div v-else>
+                        <question :question="currentQuestion" :value="answersGiven[currentQuestion.id]" :key="activeIndex" @input="handleInput" class="p-8 bg-white rounded-md shadow-md min-h-[300px]">
+                        </question>
+                    </div>
                 </Transition>
                 <div class="flex mt-5" :class="{'justify-end': activeIndex === 0, 'justify-between': activeIndex > 0}">
                     <button v-if="activeIndex > 0" type="button" @click.prevent="activeIndex--"
                         class="secondary">
                         {{ __('general.previous') }}
                     </button>
-                    <button v-if="!isLastStep" class="primary" @click.prevent="activeIndex++">
-                        {{ __('general.next') }}
-                    </button>
-                    <button v-else class="primary"  @click.prevent="submit">
+                    <button v-if="isLastStep" class="primary"  @click.prevent="submit">
                         {{ __('general.send_form') }}
                     </button>
+                    <button v-else-if="validInput" class="primary" @click.prevent="activeIndex++">
+                        {{ __('general.next') }}
+                    </button>
+                    <button v-else class="primary" disabled>
+                        {{ __('general.next') }}
+                    </button>
+                    
                 </div>
             </ValidationObserver>
         </div>
@@ -34,9 +44,8 @@
 
         <!-- DEBUG -->
         <p>Answersgiven: {{ answersGiven }}</p>
-        <p>Answers: {{ answers }}</p>
-        <p>Scores: {{ dimensionScoresNamed}}</p>
-        <p>Dimensions: {{ dimensions}}</p>
+        <p>Scores: {{ dimension_scores}}</p>
+        <p>Themes: {{ themesSelected }}</p>
 
     </div>
 </template>
@@ -59,6 +68,10 @@ export default {
             type: Array,
             required: true,
         },
+        themes: {
+            type: Array,
+            required: true,
+        },
         resultRoute: {
             type: String,
             required: true,
@@ -70,6 +83,7 @@ export default {
         currentErrors: [],
         answersGiven: {},
         dimension_scores: {},
+        themesSelected: [],
     }),
     computed: {
         steps() {
@@ -84,21 +98,29 @@ export default {
         currentQuestion() {
             return this.questions[this.activeIndex];
         },
+        validInput() {
+            if (this.questions[this.activeIndex].subject == 'Thema') {
+                return this.themesSelected.length > 0
+            }
+            return true
+        },
         answers() {
             return this.questions.map((q) => q.answers).flat()
         },
-        dimensionScoresNamed() {
-            return Object.entries(this.dimension_scores).reduce((a, [k, v]) => ({ ...a, [this.dimensions.find(d => d.id == k).name.toLowerCase()]: v}), {}) 
-        }
     },
     methods: {
         handleInput(input) {
             this.$set(this.answersGiven, this.questions[this.activeIndex].id, input);
             this.computeDimensionScores();
         },
+        handleThemeInput(input) {
+            this.themesSelected = input
+        },
         submit() {
             var url = new URL(this.resultRoute);
-            url.search = new URLSearchParams(this.dimensionScoresNamed)
+            var url_params = new URLSearchParams(this.dimension_scores)
+            this.themesSelected.forEach(id => url_params.append('themes[]', id))
+            url.search = url_params
             window.location.href = url.href;
         },
         computeDimensionScores() {
@@ -108,9 +130,9 @@ export default {
             var answersGivenFull = this.answers.filter((a) => Object.values(this.answersGiven).includes(a.id))
             // sum the dimension scores for each answer
             answersGivenFull.forEach((a) => {
-                Object.entries(JSON.parse(a.dimension_scores)).forEach(([k, v]) => {
-                    var value = this.dimension_scores.hasOwnProperty(k) ? this.dimension_scores[k] + v : v;
-                    this.$set(this.dimension_scores, k, value)
+                a.dimensions.forEach((d) => {
+                    var newValue = this.dimension_scores.hasOwnProperty(d.name) ? this.dimension_scores[d.name] + d.pivot.score : d.pivot.score;
+                    this.$set(this.dimension_scores, d.name, newValue)
                 })
             });
         }
