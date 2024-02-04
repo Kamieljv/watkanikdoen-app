@@ -78,6 +78,8 @@
       focus:ring-blue-600 focus:ring-opacity-50;
   }
 
+  [v-cloak] {display: none;}
+
   p,
   label,
   li,

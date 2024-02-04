@@ -12,6 +12,7 @@
 */
 
 use App\Http\Controllers\ActieController;
+use App\Http\Controllers\ActieWijzerController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BlogController;
@@ -33,7 +34,7 @@ Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('user/verify/{verification_code}', [RegisterController::class, 'verify'])->name('verify');
 Route::get('register/complete', [RegisterController::class, 'complete'])->name('registration.complete');
 
-// Include voyager routes
+// Include voyager routes and some custom admin routes
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
     Route::get('report/approve/{id}', [ReportController::class, 'approve'])->name('report.approve');
@@ -41,6 +42,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('actie/publish/{id}', [ActieController::class, 'publish'])->name('actie.publish');
     Route::get('organizer/publish/{id}', [OrganizerController::class, 'publish'])->name('organizer.publish');
     Route::post('images/delete_unlinked', [ImageController::class, 'deleteUnlinked'])->name('images.delete_unlinked');
+    Route::post('actiewijzer/score_answer_dimension', [ActieWijzerController::class, 'scoreAnswerDimension'])->name('actiewijzer.score_answer_dimension');
+    Route::post('actiewijzer/delete_answer_dimension', [ActieWijzerController::class, 'deleteAnswerDimension'])->name('actiewijzer.delete_answer_dimension');
 });
 
 // Wave impersonation route
@@ -62,6 +65,10 @@ Route::get('organisator/{organizer}', [OrganizerController::class, 'organizer'])
 
 // Acties aanmelden
 Route::get('acties/aanmelden', [ReportController::class, 'landing'])->name('report.landing');
+
+// ActieWijzer
+Route::get('actiewijzer', [ActieWijzerController::class, 'landing'])->name('actiewijzer.landing');
+Route::get('actiewijzer/result', [ActieWijzerController::class, 'result'])->name('actiewijzer.result');
 
 // Public statistics route
 Route::get('dashboard/getPublicStats', [DashboardController::class, 'getPublicStats'])->name('dashboard.public_stats');
