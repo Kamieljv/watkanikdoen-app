@@ -37,6 +37,11 @@ class ActieWijzerController extends Controller
         }
     }
 
+    public function deleteAnswerDimension(Request $request) {
+        // The request should contain an answer_id, dimension_id and a score
+        $answer = Answer::find($request->answer_id)->dimensions()->detach($request->dimension_id);
+    }
+
     public function result(Request $request) {
 
         // Get dimension names to define what URL parameters are allowed

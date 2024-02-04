@@ -104,6 +104,7 @@
                                 <score-relation-form-field
                                         :entities="{{ json_encode(\App\Models\Dimension::get()->toArray())}}"
                                         :score-route="{{ json_encode(route('actiewijzer.score_answer_dimension'))}}"
+                                        :score-delete-route="{{ json_encode(route('actiewijzer.delete_answer_dimension'))}}"
                                         :current-scores="{{ json_encode($answer ? ($answer->dimensions) : array()) }}"
                                         :current-id="{{ $dataTypeContent->getKey() }}"
                                 />
