@@ -12,19 +12,26 @@
     <div class="max-w-4xl mx-auto mt-6 mb-40 px-5 lg:px-0">
         <div id="app">
 
-            <h1 class="md:text-6xl">{{ __('actiewijzer.results_header') }}
+            <h1 class="md:text-6xl text-center">{{ __('actiewijzer.results_header') }}</h1>
 
             {{-- Summary --}}
-            <div class="mt-20 p-6 bg-gray-200 rounded-xl">
-                <h2>{{ __('actiewijzer.results_summary_header') }}</h2>
-                <p class="text-base font-normal">{{ __('actiewijzer.results_summary_body') }}
+            <collapsible 
+                id="summary-collapsible"
+                class="mt-10"
+                trigger-label="{{ __('actiewijzer.results_summary_header') }}"
+                label-style="font-size: 25px;"
+                icon="bxs-bar-chart"
+                :is-open="false"
+                v-cloak
+            >
+                <p class="font-normal">{{ __('actiewijzer.results_summary_body') }}
                 
                 <div class="mt-10">
                     @foreach ($dimensions as $dim)
                         @if(array_key_exists($dim->name, $scores))
                             <div class="mb-2 flex justify-between items-center">
                                 <div class="flex">
-                                    <p class="text-lg">{{$dim->name}}</p>
+                                    <p class="font-bold">{{$dim->name}}</p>
                                     <span title="{{ $dim->description }}">@svg('custom-clarity-info-circle-solid', ['style' => 'width: 22px; height: 22px'])</span>
                                 </div>
                                 <progress-bar :value="{{ $scores[$dim->name] }}" :min="0" :max="{{config('app.actiewijzer.max_score')}}" color="var(--wkid-pink)" background-color="#C9C9C9" style="width: 80%" />
@@ -34,7 +41,7 @@
                 </div>
 
                 <div class="mt-10">
-                    <h4 class="text-xl mb-2">Thema's</h4>
+                    <h4 class="text-lg mb-2">Thema's</h4>
                     <div class="flex">
                         @foreach ($themes as $t)
                             <div
@@ -46,7 +53,7 @@
                         @endforeach
                     </div>
                 </div>
-            </div>
+            </collapsible>
 
             {{-- Themes --}}
             @if($themes != null)
