@@ -81,6 +81,7 @@
             'number',
             'email',
             'date',
+            'time',
             'datetime-local',
           ].includes(value);
         },

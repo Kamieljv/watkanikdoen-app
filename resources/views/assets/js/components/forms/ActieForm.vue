@@ -99,21 +99,34 @@
                     <div class="flex flex-col mt-5 space-y-3">
                         <!-- Time start -->
                         <FormField
-                            v-model="report.time_start"
-                            label="Begin van de actie"
-                            name="Begintijd"
-                            type="datetime-local"
+                            v-model="report.start_date"
+                            label="Datum begin van de actie"
+                            name="BeginDatum"
+                            type="date"
                             rules="afterToday"
+                            required
+                        />
+                        <FormField
+                            v-model="report.start_time"
+                            label="Tijdstip begin van de actie"
+                            name="BeginTijd"
+                            type="time"
                             required
                         />
                         <!-- Time end -->
                         <FormField
-                            v-model="report.time_end"
-                            label="Eind van de actie"
-                            name="time_end"
-                            type="datetime-local"
-                            required
-                            rules="after:@Begintijd"
+                            v-model="report.end_date"
+                            label="Datum einde van de actie"
+                            name="EindDatum"
+                            type="date"
+                            rules=""
+                        />
+                        <FormField
+                            v-model="report.end_date"
+                            label="Tijdstip einde van de actie"
+                            name="EindTijd"
+                            type="time"
+                            rules="after:@BeginTijd"
                         />
                     </div>
                 </div>
