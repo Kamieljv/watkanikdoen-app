@@ -111,7 +111,6 @@
                             label="Tijdstip begin van de actie"
                             name="BeginTijd"
                             type="time"
-                            required
                         />
                         <!-- Time end -->
                         <FormField
@@ -122,11 +121,11 @@
                             rules=""
                         />
                         <FormField
-                            v-model="report.end_date"
+                            v-model="report.end_time"
                             label="Tijdstip einde van de actie"
                             name="EindTijd"
                             type="time"
-                            rules="after:@BeginTijd"
+                            rules=""
                         />
                     </div>
                 </div>
