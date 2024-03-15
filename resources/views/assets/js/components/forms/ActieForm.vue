@@ -118,7 +118,8 @@
                             label="Datum einde van de actie"
                             name="EindDatum"
                             type="date"
-                            rules=""
+                            rules="afterIncluding:@BeginDatum"
+                            required
                         />
                         <FormField
                             v-model="report.end_time"
