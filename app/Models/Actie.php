@@ -31,8 +31,10 @@ class Actie extends Model
         'title',
         'body',
         'externe_link',
-        'time_start',
-        'time_end',
+        'start_date',
+        'start_time',
+        'end_date',
+        'end_time',
         'location',
         'location_human',
         'slug',
@@ -93,9 +95,9 @@ class Actie extends Model
 
     public function getStartEndAttribute()
     {
-        if ($this->time_start && $this->time_end) {
-            $start = Date::parse($this->time_start);
-            $end = Date::parse($this->time_end);
+        if ($this->start_date && $this->end_date) {
+            $start = Date::parse($this->start_date);
+            $end = Date::parse($this->end_date);
 
             if ($start->format('Y-m-d') == $end->format('Y-m-d')) {
                 // start and end on same day
@@ -114,7 +116,7 @@ class Actie extends Model
 
     public function getStartUnixAttribute()
     {
-        return Date::parse($this->time_start)->timestamp;
+        return Date::parse($this->start_date . " " . $this->start_time)->timestamp;
     }
 
     public function getPageviewsTextAttribute()

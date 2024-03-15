@@ -171,18 +171,26 @@
                         </div>
                         <div class="panel-body">
                             @foreach($dataTypeRows as $row)
-                                @if ($row->field === 'time_start')
+                                @if ($row->field === 'start_date')
                                     <div class="form-group @if($row->type == 'hidden') hidden @endif">
-                                        <label for="time_start">{{ $row->display_name }}</label>
-                                        <input class="form-control" type="datetime-local" name="time_start" value="{{old('time_start', $dataTypeContent->time_start ?? '')}}" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"/>
+                                        <label for="start_date">{{ $row->display_name }}</label>
+                                        <input class="form-control" type="date" name="start_date" value="{{old('start_date', $dataTypeContent->start_date ?? '')}}" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"/>
                                         @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
                                             {!! $after->handle($row, $dataType, $dataTypeContent) !!}
                                         @endforeach
                                     </div>
-                                @elseif ($row->field === 'time_end')
+                                @elseif ($row->field === 'start_time')
+                                    <div class="form-group @if($row->type == 'hidden') hidden @endif">
+                                        <label for="start_time">{{ $row->display_name }}</label>
+                                        <input class="form-control" type="time" name="start_date" value="{{old('start_time', $dataTypeContent->start_time ?? '')}}" pattern="[0-9]{2}:[0-9]{2}:[0-9]{2}"/>
+                                        @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
+                                            {!! $after->handle($row, $dataType, $dataTypeContent) !!}
+                                        @endforeach
+                                    </div>
+                                @elseif ($row->field === 'end_date')
                                     <div class="form-group @if($row->type == 'hidden') hidden @endif">
                                         <label for="time_end">{{ $row->display_name }}</label>
-                                        <input class="form-control" type="datetime-local" name="time_end" value="{{old('time_end', $dataTypeContent->time_end ?? '')}}" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"/>
+                                        <input class="form-control" type="date" name="end_date" value="{{old('end_date', $dataTypeContent->end_date ?? '')}}" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"/>
                                         @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
                                             {!! $after->handle($row, $dataType, $dataTypeContent) !!}
                                         @endforeach
