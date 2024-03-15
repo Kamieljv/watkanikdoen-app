@@ -193,7 +193,7 @@ class Actie extends Model
 
     public function getAfgelopenAttribute()
     {
-        return Date::parse($this->time_end)->timestamp < time();
+        return Date::parse($this->end_time)->timestamp < time();
     }
 
     public function getPublishedAttribute()
@@ -207,7 +207,7 @@ class Actie extends Model
     }
     public function scopeToekomstig($query)
     {
-        return $query->where('time_end', '>', Date::now()->toDateTimeString());
+        return $query->where('end_date', '>', Date::now()->toDateString());
     }
 
     public function publish()

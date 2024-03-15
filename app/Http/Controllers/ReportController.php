@@ -86,10 +86,8 @@ class ReportController extends Controller
                 'title' => $request->report['title'],
                 'body' => $request->report['body'] ?? null,
                 'externe_link' => $request->report['externe_link'],
-
-                //'time_start' => Date::parse($request->report['time_start'])->format('Y-m-d\TH:i'),
-                //'time_end' => Date::parse($request->report['time_end'])->format('Y-m-d\TH:i'),
-
+                'start_date' => Date::parse($request->report['start_time'])->format('Y-m-d'),
+                'end_date' => Date::parse($request->report['end_time'])->format('Y-m-d'),
                 'start_time' => Date::parse($request->report['start_time'])->format('H:i'),
                 'end_time' => Date::parse($request->report['end_time'])->format('H:i'),
                 'location' => isset($request->report['location']) ?

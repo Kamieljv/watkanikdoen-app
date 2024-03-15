@@ -84,7 +84,7 @@ export default {
 	},
 	computed: {
 		isAfgelopen() {
-			return new Date(this.actie.time_end) < new Date()
+			return new Date(this.actie.end_date + " " + this.actie.end_time) < new Date()
 		}
 	}
 }
