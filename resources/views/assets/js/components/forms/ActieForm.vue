@@ -105,6 +105,7 @@
                             type="date"
                             rules="afterToday"
                             required
+                            @input="() => { this.report.end_date = this.report.start_date }"
                         />
                         <FormField
                             v-model="report.start_time"

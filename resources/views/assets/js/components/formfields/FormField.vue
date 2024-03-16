@@ -107,8 +107,8 @@
         default: false,
       },
       step: {
-        type: Number,
-        default: 1,
+        type: String,
+        default: '',
       },
       datalist: {
         type: Array,
