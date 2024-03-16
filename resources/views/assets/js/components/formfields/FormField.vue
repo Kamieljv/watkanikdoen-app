@@ -14,7 +14,7 @@
       v-model="data"
       :name="fieldName"
       :type="type"
-      :step="inputStep"
+      :step="step"
       :list="'datalist-' + id"
       :placeholder="placeholder"
       :required="required"

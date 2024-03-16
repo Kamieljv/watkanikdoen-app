@@ -111,6 +111,7 @@
                             label="Tijdstip begin van de actie"
                             name="BeginTijd"
                             type="time"
+                            step="900"
                         />
                         <!-- Time end -->
                         <FormField
@@ -126,6 +127,7 @@
                             label="Tijdstip einde van de actie"
                             name="EindTijd"
                             type="time"
+                            step="900"
                             rules=""
                         />
                     </div>
