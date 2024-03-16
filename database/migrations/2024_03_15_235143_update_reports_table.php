@@ -21,11 +21,11 @@ return new class extends Migration
         });
 
         DB::statement(
-            'UPDATE acties set 
+            'UPDATE reports set 
             start_date = substring(time_start, 1, 10), 
             start_time = substring(time_start, 11, 8),
             end_date = substring(time_end, 1, 10),
-            end_time = substring(time_end, 11, 8)' 
+            end_time = substring(time_end, 11, 8) where time_start is not NULL' 
         );
     }
 
