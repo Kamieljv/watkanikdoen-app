@@ -185,7 +185,7 @@ class ReportController extends Controller
             'title' => $report->title,
             'body' => $report->body,
             'externe_link' => $report->externe_link,
-            'start_data' => $report->start_date,
+            'start_date' => $report->start_date,
             'start_time' => $report->start_time,
             'end_date' => $report->end_date,
             'end_time' => $report->end_time,
@@ -237,7 +237,7 @@ class ReportController extends Controller
             'report.externe_link' => ['required', 'string', 'max:500', new Website()],
             'report.start_date' => 'required|date_format:Y-m-d|after_or_equal:today',
             'report.start_time' => 'date_format:H:i',
-            'report.end_date' => 'date_format:Y-m-d|after_or_equal:today',
+            'report.end_date' => 'required|date_format:Y-m-d|after_or_equal:today',
             'report.end_time' => 'date_format:H:i',
 
             'report.location' => 'array:lat,lng',
