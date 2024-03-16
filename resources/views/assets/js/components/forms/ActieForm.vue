@@ -82,7 +82,7 @@
                         <FormField
                             v-model="report.externe_link"
                             label="Externe link"
-                            name="location_human"
+                            name="link"
                             type="url"
                             rules="url"
                             required
