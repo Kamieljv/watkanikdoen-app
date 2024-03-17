@@ -77,23 +77,30 @@
                     <p class="text-sm leading-5 text-gray-500 mt">
                         Waar kunnen bezoekers meer informatie over deze actie vinden?
                     </p>
-                    <div class="flex flex-col mt-5 space-y-3">
+                    <div class="flex flex-col mt-5 space-y-3 has-element-right">
                         <!-- Externe link -->
                         <FormField
                             v-model="report.externe_link"
-                            label="Externe link"
                             name="link"
+                            label="Externe link"
                             type="url"
                             rules="url"
                             required
                         >
-                            <button class="plus-btn" @click="addActionUrl">+</button>
+                            <button class="plus-btn" @click="addActionUrl">
+                                + <span v-if="actionUrls.length > 0" class="absolute">{{ actionUrls.length }}</span>
+                            </button>
                         </FormField>
-                        <ul>
-                            <li v-for="actionUrl in actionUrls">
-                                {{ actionUrl.name }}
-                            </li>
-                        </ul>
+                        <div class="actionUrlList">
+                            <ul>
+                                <li v-for="(actionUrl, index) in actionUrls">
+                                    <input type="hidden" name="links[]" v-bind:value="actionUrl.name"></input>
+                                    <span v-if="index < 4">
+                                        {{ actionUrl.name }}
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <div class="flex flex-col justify-start flex-1 mb-5 md:pl-5 overflow-hidden bg-white border-gray-150">
@@ -165,9 +172,7 @@ export default {
     ],
     data: () => {
         return {
-            actionUrls:[
-                { name: 'ok' }
-            ]
+            actionUrls:[]
         };
     },
     props: {
