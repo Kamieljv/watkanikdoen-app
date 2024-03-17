@@ -47,6 +47,7 @@
             c0.267,0,0.532-0.101,0.735-0.304c0.406-0.406,0.406-1.064,0-1.469L11.469,10z"></path>
         </svg>
     </div>
+    <slot></slot>
   </ValidatedFormField>
 </template>
 

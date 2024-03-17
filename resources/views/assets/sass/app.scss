@@ -195,6 +195,18 @@ h6 {
   }
 }
 
+input[name=link]{
+  float: left;
+	width:calc(100% - 3em);
+}
+
+button.plus-btn{
+  float: left;
+  font-size: 3em;
+  line-height: 0.75em;
+  padding: 0 0.2em;
+}
+
 svg {
   width: 100%;
 }

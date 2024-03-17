@@ -82,11 +82,18 @@
                         <FormField
                             v-model="report.externe_link"
                             label="Externe link"
-                            name="location_human"
+                            name="link"
                             type="url"
                             rules="url"
                             required
-                        />
+                        >
+                            <button class="plus-btn" @click="addActionUrl">+</button>
+                        </FormField>
+                        <ul>
+                            <li v-for="actionUrl in actionUrls">
+                                {{ actionUrl.name }}
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <div class="flex flex-col justify-start flex-1 mb-5 md:pl-5 overflow-hidden bg-white border-gray-150">
@@ -156,6 +163,13 @@ export default {
     mixins: [
         caseHelper,
     ],
+    data: () => {
+        return {
+            actionUrls:[
+                { name: 'ok' }
+            ]
+        };
+    },
     props: {
         defaultCenter: {
 			type: Array,
@@ -168,8 +182,18 @@ export default {
         report: {
             type: Object,
             required: true
-        }
+        },
     },
+    methods: {
+        addActionUrl(){
+            if( typeof this.actionUrls.find( 
+                    ( o ) => { return o.name == this.report.externe_link }
+                ) 
+                == 'undefined' )
+
+                    this.actionUrls.push( {name: this.report.externe_link });
+        }
+    }
 }
 </script>
 
