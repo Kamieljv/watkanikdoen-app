@@ -15,6 +15,13 @@
 			{{ csrf_field() }}
 		</template>
 	</Profile>
+	<div class="relative flex flex-col p-6 text-gray-800">
+		<h5>{{__('settings.profile.delete_account')}}</h5>
+		<p>{{__('settings.profile.delete_account_text')}}</p>
+		<a class="mt-5" href="/acties">
+			<button class="danger">{{__('settings.profile.delete_account')}}</button>
+		</a>
+	</div>
 </div>
 
 @push('scripts')
