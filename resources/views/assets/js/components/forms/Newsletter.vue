@@ -146,13 +146,5 @@ export default {
         color: var(--wkid-message-error-dark);
         background: var(--wkid-message-error-light);
     }
-    div.custom-loader {
-        border: 4px solid white;
-        border-top: 4px solid transparent;
-        border-radius: 50%;
-        width: 20px;
-        height: 20px;
-        animation: spin 1s linear infinite;
-    }
 </style>
 

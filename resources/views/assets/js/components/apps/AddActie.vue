@@ -81,7 +81,8 @@
                         {{ __('general.next') }}
                     </button>
                     <button v-else class="primary"  @click.prevent="submit">
-                        {{ __('general.send_form') }}
+                        <span v-if="!isLoading">{{ __('general.send_form') }}</span>
+                        <div v-else class="custom-loader"></div>
                     </button>
                 </div>
             </ValidationObserver>
@@ -157,6 +158,7 @@ export default {
         currentUser: {},
         sent: false,
         currentErrors: [],
+        isLoading: false,
     }),
     computed: {
         activeStep() {
@@ -183,6 +185,7 @@ export default {
     },
     methods: {
         submit() {
+            this.isLoading = true;
             // build organizers data object
             var organizers = this.selectedOrganizers.map((org) => {
                 return ('id' in org)? {id: org.id} : org
@@ -203,8 +206,10 @@ export default {
                 } else {
                     this.currentErrors = {error: [response.data.message]}
                 }
+                this.isLoading = false;
             }).catch((error) => {
-                this.currentErrors = error.response.data.errors
+                this.currentErrors = error.response.data.errors;
+                this.isLoading = false;
             })
         },
         handleNext() {
@@ -213,7 +218,8 @@ export default {
                     if (result) { 
                         this.activeIndex++ 
                     }
-                })
+                });
+                this.currentErrors = [];
             } else {
                 this.activeIndex++
             }
