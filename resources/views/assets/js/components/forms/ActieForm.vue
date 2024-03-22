@@ -113,6 +113,7 @@
                             name="BeginTijd"
                             type="time"
                             step="900"
+                            :clearable="true"
                         />
                         <!-- Time end -->
                         <FormField
@@ -130,6 +131,7 @@
                             type="time"
                             step="900"
                             rules=""
+                            :clearable="true"
                         />
                     </div>
                 </div>
