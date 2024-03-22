@@ -26,6 +26,7 @@
         "livewire/livewire": "^2.8",
         "matanyadaev/laravel-eloquent-spatial": "^2.10",
         "orangehill/iseed": "^3.0",
+        "spatie/icalendar-generator": "^2.6",
         "spatie/laravel-sitemap": "^6.1",
         "tcg/voyager": "1.6.*",
         "tymon/jwt-auth": "dev-develop"
