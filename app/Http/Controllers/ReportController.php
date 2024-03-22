@@ -14,7 +14,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Log;
 use Jenssegers\Date\Date;
 use Validator;
 use Voyager;
@@ -249,12 +248,12 @@ class ReportController extends Controller
             'organizers.*.description' => 'sometimes|string|max:16000',
             'organizers.*.website' => ['sometimes', 'required', 'string', 'max:500', new Website()]
         ], [
-            'organizers.*.name.unique' => 'De organisatornaam :input bestaat al.'
+            'organizers.*.name.unique' => 'De organisatornaam :input bestaat al.',
+            'report.end_time' => 'Het einde van de actie moet na het begin zijn.'
         ]);
 
         // Add rule (end_time must be after start_time) for when start_date and end_date are the same
         $v->sometimes('report.end_time', 'date_format:H:i|after:report.start_time', function ($data) {
-            Log::debug($data->report);
             return $data->report['start_date'] == $data->report['end_date'];
         });
 
