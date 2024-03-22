@@ -229,7 +229,7 @@ class ReportController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+        $v = Validator::make($data, [
             'userId' => 'required|integer',
 
             'report.title' => 'required|string|max:255',
@@ -237,7 +237,7 @@ class ReportController extends Controller
             'report.externe_link' => ['required', 'string', 'max:500', new Website()],
             'report.start_date' => 'required|date_format:Y-m-d|after_or_equal:today',
             'report.start_time' => 'date_format:H:i',
-            'report.end_date' => 'required|date_format:Y-m-d|after_or_equal:today',
+            'report.end_date' => 'required|date_format:Y-m-d|after_or_equal:start_date',
             'report.end_time' => 'date_format:H:i',
 
             'report.location' => 'array:lat,lng',
@@ -250,6 +250,13 @@ class ReportController extends Controller
         ], [
             'organizers.*.name.unique' => 'De organisatornaam :input bestaat al.'
         ]);
+
+        // Add rule (end_time must be after start_time) for when start_date and end_date are the same
+        $v->sometimes('end_time', 'date_format:H:i|after:start_time', function ($data) {
+            return $data->start_data == $data->end_date;
+        });
+
+        return $v;
     }
 
     protected function createSlug($title, $model = Actie::class)
