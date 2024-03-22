@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 use Jenssegers\Date\Date;
 use Validator;
 use Voyager;
@@ -237,7 +238,7 @@ class ReportController extends Controller
             'report.externe_link' => ['required', 'string', 'max:500', new Website()],
             'report.start_date' => 'required|date_format:Y-m-d|after_or_equal:today',
             'report.start_time' => 'date_format:H:i',
-            'report.end_date' => 'required|date_format:Y-m-d|after_or_equal:start_date',
+            'report.end_date' => 'required|date_format:Y-m-d|after_or_equal:report.start_date',
             'report.end_time' => 'date_format:H:i',
 
             'report.location' => 'array:lat,lng',
@@ -252,8 +253,9 @@ class ReportController extends Controller
         ]);
 
         // Add rule (end_time must be after start_time) for when start_date and end_date are the same
-        $v->sometimes('end_time', 'date_format:H:i|after:start_time', function ($data) {
-            return $data->start_data == $data->end_date;
+        $v->sometimes('report.end_time', 'date_format:H:i|after:report.start_time', function ($data) {
+            Log::debug($data->report);
+            return $data->report['start_date'] == $data->report['end_date'];
         });
 
         return $v;
