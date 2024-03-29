@@ -442,6 +442,10 @@
                 type: Boolean,
                 default: true,
             },
+            maxToLoad: {
+                type: Number,
+                default: 20,
+            },
         },
         data: function() {
             return {
@@ -477,6 +481,7 @@
                 var vm = this;
                 vm.is_loading = true;
                 $.post('{{ route('voyager.media.files') }}', { folder: vm.current_folder, _token: '{{ csrf_token() }}', details: vm.details }, function(data) {
+                    data = data.slice(0, vm.maxToLoad)
                     vm.files = [];
                     for (var i = 0, file; file = data[i]; i++) {
                         if (vm.filter(file) && (file.type == 'folder' || vm.search(file, vm.query))) {
@@ -607,7 +612,6 @@
                 return false;
             },
             search: function(file, query) {
-                console.log(file.name.toLowerCase(), query.toLowerCase())
                 if (file.name.toLowerCase().includes(query.toLowerCase())) {
                     return true;
                 } else {
