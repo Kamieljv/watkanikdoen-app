@@ -559,9 +559,10 @@
                 return this.selected_files.includes(file);
             },
             fileIs: function(file, type) {
-                var type_string = (typeof file === 'string') ? file.toLowerCase() : file.type.toLowerCase();
+                var type_string = (typeof file === 'string') ? file.toLowerCase() : 
+                    (file.type !== null) ? file.type.toLowerCase(): '';
                 if (type == 'image') {
-                    return this.endsWithAny(['jpg', 'jpeg', 'png', 'bmp'], type_string.toLowerCase());
+                    return this.endsWithAny(['jpg', 'jpeg', 'png', 'bmp'], type_string);
                 }
                 else {
                     return type_string == type
