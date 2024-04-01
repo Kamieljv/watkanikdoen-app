@@ -96,7 +96,7 @@
         <div class="flex">
             <div id="left">
                 <ul id="files">
-                    <li v-for="(file) in files_to_show" v-on:click="selectFile(file, $event)" v-on:dblclick="openFile(file)" v-if="filter(file)">
+                    <li v-for="(file) in files" v-on:click="selectFile(file, $event)" v-on:dblclick="openFile(file)" v-if="filter(file)">
                         <div :class="'file_link ' + (isFileSelected(file) ? 'selected' : '')">
                             <div class="link_icon">
                                 <template v-if="fileIs(file, 'image')">
@@ -469,9 +469,6 @@
         computed: {
             selected_file: function() {
                 return this.selected_files[0];
-            },
-            files_to_show: function() {
-                return this.files.slice(0, this.maxToLoad)
             }
         },
         watch: {
