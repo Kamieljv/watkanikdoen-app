@@ -892,6 +892,96 @@ class PermissionsTableSeeder extends Seeder
                 'updated_at' => '2024-01-26 10:33:35',
                 'permission_group_id' => NULL,
             ),
+            97 => 
+            array (
+                'id' => 123,
+                'key' => 'browse_referenties',
+                'table_name' => 'referenties',
+                'created_at' => '2024-01-26 10:33:35',
+                'updated_at' => '2024-01-26 10:33:35',
+                'permission_group_id' => NULL,
+            ),
+            98 => 
+            array (
+                'id' => 124,
+                'key' => 'read_referenties',
+                'table_name' => 'referenties',
+                'created_at' => '2024-01-26 10:33:35',
+                'updated_at' => '2024-01-26 10:33:35',
+                'permission_group_id' => NULL,
+            ),
+            99 => 
+            array (
+                'id' => 125,
+                'key' => 'edit_referenties',
+                'table_name' => 'referenties',
+                'created_at' => '2024-01-26 10:33:35',
+                'updated_at' => '2024-01-26 10:33:35',
+                'permission_group_id' => NULL,
+            ),
+            100 => 
+            array (
+                'id' => 126,
+                'key' => 'add_referenties',
+                'table_name' => 'referenties',
+                'created_at' => '2024-01-26 10:33:35',
+                'updated_at' => '2024-01-26 10:33:35',
+                'permission_group_id' => NULL,
+            ),
+            101 => 
+            array (
+                'id' => 127,
+                'key' => 'delete_referenties',
+                'table_name' => 'referenties',
+                'created_at' => '2024-01-26 10:33:35',
+                'updated_at' => '2024-01-26 10:33:35',
+                'permission_group_id' => NULL,
+            ),
+            102 => 
+            array (
+                'id' => 128,
+                'key' => 'browse_referentie_types',
+                'table_name' => 'referentie_types',
+                'created_at' => '2024-01-26 10:33:35',
+                'updated_at' => '2024-01-26 10:33:35',
+                'permission_group_id' => NULL,
+            ),
+            103 => 
+            array (
+                'id' => 129,
+                'key' => 'read_referentie_types',
+                'table_name' => 'referentie_types',
+                'created_at' => '2024-01-26 10:33:35',
+                'updated_at' => '2024-01-26 10:33:35',
+                'permission_group_id' => NULL,
+            ),
+            104 => 
+            array (
+                'id' => 130,
+                'key' => 'edit_referentie_types',
+                'table_name' => 'referentie_types',
+                'created_at' => '2024-01-26 10:33:35',
+                'updated_at' => '2024-01-26 10:33:35',
+                'permission_group_id' => NULL,
+            ),
+            105 => 
+            array (
+                'id' => 131,
+                'key' => 'add_referentie_types',
+                'table_name' => 'referentie_types',
+                'created_at' => '2024-01-26 10:33:35',
+                'updated_at' => '2024-01-26 10:33:35',
+                'permission_group_id' => NULL,
+            ),
+            106 => 
+            array (
+                'id' => 132,
+                'key' => 'delete_referentie_types',
+                'table_name' => 'referentie_types',
+                'created_at' => '2024-01-26 10:33:35',
+                'updated_at' => '2024-01-26 10:33:35',
+                'permission_group_id' => NULL,
+            ),
         ));
         
         
