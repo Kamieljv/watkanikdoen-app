@@ -19,6 +19,8 @@ class CreateReferentiesTable extends Migration
             $table->string('url');
             $table->text('description');
             $table->string('image');
+            $table->enum('status', ['PUBLISHED', 'DRAFT'])->default('DRAFT');
+            $table->timestamps();
 
             $table->unsignedInteger('referentie_type_id')->index('referentie_referentie_type_id_foreign');
             $table->foreign(['referentie_type_id'])->references(['id'])->on('referentie_types')->onUpdate('NO ACTION')->onDelete('CASCADE');

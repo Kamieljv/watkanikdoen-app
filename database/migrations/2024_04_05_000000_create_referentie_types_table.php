@@ -18,6 +18,8 @@ class CreateReferentieTypesTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('style');
+            $table->enum('status', ['PUBLISHED', 'DRAFT'])->default('DRAFT');
+            $table->timestamps();
         });
     }
 
