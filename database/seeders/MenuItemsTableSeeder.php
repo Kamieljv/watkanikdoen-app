@@ -435,6 +435,38 @@ class MenuItemsTableSeeder extends Seeder
                 'route' => 'voyager.dimensions.index',
                 'parameters' => 'null',
             ),
+            26 => 
+            array (
+                'id' => 52,
+                'menu_id' => 1,
+                'title' => 'Referentie Types',
+                'url' => '',
+                'target' => '_self',
+                'icon_class' => 'voyager-categories',
+                'color' => '#000000',
+                'parent_id' => 48,
+                'order' => 5,
+                'created_at' => '2024-04-05 12:10:23',
+                'updated_at' => '2024-04-05 12:12:03',
+                'route' => 'voyager.referentie-types.index',
+                'parameters' => 'null',
+            ),
+            27 => 
+            array (
+                'id' => 53,
+                'menu_id' => 1,
+                'title' => 'Referenties',
+                'url' => '',
+                'target' => '_self',
+                'icon_class' => 'voyager-paper-plane',
+                'color' => '#000000',
+                'parent_id' => 48,
+                'order' => 4,
+                'created_at' => '2024-04-05 12:11:59',
+                'updated_at' => '2024-04-05 12:12:25',
+                'route' => 'voyager.referenties.index',
+                'parameters' => 'null',
+            ),
         ));
         
         
