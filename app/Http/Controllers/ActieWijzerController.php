@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Answer;
 use App\Models\Question;
 use App\Models\Dimension;
+use App\Models\ReferentieType;
 use App\Models\Theme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -44,12 +45,16 @@ class ActieWijzerController extends Controller
 
     public function result(Request $request) {
 
-        // Get dimension names to define what URL parameters are allowed
-        $request_filtered = $request->only(Dimension::all()->pluck('name')->toArray());
+        $dimensions = Dimension::all();
 
-        $scores = array_filter($request_filtered, function($v) {
+        // Filter the request parameters using the dimension names and min/max score settings
+        $requests_filtered = array_filter($request->only($dimensions->pluck('name')->toArray()), function($v) {
             return intval($v) && intval($v) >= config('app.actiewijzer.min_score') && intval($v) <= config('app.actiewijzer.max_score');
         });
+
+        foreach ($dimensions as $d) {
+            $d->score = isset($requests_filtered[$d->name]) ? $requests_filtered[$d->name] : 0;
+        }
 
         $themes = null;
         if (key_exists('themes', $request->all())) {
@@ -66,8 +71,13 @@ class ActieWijzerController extends Controller
             ];
         });
 
-        $dimensions = Dimension::all();
+        // Get referentie_types and calculate the similarity with the score_vector
+        $referentie_types = ReferentieType::published()->get();
+        foreach ($referentie_types as $rt) {
+            $rt->dist = euclidianDistance($rt->score_vector, array_column($dimensions->toArray(), 'score'));
+        }
+        $referentie_types = $referentie_types->sortBy('dist');
         
-        return view('actiewijzer.result', compact('scores', 'themes', 'dimensions', 'routes'));
+        return view('actiewijzer.result', compact('themes', 'dimensions', 'referentie_types', 'routes'));
     }
 }

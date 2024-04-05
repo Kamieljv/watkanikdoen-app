@@ -28,15 +28,13 @@
                 
                 <div class="mt-10">
                     @foreach ($dimensions as $dim)
-                        @if(array_key_exists($dim->name, $scores))
-                            <div class="mb-2 flex justify-between items-center">
-                                <div class="flex">
-                                    <p class="font-bold">{{$dim->name}}</p>
-                                    <span title="{{ $dim->description }}">@svg('custom-clarity-info-circle-solid', ['style' => 'width: 22px; height: 22px'])</span>
-                                </div>
-                                <progress-bar :value="{{ $scores[$dim->name] }}" :min="0" :max="{{config('app.actiewijzer.max_score')}}" color="var(--wkid-pink)" background-color="#C9C9C9" style="width: 80%" />
+                        <div class="mb-2 flex justify-between items-center">
+                            <div class="flex">
+                                <p class="font-bold">{{$dim->name}}</p>
+                                <span title="{{ $dim->description }}">@svg('custom-clarity-info-circle-solid', ['style' => 'width: 22px; height: 22px'])</span>
                             </div>
-                        @endif
+                            <progress-bar :value="{{$dim->score}}" :min="0" :max="{{config('app.actiewijzer.max_score')}}" color="var(--wkid-pink)" background-color="#C9C9C9" style="width: 80%" />
+                        </div>
                     @endforeach
                 </div>
 
@@ -77,6 +75,16 @@
                 >
                 </actie-agenda>
             </div>
+            @endif
+
+            @if(count($referentie_types) > 0)
+                @foreach($referentie_types as $rt)
+                <div class="mt-20">
+                    <h2>{{$rt->title}}</h2>
+                    <p>{{$rt->dist}}</p>
+                    <p>{{var_dump($rt->score_vector)}}</p>
+                </div>
+                @endforeach
             @endif
         </div>
     </div>

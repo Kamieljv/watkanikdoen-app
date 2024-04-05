@@ -25,6 +25,9 @@ class ReferentieTypesTableSeeder extends Seeder
                 'title' => 'Vrijwilligerswerk',
                 'description' => 'Ik wil vrijwilligerswerk doen',
                 'style' => '{}',
+                'status' => 'PUBLISHED',
+                'created_at' => '2024-04-05 14:22:16',
+                'updated_at' => NULL,
             ),
             1 => 
             array (
@@ -32,6 +35,9 @@ class ReferentieTypesTableSeeder extends Seeder
                 'title' => 'Doneren',
                 'description' => 'Ik wil doneren',
                 'style' => '{}',
+                'status' => 'PUBLISHED',
+                'created_at' => '2024-04-05 14:22:16',
+                'updated_at' => NULL,
             ),
         ));
         

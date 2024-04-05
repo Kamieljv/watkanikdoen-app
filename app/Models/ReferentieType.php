@@ -23,11 +23,31 @@ class ReferentieType extends Model
      */
     protected $with = [
         'referenties',
+        'dimensions'
     ];
 
     public function referenties()
     {
         return $this->hasMany(Referentie::class);
+    }
+
+    public function dimensions()
+    {
+        return $this->belongsToMany(Dimension::class, 'referentie_type_dimension')->withPivot('score');
+    }
+
+    public function getScoreVectorAttribute()
+    {
+        $score_vec = [];
+        foreach (Dimension::all() as $d) {
+            $matching_dim = $this->dimensions->where('id', $d->id);
+            if (count($matching_dim) > 0) {
+                array_push($score_vec, $matching_dim[0]->pivot->score);
+            } else {
+                array_push($score_vec, 0);
+            }
+        }
+        return $score_vec;
     }
 
     public function scopePublished($query)
