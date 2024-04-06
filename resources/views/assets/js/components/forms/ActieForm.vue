@@ -194,9 +194,13 @@ export default {
             if( typeof this.actionUrls.find( 
                     ( o ) => { return o.name == this.report.externe_link }
                 ) 
-                == 'undefined' )
+                == 'undefined' 
+                
+                && typeof this.report.externe_link !== 'undefined' 
+                
+                && this.report.externe_link.length > 0)
 
-                    this.actionUrls.push( {name: this.report.externe_link });
+                    this.actionUrls.unshift( {name: this.report.externe_link });
         }
     }
 }
