@@ -91,7 +91,7 @@
                             </button>
                         </FormField>
                         <div class="actionUrlList">
-                            <FormTextarea v-model="report.actionUrls" required readonly></FormTextarea>
+                            <FormTextarea v-model="report.actionUrls" required disabled></FormTextarea>
                         </div>
                     </div>
                 </div>
