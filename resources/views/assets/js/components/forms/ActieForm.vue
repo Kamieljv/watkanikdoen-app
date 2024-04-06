@@ -91,7 +91,7 @@
                             </button>
                         </FormField>
                         <div class="actionUrlList">
-                            <textarea v-model="report.actionUrls" required readonly></textarea>
+                            <FormTextarea v-model="report.actionUrls" required readonly></FormTextarea>
                         </div>
                     </div>
                 </div>
@@ -152,6 +152,7 @@
 import { ValidationObserver, validate } from 'vee-validate';
 import { ValidationProvider } from 'vee-validate';
 import { caseHelper } from '../../mixins/caseHelper';
+import FormTextarea from '../formfields/FormTextarea.vue';
 
 export default {
 	name: "Actie",
