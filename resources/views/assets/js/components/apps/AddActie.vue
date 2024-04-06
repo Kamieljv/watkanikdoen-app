@@ -208,10 +208,20 @@ export default {
             })
         },
         handleNext() {
+            window.scrollTo(0,0)
+
             if (this.activeStep.key === 'actie') {
                 this.$refs.actieForm.$refs.actieValidator.validate().then((result) => {
                     if (result) { 
                         this.activeIndex++ 
+                    }
+                    else if( this.activeIndex > 1){
+                        var i = 0
+                        for(var key in this.$refs.actieForm.$refs.actieValidator.fields){
+                            var el = document.querySelector( '[name=' + key + ']')
+                            if(el && ++i == 1)
+                                el.scrollIntoView()
+                        }
                     }
                 })
             } else {
