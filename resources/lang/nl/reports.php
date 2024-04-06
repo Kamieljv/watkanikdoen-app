@@ -15,7 +15,7 @@ return [
     'to_form' => 'Naar Formulier',
     'title' => 'Titel',
     'body' => 'Beschrijving',
-    'externe_link' => 'Link naar actiepagina (van de organisator)',
+    'externe_link' => 'Links naar actiepagina\'s (van de organisator)',
     'time_start' => 'Begin van de actie',
     'time_end' => 'Eind van de actie',
     'location' => 'Locatie op de kaart',

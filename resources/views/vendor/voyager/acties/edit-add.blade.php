@@ -199,8 +199,10 @@
                             @endforeach
                             {{-- Externe link --}}
                             <div class="form-group">
-                                <label for="name">Externe link</label>
-                                <input type="url" class="form-control" name="externe_link" value="{{ old('externe_link', $dataTypeContent->externe_link ?? '') }}" />
+                                <label for="name">Externe links</label>
+                                <textarea class="form-control" name="externe_link">
+                                    {{ old('externe_link', $dataTypeContent->externe_link ?? '') }}
+                                </textarea>
                             </div>
                             {{-- Disobedient --}}
                             <div class="form-group">

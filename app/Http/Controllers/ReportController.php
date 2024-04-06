@@ -80,12 +80,13 @@ class ReportController extends Controller
                 }   
             }
             // create report
+            $externe_link = str_replace("\n", "", $request->report['actionUrls']);
             $report = Report::create([
                 'user_id' => $request->userId,
                 'organizer_ids' => $organizer_ids ? implode(",", $organizer_ids) : '',
                 'title' => $request->report['title'],
                 'body' => $request->report['body'] ?? null,
-                'externe_link' => $request->report['externe_link'],
+                'externe_link' => $externe_link,
                 'time_start' => Date::parse($request->report['time_start'])->format('Y-m-d\TH:i'),
                 'time_end' => Date::parse($request->report['time_end'])->format('Y-m-d\TH:i'),
                 'location' => isset($request->report['location']) ?
@@ -115,9 +116,10 @@ class ReportController extends Controller
         }
 
         // Send email notification to admin
-        $admin = User::where('username', 'admin')->first();
-        $admin->notify(new ReportReceived($report));
-
+        if(config('app.debug') == false){
+            $admin = User::where('username', 'admin')->first();
+            $admin->notify(new ReportReceived($report));
+        }
         return response([
             'status' => 'success',
             'message' => __('reports.add_success'),
@@ -230,7 +232,7 @@ class ReportController extends Controller
 
             'report.title' => 'required|string|max:255',
             'report.body' => 'required|string|max:16000',
-            'report.externe_link' => ['required', 'string', 'max:500', new Website()],
+            'report.actionUrls' => ['required', 'string', 'max:1500'],
             'report.time_start' => 'required|date_format:Y-m-d\TH:i|after_or_equal:today',
             'report.time_end' => 'required|date_format:Y-m-d\TH:i|after:time_start',
             'report.location' => 'array:lat,lng',
