@@ -85,21 +85,13 @@
                             label="Externe link"
                             type="url"
                             rules="url"
-                            required
                         >
                             <button class="plus-btn" @click="addActionUrl">
                                 + <span v-if="actionUrls.length > 0" class="absolute">{{ actionUrls.length }}</span>
                             </button>
                         </FormField>
                         <div class="actionUrlList">
-                            <ul>
-                                <li v-for="(actionUrl, index) in actionUrls">
-                                    <input type="hidden" name="links[]" v-bind:value="actionUrl.name"></input>
-                                    <span v-if="index < 4">
-                                        {{ actionUrl.name }}
-                                    </span>
-                                </li>
-                            </ul>
+                            <textarea v-model="report.actionUrls" required readonly></textarea>
                         </div>
                     </div>
                 </div>
@@ -157,7 +149,7 @@
 
 <script>
 
-import { ValidationObserver } from 'vee-validate';
+import { ValidationObserver, validate } from 'vee-validate';
 import { ValidationProvider } from 'vee-validate';
 import { caseHelper } from '../../mixins/caseHelper';
 
@@ -198,9 +190,19 @@ export default {
                 
                 && typeof this.report.externe_link !== 'undefined' 
                 
-                && this.report.externe_link.length > 0)
+                && this.report.externe_link.length > 0){
 
-                    this.actionUrls.unshift( {name: this.report.externe_link });
+                    validate(this.report.externe_link, 'url')
+                    .then( ( result ) => {
+                        if( result.valid ){
+                            this.actionUrls.unshift( {name: this.report.externe_link });
+
+                            this.report.actionUrls = this.actionUrls.map( ( u ) => u.name ).join( " \n" )
+
+                            this.report.externe_link = ''
+                        }
+                    })
+                }
         }
     }
 }
