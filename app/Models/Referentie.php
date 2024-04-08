@@ -18,9 +18,24 @@ class Referentie extends Model
         'status'
     ];
 
+    protected $with = [
+        'themes:id,name,color',
+        'linked_image',
+    ];
+
     public function referentie_type()
     {
         return $this->belongsTo(ReferentieType::class);
+    }
+
+    public function themes()
+    {
+        return $this->belongsToMany(Theme::class);
+    }
+
+    public function linked_image()
+    {
+        return $this->hasOne(Image::class)->without('referentie');
     }
 
     public function scopePublished($query)

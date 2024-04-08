@@ -81,8 +81,14 @@
                 @foreach($referentie_types as $rt)
                 <div class="mt-20">
                     <h2>{{$rt->title}}</h2>
-                    <p>{{$rt->dist}}</p>
-                    <p>{{var_dump($rt->score_vector)}}</p>
+                    <p>{{$rt->description}}</p>
+                    <div class="grid gap-5 mx-auto mt-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                        @foreach ($rt->referenties->toArray() as $ref)
+                            <Referentie
+                                :referentie="{{json_encode($ref)}}"
+                            > </Referentie>
+                        @endforeach
+                    </div>
                 </div>
                 @endforeach
             @endif
