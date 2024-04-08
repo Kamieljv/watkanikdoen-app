@@ -73,11 +73,14 @@ class ActieWijzerController extends Controller
 
         // Get referentie_types and calculate the similarity with the score_vector
         $referentie_types = ReferentieType::published()->get();
+        // Calculate distance to calculate the percentage 
+        $max_dist = sqrt(count($dimensions)*config('app.actiewijzer.max_score')**2);
         foreach ($referentie_types as $rt) {
             $rt->dist = euclidianDistance($rt->score_vector, array_column($dimensions->toArray(), 'score'));
+            $rt->match_perc = round(($max_dist - $rt->dist) / $max_dist * 100);
         }
         $referentie_types = $referentie_types->sortBy('dist');
-        
+
         return view('actiewijzer.result', compact('themes', 'dimensions', 'referentie_types', 'routes'));
     }
 }
