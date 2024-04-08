@@ -43,9 +43,11 @@
         </div>
 
         <!-- DEBUG -->
-        <p>Answersgiven: {{ answersGiven }}</p>
-        <p>Scores: {{ dimension_scores}}</p>
-        <p>Themes: {{ themesSelected }}</p>
+        <div class="text-gray-700">
+            <p>Answersgiven: {{ answersGiven }}</p>
+            <p>Scores: {{ dimension_scores}}</p>
+            <p>Themes: {{ themesSelected }}</p>
+        </div>
 
     </div>
 </template>
@@ -117,8 +119,12 @@ export default {
             this.themesSelected = input
         },
         submit() {
+            var dimension_scores_avg = {};
+            Object.keys(this.dimension_scores).forEach(k => {
+                dimension_scores_avg[k] = this.dimension_scores[k].reduce((a, b) => a + b, 0) / this.dimension_scores[k].length
+            });
             var url = new URL(this.resultRoute);
-            var url_params = new URLSearchParams(this.dimension_scores)
+            var url_params = new URLSearchParams(dimension_scores_avg)
             this.themesSelected.forEach(id => url_params.append('themes[]', id))
             url.search = url_params
             window.location.href = url.href;
@@ -131,7 +137,7 @@ export default {
             // sum the dimension scores for each answer
             answersGivenFull.forEach((a) => {
                 a.dimensions.forEach((d) => {
-                    var newValue = this.dimension_scores.hasOwnProperty(d.name) ? this.dimension_scores[d.name] + d.pivot.score : d.pivot.score;
+                    var newValue = this.dimension_scores.hasOwnProperty(d.name) ? this.dimension_scores[d.name].concat([d.pivot.score]) : [d.pivot.score];
                     this.$set(this.dimension_scores, d.name, newValue)
                 })
             });
