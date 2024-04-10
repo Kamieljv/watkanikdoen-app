@@ -42,8 +42,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('actie/publish/{id}', [ActieController::class, 'publish'])->name('actie.publish');
     Route::get('organizer/publish/{id}', [OrganizerController::class, 'publish'])->name('organizer.publish');
     Route::post('images/delete_unlinked', [ImageController::class, 'deleteUnlinked'])->name('images.delete_unlinked');
-    Route::post('actiewijzer/score_answer_dimension', [ActieWijzerController::class, 'scoreAnswerDimension'])->name('actiewijzer.score_answer_dimension');
-    Route::post('actiewijzer/delete_answer_dimension', [ActieWijzerController::class, 'deleteAnswerDimension'])->name('actiewijzer.delete_answer_dimension');
+    Route::post('actiewijzer/score_dimension', [ActieWijzerController::class, 'scoreDimension'])->name('actiewijzer.score_dimension');
+    Route::post('actiewijzer/delete_dimension_score', [ActieWijzerController::class, 'deleteDimensionScore'])->name('actiewijzer.delete_dimension_score');
 });
 
 // Wave impersonation route

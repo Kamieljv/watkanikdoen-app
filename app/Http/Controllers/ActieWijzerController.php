@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ScoreDimensionRequest;
+use App\Http\Requests\DeleteDimensionScoreRequest;
 use App\Models\Answer;
 use App\Models\Question;
 use App\Models\Dimension;
@@ -26,20 +28,52 @@ class ActieWijzerController extends Controller
         return view('actiewijzer.landing', compact('questions', 'dimensions', 'themes', 'result_route'));
     }
 
-    public function scoreAnswerDimension(Request $request) {
-        // The request should contain an answer_id, dimension_id and a score
-        $answer = Answer::find($request->answer_id);
-        $updateScore = $answer->dimensions()
-            ->updateExistingPivot($request->dimension_id, ['score' => $request->score]);
-        if ($updateScore === 0) {
-            // create relationship and set score if it does not exist yet
-            $updateScore = $answer->dimensions()
-                ->attach($request->dimension_id, ['score' => $request->score]);
+    public function scoreDimension(ScoreDimensionRequest $request) {
+        /**
+         * Attach a dimension to an entity (e.g. an answer) and set the score
+         * @param ScoreDimensionRequest $request (containing entity_class, entity_id, dimension_id)
+         */
+
+        try {
+            // get the correct model class
+            $class = $request->entity_class;
+            $entityClass = new $class();
+
+            // find the model instance using the entity_id
+            $entity = $entityClass::find($request->entity_id);
+
+            $updateScore = $entity->dimensions()
+                ->updateExistingPivot($request->dimension_id, ['score' => $request->score]);
+            if ($updateScore === 0) {
+                // create relationship and set score if it does not exist yet
+                $updateScore = $entity->dimensions()
+                    ->attach($request->dimension_id, ['score' => $request->score]);
+            }
+
+            return response(['status' => 'success', 'message' => 'Score updated'], 200);
+        } catch (Exception $e) {
+            return response(['status' => 'failed', 'message' => 'Something went wrong'], 400);
         }
     }
 
-    public function deleteAnswerDimension(Request $request) {
-        // The request should contain an answer_id, dimension_id and a score
+    public function deleteDimensionScore(DeleteDimensionScoreRequest $request) {
+        /**
+         * Detach a dimension from an answer
+         * @param DeleteDimensionScoreRequest $request (containing entity_classs, entity_id, dimension_id)
+         */
+
+        try {
+            // get the correct model class
+            $class = $request->entity_class;
+            $entityClass = new $class();
+
+            // find the model instance using the entity_id
+            $entity = $entityClass::find($request->entity_id);
+            $entity->dimensions()->detach($request->dimension_id);
+            return response(['status' => 'success', 'message' => 'Score deleted'], 200);
+        } catch (Exception $e) {
+            return response(['status' => 'failed', 'message' => 'Something went wrong'], 400);
+        }
         $answer = Answer::find($request->answer_id)->dimensions()->detach($request->dimension_id);
     }
 
