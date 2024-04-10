@@ -1,12 +1,16 @@
 <template>
-	<div>
+	<div class="wrapper">
 		<tr v-for="e in entitiesWithValues" :key="e.id">
-			<td><label :for="e.name">{{e.name}}</label></td>
-			<td style="padding-left: 10px" :id="'row_' + e.id">
+			<td class="name-cell"><span :for="e.name" :title="e.description">{{e.name}}</span></td>
+			<td class="input-cell" :id="'row_' + e.id">
 				<input type="number" class="score-input" :id="e.id" :name="'dim_' + e.name" :min="minScore" :max="maxScore" :value="e.value" step="1" @change="handleChange" />
+			</td>
+			<td class="delete-cell">
 				<button v-if="e.value !== null" :data-id="e.id" class="btn delete-btn" @click.prevent="handleDelete(e.id)">
 					<span class="icon voyager-trash"></span>
 				</button>
+			</td>
+			<td class="error-cell">
 				<span class="error"></span>
 			</td>
 		</tr>
@@ -99,9 +103,21 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+	td {
+		vertical-align: middle;
+		padding-right: 10px;
+		height: 50px;
+	}
+
+	td.name-cell span {
+		font-weight: bold;
+	}
+
 	.score-input {
 		width: 70px;
+		font-size: large;
+		font-weight: bold;
 	}
 
 	.delete-btn {
@@ -119,6 +135,13 @@
 
 	.error {
 		color: red;
+	}
+
+	.wrapper {
+		background-color: #ebebeb;
+		padding: 10px;
+		border-radius: 5px;
+		border: 1px solid #e4eaec;
 	}
 
 </style>
