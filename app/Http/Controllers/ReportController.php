@@ -236,18 +236,12 @@ class ReportController extends Controller
 
             'report.title' => 'required|string|max:255',
             'report.body' => 'required|string|max:16000',
-<<<<<<< HEAD
-            'report.actionUrls' => ['required', 'string', 'max:1500'],
-            'report.time_start' => 'required|date_format:Y-m-d\TH:i|after_or_equal:today',
-            'report.time_end' => 'required|date_format:Y-m-d\TH:i|after:time_start',
-=======
             'report.externe_link' => ['required', 'string', 'max:500', new Website()],
             'report.start_date' => 'required|date_format:Y-m-d|after_or_equal:today',
             'report.start_time' => 'date_format:H:i',
             'report.end_date' => 'required|date_format:Y-m-d|after_or_equal:today',
             'report.end_time' => 'date_format:H:i',
 
->>>>>>> actie-start-time
             'report.location' => 'array:lat,lng',
             'report.location_human' => 'required|string|max:200',
             'report.image' => '',
