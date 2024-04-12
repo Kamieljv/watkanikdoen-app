@@ -139,7 +139,7 @@
                             </div>
                             @foreach( explode(" ", $actie->externe_link) as $externe_link )
                                 <?php
-                                    preg_match( "/(http(s)?:[\\/]+)?([a-z.\-_]+)[\\/]?/", $externe_link, $label );
+                                    preg_match( "/(http(s)?:[\\/]+)?([a-z.\-_]+)[\\/]?/", strtolower($externe_link), $label );
                                     if( ! substr( $externe_link, 0, 4) != 'http')
                                         $externe_link = 'https://' . $externe_link;
                                 ?>
