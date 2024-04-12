@@ -14,7 +14,7 @@
       v-model="data"
       :name="fieldName"
       :type="type"
-      :step="inputStep"
+      :step="step"
       :list="'datalist-' + id"
       :placeholder="placeholder"
       :required="required"
@@ -82,6 +82,7 @@
             'number',
             'email',
             'date',
+            'time',
             'datetime-local',
           ].includes(value);
         },
@@ -107,8 +108,8 @@
         default: false,
       },
       step: {
-        type: Number,
-        default: 1,
+        type: String,
+        default: '',
       },
       datalist: {
         type: Array,

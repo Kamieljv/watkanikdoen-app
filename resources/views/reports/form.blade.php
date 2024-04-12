@@ -172,29 +172,55 @@
                     <div class="flex flex-col mt-5 space-y-3">
                         {{-- Time start --}}
                         <div class="w-full">
-                            <label for="time_start" class="block text-sm font-medium leading-5 text-gray-700">
-                                {{ __("reports.time_start") }}
+                            <label for="start_date" class="block text-sm font-medium leading-5 text-gray-700">
+                                {{ __("reports.start_date") }}
                             </label>
                             <div class="mt-1 rounded-md shadow-sm">
-                                <input @if($viewOnly){{'disabled'}}@endif type="datetime-local" id="time_start" name="time_start" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}" required value="{{ $viewOnly ? $report->time_start : old('time_start') }}">
+                                <input @if($viewOnly){{'disabled'}}@endif type="date" id="start_date" name="start_date" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" required value="{{ $viewOnly ? $report->start_date : old('start_date') }}">
                             </div>
-                            @if ($errors->has('time_start'))
+                            @if ($errors->has('start_date'))
                                 <div class="mt-1 text-red-500">
-                                    {{ $errors->first('time_start') }}
+                                    {{ $errors->first('start_date') }}
                                 </div>
                             @endif
                         </div>
-                        {{-- Time end --}}
                         <div class="w-full">
-                            <label for="time_end" class="block text-sm font-medium leading-5 text-gray-700">
-                                {{ __("reports.time_end") }}
+                            <label for="start_time" class="block text-sm font-medium leading-5 text-gray-700">
+                                {{ __("reports.start_time") }}
                             </label>
                             <div class="mt-1 rounded-md shadow-sm">
-                                <input @if($viewOnly){{'disabled'}}@endif type="datetime-local" id="time_end" name="time_end" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}" required value="{{ $viewOnly ? $report->time_end : old('time_end')}}">
+                                <input @if($viewOnly){{'disabled'}}@endif type="time" id="start_time" name="start_time" pattern="[0-9]{2}:[0-9]{2}"  value="{{ $viewOnly ? $report->start_time : old('start_time') }}">
                             </div>
-                            @if ($errors->has('time_end'))
+                            @if ($errors->has('start_time'))
                                 <div class="mt-1 text-red-500">
-                                    {{ $errors->first('time_end') }}
+                                    {{ $errors->first('start_time') }}
+                                </div>
+                            @endif
+                        </div>
+                        {{-- Time end --}} 
+                        <div class="w-full">
+                            <label for="end_date" class="block text-sm font-medium leading-5 text-gray-700">
+                                {{ __("reports.end_date") }}
+                            </label>
+                            <div class="mt-1 rounded-md shadow-sm">
+                                <input @if($viewOnly){{'disabled'}}@endif type="date" id="end_date" name="end_date" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" required value="{{ $viewOnly ? $report->end_date : old('end_date')}}">
+                            </div>
+                            @if ($errors->has('end_date'))
+                                <div class="mt-1 text-red-500">
+                                    {{ $errors->first('end_date') }}
+                                </div>
+                            @endif
+                        </div>
+                        <div class="w-full">
+                            <label for="end_time" class="block text-sm font-medium leading-5 text-gray-700">
+                                {{ __("reports.end_time") }}
+                            </label>
+                            <div class="mt-1 rounded-md shadow-sm">
+                                <input @if($viewOnly){{'disabled'}}@endif type="time" id="end_time" name="end_time" pattern="[0-9]{2}:[0-9]{2}"  value="{{ $viewOnly ? $report->end_time : old('end_time') }}">
+                            </div>
+                            @if ($errors->has('end_time'))
+                                <div class="mt-1 text-red-500">
+                                    {{ $errors->first('end_time') }}
                                 </div>
                             @endif
                         </div>
