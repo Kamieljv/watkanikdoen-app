@@ -138,8 +138,11 @@
                                 @endif
                             </div>
                             @foreach( explode(" ", $actie->externe_link) as $externe_link )
+                                <?php
+                                    preg_match( "/(http(s)?:[\\/]+)?([a-z.\-_]+)[\\/]?/", $externe_link, $label );
+                                ?>
                                 <a href="{{ $externe_link }}" target="_blank" class="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
-                                    @svg('antdesign-link-o', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ __("acties.to_action_page") }}
+                                    @svg('antdesign-link-o', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ $label[3] }}
                                 </a>
                             @endforeach
                             @if($actie->disobedient === 1)
