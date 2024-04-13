@@ -87,10 +87,10 @@
                                     @endif
                                 </div>
                                 <div class="details-container text-sm text-gray-500">
-                                    @if($actie->start_end)
+                                    @if($actie->start_time)
                                         <div class="flex items-center text-sm leading-5 text-gray-700">
                                             @svg('antdesign-clock-circle-o', ['class' => 'shrink-0', 'style' => 'width: 20px; height: 20px'])
-                                            &nbsp; <span class="font-medium">{{ $actie->start_end }}</span><br/>
+                                            &nbsp; <span class="font-medium">{{ $actie->start_date . " " .  $actie->start_time }}</span><br/>
                                         </div>
                                     @endif
                                     @if($actie->location_human)
@@ -114,8 +114,13 @@
                                     </div>
                                 @endif
                                 @foreach( explode(" ", $actie->externe_link) as $externe_link )
+                                    <?php
+                                        preg_match( "/(http(s)?:[\\/]+)?([a-z.\-_]+)[\\/]?/", strtolower($externe_link), $label );
+                                        if( ! substr( $externe_link, 0, 4) != 'http')
+                                            $externe_link = 'https://' . $externe_link;
+                                    ?>
                                     <a href="{{ $externe_link }}" target="_blank" class="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
-                                        @svg('antdesign-link-o', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ __("acties.to_action_page") }}
+                                        @svg('antdesign-link-o', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ $label[3] }}
                                     </a>
                                 @endforeach
                             </div>
@@ -124,10 +129,10 @@
                         <div class="sm:flex flex-col gap-3 not-prose p-3 bg-white rounded-lg shadow-lg overflow-hidden hidden">
                             <h4>{{ __("acties.details") }}</h4>
                             <div class="details-container text-sm text-gray-500">
-                                @if($actie->start_end)
+                                @if($actie->start_time)
                                     <div class="flex items-center text-sm leading-5 text-gray-700">
                                         @svg('antdesign-clock-circle-o', ['class' => 'shrink-0', 'style' => 'width: 20px; height: 20px'])
-                                        &nbsp; <span class="font-medium">{{ $actie->start_end }}</span><br/>
+                                        &nbsp; <span class="font-medium">{{ $actie->start_date . ' ' . $actie->start_time }}</span><br/>
                                     </div>
                                 @endif
                                 @if($actie->location_human)
