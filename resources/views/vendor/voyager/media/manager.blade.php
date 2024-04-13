@@ -442,6 +442,10 @@
                 type: Boolean,
                 default: true,
             },
+            maxToLoad: {
+                type: Number,
+                default: 20,
+            },
         },
         data: function() {
             return {
@@ -555,9 +559,10 @@
                 return this.selected_files.includes(file);
             },
             fileIs: function(file, type) {
-                var type_string = (typeof file === 'string') ? file.toLowerCase() : file.type.toLowerCase();
+                var type_string = (typeof file === 'string') ? file.toLowerCase() : 
+                    (file.type !== null) ? file.type.toLowerCase(): '';
                 if (type == 'image') {
-                    return this.endsWithAny(['jpg', 'jpeg', 'png', 'bmp'], type_string.toLowerCase());
+                    return this.endsWithAny(['jpg', 'jpeg', 'png', 'bmp'], type_string);
                 }
                 else {
                     return type_string == type
@@ -607,7 +612,6 @@
                 return false;
             },
             search: function(file, query) {
-                console.log(file.name.toLowerCase(), query.toLowerCase())
                 if (file.name.toLowerCase().includes(query.toLowerCase())) {
                     return true;
                 } else {
