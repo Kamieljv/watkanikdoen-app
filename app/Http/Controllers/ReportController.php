@@ -86,7 +86,7 @@ class ReportController extends Controller
                 'organizer_ids' => $organizer_ids ? implode(",", $organizer_ids) : '',
                 'title' => $request->report['title'],
                 'body' => $request->report['body'] ?? null,
-                'externe_link' => $request->report['externe_link'],
+                'externe_link' => $externe_link,
                 'start_date' => Date::parse($request->report['start_date'])->format('Y-m-d'),
                 'end_date' => Date::parse($request->report['end_date'])->format('Y-m-d'),
                 'start_time' => isset($request->report['start_time']) ? Date::parse($request->report['start_time'])->format('H:i') : null,
@@ -236,7 +236,7 @@ class ReportController extends Controller
 
             'report.title' => 'required|string|max:255',
             'report.body' => 'required|string|max:16000',
-            'report.externe_link' => ['required', 'string', 'max:500', new Website()],
+            'report.actionUrls' => ['required', 'string', 'max:500'],
             'report.start_date' => 'required|date_format:Y-m-d|after_or_equal:today',
             'report.start_time' => 'date_format:H:i',
             'report.end_date' => 'required|date_format:Y-m-d|after_or_equal:today',
