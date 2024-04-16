@@ -2,11 +2,11 @@
 	<div class="wrapper">
 		<tr v-for="e in entitiesWithValues" :key="e.id">
 			<td class="name-cell"><span :for="e.name" :title="e.description">{{e.name}}</span></td>
-			<td class="input-cell" :id="'row_' + e.id">
-				<input type="number" class="score-input" :id="e.id" :name="'dim_' + e.name" :min="minScore" :max="maxScore" :value="e.value" step="1" @change="handleChange" />
+			<td class="input-cell">
+				<input type="number" class="score-input" :name="'dim_' + e.name" :min="minScore" :max="maxScore" :value="e.value" step="1" @change="handleChange" />
 			</td>
 			<td class="delete-cell">
-				<button v-if="e.value !== null" :data-id="e.id" class="btn delete-btn" @click.prevent="handleDelete(e.id)">
+				<button v-if="e.value !== null" :data-id="e.id" class="btn delete-btn" @click.prevent="handleDelete(e.id, $event)">
 					<span class="icon voyager-trash"></span>
 				</button>
 			</td>
@@ -75,27 +75,29 @@
 					'dimension_id': parseInt(e.target.id),
 					'score': parseInt(this.entitiesWithValues.find((c) => c.id == e.target.id).value)
 				}).then((response) => {
-					// reset the inner html of the element with row_id
-					document.getElementById('row_' + e.target.id).querySelector('.error').innerHTML = '';	
-					// remove the invalid class from the input element in the element with row_id
-					document.getElementById('row_' + e.target.id).querySelector('input').classList.remove('invalid');
+					// reset the inner html of the error element in the row
+					e.target.closest('tr').querySelector('.error').innerHTML = '';
+					// remove the invalid class from the input element in the row
+					e.target.closest('tr').querySelector('input').classList.remove('invalid');
 				}).catch((error) => {
-					// set the inner html of the element with row_id to the error message
-					document.getElementById('row_' + e.target.id).querySelector('.error').innerHTML = error.response.data.message;
-					// toggle the invalid class on the input element in the element with row_id
-					document.getElementById('row_' + e.target.id).querySelector('input').classList.add('invalid');
-				})
+					// set the inner html of the error element in the row
+					e.target.closest('tr').querySelector('.error').innerHTML = error.response.data.message;
+					// toggle the invalid class on the input element in the row
+					e.target.closest('tr').querySelector('input').classList.add('invalid');
+				});
+				// emit the input event to parent, passing entitiesWithValues
+				this.$emit('input', this.entitiesWithValues);
 			},
-			handleDelete(dimension_id) {
+			handleDelete(dimension_id, e) {
 				this.$http.post(this.scoreDeleteRoute, {
 					'entity_class': this.entityClass,
 					'entity_id': this.currentId,
 					'dimension_id': parseInt(dimension_id),
 				}).then((response) => {
-					// reset the inner html of the element with row_id
-					document.getElementById('row_' + dimension_id).querySelector('.error').innerHTML = '';	
-					// remove the invalid class from the input element in the element with row_id
-					document.getElementById('row_' + dimension_id).querySelector('input').classList.remove('invalid');
+					// reset the inner html of the error element in the row
+					e.target.closest('tr').querySelector('.error').innerHTML = '';	
+					// remove the invalid class from the input element in row
+					e.target.closest('tr').querySelector('input').classList.remove('invalid');
 				});
 				this.$set(this.entitiesWithValues.find((c) => c.id == dimension_id), 'value', null);
 			}
