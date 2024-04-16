@@ -221,23 +221,6 @@ svg {
   width: 100%;
 }
 
-.wave {
-  animation: wave 3s linear;
-  animation-iteration-count: infinite;
-  fill: #0069ff;
-}
-
-#wave2 {
-  animation-duration: 5s;
-  animation-direction: reverse;
-  opacity: 0.6;
-}
-
-#wave3 {
-  animation-duration: 7s;
-  opacity: 0.3;
-}
-
 .alert-success {
   color: var(--wkid-message-success-dark);
   background: var(--wkid-message-success-light);
@@ -277,9 +260,6 @@ svg {
   to { transform: translateX(-100%); }
 }
 
-// .form-control{
-//   @apply form-input w-full;
-// }
 
 /****** Form Input CLASSES **********/
 
@@ -289,4 +269,13 @@ svg {
   background-size: 1.5em 1.5em;
   padding: 0.5rem 2.5rem 0.5rem 0.75rem;
   background-repeat: no-repeat;
+}
+
+div.custom-loader {
+  border: 4px solid white;
+  border-top: 4px solid transparent;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
 }

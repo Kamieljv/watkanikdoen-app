@@ -96,10 +96,10 @@ class Actie extends Model
     public function getStartEndAttribute()
     {
         if ($this->start_date && $this->end_date) {
-            $start = Date::parse($this->start_date);
-            $end = Date::parse($this->end_date);
+            $start = Date::parse($this->start_date . " " . $this->start_time);
+            $end = Date::parse($this->end_date . " " . $this->end_time);
 
-            if ($start->format('Y-m-d') == $end->format('Y-m-d')) {
+            if ($this->start_date == $this->end_date) {
                 // start and end on same day
                 return $start->format('j M Y, G:i') . '-' . $end->format('G:i');
             } else if ($start->diffInDays($end) < 3) {
@@ -193,7 +193,7 @@ class Actie extends Model
 
     public function getAfgelopenAttribute()
     {
-        return Date::parse($this->end_time)->timestamp < time();
+        return Date::parse($this->end_date . " " . $this->end_time)->timestamp < time();
     }
 
     public function getPublishedAttribute()
@@ -207,7 +207,7 @@ class Actie extends Model
     }
     public function scopeToekomstig($query)
     {
-        return $query->where('end_date', '>', Date::now()->toDateString());
+        return $query->whereRaw("STR_TO_DATE(CONCAT(start_date, ' ', start_time), '%Y-%m-%d %H:%i:%s') > '" . Date::now()->toDateTimeString() . "'");
     }
 
     public function publish()

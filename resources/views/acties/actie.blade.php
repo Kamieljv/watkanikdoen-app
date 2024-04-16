@@ -90,7 +90,7 @@
                                     @if($actie->start_time)
                                         <div class="flex items-center text-sm leading-5 text-gray-700">
                                             @svg('antdesign-clock-circle-o', ['class' => 'shrink-0', 'style' => 'width: 20px; height: 20px'])
-                                            &nbsp; <span class="font-medium">{{ $actie->start_date . " " .  $actie->start_time }}</span><br/>
+                                            &nbsp; <span class="font-medium">{{ $actie->start_end }}</span><br/>
                                         </div>
                                     @endif
                                     @if($actie->location_human)

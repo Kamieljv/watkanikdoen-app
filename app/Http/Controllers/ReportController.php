@@ -80,13 +80,12 @@ class ReportController extends Controller
                 }   
             }
             // create report
-            $externe_link = str_replace("\n", "", $request->report['actionUrls']);
             $report = Report::create([
                 'user_id' => $request->userId,
                 'organizer_ids' => $organizer_ids ? implode(",", $organizer_ids) : '',
                 'title' => $request->report['title'],
                 'body' => $request->report['body'] ?? null,
-                'externe_link' => $externe_link,
+                'externe_link' => str_replace("\n", "", $request->report['actionUrls']),
                 'start_date' => Date::parse($request->report['start_date'])->format('Y-m-d'),
                 'end_date' => Date::parse($request->report['end_date'])->format('Y-m-d'),
                 'start_time' => isset($request->report['start_time']) ? Date::parse($request->report['start_time'])->format('H:i') : null,
@@ -231,7 +230,7 @@ class ReportController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+        $v = Validator::make($data, [
             'userId' => 'required|integer',
 
             'report.title' => 'required|string|max:255',
@@ -239,7 +238,7 @@ class ReportController extends Controller
             'report.actionUrls' => ['required', 'string', 'max:500'],
             'report.start_date' => 'required|date_format:Y-m-d|after_or_equal:today',
             'report.start_time' => 'date_format:H:i',
-            'report.end_date' => 'required|date_format:Y-m-d|after_or_equal:today',
+            'report.end_date' => 'required|date_format:Y-m-d|after_or_equal:report.start_date',
             'report.end_time' => 'date_format:H:i',
 
             'report.location' => 'array:lat,lng',
@@ -250,8 +249,16 @@ class ReportController extends Controller
             'organizers.*.description' => 'sometimes|string|max:16000',
             'organizers.*.website' => ['sometimes', 'required', 'string', 'max:500', new Website()]
         ], [
-            'organizers.*.name.unique' => 'De organisatornaam :input bestaat al.'
+            'organizers.*.name.unique' => 'De organisatornaam :input bestaat al.',
+            'report.end_time' => 'Het einde van de actie moet na het begin zijn.'
         ]);
+
+        // Add rule (end_time must be after start_time) for when start_date and end_date are the same
+        $v->sometimes('report.end_time', 'date_format:H:i|after:report.start_time', function ($data) {
+            return $data->report['start_date'] == $data->report['end_date'];
+        });
+
+        return $v;
     }
 
     protected function createSlug($title, $model = Actie::class)
