@@ -77,21 +77,31 @@
                     <p class="text-sm leading-5 text-gray-500 mt">
                         Waar kunnen bezoekers meer informatie over deze actie vinden?
                     </p>
-                    <div class="flex flex-col mt-5 space-y-3 has-element-right">
-                        <!-- Externe link -->
-                        <FormField
-                            v-model="report.externe_link"
-                            name="link"
-                            label="Externe link"
-                            type="url"
-                            rules="url"
-                        >
-                            <button class="plus-btn" @click="addActionUrl">
-                                + <span v-if="actionUrls.length > 0" class="absolute">{{ actionUrls.length }}</span>
-                            </button>
-                        </FormField>
-                        <div class="actionUrlList">
-                            <FormTextarea v-model="report.actionUrls" required disabled></FormTextarea>
+                    <div class="flex flex-col mt-5 space-y-3">
+                            <!-- Externe link -->
+                            <form @submit.prevent="addActionUrl">
+                                <FormField
+                                    v-model="report.externe_link"
+                                    name="link" label="Externe link" type="url"
+                                    rules="url"
+                                    >
+                                    <button class="primary plus-btn" @click="addActionUrl" title="Nog een link toevoegen">
+                                        <svg-vue icon="antdesign-plus-o" class="w-6 h-6 text-white" />
+                                    </button>
+                                </FormField>
+                            </form>
+                        <div>
+                            <div v-for="url in actionUrls" class="flex items-center space-x-1"> 
+                                <a :href="url" class="text-blue-900 hover:underline" target="_blank">{{ url }}</a> <span class="text-red-500 cursor-pointer" @click="removeActionUrl(url)"><svg-vue icon="antdesign-close" class="w-4 h-4"" /></span>
+                            </div>
+                            <ValidatedFormField
+                                v-model="report.actionUrls"
+                                name="actionUrls"
+                                type="hidden"
+                                :rules="{required: true}"
+                            >
+                                <input v-model="report.actionUrls" type="hidden" name="actionUrls" />
+                            </ValidatedFormField>
                         </div>
                     </div>
                 </div>
@@ -119,6 +129,7 @@
                             name="BeginTijd"
                             type="time"
                             step="900"
+                            @input="() => { this.report.end_time = addHours(this.report.start_time, 1) }"
                         />
                         <!-- Time end -->
                         <FormField
@@ -165,63 +176,88 @@
 
 <script>
 
-import { ValidationObserver, validate } from 'vee-validate';
-import { ValidationProvider } from 'vee-validate';
+import { ValidationObserver, validate, ValidationProvider } from 'vee-validate';
+import ValidatedFormField from '../formfields/ValidatedFormField';
+
 import { caseHelper } from '../../mixins/caseHelper';
-import FormTextarea from '../formfields/FormTextarea.vue';
+import { addHours } from 'date-fns';
 
 export default {
-	name: "Actie",
+    name: "Actie",
     components: {
         ValidationProvider,
         ValidationObserver,
+        ValidatedFormField
     },
     mixins: [
         caseHelper,
     ],
     data: () => {
         return {
-            actionUrls:[]
+            actionUrls: []
         };
     },
     props: {
         defaultCenter: {
-			type: Array,
-			required: true,
-		},
-		zoom: {
-			type: Number,
-			required: true,
-		},
+            type: Array,
+            required: true,
+        },
+        zoom: {
+            type: Number,
+            required: true,
+        },
         report: {
             type: Object,
             required: true
         },
     },
     methods: {
-        addActionUrl(){
-            if( typeof this.actionUrls.find( 
-                    ( o ) => { return o.name == this.report.externe_link }
-                ) 
-                == 'undefined' 
-                
-                && typeof this.report.externe_link !== 'undefined' 
-                
-                && this.report.externe_link.length > 0){
+        addActionUrl() {
+            if (typeof this.actionUrls.find((o) => { return o.name == this.report.externe_link }) == 'undefined'
+                && typeof this.report.externe_link !== 'undefined'
+                && this.report.externe_link.length > 0) {
 
-                    validate(this.report.externe_link, 'url')
-                    .then( ( result ) => {
-                        if( result.valid ){
-                            this.actionUrls.unshift( {name: this.report.externe_link });
-
-                            this.report.actionUrls = this.actionUrls.map( ( u ) => u.name ).join( " \n" )
-
-                            this.report.externe_link = ''
+                validate(this.report.externe_link, 'url')
+                    .then((result) => {
+                        if (result.valid) {
+                            if (/^https?:\/\//.test(this.report.externe_link) == false) {
+                                this.report.externe_link = 'https://' + this.report.externe_link;
+                            }
+                            this.actionUrls.unshift(this.report.externe_link);
+                            this.report.actionUrls = this.actionUrls.join(" \n");
+                            this.report.externe_link = '';
                         }
                     })
-                }
-        }
+            }
+        },
+        addHours(timeString, hoursToAdd) {
+            // Split the time string into hours and minutes and create Date object
+            let [hours, minutes] = timeString.split(':');
+            let oldTime = new Date(0, 0, 0, hours, minutes);
+
+            // Add an hour to the original time
+            let newTime = addHours(oldTime, hoursToAdd);
+
+            // Format the new time back to "HH:MM" format
+            let formattedNewTime = newTime.getHours().toString().padStart(2, '0') + ':' + newTime.getMinutes().toString().padStart(2, '0');
+            return formattedNewTime;
+        },
+        removeActionUrl(url) {
+            let index = this.actionUrls.indexOf(url);
+            if (index !== -1) {
+            this.actionUrls.splice(index, 1);
+            }
+        },
     }
 }
 </script>
 
+<style lang="scss" scoped>
+    button.plus-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 5px;
+        padding: 10px;
+    }    
+</style>

@@ -195,28 +195,6 @@ h6 {
   }
 }
 
-.has-element-right input{
-  float: left;
-	width:calc(100% - 3em);
-}
-
-button.plus-btn{
-  float: left;
-  font-size: 3em;
-  line-height: 0.75em;
-  padding: 0 0.2em;
-}
-
-.plus-btn span{
-  background-color: var(--wkid-pink);
-  color: white;
-  font-size: 0.35em;
-  border-radius: 0.75em;
-  width: 1.5em;
-  line-height: 1.5;
-  top:1em;
-}
-
 svg {
   width: 100%;
 }
