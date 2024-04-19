@@ -78,31 +78,8 @@
                         Waar kunnen bezoekers meer informatie over deze actie vinden?
                     </p>
                     <div class="flex flex-col mt-5 space-y-3">
-                            <!-- Externe link -->
-                            <form @submit.prevent="addActionUrl">
-                                <FormField
-                                    v-model="report.externe_link"
-                                    name="link" label="Externe link" type="url"
-                                    rules="url"
-                                    >
-                                    <button class="primary plus-btn" @click="addActionUrl" title="Nog een link toevoegen">
-                                        <svg-vue icon="antdesign-plus-o" class="w-6 h-6 text-white" />
-                                    </button>
-                                </FormField>
-                            </form>
-                        <div>
-                            <div v-for="url in actionUrls" class="flex items-center space-x-1"> 
-                                <a :href="url" class="text-blue-900 hover:underline" target="_blank">{{ url }}</a> <span class="text-red-500 cursor-pointer" @click="removeActionUrl(url)"><svg-vue icon="antdesign-close" class="w-4 h-4"" /></span>
-                            </div>
-                            <ValidatedFormField
-                                v-model="report.actionUrls"
-                                name="actionUrls"
-                                type="hidden"
-                                :rules="{required: true}"
-                            >
-                                <input v-model="report.actionUrls" type="hidden" name="actionUrls" />
-                            </ValidatedFormField>
-                        </div>
+                        <!-- Externe link -->
+                        <form-urls @change="handleActionUrls" :urls="actionUrls"/>
                     </div>
                 </div>
                 <div class="flex flex-col justify-start flex-1 mb-5 md:pl-5 overflow-hidden bg-white border-gray-150">
@@ -176,9 +153,7 @@
 
 <script>
 
-import { ValidationObserver, validate, ValidationProvider } from 'vee-validate';
-import ValidatedFormField from '../formfields/ValidatedFormField';
-
+import { ValidationObserver, ValidationProvider } from 'vee-validate';
 import { caseHelper } from '../../mixins/caseHelper';
 import { addHours } from 'date-fns';
 
@@ -187,14 +162,13 @@ export default {
     components: {
         ValidationProvider,
         ValidationObserver,
-        ValidatedFormField
     },
     mixins: [
         caseHelper,
     ],
     data: () => {
         return {
-            actionUrls: []
+            actionUrls: [],
         };
     },
     props: {
@@ -211,25 +185,10 @@ export default {
             required: true
         },
     },
+    mounted () {
+        this.actionUrls = this.report.actionUrls ?? [];
+    },
     methods: {
-        addActionUrl() {
-            if (typeof this.actionUrls.find((o) => { return o.name == this.report.externe_link }) == 'undefined'
-                && typeof this.report.externe_link !== 'undefined'
-                && this.report.externe_link.length > 0) {
-
-                validate(this.report.externe_link, 'url')
-                    .then((result) => {
-                        if (result.valid) {
-                            if (/^https?:\/\//.test(this.report.externe_link) == false) {
-                                this.report.externe_link = 'https://' + this.report.externe_link;
-                            }
-                            this.actionUrls.unshift(this.report.externe_link);
-                            this.report.actionUrls = this.actionUrls.join(" \n");
-                            this.report.externe_link = '';
-                        }
-                    })
-            }
-        },
         addHours(timeString, hoursToAdd) {
             // Split the time string into hours and minutes and create Date object
             let [hours, minutes] = timeString.split(':');
@@ -242,22 +201,9 @@ export default {
             let formattedNewTime = newTime.getHours().toString().padStart(2, '0') + ':' + newTime.getMinutes().toString().padStart(2, '0');
             return formattedNewTime;
         },
-        removeActionUrl(url) {
-            let index = this.actionUrls.indexOf(url);
-            if (index !== -1) {
-            this.actionUrls.splice(index, 1);
-            }
-        },
+        handleActionUrls(urls) {
+            this.report.actionUrls = urls;
+        }
     }
 }
 </script>
-
-<style lang="scss" scoped>
-    button.plus-btn {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-left: 5px;
-        padding: 10px;
-    }    
-</style>
