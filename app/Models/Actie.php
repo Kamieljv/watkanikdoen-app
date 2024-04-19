@@ -144,6 +144,21 @@ class Actie extends Model
         }
     }
 
+    public function setExterneLinkAttribute($value)
+    {
+        // check if value is array, then implode, else use as is
+        if (is_array($value)) {
+            $this->attributes['externe_link'] = implode(",", $value);
+        } else {
+            $this->attributes['externe_link'] = $value;
+        }
+    }
+
+    public function getExterneLinkAttribute($value)
+    {
+        return explode(",", $value);
+    }
+
     /**
      * Get a new query builder for the model's table.
      * Manipulate in case we need to convert geometrical fields to text.

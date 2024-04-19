@@ -217,7 +217,7 @@
                             <div class="form-group">
                                 <label for="name">Externe links</label>
                                 <textarea class="form-control" name="externe_link">
-                                    {{ old('externe_link', $dataTypeContent->externe_link ?? '') }}
+                                    {{ old('externe_link', implode(",", $dataTypeContent->externe_link) ?? '') }}
                                 </textarea>
                             </div>
                             {{-- Disobedient --}}

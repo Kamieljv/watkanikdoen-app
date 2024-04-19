@@ -79,6 +79,16 @@ class Report extends Model
         return $this->belongsTo(Actie::class)->without('report');
     }
 
+    public function setExterneLinkAttribute($value)
+    {
+        $this->attributes['externe_link'] = implode(",", $value);
+    }
+
+    public function getExterneLinkAttribute($value)
+    {
+        return explode(",", $value);
+    }
+
     /**
      * Get a new query builder for the model's table.
      * Manipulate in case we need to convert geometrical fields to text.
