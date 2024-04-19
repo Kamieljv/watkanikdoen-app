@@ -67,6 +67,14 @@ extend('after', {
   hasTarget: true
 });
 
+extend('afterIncluding', {
+  params: ['target'],
+  validate: (value, {target}) => new Date(value) >= new Date(target),
+  message: 'Kies een datum vanaf {target}.',
+}, {
+  hasTarget: true
+});
+
 extend('afterToday', {
   validate: (value) => new Date(value) > new Date(),
   message: 'Kies een datum na vandaag.',

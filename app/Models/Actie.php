@@ -31,8 +31,10 @@ class Actie extends Model
         'title',
         'body',
         'externe_link',
-        'time_start',
-        'time_end',
+        'start_date',
+        'start_time',
+        'end_date',
+        'end_time',
         'location',
         'location_human',
         'slug',
@@ -93,11 +95,11 @@ class Actie extends Model
 
     public function getStartEndAttribute()
     {
-        if ($this->time_start && $this->time_end) {
-            $start = Date::parse($this->time_start);
-            $end = Date::parse($this->time_end);
+        if ($this->start_date && $this->end_date) {
+            $start = Date::parse($this->start_date . " " . $this->start_time);
+            $end = Date::parse($this->end_date . " " . $this->end_time);
 
-            if ($start->format('Y-m-d') == $end->format('Y-m-d')) {
+            if ($this->start_date == $this->end_date) {
                 // start and end on same day
                 return $start->format('j M Y, G:i') . '-' . $end->format('G:i');
             } else if ($start->diffInDays($end) < 3) {
@@ -114,7 +116,7 @@ class Actie extends Model
 
     public function getStartUnixAttribute()
     {
-        return Date::parse($this->time_start)->timestamp;
+        return Date::parse($this->start_date . " " . $this->start_time)->timestamp;
     }
 
     public function getPageviewsTextAttribute()
@@ -140,6 +142,21 @@ class Actie extends Model
                 'lng' => floatval($coords[0]['lng'])
             ];
         }
+    }
+
+    public function setExterneLinkAttribute($value)
+    {
+        // check if value is array, then implode, else use as is
+        if (is_array($value)) {
+            $this->attributes['externe_link'] = implode(",", $value);
+        } else {
+            $this->attributes['externe_link'] = $value;
+        }
+    }
+
+    public function getExterneLinkAttribute($value)
+    {
+        return explode(",", $value);
     }
 
     /**
@@ -191,7 +208,7 @@ class Actie extends Model
 
     public function getAfgelopenAttribute()
     {
-        return Date::parse($this->time_end)->timestamp < time();
+        return Date::parse($this->end_date . " " . $this->end_time)->timestamp < time();
     }
 
     public function getPublishedAttribute()
@@ -205,7 +222,7 @@ class Actie extends Model
     }
     public function scopeToekomstig($query)
     {
-        return $query->where('time_end', '>', Date::now()->toDateTimeString());
+        return $query->whereRaw("STR_TO_DATE(CONCAT(start_date, ' ', start_time), '%Y-%m-%d %H:%i:%s') > '" . Date::now()->toDateTimeString() . "'");
     }
 
     public function publish()

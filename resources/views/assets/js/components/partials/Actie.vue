@@ -93,7 +93,7 @@
                         <h3 class="truncate uppercase text-xl font-semibold leading-7 text-gray-900">
                             {{ actie.title }}
                         </h3>
-                        <p class="text-sm font-bold text-[color:var(--wkid-pink)]">{{actie.location_human.toUpperCase()}}<br/>{{actie.start_end.toUpperCase()}}</p>
+                        <p class="text-sm font-bold text-[color:var(--wkid-pink)]">{{actie.location_human.toUpperCase()}}<br/>{{actie.start_time.toUpperCase()}}</p>
                         <p class="my-2 line-clamp-3 text-sm text-gray-500" v-html="actie.body"></p>
                     </div>
                 </div>
@@ -131,7 +131,7 @@ export default {
 	},
 	computed: {
 		isAfgelopen() {
-			return new Date(this.actie.time_end) < new Date()
+			return new Date(this.actie.end_date + " " + this.actie.end_time) < new Date()
 		}
 	}
 }

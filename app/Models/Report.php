@@ -30,8 +30,10 @@ class Report extends Model
         'title',
         'body',
         'externe_link',
-        'time_start',
-        'time_end',
+        'start_date',
+        'start_time',
+        'end_date',
+        'end_time',
         'location',
         'location_human',
         'image',
@@ -75,6 +77,16 @@ class Report extends Model
     public function actie()
     {
         return $this->belongsTo(Actie::class)->without('report');
+    }
+
+    public function setExterneLinkAttribute($value)
+    {
+        $this->attributes['externe_link'] = implode(",", $value);
+    }
+
+    public function getExterneLinkAttribute($value)
+    {
+        return explode(",", $value);
     }
 
     /**
