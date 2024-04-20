@@ -42,7 +42,7 @@ jobs:
             ${{ runner.os }}-composer-
 
       - name: Install composer dependencies
-        run: composer install --no-progress --prefer-dist --no-interaction --no-suggest --optimize-autoloader --no-scripts
+        run: composer install -q --no-progress --prefer-dist --no-interaction --no-suggest --optimize-autoloader --no-scripts
 
       - name: Clear Config
         run: |
