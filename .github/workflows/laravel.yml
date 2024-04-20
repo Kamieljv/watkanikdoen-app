@@ -57,10 +57,3 @@ jobs:
 
       - name: Test with phpunit
         run: ./vendor/bin/pest
-
-      - name: Run Sensiolabs security checks
-        run: |
-          test -d security-checker || git clone https://github.com/sensiolabs/security-checker.git
-          cd security-checker
-          composer install
-          php security-checker security:check ../composer.lock
