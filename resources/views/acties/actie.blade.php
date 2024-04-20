@@ -113,9 +113,18 @@
                                         </div>
                                     </div>
                                 @endif
-                                <a href="{{ $actie->externe_link }}" target="_blank" class="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
-                                    @svg('antdesign-link-o', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ __("acties.to_action_page") }}
-                                </a>
+                                <div class="space-y-1">
+                                    @foreach( $actie->externe_link as $externe_link )
+                                        <?php
+                                            preg_match( "/(http(s)?:[\\/]+)?([a-z0-9.\-_]+)[\\/]?/", strtolower($externe_link), $label );
+                                            if( ! substr( $externe_link, 0, 4) != 'http')
+                                                $externe_link = 'https://' . $externe_link;
+                                        ?>
+                                        <a href="{{ $externe_link }}" target="_blank" class="w-full inline-flex items-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
+                                            @svg('antdesign-link-o', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ __('general.go_to')}} {{ $label == 1 ? $label[3] : $externe_link  }}
+                                        </a>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                         <!-- Details -->
@@ -135,9 +144,18 @@
                                     </div>
                                 @endif
                             </div>
-                            <a href="{{ $actie->externe_link }}" target="_blank" class="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
-                                @svg('antdesign-link-o', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ __("acties.to_action_page") }}
-                            </a>
+                            <div class="space-y-1">
+                                @foreach( $actie->externe_link as $externe_link )
+                                    <?php
+                                        preg_match( "/(http(s)?:[\\/]+)?([a-z0-9.\-_]+)[\\/]?/", strtolower($externe_link), $label );
+                                        if( ! substr( $externe_link, 0, 4) != 'http')
+                                            $externe_link = 'https://' . $externe_link;
+                                    ?>
+                                    <a href="{{ $externe_link }}" target="_blank" class="w-full inline-flex items-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
+                                        @svg('antdesign-link-o', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ __('general.go_to')}} {{ $label == 1 ? $label[3] : $externe_link }}
+                                    </a>
+                                @endforeach
+                            </div>
                             @if($actie->disobedient === 1)
                                 <div
                                     class="p-3 text-sm rounded-md alert-warning"

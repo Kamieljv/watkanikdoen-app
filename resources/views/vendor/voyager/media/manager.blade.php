@@ -481,7 +481,6 @@
                 var vm = this;
                 vm.is_loading = true;
                 $.post('{{ route('voyager.media.files') }}', { folder: vm.current_folder, _token: '{{ csrf_token() }}', details: vm.details }, function(data) {
-                    data = data.slice(0, vm.maxToLoad)
                     vm.files = [];
                     for (var i = 0, file; file = data[i]; i++) {
                         if (vm.filter(file) && (file.type == 'folder' || vm.search(file, vm.query))) {
@@ -560,9 +559,10 @@
                 return this.selected_files.includes(file);
             },
             fileIs: function(file, type) {
-                var type_string = (typeof file === 'string') ? file.toLowerCase() : file.type.toLowerCase();
+                var type_string = (typeof file === 'string') ? file.toLowerCase() : 
+                    (file.type !== null) ? file.type.toLowerCase(): '';
                 if (type == 'image') {
-                    return this.endsWithAny(['jpg', 'jpeg', 'png', 'bmp'], type_string.toLowerCase());
+                    return this.endsWithAny(['jpg', 'jpeg', 'png', 'bmp'], type_string);
                 }
                 else {
                     return type_string == type
