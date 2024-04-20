@@ -17,7 +17,7 @@
         "codeat3/blade-clarity-icons": "^1.9",
         "guzzlehttp/guzzle": "^7.8",
         "intervention/image": "^2.7",
-        "jenssegers/date": "^2.0",
+        "jenssegers/date": "^4.0",
         "lab404/laravel-impersonate": "^1.7",
         "laravel/framework": "^10.0",
         "laravel/helpers": "^1.7",
