@@ -23,7 +23,7 @@
     @endif
 </header>
 @php 
-    $announcement = \App\Models\Announcement::orderby('created_at', 'DESC')->first(); 
+    $announcement = \App\Models\Announcement::orderby('created_at', 'DESC')->active()->first(); 
     $slug = basename(parse_url(url()->current(), PHP_URL_PATH));
 @endphp
 @if($announcement && trim($announcement->url, '/') != $slug)

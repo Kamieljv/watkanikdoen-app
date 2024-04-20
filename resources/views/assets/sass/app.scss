@@ -101,10 +101,10 @@
       @apply flex justify-center px-4 py-2 text-sm font-medium cursor-pointer text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none active:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed;
     }
     &.secondary {
-      @apply flex justify-center px-4 py-2 text-sm font-medium cursor-pointer text-blue-600 transition duration-150 ease-in-out border border-transparent rounded-md border-blue-600 hover:bg-blue-200;
+      @apply flex justify-center px-4 py-2 text-sm font-medium cursor-pointer text-blue-600 transition duration-150 ease-in-out border rounded-md border-blue-600 hover:bg-blue-200;
     }
     &.secondary-white {
-      @apply flex justify-center px-4 py-2 text-sm font-medium cursor-pointer text-white transition duration-150 ease-in-out border border-transparent rounded-md border-white hover:bg-white hover:bg-opacity-30;
+      @apply flex justify-center px-4 py-2 text-sm font-medium cursor-pointer text-white transition duration-150 ease-in-out border rounded-md border-white hover:bg-white hover:bg-opacity-30;
     }
     &.gray {
       @apply flex justify-center px-4 py-2 text-sm font-medium cursor-pointer text-gray-600 transition duration-150 ease-in-out border border-transparent rounded-md bg-gray-200 hover:bg-gray-300;
@@ -201,23 +201,6 @@ svg {
   width: 100%;
 }
 
-.wave {
-  animation: wave 3s linear;
-  animation-iteration-count: infinite;
-  fill: #0069ff;
-}
-
-#wave2 {
-  animation-duration: 5s;
-  animation-direction: reverse;
-  opacity: 0.6;
-}
-
-#wave3 {
-  animation-duration: 7s;
-  opacity: 0.3;
-}
-
 .alert-success {
   color: var(--wkid-message-success-dark);
   background: var(--wkid-message-success-light);
@@ -257,9 +240,6 @@ svg {
   to { transform: translateX(-100%); }
 }
 
-// .form-control{
-//   @apply form-input w-full;
-// }
 
 /****** Form Input CLASSES **********/
 
@@ -269,4 +249,13 @@ svg {
   background-size: 1.5em 1.5em;
   padding: 0.5rem 2.5rem 0.5rem 0.75rem;
   background-repeat: no-repeat;
+}
+
+div.custom-loader {
+  border: 4px solid white;
+  border-top: 4px solid transparent;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
 }

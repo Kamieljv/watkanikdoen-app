@@ -85,9 +85,11 @@ class ReportController extends Controller
                 'organizer_ids' => $organizer_ids ? implode(",", $organizer_ids) : '',
                 'title' => $request->report['title'],
                 'body' => $request->report['body'] ?? null,
-                'externe_link' => $request->report['externe_link'],
-                'time_start' => Date::parse($request->report['time_start'])->format('Y-m-d\TH:i'),
-                'time_end' => Date::parse($request->report['time_end'])->format('Y-m-d\TH:i'),
+                'externe_link' => $request->report['actionUrls'],
+                'start_date' => Date::parse($request->report['start_date'])->format('Y-m-d'),
+                'end_date' => Date::parse($request->report['end_date'])->format('Y-m-d'),
+                'start_time' => isset($request->report['start_time']) ? Date::parse($request->report['start_time'])->format('H:i') : null,
+                'end_time' => isset($request->report['end_time']) ? Date::parse($request->report['end_time'])->format('H:i') : null,
                 'location' => isset($request->report['location']) ?
                     DB::raw("ST_GeomFromText('POINT({$request->report['location']['lng']} {$request->report['location']['lat']})')") : null,
                 'location_human' => $request->report['location_human'],
@@ -115,9 +117,10 @@ class ReportController extends Controller
         }
 
         // Send email notification to admin
-        $admin = User::where('username', 'admin')->first();
-        $admin->notify(new ReportReceived($report));
-
+        if(config('app.debug') == false){
+            $admin = User::where('username', 'admin')->first();
+            $admin->notify(new ReportReceived($report));
+        }
         return response([
             'status' => 'success',
             'message' => __('reports.add_success'),
@@ -183,8 +186,10 @@ class ReportController extends Controller
             'title' => $report->title,
             'body' => $report->body,
             'externe_link' => $report->externe_link,
-            'time_start' => $report->time_start,
-            'time_end' => $report->time_end,
+            'start_date' => $report->start_date,
+            'start_time' => $report->start_time,
+            'end_date' => $report->end_date,
+            'end_time' => $report->end_time,
             'location' => $report->coordinates ? DB::raw("ST_GeomFromText('POINT({$report->coordinates['lng']} {$report->coordinates['lat']})')") : null,
             'location_human' => $report->location_human,
             'image' => $report->image ? $newImagePath : '',
@@ -225,14 +230,18 @@ class ReportController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+        $v = Validator::make($data, [
             'userId' => 'required|integer',
 
             'report.title' => 'required|string|max:255',
             'report.body' => 'required|string|max:16000',
-            'report.externe_link' => ['required', 'string', 'max:500', new Website()],
-            'report.time_start' => 'required|date_format:Y-m-d\TH:i|after_or_equal:today',
-            'report.time_end' => 'required|date_format:Y-m-d\TH:i|after:time_start',
+            'report.actionUrls' => 'required|array',
+            'report.actionUrls.*' => 'url|max:500',
+            'report.start_date' => 'required|date_format:Y-m-d|after_or_equal:today',
+            'report.start_time' => 'date_format:H:i',
+            'report.end_date' => 'required|date_format:Y-m-d|after_or_equal:report.start_date',
+            'report.end_time' => 'date_format:H:i',
+
             'report.location' => 'array:lat,lng',
             'report.location_human' => 'required|string|max:200',
             'report.image' => '',
@@ -241,8 +250,16 @@ class ReportController extends Controller
             'organizers.*.description' => 'sometimes|string|max:16000',
             'organizers.*.website' => ['sometimes', 'required', 'string', 'max:500', new Website()]
         ], [
-            'organizers.*.name.unique' => 'De organisatornaam :input bestaat al.'
+            'organizers.*.name.unique' => 'De organisatornaam :input bestaat al.',
+            'report.end_time' => 'Het einde van de actie moet na het begin zijn.'
         ]);
+
+        // Add rule (end_time must be after start_time) for when start_date and end_date are the same
+        $v->sometimes('report.end_time', 'date_format:H:i|after:report.start_time', function ($data) {
+            return $data->report['start_date'] == $data->report['end_date'];
+        });
+
+        return $v;
     }
 
     protected function createSlug($title, $model = Actie::class)

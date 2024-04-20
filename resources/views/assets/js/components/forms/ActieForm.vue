@@ -79,14 +79,7 @@
                     </p>
                     <div class="flex flex-col mt-5 space-y-3">
                         <!-- Externe link -->
-                        <FormField
-                            v-model="report.externe_link"
-                            label="Externe link"
-                            name="location_human"
-                            type="url"
-                            rules="url"
-                            required
-                        />
+                        <form-urls @change="handleActionUrls" :urls="actionUrls"/>
                     </div>
                 </div>
                 <div class="flex flex-col justify-start flex-1 mb-5 md:pl-5 overflow-hidden bg-white border-gray-150">
@@ -99,21 +92,38 @@
                     <div class="flex flex-col mt-5 space-y-3">
                         <!-- Time start -->
                         <FormField
-                            v-model="report.time_start"
-                            label="Begin van de actie"
-                            name="Begintijd"
-                            type="datetime-local"
+                            v-model="report.start_date"
+                            label="Datum begin van de actie"
+                            name="BeginDatum"
+                            type="date"
                             rules="afterToday"
                             required
+                            @input="() => { this.report.end_date = this.report.start_date }"
+                        />
+                        <FormField
+                            v-model="report.start_time"
+                            label="Tijdstip begin van de actie"
+                            name="BeginTijd"
+                            type="time"
+                            step="900"
+                            @input="() => { this.report.end_time = addHours(this.report.start_time, 1) }"
                         />
                         <!-- Time end -->
                         <FormField
-                            v-model="report.time_end"
-                            label="Eind van de actie"
-                            name="time_end"
-                            type="datetime-local"
+                            v-model="report.end_date"
+                            label="Datum einde van de actie"
+                            name="EindDatum"
+                            type="date"
+                            rules="afterIncluding:@BeginDatum"
                             required
-                            rules="after:@Begintijd"
+                        />
+                        <FormField
+                            v-model="report.end_time"
+                            label="Tijdstip einde van de actie"
+                            name="EindTijd"
+                            type="time"
+                            step="900"
+                            rules=""
                         />
                     </div>
                 </div>
@@ -143,12 +153,12 @@
 
 <script>
 
-import { ValidationObserver } from 'vee-validate';
-import { ValidationProvider } from 'vee-validate';
+import { ValidationObserver, ValidationProvider } from 'vee-validate';
 import { caseHelper } from '../../mixins/caseHelper';
+import { addHours } from 'date-fns';
 
 export default {
-	name: "Actie",
+    name: "Actie",
     components: {
         ValidationProvider,
         ValidationObserver,
@@ -156,20 +166,44 @@ export default {
     mixins: [
         caseHelper,
     ],
+    data: () => {
+        return {
+            actionUrls: [],
+        };
+    },
     props: {
         defaultCenter: {
-			type: Array,
-			required: true,
-		},
-		zoom: {
-			type: Number,
-			required: true,
-		},
+            type: Array,
+            required: true,
+        },
+        zoom: {
+            type: Number,
+            required: true,
+        },
         report: {
             type: Object,
             required: true
-        }
+        },
     },
+    mounted () {
+        this.actionUrls = this.report.actionUrls ?? [];
+    },
+    methods: {
+        addHours(timeString, hoursToAdd) {
+            // Split the time string into hours and minutes and create Date object
+            let [hours, minutes] = timeString.split(':');
+            let oldTime = new Date(0, 0, 0, hours, minutes);
+
+            // Add an hour to the original time
+            let newTime = addHours(oldTime, hoursToAdd);
+
+            // Format the new time back to "HH:MM" format
+            let formattedNewTime = newTime.getHours().toString().padStart(2, '0') + ':' + newTime.getMinutes().toString().padStart(2, '0');
+            return formattedNewTime;
+        },
+        handleActionUrls(urls) {
+            this.report.actionUrls = urls;
+        }
+    }
 }
 </script>
-

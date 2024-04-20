@@ -21,7 +21,7 @@
                             <h3 class="line-clamp-2 uppercase text-xl font-semibold leading-5 text-gray-900">
                                 {{ actie.title }}
                             </h3>
-                            <span class="text-sm font-bold text-[color:var(--wkid-pink)]">{{actie.start_end.toUpperCase()}}</span>
+                            <span class="text-sm font-bold text-[color:var(--wkid-pink)]">{{actie.start_date.toUpperCase()}}</span>
                             <div class="mb-2">
                                 <p class="text-sm leading-5 text-gray-900 line-clamp-2">
                                     {{ __("acties.by") }}
@@ -84,7 +84,7 @@ export default {
 	},
 	computed: {
 		isAfgelopen() {
-			return new Date(this.actie.time_end) < new Date()
+			return new Date(this.actie.end_date + " " + this.actie.end_time) < new Date()
 		}
 	}
 }

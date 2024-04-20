@@ -10,4 +10,9 @@ class Announcement extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'ACTIVE');
+    }
 }
