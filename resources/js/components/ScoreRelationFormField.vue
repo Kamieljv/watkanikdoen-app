@@ -1,12 +1,23 @@
 <template>
 	<div class="wrapper">
-		<tr v-for="e in entitiesWithValues" :key="e.id">
-			<td class="name-cell"><span :for="e.name" :title="e.description">{{e.name}}</span></td>
+		<tr v-for="d in dimensionsWithValues" :key="d.id">
+			<td class="name-cell"><span :for="d.name" :title="d.description">{{d.name}}</span></td>
 			<td class="input-cell">
-				<input type="number" class="score-input" :name="'dim_' + e.name" :min="minScore" :max="maxScore" :value="e.value" step="1" @change="handleChange" />
+				<input 
+					:id="'ans' + currentId + '_dim' + d.id"
+					type="number" 
+					class="score-input" 
+					:name="'dim_' + d.name" 
+					:min="minScore" 
+					:max="maxScore" 
+					:value="d.value" 
+					step="1"
+					:data-dim-id="d.id"
+					@change="handleChange($event)" 
+				/>
 			</td>
 			<td class="delete-cell">
-				<button v-if="e.value !== null" :data-id="e.id" class="btn delete-btn" @click.prevent="handleDelete(e.id, $event)">
+				<button v-if="d.value !== null" :data-id="d.id" class="btn delete-btn" @click.prevent="handleDelete(d.id, $event)">
 					<span class="icon voyager-trash"></span>
 				</button>
 			</td>
@@ -21,7 +32,7 @@
 	export default {
 		name: "ScoreRelationFormField",
 		props: {
-			entities: {
+			dimensions: {
 				type: Array,
 				required: true,
 			},
@@ -56,11 +67,11 @@
 		},
 		data() {
 			return {
-				entitiesWithValues: []
+				dimensionsWithValues: []
 			}
 		},
 		mounted() {
-			this.entitiesWithValues = this.entities.map((e) => {
+			this.dimensionsWithValues = this.dimensions.map((e) => {
 				var current = this.currentScores.find((c) => c.id === e.id);
 				e.value = current ? current.pivot.score : null;
 				return e
@@ -68,12 +79,12 @@
 		},
 		methods: {
 			handleChange(e) {
-				this.$set(this.entitiesWithValues.find((c) => c.id == e.target.id), 'value', e.target.value);
+				this.dimensionsWithValues.find((c) => c.id == e.target.id);
 				this.$http.post(this.scoreRoute, {
 					'entity_class': this.entityClass,
 					'entity_id': this.currentId,
 					'dimension_id': parseInt(e.target.id),
-					'score': parseInt(this.entitiesWithValues.find((c) => c.id == e.target.id).value)
+					'score': parseInt(this.dimensionsWithValues.find((c) => c.id == e.target.id).value)
 				}).then((response) => {
 					// reset the inner html of the error element in the row
 					e.target.closest('tr').querySelector('.error').innerHTML = '';
@@ -86,7 +97,7 @@
 					e.target.closest('tr').querySelector('input').classList.add('invalid');
 				});
 				// emit the input event to parent, passing entitiesWithValues
-				this.$emit('input', this.entitiesWithValues);
+				this.$emit('input', this.dimensionsWithValues);
 			},
 			handleDelete(dimension_id, e) {
 				this.$http.post(this.scoreDeleteRoute, {
@@ -99,7 +110,7 @@
 					// remove the invalid class from the input element in row
 					e.target.closest('tr').querySelector('input').classList.remove('invalid');
 				});
-				this.$set(this.entitiesWithValues.find((c) => c.id == dimension_id), 'value', null);
+				this.$set(this.dimensionsWithValues.find((c) => c.id == dimension_id), 'value', null);
 			}
 		}
 	}
