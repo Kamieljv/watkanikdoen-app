@@ -30,8 +30,7 @@ class AddStatusToOrganizersTable extends Migration
     {
         Schema::table('organizers', function (Blueprint $table) {
             $table->dropForeign('organizers_user_id_foreign');
-            $table->dropColumn('user_id');
-            $table->dropColumn('status');
+            $table->dropColumn(['user_id', 'status']);
         });
     }
 }

@@ -31,9 +31,7 @@ class ModifyAnnouncements extends Migration
     public function down()
     {
         Schema::table('announcements', function (Blueprint $table) {
-            $table->dropColumn('url');
-            $table->dropColumn('color');
-            $table->dropColumn('status');
+            $table->dropColumn(['url', 'color', 'status']);
         });
         Schema::table('announcements', function (Blueprint $table) {
             $table->text('body', 65535);

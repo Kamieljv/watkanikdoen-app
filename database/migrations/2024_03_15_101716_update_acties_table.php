@@ -32,8 +32,7 @@ return new class extends Migration
         );
         // Remove old columns 
         Schema::table('acties', function(Blueprint $table){
-            $table->dropColumn('time_start');
-            $table->dropColumn('time_end');
+            $table->dropColumn(['time_start', 'time_end']);
         });
     }
 
@@ -61,10 +60,7 @@ return new class extends Migration
         
         // Drop date and time columns
         Schema::table('acties', function(Blueprint $table){
-            $table->dropColumn('start_date');
-            $table->dropColumn('start_time');
-            $table->dropColumn('end_date');
-            $table->dropColumn('end_time');
+            $table->dropColumn(['start_date', 'start_time', 'end_date', 'end_time']);
         });
     }
 };

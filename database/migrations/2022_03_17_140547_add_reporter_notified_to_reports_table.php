@@ -30,9 +30,8 @@ class AddReporterNotifiedToReportsTable extends Migration
     public function down()
     {
         Schema::table('reports', function (Blueprint $table) {
-            $table->dropColumn('reporter_notified');
             $table->dropForeign('reports_actie_id_foreign');
-            $table->dropColumn('actie_id');
+            $table->dropColumn(['reporter_notified', 'actie_id']);
         });
     }
 }
