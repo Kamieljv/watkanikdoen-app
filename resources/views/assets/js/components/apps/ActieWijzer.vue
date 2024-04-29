@@ -122,7 +122,7 @@ export default {
             var url_params = new URLSearchParams(dimension_scores_avg)
             this.themesSelected.forEach(id => url_params.append('themes[]', id))
             url.search = url_params
-            window.location.href = url.href;
+            window.location.href = url.href + url_params;
         },
         computeDimensionScores() {
             // reset dimension_scores

@@ -19,7 +19,7 @@ class ActieWijzerController extends Controller
      */
     public function landing()
     {
-        $questions = Question::active()->get()->toArray();
+        $questions = Question::all()->toArray();
         $dimensions = Dimension::all()->toArray();
         $themes = Theme::all()->toArray();
         $result_route = route('actiewijzer.result');
@@ -102,7 +102,7 @@ class ActieWijzerController extends Controller
         }
 
         $themes = null;
-        if (key_exists('themes', $request->all())) {
+        if ( key_exists('themes', $request->all())) {
             $themes = Theme::whereIn('id', $request['themes'])->get();
         }
 
