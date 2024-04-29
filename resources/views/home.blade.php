@@ -25,7 +25,7 @@
         	</home-agenda>
 		</div>
 		{{-- ActieWijzer --}}
-		<div id="actiewijzer-section" class="row py-20 px-3 text-white">
+		{{-- <div id="actiewijzer-section" class="row py-20 px-3 text-white">
 			<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-2 mx-auto max-w-6xl px-3 items-center">
 				<div class="col-span-2 lg:col-span-1 text-left md:text-right pr-5 mb-8 md:mb-0 md:border-r">
 					<h1>Ontdek wat voor actie bij jou <br/>past met de ActieWijzer</h1>
@@ -40,7 +40,7 @@
 					</a>
 				</div>
 			</div>
-		</div>
+		</div> --}}
 		{{-- Who are we? --}}
 		<div id="whoarewe-section" class="row h-[450px] md:h-[370px] text-white relative overflow-hidden">
 			<div class="absolute left-[-30%] md:left-[20%] top-[-70%] md:top-[-110%] opacity-20">
