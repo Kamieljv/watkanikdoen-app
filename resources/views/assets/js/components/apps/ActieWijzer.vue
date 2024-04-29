@@ -23,7 +23,7 @@
                         class="secondary">
                         {{ __('general.previous') }}
                     </button>
-                    <button v-if="isLastStep" class="primary"  @click.prevent="submit">
+                    <button v-if="isLastStep" class="primary"  @click.prevent="submit" :disabled="!canSubmit">
                         {{ __('general.send_form') }}
                     </button>
                     <button v-else-if="validInput" class="primary" @click.prevent="activeIndex++">
@@ -41,14 +41,6 @@
                 <SuccessGIF src="/images/protest_signs.gif" title="Gelukt! Bedankt voor je bijdrage!" message="We zullen je aanmelding zo snel mogelijk beoordelen."/>
             </div>
         </div>
-
-        <!-- DEBUG -->
-        <div class="text-gray-700">
-            <p>Answersgiven: {{ answersGiven }}</p>
-            <p>Scores: {{ dimension_scores}}</p>
-            <p>Themes: {{ themesSelected }}</p>
-        </div>
-
     </div>
 </template>
 
@@ -109,6 +101,9 @@ export default {
         answers() {
             return this.questions.map((q) => q.answers).flat()
         },
+        canSubmit() {
+            return Object.keys(this.answersGiven).length > 0 && this.themesSelected > 0 
+        }
     },
     methods: {
         handleInput(input) {
