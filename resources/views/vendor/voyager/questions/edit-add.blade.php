@@ -108,6 +108,7 @@
                                     :delete-route="{{ json_encode(route('actiewijzer.delete_dimension_score'))}}"
                                     :score-route="{{ json_encode(route('actiewijzer.score_dimension'))}}"
                                     :score-delete-route="{{ json_encode(route('actiewijzer.delete_dimension_score'))}}"
+                                    :edit-answer-route="{{ json_encode(route('actiewijzer.answer.edit')) }}"
                                 />
                             </div>
 

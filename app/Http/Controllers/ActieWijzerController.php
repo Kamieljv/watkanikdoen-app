@@ -77,6 +77,17 @@ class ActieWijzerController extends Controller
         $answer = Answer::find($request->answer_id)->dimensions()->detach($request->dimension_id);
     }
 
+    public function editAnswer(Request $request) {
+        try {
+            $answer = Answer::find($request->id);
+            $answer->answer = $request->answer;
+            $answer->save();
+            return response(['status' => 'success', 'message' => 'Answer updated'], 200);
+        } catch (Exception $e) {
+            return response(['status' => 'failed', 'message' => 'Something went wrong'], 400);
+        }
+    }
+
     public function result(Request $request) {
 
         $dimensions = Dimension::all();

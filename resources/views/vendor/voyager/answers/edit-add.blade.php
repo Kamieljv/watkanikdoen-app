@@ -102,7 +102,7 @@
                                 <label class="control-label" for="name">Dimension scores</label>
 
                                 <score-relation-form-field
-                                        :entities="{{ json_encode(\App\Models\Dimension::get()->toArray())}}"
+                                        :dimensions="{{ json_encode(\App\Models\Dimension::get()->toArray())}}"
                                         entity-class="App\Models\Answer"
                                         :score-route="{{ json_encode(route('actiewijzer.score_dimension'))}}"
                                         :score-delete-route="{{ json_encode(route('actiewijzer.delete_dimension_score'))}}"

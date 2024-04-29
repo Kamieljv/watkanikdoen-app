@@ -44,6 +44,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('images/delete_unlinked', [ImageController::class, 'deleteUnlinked'])->name('images.delete_unlinked');
     Route::post('actiewijzer/score_dimension', [ActieWijzerController::class, 'scoreDimension'])->name('actiewijzer.score_dimension');
     Route::post('actiewijzer/delete_dimension_score', [ActieWijzerController::class, 'deleteDimensionScore'])->name('actiewijzer.delete_dimension_score');
+    Route::post('actiewijzer/answer/edit', [ActieWijzerController::class, 'editAnswer'])->name('actiewijzer.answer.edit');
 });
 
 // Wave impersonation route
