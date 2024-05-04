@@ -26,7 +26,7 @@ class CreateActiesTable extends Migration
             $table->point('location')->nullable();
             $table->string('location_human')->nullable();
             $table->string('image')->nullable();
-            $table->string('slug')->unique('posts_slug_unique');
+            $table->string('slug')->unique();
             $table->enum('status', ['PUBLISHED', 'DRAFT', 'PENDING'])->default('DRAFT');
             $table->timestamps();
 

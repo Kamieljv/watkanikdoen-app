@@ -1,14 +1,14 @@
 <?php
 
-use App\User;
+use App\Models\User;
 
 test('available routes', function ($url) {
 
     $appURL = env('APP_URL');
 
-        $response = $this->get($url);
+    $response = $this->get($url);
 
-        $response->assertStatus(200);
+    $response->assertStatus(200);
 })->with('routes');
 
 test('available auth routes', function ($url) {
@@ -19,7 +19,7 @@ test('available auth routes', function ($url) {
 
     $appURL = env('APP_URL');
 
-        $response = $this->get($url);
+    $response = $this->get($url);
 
-        $response->assertStatus(200);
+    $response->assertStatus(200);
 })->with('authroutes');

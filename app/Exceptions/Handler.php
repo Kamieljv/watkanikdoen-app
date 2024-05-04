@@ -2,7 +2,9 @@
 
 namespace App\Exceptions;
 
+use App\Notifications\Mail\ErrorAlert;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Notification;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -49,5 +51,31 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         return parent::render($request, $exception);
+    }
+
+    /**
+     * Register the exception handling callbacks for the application.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        if (config('app.env') === 'production') {
+            $this->reportable(function (Throwable $e) {
+                // Create Notification Data
+                $exception = [
+                    "class" => get_class($e),
+                    "message" => $e->getMessage(),
+                    "file" => $e->getFile(),
+                    "line" => $e->getLine(),
+                    "traceback" => $e->getTraceAsString()
+                ];
+
+                // Create a Job for Notification which will run after 5 seconds.
+                Notification::route('mail', config('app.admin_email'))
+                    ->notify((new ErrorAlert($exception))->delay(now()->addSeconds(5)));
+            
+            });
+        }
     }
 }

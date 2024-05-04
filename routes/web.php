@@ -71,14 +71,6 @@ Route::get('acties/aanmelden', [ReportController::class, 'landing'])->name('repo
 Route::get('actiewijzer', [ActieWijzerController::class, 'landing'])->name('actiewijzer.landing');
 Route::get('actiewijzer/result', [ActieWijzerController::class, 'result'])->name('actiewijzer.result');
 
-// Public statistics route
-Route::get('dashboard/getPublicStats', [DashboardController::class, 'getPublicStats'])->name('dashboard.public_stats');
-
-// Blog routes
-Route::get('blog/index', [BlogController::class, 'index'])->name('blog');
-Route::get('blog/{category}', [BlogController::class, 'category'])->name('blog.category');
-Route::get('blog/{category}/{post}', [BlogController::class, 'post'])->name('blog.post');
-
 // Newsletter (subscriber) routes
 Route::get('nieuwsbrief', [SubscriberController::class, 'landing'])->name('subscribers.landing');
 Route::post('subscriber/create', [SubscriberController::class, 'store'])->name('subscribers.store');
@@ -108,7 +100,6 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth', 'xss']], function () 
     Route::post('settings/profile/deleteAvatar/{id}', [SettingsController::class, 'deleteAvatar'])->name('settings.profile.deleteAvatar');
     Route::put('settings/security', [SettingsController::class, 'securityPut'])->name('settings.security.put');
 
-    // Notifications & Announcements
-    Route::get('notifications', [NotificationController::class, 'get'])->name('notifications');
+    // Notifications
     Route::post('notification/read/{id}', [NotificationController::class, 'read'])->name('notification.read');
 });
