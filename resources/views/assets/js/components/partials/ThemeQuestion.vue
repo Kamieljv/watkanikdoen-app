@@ -1,6 +1,6 @@
 <template>
     <div class="p-8">
-        <h1 class="mb-3">{{question.question}}</h1>
+        <h1 class="mb-10">{{question.question}}</h1>
         <p>Kies een aantal thema's waar je je graag voor wil inzetten.</p>
         <div class="my-5">
             <div

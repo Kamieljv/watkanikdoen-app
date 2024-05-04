@@ -109,6 +109,18 @@ export default {
             return Object.keys(this.answersGiven).length > 0 && this.themesSelected.length > 0 
         }
     },
+    mounted() {
+        // compute maximum possible scores for each dimension
+        // loop over dimensions, loop over questions, then get the max score per questions for each dimension
+        this.dimensions.forEach((dim) => {
+            dim.maxScore = this.questions.map(q => {
+                let maxScore = Math.max(
+                    ...q.answers.map(a => a.dimensions.filter(d => d.name == dim.name).map(d => d.pivot.score)).flat()
+                ) 
+                return maxScore === -Infinity ? 0 : maxScore
+            }).reduce((a, b) => a + b, 0);
+        });
+    },
     methods: {
         handleInput(input) {
             this.$set(this.answersGiven, this.questions[this.activeIndex].id, input);
@@ -120,7 +132,7 @@ export default {
         submit() {
             var dimension_scores_avg = {};
             Object.keys(this.dimension_scores).forEach(k => {
-                dimension_scores_avg[k] = this.dimension_scores[k].reduce((a, b) => a + b, 0) / this.dimension_scores[k].length
+                dimension_scores_avg[k] = Math.round(this.dimension_scores[k].reduce((a, b) => a + b, 0) / this.dimensions.find(d => d.name == k).maxScore * 10)
             });
             var url = new URL(this.resultRoute);
             var url_params = new URLSearchParams(dimension_scores_avg)
@@ -133,7 +145,7 @@ export default {
             this.dimension_scores = {};
             // get full answer objects (with dimensions)
             var answersGivenFull = this.answers.filter((a) => Object.values(this.answersGiven).includes(a.id))
-            // sum the dimension scores for each answer
+            // update the dimension scores for each given answer
             answersGivenFull.forEach((a) => {
                 a.dimensions.forEach((d) => {
                     var newValue = this.dimension_scores.hasOwnProperty(d.name) ? this.dimension_scores[d.name].concat([d.pivot.score]) : [d.pivot.score];

@@ -1,6 +1,6 @@
 <template>
     <div class="p-8">
-        <h1 class="mb-3">{{question.question}}</h1>
+        <h1 class="mb-10">{{question.question}}</h1>
         
         <t-radio-group 
             v-model="data" 
