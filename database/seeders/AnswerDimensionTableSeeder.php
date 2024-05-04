@@ -24,7 +24,7 @@ class AnswerDimensionTableSeeder extends Seeder
                 'answer_id' => 1,
                 'dimension_id' => 1,
                 'id' => 3,
-                'score' => 1,
+                'score' => 0,
             ),
             1 => 
             array (
@@ -52,14 +52,14 @@ class AnswerDimensionTableSeeder extends Seeder
                 'answer_id' => 5,
                 'dimension_id' => 3,
                 'id' => 7,
-                'score' => 4,
+                'score' => 3,
             ),
             5 => 
             array (
                 'answer_id' => 6,
                 'dimension_id' => 3,
                 'id' => 8,
-                'score' => 1,
+                'score' => 0,
             ),
             6 => 
             array (
@@ -80,17 +80,15 @@ class AnswerDimensionTableSeeder extends Seeder
                 'answer_id' => 9,
                 'dimension_id' => 4,
                 'id' => 11,
-                'score' => 4,
+                'score' => 3,
             ),
             9 => 
             array (
                 'answer_id' => 10,
                 'dimension_id' => 4,
                 'id' => 12,
-                'score' => 1,
+                'score' => 0,
             ),
-        ));
-        
-        
+        ));       
     }
 }

@@ -33,6 +33,11 @@ export default {
             return this.question.answers
         },
     },
+    mounted() {
+        if (this.value) {
+            this.data = this.value;
+        }
+    },
     watch: {
       data: function () {
         this.$emit('input', this.data);

@@ -25,7 +25,7 @@ class QuestionsTableSeeder extends Seeder
                 'description' => 'Er zijn ontzettend veel thema\'s waarvoor je je kunt inzetten!',
                 'id' => 1,
                 'question' => 'Voor welk thema wil je je inzetten?',
-                'status' => 'INACTIVE',
+                'status' => 'ACTIVE',
                 'subject' => 'Thema',
                 'updated_at' => '2024-01-26 11:16:36',
             ),

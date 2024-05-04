@@ -19,7 +19,7 @@ class ActieWijzerController extends Controller
      */
     public function landing()
     {
-        $questions = Question::all()->toArray();
+        $questions = Question::active()->get()->toArray();
         $dimensions = Dimension::all()->toArray();
         $themes = Theme::all()->toArray();
         $result_route = route('actiewijzer.result');

@@ -43,7 +43,7 @@
                     <div class="flex">
                         @foreach ($themes as $t)
                             <div
-                                class="relative self-start inline-block px-2 py-1 mr-1 mb-1 cursor-pointer text-xs font-medium leading-5 uppercase rounded"
+                                class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 uppercase rounded"
                                 style="background-color: {{ $t->color }}"
                             >
                                 <span class="text-white">{{ $t->name }}</span>

@@ -9,7 +9,7 @@
             </step-progress>
             <ValidationObserver>
                 <Transition name="slide" mode="out-in" appear>
-                    <div v-if="currentQuestion.subject == 'Thema'">
+                    <div v-if="currentQuestion.subject == themeStepName">
                         <theme-question :question="currentQuestion" :themes="themes" :value="themesSelected" :key="activeIndex" @input="handleThemeInput" class="p-8 bg-white rounded-md shadow-md min-h-[300px]">
                         </theme-question>
                     </div>
@@ -69,6 +69,10 @@ export default {
         resultRoute: {
             type: String,
             required: true,
+        },
+        themeStepName: {
+            type: String,
+            default: 'Thema',
         }
     },
     data: () => ({
@@ -93,7 +97,7 @@ export default {
             return this.questions[this.activeIndex];
         },
         validInput() {
-            if (this.questions[this.activeIndex].subject == 'Thema') {
+            if (this.questions[this.activeIndex].subject == this.themeStepName) {
                 return this.themesSelected.length > 0
             }
             return true
@@ -102,7 +106,7 @@ export default {
             return this.questions.map((q) => q.answers).flat()
         },
         canSubmit() {
-            return Object.keys(this.answersGiven).length > 0 && this.themesSelected > 0 
+            return Object.keys(this.answersGiven).length > 0 && this.themesSelected.length > 0 
         }
     },
     methods: {
@@ -122,7 +126,7 @@ export default {
             var url_params = new URLSearchParams(dimension_scores_avg)
             this.themesSelected.forEach(id => url_params.append('themes[]', id))
             url.search = url_params
-            window.location.href = url.href + url_params;
+            window.location.href = url.href;
         },
         computeDimensionScores() {
             // reset dimension_scores

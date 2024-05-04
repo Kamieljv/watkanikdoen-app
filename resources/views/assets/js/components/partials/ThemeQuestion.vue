@@ -50,6 +50,11 @@ export default {
             }
         },
     },
+    mounted() {
+        if (this.value) {
+            this.selected = this.value;
+        }
+    },
     watch: {
         selected: function () {
             this.$emit('input', this.selected);
