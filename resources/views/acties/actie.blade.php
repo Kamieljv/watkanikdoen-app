@@ -73,20 +73,20 @@
                                     <span>{{ $actie->title }}</span>
                                 </h1>
                                 <div class="flex justify-between">
-                                    <span class="mt-0 italic text-sm font-normal">
+                                    <span class="flex items-center mt-0 italic text-sm font-normal">
                                         @if (isset($actie->updated_at))
-                                            {{ __("acties.last_edit") }}: {{ $actie->updated_at }}
+                                            {{ __("acties.last_edit") }}: {{ Date::parse($actie->updated_at)->diffForHumans() }}
                                         @else
                                             {{ __("acties.created_at") }}: {{ $actie->created_at }}
                                         @endif
                                     </span>
                                     @if($actie->pageviewsText)
-                                        <span class="text-sm bold font-normal flex" title="Aantal keer dat de pagina is bekeken">
-                                            @svg('antdesign-eye', ['style' => 'width: 20px; height: 20px']) {{ $actie->pageviewsText }}
+                                        <span class="flex bg-gray-200 rounded-md p-1 text-sm bold font-normal" title="Aantal keer dat de pagina is bekeken">
+                                            @svg('antdesign-eye', ['style' => 'width: 20px; height: 20px'])&nbsp;{{ $actie->pageviewsText }}
                                         </span>
                                     @endif
                                 </div>
-                                <div class="details-container text-sm text-gray-500">
+                                <div class="details-container text-sm text-gray-500 space-y-1">
                                     @if($actie->start_end)
                                         <div class="flex items-center text-sm leading-5 text-gray-700">
                                             @svg('antdesign-clock-circle-o', ['class' => 'shrink-0', 'style' => 'width: 20px; height: 20px'])
@@ -121,8 +121,9 @@
                                                 $externe_link = 'https://' . $externe_link;
                                             }
                                         ?>
-                                        <a href="{{ $externe_link }}" target="_blank" class="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
-                                            @svg('antdesign-link-o', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ $label ? str_replace('www.', '', $label[3]) : $externe_link }}
+                                        <a href="{{ $externe_link }}" target="_blank" class="w-full inline-flex items-center justify-center space-x-1 px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
+                                            @svg('antdesign-link-o', ['class' => 'flex-nowrap flex-shrink-0', 'style' => 'width: 20px; height: 20px'])
+                                            <p class="truncate">{{ $label ? str_replace('www.', '', $label[3]) : $externe_link }}</p>
                                         </a>
                                     @endforeach
                                 </div>
@@ -131,7 +132,7 @@
                         <!-- Details -->
                         <div class="sm:flex flex-col gap-3 not-prose p-3 bg-white rounded-lg shadow-lg overflow-hidden hidden">
                             <h4>{{ __("acties.details") }}</h4>
-                            <div class="details-container text-sm text-gray-500">
+                            <div class="details-container text-sm text-gray-500 space-y-1">
                                 @if($actie->start_end)
                                     <div class="flex items-center text-sm leading-5 text-gray-700">
                                         @svg('antdesign-clock-circle-o', ['class' => 'shrink-0', 'style' => 'width: 20px; height: 20px'])
@@ -153,8 +154,9 @@
                                             $externe_link = 'https://' . $externe_link;
                                         }
                                     ?>
-                                    <a href="{{ $externe_link }}" target="_blank" class="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
-                                        @svg('antdesign-link-o', ['style' => 'width: 20px; height: 20px']) &nbsp; {{ $label ? str_replace('www.', '', $label[3]) : $externe_link }}
+                                    <a href="{{ $externe_link }}" target="_blank" class="w-full inline-flex items-center justify-center space-x-1 px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
+                                        @svg('antdesign-link-o', ['class' => 'flex-nowrap flex-shrink-0', 'style' => 'width: 20px; height: 20px'])
+                                        <p class="truncate">{{ $label ? str_replace('www.', '', $label[3]) : $externe_link }}</p>
                                     </a>
                                 @endforeach
                             </div>
@@ -226,16 +228,16 @@
                         @endif
                         <h1>{{ $actie->title }}</h1>
                         <div class="flex justify-between">
-                            <span class="mt-0 italic text-sm font-normal">
+                            <span class="flex items-center mt-0 italic text-sm font-normal">
                                 @if (isset($actie->updated_at))
-                                    {{ __("acties.last_edit") }}: {{ $actie->updated_at }}
+                                    {{ __("acties.last_edit") }}: {{ Date::parse($actie->updated_at)->diffForHumans() }}
                                 @else
                                     {{ __("acties.created_at") }}: {{ $actie->created_at }}
                                 @endif
                             </span>
                             @if($actie->pageviewsText)
-                                <span class="text-sm bold font-normal flex" title="Aantal keer dat de pagina is bekeken">
-                                    @svg('antdesign-eye', ['style' => 'width: 20px; height: 20px']) {{ $actie->pageviewsText }}
+                                <span class="flex bg-gray-200 rounded-md p-1 text-sm bold font-normal" title="Aantal keer dat de pagina is bekeken">
+                                    @svg('antdesign-eye', ['style' => 'width: 20px; height: 20px'])&nbsp;{{ $actie->pageviewsText }}
                                 </span>
                             @endif
                         </div>
