@@ -105,14 +105,14 @@ export default {
 			},
 			names: {
 				'pageviews': 'pageviews',
-				'uniques': 'visitors',
+				'visitors': 'visitors',
 				'bouncerate': 'bounce rate',
 				'avgtime': 'average visit',
 			}
 		}
 	},
 	mounted() {
-		this.visitStats = ["pageviews", "uniques", "bouncerate", "avgtime"]
+		this.visitStats = ["pageviews", "visitors", "bouncerate", "avgtime"]
 			.reduce((acc,curr)=> (acc[curr]={value: "N/A", change: "N/A"},acc),{})
 		this.platformStats = ["acties", "users", "organizers"]
 			.reduce((acc,curr)=> (acc[curr]="N/A",acc),{})
@@ -155,20 +155,22 @@ export default {
 				})
 		},
 		processData(data) {
-			const { pageviews, uniques, bounces, totaltime } = data || {};
-			const num = Math.min(data && uniques.value, data && bounces.value);
+			console.log(data);
+			const { bounces, pageviews, totaltime, visitors, visits } = data || {};
+			const num = Math.min(data && visitors.value, data && bounces.value);
 			const diffs = data && {
 				pageviews: pageviews.value - pageviews.change,
-				uniques: uniques.value - uniques.change,
+				visitors: visitors.value - visitors.change,
+				visits: visits.value - visits.change,
 				bounces: bounces.value - bounces.change,
 				totaltime: totaltime.value - totaltime.change,
 			};
 			var computedStats = {
 				bouncerate: {
-					value: Number(uniques.value ? (num / uniques.value) * 100 : 0).toFixed(0) + '%',
-					change: Number(uniques.value && uniques.change
-						? (num / uniques.value) * 100 -
-							(Math.min(diffs.uniques, diffs.bounces) / diffs.uniques) * 100 || 0
+					value: Number(visitors.value ? (num / visitors.value) * 100 : 0).toFixed(0) + '%',
+					change: Number(visitors.value && visitors.change
+						? (num / visitors.value) * 100 -
+							(Math.min(diffs.visitors, diffs.bounces) / diffs.visitors) * 100 || 0
 						: 0).toFixed(0) + '%',
 				},
 				avgtime: {
