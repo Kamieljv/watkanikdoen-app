@@ -220,9 +220,9 @@ class Actie extends Model
     {
         return $query->where('status', 'PUBLISHED');
     }
-    public function scopeToekomstig($query)
+    public function scopeNietAfgelopen($query)
     {
-        return $query->whereRaw("STR_TO_DATE(CONCAT(start_date, ' ', start_time), '%Y-%m-%d %H:%i:%s') > '" . Date::now()->toDateTimeString() . "'");
+        return $query->whereRaw("STR_TO_DATE(CONCAT(end_date, ' ', end_time), '%Y-%m-%d %H:%i:%s') > '" . Date::now()->toDateTimeString() . "'");
     }
 
     public function publish()
