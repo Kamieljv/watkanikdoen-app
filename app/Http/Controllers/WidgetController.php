@@ -50,7 +50,7 @@ class WidgetController extends Controller
         $query->published()->orderBy('start_date')->orderBy('start_time');
 
         if ($request->show_past === 'false') {
-            $query->toekomstig();
+            $query->nietAfgelopen();
         }
 
         if ($request->limit) {
