@@ -1,5 +1,5 @@
 <template>
-  <div class="Collapsible bg-gray-100 rounded-md">
+  <div class="Collapsible bg-gray-200 rounded-md">
     <button
       @click.prevent="handleClick"
       type="button"
@@ -14,9 +14,9 @@
         <div class="customTrigger flex items-center justify-between p-4">
             <div class="flex items-center space-x-3 text-gray-800">
               <svg-vue v-if="icon" :icon="icon" style="width: 18px" />
-              <h3 class="text-sm" style="line-height: 1.5rem">{{ triggerLabel }}</h3>
-              <div v-if="filterCount" id="notification-count" class="flex items-center justify-center w-5 h-5 text-sm font-extrabold text-white bg-gray-500 rounded-full">
-                {{filterCount}}
+              <h3 class="text-sm" style="line-height: 1.5rem" :style="labelStyle">{{ triggerLabel }}</h3>
+              <div v-if="notificationCount" id="notification-count" class="flex items-center justify-center w-5 h-5 text-sm font-extrabold text-white bg-gray-500 rounded-full">
+                {{notificationCount}}
               </div>
             </div>
             <svg-vue class="flippable" icon="heroicon-s-chevron-down" />
@@ -40,7 +40,7 @@
       }"
       @transitionend="handleEnd"
     >
-      <div class="Collapsible__contentInner p-4 bg-gray-50 border-t border-gray-200" ref="inner">
+      <div class="Collapsible__contentInner p-4 bg-gray-50 border border-t-0 rounded-md border-gray-300" ref="inner">
         <slot></slot>
       </div>
     </div>
@@ -63,7 +63,11 @@ export default {
       type: String,
       default: 'Open me',
     },
-    filterCount: {
+    labelStyle: {
+      type: String,
+      default: ''
+    },
+    notificationCount: {
       type: Number,
       default: null,
     },

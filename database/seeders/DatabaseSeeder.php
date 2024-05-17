@@ -40,5 +40,13 @@ class DatabaseSeeder extends Seeder
         $this->call(ReportsTableSeeder::class);
         $this->call(JobsTableSeeder::class);
         $this->call(OrganizerThemeTableSeeder::class);
+        $this->call(QuestionsTableSeeder::class);
+        $this->call(AnswersTableSeeder::class);
+        $this->call(DimensionsTableSeeder::class);
+        $this->call(AnswerDimensionTableSeeder::class);
+        $this->call(ReferentieTypesTableSeeder::class);
+        $this->call(ReferentieTypeDimensionTableSeeder::class);
+        $this->call(ReferentiesTableSeeder::class);
+        $this->call(ReferentieThemeTableSeeder::class);
     }
 }
