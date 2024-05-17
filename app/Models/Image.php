@@ -15,6 +15,7 @@ class Image extends Model
         'actie_id',
         'organizer_id',
         'report_id',
+        'referentie_id',
     ];
 
     protected $appends = [
@@ -55,6 +56,12 @@ class Image extends Model
         return $this->belongsTo(Report::class)->without('linked_image');
     }
 
+    public function referentie()
+    {
+        return $this->belongsTo(Referentie::class)->without('linked_image');
+    }
+
+
     public function linkedModel()
     {
         $links = array_values(array_filter([
@@ -62,6 +69,7 @@ class Image extends Model
             $this->organizer,
             $this->actie,
             $this->report,
+            $this->referentie,
         ]));
         return $links ? $links[0] : null;
     }
@@ -71,7 +79,8 @@ class Image extends Model
         return $query->where('user_id', '!=', null)
                 ->orWhere('organizer_id', '!=', null)
                 ->orWhere('actie_id', '!=', null)
-                ->orWhere('report_id', '!=', null);
+                ->orWhere('report_id', '!=', null)
+                ->orWhere('referentie_id', '!=', null);
     }
 
     public function scopeNotHasLink($query)
@@ -79,6 +88,7 @@ class Image extends Model
         return $query->whereNull('user_id')
                 ->whereNull('organizer_id')
                 ->whereNull('actie_id')
-                ->whereNull('report_id');
+                ->whereNull('report_id')
+                ->whereNull('referentie_id');
     }
 }
