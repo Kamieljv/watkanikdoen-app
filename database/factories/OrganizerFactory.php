@@ -16,6 +16,28 @@ class OrganizerFactory extends Factory
         'Kick Out Zwarte Piet',
         'Nederland Wordt Beter',
         'Woonprotest',
+        "nietmijnschuld", 
+        "2-dh5", 
+        "actiegroep-nijmegen", 
+        "actionaid", 
+        "active-for-justice", 
+        "activistenpartij-uva", 
+        "alliantie-politica", 
+        "anarcha-fem-amsterdam", 
+        "anarchistische-anti-deportatie-groep-utrecht", 
+        "anti-imperialist-front", 
+        "anti-kernenergie-beweging", 
+        "aralez", 
+        "aseed", 
+        "aseed-europe", 
+        "attila-suba-green-revolution-foundation", 
+        "autonomous-student-struggle", 
+        "baas-in-eigen-buik", 
+        "baasineigenbuik", 
+        "bds-nederland", 
+        "bij1", 
+        "bijstandsbond", 
+        "bits-of-freedom",
 
     ];
 
@@ -33,10 +55,11 @@ class OrganizerFactory extends Factory
         $tot_elements = $this->count;
 
         $organizer_seed = $this->faker
-                            ->randomElement(static::$names_map);
+                            ->unique()->randomElement(static::$names_map);
 
         #Picking up random string 
-        $diff =  '_'.$this->faker->unique()->word();
+        // $diff =  '_'.str_repeat("_",$this->faker->randomDigit());
+           $diff = '';
 
         #Generating name
         $organizer_name = sprintf('%s%s', $organizer_seed, $diff);
@@ -51,7 +74,7 @@ class OrganizerFactory extends Factory
 
         return [
             'id' => $this->faker ->unique()
-                                -> numberBetween(1,$tot_elements),
+                                -> randomNumber(2,false),
             'name' => $organizer_name,
             'description' => sprintf('<p>.This is a description for %s.</p>',$organizer_name),
             'website' => sprintf('https://%s.com',$organizer_name),
