@@ -16,7 +16,7 @@ class OrganizersTableFactorySeeder extends Seeder
     {
         DB::table('organizers')->delete();
         Organizer::factory()
-                    ->count(20)
+                    ->count(4)
                     ->create();
     }
 }

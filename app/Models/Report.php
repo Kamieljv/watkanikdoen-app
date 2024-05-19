@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use TCG\Voyager\Traits\Spatial;
@@ -10,7 +11,8 @@ use Voyager;
 class Report extends Model
 {
     use Spatial;
-
+    use HasFactory;
+    
     protected $spatial = ['location'];
 
     /**
@@ -80,7 +82,8 @@ class Report extends Model
     }
 
     public function setExterneLinkAttribute($value)
-    {
+    {   #To treat the error "In Report.php line 86: explode(): Argument #1 ($separator) cannot be empty"
+        (gettype($value) === 'string') ? $value = explode(',',$value) : false;
         $this->attributes['externe_link'] = implode(",", $value);
     }
 
