@@ -43,7 +43,7 @@ class ReportFactory extends Factory
 
             
         return [
-            'id' => $this->faker ->unique()->numberBetween(1,$tot_elements),
+            'id' => $this->faker ->unique()->randomNumber(2,false),
             'user_id' => $this->faker->randomElement([1]),
             'organizer_ids' =>'1',
             'title' => 'Test report '.$this->faker->randomDigit(),

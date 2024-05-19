@@ -5,28 +5,27 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Theme;
-use App\Models\Actie;
+use App\Models\Organizer;
 use DB;
 
-class ActieThemeTableFactorySeeder extends Seeder
+class OrganizerThemeTableFactorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-
         #Cleaning relationship table
-        DB::table('actie_theme')->delete();
+        DB::table('organizer_theme')->delete();
 
         #Quantity of Themes
         $themeCount = Theme::count();
 
-        # Populating the relationship table actie_theme using relationship
+        # Populating the relationship table organizer_theme using relationship
         # belongsToMany in actie->themes()
-        Actie::all()
-                ->each(function ($actie) use ($themeCount) { 
-                        $actie->themes()
+        Organizer::all()
+                ->each(function ($organizer) use ($themeCount) { 
+                        $organizer->themes()
                                 ->attach(
                                     Theme::all()
                                             ->random(rand(0, $themeCount))
