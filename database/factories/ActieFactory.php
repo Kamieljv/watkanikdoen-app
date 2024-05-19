@@ -76,7 +76,17 @@ class ActieFactory extends Factory
    ];
 
     public function definition(): array
-    {   
+    { 
+
+        #Picking up a semantic seed
+        $actie_seed = $this->faker->randomElement(static::$titles_map);
+
+        #Picking up random string 
+        $diff =  '_'.$this->faker->word();
+
+        #Generating name
+        $actie_name = sprintf('%s%s', $actie_seed, $diff);
+        
         #Calculating the first date
         $start_date_obj = $this->faker->dateTimeBetween('-2year ',now()) ;
         $start_date = $start_date_obj->format('Y-m-d');
@@ -95,11 +105,17 @@ class ActieFactory extends Factory
         $update_at_obj =  $this->faker->dateTimeBetween($create_at_obj,now()) ;
         $update_at = $update_at_obj->format("Y-m-d H:i:s");
 
+        #Calculating random location and generating point string
+        $latitude = $this->faker->latitude($min = 51, $max = 53);
+        $longitude = $this->faker->longitude($min = 4, $max = -7);
+        $point_string = sprintf("ST_GeomFromText('POINT (%f %f)')",$latitude,$longitude) ;
+        
+
         return [
             
-            'id' => $this->faker->unique()->randomElement([11,12,16,17,19,20,23,24,25]), #Fixed id to preserve the relationship with others tables - To change after
+            'id' => $this->faker->unique()->randomNumber(),
             'user_id' => $this->faker->randomElement([1]),
-            'title' => $this->faker->randomElement(static::$titles_map),
+            'title' => $actie_name,
             'excerpt' => $this->faker->text(124),
             'body' => '<p>'. $this->faker->text(124).' <strong>'.$this->faker->text(146).'</strong> '.$this->faker->text(236).'<em>Integer '.$this->faker->text(34).' </em></p>',
             'externe_link' => $this->faker->randomElement(static::$externe_link_map),
@@ -107,12 +123,11 @@ class ActieFactory extends Factory
             'start_time' => $start_time,
             'end_date' => $end_date,
             'end_time' => $end_time,
-            'location' => ($this->faker->randomElement(static::$location_map) === null) ? null 
-                                                                                : DB::raw("ST_GeomFromText('POINT (5.1065183336479 52.088538312124)')"),
-            'location_human' => $this->faker->randomElement(static::$location_human_map),
+            'location' =>  DB::raw($point_string),
+            // 'location_human' => $this->faker->randomElement(static::$location_human_map),
+            'location_human' =>$this->faker->address(),
             'image' =>  $this->faker->randomElement( static::$image_map),
-            'slug' => $this->faker->randomElement(static::$slug_map).
-                            $this->faker->unique()->randomDigit(),
+            'slug' =>  $actie_name ,
             'keywords' => $this->faker->randomElement(static::$keywords_map), # slug fied is unique. This is a provisory solution 
             'disobedient' => (int)$this->faker->boolean(),
             'pageviews' => $this->faker->numberBetween(30, 1000),
