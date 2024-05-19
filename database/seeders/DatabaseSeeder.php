@@ -43,10 +43,12 @@ class DatabaseSeeder extends Seeder
         // $this->call(ThemesTableSeeder::class);
         $this->call(ThemesTableFactorySeeder::class);
         
-        $this->call(ActieThemeTableSeeder::class); 
+        // $this->call(ActieThemeTableSeeder::class);
+        $this->call(ActieThemeTableFactorySeeder::class);
+         
         // $this->call(ActieCategoryTableSeeder::class);
         $this->call(ActieCategoryTableFactorySeeder::class);
-        
+
         // $this->call(ActieOrganizerTableSeeder::class);
         $this->call(ActieOrganizerTableFactorySeeder::class);
 
