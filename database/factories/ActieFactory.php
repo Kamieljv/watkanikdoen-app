@@ -79,13 +79,16 @@ class ActieFactory extends Factory
     { 
 
         #Picking up a semantic seed
-        $actie_seed = $this->faker->randomElement(static::$titles_map);
+        $actie_name = $this->faker->randomElement(static::$titles_map);
 
-        #Picking up random string 
-        $diff =  '_'.$this->faker->word();
+        #Picking up a location
+        $location_human = $this->faker->address();
 
-        #Generating name
-        $actie_name = sprintf('%s%s', $actie_seed, $diff);
+        #Extrating Street from location
+        preg_match("/^\D*(?=\d)/",$location_human, $m);
+        $pos = isset($m[0]) ? strlen($m[0]) : false;
+        $street = substr($location_human,0, $pos);
+        $street = str_replace(" ","",$street);
         
         #Calculating the first date
         $start_date_obj = $this->faker->dateTimeBetween('-2year ',now()) ;
@@ -113,7 +116,9 @@ class ActieFactory extends Factory
 
         return [
             
-            'id' => $this->faker->unique()->randomNumber(),
+            // 'id' => $this->faker->unique()->randomNumber(),
+            #To mantain integrity with other seeds, for example with ReferentiesTableSeeder
+            'id'=> $this->faker->unique()->randomElement([11,12,16,17,19,20,23,24,25]),
             'user_id' => $this->faker->randomElement([1]),
             'title' => $actie_name,
             'excerpt' => $this->faker->text(124),
@@ -125,9 +130,10 @@ class ActieFactory extends Factory
             'end_time' => $end_time,
             'location' =>  DB::raw($point_string),
             // 'location_human' => $this->faker->randomElement(static::$location_human_map),
-            'location_human' =>$this->faker->address(),
+            'location_human' =>$location_human,
             'image' =>  $this->faker->randomElement( static::$image_map),
-            'slug' =>  $actie_name ,
+            #The slug is unique
+            'slug' =>  $actie_name.'-'.$street,
             'keywords' => $this->faker->randomElement(static::$keywords_map), # slug fied is unique. This is a provisory solution 
             'disobedient' => (int)$this->faker->boolean(),
             'pageviews' => $this->faker->numberBetween(30, 1000),

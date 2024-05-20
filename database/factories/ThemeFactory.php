@@ -24,15 +24,10 @@ class ThemeFactory extends Factory
         $tot_elements = $this->count;
 
         # Picking up one name
-        $theme_seed = $this->faker
-                            ->randomElement(static::$names_map);
+        $theme_name = $this->faker
+                            ->unique()->randomElement(static::$names_map);
 
-        #Picking up random string 
-        $diff =  '_'.$this->faker->unique()->word();
-
-        #Generating name
-        $theme_name = sprintf('%s%s', $theme_seed, $diff);
-
+    
         #Calculating create date from start date
         $create_at_obj =  $this->faker->dateTimeBetween( "-2years",now()) ;
         $create_at = $create_at_obj->format("Y-m-d H:i:s");
@@ -42,7 +37,7 @@ class ThemeFactory extends Factory
         $update_at = $update_at_obj->format("Y-m-d H:i:s");
 
         return [
-            'id' => $this->faker ->unique()-> randomNumber(2,false),
+            'id' => $this->faker->unique()->randomDigitNotZero(),
             'name' => $theme_name,
             'slug' => $theme_name,
             'color' => $this->faker->hexColor(),

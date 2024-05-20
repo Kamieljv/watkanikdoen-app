@@ -32,14 +32,9 @@ class OrganizerFactory extends Factory
         # This number is the same in the count parameter in the seeder file
         $tot_elements = $this->count;
 
-        $organizer_seed = $this->faker
+        #Organizer name setting
+        $organizer_name = $this->faker
                             ->randomElement(static::$names_map);
-
-        #Picking up random string 
-        $diff =  '_'.$this->faker->unique()->word();
-
-        #Generating name
-        $organizer_name = sprintf('%s%s', $organizer_seed, $diff);
 
         #Calculating create date from start date
         $create_at_obj =  $this->faker->dateTimeBetween( "-2years",now()) ;
@@ -51,12 +46,14 @@ class OrganizerFactory extends Factory
 
         return [
             'id' => $this->faker ->unique()
-                                -> randomNumber(2,false),
+                                -> randomElement([1,2,3,4]),
             'name' => $organizer_name,
             'description' => sprintf('<p>.This is a description for %s.</p>',$organizer_name),
             'website' => sprintf('https://%s.com',$organizer_name),
             'logo' => sprintf('organizers/%s_logo.jpg',$organizer_name),
-            'slug' =>  $organizer_name,
+            #slug should be unique
+            'slug' =>  $organizer_name
+                            .'-'.str_replace(' ','',$this->faker->unique()->streetName()),
             'status' => $this->faker->randomElement(static::$status_map),
             'created_at' => $create_at,
             'updated_at' => $update_at,
