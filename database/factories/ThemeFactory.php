@@ -25,11 +25,10 @@ class ThemeFactory extends Factory
 
         # Picking up one name
         $theme_seed = $this->faker
-                            ->unique()->randomElement(static::$names_map);
+                            ->randomElement(static::$names_map);
 
         #Picking up random string 
-        // $diff =  '_'.str_repeat("_",$this->faker->randomDigit());
-           $diff ='';
+        $diff =  '_'.$this->faker->unique()->word();
 
         #Generating name
         $theme_name = sprintf('%s%s', $theme_seed, $diff);
@@ -43,7 +42,7 @@ class ThemeFactory extends Factory
         $update_at = $update_at_obj->format("Y-m-d H:i:s");
 
         return [
-            'id' => $this->faker ->unique()-> randomNumber(2,false),
+            'id' => $this->faker ->unique()-> numberBetween(1,$tot_elements),
             'name' => $theme_name,
             'slug' => $theme_name,
             'color' => $this->faker->hexColor(),

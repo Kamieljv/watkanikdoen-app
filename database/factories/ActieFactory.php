@@ -82,7 +82,7 @@ class ActieFactory extends Factory
         $actie_seed = $this->faker->randomElement(static::$titles_map);
 
         #Picking up random string 
-        $diff =  '_'.str_repeat("_",$this->faker->randomDigit());
+        $diff =  '_'.$this->faker->word();
 
         #Generating name
         $actie_name = sprintf('%s%s', $actie_seed, $diff);
@@ -113,7 +113,7 @@ class ActieFactory extends Factory
 
         return [
             
-            'id' => $this->faker->unique()->randomNumber(2,false),
+            'id' => $this->faker->unique()->randomNumber(),
             'user_id' => $this->faker->randomElement([1]),
             'title' => $actie_name,
             'excerpt' => $this->faker->text(124),
