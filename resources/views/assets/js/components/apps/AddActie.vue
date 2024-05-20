@@ -2,7 +2,7 @@
     <div>
         <div v-if="!sent">
             <step-progress
-                :steps="steps"
+                :steps="stepTitles"
                 :currentStep="activeIndex"
                 v-model="activeIndex"
             >
@@ -161,6 +161,9 @@ export default {
         isLoading: false,
     }),
     computed: {
+        stepTitles() {
+            return this.steps.map(s => s.title)
+        },
         activeStep() {
             return this.steps[this.activeIndex]
         },

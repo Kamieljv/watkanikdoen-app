@@ -6,7 +6,7 @@
 					id="filter-collapsible"
 					triggerLabel="Zoek & Filter"
 					icon="clarity-filter-solid"
-					:filter-count="filterCount"
+					:notification-count="filterCount"
 					:isOpen="false"
 				>
 					<div id="filter-wrapper" class="col grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-5">

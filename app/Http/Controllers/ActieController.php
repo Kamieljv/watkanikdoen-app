@@ -76,7 +76,7 @@ class ActieController extends VoyagerBaseController
                 $q->whereIn('theme_id', $actieThemes);
             }) // where theme in $actieThemes
             ->whereNot('id', $actie->id) // exclude current action
-            ->published()->toekomstig()->count();
+            ->published()->nietAfgelopen()->count();
 
         return view('acties.actie', compact('actie', 'routes', 'isAdmin', 'count_same_theme'));
     }
@@ -117,7 +117,7 @@ class ActieController extends VoyagerBaseController
         $query->published()->orderBy('start_date')->orderBy('start_time');
 
         if ($request->show_past === 'false') {
-            $query->toekomstig();
+            $query->nietAfgelopen();
         }
 
         if ($request->limit) {
