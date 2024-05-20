@@ -51,7 +51,7 @@ class OrganizerFactory extends Factory
 
         return [
             'id' => $this->faker ->unique()
-                                -> numberBetween(1,$tot_elements),
+                                -> randomNumber(2,false),
             'name' => $organizer_name,
             'description' => sprintf('<p>.This is a description for %s.</p>',$organizer_name),
             'website' => sprintf('https://%s.com',$organizer_name),

@@ -56,6 +56,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ReportsTableFactorySeeder::class);
 
         $this->call(JobsTableSeeder::class);
-        $this->call(OrganizerThemeTableSeeder::class);
+        
+        // $this->call(OrganizerThemeTableSeeder::class);
+        $this->call(OrganizerThemeTableFactorySeeder::class);
     }
 }
