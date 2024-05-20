@@ -19,10 +19,10 @@ class ActieThemeTableFactorySeeder extends Seeder
         #Cleaning relationship table
         DB::table('actie_theme')->delete();
 
-        #Quantity of Themes
+        #Quantity of Organizers
         $themeCount = Theme::count();
 
-        # Populating the relationship table actie_theme using relationship
+        # Populating the relationship table actie_organizer using relationship
         # belongsToMany in actie->themes()
         Actie::all()
                 ->each(function ($actie) use ($themeCount) { 
