@@ -42,7 +42,7 @@ class ThemeFactory extends Factory
         $update_at = $update_at_obj->format("Y-m-d H:i:s");
 
         return [
-            'id' => $this->faker ->unique()-> numberBetween(1,$tot_elements),
+            'id' => $this->faker ->unique()-> randomNumber(2,false),
             'name' => $theme_name,
             'slug' => $theme_name,
             'color' => $this->faker->hexColor(),
