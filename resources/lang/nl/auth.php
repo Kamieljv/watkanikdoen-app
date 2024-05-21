@@ -26,6 +26,7 @@ return [
     'register_complete_body' => 'Voordat je kunt inloggen, vragen we je eerst uw e-mailadres te verifiëren. We hebben een e-mail gestuurd naar',
     'please_verify_email' => 'U moet uw e-mailadres verifiëren voordat je kunt inloggen. Check uw inbox voor instructies.',
     'email_verify_success' => 'Uw e-mailadres is geveriëerd. Je kunt nu inloggen.',
+    'email_verify_error' => 'De verificatiecode is ongeldig of verlopen. Probeer het opnieuw.',
     'failed'   => 'Deze combinatie van e-mailadres en wachtwoord is niet geldig.',
     'password' => 'Het opgegeven wachtwoord is onjuist.',
     'throttle' => 'Te veel mislukte loginpogingen. Probeer het over :seconds seconden nogmaals.',

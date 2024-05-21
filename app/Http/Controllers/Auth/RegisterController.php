@@ -135,6 +135,10 @@ class RegisterController extends Controller
     public function verify(Request $request, $verification_code)
     {
         $user = User::where('verification_code', '=', $verification_code)->first();
+        
+        if (!$user) {
+            return redirect()->route('login')->with('error', __('auth.email_verify_error'));
+        }
 
         $user->verification_code = null;
         $user->verified = 1;
