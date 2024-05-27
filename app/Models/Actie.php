@@ -109,6 +109,11 @@ class Actie extends Model
                 // start and end >= 3 days difference
                 return $start->format('j M Y') . ' ' . __('general.until') . ' ' . $end->format('j M Y');
             }
+        }
+        else if ($this->start_date) {
+            $start = Date::parse($this->start_date . " " . $this->start_time);
+            
+            return $start->format('j M Y, G:i') . '-' . $start->format('G:i');
         } else {
             return null;
         }
