@@ -29,7 +29,6 @@ class ReferentiesTableSeeder extends Seeder
                 'status' => 'PUBLISHED',
                 'created_at' => '2024-04-05 14:22:17',
                 'updated_at' => NULL,
-                'referentie_type_id' => 1,
             ),
             1 => 
             array (
@@ -41,7 +40,6 @@ class ReferentiesTableSeeder extends Seeder
                 'status' => 'PUBLISHED',
                 'created_at' => '2024-04-05 14:22:16',
                 'updated_at' => NULL,
-                'referentie_type_id' => 2,
             ),
         ));
         

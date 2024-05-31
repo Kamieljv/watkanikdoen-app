@@ -2341,22 +2341,6 @@ class DataRowsTableSeeder extends Seeder
             ),
             145 => 
             array (
-                'id' => 521,
-                'data_type_id' => 29,
-                'field' => 'referentie_type_id',
-                'type' => 'text',
-                'display_name' => 'Referentie Type Id',
-                'required' => 1,
-                'browse' => 0,
-                'read' => 0,
-                'edit' => 0,
-                'add' => 0,
-                'delete' => 0,
-                'details' => '{}',
-                'order' => 2,
-            ),
-            146 => 
-            array (
                 'id' => 522,
                 'data_type_id' => 29,
                 'field' => 'status',
@@ -2371,7 +2355,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{"default":"DRAFT","options":{"PUBLISHED":"published","DRAFT":"draft"}}',
                 'order' => 7,
             ),
-            147 => 
+            146 => 
             array (
                 'id' => 523,
                 'data_type_id' => 29,
@@ -2387,7 +2371,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 8,
             ),
-            148 => 
+            147 => 
             array (
                 'id' => 524,
                 'data_type_id' => 29,
@@ -2403,7 +2387,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 9,
             ),
-            149 => 
+            148 => 
             array (
                 'id' => 525,
                 'data_type_id' => 30,
@@ -2419,7 +2403,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 1,
             ),
-            150 => 
+            149 => 
             array (
                 'id' => 526,
                 'data_type_id' => 30,
@@ -2435,7 +2419,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 2,
             ),
-            151 => 
+            150 => 
             array (
                 'id' => 527,
                 'data_type_id' => 30,
@@ -2451,7 +2435,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{"validation":{"rule":"required"},"tinymceOptions":{"inline_styles":false,"plugins":"link, image, code, table, textcolor, lists","paste_remove_styles":true,"theme_advanced_buttons3_add":"pastetext,pasteword,selectall","toolbar":"blocks | bold italic underline | forecolor backcolor | alignleft aligncenter alignright | bullist numlist outdent indent | link image table | code | removeformat"}}',
                 'order' => 3,
             ),
-            152 => 
+            151 => 
             array (
                 'id' => 528,
                 'data_type_id' => 30,
@@ -2467,7 +2451,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 4,
             ),
-            153 => 
+            152 => 
             array (
                 'id' => 529,
                 'data_type_id' => 30,
@@ -2483,7 +2467,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{"default":"DRAFT","options":{"PUBLISHED":"published","DRAFT":"draft"}}',
                 'order' => 5,
             ),
-            154 => 
+            153 => 
             array (
                 'id' => 530,
                 'data_type_id' => 9,
@@ -2499,7 +2483,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 8,
             ),
-            155 => 
+            154 => 
             array (
                 'id' => 531,
                 'data_type_id' => 9,
@@ -2515,7 +2499,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 9,
             ),
-            156 => 
+            155 => 
             array (
                 'id' => 532,
                 'data_type_id' => 9,
@@ -2531,7 +2515,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 10,
             ),
-            157 => 
+            156 => 
             array (
                 'id' => 533,
                 'data_type_id' => 9,
@@ -2547,7 +2531,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 11,
             ),
-            158 => 
+            157 => 
             array (
                 'id' => 534,
                 'data_type_id' => 21,
@@ -2563,7 +2547,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 3,
             ),
-            159 => 
+            158 => 
             array (
                 'id' => 535,
                 'data_type_id' => 21,
@@ -2579,7 +2563,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 8,
             ),
-            160 => 
+            159 => 
             array (
                 'id' => 536,
                 'data_type_id' => 21,
@@ -2595,7 +2579,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 9,
             ),
-            161 => 
+            160 => 
             array (
                 'id' => 537,
                 'data_type_id' => 21,
@@ -2611,7 +2595,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 10,
             ),
-            162 => 
+            161 => 
             array (
                 'id' => 538,
                 'data_type_id' => 21,
@@ -2627,7 +2611,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 11,
             ),
-            163 => 
+            162 => 
             array (
                 'id' => 539,
                 'data_type_id' => 21,
@@ -2642,6 +2626,22 @@ class DataRowsTableSeeder extends Seeder
                 'delete' => 1,
                 'details' => '{}',
                 'order' => 16,
+            ),
+            163 => 
+            array (
+                'id' => 540,
+                'data_type_id' => 29,
+                'field' => 'referenty_belongstomany_referentie_type_relationship',
+                'type' => 'relationship',
+            'display_name' => 'Referentietype(s)',
+                'required' => 0,
+                'browse' => 1,
+                'read' => 1,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{"model":"\\\\App\\\\Models\\\\ReferentieType","table":"referentie_types","type":"belongsToMany","column":"id","key":"id","label":"title","pivot_table":"referentie_referentie_type","pivot":"1","taggable":"0"}',
+                'order' => 10,
             ),
         ));
         
