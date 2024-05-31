@@ -82,9 +82,13 @@ class Report extends Model
     }
 
     public function setExterneLinkAttribute($value)
-    {   #To treat the error "In Report.php line 86: explode(): Argument #1 ($separator) cannot be empty"
-        (gettype($value) === 'string') ? $value = explode(',',$value) : false;
-        $this->attributes['externe_link'] = implode(",", $value);
+    {   
+        // check if value is array, then implode, else use as is
+        if (is_array($value)) {
+            $this->attributes['externe_link'] = implode(",", $value);
+        } else {
+            $this->attributes['externe_link'] = $value;
+        }
     }
 
     public function getExterneLinkAttribute($value)
