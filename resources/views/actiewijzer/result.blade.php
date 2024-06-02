@@ -81,7 +81,7 @@
                 @foreach($referentie_types as $rt)
                     <div class="mt-20">
                         <h2>{{$rt->title}}&nbsp;<span class="text-pink-600">{{$rt->match_perc}}%</span></h2>
-                        <p>{{$rt->description}}</p>
+                        <p>{!! filterScripts($rt->description) !!}</p>
                         <div class="grid gap-5 mx-auto mt-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                             @foreach ($rt->referenties->toArray() as $ref)
                                 <Referentie
