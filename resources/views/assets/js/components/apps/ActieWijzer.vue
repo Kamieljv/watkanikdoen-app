@@ -19,14 +19,14 @@
                     </div>
                 </Transition>
                 <div class="flex mt-5" :class="{'justify-end': activeIndex === 0, 'justify-between': activeIndex > 0}">
-                    <button v-if="activeIndex > 0" type="button" @click.prevent="activeIndex--"
+                    <button v-if="activeIndex > 0" type="button" @click.prevent="activeIndex--" tabindex="0"
                         class="secondary">
                         {{ __('general.previous') }}
                     </button>
-                    <button v-if="isLastStep" class="primary"  @click.prevent="submit" :disabled="!canSubmit">
+                    <button v-if="isLastStep" class="primary"  @click.prevent="submit" :disabled="!canSubmit" tabindex="0">
                         {{ __('general.send_form') }}
                     </button>
-                    <button v-else-if="validInput" class="primary" @click.prevent="activeIndex++">
+                    <button v-else-if="validInput" class="primary" @click.prevent="activeIndex++" tabindex="0">
                         {{ __('general.next') }}
                     </button>
                     <button v-else class="primary" disabled>
