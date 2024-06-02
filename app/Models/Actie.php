@@ -98,16 +98,36 @@ class Actie extends Model
         if ($this->start_date && $this->end_date) {
             $start = Date::parse($this->start_date . " " . $this->start_time);
             $end = Date::parse($this->end_date . " " . $this->end_time);
-
+            
             if ($this->start_date == $this->end_date) {
                 // start and end on same day
-                return $start->format('j M Y, G:i') . '-' . $end->format('G:i');
+                if ($this->start_time && $this->end_time) {
+                    return $start->format('j M Y, G:i') . '-' . $end->format('G:i');
+                } else if ($this->start_time) {
+                    return $start->format('j M Y, G:i');
+                } else {
+                    return $start->format('j M Y');
+                }
             } else if ($start->diffInDays($end) < 3) {
                 // start and end < 3 days difference
-                return $start->format('j M Y, G:i') . ' ' . __('general.until') . ' ' . $end->format('j M Y, G:i');
+                if ($this->start_time && $this->end_time) {
+                    return $start->format('j M Y, G:i') . ' ' . __('general.until') . ' ' . $end->format('j M Y, G:i');
+                } else if ($this->start_time) {
+                    return $start->format('j M Y, G:i') . ' ' . __('general.until') . ' ' . $end->format('j M Y');
+                } else {
+                    return $start->format('j M Y');
+                }
             } else {
                 // start and end >= 3 days difference
                 return $start->format('j M Y') . ' ' . __('general.until') . ' ' . $end->format('j M Y');
+            }
+        }
+        else if ($this->start_date) {
+            $start = Date::parse($this->start_date . " " . $this->start_time);
+            if ($this->start_time) {
+                return $start->format('j M Y, G:i');
+            } else {
+                return $start->format('j M Y');
             }
         } else {
             return null;

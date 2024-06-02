@@ -23,9 +23,9 @@ class Referentie extends Model
         'linked_image',
     ];
 
-    public function referentie_type()
+    public function referentie_types()
     {
-        return $this->belongsTo(ReferentieType::class);
+        return $this->belongsToMany(ReferentieType::class, 'referentie_referentie_type');
     }
 
     public function themes()

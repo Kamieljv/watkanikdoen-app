@@ -98,20 +98,21 @@
                             @php 
                                 $question = \App\Models\Question::find($dataTypeContent->getKey());
                             @endphp
-                            <div id="app" class="form-group col-md-12">
-                                <label class="control-label" for="name">Answers</label>
+                            @if ($question !== null)
+                                <div id="app" class="form-group col-md-12">
+                                    <label class="control-label" for="name">Answers</label>
 
-                                <edit-answers-form-field
-                                    :answers="{{ json_encode($question->answers->toArray())}}"
-                                    :dimensions="{{ json_encode(\App\Models\Dimension::get()->toArray())}}"
-                                    :edit-route="{{ json_encode(route('actiewijzer.score_dimension'))}}"
-                                    :delete-route="{{ json_encode(route('actiewijzer.delete_dimension_score'))}}"
-                                    :score-route="{{ json_encode(route('actiewijzer.score_dimension'))}}"
-                                    :score-delete-route="{{ json_encode(route('actiewijzer.delete_dimension_score'))}}"
-                                    :edit-answer-route="{{ json_encode(route('actiewijzer.answer.edit')) }}"
-                                />
-                            </div>
-
+                                    <edit-answers-form-field
+                                        :answers="{{ json_encode($question->answers->toArray())}}"
+                                        :dimensions="{{ json_encode(\App\Models\Dimension::get()->toArray())}}"
+                                        :edit-route="{{ json_encode(route('actiewijzer.score_dimension'))}}"
+                                        :delete-route="{{ json_encode(route('actiewijzer.delete_dimension_score'))}}"
+                                        :score-route="{{ json_encode(route('actiewijzer.score_dimension'))}}"
+                                        :score-delete-route="{{ json_encode(route('actiewijzer.delete_dimension_score'))}}"
+                                        :edit-answer-route="{{ json_encode(route('actiewijzer.answer.edit')) }}"
+                                    />
+                                </div>
+                            @endif
                         </div><!-- panel-body -->
 
                         <div class="panel-footer">
