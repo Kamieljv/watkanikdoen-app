@@ -28,7 +28,7 @@ class ReferentieType extends Model
 
     public function referenties()
     {
-        return $this->hasMany(Referentie::class);
+        return $this->belongsToMany(Referentie::class, 'referentie_referentie_type');
     }
 
     public function dimensions()
