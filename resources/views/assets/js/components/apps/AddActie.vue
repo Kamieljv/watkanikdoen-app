@@ -9,7 +9,7 @@
             </step-progress>
             <ValidationObserver>
                 <transition name="slide" mode="out-in" appear>
-                    <div v-if="activeStep.key === 'start'" class="p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="0">
+                    <div v-if="activeStep.key === 'start'" class="p-8 bg-white rounded-md shadow-md min-h-[400px]" :key="0">
                         <h2>Een actie toevoegen</h2>
                         <p>Super dat je een actie wilt toevoegen! Op deze manier werk je met ons mee om de
                             website volledig te maken.
@@ -23,7 +23,7 @@
                             Klik op 'Volgende' om door te gaan.
                         </p>
                     </div>
-                    <div v-else-if="activeStep.key === 'organizer'" class="p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="1">
+                    <div v-else-if="activeStep.key === 'organizer'" class="p-8 bg-white rounded-md shadow-md min-h-[400px]" :key="1">
                         <h2>Kies organisator(en)</h2>
                         <organizer-form
                             v-model="selectedOrganizers"
@@ -31,7 +31,7 @@
                             :routes="routes"
                         />
                     </div>
-                    <div v-else-if="activeStep.key === 'actie'" class="p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="2">
+                    <div v-else-if="activeStep.key === 'actie'" class="p-8 bg-white rounded-md shadow-md min-h-[400px]" :key="2">
                         <h2>Actiedetails beschrijven</h2>
                         <Actie-Form
                             ref="actieForm"
@@ -41,7 +41,7 @@
                             :zoom="zoom"
                         ></Actie-Form>
                     </div>
-                    <div v-else-if="activeStep.key === 'user' && currentUser !== {}" class="p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="3">
+                    <div v-else-if="activeStep.key === 'user' && currentUser !== {}" class="p-8 bg-white rounded-md shadow-md min-h-[400px]" :key="3">
                         <h2>Wie ben jij?</h2>
                         <LoginOrRegister
                             :routes="routes"
@@ -52,7 +52,7 @@
                             @done="authDone"
                         />
                     </div>
-                    <div v-if="activeStep.key === 'confirm'" class="flex flex-col justify-between p-8 bg-white rounded-md shadow-md min-h-[300px]" :key="4">
+                    <div v-if="activeStep.key === 'confirm'" class="flex flex-col justify-between p-8 bg-white rounded-md shadow-md min-h-[400px]" :key="4">
                         <div>
                             <h2>Bevestig en verzend je actie</h2>
                             <p>Ben je helemaal klaar? Klik dan op 'Verzenden'.
@@ -88,7 +88,7 @@
             </ValidationObserver>
         </div>
         <div v-else>
-            <div class="flex justify-center items-center max-w-6xl mx-auto my-6 bg-white rounded-md shadow-md min-h-[300px]">
+            <div class="flex justify-center items-center max-w-6xl mx-auto my-6 bg-white rounded-md shadow-md min-h-[400px]">
                 <SuccessGIF src="/images/protest_signs.gif" title="Gelukt! Bedankt voor je bijdrage!" message="We zullen je aanmelding zo snel mogelijk beoordelen."/>
             </div>
         </div>

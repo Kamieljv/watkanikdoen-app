@@ -10,7 +10,7 @@
     </div>
 
     <div class="max-w-6xl mx-auto mt-6 mb-40 px-5 lg:px-0">
-        <div id="app" class="p-8 bg-white rounded-md shadow-md min-h-[300px]">
+        <div id="app" class="p-8 bg-white rounded-md shadow-md min-h-[400px]">
 
             <h1 class="md:text-6xl text-center">{{ __('actiewijzer.results_header') }}</h1>
 

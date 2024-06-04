@@ -1,6 +1,7 @@
 <template>
     <div class="p-8">
-        <h1 class="mb-2">{{question.question}}</h1>
+        <h4 class="mb-5 text-[var(--wkid-pink)] text-2xl font-thin">ActieWijzer</h4>
+        <h1 class="mb-1">{{question.question}}</h1>
         <h3 class="font-normal text-gray-500">{{ question.description }}</h3>
         <t-radio-group 
             v-model="data" 
