@@ -9,6 +9,8 @@ use App\Models\Question;
 use App\Models\Dimension;
 use App\Models\ReferentieType;
 use App\Models\Theme;
+use Artesaos\SEOTools\Facades\SEOTools;
+use Artesaos\SEOTools\Facades\SEOMeta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +25,11 @@ class ActieWijzerController extends Controller
         $dimensions = Dimension::all()->toArray();
         $themes = Theme::all()->toArray();
         $result_route = route('actiewijzer.result');
+
+        // SEO
+        SEOTools::setTitle(__('actiewijzer.title'));
+        SEOTools::setDescription(__('actiewijzer.description'));
+        SEOMeta::setKeywords(__('actiewijzer.keywords'));
 
         // Display the landing page
         return view('actiewijzer.landing', compact('questions', 'dimensions', 'themes', 'result_route'));

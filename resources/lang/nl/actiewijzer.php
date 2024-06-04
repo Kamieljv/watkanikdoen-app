@@ -12,6 +12,8 @@
 
 return [
     'title' => 'ActieWijzer',
+    'description' => 'Ontdek welke acties bij jou passen met de ActieWijzer van Watkanikdoen.nl! Beantwoord de vragen en ontvang persoonlijke actiesuggesties.',
+    'keywords' => 'actiewijzer, acties, watkanikdoen.nl, wat kan ik doen, activisme, actievoeren, demonstreren, vrijwilligerswerk, petities',
     'start' => 'Start',
     'results_header' => 'Dit kun jij doen!',
     'results_summary_header' => 'Jouw actieprofiel',
