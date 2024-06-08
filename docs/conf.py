@@ -2,7 +2,6 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath('.'))
-from recommonmark.parser import CommonMarkParser
 
 # -- Project information -----------------------------------------------------
 
@@ -12,10 +11,11 @@ author = 'Your Name'
 
 # -- General configuration ---------------------------------------------------
 
-root_doc = 'index.md'
+root_doc = 'index'
 
 source_parsers = {
-    '.md': CommonMarkParser,
+    '.rst': 'restructuredtext',
+    '.md': 'markdown',
 }
 
 source_suffix = ['.rst', '.md']
