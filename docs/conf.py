@@ -2,6 +2,7 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath('.'))
+from recommonmark.parser import CommonMarkParser
 
 # -- Project information -----------------------------------------------------
 
@@ -11,10 +12,19 @@ author = 'Your Name'
 
 # -- General configuration ---------------------------------------------------
 
+root_doc = 'index.md'
+
+source_parsers = {
+    '.md': CommonMarkParser,
+}
+
+source_suffix = ['.rst', '.md']
+
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
+    'recommonmark',
 ]
 
 # -- Options for HTML output -------------------------------------------------
