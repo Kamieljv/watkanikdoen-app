@@ -19,11 +19,11 @@ extensions = [
 
 # -- Options for HTML output -------------------------------------------------
 
-html_static_path = ['_static']
+# html_static_path = ['_static']
 
 # -- Options for manual page output ------------------------------------------
 
 man_pages = [
-    (master_doc, 'yourproject', 'Your Laravel Project Documentation',
+    ('index', 'yourproject', 'Your Laravel Project Documentation',
      [author], 1)
 ]
