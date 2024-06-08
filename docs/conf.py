@@ -5,9 +5,9 @@ sys.path.insert(0, os.path.abspath('.'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'Your Laravel Project Documentation'
-copyright = '2022, Your Name'
-author = 'Your Name'
+project = 'Watkanikdoen.nl Documentation'
+copyright = '2024'
+author = 'Watkanikdoen.nl contributors'
 
 # -- General configuration ---------------------------------------------------
 
@@ -29,7 +29,7 @@ extensions = [
 
 # -- Options for HTML output -------------------------------------------------
 
-# html_static_path = ['_static']
+html_theme = 'sphinx_rtd_theme'
 
 # -- Options for manual page output ------------------------------------------
 
