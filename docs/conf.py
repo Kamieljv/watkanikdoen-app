@@ -11,29 +11,64 @@ author = 'Watkanikdoen.nl contributors'
 
 # -- General configuration ---------------------------------------------------
 
-root_doc = 'index'
+extensions = [
+    # Sphinx's own extensions
+    "sphinx.ext.autodoc",
+    "sphinx.ext.extlinks",
+    "sphinx.ext.intersphinx",
+    "sphinx.ext.mathjax",
+    "sphinx.ext.todo",
+    "sphinx.ext.viewcode",
+    # External stuff
+    "myst_parser",
+    "sphinx_copybutton",
+    "sphinx_design",
+    "sphinx_inline_tabs",
+]
 
-source_parsers = {
-    '.rst': 'restructuredtext',
-    '.md': 'markdown',
+
+# -- Options for Autodoc --------------------------------------------------------------
+
+autodoc_member_order = "bysource"
+autodoc_preserve_defaults = True
+
+# Keep the type hints outside the function signature, moving them to the
+# descriptions of the relevant function/methods.
+autodoc_typehints = "description"
+
+# -- Options for extlinks ----------------------------------------------------
+#
+
+extlinks = {
+    "pypi": ("https://pypi.org/project/%s/", "%s"),
 }
 
-source_suffix = ['.rst', '.md']
+# -- Options for intersphinx -------------------------------------------------
+#
 
-extensions = [
-    'sphinx.ext.autodoc',
-    'sphinx.ext.viewcode',
-    'sphinx.ext.githubpages',
-    'recommonmark',
+intersphinx_mapping = {
+    "python": ("https://docs.python.org/3", None),
+    "sphinx": ("https://www.sphinx-doc.org/en/master", None),
+}
+
+# -- Options for TODOs -------------------------------------------------------
+#
+
+todo_include_todos = True
+
+# -- Options for Markdown files ----------------------------------------------
+#
+
+myst_enable_extensions = [
+    "colon_fence",
+    "deflist",
 ]
+myst_heading_anchors = 3
 
 # -- Options for HTML output -------------------------------------------------
+#
 
-html_theme = 'furo'
+html_theme = "furo"
+language = "en"
 
-# -- Options for manual page output ------------------------------------------
-
-man_pages = [
-    ('index', 'yourproject', 'Your Laravel Project Documentation',
-     [author], 1)
-]
+# html_static_path = ["_static"]

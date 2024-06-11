@@ -1,2 +1,6 @@
-recommonmark
 furo
+myst-parser
+sphinx-copybutton
+sphinx-design
+sphinx-inline-tabs
+sphinx-tabs
