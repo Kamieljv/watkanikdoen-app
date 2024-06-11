@@ -1,2 +1,5 @@
-# This is the Watkanikdoen documentation
-test test
+# Watkanikdoen.nl documentation
+
+```{toctree}
+installation/database
+```

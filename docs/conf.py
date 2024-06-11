@@ -5,7 +5,7 @@ sys.path.insert(0, os.path.abspath('.'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'Watkanikdoen.nl Documentation'
+project = 'Watkanikdoen.nl'
 copyright = '2024'
 author = 'Watkanikdoen.nl contributors'
 
