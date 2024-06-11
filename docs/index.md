@@ -8,5 +8,6 @@ hide-toc: true
 ```{toctree}
 :hidden:
 
-installation/database
+pages/getting-started
+pages/bread
 ```
