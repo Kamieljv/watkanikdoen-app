@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use TCG\Voyager\Traits\Spatial;
@@ -10,7 +11,8 @@ use Voyager;
 class Report extends Model
 {
     use Spatial;
-
+    use HasFactory;
+    
     protected $spatial = ['location'];
 
     /**
@@ -80,8 +82,13 @@ class Report extends Model
     }
 
     public function setExterneLinkAttribute($value)
-    {
-        $this->attributes['externe_link'] = implode(",", $value);
+    {   
+        // check if value is array, then implode, else use as is
+        if (is_array($value)) {
+            $this->attributes['externe_link'] = implode(",", $value);
+        } else {
+            $this->attributes['externe_link'] = $value;
+        }
     }
 
     public function getExterneLinkAttribute($value)

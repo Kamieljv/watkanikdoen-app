@@ -30,16 +30,36 @@ class DatabaseSeeder extends Seeder
         $this->call(PostsTableSeeder::class);
         $this->call(SettingsTableSeeder::class);
         $this->call(TranslationsTableSeeder::class);
-        $this->call(CategoriesTableSeeder::class);
-        $this->call(OrganizersTableSeeder::class);
-        $this->call(ActiesTableSeeder::class);
-        $this->call(ThemesTableSeeder::class);
-        $this->call(ActieThemeTableSeeder::class);
-        $this->call(ActieCategoryTableSeeder::class);
-        $this->call(ActieOrganizerTableSeeder::class);
-        $this->call(ReportsTableSeeder::class);
+
+        // $this->call(CategoriesTableSeeder::class);
+        $this->call(CategoriesTableFactorySeeder::class);
+
+        // $this->call(OrganizersTableSeeder::class);
+        $this->call(OrganizersTableFactorySeeder::class);
+
+        // $this->call(ActiesTableSeeder::class);
+        $this->call(ActiesTableFactorySeeder::class);
+
+        // $this->call(ThemesTableSeeder::class);
+        $this->call(ThemesTableFactorySeeder::class);
+        
+        // $this->call(ActieThemeTableSeeder::class);
+        $this->call(ActieThemeTableFactorySeeder::class);
+
+        // $this->call(ActieCategoryTableSeeder::class);
+        $this->call(ActieCategoryTableFactorySeeder::class);
+
+        // $this->call(ActieOrganizerTableSeeder::class);
+        $this->call(ActieOrganizerTableFactorySeeder::class);
+
+        // $this->call(ReportsTableSeeder::class);
+        $this->call(ReportsTableFactorySeeder::class);
+
         $this->call(JobsTableSeeder::class);
-        $this->call(OrganizerThemeTableSeeder::class);
+        
+        // $this->call(OrganizerThemeTableSeeder::class);
+        $this->call(OrganizerThemeTableFactorySeeder::class);
+
         $this->call(QuestionsTableSeeder::class);
         $this->call(AnswersTableSeeder::class);
         $this->call(DimensionsTableSeeder::class);
