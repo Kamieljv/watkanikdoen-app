@@ -36,9 +36,7 @@ class Answer extends Model
         foreach (Dimension::all() as $d) {
             $matching_dim = $this->dimensions->where('id', $d->id)->first();
             if ($matching_dim) {
-                array_push($score_vec, $matching_dim->pivot->score);
-            } else {
-                array_push($score_vec, 0);
+                $score_vec[$d->id] = $matching_dim->pivot->score;
             }
         }
         return $score_vec;
