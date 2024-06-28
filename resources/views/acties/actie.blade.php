@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="max-w-4xl mx-auto mt-10 px-5 lg:px-0 flex">
+    <div class="max-w-6xl mx-auto mt-10 px-5 lg:px-0 flex">
         <a href="{{ route('home') }}" class="flex items-center text-sm font-bold cursor-pointer text-gray-700">
             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
             {{ __("acties.back_to_home") }}
         </a>
     </div>
     @if($isAdmin)
-        <div class="max-w-4xl mx-auto mt-10 px-5 lg:px-0 mt-4">
+        <div class="max-w-6xl mx-auto mt-10 px-5 lg:px-0 mt-4">
             <div class="flex p-3 rounded-md bg-gray-600 text-white justify-between">
                 {{__('general.admin_message')}}
                 <a href="/admin/acties/{{$actie->id}}/edit" class="italic hover:underline">Actie bewerken</a>
@@ -16,13 +16,13 @@
         </div>
     @endif
     <div id="app">
-        <article id="post-{{ $actie->id }}" class="max-w-4xl px-5 mx-auto prose lg:px-0 mt-6 {{ $count_same_theme == 0 ? 'mb-40' : 'mb-24' }}">
+        <article id="post-{{ $actie->id }}" class="max-w-6xl px-5 mx-auto prose lg:px-0 mt-6 {{ $count_same_theme == 0 ? 'mb-40' : 'mb-24' }}">
             <meta property="name" content="{{ $actie->title }}">
             <meta property="author" typeof="Person" content="admin">
             <meta property="dateModified" content="{{ Carbon\Carbon::parse($actie->updated_at)->toIso8601String() }}">
             <meta class="uk-margin-remove-adjacent" property="datePublished" content="{{ Carbon\Carbon::parse($actie->created_at)->toIso8601String() }}">
 
-            <div class="grid grid-cols-12 max-w-4xl mx-auto mt-6 gap-5">
+            <div class="grid grid-cols-12 max-w-6xl mx-auto mt-6 gap-5">
                 <div id="right-container" class="col-span-12 sm:order-last sm:col-span-4">
                     <div class="content flex flex-col gap-4 h-full">
                         <div class="flex-shrink-0 not-prose relative rounded-lg shadow-lg overflow-hidden">
@@ -254,7 +254,7 @@
         {{-- More from this theme section --}}
         @if ($count_same_theme > 0)
             <div class="pb-40 text-gray-800 overflow-hidden bg-gray-100">
-                <div class="max-w-4xl px-5 mx-auto prose lg:px-0 mt-10">
+                <div class="max-w-6xl px-5 mx-auto prose lg:px-0 mt-10">
                     @if ($actie->themes->count() > 1)
                         <h2>Meer acties in de thema's 
                             @foreach($actie->themes as $key=>$theme)

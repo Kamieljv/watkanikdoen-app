@@ -1,63 +1,64 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset
+    xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
     <url>
-        <loc>http://localhost:8000/</loc>
-        <lastmod>2022-02-14T08:38:07+00:00</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.8</priority>
+        <loc>https://watkanikdoen.nl/</loc>
+        <lastmod>2024-06-01T20:29:01+00:00</lastmod>
+        <priority>1.00</priority>
     </url>
     <url>
-        <loc>http://localhost:8000</loc>
-        <lastmod>2022-02-14T08:38:07+00:00</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.8</priority>
+        <loc>https://watkanikdoen.nl/acties</loc>
+        <lastmod>2024-06-01T20:29:01+00:00</lastmod>
+        <priority>0.90</priority>
     </url>
     <url>
-        <loc>http://localhost:8000/organizers/index</loc>
-        <lastmod>2022-02-14T08:38:07+00:00</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.8</priority>
+        <loc>https://watkanikdoen.nl/actiewijzer</loc>
+        <lastmod>2024-06-01T20:29:01+00:00</lastmod>
+        <priority>0.90</priority>
     </url>
     <url>
-        <loc>http://localhost:8000/over-ons</loc>
-        <lastmod>2022-02-14T08:38:07+00:00</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.8</priority>
+        <loc>https://watkanikdoen.nl/hoe-werkt-het</loc>
+        <lastmod>2024-06-01T20:29:01+00:00</lastmod>
+        <priority>0.80</priority>
     </url>
     <url>
-        <loc>http://localhost:8000/contact</loc>
-        <lastmod>2022-02-14T08:38:07+00:00</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.8</priority>
+        <loc>https://watkanikdoen.nl/word-vrijwilliger</loc>
+        <lastmod>2024-06-01T20:29:01+00:00</lastmod>
+        <priority>0.80</priority>
     </url>
     <url>
-        <loc>http://localhost:8000/login</loc>
-        <lastmod>2022-02-14T08:38:07+00:00</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.8</priority>
+        <loc>https://watkanikdoen.nl/organisatoren/index</loc>
+        <lastmod>2024-06-01T20:29:01+00:00</lastmod>
+        <priority>0.80</priority>
     </url>
     <url>
-        <loc>http://localhost:8000/acties/aanmelden</loc>
-        <lastmod>2022-02-14T08:38:07+00:00</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.8</priority>
+        <loc>https://watkanikdoen.nl/over-ons</loc>
+        <lastmod>2024-06-01T20:29:01+00:00</lastmod>
+        <priority>0.80</priority>
     </url>
     <url>
-        <loc>http://localhost:8000/voorwaarden-en-privacyverklaring</loc>
-        <lastmod>2022-02-14T08:38:08+00:00</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.8</priority>
+        <loc>https://watkanikdoen.nl/login</loc>
+        <lastmod>2024-06-01T20:29:01+00:00</lastmod>
+        <priority>0.80</priority>
     </url>
     <url>
-        <loc>http://localhost:8000/register</loc>
-        <lastmod>2022-02-14T08:38:08+00:00</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.8</priority>
+        <loc>https://watkanikdoen.nl/acties/aanmelden</loc>
+        <lastmod>2024-06-01T20:29:01+00:00</lastmod>
+        <priority>0.80</priority>
     </url>
     <url>
-        <loc>http://localhost:8000/password/reset</loc>
-        <lastmod>2022-02-14T08:38:08+00:00</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.8</priority>
+        <loc>https://watkanikdoen.nl/contact</loc>
+        <lastmod>2024-06-01T20:29:01+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://watkanikdoen.nl/nieuwsbrief</loc>
+        <lastmod>2024-06-01T20:29:01+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://watkanikdoen.nl/voorwaarden-en-privacyverklaring</loc>
+        <lastmod>2024-06-01T20:29:01+00:00</lastmod>
+        <priority>0.80</priority>
     </url>
 </urlset>

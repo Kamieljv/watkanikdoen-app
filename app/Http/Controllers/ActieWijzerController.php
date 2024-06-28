@@ -9,6 +9,8 @@ use App\Models\Question;
 use App\Models\Dimension;
 use App\Models\ReferentieType;
 use App\Models\Theme;
+use Artesaos\SEOTools\Facades\SEOTools;
+use Artesaos\SEOTools\Facades\SEOMeta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +25,11 @@ class ActieWijzerController extends Controller
         $dimensions = Dimension::all()->toArray();
         $themes = Theme::all()->toArray();
         $result_route = route('actiewijzer.result');
+
+        // SEO
+        SEOTools::setTitle(__('actiewijzer.title'));
+        SEOTools::setDescription(__('actiewijzer.description'));
+        SEOMeta::setKeywords(__('actiewijzer.keywords'));
 
         // Display the landing page
         return view('actiewijzer.landing', compact('questions', 'dimensions', 'themes', 'result_route'));
@@ -118,13 +125,14 @@ class ActieWijzerController extends Controller
 
         // Get referentie_types and calculate the similarity with the score_vector
         $referentie_types = ReferentieType::published()->get();
-        // Calculate distance to calculate the percentage 
-        $max_dist = sqrt(count($dimensions)*config('app.actiewijzer.max_score')**2);
         foreach ($referentie_types as $rt) {
-            $rt->dist = euclidianDistance($rt->score_vector, array_column($dimensions->toArray(), 'score'));
-            $rt->match_perc = round(($max_dist - $rt->dist) / $max_dist * 100);
+            $dims_filtered = array_filter($dimensions->toArray(), function($d) use ($rt) {
+                return in_array($d['id'], array_keys($rt->score_vector));
+            });
+            $dim_scores = array_combine(array_column($dims_filtered, 'id'), array_column($dims_filtered, 'score'));
+            $rt->match_perc = round(percentageMatch($dim_scores, $rt->score_vector));
         }
-        $referentie_types = $referentie_types->sortBy('dist');
+        $referentie_types = $referentie_types->sortByDesc('match_perc');
 
         return view('actiewijzer.result', compact('themes', 'dimensions', 'referentie_types', 'routes'));
     }
