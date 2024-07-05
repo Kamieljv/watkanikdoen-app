@@ -77,40 +77,38 @@
                 </div>
             </collapsible>
 
-            {{-- Themes --}}
-            @if($themes != null)
-            <div class="mt-20">
-                <h2>Demonstraties voor de thema's 
-                    @foreach($themes as $key=>$theme)
-                        <span class="underline underline-offset-2" style="text-decoration-color: {{ $theme->color }}; text-decoration-thickness: 4px;">
-                            {{ $theme->name }}</span>
-                        @if ($key < $themes->count() - 2), @endif
-                        @if ($key == $themes->count() - 2) en @endif
-                    @endforeach
-                </h2>
-                <actie-agenda
-                    :routes="{{ $routes }}"
-                    :filterable="false"
-                    :theme-ids="{{ json_encode(array_column($themes->toArray(), 'id')) }}"
-                    :narrower="true"
-                    :skeletons="2"
-                    :limit="4"
-                >
-                </actie-agenda>
-            </div>
-            @endif
-
             @foreach($referentie_types as $rt)
                 <div class="mt-20">
                     <h2 id="{{str_replace(' ', '_', $rt->title)}}">{{$rt->title}}&nbsp;<span class="text-pink-600">{{$rt->match_perc}}%</span></h2>
                     <p>{!! filterScripts($rt->description) !!}</p>
-                    <div class="grid gap-5 mx-auto mt-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                        @foreach ($rt->referenties->toArray() as $ref)
-                            <Referentie
-                                :referentie="{{json_encode($ref)}}"
-                            > </Referentie>
-                        @endforeach
-                    </div>
+                    @if ($rt->title == config('app.actiewijzer.demonstrations_section_name'))
+                        <p><i>Demonstraties voor
+                            @if($themes->count() == 1) het thema @else de thema's @endif
+                            @foreach($themes as $key=>$theme)
+                                <span class="underline underline-offset-2" style="text-decoration-color: {{ $theme->color }}; text-decoration-thickness: 4px;">
+                                    {{ $theme->name }}</span>
+                                @if ($key < $themes->count() - 2), @endif
+                                @if ($key == $themes->count() - 2) en @endif
+                            @endforeach
+                        </i></p>
+                        <actie-agenda
+                            :routes="{{ $routes }}"
+                            :filterable="false"
+                            :theme-ids="{{ json_encode(array_column($themes->toArray(), 'id')) }}"
+                            :narrower="true"
+                            :skeletons="2"
+                            :limit="4"
+                        >
+                        </actie-agenda>
+                    @else
+                        <div class="grid gap-5 mx-auto mt-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                            @foreach ($rt->referenties->toArray() as $ref)
+                                <Referentie
+                                    :referentie="{{json_encode($ref)}}"
+                                > </Referentie>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
             @endforeach
         </div>
