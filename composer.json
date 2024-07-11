@@ -27,6 +27,7 @@
         "matanyadaev/laravel-eloquent-spatial": "^4.2",
         "mcordingley/linearalgebra": "^3.0",
         "orangehill/iseed": "^3.0",
+        "staudenmeir/eloquent-eager-limit": "^1.8",
         "tcg/voyager": "^1.7",
         "tymon/jwt-auth": "^2.1"
     },

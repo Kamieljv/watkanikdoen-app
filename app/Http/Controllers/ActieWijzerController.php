@@ -11,6 +11,7 @@ use App\Models\ReferentieType;
 use App\Models\Theme;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Artesaos\SEOTools\Facades\SEOMeta;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -124,7 +125,9 @@ class ActieWijzerController extends Controller
         });
 
         // Get referentie_types and calculate the similarity with the score_vector
-        $referentie_types = ReferentieType::published()->get();
+        $referentie_types = ReferentieType::published()->with(['referenties' => function (Builder $query) {
+            $query->inRandomOrder()->limit(3);
+        }])->get();
         foreach ($referentie_types as $rt) {
             $dims_filtered = array_filter($dimensions->toArray(), function($d) use ($rt) {
                 return in_array($d['id'], array_keys($rt->score_vector));
