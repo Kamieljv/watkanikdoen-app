@@ -45,7 +45,8 @@
                             @foreach($referentie_types as $rt)
                                 <div>
                                     <a href="#{{str_replace(' ', '_', $rt->title)}}" class="hover:font-bold">{{$rt->title}}
-                                        &nbsp;<span class="text-pink-600 font-bold">{{$rt->match_perc}}%</span>
+                                        &nbsp;
+                                        @if($rt->match_perc)<span class="text-pink-600">{{$rt->match_perc}}%</span>@endif
                                     </a>
                                 </div>
                             @endforeach
@@ -56,7 +57,7 @@
                 <div class="mt-10 md:gap-6 grid grid-cols-2">
                     <div class="w-full col-span-2 md:col-span-1">
                         <h4 class="text-lg mb-2">Thema's</h4>
-                        <div class="flex">
+                        <div class="flex flex-wrap">
                             @foreach ($themes as $t)
                                 <div
                                     class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 uppercase rounded"
@@ -79,7 +80,9 @@
 
             @foreach($referentie_types as $rt)
                 <div class="mt-20">
-                    <h2 id="{{str_replace(' ', '_', $rt->title)}}">{{$rt->title}}&nbsp;<span class="text-pink-600">{{$rt->match_perc}}%</span></h2>
+                    <h2 id="{{str_replace(' ', '_', $rt->title)}}">{{$rt->title}}&nbsp;
+                        @if($rt->match_perc)<span class="text-pink-600">{{$rt->match_perc}}%</span>@endif
+                    </h2>
                     <p>{!! filterScripts($rt->description) !!}</p>
                     @if ($rt->title == config('app.actiewijzer.demonstrations_section_name'))
                         <p><i>Demonstraties voor
