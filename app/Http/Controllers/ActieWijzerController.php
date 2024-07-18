@@ -7,6 +7,7 @@ use App\Http\Requests\DeleteDimensionScoreRequest;
 use App\Models\Answer;
 use App\Models\Question;
 use App\Models\Dimension;
+use App\Models\Referentie;
 use App\Models\ReferentieType;
 use App\Models\Theme;
 use Artesaos\SEOTools\Facades\SEOTools;
@@ -138,5 +139,57 @@ class ActieWijzerController extends Controller
         $referentie_types = $referentie_types->sortByDesc('match_perc');
 
         return view('actiewijzer.result', compact('themes', 'dimensions', 'referentie_types', 'routes'));
+    }
+
+    public function referentie_type($referentie_type)
+    {
+        $referentie_type = ReferentieType::where('title', $referentie_type)->firstOrFail();
+
+        // Definieer de routes waarmee de component evenementen kan ophalen
+        $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
+            return strpos($route->uri, 'referenties') !== false && (strpos($route->uri, 'admin') === false);
+        })->map(function ($route) {
+            return [
+                'uri' => '/' . $route->uri,
+                'methods' => $route->methods,
+            ];
+        });
+
+        $themes = Theme::orderBy('name', 'ASC')->get();
+
+        // SEO
+        SEOTools::setTitle($referentie_type->title);
+        SEOTools::setDescription($referentie_type->description);
+        SEOMeta::setKeywords($referentie_type->title);
+
+        return view('actiewijzer.referentie_type', compact('referentie_type', 'themes', 'routes'));
+    }
+
+    public function search(Request $request)
+    {
+        $referentie_type = ReferentieType::find($request->referentieTypeId);
+
+        $query = Referentie::query()->whereHas('referentie_types', function($q) use ($referentie_type) {
+            $q->where('referentie_type_id', $referentie_type->id);
+        });
+        if ($request->q) {
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'LIKE', '%' . $request->q . '%')
+                    ->orWhere('description', 'LIKE', '%' . $request->q . '%');
+            });
+        }
+        if ($request->themes) {
+            $requestThemes = $request->themes;
+            $query->whereHas('themes', function ($q) use ($requestThemes) {
+                $q->whereIn('theme_id', $requestThemes);
+            });
+        }
+        if ($request->limit) {
+            $referenties = $query->orderBy('title', 'ASC')->published()->limit($request->limit)->get();
+        } else {
+            $referenties = $query->orderBy('title', 'ASC')->published()->paginate(12);
+        }
+
+        return response()->json(['referenties' => $referenties]);
     }
 }

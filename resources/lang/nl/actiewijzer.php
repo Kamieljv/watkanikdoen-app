@@ -21,4 +21,5 @@ return [
     'results_summary_header' => 'Jouw actieprofiel',
     'results_summary_body' => 'Dit zijn de voorkeuren die je hebt aangegeven. Op basis van deze scores stellen we jouw persoonlijke suggesties voor actie samen.',
     'back_to_actiewijzer' => 'Terug naar ActieWijzer',
+    'back_to_actiewijzer_result' => 'Terug naar Resultaat ActieWijzer',
 ];
