@@ -5,7 +5,7 @@
             en je hier eventueel vragen over stellen. 
             Daarom vragen we je om in te loggen óf een account te maken.
         </div>
-        <div v-if="!currentUser" class="grid grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto flex-col my-6 md:divide-x">
+        <div v-if="!currentUser" class="grid grid-cols-1 md:grid-cols-2 max-w-6xl mx-auto flex-col my-6 md:divide-x">
             <div class="col-span-1 space-y-3">
                 <Login
                     :routes="routes"
@@ -24,7 +24,7 @@
                 />
             </div>
         </div>
-        <div v-else class="grid grid-cols-1 max-w-4xl mx-auto flex-col my-6">
+        <div v-else class="grid grid-cols-1 max-w-6xl mx-auto flex-col my-6">
             <SuccessBlock message="Je bent al ingelogd of geregistreerd."/>
         </div>
     </div>

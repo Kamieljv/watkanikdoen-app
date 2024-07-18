@@ -157,6 +157,7 @@ return [
     'actiewijzer' => [
         'min_score' => 0,
         'max_score' => 10,
+        'demonstrations_section_name' => 'Demonstreren',
     ],
     
     /*

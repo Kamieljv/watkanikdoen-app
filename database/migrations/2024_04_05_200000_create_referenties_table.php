@@ -18,7 +18,7 @@ class CreateReferentiesTable extends Migration
             $table->string('title');
             $table->string('url');
             $table->text('description');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->enum('status', ['PUBLISHED', 'DRAFT'])->default('DRAFT');
             $table->timestamps();
         });

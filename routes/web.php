@@ -70,6 +70,9 @@ Route::get('acties/aanmelden', [ReportController::class, 'landing'])->name('repo
 // ActieWijzer
 Route::get('actiewijzer', [ActieWijzerController::class, 'landing'])->name('actiewijzer.landing');
 Route::get('actiewijzer/result', [ActieWijzerController::class, 'result'])->name('actiewijzer.result');
+Route::get('type/{referentie_type}', [ActieWijzerController::class, 'referentie_type'])->name('actiewijzer.referentie_type');
+Route::get('referenties/search', [ActieWijzerController::class, 'search'])->name('referenties.search');
+
 
 // Newsletter (subscriber) routes
 Route::get('nieuwsbrief', [SubscriberController::class, 'landing'])->name('subscribers.landing');
