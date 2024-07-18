@@ -1,6 +1,20 @@
 <template>
     <div>
-        <div v-if="!sent">
+        <div v-if="!started">
+            <div class="flex flex-col justify-between max-w-6xl mx-auto my-6 p-8 bg-white rounded-md shadow-md min-h-[400px]">
+                <div>
+                    <h1 class="mb-1">Doe de ActieWijzer!</h1>
+                    <h3 class="font-normal text-gray-500">{{ __('actiewijzer.description') }}</h3>
+                </div>
+                <div class="flex justify-end">
+                    <button @click="started = true" class="primary items-center hover:translate-x-[0.250rem]" tabindex="0">
+                        <p class="text-lg">{{__('actiewijzer.start')}}</p>
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 ml-1" style="transform: rotate(180deg);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div v-else>
             <step-progress
                 :steps="steps"
                 :currentStep="activeIndex"
@@ -10,36 +24,37 @@
             <ValidationObserver>
                 <Transition name="slide" mode="out-in" appear>
                     <div v-if="currentQuestion.subject == themeStepName">
-                        <theme-question :question="currentQuestion" :themes="themes" :value="themesSelected" :key="activeIndex" @input="handleThemeInput" class="p-8 bg-white rounded-md shadow-md min-h-[300px]">
+                        <theme-question :question="currentQuestion" :themes="themes" :value="themesSelected" :key="activeIndex" @input="handleThemeInput" class="p-8 bg-white rounded-md shadow-md min-h-[400px]">
                         </theme-question>
                     </div>
                     <div v-else>
-                        <question :question="currentQuestion" :value="answersGiven[currentQuestion.id]" :key="activeIndex" @input="handleInput" class="p-8 bg-white rounded-md shadow-md min-h-[300px]">
+                        <question :question="currentQuestion" :value="answersGiven[currentQuestion.id]" :key="activeIndex" @input="handleInput" class="p-8 bg-white rounded-md shadow-md min-h-[400px]">
                         </question>
                     </div>
                 </Transition>
                 <div class="flex mt-5" :class="{'justify-end': activeIndex === 0, 'justify-between': activeIndex > 0}">
-                    <button v-if="activeIndex > 0" type="button" @click.prevent="activeIndex--"
+                    <button v-if="activeIndex > 0" type="button" @click.prevent="activeIndex--" tabindex="0"
                         class="secondary">
                         {{ __('general.previous') }}
                     </button>
-                    <button v-if="isLastStep" class="primary"  @click.prevent="submit" :disabled="!canSubmit">
-                        {{ __('general.send_form') }}
-                    </button>
-                    <button v-else-if="validInput" class="primary" @click.prevent="activeIndex++">
+                    <div v-if="isLastStep" class="flex space-x-3">
+                        <span v-if="showValidation && !canSubmit" class="flex items-center italic">{{ __('actiewijzer.answer_question_before_proceed_any') }}</span>
+                        <button class="primary"  @click.prevent="submit" :disabled="!canSubmit" @mouseover="showValidation = true" @mouseleave="showValidation = false" tabindex="0">
+                            {{ __('general.send_form') }}
+                        </button>
+                    </div>
+                    <button v-else-if="validInput" class="primary" @click.prevent="activeIndex++" tabindex="0">
                         {{ __('general.next') }}
                     </button>
-                    <button v-else class="primary" disabled>
-                        {{ __('general.next') }}
-                    </button>
+                    <div v-else class="flex space-x-3">
+                        <span v-if="showValidation" class="flex items-center italic">{{ __('actiewijzer.answer_question_before_proceed_single') }}</span>
+                        <button class="primary" disabled @mouseover="showValidation = true" @mouseleave="showValidation = false">
+                            {{ __('general.next') }}
+                        </button>
+                    </div>
                     
                 </div>
             </ValidationObserver>
-        </div>
-        <div v-else>
-            <div class="flex justify-center items-center max-w-4xl mx-auto my-6 bg-white rounded-md shadow-md min-h-[300px]">
-                <SuccessGIF src="/images/protest_signs.gif" title="Gelukt! Bedankt voor je bijdrage!" message="We zullen je aanmelding zo snel mogelijk beoordelen."/>
-            </div>
         </div>
     </div>
 </template>
@@ -77,7 +92,8 @@ export default {
     },
     data: () => ({
         activeIndex: 0,
-        sent: false,
+        started: false,
+        showValidation: false,
         currentErrors: [],
         answersGiven: {},
         dimension_scores: {},

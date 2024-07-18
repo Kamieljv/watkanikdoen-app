@@ -1,7 +1,9 @@
 <template>
     <div class="p-8">
-        <h1 class="mb-10">{{question.question}}</h1>
-        <p>Kies een aantal thema's waar je je graag voor wil inzetten.</p>
+        <h4 class="mb-5 text-[var(--wkid-pink)] text-2xl font-thin">ActieWijzer</h4>
+        <h1 class="mb-2">{{question.question}}</h1>
+        <h3 class="font-normal text-gray-500">{{ question.description }}</h3>
+
         <div class="my-5">
             <div
                 v-for="t in themes"
@@ -12,7 +14,7 @@
                 :data-id="t.id"
                 @click="select(t.id)"
             >
-                <span :class="{'text-white': selected.includes(t.id)}" rel="theme">
+                <span class="text-sm" :class="{'text-white': selected.includes(t.id)}" rel="theme">
                     {{ t.name }}
                 </span>
             </div>

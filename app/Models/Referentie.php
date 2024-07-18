@@ -7,6 +7,7 @@ use App\Models\ReferentieType;
 
 class Referentie extends Model
 {
+    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
     protected $table = 'referenties';
 

@@ -1,6 +1,6 @@
 <template>
     <ValidationObserver ref="actieValidator">
-        <div class="grid grid-cols-1 md:grid-cols-3 max-w-4xl mx-auto flex-col my-6 md:divide-x space-y-3">
+        <div class="grid grid-cols-1 md:grid-cols-3 max-w-6xl mx-auto flex-col my-6 md:divide-x space-y-3">
             <div class="col-span-2 space-y-3">
                 <div class="flex flex-col justify-start flex-1 overflow-hidden bg-white border-gray-150">
                     <div class="flex flex-col md:pr-5">

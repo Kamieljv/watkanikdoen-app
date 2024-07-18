@@ -7,8 +7,12 @@ use App\Http\Requests\DeleteDimensionScoreRequest;
 use App\Models\Answer;
 use App\Models\Question;
 use App\Models\Dimension;
+use App\Models\Referentie;
 use App\Models\ReferentieType;
 use App\Models\Theme;
+use Artesaos\SEOTools\Facades\SEOTools;
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +27,11 @@ class ActieWijzerController extends Controller
         $dimensions = Dimension::all()->toArray();
         $themes = Theme::all()->toArray();
         $result_route = route('actiewijzer.result');
+
+        // SEO
+        SEOTools::setTitle(__('actiewijzer.title'));
+        SEOTools::setDescription(__('actiewijzer.description'));
+        SEOMeta::setKeywords(__('actiewijzer.keywords'));
 
         // Display the landing page
         return view('actiewijzer.landing', compact('questions', 'dimensions', 'themes', 'result_route'));
@@ -117,15 +126,70 @@ class ActieWijzerController extends Controller
         });
 
         // Get referentie_types and calculate the similarity with the score_vector
-        $referentie_types = ReferentieType::published()->get();
-        // Calculate distance to calculate the percentage 
-        $max_dist = sqrt(count($dimensions)*config('app.actiewijzer.max_score')**2);
+        $referentie_types = ReferentieType::published()->with(['referenties' => function (Builder $query) {
+            $query->inRandomOrder()->limit(3);
+        }])->get();
         foreach ($referentie_types as $rt) {
-            $rt->dist = euclidianDistance($rt->score_vector, array_column($dimensions->toArray(), 'score'));
-            $rt->match_perc = round(($max_dist - $rt->dist) / $max_dist * 100);
+            $dims_filtered = array_filter($dimensions->toArray(), function($d) use ($rt) {
+                return in_array($d['id'], array_keys($rt->score_vector));
+            });
+            $dim_scores = array_combine(array_column($dims_filtered, 'id'), array_column($dims_filtered, 'score'));
+            $rt->match_perc = round(percentageMatch($dim_scores, $rt->score_vector));
         }
-        $referentie_types = $referentie_types->sortBy('dist');
+        $referentie_types = $referentie_types->sortByDesc('match_perc');
 
         return view('actiewijzer.result', compact('themes', 'dimensions', 'referentie_types', 'routes'));
+    }
+
+    public function referentie_type($referentie_type)
+    {
+        $referentie_type = ReferentieType::where('title', $referentie_type)->firstOrFail();
+
+        // Definieer de routes waarmee de component evenementen kan ophalen
+        $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
+            return strpos($route->uri, 'referenties') !== false && (strpos($route->uri, 'admin') === false);
+        })->map(function ($route) {
+            return [
+                'uri' => '/' . $route->uri,
+                'methods' => $route->methods,
+            ];
+        });
+
+        $themes = Theme::orderBy('name', 'ASC')->get();
+
+        // SEO
+        SEOTools::setTitle($referentie_type->title);
+        SEOTools::setDescription($referentie_type->description);
+        SEOMeta::setKeywords($referentie_type->title);
+
+        return view('actiewijzer.referentie_type', compact('referentie_type', 'themes', 'routes'));
+    }
+
+    public function search(Request $request)
+    {
+        $referentie_type = ReferentieType::find($request->referentieTypeId);
+
+        $query = Referentie::query()->whereHas('referentie_types', function($q) use ($referentie_type) {
+            $q->where('referentie_type_id', $referentie_type->id);
+        });
+        if ($request->q) {
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'LIKE', '%' . $request->q . '%')
+                    ->orWhere('description', 'LIKE', '%' . $request->q . '%');
+            });
+        }
+        if ($request->themes) {
+            $requestThemes = $request->themes;
+            $query->whereHas('themes', function ($q) use ($requestThemes) {
+                $q->whereIn('theme_id', $requestThemes);
+            });
+        }
+        if ($request->limit) {
+            $referenties = $query->orderBy('title', 'ASC')->published()->limit($request->limit)->get();
+        } else {
+            $referenties = $query->orderBy('title', 'ASC')->published()->paginate(12);
+        }
+
+        return response()->json(['referenties' => $referenties]);
     }
 }

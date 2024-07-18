@@ -48,5 +48,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ReferentieTypeDimensionTableSeeder::class);
         $this->call(ReferentiesTableSeeder::class);
         $this->call(ReferentieThemeTableSeeder::class);
+        $this->call(ReferentieReferentieTypeTableSeeder::class);
     }
 }
