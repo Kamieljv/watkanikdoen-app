@@ -31,9 +31,11 @@ function percentageMatch(array $a, array $b)
     if ($va->length() == 0) {
         return 0;
     }
-    // normalize vectors
-    $va = $va->normalize();
-    $vb = $vb->normalize();
-    // compute scalar projection of a on b (dot(a, b)/len(b))
-    return $va->dotProduct($vb) / $vb->length() * 100;
+
+    // compute scalar projection of a on b (dot(a, b)/len(b)), divided by len(b) again to get percentage
+    try {
+        return min(max($va->dotProduct($vb) / $vb->length() ** 2 * 100, 10), 100);
+    } catch (DivisionByZeroError $e) {
+        return null;
+    }
 }
