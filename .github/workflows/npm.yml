@@ -1,0 +1,22 @@
+name: Node.js CI
+
+on:
+  # temp for testing puposes
+  push
+
+jobs:
+  build:
+    name: Node.js CI
+    # for consistency with  the Laravel CI
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          # unsure of the version we would want here but for testing purposes I'm using my local version
+          node-version: '22.3.0' 
+      - name: Install packages
+        run: npm ci
+      - name: Run node
+        run: npm run dev
