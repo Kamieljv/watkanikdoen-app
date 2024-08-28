@@ -35,7 +35,7 @@
             <div class="col" style="width: 100%">
                 <div class="relative mx-auto w-full">
                     <div class="relative mx-auto max-w-7xl">
-                        <div v-if="!isGeladen" class="grid gap-5 mx-auto mt-12 sm:grid-cols-2 lg:grid-cols-3">
+                        <div v-if="!isGeladen && !appending" class="grid gap-5 mx-auto mt-12 sm:grid-cols-2 lg:grid-cols-3">
 							<t-card
 								v-for="i in skeletonArray"
 								:key="i"
@@ -65,23 +65,19 @@
                 </div>
             </div>
         </div>
-        <!-- Pagination -->
-        <pagination
-			:v-show="showPagination"
-            :current="currentPage"
-            :total="total"
-            :per-page="perPage"
-            :baseLink="base_link"
-            @page-changed="getReferenties"
-        />
+        <!-- see more button -->
+		<div v-if="enableShowMore && heeftReferenties && total > perPage && currentPage !== lastPage && !appending" class="flex justify-center">
+			<button @click="currentPage++; appending=true; getReferenties()" class="btn secondary">{{__('general.load_more')}}</button>
+		</div>
+		<div v-else-if="appending" class="flex justify-center">
+			<div class="custom-loader dark large"></div>
+		</div>
     </div>
 </template>
 
 <script>
-import Pagination from "../partials/Pagination.vue"
 export default {
 	name: "Referenties",
-	components: {Pagination},
 	props: {
 		referentieTypeId: {
 			type: Number,
@@ -99,13 +95,13 @@ export default {
 			type: Array,
 			default: () => [],
 		},
+		enableShowMore: {
+			type: Boolean,
+			default: true,
+		},
 		showThemes: {
 			type: Boolean, 
 			default: true,
-		},
-		showPagination: {
-			type: Boolean, 
-			default: true
 		},
 		filterable: {
 			type: Boolean,
@@ -124,9 +120,10 @@ export default {
 			isGeladen: false,
 			heeftFout: false,
 			currentPage: null,
+			lastPage: null,
 			perPage: null,
 			total: null,
-			base_link: null,
+			appending: false,
 		}
 	},
 	computed: {
@@ -157,7 +154,7 @@ export default {
 		this.getReferenties();
 	},
 	methods: {
-		getReferenties: _.debounce(async function getReferenties(page = 1) {
+		getReferenties: _.debounce(async function getReferenties() {
 			this.isGeladen = false
 			this.heeftFout = false
 			axios.get(this.routes["referenties.search"].uri, {
@@ -165,16 +162,20 @@ export default {
 					referentieTypeId: this.referentieTypeId,
 					q: this.query,
 					themes: this.themesSelected,
-					page: page,
+					page: this.currentPage,
 					limit: this.max ?? null
 				}
 			}).then((response) => {
 				if ('per_page' in response.data.referenties) {
-					this.referenties = response.data.referenties.data
+					if (this.appending) {
+						this.referenties = this.referenties.concat(response.data.referenties.data)
+					} else {
+						this.referenties = response.data.referenties.data
+					}
 					this.currentPage = response.data.referenties.current_page
+					this.lastPage = response.data.referenties.last_page
 					this.perPage = response.data.referenties.per_page
 					this.total = response.data.referenties.total
-					this.base_link = response.data.referenties.first_page_url
 				} else {
 					this.referenties = response.data.referenties
 				}
@@ -182,6 +183,7 @@ export default {
 				this.heeftFout = true
 			}).finally(() => {
 				this.isGeladen = true
+				this.appending = false
 			})
 		}, 500),
 		processQuery: _.debounce(function(input) {
