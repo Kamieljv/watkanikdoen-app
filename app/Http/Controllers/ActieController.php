@@ -14,7 +14,7 @@ use Voyager;
 
 class ActieController extends VoyagerBaseController
 {
-    public function agenda()
+    public function agenda(Request $request)
     {
         // Definieer de routes waarmee de component evenementen kan ophalen
         $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
@@ -29,10 +29,13 @@ class ActieController extends VoyagerBaseController
         $themes = Theme::orderBy('name', 'ASC')->get();
         $categories = Category::orderBy('name', 'ASC')->get();
 
+        $themes_selected_ids = $request->themes ? array_map('intval', $request->themes) : [];
+        $categories_selected_ids = $request->categories ? array_map('intval', $request->categories) : [];
+
         // SEO
         SEOTools::setTitle('Acties');
 
-        return view('acties.agenda', compact('routes', 'themes', 'categories'));
+        return view('acties.agenda', compact('routes', 'themes', 'categories', 'themes_selected_ids', 'categories_selected_ids'));
     }
 
     public function actie($slug)

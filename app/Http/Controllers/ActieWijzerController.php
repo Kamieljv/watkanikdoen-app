@@ -126,22 +126,32 @@ class ActieWijzerController extends Controller
         });
 
         // Get referentie_types and calculate the similarity with the score_vector
-        $referentie_types = ReferentieType::published()->with(['referenties' => function (Builder $query) {
+        $referentie_types = ReferentieType::published()->with(['referenties' => function (Builder $query) use ($themes) {
+            $query->whereHas('themes', function (Builder $query) use ($themes) {
+                $query->whereIn('theme_id', $themes->pluck('id')->toArray());
+            });
             $query->inRandomOrder()->limit(3);
         }])->get();
+
         foreach ($referentie_types as $rt) {
+            // calculate percentage match 
             $dims_filtered = array_filter($dimensions->toArray(), function($d) use ($rt) {
                 return in_array($d['id'], array_keys($rt->score_vector));
             });
             $dim_scores = array_combine(array_column($dims_filtered, 'id'), array_column($dims_filtered, 'score'));
             $rt->match_perc = round(percentageMatch($dim_scores, $rt->score_vector));
+
+            // if we get 0 referenties, get 3 referenties without filtering by theme
+            if ($rt->referenties->count() == 0) {
+                $rt->referenties = ReferentieType::find($rt->id)->referenties()->inRandomOrder()->limit(3)->get();
+            }
         }
         $referentie_types = $referentie_types->sortByDesc('match_perc');
 
         return view('actiewijzer.result', compact('themes', 'dimensions', 'referentie_types', 'routes'));
     }
 
-    public function referentie_type($referentie_type)
+    public function referentie_type($referentie_type, Request $request)
     {
         $referentie_type = ReferentieType::where('title', $referentie_type)->firstOrFail();
 
@@ -156,13 +166,14 @@ class ActieWijzerController extends Controller
         });
 
         $themes = Theme::orderBy('name', 'ASC')->get();
+        $themes_selected_ids = $request->themes ? array_map('intval', $request->themes) : [];
 
         // SEO
         SEOTools::setTitle($referentie_type->title);
         SEOTools::setDescription($referentie_type->description);
         SEOMeta::setKeywords($referentie_type->title);
 
-        return view('actiewijzer.referentie_type', compact('referentie_type', 'themes', 'routes'));
+        return view('actiewijzer.referentie_type', compact('referentie_type', 'themes', 'routes', 'themes_selected_ids'));
     }
 
     public function search(Request $request)

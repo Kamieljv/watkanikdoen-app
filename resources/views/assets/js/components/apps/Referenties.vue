@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="row mx-auto max-w-6xl">
+        <div v-if="filterable" class="row mx-auto max-w-6xl">
             <div id="filter-container" class="row my-3">
                 <h3 class="mt-8 mb-3 text-sm text-gray-900">Zoek & Filter</h3>
                 <div id="filter-wrapper" class="col grid gap-3" :class="{'grid-cols-2': themes.length > 0}">
@@ -95,6 +95,10 @@ export default {
 			type: Array,
 			default: () => [],
 		},
+		themesSelectedIds: {
+			type: Array,
+			default: () => [],
+		},
 		showThemes: {
 			type: Boolean, 
 			default: true,
@@ -102,6 +106,10 @@ export default {
 		showPagination: {
 			type: Boolean, 
 			default: true
+		},
+		filterable: {
+			type: Boolean,
+			default: true,
 		},
 		max: {
 			type: Number,
@@ -111,7 +119,7 @@ export default {
 	data() {
 		return {
 			referenties: [],
-			themesSelected: "",
+			themesSelected: [],
 			query: "",
 			isGeladen: false,
 			heeftFout: false,
@@ -123,7 +131,7 @@ export default {
 	},
 	computed: {
 		skeletonArray() {
-			return [...Array(9).keys()]
+			return [...Array(this.max ?? 9).keys()]
 		},
 		heeftReferenties() {
 			return (this.referenties.length > 0)
@@ -145,8 +153,8 @@ export default {
 		},
 	},
 	mounted() {
+		this.themesSelected = this.themes.filter(t => this.themesSelectedIds.includes(t.id)).map(t => t.id);
 		this.getReferenties();
-		console.log(this.referentie_type)
 	},
 	methods: {
 		getReferenties: _.debounce(async function getReferenties(page = 1) {
