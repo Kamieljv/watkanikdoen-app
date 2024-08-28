@@ -147,7 +147,15 @@ export default {
 			type: Array,
 			default: () => [],
 		},
+		themesSelectedIds: {
+			type: Array,
+			default: () => [],
+		},
 		categories: {
+			type: Array,
+			default: () => [],
+		},
+		categoriesSelectedIds: {
 			type: Array,
 			default: () => [],
 		},
@@ -253,6 +261,8 @@ export default {
 		}
 	},
 	mounted() {
+		this.themesSelected = this.themes.filter(t => this.themesSelectedIds.includes(t.id)).map(t => t.id);
+		this.categoriesSelected = this.categories.filter(c => this.categoriesSelectedIds.includes(c.id)).map(c => c.id);
 		this.getActies()
 	},
 	methods: {
