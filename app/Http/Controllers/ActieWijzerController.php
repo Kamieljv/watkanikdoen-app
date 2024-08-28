@@ -198,7 +198,7 @@ class ActieWijzerController extends Controller
         if ($request->limit) {
             $referenties = $query->orderBy('title', 'ASC')->published()->limit($request->limit)->get();
         } else {
-            $referenties = $query->orderBy('title', 'ASC')->published()->paginate(12);
+            $referenties = $query->orderBy('title', 'ASC')->published()->paginate(24);
         }
 
         return response()->json(['referenties' => $referenties]);

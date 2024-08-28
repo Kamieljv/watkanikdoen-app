@@ -35,7 +35,7 @@
             <div class="col" style="width: 100%">
                 <div class="relative mx-auto w-full">
                     <div class="relative mx-auto max-w-7xl">
-                        <div v-if="!isGeladen">
+                        <div v-if="!isGeladen && !appending">
                         	<div v-for="i in skeletonArray"
                                 :key="i"
 								class="animate-pulse flex h-full p-3 justify-between border border-gray-200 mb-1 rounded-lg shadow-md"
@@ -67,15 +67,13 @@
                 </div>
             </div>
         </div>
-        <!-- Pagination -->
-        <pagination
-			:v-show="showPagination"
-            :current="currentPage"
-            :total="total"
-            :per-page="perPage"
-            :baseLink="base_link"
-            @page-changed="getOrganizers"
-        />
+        <!-- see more button -->
+		<div v-if="enableShowMore && heeftOrganizers && total > perPage && currentPage !== lastPage && !appending" class="flex justify-center">
+			<button @click="currentPage++; appending=true; getOrganizers()" class="btn secondary">{{__('general.load_more')}}</button>
+		</div>
+		<div v-else-if="appending" class="flex justify-center">
+			<div class="custom-loader dark large"></div>
+		</div>
     </div>
 </template>
 
@@ -97,7 +95,7 @@ export default {
 			type: Boolean, 
 			default: true,
 		},
-		showPagination: {
+		enableShowMore: {
 			type: Boolean, 
 			default: true
 		},
@@ -121,11 +119,12 @@ export default {
 			organizersSel: this.organizersSelected,
 			query: "",
 			isGeladen: false,
+			appending: false,
 			heeftFout: false,
 			currentPage: null,
+			lastPage: null,
 			perPage: null,
 			total: null,
-			base_link: null,
 		}
 	},
 	computed: {
@@ -162,24 +161,28 @@ export default {
 		this.getOrganizers()
 	},
 	methods: {
-		getOrganizers: _.debounce(async function getOrganizers(page = 1) {
+		getOrganizers: _.debounce(async function getOrganizers() {
 			this.isGeladen = false
 			this.heeftFout = false
 			axios.get(this.routes["organizers.search"].uri, {
 				params: {
 					q: this.query,
 					themes: this.themesSelected,
-					page: page,
+					page: this.currentPage,
 					organizer: this.organizerId,
 					limit: this.max ?? null
 				}
 			}).then((response) => {
 				if ('per_page' in response.data.organizers) {
-					this.organizers = response.data.organizers.data
+					if (this.appending) {
+						this.organizers = this.organizers.concat(response.data.organizers.data)
+					} else {
+						this.organizers = response.data.organizers.data
+					}
 					this.currentPage = response.data.organizers.current_page
+					this.lastPage = response.data.organizers.last_page
 					this.perPage = response.data.organizers.per_page
 					this.total = response.data.organizers.total
-					this.base_link = response.data.organizers.first_page_url
 				} else {
 					this.organizers = response.data.organizers
 				}
@@ -187,6 +190,7 @@ export default {
 				this.heeftFout = true
 			}).finally(() => {
 				this.isGeladen = true
+				this.appending = false
 			})
 		}, 500),
 		processQuery: _.debounce(function(input) {

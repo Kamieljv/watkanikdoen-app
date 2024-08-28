@@ -126,7 +126,7 @@ class ActieController extends VoyagerBaseController
         if ($request->limit) {
             $acties = $query->limit($request->limit)->get();
         } else {
-            $acties = $query->paginate(12);
+            $acties = $query->paginate(24);
         }
         
         return response()->json(['acties' => $acties]);
