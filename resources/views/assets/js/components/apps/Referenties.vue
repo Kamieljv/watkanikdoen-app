@@ -35,7 +35,7 @@
             <div class="col" style="width: 100%">
                 <div class="relative mx-auto w-full">
                     <div class="relative mx-auto max-w-7xl">
-                        <div v-if="!isGeladen && !appending" class="grid gap-5 mx-auto mt-12 sm:grid-cols-2 lg:grid-cols-3">
+                        <div v-if="!isGeladen && !appending" class="grid grid-auto gap-5 mx-auto mt-12 sm:grid-cols-2 lg:grid-cols-3">
 							<t-card
 								v-for="i in skeletonArray"
 								:key="i"
@@ -54,6 +54,7 @@
                                 v-for="referentie in referentiesFormatted"
                                 :key="referentie.id"
                                 :referentie="referentie"
+								@click.native="openReferentieModal($event, referentie)"
                             />
                         </div>
 						<div v-else-if="isGeladen" class="flex justify-center items-center py-8">
@@ -72,6 +73,65 @@
 		<div v-else-if="appending" class="flex justify-center">
 			<div class="custom-loader dark large"></div>
 		</div>
+
+		<!-- Referentie Modal -->
+		<t-modal
+			v-if="currentReferentie"
+			v-model="modalOpen"
+			variant="card"
+		>
+			<template v-slot:header>
+				<img v-if="currentReferentie.linked_image" class="object-cover w-full h-[150px]" :src="currentReferentie.linked_image.url" alt="">
+                <div v-else class="h-[150px] bg-gray-300 text-gray-400 flex items-center justify-center">
+                    <svg-vue icon="logo-icon" style="fill: currentColor; height: 80px;"></svg-vue>
+                </div>
+				<ul class="themes-container flex flex-wrap m-3 absolute top-0 w-4/5">
+                    <li
+                        v-for="theme in currentReferentie.themes"
+                        :key="theme.id"
+                        class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-white uppercase bg-gray-100 rounded"
+                        :style="{backgroundColor: theme.color}"
+                    >
+                        <span class="text-white" rel="theme">
+                            {{ theme.name }}
+                        </span>
+                    </li>
+                </ul>
+			</template>
+			<div class="title-body-container overflow-hidden relative">
+				<h3 class="line-clamp-2 uppercase text-xl font-semibold leading-7 text-gray-900">
+					{{ currentReferentie.title }}
+				</h3>
+				<p class="my-2 text-sm text-gray-500" v-html="currentReferentie.description"></p>
+				<div v-if="currentReferentie.referentie_types.length > 1" class="mt-2">
+					<p class="text-sm text-gray-500 font-semibold">Wat kun je hier nog meer doen?</p>
+					<ul class="flex flex-wrap my-2">
+						<li
+							v-for="refType in currentReferentie.referentie_types"
+							:key="refType.id"
+							class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-white uppercase bg-gray-700 rounded"
+						>
+							<a :href="refType.link" class="tag-link cursor-pointer">
+								<span class="text-white" rel="theme">
+									{{ refType.title }}
+								</span>
+							</a>
+						</li>
+                	</ul>
+					{{  }}
+				</div>
+			</div>
+			<template v-slot:footer>
+				<div class="flex justify-end">
+					<a :href="currentReferentie.url">
+						<button class="btn pink items-center" type="button">
+							<svg-vue icon="antdesign-link-o" class="w-4 h-4 mr-1" fill="currentColor" />
+							{{ simplifyUrl(currentReferentie.url) }}
+						</button>
+					</a>
+				</div>
+			</template>
+		</t-modal>
     </div>
 </template>
 
@@ -115,6 +175,7 @@ export default {
 	data() {
 		return {
 			referenties: [],
+			currentReferentie: null,
 			themesSelected: [],
 			query: "",
 			isGeladen: false,
@@ -124,6 +185,7 @@ export default {
 			perPage: null,
 			total: null,
 			appending: false,
+			modalOpen: false,
 		}
 	},
 	computed: {
@@ -188,8 +250,23 @@ export default {
 		}, 500),
 		processQuery: _.debounce(function(input) {
 			this.query = input
-		}, 500)
+		}, 500),
+		openReferentieModal(e, referentie) {
+			this.currentReferentie = referentie
+			console.log(referentie)
+			this.modalOpen = true
+		},
+		simplifyUrl(url) {
+			// remove http(s):// and trailing slash
+			return url.replace(/(^\w+:|^)\/\//, "").replace(/\/$/, "")
+		}
 	}
 }
 </script>
+<style scoped>
+	a.tag-link {
+		color: inherit;
+		text-decoration: none !important
+	}
+</style>
 

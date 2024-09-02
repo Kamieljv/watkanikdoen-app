@@ -12,7 +12,6 @@ module.exports = {
 	plugins: [
 		require("@tailwindcss/forms"),
 		require("@tailwindcss/typography"),
-		require("@tailwindcss/line-clamp"),
 	],
 	safelist: [
 		"-mx-2",
@@ -21,6 +20,7 @@ module.exports = {
 		"-mt-1",
 		"mt-20",
 		"my-2",
+		"m-3",
 		"animate-pulse",
 		"animate-spin",
 		"bg-[color:var(--wkid-blue)]",

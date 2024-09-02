@@ -180,7 +180,7 @@ class ActieWijzerController extends Controller
     {
         $referentie_type = ReferentieType::find($request->referentieTypeId);
 
-        $query = Referentie::query()->whereHas('referentie_types', function($q) use ($referentie_type) {
+        $query = Referentie::query()->with('referentie_types')->whereHas('referentie_types', function($q) use ($referentie_type) {
             $q->where('referentie_type_id', $referentie_type->id);
         });
         if ($request->q) {

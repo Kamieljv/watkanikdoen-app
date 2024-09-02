@@ -109,6 +109,9 @@
     &.gray {
       @apply flex justify-center px-4 py-2 text-sm font-medium cursor-pointer text-gray-600 transition duration-150 ease-in-out border border-transparent rounded-md bg-gray-200 hover:bg-gray-300;
     }
+    &.pink {
+      @apply flex justify-center px-4 py-2 text-sm font-medium cursor-pointer text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)] disabled:bg-gray-400 disabled:cursor-not-allowed;
+    }
   }
 }
 
