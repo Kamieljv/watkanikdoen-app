@@ -12,6 +12,10 @@ class ReferentieType extends Model
     
     protected $table = 'referentie_types';
 
+    protected $appends = [
+        'link'
+    ];
+
     protected $fillable = [
         'title',
         'description',
@@ -24,7 +28,6 @@ class ReferentieType extends Model
      * @var array
      */
     protected $with = [
-        'referenties',
         'dimensions'
     ];
 
@@ -48,6 +51,12 @@ class ReferentieType extends Model
             }
         }
         return $score_vec;
+    }
+
+    public function getLinkAttribute()
+    {
+        return url('/type/' . strtolower($this->title));
+
     }
 
     public function scopePublished($query)
