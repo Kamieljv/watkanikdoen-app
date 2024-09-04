@@ -107,7 +107,7 @@
 					{{ currentReferentie.title }}
 				</h3>
 				<p class="my-2 text-sm text-gray-500" v-html="currentReferentie.description"></p>
-				<div v-if="currentReferentie.referentie_types.length > 1" class="mt-2">
+				<div v-if="currentReferentie.referentie_types.length > 1" class="mt-4">
 					<p class="text-sm text-gray-500 font-semibold">Wat kun je hier nog meer doen?</p>
 					<ul class="flex flex-wrap my-2">
 						<li
@@ -122,7 +122,6 @@
 							</a>
 						</li>
                 	</ul>
-					{{  }}
 				</div>
 			</div>
 			<template v-slot:footer>
