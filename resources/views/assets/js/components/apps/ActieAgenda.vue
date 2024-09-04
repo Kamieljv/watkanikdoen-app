@@ -111,9 +111,13 @@
                                 :actie="actie"
                             />
                         </div>
-						<div v-else-if="isGeladen" class="flex justify-center items-center py-8">
-							<div class="text-gray-400">
-								<h3>{{__('general.no_results')}}</h3>
+						<div v-else-if="isGeladen" class="flex flex-col justify-center items-center py-8 text-gray-400">
+							<h3>{{__('general.no_results')}}</h3>
+							<div v-if="filterCount" class="flex flex-col items-center">
+								<p>{{ __('general.no_results_suggestion') }}</p>
+								<button v-on:click="resetFilters" class="gray uppercase mt-2">
+									{{ __('general.clear_filters') }}
+								</button>
 							</div>
 						</div>
                     </div>
@@ -276,7 +280,7 @@ export default {
 			axios.get(this.routes["acties.search"].uri, {
 				params: {
 					q: this.query,
-					themes: this.themesSelected ?? this.themeIds,
+					themes: this.themesSelected.length > 0 ? this.themesSelected : this.themeIds,
 					categories: this.categoriesSelected,
 					coordinates: this.coordinates,
 					distance: this.distance,

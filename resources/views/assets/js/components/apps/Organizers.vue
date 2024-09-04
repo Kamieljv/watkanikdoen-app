@@ -58,9 +58,13 @@
 								@input="updateOrganizersSelected($event, organizer)"
                             >{{organizer.selected}}</organizer>
                         </div>
-						<div v-else-if="isGeladen" class="flex justify-center items-center py-8">
-							<div class="text-gray-400">
-								<h3>{{__('general.no_results')}}</h3>
+						<div v-else-if="isGeladen" class="flex flex-col justify-center items-center py-8 text-gray-400">
+							<h3>{{__('general.no_results')}}</h3>
+							<div v-if="filterCount" class="flex flex-col items-center">
+								<p>{{ __('general.no_results_suggestion') }}</p>
+								<button v-on:click="resetFilters" class="gray uppercase mt-2">
+									{{ __('general.clear_filters') }}
+								</button>
 							</div>
 						</div>
                     </div>
@@ -145,6 +149,10 @@ export default {
 		organizerBaseRoute() {
 			return this.routes["organizers.organizer"].uri.split("{")[0]
 		},
+		filterCount() {
+			var filters = [this.query, this.themesSelected]
+			return filters.filter(f => (!!f && !(f.length === 0))).length
+		},
 	},
 	watch: {
 		query: function() {
@@ -217,6 +225,10 @@ export default {
 				return v.id === organizer.id
 			})
 		},
+		resetFilters() {
+			this.themesSelected = []
+			this.query = ""
+		}
 	}
 }
 </script>
