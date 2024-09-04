@@ -114,23 +114,30 @@
                             </a>
                         </div>
                     @else
-                        <div class="grid gap-5 mx-auto mt-12 sm:grid-cols-2 lg:grid-cols-3">
-                            @foreach ($rt->referenties->toArray() as $ref)
-                                <Referentie
-                                    :referentie="{{json_encode($ref)}}"
-                                > </Referentie>
-                            @endforeach
-                        </div>
-                        <div class="flex items-center justify-center my-12">
-                            <a href="{{ route('actiewijzer.referentie_type', strtolower($rt->title)) . '?' . http_build_query(['themes' => array_column($themes->toArray(), 'id')])}}">
-                                <button class="secondary flex items-center hover:translate-x-[0.250rem]">
-                                    <p class="text-lg">Bekijk alles van {{ $rt->title }}</p> 
-                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 ml-1" style="transform: rotate(180deg);">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                                    </svg>
-                                </button>
-                            </a>
-                        </div>
+                        @if($rt->referenties->count() > 0)
+                            <referenties
+                                :referenties-fixed="{{ json_encode($rt->referenties) }}"
+                                :filterable="false"
+                                :max="3"
+                            />
+                            <div class="flex items-center justify-center my-12">
+                                <a href="{{ route('actiewijzer.referentie_type', strtolower($rt->title)) . '?' . http_build_query(['themes' => array_column($themes->toArray(), 'id')])}}">
+                                    <button class="secondary flex items-center hover:translate-x-[0.250rem]">
+                                        <p class="text-lg">Bekijk alles van {{ $rt->title }}</p> 
+                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 ml-1" style="transform: rotate(180deg);">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                                        </svg>
+                                    </button>
+                                </a>
+                            </div>
+                        @else
+                            <div class="flex flex-col justify-center items-center py-12 text-gray-400">
+                                <h3>{{__('general.no_results')}}</h3>
+                                <div class="flex flex-col items-center">
+                                    <p>{{ __('actiewijzer.no_results_suggestion_retry_or_later') }}</p>
+                                </div>
+                            </div>
+                        @endif
                     @endif
                 </div>
             @endforeach

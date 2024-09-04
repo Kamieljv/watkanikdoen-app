@@ -36,7 +36,7 @@ return [
     'position_and_resize_photo' => 'Pas de grootte en positie van je foto aan',
     'send_form' => 'Verzenden',
     'no_results' => 'Geen resultaten',
-    'no_results_suggestion' => 'Heb je misschien te veel filters ingesteld?',
+    'no_results_suggestion_too_many_filters' => 'Heb je misschien te veel filters ingesteld?',
     'clear_filters' => 'Filter(s) wissen',
     '404_header' => 'Oeps! Pagina niet gevonden...',
     '500_header' => 'Oeps! Er is iets misgegaan...',
