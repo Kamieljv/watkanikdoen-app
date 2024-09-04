@@ -129,7 +129,7 @@ class ActieWijzerController extends Controller
         $referentie_types = ReferentieType::published()->with(['referenties' => function (Builder $query) use ($themes) {
             $query->whereHas('themes', function (Builder $query) use ($themes) {
                 $query->whereIn('theme_id', $themes->pluck('id')->toArray());
-            });
+            })->with('referentie_types');
             $query->inRandomOrder()->limit(3);
         }])->get();
 
@@ -143,7 +143,7 @@ class ActieWijzerController extends Controller
 
             // if we get 0 referenties, get 3 referenties without filtering by theme
             if ($rt->referenties->count() == 0) {
-                $rt->referenties = ReferentieType::find($rt->id)->referenties()->inRandomOrder()->limit(3)->get();
+                $rt->referenties = ReferentieType::find($rt->id)->referenties()->with('referentie_types')->inRandomOrder()->limit(3)->get();
             }
         }
         $referentie_types = $referentie_types->sortByDesc('match_perc');

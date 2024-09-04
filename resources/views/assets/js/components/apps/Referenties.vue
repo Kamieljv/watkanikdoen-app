@@ -60,7 +60,7 @@
 						<div v-else-if="isGeladen" class="flex flex-col justify-center items-center py-8 text-gray-400">
 							<h3>{{__('general.no_results')}}</h3>
 							<div v-if="filterCount" class="flex flex-col items-center">
-								<p>{{ __('general.no_results_suggestion') }}</p>
+								<p>{{ __('general.no_results_suggestion_too_many_filters') }}</p>
 								<button v-on:click="resetFilters" class="gray uppercase mt-2">
 									{{ __('general.clear_filters') }}
 								</button>
@@ -145,17 +145,21 @@ export default {
 	props: {
 		referentieTypeId: {
 			type: Number,
-			required: true,
+			default: null,
 		},
 		routes: {
 			type: Object,
-			required: true,
+			default: () => {},
 		},
 		themes: {
 			type: Array,
 			default: () => [],
 		},
 		themesSelectedIds: {
+			type: Array,
+			default: () => [],
+		},
+		referentiesFixed: {
 			type: Array,
 			default: () => [],
 		},
@@ -213,15 +217,24 @@ export default {
 	},
 	watch: {
 		query: function() {
-			this.getReferenties()
+			if (this.referentiesFixed.length === 0) {
+				this.getReferenties()
+			}
 		},
 		themesSelected: function() {
-			this.getReferenties()
+			if (this.referentiesFixed.length === 0) {
+				this.getReferenties()
+			}
 		},
 	},
 	mounted() {
 		this.themesSelected = this.themes.filter(t => this.themesSelectedIds.includes(t.id)).map(t => t.id);
-		this.getReferenties();
+		if (this.referentiesFixed.length > 0) {
+			this.referenties = this.referentiesFixed
+			this.isGeladen = true
+		} else {
+			this.getReferenties()
+		}
 	},
 	methods: {
 		getReferenties: _.debounce(async function getReferenties() {

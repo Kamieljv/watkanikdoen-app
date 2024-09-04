@@ -114,7 +114,7 @@
 						<div v-else-if="isGeladen" class="flex flex-col justify-center items-center py-8 text-gray-400">
 							<h3>{{__('general.no_results')}}</h3>
 							<div v-if="filterCount" class="flex flex-col items-center">
-								<p>{{ __('general.no_results_suggestion') }}</p>
+								<p>{{ __('general.no_results_suggestion_too_many_filters') }}</p>
 								<button v-on:click="resetFilters" class="gray uppercase mt-2">
 									{{ __('general.clear_filters') }}
 								</button>
