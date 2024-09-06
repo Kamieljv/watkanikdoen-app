@@ -22,7 +22,7 @@
                             :organizers-selected="organizersSelected"
                             :routes="routes"
                             :show-themes="false"
-                            :show-pagination="false"
+                            :enable-show-more="false"
                             :max="5"
                             mode="select"
                         />

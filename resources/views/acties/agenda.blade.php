@@ -21,6 +21,8 @@
             :routes="{{ $routes }}"
             :themes="{{ $themes }}"
             :categories="{{ $categories }}"
+            :themes-selected-ids="{{ json_encode($themes_selected_ids) }}"
+            :categories-selected-ids="{{ json_encode($categories_selected_ids) }}"
         >
         </actie-agenda>
     </div>

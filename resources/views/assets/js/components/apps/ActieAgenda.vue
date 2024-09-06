@@ -82,7 +82,7 @@
                         <div
                             class="grid gap-5 mx-auto mt-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
 							:class="{'xl:grid-cols-2 lg:grid-cols-2': narrower}"
-                            v-if="!isGeladen"
+                            v-if="!isGeladen && !appending"
                         >
                             <t-card
                                 v-for="i in skeletonArray"
@@ -111,23 +111,26 @@
                                 :actie="actie"
                             />
                         </div>
-						<div v-else-if="isGeladen" class="flex justify-center items-center py-8">
-							<div class="text-gray-400">
-								<h3>{{__('general.no_results')}}</h3>
+						<div v-else-if="isGeladen" class="flex flex-col justify-center items-center py-8 text-gray-400">
+							<h3>{{__('general.no_results')}}</h3>
+							<div v-if="filterCount" class="flex flex-col items-center">
+								<p>{{ __('general.no_results_suggestion_too_many_filters') }}</p>
+								<button v-on:click="resetFilters" class="gray uppercase mt-2">
+									{{ __('general.clear_filters') }}
+								</button>
 							</div>
 						</div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Pagination -->
-        <pagination
-            :current="currentPage"
-            :total="total"
-            :per-page="perPage"
-            :baseLink="base_link"
-            @page-changed="getActies"
-        />
+		<!-- see more button -->
+		<div v-if="enableShowMore && heeftActies && total > perPage && currentPage !== lastPage && !appending" class="flex justify-center">
+			<button @click="currentPage++; appending=true; getActies()" class="btn secondary">{{__('general.load_more')}}</button>
+		</div>
+		<div v-else-if="appending" class="flex justify-center">
+			<div class="custom-loader dark large"></div>
+		</div>
     </div>
 </template>
 
@@ -147,7 +150,15 @@ export default {
 			type: Array,
 			default: () => [],
 		},
+		themesSelectedIds: {
+			type: Array,
+			default: () => [],
+		},
 		categories: {
+			type: Array,
+			default: () => [],
+		},
+		categoriesSelectedIds: {
 			type: Array,
 			default: () => [],
 		},
@@ -171,6 +182,10 @@ export default {
 			type: Array,
 			default: () => [],
 		},
+		enableShowMore: {
+			type: Boolean,
+			default: true,
+		},
 		skeletons: {
 			type: Number,
 			default: 10,
@@ -192,11 +207,12 @@ export default {
 			geoSuggestions: [],
 			showPast: false,
 			isGeladen: false,
+			appending: false,
 			heeftFout: false,
 			currentPage: null,
+			lastPage: null,
 			perPage: null,
 			total: null,
-			base_link: null,
 		}
 	},
 	computed: {
@@ -253,33 +269,40 @@ export default {
 		}
 	},
 	mounted() {
+		this.themesSelected = this.themes.filter(t => this.themesSelectedIds.includes(t.id)).map(t => t.id);
+		this.categoriesSelected = this.categories.filter(c => this.categoriesSelectedIds.includes(c.id)).map(c => c.id);
 		this.getActies()
 	},
 	methods: {
-		getActies: _.debounce(async function getActies(page = 1) {
+		getActies: _.debounce(async function getActies() {
 			this.isGeladen = false
 			this.heeftFout = false
 			axios.get(this.routes["acties.search"].uri, {
 				params: {
 					q: this.query,
-					themes: this.themesSelected ?? this.themeIds,
+					themes: this.themesSelected.length > 0 ? this.themesSelected : this.themeIds,
 					categories: this.categoriesSelected,
 					coordinates: this.coordinates,
 					distance: this.distance,
 					show_past: this.showPast,
-					page: page,
+					page: this.currentPage,
 					organizer: this.organizerId,
 				}
 			}).then((response) => {
-				this.acties = this.processActiesArray(response.data.acties.data)
+				if (this.appending) {
+					this.acties = this.acties.concat(this.processActiesArray(response.data.acties.data))
+				} else {
+					this.acties = this.processActiesArray(response.data.acties.data)
+				}
 				this.currentPage = response.data.acties.current_page
+				this.lastPage = response.data.acties.last_page
 				this.perPage = response.data.acties.per_page
 				this.total = response.data.acties.total
-				this.base_link = response.data.acties.first_page_url
 			}).catch((error) => {
 				this.heeftFout = true
 			}).finally(() => {
 				this.isGeladen = true
+				this.appending = false
 			})
 		}, 500),
 		processActiesArray: function(acties) {
