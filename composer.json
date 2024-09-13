@@ -28,6 +28,7 @@
         "mcordingley/linearalgebra": "^3.0",
         "orangehill/iseed": "^3.0",
         "staudenmeir/eloquent-eager-limit": "^1.8",
+        "stevebauman/purify": "^6.2",
         "tcg/voyager": "^1.7",
         "tymon/jwt-auth": "^2.1"
     },

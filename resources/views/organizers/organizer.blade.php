@@ -53,7 +53,7 @@
         </div>
         <div class="mt-5 mb-10 min-h-20 html-output">
             @if ($organizer->description !== NULL)
-                {!! filterScripts($organizer->description) !!}
+                {!! Purify::clean($organizer->description) !!}
             @endif
         </div>
         <div id="app" class="mb-40">
