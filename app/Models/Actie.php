@@ -50,6 +50,7 @@ class Actie extends Model
      */
     protected $appends = [
         'link',
+        'afgelopen',
         'start_end',
         'start_unix',
         '_geoloc',
