@@ -3,7 +3,7 @@
         class="flex flex-col overflow-hidden rounded-lg shadow-lg actie relative transition-all ease-out hover:translate-y-[-0.250rem] hover:shadow-[0_0_20px_rgba(0,0,0,0.30)]"
         typeof="Article"
     >
-        <a :href="actie.link" class="h-full not-prose" :class="{'opacity-70 grayscale': isAfgelopen}" :title="isAfgelopen ? 'Deze actie is afgelopen' : actie.title ">
+        <a :href="actie.link" class="h-full not-prose" :class="{'opacity-70 grayscale': actie.afgelopen}" :title="actie.afgelopen ? 'Deze actie is afgelopen' : actie.title ">
             <meta property="name" :content="actie.title">
             <meta property="author" typeof="Person" content="admin">
             <meta property="dateModified" :content="new Date(actie.updated_at).toISOString()">
@@ -127,11 +127,6 @@ export default {
 		actie: {
 			type: Object,
 			required: true,
-		}
-	},
-	computed: {
-		isAfgelopen() {
-			return new Date(this.actie.end_date + " " + this.actie.end_time) < new Date()
 		}
 	}
 }
