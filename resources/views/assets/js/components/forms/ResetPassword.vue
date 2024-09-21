@@ -14,7 +14,7 @@
 
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div class="px-4 py-8 bg-white border shadow border-gray-50 sm:rounded-lg sm:px-10">
-                <ValidationObserver
+                <Form
                     ref="validator"
                 >
                     <form :action="routes.password_change" method="POST">
@@ -66,7 +66,7 @@
                         </div>
 
                     </form>
-                </ValidationObserver>
+                </Form>
             </div>
         </div>
     </div>
@@ -74,14 +74,10 @@
 
 <script>
 
-import { ValidationProvider } from 'vee-validate';
 import { caseHelper } from '../../mixins/caseHelper';
 
 export default {
 	name: "ResetPassword",
-    components: {
-        ValidationProvider,
-    },
     mixins: [
         caseHelper,
     ],

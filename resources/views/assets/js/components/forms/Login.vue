@@ -76,14 +76,10 @@
 
 <script>
 
-import { ValidationProvider } from 'vee-validate';
 import { caseHelper } from '../../mixins/caseHelper';
 
 export default {
 	name: "Login",
-    components: {
-        ValidationProvider,
-    },
     mixins: [
         caseHelper,
     ],

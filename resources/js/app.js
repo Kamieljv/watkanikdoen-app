@@ -5,16 +5,11 @@
 window.axios = require("axios")
 Vue.prototype.$http = window.axios
 
-// Explicitly load FormField components
-import VueTailwind from "vue-tailwind"
-import VueTailwindSettings from "../views/VueTailwindSettings.js"
-Vue.use(VueTailwind, VueTailwindSettings)
-
 // Load Leaflet
-import { LMap, LTileLayer, LMarker, LTooltip } from "vue2-leaflet"
+import { LMap, LTileLayer, LMarker, LTooltip } from "@vue-leaflet/vue-leaflet"
 import "leaflet/dist/leaflet.css"
 Vue.component("l-map", LMap)
-Vue.component("l-tile-layer", LTileLayer)
+// Vue.component("l-tile-layer", LTileLayer)
 Vue.component("l-marker", LMarker)
 Vue.component("l-tooltip", LTooltip)
 

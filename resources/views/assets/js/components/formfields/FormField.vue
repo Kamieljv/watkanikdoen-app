@@ -59,13 +59,9 @@
 
 <script>
   import {uuid} from '../../mixins/uuid';
-  import ValidatedFormField from './ValidatedFormField';
 
   export default {
     name: 'FormField',
-    components: {
-      ValidatedFormField,
-    },
     mixins: [
       uuid,
     ],

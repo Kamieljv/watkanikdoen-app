@@ -1,5 +1,5 @@
 <template>
-  <ValidationProvider
+  <Field
     v-slot="v"
     ref="provider"
     :mode="validationMode"
@@ -34,17 +34,12 @@
         {{ helperText }}
       </span>
     </div>
-  </ValidationProvider>
+  </Field>
 </template>
 
 <script>
-  import {ValidationProvider, configure as veeValidateConfigure} from 'vee-validate';
-
   export default {
     name: 'ValidatedFormField',
-    components: {
-      ValidationProvider,
-    },
     props: {
       label: {
         type: String,

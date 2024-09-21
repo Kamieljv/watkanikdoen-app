@@ -25,7 +25,7 @@
                         {{ currentErrors[error][0] }}
                     </p>
                 </div>
-                <ValidationObserver
+                <Form
                     ref="validator"
                 >
                     <form ref="register_form" role="form" method="POST" @submit.prevent="handleSubmit" :action="routes.register">
@@ -99,7 +99,7 @@
                             </span>
                         </div>
                     </form>
-                </ValidationObserver>
+                </Form>
             </div>
         </div>
     </div>
@@ -107,14 +107,10 @@
 
 <script>
 
-import { ValidationProvider } from 'vee-validate';
 import { caseHelper } from '../../mixins/caseHelper';
 
 export default {
 	name: "Register",
-    components: {
-        ValidationProvider,
-    },
     mixins: [
         caseHelper,
     ],

@@ -1,6 +1,6 @@
 <template>
 	<div class="p-6">
-		<ValidationObserver
+		<Form
 			ref="validator"
 		>
 			<div v-if="Object.keys(errors).length > 0" class="p-3 mb-3 text-sm rounded-md failure">
@@ -56,19 +56,14 @@
 					</div>
 				</div>
 			</form>
-		</ValidationObserver>
+		</Form>
 	</div>
 </template>
 
 <script>
 
-import { ValidationProvider } from 'vee-validate';
-
 export default {
 	name: "Profile",
-    components: {
-        ValidationProvider,
-    },
     props: {
         routes: {
             type: Object,

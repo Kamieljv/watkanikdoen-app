@@ -4,63 +4,63 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require("./bootstrap")
-require("./custom")
+import "./bootstrap"
+import "./custom"
+import { createApp } from "vue"
+import PrimeVue from "primevue/config"
+import Aura from '../presets/aura'
 
-window.Vue = require("vue").default
+const app = createApp()
+app.use(PrimeVue, {
+    unstyled: true,
+    pt: Aura
+})
 
 /** 
  * Load additional packages
  */
 // Lodash for language
 import _ from "lodash"
-Vue.prototype.__ = str => _.get(window.i18n, str)
+app.config.globalProperties.__ = str => _.get(window.i18n, str)
 
 // Add axios prototype to Vue
-Vue.prototype.$http = window.axios
-
-// VueTailwind for components
-import VueTailwind from "vue-tailwind"
-import VueTailwindSettings from "../../VueTailwindSettings.js"
-Vue.use(VueTailwind, VueTailwindSettings)
-
-// SVG Vue
-import SvgVue from "svg-vue"
-Vue.use(SvgVue)
+app.config.globalProperties.$http = window.axios
 
 // Moment
 import moment from "moment"
-Vue.prototype.moment = moment
+app.config.globalProperties.moment = moment
 
 // Vee-validate
-import {ValidationObserver} from 'vee-validate';
-Vue.component('ValidationObserver', ValidationObserver);
-require('./validations')
+import { Form, Field } from 'vee-validate'
+import { setLocale } from "@vee-validate/i18n"
+setLocale('nl')
+app.component('Form', Form)
+app.component('Field', Field)
+import './validations'
 
 // Image upload/edit
 import "exif-js"
 import VueCroppie from "vue-croppie"
 import "croppie/croppie.css" // import the croppie css manually
-Vue.use(VueCroppie)
+app.use(VueCroppie)
 
-import { LMap, LTileLayer, LMarker, LTooltip } from "vue2-leaflet"
+import { LMap, LTileLayer, LMarker, LTooltip } from "@vue-leaflet/vue-leaflet"
 import "leaflet/dist/leaflet.css"
-Vue.component("LMap", LMap)
-Vue.component("l-tile-layer", LTileLayer)
-Vue.component("l-marker", LMarker)
-Vue.component("l-tooltip", LTooltip)
+app.component("LMap", LMap)
+    .component("l-tile-layer", LTileLayer)
+    .component("l-tile-layer", LTileLayer)
+    .component("l-marker", LMarker)
+    .component("l-tooltip", LTooltip)
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+// Import and register Vue components that are used in blade files
+import HomeAgenda from "./components/apps/HomeAgenda.vue"
+import OrganizersFeatured from "./components/apps/OrganizersFeatured.vue"
+app.component("HomeAgenda", HomeAgenda)
+app.component("OrganizersFeatured", OrganizersFeatured)
 
-const files = require.context("./", true, /\.vue$/i)
-files.keys().map(key => Vue.component(key.split("/").pop().split(".")[0], files(key).default))
+  
+// Admin portal components
+import CoordinatesFormField from "../../../js/components/CoordinatesFormField.vue"
+app.component("CoordinatesFormField", CoordinatesFormField)
 
-// Also load CoordinatesFormField from Voyager section
-import CoordinatesFormField from "../../../js/components/CoordinatesFormField"
-Vue.component("CoordinatesFormField", CoordinatesFormField)
+app.mount("#app")
