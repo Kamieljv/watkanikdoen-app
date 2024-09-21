@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { Editor, EditorContent } from "@tiptap/vue-2"
+import { Editor, EditorContent } from "@tiptap/vue-3"
 import StarterKit from "@tiptap/starter-kit"
 import Underline from "@tiptap/extension-underline"
 import CharacterCount from '@tiptap/extension-character-count'

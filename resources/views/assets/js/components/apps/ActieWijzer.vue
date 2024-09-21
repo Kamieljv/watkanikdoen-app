@@ -21,7 +21,7 @@
                 v-model="activeIndex"
             >
             </step-progress>
-            <ValidationObserver>
+            <Form>
                 <Transition name="slide" mode="out-in" appear>
                     <div v-if="currentQuestion.subject == themeStepName">
                         <theme-question :question="currentQuestion" :themes="themes" :value="themesSelected" :key="activeIndex" @input="handleThemeInput" class="p-8 bg-white rounded-md shadow-md min-h-[400px]">
@@ -54,7 +54,7 @@
                     </div>
                     
                 </div>
-            </ValidationObserver>
+            </Form>
         </div>
     </div>
 </template>

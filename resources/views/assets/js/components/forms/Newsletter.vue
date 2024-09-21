@@ -16,7 +16,7 @@
                         {{ currentErrors[error][0] }}
                     </p>
                 </div>
-                <ValidationObserver
+                <Form
                     ref="validator"
                 >
                     <form ref="newsletter_form" @submit.prevent="handleSubmit"  method="POST">
@@ -66,7 +66,7 @@
                             </span>
                         </div>
                     </form>
-                </ValidationObserver>
+                </Form>
             </div>
             <div v-else class="px-4 py-8 bg-white sm:px-10 border shadow border-gray-50 sm:rounded-lg">
                 <div class="p-3 text-sm rounded-md success">
@@ -79,14 +79,10 @@
 
 <script>
 
-import { ValidationProvider } from 'vee-validate';
 import { caseHelper } from '../../mixins/caseHelper';
 
 export default {
 	name: "Newsletter",
-    components: {
-        ValidationProvider,
-    },
     mixins: [
         caseHelper,
     ],

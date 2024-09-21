@@ -1,5 +1,5 @@
 <template>
-    <ValidationObserver ref="organizerValidator">
+    <Form ref="organizerValidator">
         <p class="text-body leading-5 text-gray-500 mt">
             Wie is de organisator van je actie? Kies één of meerdere organisatoren uit de lijst. 
             Kun je de juiste organisator niet vinden? Dan kun je deze zelf toevoegen met het formulier.
@@ -108,21 +108,15 @@
                 </div>
             </div>
         </div>
-    </ValidationObserver>
+    </Form>
 </template>
 
 <script>
 
-import { ValidationObserver } from 'vee-validate';
-import { ValidationProvider } from 'vee-validate';
 import { caseHelper } from '../../mixins/caseHelper';
 
 export default {
-	name: "Actie",
-    components: {
-        ValidationProvider,
-        ValidationObserver,
-    },
+	name: "OrganizerForm",
     mixins: [
         caseHelper,
     ],

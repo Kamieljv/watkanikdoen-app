@@ -1,7 +1,8 @@
 module.exports = {
 	mode: "jit",
 	content: require('fast-glob').sync([
-        './**/*.{blade.php,md,html,vue}'
+        './**/*.{blade.php,md,html,vue}',
+		"./assets/presets/**/*.{js,vue,ts}",
 	],{ dot: true }),
 	theme: {
 		//
@@ -41,5 +42,6 @@ module.exports = {
 		"space-x-2",
 		"col-span-3",
 		"overflow-scroll"
-	]
+	],
+    plugins: [require('tailwindcss-primeui')]
 }

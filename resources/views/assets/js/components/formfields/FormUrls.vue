@@ -24,25 +24,21 @@
             </div>
             <ValidatedFormField
                 id="urls"
-                v-model="urls"
+                v-bind="urls"
                 name="urls"
                 type="hidden"
                 :rules="{ required: true }"
             >
-                <input v-model="urls" type="hidden" name="urls" />
+                <input v-bind="urls" type="hidden" name="urls" />
             </ValidatedFormField>
         </div>
     </div>
 </template>
 
 <script>
-import ValidatedFormField from './ValidatedFormField';
 import { validate } from 'vee-validate';
 
 export default {
-    components: {
-        ValidatedFormField
-    },
     props: {
         urls: {
             type: Array,

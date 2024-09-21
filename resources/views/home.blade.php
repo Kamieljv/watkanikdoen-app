@@ -22,7 +22,7 @@
 			<home-agenda
 				:routes="{{ $routes }}"
 			>
-        	</home-agenda>
+			</home-agenda>
 		</div>
 		{{-- ActieWijzer --}}
 		{{-- <div id="actiewijzer-section" class="row py-20 px-3 text-white">
@@ -165,10 +165,6 @@
 </style>
 @push('scripts')
     <script type="application/javascript">
-        var app = new Vue({
-            el: '#app',
-        });
-
         function animateValue(obj, start, end, duration) {
 			let startTimestamp = null;
 			const step = (timestamp) => {

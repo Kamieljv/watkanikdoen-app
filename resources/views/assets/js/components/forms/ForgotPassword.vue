@@ -50,14 +50,10 @@
 
 <script>
 
-import { ValidationProvider } from 'vee-validate';
 import { caseHelper } from '../../mixins/caseHelper';
 
 export default {
 	name: "ForgotPassword",
-    components: {
-        ValidationProvider,
-    },
     mixins: [
         caseHelper,
     ],

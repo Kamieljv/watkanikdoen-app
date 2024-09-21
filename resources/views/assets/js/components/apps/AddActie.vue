@@ -7,67 +7,69 @@
                 v-model="activeIndex"
             >
             </step-progress>
-            <ValidationObserver>
+            <Form>
                 <transition name="slide" mode="out-in" appear>
-                    <div v-if="activeStep.key === 'start'" class="p-8 bg-white rounded-md shadow-md min-h-[400px]" :key="0">
-                        <h2>Een actie toevoegen</h2>
-                        <p>Super dat je een actie wilt toevoegen! Op deze manier werk je met ons mee om de
-                            website volledig te maken.
-                            Om een actie toe te voegen vragen we je om in te loggen of een account aan te maken.
-                            Dit is nodig om je op de hoogte te houden van de status van de aangemelde actie.
-                            <br/><br/>
-                            We plaatsen alleen acties die voldoen aan onze voorwaarden. Bekijk hiervoor de pagina <a href="/welke-acties-plaatsen-we">Welke acties plaatsen we?</a>.
-                            <br/><br/>
-                            Heb je vragen? Neem een kijkje op de <a href="/hoe-werkt-het">Hoe werkt het?</a>-pagina of neem <a href="/contact">contact</a> met ons op.
-                            <br/><br/>
-                            Klik op 'Volgende' om door te gaan.
-                        </p>
-                    </div>
-                    <div v-else-if="activeStep.key === 'organizer'" class="p-8 bg-white rounded-md shadow-md min-h-[400px]" :key="1">
-                        <h2>Kies organisator(en)</h2>
-                        <organizer-form
-                            v-model="selectedOrganizers"
-                            :selected-organizers="selectedOrganizers"
-                            :routes="routes"
-                        />
-                    </div>
-                    <div v-else-if="activeStep.key === 'actie'" class="p-8 bg-white rounded-md shadow-md min-h-[400px]" :key="2">
-                        <h2>Actiedetails beschrijven</h2>
-                        <Actie-Form
-                            ref="actieForm"
-                            v-model="report"
-                            :report="report"
-                            :default-center="('location' in report) ? [report.location] : defaultCenter"
-                            :zoom="zoom"
-                        ></Actie-Form>
-                    </div>
-                    <div v-else-if="activeStep.key === 'user' && currentUser !== {}" class="p-8 bg-white rounded-md shadow-md min-h-[400px]" :key="3">
-                        <h2>Wie ben jij?</h2>
-                        <LoginOrRegister
-                            :routes="routes"
-                            :min-password-length="minPasswordLength"
-                            :async="true"
-                            :h-captcha-key="hCaptchaKey"
-                            :user="currentUser"
-                            @done="authDone"
-                        />
-                    </div>
-                    <div v-if="activeStep.key === 'confirm'" class="flex flex-col justify-between p-8 bg-white rounded-md shadow-md min-h-[400px]" :key="4">
-                        <div>
-                            <h2>Bevestig en verzend je actie</h2>
-                            <p>Ben je helemaal klaar? Klik dan op 'Verzenden'.
+                    <div>
+                        <div v-if="activeStep.key === 'start'" class="p-8 bg-white rounded-md shadow-md min-h-[400px]" :key="0">
+                            <h2>Een actie toevoegen</h2>
+                            <p>Super dat je een actie wilt toevoegen! Op deze manier werk je met ons mee om de
+                                website volledig te maken.
+                                Om een actie toe te voegen vragen we je om in te loggen of een account aan te maken.
+                                Dit is nodig om je op de hoogte te houden van de status van de aangemelde actie.
                                 <br/><br/>
-                                We gaan zo snel mogelijk aan de slag om je inzending te toetsen aan onze <a href="/welke-acties-plaatsen-we">voorwaarden voor plaatsing</a></p>
+                                We plaatsen alleen acties die voldoen aan onze voorwaarden. Bekijk hiervoor de pagina <a href="/welke-acties-plaatsen-we">Welke acties plaatsen we?</a>.
+                                <br/><br/>
+                                Heb je vragen? Neem een kijkje op de <a href="/hoe-werkt-het">Hoe werkt het?</a>-pagina of neem <a href="/contact">contact</a> met ons op.
+                                <br/><br/>
+                                Klik op 'Volgende' om door te gaan.
+                            </p>
                         </div>
-                        <div>
-                            <p class="text-sm leading-5 text-gray-500">Bij het verzenden van dit formulier ga je akkoord met onze <a href="/algemene-voorwaarden-en-privacyverklaring">Voorwaarden en Privacyverklaring</a>.</p>
-                            <div v-if="currentErrors && Object.keys(currentErrors).length > 0" class="mt-2 p-3 text-sm rounded-md failure">
-                                <p
-                                    v-for="error in Object.keys(currentErrors)"
-                                    :key="error"
-                                >
-                                    {{ currentErrors[error][0] }}
-                                </p>
+                        <div v-else-if="activeStep.key === 'organizer'" class="p-8 bg-white rounded-md shadow-md min-h-[400px]" :key="1">
+                            <h2>Kies organisator(en)</h2>
+                            <organizer-form
+                                v-model="selectedOrganizers"
+                                :selected-organizers="selectedOrganizers"
+                                :routes="routes"
+                            />
+                        </div>
+                        <div v-else-if="activeStep.key === 'actie'" class="p-8 bg-white rounded-md shadow-md min-h-[400px]" :key="2">
+                            <h2>Actiedetails beschrijven</h2>
+                            <Actie-Form
+                                ref="actieForm"
+                                v-model="report"
+                                :report="report"
+                                :default-center="('location' in report) ? [report.location] : defaultCenter"
+                                :zoom="zoom"
+                            ></Actie-Form>
+                        </div>
+                        <div v-else-if="activeStep.key === 'user' && currentUser !== {}" class="p-8 bg-white rounded-md shadow-md min-h-[400px]" :key="3">
+                            <h2>Wie ben jij?</h2>
+                            <LoginOrRegister
+                                :routes="routes"
+                                :min-password-length="minPasswordLength"
+                                :async="true"
+                                :h-captcha-key="hCaptchaKey"
+                                :user="currentUser"
+                                @done="authDone"
+                            />
+                        </div>
+                        <div v-if="activeStep.key === 'confirm'" class="flex flex-col justify-between p-8 bg-white rounded-md shadow-md min-h-[400px]" :key="4">
+                            <div>
+                                <h2>Bevestig en verzend je actie</h2>
+                                <p>Ben je helemaal klaar? Klik dan op 'Verzenden'.
+                                    <br/><br/>
+                                    We gaan zo snel mogelijk aan de slag om je inzending te toetsen aan onze <a href="/welke-acties-plaatsen-we">voorwaarden voor plaatsing</a></p>
+                            </div>
+                            <div>
+                                <p class="text-sm leading-5 text-gray-500">Bij het verzenden van dit formulier ga je akkoord met onze <a href="/algemene-voorwaarden-en-privacyverklaring">Voorwaarden en Privacyverklaring</a>.</p>
+                                <div v-if="currentErrors && Object.keys(currentErrors).length > 0" class="mt-2 p-3 text-sm rounded-md failure">
+                                    <p
+                                        v-for="error in Object.keys(currentErrors)"
+                                        :key="error"
+                                    >
+                                        {{ currentErrors[error][0] }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -85,7 +87,7 @@
                         <div v-else class="custom-loader"></div>
                     </button>
                 </div>
-            </ValidationObserver>
+            </Form>
         </div>
         <div v-else>
             <div class="flex justify-center items-center max-w-6xl mx-auto my-6 bg-white rounded-md shadow-md min-h-[400px]">

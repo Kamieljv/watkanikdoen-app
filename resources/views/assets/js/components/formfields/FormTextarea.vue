@@ -53,13 +53,9 @@
 
 <script>
   import {uuid} from '../../mixins/uuid';
-  import ValidatedFormField from './ValidatedFormField';
 
   export default {
     name: 'FormTextarea',
-    components: {
-      ValidatedFormField,
-    },
     mixins: [
       uuid,
     ],

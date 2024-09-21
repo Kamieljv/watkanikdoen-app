@@ -8,22 +8,18 @@
 							<div
 								class="grid gap-5 mx-auto mt-12 md:grid-cols-2"
 							>
-								<t-card
+								<div
 									v-for="i in Array(2).keys()"
-									:key="i"
-									variant="skeleton"
-									class="rounded-lg shadow-md overflow-hidden"
+									class="rounded-lg shadow-md overflow-hidden animate-pulse"
 								>
-									<template v-slot:header>
-										<div class="h-6 w-20 inline-block bg-gray-100 rounded"/>
-									</template>
-									<div class="relative h-6 w-full mb-3 inline-block bg-gray-200 rounded"></div>
-									<div class="relative h-3 w-full inline-block bg-gray-200 rounded"></div>
-
-									<template v-slot:footer >
-										<div class="rounded-full bg-gray-200 h-10 w-10"></div>
-									</template>
-								</t-card>
+									<div class="h-48 row-span-1 bg-gray-200"></div>
+									<div class="flex flex-col col-span-2 p-3 justify-between flex-1 bg-white">
+										<div class="relative h-6 mb-3 w-full inline-block bg-gray-200 rounded"></div>
+										<div class="relative h-3 mb-1 w-full inline-block bg-gray-200 rounded"></div>
+										<div class="relative h-3 mb-1 w-full inline-block bg-gray-200 rounded"></div>
+										<div class="relative h-6 w-20 inline-block bg-gray-200 rounded mt-3"></div>
+									</div>
+								</div>
 							</div>
 							<div class="grid gap-5 mb-12 mx-auto mt-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
 								<div
@@ -79,55 +75,50 @@
     </div>
 </template>
 
-<script>
-export default {
-	name: "HomeAgenda",
-	props: {
-		routes: {
-			type: Object,
-			required: true,
-		},
-	},
-	data() {
-		return {
-			acties: [],
-			isGeladen: false,
-			heeftFout: false,
-		}
-	},
-	computed: {
-		heeftActies() {
-			return (this.acties.length > 0)
-		},
-		actiesFormatted() {
-			this.acties.forEach((actie) => {
-				actie.body = actie.body.replace(/(<([^>]+)>)/gi, "")
-				return actie
-			})
-			return this.acties
-		}
-	},
-	mounted() {
-		this.getActies()
-	},
-	methods: {
-		getActies: _.debounce(async function getActies(page = 1) {
-			this.isGeladen = false
-			this.heeftFout = false
-			axios.get(this.routes["acties.search"].uri, {
-				params: {
-					show_past: false,
-					limit: 5
-				}
-			}).then((response) => {
-				this.acties = response.data.acties
-			}).catch((error) => {
-				this.heeftFout = true
-			}).finally(() => {
-				this.isGeladen = true
-			})
-		}, 500)
-	}
-}
+<script setup>
+	import { ref, computed, onMounted, defineProps } from 'vue'
+
+	const props = defineProps({
+      routes: {
+        type: Object,
+        required: true
+      }
+    });
+
+    const acties = ref([]);
+    const isGeladen = ref(false);
+    const heeftFout = ref(false);
+	const heeftActies = ref(false);
+
+    const getActies = _.debounce(async function getActies(page = 1) {
+      isGeladen.value = false;
+      heeftFout.value = false;
+      try {
+        const response = await axios.get(props.routes["acties.search"].uri, {
+          params: {
+            show_past: false,
+            limit: 5
+          }
+        });
+        acties.value = response.data.acties;
+      } catch (error) {
+        heeftFout.value = true;
+        console.error(error);
+      } finally {
+        isGeladen.value = true;
+		if (acties.value.length > 0) heeftActies.value = true;
+      }
+    }, 300);
+
+    const actiesFormatted = computed(() => {
+      return acties.value.map(actie => {
+        actie.body = actie.body.replace(/(<([^>]+)>)/gi, "");
+        return actie;
+      });
+    });
+
+    onMounted(() => {
+      getActies();
+    });
 </script>
 

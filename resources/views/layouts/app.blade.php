@@ -31,6 +31,8 @@
     @endif
     {{-- hCaptcha --}}
     <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+
+    @vite(['resources/views/assets/js/app.js', 'resources/views/assets/sass/app.scss'])
 </head>
 <body class="flex flex-col min-h-screen @if(Request::is('/')){{ 'bg-white' }}@else{{ 'bg-gray-50' }}@endif">
 
@@ -57,7 +59,6 @@
     <!-- End Full Loader -->
 
     <!-- Scripts -->
-    <script src="{{ asset('frontend/js/app.js') }}"></script>
     @stack('scripts')
 
     <!-- Cookie notice -->
