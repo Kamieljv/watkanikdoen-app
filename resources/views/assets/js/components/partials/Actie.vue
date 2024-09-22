@@ -82,7 +82,7 @@
                             class="relative self-start inline-block bg-[color:#8a8a8a7d] px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
                         >
                             <span class="flex items-center text-white" rel="theme">
-                                <svg-vue icon="location" style="fill: currentColor; width: 14px; height: 14px;"></svg-vue>
+                                <LocationIcon style="fill: currentColor; width: 14px; height: 14px;" />
                                 &nbsp; {{ actie.distance + ' km' }}<br/>
                             </span>
                         </div>
@@ -123,6 +123,7 @@
 <script setup lang="ts">
     import { defineProps } from 'vue'
     import LogoIcon from '&/logo-icon.svg'
+    import LocationIcon from '&/location.svg'
 
     const props = defineProps({
         actie: {

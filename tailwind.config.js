@@ -1,9 +1,9 @@
 module.exports = {
 	mode: "jit",
-	content: require('fast-glob').sync([
-        './**/*.{blade.php,md,html,vue}',
-		"./assets/presets/**/*.{js,vue,ts}",
-	],{ dot: true }),
+	content: [
+        "./resources/**/*.{blade.php,md,html,vue}",
+		"./resources/views/assets/presets/**/*.{js,vue,ts}",
+	],
 	theme: {
 		//
 	},
@@ -13,7 +13,6 @@ module.exports = {
 	plugins: [
 		require("@tailwindcss/forms"),
 		require("@tailwindcss/typography"),
-		require("@tailwindcss/line-clamp"),
 	],
 	safelist: [
 		"-mx-2",
