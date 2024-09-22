@@ -16,19 +16,9 @@ app.use(PrimeVue, {
     pt: Aura
 })
 
-/** 
- * Load additional packages
- */
 // Lodash for language
 import _ from "lodash"
-app.config.globalProperties.__ = str => _.get(window.i18n, str)
-
-// Add axios prototype to Vue
-app.config.globalProperties.$http = window.axios
-
-// Moment
-import moment from "moment"
-app.config.globalProperties.moment = moment
+app.provide('__', str => _.get(window.i18n, str)); 
 
 // Vee-validate
 import { Form, Field } from 'vee-validate'
@@ -54,8 +44,10 @@ app.component("LMap", LMap)
 
 // Import and register Vue components that are used in blade files
 import HomeAgenda from "./components/apps/HomeAgenda.vue"
+import Organizers from "./components/apps/Organizers.vue"
 import OrganizersFeatured from "./components/apps/OrganizersFeatured.vue"
 app.component("HomeAgenda", HomeAgenda)
+app.component("Organizers", Organizers)
 app.component("OrganizersFeatured", OrganizersFeatured)
 
   
