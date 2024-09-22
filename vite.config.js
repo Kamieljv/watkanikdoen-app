@@ -5,6 +5,7 @@ import laravel from 'laravel-vite-plugin';
 import Components from 'unplugin-vue-components/vite';
 import { PrimeVueResolver } from '@primevue/auto-import-resolver';
 import svgLoader from 'vite-svg-loader'
+import tailwindcss from 'tailwindcss'
 
 export default defineConfig({
     plugins: [
@@ -17,6 +18,7 @@ export default defineConfig({
         }),
         vue(),
         svgLoader(),
+        tailwindcss(),
         Components({
             globs: ['resources/views/assets/js/components/**/*.vue'],
             resolvers: [
@@ -29,6 +31,7 @@ export default defineConfig({
         alias: {
             '@': resolve(__dirname, 'resources/js'),
             '&': resolve(__dirname, 'resources/svg'),
+            '~fonts': resolve(__dirname, 'public/fonts'),
             vue: 'vue/dist/vue.esm-bundler.js',
         },
     },
