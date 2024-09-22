@@ -6,7 +6,6 @@
                 <div id="filter-wrapper" class="col grid gap-3" :class="{'grid-cols-2': themes.length > 0}">
 					<FormField
 						v-model="query"
-						:value="query"
 						name="query"
 						type="text"
 						placeholder="Zoeken..."
@@ -15,18 +14,14 @@
 						autofocus
 						classes="block w-full h-full px-3 py-2 transition duration-100 ease-in-out border rounded shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed text-black placeholder-gray-400 bg-white border-gray-300 focus:border-blue-500"
 					/>
-                    <t-rich-select
+					<MultiSelect
 						v-if="themes.length > 0"
-                        id="theme-selector"
-                        :options="themes"
-                        textAttribute="name"
-                        v-model="themesSelected"
-                        :multiple="true"
-                        :closeOnSelect="false"
-                        placeholder="Thema..."
-						searchBoxPlaceholder="Zoeken..."
-						:minimumResultsForSearch="5"
-						noResultsText="Geen resultaten"
+						id="theme-selector"
+						v-model="themesSelected"
+						:options="themes"
+						optionLabel="name"
+						placeholder="Thema..."
+						filterPlaceholder="Zoeken..."
 					/>
                 </div>
             </div>
@@ -81,12 +76,15 @@
     </div>
 </template>
 
-<script>
-import Pagination from "../partials/Pagination.vue"
-export default {
-	name: "Organizers",
-	components: {Pagination},
-	props: {
+<script setup lang="ts">
+	import { ref, computed, watch, onMounted } from 'vue'
+	import axios from 'axios'
+	import debounce from 'lodash/debounce'
+	const emit = defineEmits(['update:modelValue'])
+	const __ = str => _.get(window.i18n, str)
+
+
+	const props = defineProps({
 		routes: {
 			type: Object,
 			required: true,
@@ -115,121 +113,112 @@ export default {
 			type: Array,
 			default: () => [],
 		}
-	},
-	data() {
-		return {
-			organizers: [],
-			themesSelected: "",
-			organizersSel: this.organizersSelected,
-			query: "",
-			isGeladen: false,
-			appending: false,
-			heeftFout: false,
-			currentPage: null,
-			lastPage: null,
-			perPage: null,
-			total: null,
-		}
-	},
-	computed: {
-		skeletonArray() {
-			return [...Array(10).keys()]
-		},
-		heeftOrganizers() {
-			return (this.organizers.length > 0)
-		},
-		organizersFormatted() {
-			this.organizers.forEach((organizer) => {
-				organizer.description = organizer.description ? organizer.description.replace(/(<([^>]+)>)/gi, "") : null
-				organizer.selected = this.isSelected(organizer)
-				return organizer
-			})
-			return this.organizers
-		},
-		organizerBaseRoute() {
-			return this.routes["organizers.organizer"].uri.split("{")[0]
-		},
-		filterCount() {
-			var filters = [this.query, this.themesSelected]
-			return filters.filter(f => (!!f && !(f.length === 0))).length
-		},
-	},
-	watch: {
-		query: function() {
-			this.getOrganizers()
-		},
-		themesSelected: function() {
-			this.getOrganizers()
-		},
-		organizersSelected: function() {
-			this.organizersSel = this.organizersSelected
-		}
-	},
-	mounted() {
-		this.getOrganizers()
-	},
-	methods: {
-		getOrganizers: _.debounce(async function getOrganizers() {
-			this.isGeladen = false
-			this.heeftFout = false
-			axios.get(this.routes["organizers.search"].uri, {
-				params: {
-					q: this.query,
-					themes: this.themesSelected,
-					page: this.currentPage,
-					organizer: this.organizerId,
-					limit: this.max ?? null
-				}
-			}).then((response) => {
-				if ('per_page' in response.data.organizers) {
-					if (this.appending) {
-						this.organizers = this.organizers.concat(response.data.organizers.data)
-					} else {
-						this.organizers = response.data.organizers.data
-					}
-					this.currentPage = response.data.organizers.current_page
-					this.lastPage = response.data.organizers.last_page
-					this.perPage = response.data.organizers.per_page
-					this.total = response.data.organizers.total
-				} else {
-					this.organizers = response.data.organizers
-				}
-			}).catch((error) => {
-				this.heeftFout = true
-			}).finally(() => {
-				this.isGeladen = true
-				this.appending = false
-			})
-		}, 500),
-		processQuery: _.debounce(function(input) {
-			this.query = input
-		}, 500),
-		updateOrganizersSelected: function(value, organizer) {
-			if (value === true) {
-				this.organizersSel.push(organizer)
-			} else {
-				this.organizersSel = this.organizersSel.filter((v) => {
-					if (!('id' in organizer)) {
-						return true
-					}
-					return v.id !== organizer.id
-				})
+	})
+	
+	const query = ref("")
+	const organizers = ref([])
+	const themesSelected = ref([])
+	const organizersSel = ref(props.organizersSelected)
+	const isGeladen = ref(false)
+	const appending = ref(false)
+	const currentPage = ref(null)
+	const lastPage = ref(null)
+	const perPage = ref(null)
+	const total = ref(null)
+	const skeletonArray = ref([...Array(10).keys()])
+
+	const heeftOrganizers = computed(() => {
+		return (organizers.value.length > 0)
+	})
+
+	const organizersFormatted = computed(() => {
+		organizers.value.forEach((organizer) => {
+			organizer.description = organizer.description ? organizer.description.replace(/(<([^>]+)>)/gi, "") : null
+			organizer.selected = isSelected(organizer)
+			return organizer
+		})
+		return organizers.value
+	})
+	const organizerBaseRoute = computed(() => {
+		return props.routes["organizers.organizer"].uri.split("{")[0]
+	})
+
+	const filterCount = computed(() => {
+		var filters = [query.value, themesSelected.value]
+		return filters.filter(f => (!!f && !(f.length === 0))).length
+	})
+
+	watch(query, () => {
+		getOrganizers()
+	})
+
+	watch(themesSelected, () => {
+		getOrganizers()
+	})
+
+	watch(() => props.organizersSelected, () => {
+		getOrganizers()
+	})
+
+	onMounted(() => {
+		getOrganizers()
+	})
+	
+	const getOrganizers = debounce(() => {
+		isGeladen.value = false
+		axios.get(props.routes["organizers.search"].uri, {
+			params: {
+				q: query.value,
+				themes: themesSelected.value.map((theme) => theme.id),
+				page: currentPage.value,
+				limit: props.max ?? null
 			}
-			this.$emit('input', this.organizersSel)
-		},
-		isSelected: function(organizer) {
-			return !!this.organizersSel.find((v) => {
-				if (!('id' in v)) {
-					return false
-				}
-				return v.id === organizer.id
-			})
-		},
-		resetFilters() {
-			this.themesSelected = []
-			this.query = ""
-		}
+		}).then((response) => {
+			if (appending.value) {
+				organizers.value = organizers.value.concat(processActiesArray(response.data.acties.data))
+			} else {
+				organizers.value = processActiesArray(response.data.acties.data)
+			}
+			organizers.value = response.data.organizers.data
+			currentPage.value = response.data.organizers.current_page
+			perPage.value = response.data.organizers.per_page
+			total.value = response.data.organizers.total
+		}).finally(() => {
+			isGeladen.value = true
+			appending.value = false
+		})
+	}, 500)
+
+	const processQuery = (value) => {
+		query.value = value
 	}
-}
+
+	const updateOrganizersSelected = (value, organizer) => {
+		if (value === true) {
+				organizersSel.value.push(organizer)
+		} else {
+			organizersSel.value = organizersSel.value.filter((v) => {
+				if (!('id' in organizer)) {
+					return true
+				}
+				return v.id !== organizer.id
+			})
+		}
+		emit('update:modelValue', organizersSel.value)
+	}
+	
+	const isSelected = (organizer) => {
+		return !!organizersSel.value.find((v) => {
+			if (!('id' in v)) {
+				return false
+			}
+			return v.id === organizer.id
+		})
+	}
+
+	const resetFilters = () => {
+		themesSelected.value = []
+		query.value = ""
+	}
 </script>
 

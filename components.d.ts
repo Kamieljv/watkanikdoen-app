@@ -25,6 +25,7 @@ declare module 'vue' {
     HomeAgenda: typeof import('./resources/views/assets/js/components/apps/HomeAgenda.vue')['default']
     Login: typeof import('./resources/views/assets/js/components/forms/Login.vue')['default']
     LoginOrRegister: typeof import('./resources/views/assets/js/components/apps/LoginOrRegister.vue')['default']
+    MultiSelect: typeof import('primevue/multiselect')['default']
     Newsletter: typeof import('./resources/views/assets/js/components/forms/Newsletter.vue')['default']
     Notifications: typeof import('./resources/views/assets/js/components/apps/Notifications.vue')['default']
     Organizer: typeof import('./resources/views/assets/js/components/partials/Organizer.vue')['default']
