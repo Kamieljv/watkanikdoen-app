@@ -43,9 +43,13 @@ app.component("LMap", LMap)
     .component("l-tooltip", LTooltip)
 
 // Import and register Vue components that are used in blade files
+import ActieAgenda from "./components/apps/ActieAgenda.vue"
+import AddActie from "./components/apps/AddActie.vue"
 import HomeAgenda from "./components/apps/HomeAgenda.vue"
 import Organizers from "./components/apps/Organizers.vue"
 import OrganizersFeatured from "./components/apps/OrganizersFeatured.vue"
+app.component("ActieAgenda", ActieAgenda)
+app.component("AddActie", AddActie)
 app.component("HomeAgenda", HomeAgenda)
 app.component("Organizers", Organizers)
 app.component("OrganizersFeatured", OrganizersFeatured)

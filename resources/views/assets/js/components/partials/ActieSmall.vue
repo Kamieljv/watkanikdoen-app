@@ -72,6 +72,8 @@
 <script setup lang="ts">
     import { computed, defineProps } from 'vue'
     import LogoIcon from '&/logo-icon.svg'
+    import _ from 'lodash'
+    const __ = str => _.get(window.i18n, str)
 
     const props = defineProps({
         actie: {

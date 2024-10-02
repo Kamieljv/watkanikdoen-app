@@ -79,7 +79,7 @@
                     </p>
                     <div class="flex flex-col mt-5 space-y-3">
                         <!-- Externe link -->
-                        <form-urls @change="handleActionUrls" :urls="actionUrls"/>
+                        <FormUrls @change="handleActionUrls" :urls="actionUrls"/>
                     </div>
                 </div>
                 <div class="flex flex-col justify-start flex-1 mb-5 md:pl-5 overflow-hidden bg-white border-gray-150">
@@ -106,7 +106,7 @@
                             name="BeginTijd"
                             type="time"
                             step="900"
-                            @input="() => { this.report.end_time = addHours(this.report.start_time, 1) }"
+                            @input="() => { this.report.end_time = addHoursToTime(this.report.start_time, 1) }"
                         />
                         <!-- Time end -->
                         <FormField
@@ -151,54 +151,49 @@
     </Form>
 </template>
 
-<script>
+<script setup lang="ts">
 
-import { caseHelper } from '../../mixins/caseHelper';
+import { onMounted, ref } from 'vue';
 import { addHours } from 'date-fns';
+import _ from 'lodash'
+const __ = str => _.get(window.i18n, str)
 
-export default {
-    name: "Actie",
-    mixins: [
-        caseHelper,
-    ],
-    data: () => {
-        return {
-            actionUrls: [],
-        };
+const props = defineProps({
+    defaultCenter: {
+        type: Array,
+        required: true,
     },
-    props: {
-        defaultCenter: {
-            type: Array,
-            required: true,
-        },
-        zoom: {
-            type: Number,
-            required: true,
-        },
-        report: {
-            type: Object,
-            required: true
-        },
+    zoom: {
+        type: Number,
+        required: true,
     },
-    mounted () {
-        this.actionUrls = this.report.actionUrls ?? [];
+    report: {
+        type: Object,
+        required: true
     },
-    methods: {
-        addHours(timeString, hoursToAdd) {
-            // Split the time string into hours and minutes and create Date object
-            let [hours, minutes] = timeString.split(':');
-            let oldTime = new Date(0, 0, 0, hours, minutes);
+})
 
-            // Add an hour to the original time
-            let newTime = addHours(oldTime, hoursToAdd);
+const actionUrls = ref([]);
 
-            // Format the new time back to "HH:MM" format
-            let formattedNewTime = newTime.getHours().toString().padStart(2, '0') + ':' + newTime.getMinutes().toString().padStart(2, '0');
-            return formattedNewTime;
-        },
-        handleActionUrls(urls) {
-            this.report.actionUrls = urls;
-        }
-    }
+onMounted(() => {
+    actionUrls.value = props.report.actionUrls ?? [];
+})
+
+const addHoursToTime = (timeString, hoursToAdd) => {
+    // Split the time string into hours and minutes and create Date object
+    let [hours, minutes] = timeString.split(':');
+    let oldTime = new Date(0, 0, 0, hours, minutes);
+
+    // Add an hour to the original time
+    let newTime = addHours(oldTime, hoursToAdd);
+
+    // Format the new time back to "HH:MM" format
+    let formattedNewTime = newTime.getHours().toString().padStart(2, '0') + ':' + newTime.getMinutes().toString().padStart(2, '0');
+    return formattedNewTime;
 }
+
+const handleActionUrls = (urls) => {
+    props.report.actionUrls = urls;
+}
+    
 </script>

@@ -81,6 +81,7 @@
 	import axios from 'axios'
 	import debounce from 'lodash/debounce'
 	const emit = defineEmits(['update:modelValue'])
+	import _ from 'lodash'
 	const __ = str => _.get(window.i18n, str)
 
 
@@ -175,12 +176,13 @@
 			}
 		}).then((response) => {
 			if (appending.value) {
-				organizers.value = organizers.value.concat(processActiesArray(response.data.acties.data))
+				organizers.value = organizers.value.concat(response.data.acties.data)
 			} else {
-				organizers.value = processActiesArray(response.data.acties.data)
+				organizers.value = response.data.acties.data
 			}
 			organizers.value = response.data.organizers.data
 			currentPage.value = response.data.organizers.current_page
+			lastPage.value = response.data.organizers.last_page
 			perPage.value = response.data.organizers.per_page
 			total.value = response.data.organizers.total
 		}).finally(() => {

@@ -5,10 +5,12 @@
 				<Collapsible 
 					id="filter-collapsible"
 					triggerLabel="Zoek & Filter"
-					icon="clarity-filter-solid"
 					:notification-count="filterCount"
 					:isOpen="false"
 				>
+					<template v-slot:icon>
+						<FilterIcon class="w-6 h-6 text-gray-500"/>
+					</template>
 					<div id="filter-wrapper" class="col grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-5">
 						<FormField
                             v-model="query"
@@ -20,37 +22,31 @@
 							:clearable="true"
 							classes="block w-full h-full px-3 py-2 transition duration-100 ease-in-out border rounded shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed text-black placeholder-gray-400 bg-white border-gray-300 focus:border-blue-500"
                         />
-						<t-rich-select
+						<MultiSelect
 							id="theme-selector"
-							:options="themes"
-							textAttribute="name"
 							v-model="themesSelected"
-							:multiple="true"
-							:closeOnSelect="false"
-							searchBoxPlaceholder="Zoeken..."
-							:minimumResultsForSearch="5"
+							:options="themes"
+							optionLabel="name"
 							placeholder="Thema..."
+							filterPlaceholder="Zoeken..."
 						/>
-						<t-rich-select
+						<MultiSelect
 							id="category-selector"
-							:options="categories"
-							textAttribute="name"
 							v-model="categoriesSelected"
-							:multiple="true"
-							:closeOnSelect="false"
-							searchBoxPlaceholder="Zoeken..."
-							:minimumResultsForSearch="5"
+							:options="categories"
+							optionLabel="name"
 							placeholder="Categorie..."
+							filterPlaceholder="Zoeken..."
 						/>
-						<form-autocomplete
-							ref="geoSearch"
+						<FormAutocomplete
+							ref="geoSearchRef"
 							:items="geoSuggestions"
 							:isAsync="true"
 							@change="getGeoSuggestions"
 							@input="getCoordinates"
 							placeholder="Plaatsnaam"
 						/>
-						<form-slider
+						<FormSlider
 							thumbColor="var(--wkid-blue)"
 							progressColor="var(--wkid-blue)"
 							unit="km"
@@ -62,7 +58,7 @@
 							:disabled="!coordinatesPresent"
 						/>
 						<div class="flex items-center space-x-3">
-							<t-toggle
+							<ToggleSwitch
 								v-model="showPast"
 								name="showPast"
 							/>
@@ -84,30 +80,24 @@
 							:class="{'xl:grid-cols-2 lg:grid-cols-2': narrower}"
                             v-if="!isGeladen && !appending"
                         >
-                            <t-card
-                                v-for="i in skeletonArray"
-                                :key="i"
-                                variant="skeleton"
-                                class="rounded-lg shadow-md overflow-hidden"
-                            >
-                                <template v-slot:header>
-                                    <div class="h-6 w-20 inline-block bg-gray-100 rounded"/>
-                                </template>
-								<div class="relative h-6 w-full inline-block bg-gray-200 rounded"></div>
-								<div class="relative h-3 w-full inline-block bg-gray-200 rounded"></div>
-                                <template v-slot:footer >
-                                    <div class="rounded-full bg-gray-200 h-10 w-10"></div>
-                                </template>
-                            </t-card>
+							<div v-for="i in skeletonArray"
+								class="rounded-lg shadow-md overflow-hidden animate-pulse">
+								<div class="h-48 row-span-1 bg-gray-200"></div>
+								<div class="flex flex-col col-span-2 p-3 justify-between flex-1 bg-white">
+									<div class="relative h-6 mb-3 w-full inline-block bg-gray-200 rounded"></div>
+									<div class="relative h-3 mb-1 w-full inline-block bg-gray-200 rounded"></div>
+									<div class="relative h-3 mb-1 w-full inline-block bg-gray-200 rounded"></div>
+									<div class="relative h-6 w-20 inline-block bg-gray-200 rounded mt-3"></div>
+								</div>
+							</div>
                         </div>
                         <div
                             v-else-if="heeftActies"
                             class="grid gap-5 mx-auto mt-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
 							:class="{'xl:grid-cols-2 lg:grid-cols-2': narrower}"
 						>
-                            <actie
+                            <Actie
                                 v-for="actie in actiesFormatted"
-                                :key="actie.id"
                                 :actie="actie"
                             />
                         </div>
@@ -124,8 +114,9 @@
                 </div>
             </div>
         </div>
-		<!-- see more button -->
-		<div v-if="enableShowMore && heeftActies && total > perPage && currentPage !== lastPage && !appending" class="flex justify-center">
+		<div>
+			<!-- see more button -->
+			<div v-if="enableShowMore && heeftActies && total > perPage && currentPage !== lastPage && !appending" class="flex justify-center">
 			<button @click="currentPage++; appending=true; getActies()" class="btn secondary">{{__('general.load_more')}}</button>
 		</div>
 		<div v-else-if="appending" class="flex justify-center">
@@ -134,226 +125,232 @@
     </div>
 </template>
 
-<script>
-import { geoHelper } from "../../mixins/geoHelper"
-import Pagination from "../partials/Pagination.vue"
-export default {
-	name: "ActieAgenda",
-	components: {Pagination},
-	mixins: [geoHelper],
-	props: {
-		routes: {
-			type: Object,
-			required: true,
-		},
-		themes: {
-			type: Array,
-			default: () => [],
-		},
-		themesSelectedIds: {
-			type: Array,
-			default: () => [],
-		},
-		categories: {
-			type: Array,
-			default: () => [],
-		},
-		categoriesSelectedIds: {
-			type: Array,
-			default: () => [],
-		},
-		filterable: {
-			type: Boolean,
-			default: true,
-		},
-		narrower: {
-			type: Boolean,
-			default: false,
-		},
-		organizerId: {
-			type: Number,
-			default: null,
-		},
-		themeIds: {
-			type: Array,
-			default: () => [],
-		},
-		excludeIds: {
-			type: Array,
-			default: () => [],
-		},
-		enableShowMore: {
-			type: Boolean,
-			default: true,
-		},
-		skeletons: {
-			type: Number,
-			default: 10,
-		},
-		limit: {
-			type: Number,
-			default: null,
-		}
+<script setup lang="ts">
+import { onMounted, watch, defineProps, computed, ref } from "vue"
+import FilterIcon from "&/clarity-filter-solid.svg"
+import { calcDistance } from "../../mixins/geoHelper"
+import debounce from "lodash/debounce"
+import _ from 'lodash'
+import axios from "axios";
+const __ = str => _.get(window.i18n, str)
+
+const props = defineProps({
+	routes: {
+		type: Object,
+		required: true,
 	},
-	data() {
-		return {
-			acties: [],
-			themesSelected: null,
-			categoriesSelected: "",
-			query: "",
-			coordinates: "",
-			distance: null,
-			defaultDistance: 100,
-			geoSuggestions: [],
-			showPast: false,
-			isGeladen: false,
-			appending: false,
-			heeftFout: false,
-			currentPage: null,
-			lastPage: null,
-			perPage: null,
-			total: null,
-		}
+	themes: {
+		type: Array,
+		default: () => [],
 	},
-	computed: {
-		sliderArray() {
-			return [...Array(10+1).keys()].slice(1).map((v) => {return v * stepSize})
-		},
-		skeletonArray() {
-			return [...Array(this.skeletons).keys()]
-		},
-		heeftActies() {
-			return (this.acties.length > 0)
-		},
-		actiesFormatted() {
-			this.acties.forEach((actie) => {
-				actie.body = actie.body.replace(/(<([^>]+)>)/gi, "")
-				if (actie._geoloc && this.coordinates !== "") {
-					let coordinates = this.coordinates.split(",")
-					// calculate distance to actie in km
-					actie.distance = this.calcDistance(actie._geoloc.lat, actie._geoloc.lng,
-						coordinates[0], coordinates[1]).toFixed(1)
-				} else {
-					actie.distance = null
-				}
-				return actie
-			})
-			return this.acties
-		},
-		coordinatesPresent() {
-			return this.coordinates !== ""
-		},
-		filterCount() {
-			var filters = [this.query, this.themesSelected, this.categoriesSelected, this.coordinates, this.showPast]
-			return filters.filter(f => (!!f && !(f.length === 0))).length
-		}
+	themesSelectedIds: {
+		type: Array,
+		default: () => [],
 	},
-	watch: {
-		query: function() {
-			this.getActies()
-		},
-		themesSelected: function() {
-			this.getActies()
-		},
-		categoriesSelected: function() {
-			this.getActies()
-		},
-		distance: function() {
-			this.getActies()
-		},
-		showPast: function() {
-			this.getActies()
-		},
-		coordinates: function() {
-			this.distance = (this.distance === null)? this.defaultDistance : this.distance
-		}
+	categories: {
+		type: Array,
+		default: () => [],
 	},
-	mounted() {
-		this.themesSelected = this.themes.filter(t => this.themesSelectedIds.includes(t.id)).map(t => t.id);
-		this.categoriesSelected = this.categories.filter(c => this.categoriesSelectedIds.includes(c.id)).map(c => c.id);
-		this.getActies()
+	categoriesSelectedIds: {
+		type: Array,
+		default: () => [],
 	},
-	methods: {
-		getActies: _.debounce(async function getActies() {
-			this.isGeladen = false
-			this.heeftFout = false
-			axios.get(this.routes["acties.search"].uri, {
-				params: {
-					q: this.query,
-					themes: this.themesSelected.length > 0 ? this.themesSelected : this.themeIds,
-					categories: this.categoriesSelected,
-					coordinates: this.coordinates,
-					distance: this.distance,
-					show_past: this.showPast,
-					page: this.currentPage,
-					organizer: this.organizerId,
-				}
-			}).then((response) => {
-				if (this.appending) {
-					this.acties = this.acties.concat(this.processActiesArray(response.data.acties.data))
-				} else {
-					this.acties = this.processActiesArray(response.data.acties.data)
-				}
-				this.currentPage = response.data.acties.current_page
-				this.lastPage = response.data.acties.last_page
-				this.perPage = response.data.acties.per_page
-				this.total = response.data.acties.total
-			}).catch((error) => {
-				this.heeftFout = true
-			}).finally(() => {
-				this.isGeladen = true
-				this.appending = false
-			})
-		}, 500),
-		processActiesArray: function(acties) {
-			return acties.filter((a) => !this.excludeIds.includes(a.id)).slice(0, this.limit ?? 999)
-		},
-		processQuery: _.debounce(function(input) {
-			this.query = input
-		}, 500),
-		async getGeoSuggestions(geoQuery) {
-			axios.get("https://api.pdok.nl/bzk/locatieserver/search/v3_1/suggest", {
-				params: {
-					q: geoQuery,
-					rows: 5,
-					fl: "id,weergavenaam",
-					fq: "type:woonplaats",
-				}
-			}).then((data) => {
-				this.geoSuggestions = Object.keys(data.data.highlighting).map((key) => {
-					return {
-						id: key,
-						name: data.data.highlighting[key].suggest[0]
-					}
-				})
-			})
-		},
-		async getCoordinates(obj) {
-			this.isGeladen = false
-			if (obj !== "") {
-				axios.get("https://api.pdok.nl/bzk/locatieserver/search/v3_1/lookup", {
-					params: {
-						id: obj.id,
-						fl: 'centroide_ll',
-					}
-				}).then((data) => {
-					let pointString = data.data.response.docs[0].centroide_ll
-					this.coordinates = pointString.slice(6,pointString.length-1).split(" ").reverse().join(",")
-					this.getActies()
-				})
-			} else {
-				this.coordinates = ""
-				this.getActies()
-			}
-		},
-		resetFilters() {
-			this.themesSelected = []
-			this.categoriesSelected = []
-			this.query = ""
-			this.$refs.geoSearch.resetResult()
-			this.showPast = false
-		}
+	filterable: {
+		type: Boolean,
+		default: true,
+	},
+	narrower: {
+		type: Boolean,
+		default: false,
+	},
+	organizerId: {
+		type: Number,
+		default: null,
+	},
+	themeIds: {
+		type: Array,
+		default: () => [],
+	},
+	excludeIds: {
+		type: Array,
+		default: () => [],
+	},
+	enableShowMore: {
+		type: Boolean,
+		default: true,
+	},
+	skeletons: {
+		type: Number,
+		default: 10,
+	},
+	limit: {
+		type: Number,
+		default: null,
 	}
+})
+
+const acties = ref([])
+const themesSelected = ref(props.themes.filter(t => props.themesSelectedIds.includes(t.id)).map(t => t.id))
+const categoriesSelected = ref(props.categories.filter(c => props.categoriesSelectedIds.includes(c.id)).map(c => c.id))
+const query = ref("")
+const coordinates = ref("")
+const distance = ref(null)
+const defaultDistance = 100
+const geoSuggestions = ref([])
+const showPast = ref(false)
+const isGeladen = ref(false)
+const appending = ref(false)
+const heeftFout = ref(false)
+const currentPage = ref(null)
+const lastPage = ref(null)
+const perPage = ref(null)
+const total = ref(null)
+const geoSearchRef = ref(null)
+
+const skeletonArray = computed(() => {
+	return [...Array(props.skeletons).keys()]
+})
+
+const heeftActies = computed(() => {
+	return (acties.value.length > 0)
+})
+
+const actiesFormatted = computed(() => {
+	acties.value.forEach((actie) => {
+		actie.body = actie.body.replace(/(<([^>]+)>)/gi, "")
+		if (actie._geoloc && coordinates.value !== "") {
+			let coordinatesArray = coordinates.value.split(",")
+			// calculate distance to actie in km
+			actie.distance = calcDistance(actie._geoloc.lat, actie._geoloc.lng,
+				coordinatesArray[0], coordinatesArray[1]).toFixed(1)
+		} else {
+			actie.distance = null
+		}
+		return actie
+	})
+	return acties.value
+})
+
+const coordinatesPresent = computed(() => {
+	return coordinates.value !== ""
+})
+
+const filterCount = computed(() => {
+	var filters = [query.value, themesSelected.value, categoriesSelected.value, coordinates.value, showPast.value]
+	return filters.filter(f => (!!f && !(f.length === 0))).length
+})
+
+watch(query, () => {
+	getActies()
+})
+
+watch(themesSelected, () => {
+	getActies()
+})
+
+watch(categoriesSelected, () => {
+	getActies()
+})
+
+watch(distance, () => {
+	getActies()
+})
+
+watch(showPast, () => {
+	getActies()
+})
+
+watch(coordinates, () => {
+	distance.value = (distance === null)? defaultDistance : distance
+})
+
+onMounted(() => {
+	getActies()
+})
+
+const getActies = debounce(() => {
+	isGeladen.value = false
+	heeftFout.value = false
+	axios.get(props.routes["acties.search"].uri, {
+		params: {
+			q: query.value,
+			themes: themesSelected.value ? themesSelected.value.map(t => t.id) : props.themeIds,
+			categories: categoriesSelected.value,
+			coordinates: coordinates.value,
+			distance: distance.value,
+			show_past: showPast.value,
+			page: currentPage.value,
+			organizer: props.organizerId,
+		}
+	}).then((response) => {
+		if (appending.value) {
+			acties.value = acties.value.concat(processActiesArray(response.data.acties.data))
+		} else {
+			acties.value = processActiesArray(response.data.acties.data)
+		}
+		currentPage.value = response.data.acties.current_page
+		lastPage.value = response.data.acties.last_page
+		perPage.value = response.data.acties.per_page
+		total.value = response.data.acties.total
+	}).catch((error) => {
+		heeftFout.value = true
+	}).finally(() => {
+		isGeladen.value = true
+		appending.value = false
+	})
+}, 500)
+
+const processActiesArray = (acties) => {
+	return acties.filter((a) => !props.excludeIds.includes(a.id)).slice(0, props.limit ?? acties.length)
+}
+
+const processQuery = debounce((input) => {
+	query.value = input
+}, 500)
+
+const getGeoSuggestions = async (geoQuery) => {
+	axios.get("https://api.pdok.nl/bzk/locatieserver/search/v3_1/suggest", {
+		params: {
+			q: geoQuery,
+			rows: 5,
+			fl: "id,weergavenaam",
+			fq: "type:woonplaats",
+		}
+	}).then((data) => {
+		geoSuggestions.value = Object.keys(data.data.highlighting).map((key) => {
+			return {
+				id: key,
+				name: data.data.highlighting[key].suggest[0]
+			}
+		})
+	})
+}
+
+const getCoordinates = async (obj) => {
+	isGeladen.value = false
+	if (obj !== "") {
+		axios.get("https://api.pdok.nl/bzk/locatieserver/search/v3_1/lookup", {
+			params: {
+				id: obj.id,
+				fl: 'centroide_ll',
+			}
+		}).then((data) => {
+			let pointString = data.data.response.docs[0].centroide_ll
+			coordinates.value = pointString.slice(6,pointString.length-1).split(" ").reverse().join(",")
+			getActies()
+		})
+	} else {
+		coordinates.value = ""
+		getActies()
+	}
+}
+
+const resetFilters = () => {
+	themesSelected.value = []
+	categoriesSelected.value = []
+	query.value = ""
+	geoSearchRef.value.resetResult()
+	showPast.value = false
 }
 </script>
 
