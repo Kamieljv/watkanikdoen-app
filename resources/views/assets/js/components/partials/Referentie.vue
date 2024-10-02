@@ -12,7 +12,7 @@
                 <div class="flex-shrink-0" style="position:relative;">
                     <img v-if="referentie.linked_image" class="object-cover w-full h-[150px]" :src="referentie.linked_image.url" alt="">
                     <div v-else class="h-[150px] bg-gray-300 text-gray-400 flex items-center justify-center">
-                        <svg-vue icon="logo-icon" style="fill: currentColor; height: 80px;"></svg-vue>
+                        <LogoIcon style="fill: currentColor; height: 80px;" />
                     </div>
                     <ul v-if="referentie.themes.length <= 2" class="themes-container flex flex-wrap p-2 absolute top-0 w-full">
                         <li
@@ -58,15 +58,15 @@
     </article>
 </template>
 
-<script>
-export default {
-	name: "Referentie",
-	props: {
-		referentie: {
-			type: Object,
-			required: true,
-		}
-	}
-}
+<script setup lang="ts">
+
+import LogoIcon from '&/logo-icon.vue'
+
+const props = defineProps({
+    referentie: {
+        type: Object,
+        required: true,
+    }
+})
 </script>
 

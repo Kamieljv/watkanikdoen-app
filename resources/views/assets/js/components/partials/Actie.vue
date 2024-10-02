@@ -6,8 +6,8 @@
         <a :href="actie.link" class="h-full not-prose" :class="{'opacity-70 grayscale': actie.afgelopen}" :title="actie.afgelopen ? 'Deze actie is afgelopen' : actie.title ">
             <meta property="name" :content="actie.title">
             <meta property="author" typeof="Person" content="admin">
-            <meta property="dateModified" :content="new Date(actie.updated_at).toISOString()">
-            <meta class="uk-margin-remove-adjacent" property="datePublished" :content="new Date(actie.created_at).toISOString()">
+            <meta v-if="actie.updated_at" property="dateModified" :content="new Date(actie.updated_at).toISOString()">
+            <meta v-if="actie.created_at" class="uk-margin-remove-adjacent" property="datePublished" :content="new Date(actie.created_at).toISOString()">
             <div class="content flex flex-col h-full">
                 <div class="flex-shrink-0" style="position:relative;">
                     <img v-if="actie.linked_image" class="object-cover w-full h-[150px]" :src="actie.linked_image.url" alt="">
@@ -124,6 +124,8 @@
     import { defineProps } from 'vue'
     import LogoIcon from '&/logo-icon.svg'
     import LocationIcon from '&/location.svg'
+    import _ from 'lodash'
+    const __ = str => _.get(window.i18n, str)
 
     const props = defineProps({
         actie: {

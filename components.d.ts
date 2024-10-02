@@ -23,6 +23,7 @@ declare module 'vue' {
     FormTextarea: typeof import('./resources/views/assets/js/components/formfields/FormTextarea.vue')['default']
     FormUrls: typeof import('./resources/views/assets/js/components/formfields/FormUrls.vue')['default']
     HomeAgenda: typeof import('./resources/views/assets/js/components/apps/HomeAgenda.vue')['default']
+    InputText: typeof import('primevue/inputtext')['default']
     Login: typeof import('./resources/views/assets/js/components/forms/Login.vue')['default']
     LoginOrRegister: typeof import('./resources/views/assets/js/components/apps/LoginOrRegister.vue')['default']
     MultiSelect: typeof import('primevue/multiselect')['default']
@@ -30,7 +31,6 @@ declare module 'vue' {
     Notifications: typeof import('./resources/views/assets/js/components/apps/Notifications.vue')['default']
     Organizer: typeof import('./resources/views/assets/js/components/partials/Organizer.vue')['default']
     OrganizerForm: typeof import('./resources/views/assets/js/components/forms/OrganizerForm.vue')['default']
-    OrganizerLarge: typeof import('./resources/views/assets/js/components/partials/OrganizerLarge.vue')['default']
     Organizers: typeof import('./resources/views/assets/js/components/apps/Organizers.vue')['default']
     OrganizersFeatured: typeof import('./resources/views/assets/js/components/apps/OrganizersFeatured.vue')['default']
     Pagination: typeof import('./resources/views/assets/js/components/partials/Pagination.vue')['default']
@@ -48,6 +48,7 @@ declare module 'vue' {
     SuccessBlock: typeof import('./resources/views/assets/js/components/partials/SuccessBlock.vue')['default']
     SuccessGIF: typeof import('./resources/views/assets/js/components/partials/SuccessGIF.vue')['default']
     ThemeQuestion: typeof import('./resources/views/assets/js/components/partials/ThemeQuestion.vue')['default']
+    ToggleSwitch: typeof import('primevue/toggleswitch')['default']
     ValidatedFormField: typeof import('./resources/views/assets/js/components/formfields/ValidatedFormField.vue')['default']
     WidgetAgenda: typeof import('./resources/views/assets/js/components/apps/WidgetAgenda.vue')['default']
   }

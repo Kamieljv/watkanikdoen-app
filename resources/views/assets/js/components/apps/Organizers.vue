@@ -23,19 +23,6 @@
 						placeholder="Thema..."
 						filterPlaceholder="Zoeken..."
 					/>
-                    <!-- <t-rich-select
-						v-if="themes.length > 0"
-                        id="theme-selector"
-                        :options="themes"
-                        textAttribute="name"
-                        v-model="themesSelected"
-                        :multiple="true"
-                        :closeOnSelect="false"
-                        placeholder="Thema..."
-						searchBoxPlaceholder="Zoeken..."
-						:minimumResultsForSearch="5"
-						noResultsText="Geen resultaten"
-					/> -->
                 </div>
             </div>
         </div>
@@ -92,7 +79,7 @@
 	import axios from 'axios'
 	import debounce from 'lodash/debounce'
 	const emit = defineEmits(['input'])
-	import lodash from 'lodash'
+	import _ from 'lodash'
 	const __ = str => _.get(window.i18n, str)
 
 
