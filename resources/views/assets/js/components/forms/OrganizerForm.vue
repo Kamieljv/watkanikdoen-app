@@ -4,6 +4,9 @@
             Wie is de organisator van je actie? Kies één of meerdere organisatoren uit de lijst. 
             Kun je de juiste organisator niet vinden? Dan kun je deze zelf toevoegen met het formulier.
         </p>
+        {{ name }}
+        {{ description }}
+        {{ website }}
         <div class="grid grid-cols-1 md:grid-cols-5 max-w-6xl mx-auto flex-col my-6 md:divide-x">
             <div class="col-span-2 space-y-3">
                 <div class="flex flex-col justify-start flex-1 overflow-hidden bg-white border-gray-150">
@@ -18,13 +21,13 @@
                     <div class="flex flex-col mt-5 md:pr-5">
                         <!-- Organizers -->
                         <Organizers
-                            v-model="organizersSelected"
                             :organizers-selected="organizersSelected"
                             :routes="routes"
                             :show-themes="false"
                             :enable-show-more="false"
                             :max="5"
                             mode="select"
+                            @update:modelValue="updateOrganizersSelected"
                         />
                     </div>
                 </div>
@@ -46,7 +49,7 @@
                             label="Naam"
                             name="naam"
                             type="text"
-                            rules="required|max:80"
+                            rules="required|min:2|max:80"
                             validation-mode="lazy"
                         />
                         <!-- Body -->
@@ -56,7 +59,6 @@
                             </label>
                             <RichTextField
                                 name="description"
-                                :value="description"
                                 v-model="description"
                                 ref="descriptionRef"
                             />
@@ -98,7 +100,7 @@
                         :show-themes="false"
                         :disabled="true"
                         mode="remove"
-                        @input="removeSelected($event, organizer)"
+                        @update:modelValue="removeSelected($event, organizer)"
                     />
                 </div>
                 <div v-else class="flex flex-col mt-5">
@@ -114,17 +116,18 @@
 <script setup lang="ts">
 
 import { onMounted, ref, watch } from 'vue'
+import { Form } from 'vee-validate'
 import AddLineIcon from '&/clarity-add-line.svg'
 import _ from 'lodash'
 const __ = str => _.get(window.i18n, str)
-const emit = defineEmits(['input'])
+const emit = defineEmits(['update:modelValue'])
 
 const props = defineProps({
     routes: {
         type: Object,
         required: true,
     },
-    selectedOrganizers: {
+    modelValue: {
         type: Array,
         default: () => [],
     }
@@ -140,13 +143,14 @@ const descriptionRef = ref(null)
 
 const addOrganizer = () => {
     organizerValidatorRef.value.validate().then((result) => {
-        if (result) {
+        console.log(result)
+        if (result.valid) {
             organizersSelected.value.push({
                 name: name.value, 
                 description: description.value, 
                 website: website.value
             })
-            organizerValidatorRef.value.reset()
+            organizerValidatorRef.value.resetForm()
             resetForm()
         }
     })           
@@ -166,12 +170,16 @@ const removeSelected = (e, organizer) => {
     })
 }
 
+const updateOrganizersSelected = (value) => {
+    organizersSelected.value = value
+}
+
 onMounted(() => {
-    organizersSelected.value = props.selectedOrganizers.length > 0 ? props.selectedOrganizers : []
+    organizersSelected.value = props.modelValue.length > 0 ? props.modelValue : []
 })
 
 watch(organizersSelected, (value) => {
-    emit('input', organizersSelected.value)
+    emit('update:modelValue', organizersSelected.value)
 })
 
 </script>

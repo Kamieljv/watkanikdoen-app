@@ -23,14 +23,10 @@
             </step-progress>
             <Form>
                 <Transition name="slide" mode="out-in" appear>
-                    <div v-if="currentQuestion.subject == themeStepName">
-                        <theme-question :question="currentQuestion" :themes="themes" :value="themesSelected" :key="activeIndex" @input="handleThemeInput" class="p-8 bg-white rounded-md shadow-md min-h-[400px]">
-                        </theme-question>
-                    </div>
-                    <div v-else>
-                        <question :question="currentQuestion" :value="answersGiven[currentQuestion.id]" :key="activeIndex" @input="handleInput" class="p-8 bg-white rounded-md shadow-md min-h-[400px]">
-                        </question>
-                    </div>
+                    <theme-question v-if="currentQuestion.subject == themeStepName" :question="currentQuestion" :themes="themes" :value="themesSelected" :key="activeIndex" @input="handleThemeInput" class="p-8 bg-white rounded-md shadow-md min-h-[400px]">
+                    </theme-question>
+                    <question v-else :question="currentQuestion" :value="answersGiven[currentQuestion.id]" :key="activeIndex" @input="handleInput" class="p-8 bg-white rounded-md shadow-md min-h-[400px]">
+                    </question>
                 </Transition>
                 <div class="flex mt-5" :class="{'justify-end': activeIndex === 0, 'justify-between': activeIndex > 0}">
                     <button v-if="activeIndex > 0" type="button" @click.prevent="activeIndex--" tabindex="0"
@@ -59,118 +55,105 @@
     </div>
 </template>
 
-<script>
+<script setup lang="ts">
 
-import { caseHelper } from '../../mixins/caseHelper';
+import { computed, defineProps, onMounted, ref } from 'vue';
+import _ from 'lodash';
+const __ = str => _.get(window.i18n, str);
 
-export default {
-	name: "ActieWijzer",
-    mixins: [
-        caseHelper,
-    ],
-    props: {
-        questions: {
-            type: Array,
-            required: true,
-        },
-        dimensions: {
-            type: Array,
-            required: true,
-        },
-        themes: {
-            type: Array,
-            required: true,
-        },
-        resultRoute: {
-            type: String,
-            required: true,
-        },
-        themeStepName: {
-            type: String,
-            default: 'Thema',
-        }
+const props = defineProps({
+    questions: {
+        type: Array,
+        required: true,
     },
-    data: () => ({
-        activeIndex: 0,
-        started: false,
-        showValidation: false,
-        currentErrors: [],
-        answersGiven: {},
-        dimension_scores: {},
-        themesSelected: [],
-    }),
-    computed: {
-        steps() {
-            return this.questions.map(q => q.subject)
-        },
-        activeStep() {
-            return this.steps[this.activeIndex]
-        },
-        isLastStep() {
-            return this.activeIndex === this.steps.length - 1;
-        },
-        currentQuestion() {
-            return this.questions[this.activeIndex];
-        },
-        validInput() {
-            if (this.questions[this.activeIndex].subject == this.themeStepName) {
-                return this.themesSelected.length > 0
-            }
-            return true
-        },
-        answers() {
-            return this.questions.map((q) => q.answers).flat()
-        },
-        canSubmit() {
-            return Object.keys(this.answersGiven).length > 0 && this.themesSelected.length > 0 
-        }
+    dimensions: {
+        type: Array,
+        required: true,
     },
-    mounted() {
-        // compute maximum possible scores for each dimension
-        // loop over dimensions, loop over questions, then get the max score per questions for each dimension
-        this.dimensions.forEach((dim) => {
-            dim.maxScore = this.questions.map(q => {
-                let maxScore = Math.max(
-                    ...q.answers.map(a => a.dimensions.filter(d => d.name == dim.name).map(d => d.pivot.score)).flat()
-                ) 
-                return maxScore === -Infinity ? 0 : maxScore
-            }).reduce((a, b) => a + b, 0);
-        });
+    themes: {
+        type: Array,
+        required: true,
     },
-    methods: {
-        handleInput(input) {
-            this.$set(this.answersGiven, this.questions[this.activeIndex].id, input);
-            this.computeDimensionScores();
-        },
-        handleThemeInput(input) {
-            this.themesSelected = input
-        },
-        submit() {
-            var dimension_scores_avg = {};
-            Object.keys(this.dimension_scores).forEach(k => {
-                dimension_scores_avg[k] = Math.round(this.dimension_scores[k].reduce((a, b) => a + b, 0) / this.dimensions.find(d => d.name == k).maxScore * 10)
-            });
-            var url = new URL(this.resultRoute);
-            var url_params = new URLSearchParams(dimension_scores_avg)
-            this.themesSelected.forEach(id => url_params.append('themes[]', id))
-            url.search = url_params
-            window.location.href = url.href;
-        },
-        computeDimensionScores() {
-            // reset dimension_scores
-            this.dimension_scores = {};
-            // get full answer objects (with dimensions)
-            var answersGivenFull = this.answers.filter((a) => Object.values(this.answersGiven).includes(a.id))
-            // update the dimension scores for each given answer
-            answersGivenFull.forEach((a) => {
-                a.dimensions.forEach((d) => {
-                    var newValue = this.dimension_scores.hasOwnProperty(d.name) ? this.dimension_scores[d.name].concat([d.pivot.score]) : [d.pivot.score];
-                    this.$set(this.dimension_scores, d.name, newValue)
-                })
-            });
-        }
+    resultRoute: {
+        type: String,
+        required: true,
     },
-}; 
+    themeStepName: {
+        type: String,
+        default: 'Thema',
+    }
+})
+
+const activeIndex = ref(0);
+const started = ref(false);
+const showValidation = ref(false);
+const currentErrors = ref([]);
+const answersGiven = ref({});
+const dimension_scores = ref({});
+const themesSelected = ref([]);
+
+const steps = computed(() => props.questions.map(q => q.subject));
+
+const activeStep = computed(() => steps.value[activeIndex.value]);
+
+const isLastStep = computed(() => activeIndex.value === steps.value.length - 1);
+
+const currentQuestion = computed(() => props.questions[activeIndex.value]);
+
+const validInput = computed(() => {
+    if (props.questions[activeIndex.value].subject === props.themeStepName) {
+        return themesSelected.value.length > 0;
+    }
+    return true;
+});
+
+const answers = computed(() => props.questions.map((q) => q.answers).flat());
+
+const canSubmit = computed(() => Object.keys(answersGiven.value).length > 0 && themesSelected.value.length > 0);
+
+onMounted(() => {
+    props.dimensions.forEach((dim) => {
+        dim.maxScore = props.questions.map(q => {
+            let maxScore = Math.max(
+                ...q.answers.map(a => a.dimensions.filter(d => d.name == dim.name).map(d => d.pivot.score)).flat()
+            ) 
+            return maxScore === -Infinity ? 0 : maxScore
+        }).reduce((a, b) => a + b, 0);
+    });
+});
+
+const handleInput = (input) => {
+    answersGiven.value[props.questions[activeIndex.value].id] = input;
+    computeDimensionScores();
+}
+
+const handleThemeInput = (input) => {
+    themesSelected.value = input;
+}
+
+const submit = () => {
+    const dimension_scores_avg = {};
+    Object.keys(dimension_scores.value).forEach(k => {
+        dimension_scores_avg[k] = Math.round(dimension_scores.value[k].reduce((a, b) => a + b, 0) / props.dimensions.find(d => d.name == k).maxScore * 10)
+    });
+    const url = new URL(props.resultRoute);
+    const url_params = new URLSearchParams(dimension_scores_avg)
+    themesSelected.value.forEach(id => url_params.append('themes[]', id))
+    url.search = url_params
+    window.location.href = url.href;
+}
+
+const computeDimensionScores = () => {
+    dimension_scores.value = {};
+    const answersGivenFull = answers.value.filter((a) => Object.values(answersGiven.value).includes(a.id))
+    answersGivenFull.forEach((a) => {
+        a.dimensions.forEach((d) => {
+            const newValue = dimension_scores.value.hasOwnProperty(d.name) ? dimension_scores.value[d.name].concat([d.pivot.score]) : [d.pivot.score];
+            dimension_scores.value[d.name] = newValue;
+        })
+    });
+}
+
 </script>
 <style scoped>
     h2 {

@@ -42,7 +42,7 @@
 							</div>
                         </div>
                         <div v-else-if="heeftOrganizers" >
-                            <organizer
+                            <Organizer
                                 v-for="organizer in organizersFormatted"
                                 :key="organizer.id"
                                 :organizer="organizer"
@@ -50,8 +50,10 @@
 								:show-themes="showThemes"
 								:mode="mode"
 								:selected-initial="organizer.selected"
-								@input="updateOrganizersSelected($event, organizer)"
-                            >{{organizer.selected}}</organizer>
+								@update:modelValue="updateOrganizersSelected($event, organizer)"
+                            >
+								{{organizer.selected}}
+							</Organizer>
                         </div>
 						<div v-else-if="isGeladen" class="flex flex-col justify-center items-center py-8 text-gray-400">
 							<h3>{{__('general.no_results')}}</h3>
@@ -158,7 +160,7 @@
 	})
 
 	watch(() => props.organizersSelected, () => {
-		getOrganizers()
+		organizersSel.value = props.organizersSelected
 	})
 
 	onMounted(() => {
@@ -197,7 +199,7 @@
 
 	const updateOrganizersSelected = (value, organizer) => {
 		if (value === true) {
-				organizersSel.value.push(organizer)
+			organizersSel.value.push(organizer)
 		} else {
 			organizersSel.value = organizersSel.value.filter((v) => {
 				if (!('id' in organizer)) {
@@ -210,7 +212,7 @@
 	}
 	
 	const isSelected = (organizer) => {
-		return !!organizersSel.value.find((v) => {
+		return !!organizersSel.value.find((v: object) => {
 			if (!('id' in v)) {
 				return false
 			}

@@ -217,6 +217,13 @@ svg {
   }
 }
 
+span[role="alert"] {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--wkid-message-error-dark);
+}
+
 @keyframes drop {
   0% {
     transform: translateY(80%);

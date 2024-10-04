@@ -69,7 +69,9 @@
     import { computed, ref, watch } from 'vue'
     import CheckIcon from '&/clarity-check-line.svg'
     import DeleteIcon from '&/antdesign-delete-o.svg'
-    const emit = defineEmits(['input'])
+    const emit = defineEmits(['update:modelValue'])
+    import _ from 'lodash'
+	const __ = str => _.get(window.i18n, str)
 
     const props = defineProps({
         organizer: {
@@ -113,7 +115,7 @@
 
     const toggleSelect = () => {
         selected.value = !selected.value
-        emit('input', selected.value)
+        emit('update:modelValue', selected.value)
     }
     
     watch(() => props.selectedInitial, (newVal) => {

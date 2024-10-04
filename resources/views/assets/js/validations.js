@@ -1,5 +1,5 @@
 import { defineRule, configure } from 'vee-validate';
-import { confirmed, email, is_not, max, min, required } from '@vee-validate/rules';
+import { confirmed, email, is_not, url, max, min, required } from '@vee-validate/rules';
 import { localize } from '@vee-validate/i18n';
 
 // Define the rule globally
@@ -9,6 +9,7 @@ defineRule('max', max)
 defineRule('email', email)
 defineRule('confirmed', confirmed)
 defineRule('is_not', is_not)
+defineRule('url', url)
 
 
 configure({
@@ -16,11 +17,12 @@ configure({
   generateMessage: localize('nl', {
     messages: {
       required: 'Dit veld is verplicht',
-      min: 'Deze waarde mag niet korter zijn dan {length} karakters.',
-      max: 'Deze waarde mag niet langer zijn dan {length} karakters.',
+      min: 'Deze waarde mag niet korter zijn dan 0:{min} karakters.',
+      max: 'Deze waarde mag niet langer zijn dan 0:{max} karakters.',
       email: 'Voer een geldig e-mailadres in.',
       confirmed: 'De {target} velden komen niet overeen.',
       is_not: 'Waarde mag niet gelijk zijn aan {other}.',
+      url: 'Voer een geldige URL in.'
     },
   }),
 });
