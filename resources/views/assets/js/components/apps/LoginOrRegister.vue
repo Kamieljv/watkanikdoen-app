@@ -30,52 +30,39 @@
     </div>
 </template>
 
-<script>
+<script setup lang="ts">
 
-import { caseHelper } from '../../mixins/caseHelper';
+import { onMounted, ref } from 'vue';
+const emit = defineEmits(['done']);
 
-export default {
-	name: "AddActie",
-    components: {
-        //
+const props = defineProps({
+    routes: {
+        type: Object,
+        required: true,
     },
-    mixins: [
-        caseHelper,
-    ],
-    props: {
-        routes: {
-            type: Object,
-            required: true,
-        },
-        minPasswordLength: {
-            type: Number,
-            default: 10,
-        },
-        hCaptchaKey: {
-            type: String,
-            required: true,
-        },
-        user: {
-            type: Object, 
-        },
-        minPasswordLength: {
-            type: Number,
-            default: 10,
-        },
+    minPasswordLength: {
+        type: Number,
+        default: 10,
     },
-    data() {
-        return {
-            currentUser: null 
-        }
+    hCaptchaKey: {
+        type: String,
+        required: true,
     },
-    methods: {
-        authDone: function(user) {
-            this.currentUser = user
-            this.$emit('done', user)
-        }
+    user: {
+        type: Object, 
     },
-    mounted() {
-        this.currentUser = Object.keys(this.user).length === 0 ? null : this.user
-    }
+})
+
+const currentUser = ref(null)
+const authDone = (user) => {
+    currentUser.value = user
+    emit('done', user)
 }
+
+onMounted(() => {
+    console.log(props.user)
+    if (Object.keys(props.user).length > 0) {
+        currentUser.value = props.user
+    }
+})
 </script>

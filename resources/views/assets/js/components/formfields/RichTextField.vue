@@ -43,7 +43,7 @@
             </button>
         </div>
         <editor-content :editor="editor" />
-        <input type="hidden" :name="name" :value="formValue" />
+        <Field type="hidden" :name="name" v-model="formValue" />
     </div>
 </template>
 
@@ -55,6 +55,8 @@ import CharacterCount from '@tiptap/extension-character-count'
 // import Link from '@tiptap/extension-link'
 
 import { onBeforeUnmount, onMounted, ref, watch } from "vue"
+import { Field } from "vee-validate"
+
 import BoldIcon from '&/editor/clarity-bold-line.svg'
 import ItalicIcon from '&/editor/clarity-italic-line.svg'
 import UnderlineIcon from '&/editor/clarity-underline-line.svg'
@@ -65,10 +67,10 @@ import UndoIcon from '&/editor/clarity-undo-line.svg'
 import RedoIcon from '&/editor/clarity-redo-line.svg'
 
 
-const emit = defineEmits(['input'])
+const emit = defineEmits(['update:modelValue'])
 
 const props = defineProps({
-    value: {
+    modelValue: {
         type: String,
         default: "",
     },
@@ -92,7 +94,7 @@ const formValue = ref(null)
 onMounted(() => {
     const limit = props.maxCharacters
     editor.value = new Editor({
-        content: props.value,
+        content: props.modelValue,
         extensions: [
             StarterKit.configure({
                 heading: {
@@ -114,15 +116,19 @@ onMounted(() => {
 })
 
 watch(formValue, (value) => {
-    emit('input', value)
+    emit('update:modelValue', value)
 })
 
-watch(() => props.value, (value) => {
+watch(() => props.modelValue, (value) => {
     formValue.value = value
 })
 
 onBeforeUnmount(() => {
 	editor.value.destroy()
+})
+
+defineExpose({
+    editor
 })
 
 </script>

@@ -42,7 +42,7 @@
 							</div>
                         </div>
                         <div v-else-if="heeftOrganizers" >
-                            <organizer
+                            <Organizer
                                 v-for="organizer in organizersFormatted"
                                 :key="organizer.id"
                                 :organizer="organizer"
@@ -50,8 +50,10 @@
 								:show-themes="showThemes"
 								:mode="mode"
 								:selected-initial="organizer.selected"
-								@input="updateOrganizersSelected($event, organizer)"
-                            >{{organizer.selected}}</organizer>
+								@update:modelValue="updateOrganizersSelected($event, organizer)"
+                            >
+								{{organizer.selected}}
+							</Organizer>
                         </div>
 						<div v-else-if="isGeladen" class="flex justify-center items-center py-8">
 							<div class="text-gray-400">
@@ -78,7 +80,7 @@
 	import { ref, computed, watch, onMounted } from 'vue'
 	import axios from 'axios'
 	import debounce from 'lodash/debounce'
-	const emit = defineEmits(['input'])
+	const emit = defineEmits(['update:modelValue'])
 	import _ from 'lodash'
 	const __ = str => _.get(window.i18n, str)
 
@@ -151,7 +153,7 @@
 	})
 
 	watch(() => props.organizersSelected, () => {
-		getOrganizers()
+		organizersSel.value = props.organizersSelected
 	})
 
 	onMounted(() => {
@@ -188,20 +190,20 @@
 
 	const updateOrganizersSelected = (value, organizer) => {
 		if (value === true) {
-				organizersSel.value.push(organizer)
-			} else {
-				organizersSel.value = organizersSel.value.filter((v) => {
-					if (!('id' in organizer)) {
-						return true
-					}
-					return v.id !== organizer.id
-				})
-			}
-			emit('input', organizersSel)
+			organizersSel.value.push(organizer)
+		} else {
+			organizersSel.value = organizersSel.value.filter((v) => {
+				if (!('id' in organizer)) {
+					return true
+				}
+				return v.id !== organizer.id
+			})
+		}
+		emit('update:modelValue', organizersSel.value)
 	}
 	
 	const isSelected = (organizer) => {
-		return !!organizersSel.value.find((v) => {
+		return !!organizersSel.value.find((v: object) => {
 			if (!('id' in v)) {
 				return false
 			}

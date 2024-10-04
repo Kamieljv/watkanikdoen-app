@@ -1,11 +1,15 @@
 <template>
-	<ValidatedFormField :id="id" :name="fieldName" :label="label" class="relative" :required="required"
-		:show-helper-text="showHelperText" v-bind="$attrs" :validation-mode="validationMode">
+	<!-- <ValidatedFormField :id="id" :name="fieldName" :label="label" class="relative" :required="required" -->
+		<!-- :show-helper-text="showHelperText" v-bind="$attrs" :validation-mode="validationMode" :rules="rules"> -->
 		<div class="flex">
 			<div class="relative flex-item">
-				<input :id="id" v-model="data" :name="fieldName" :type="type" :step="step" :list="'datalist-' + id"
-					:placeholder="placeholder" :required="required" :disabled="disabled" :autocomplete="autocomplete"
-					:class="classes" @input="updateInput" @focus="focusInput" @blur="blurInput">
+				<label v-if="label" :for="id" class="text-sm">
+					{{ label }}
+				</label>
+				<Field :id="id" v-model="data" :name="fieldName" :type="type" :step="step" :list="'datalist-' + id"
+					:placeholder="placeholder" :rules="rules" :disabled="disabled" :autocomplete="autocomplete"
+					:class="classes" @update:modelValue="updateInput" @focus="focusInput" @blur="blurInput" />
+				<ErrorMessage :name="fieldName" />
 				<datalist v-if="(datalist || []).length != 0" :id="'datalist-' + id">
 					<option v-for="(option, index) in datalist" :key="index" :value="option" />
 				</datalist>
@@ -23,13 +27,14 @@
 				<div class="slot-default"></div>
 			</slot>
 		</div>
-	</ValidatedFormField>
+	<!-- </ValidatedFormField> -->
 </template>
 
 <script setup lang="ts">
 	import { watch, ref, computed } from 'vue';
-	import {v4 as uuidFunc} from 'uuid';
-	const emit = defineEmits(['input'])
+	import { Field, ErrorMessage } from 'vee-validate';
+	import { v4 as uuidFunc } from 'uuid';
+	const emit = defineEmits(['update:modelValue'])
 
 	const props = defineProps({
 		label: {
@@ -69,6 +74,10 @@
 		disabled: {
 			type: Boolean,
 			default: false,
+		},
+		rules: {
+			type: [Object, String],
+			default: '',
 		},
 		step: {
 			type: String,
@@ -116,7 +125,7 @@
 	)
 
 	const updateInput = () => {
-		emit('input', data.value);
+		emit('update:modelValue', data.value);
 	}
 	const focusInput = () => {
 		showHelperText.value = true;
@@ -128,7 +137,7 @@
 
 	const resetValue = () => {
 		data.value = ""
-		emit('input', data.value);
+		emit('update:modelValue', data.value);
 	}
 
 </script>

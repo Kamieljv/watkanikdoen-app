@@ -154,6 +154,7 @@
 <script setup lang="ts">
 
 import { onMounted, ref } from 'vue';
+import { Form } from 'vee-validate';
 import { addHours } from 'date-fns';
 import _ from 'lodash'
 const __ = str => _.get(window.i18n, str)

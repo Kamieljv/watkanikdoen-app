@@ -35,7 +35,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue';
 import debounce from 'lodash/debounce'
-const emit = defineEmits(['input'])
+const emit = defineEmits(['update:modelValue'])
 
 
 const props = defineProps({

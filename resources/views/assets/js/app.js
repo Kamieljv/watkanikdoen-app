@@ -21,11 +21,8 @@ import _ from "lodash"
 app.provide('__', str => _.get(window.i18n, str)); 
 
 // Vee-validate
-import { Form, Field } from 'vee-validate'
 import { setLocale } from "@vee-validate/i18n"
 setLocale('nl')
-app.component('Form', Form)
-app.component('Field', Field)
 import './validations'
 
 // Image upload/edit
@@ -44,11 +41,13 @@ app.component("LMap", LMap)
 
 // Import and register Vue components that are used in blade files
 import ActieAgenda from "./components/apps/ActieAgenda.vue"
+import ActieWijzer from "./components/apps/ActieWijzer.vue"
 import AddActie from "./components/apps/AddActie.vue"
 import HomeAgenda from "./components/apps/HomeAgenda.vue"
 import Organizers from "./components/apps/Organizers.vue"
 import OrganizersFeatured from "./components/apps/OrganizersFeatured.vue"
 app.component("ActieAgenda", ActieAgenda)
+app.component("ActieWijzer", ActieWijzer)
 app.component("AddActie", AddActie)
 app.component("HomeAgenda", HomeAgenda)
 app.component("Organizers", Organizers)
