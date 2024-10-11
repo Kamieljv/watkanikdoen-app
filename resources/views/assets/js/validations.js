@@ -11,20 +11,40 @@ defineRule('confirmed', confirmed)
 defineRule('is_not', is_not)
 defineRule('url', url)
 
+defineRule('afterToday', (value) => {
+	return new Date(value) > new Date()
+});
+
+defineRule('afterIncluding', (value, [target]) => {
+	return new Date(value) >= new Date(target)
+});
+
+defineRule('before', (value, [target]) => {
+  return new Date(value) < new Date(target)
+});
+
+defineRule('after', (value, [target]) => {
+	return new Date(value) > new Date(target)
+});
+
 
 configure({
-  // Generates an English message locale generator
-  generateMessage: localize('nl', {
-    messages: {
-      required: 'Dit veld is verplicht',
-      min: 'Deze waarde mag niet korter zijn dan 0:{min} karakters.',
-      max: 'Deze waarde mag niet langer zijn dan 0:{max} karakters.',
-      email: 'Voer een geldig e-mailadres in.',
-      confirmed: 'De {target} velden komen niet overeen.',
-      is_not: 'Waarde mag niet gelijk zijn aan {other}.',
-      url: 'Voer een geldige URL in.'
-    },
-  }),
+	// Generates an English message locale generator
+	generateMessage: localize('nl', {
+		messages: {
+			required: 'Dit veld is verplicht',
+			min: 'Deze waarde mag niet korter zijn dan 0:{min} karakters.',
+			max: 'Deze waarde mag niet langer zijn dan 0:{max} karakters.',
+			email: 'Voer een geldig e-mailadres in.',
+			confirmed: 'De {target} velden komen niet overeen.',
+			is_not: 'Waarde mag niet gelijk zijn aan {other}.',
+			url: 'Voer een geldige URL in.',
+			after: 'Kies een datum na 0:{target}.',
+			before: 'Kies een datum voor 0:{target}.',
+			afterToday: 'Kies een datum na vandaag.',
+			afterIncluding: 'Kies een datum vanaf 0:{target}.'
+		},
+	}),
 });
 
 // defineRule('before', {

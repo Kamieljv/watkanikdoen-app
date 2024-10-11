@@ -27,9 +27,6 @@ import './validations'
 
 // Image upload/edit
 import "exif-js"
-import VueCroppie from "vue-croppie"
-import "croppie/croppie.css" // import the croppie css manually
-app.use(VueCroppie)
 
 import { LMap, LTileLayer, LMarker, LTooltip } from "@vue-leaflet/vue-leaflet"
 import "leaflet/dist/leaflet.css"

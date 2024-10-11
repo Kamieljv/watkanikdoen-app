@@ -1,5 +1,5 @@
 <template>
-    <Form ref="actieValidator">
+    <Form ref="actieValidatorRef" @keydown.enter="$event.preventDefault()">
         <div class="grid grid-cols-1 md:grid-cols-3 max-w-6xl mx-auto flex-col my-6 md:divide-x space-y-3">
             <div class="col-span-2 space-y-3">
                 <div class="flex flex-col justify-start flex-1 overflow-hidden bg-white border-gray-150">
@@ -18,8 +18,7 @@
                             label="Titel"
                             name="title"
                             type="text"
-                            :rules="{max: 50}"
-                            required
+                            :rules="{max: 50, required: true}"
                         />
                         <!-- Body -->
                         <div class="min-h-[200px]">
@@ -47,8 +46,7 @@
                             label="Locatie (tekst om weer te geven)"
                             name="location_human"
                             type="text"
-                            :rules="{max: 80}"
-                            required
+                            :rules="{required: true, max: 80}"
                         />
                         <div>
                             <label for="location" class="block text-sm font-medium leading-5 text-gray-700">
@@ -79,7 +77,7 @@
                     </p>
                     <div class="flex flex-col mt-5 space-y-3">
                         <!-- Externe link -->
-                        <FormUrls @change="handleActionUrls" :urls="actionUrls"/>
+                        <FormUrls v-model="report.actionUrls" required />
                     </div>
                 </div>
                 <div class="flex flex-col justify-start flex-1 mb-5 md:pl-5 overflow-hidden bg-white border-gray-150">
@@ -96,9 +94,8 @@
                             label="Datum begin van de actie"
                             name="BeginDatum"
                             type="date"
-                            rules="afterToday"
-                            required
-                            @input="() => { this.report.end_date = this.report.start_date }"
+                            rules="afterToday|required"
+                            @update:modelValue="() => { report.end_date = report.start_date }"
                         />
                         <FormField
                             v-model="report.start_time"
@@ -106,7 +103,8 @@
                             name="BeginTijd"
                             type="time"
                             step="900"
-                            @input="() => { this.report.end_time = addHoursToTime(this.report.start_time, 1) }"
+
+                            @update:modelValue="() => { report.end_time = addHoursToTime(report.start_time, 1) }"
                         />
                         <!-- Time end -->
                         <FormField
@@ -114,8 +112,7 @@
                             label="Datum einde van de actie"
                             name="EindDatum"
                             type="date"
-                            rules="afterIncluding:@BeginDatum"
-                            required
+                            rules="afterIncluding:@BeginDatum|required"
                         />
                         <FormField
                             v-model="report.end_time"
@@ -136,7 +133,7 @@
                     </p>
                     <div class="flex flex-col h-32 mt-5 space-y-3">
                         <!-- Image -->
-                        <form-image
+                        <FormImage
                             v-model="report.image"
                             :previous-image="report.image"
                             field-name="image"
@@ -153,13 +150,17 @@
 
 <script setup lang="ts">
 
-import { onMounted, ref } from 'vue';
-import { Form } from 'vee-validate';
+import { onMounted, ref, watch } from 'vue';
+import { Form, useForm } from 'vee-validate';
 import { addHours } from 'date-fns';
 import _ from 'lodash'
 const __ = str => _.get(window.i18n, str)
 
 const props = defineProps({
+    modelValue: {
+        type: Object,
+        required: true,
+    },
     defaultCenter: {
         type: Array,
         required: true,
@@ -167,17 +168,26 @@ const props = defineProps({
     zoom: {
         type: Number,
         required: true,
-    },
-    report: {
-        type: Object,
-        required: true
-    },
+    }
 })
 
+const report = ref(props.modelValue);
 const actionUrls = ref([]);
+const actieValidatorRef = ref(null);
+const isValid = ref(false);
+
+watch(report, (val) => {
+    if (actieValidatorRef.value.meta.dirty) {
+        actieValidatorRef.value.validate().then((result) => {
+            isValid.value = result.valid;
+        })
+    }
+}, 
+{ deep: true }
+)
 
 onMounted(() => {
-    actionUrls.value = props.report.actionUrls ?? [];
+    actionUrls.value = report.value.actionUrls ?? [];
 })
 
 const addHoursToTime = (timeString, hoursToAdd) => {
@@ -193,8 +203,8 @@ const addHoursToTime = (timeString, hoursToAdd) => {
     return formattedNewTime;
 }
 
-const handleActionUrls = (urls) => {
-    props.report.actionUrls = urls;
-}
+defineExpose({
+    isValid
+})
     
 </script>
