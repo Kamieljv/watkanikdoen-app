@@ -143,7 +143,6 @@ const descriptionRef = ref(null)
 
 const addOrganizer = () => {
     organizerValidatorRef.value.validate().then((result) => {
-        console.log(result)
         if (result.valid) {
             organizersSelected.value.push({
                 name: name.value, 

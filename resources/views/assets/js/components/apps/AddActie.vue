@@ -33,9 +33,10 @@
                     <div v-else-if="activeStep.key === 'actie'"
                         class="p-8 bg-white rounded-md shadow-md min-h-[400px]" :key="2">
                         <h2>Actiedetails beschrijven</h2>
-                        <Actie-Form ref="actieForm" v-model="report" :report="report"
+                        <ActieForm ref="actieFormRef" v-model="report"
                             :default-center="('location' in report) ? [report.location] : defaultCenter"
-                            :zoom="zoom"></Actie-Form>
+                            :zoom="zoom">
+                        </ActieForm>
                     </div>
                     <div v-else-if="activeStep.key === 'user' && currentUser !== {}"
                         class="p-8 bg-white rounded-md shadow-md min-h-[400px]" :key="3">
@@ -126,7 +127,7 @@ const props = defineProps({
     },
 })
 
-const activeIndex = ref(0)
+const activeIndex = ref(2)
 const steps = ref([
     {
         key: 'start',
@@ -156,12 +157,14 @@ const currentUser = ref({})
 const sent = ref(false)
 const currentErrors = ref([])
 const isLoading = ref(false)
+const actieFormRef = ref(null)
 
 const stepTitles = computed(() => steps.value.map(s => s.title))
 const activeStep = computed(() => steps.value[activeIndex.value])
 const isLastStep = computed(() => activeIndex.value === steps.value.length - 1)
 const nextDisabled = computed(() => {
     if ((activeStep.value.key === 'organizer' && selectedOrganizers.value.length == 0) ||
+        (activeStep.value.key === 'actie' && actieFormRef.value?.isValid === false) ||
         (activeStep.value.key === 'user' && Object.keys(currentUser.value).length === 0)
     ) {
         return true
@@ -206,25 +209,7 @@ const submit = () => {
 
 const handleNext = () => {
     window.scrollTo(0, 0);
-    if (activeStep.value.key === 'actie') {
-        $refs.actieForm.$refs.actieValidator.validate().then((result) => {
-            if (result) {
-                activeIndex.value++
-            }
-            else if (activeIndex.value > 1) {
-                var i = 0
-                for (var key in $refs.actieForm.$refs.actieValidator.fields) {
-                    var el = document.querySelector('[name=' + key + ']')
-                    if (el && ++i == 1)
-                        el.scrollIntoView()
-                }
-            }
-        });
-        currentErrors.value = [];
-    } else {
-        activeIndex.value++
-    }
-
+    activeIndex.value++
 }
 
 const authDone = (user) => {

@@ -15,6 +15,7 @@ declare module 'vue' {
     AddActie: typeof import('./resources/views/assets/js/components/apps/AddActie.vue')['default']
     Collapsible: typeof import('./resources/views/assets/js/components/partials/Collapsible.vue')['default']
     CopyTextField: typeof import('./resources/views/assets/js/components/partials/CopyTextField.vue')['default']
+    Dialog: typeof import('primevue/dialog')['default']
     ForgotPassword: typeof import('./resources/views/assets/js/components/forms/ForgotPassword.vue')['default']
     FormAutocomplete: typeof import('./resources/views/assets/js/components/formfields/FormAutocomplete.vue')['default']
     FormField: typeof import('./resources/views/assets/js/components/formfields/FormField.vue')['default']
