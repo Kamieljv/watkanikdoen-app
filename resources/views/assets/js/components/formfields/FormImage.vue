@@ -1,9 +1,9 @@
 <template>
     <div class="w-full h-full">
 		<!-- Form input element -->
-        <div class="relative h-32 h-full" :class="{'w-32': viewportType === 'circle'}">
-			<img v-if="preview" id="preview" :src="preview" class="w-full h-full object-cover" :class="{'rounded-full': viewportType === 'circle'}">
-			<div v-else :class="{'rounded-full': viewportType === 'circle'}" class="flex items-center justify-center rounded-sm text-6xl w-full h-full text-white" :style="{background: defaultColor}">{{ defaultChar }}</div>
+        <div class="relative h-32" :class="{'w-32': stencilType === 'circle'}">
+			<img v-if="preview" id="preview" :src="preview" class="w-full h-full object-cover" :class="{'rounded-full': stencilType === 'circle', 'rounded-sm': stencilType !== 'circle'}">
+			<div v-else :class="{'rounded-full': stencilType === 'circle', 'rounded-sm': stencilType !== 'circle'}" class="flex items-center justify-center text-6xl w-full h-full text-white" :style="{background: defaultColor}">{{ defaultChar }}</div>
 			<div class="absolute inset-0 w-full h-full">
 				<input v-if="!disabled" v-show="false" type="file" ref="uploadRef" id="upload" @change="imageUploaded">
 				<input v-if="!disabled" type="hidden" :value="preview" :name="fieldName">
@@ -33,10 +33,8 @@
 					class="cropper"
 					ref="cropperRef"
 					:src="uploaded"
-					:stencil-props="{
-						minAspectRatio: 1/1,
-						maxAspectRatio: 16/8
-					}"
+					:stencil-component="stencilComponent"
+					:stencil-props="stencilProps"
 					@ready="setReady"
 				></cropper>
 				<div v-show="isLoading" class="flex justify-center items-center h-20">
@@ -79,8 +77,8 @@
 <script setup lang="ts">
 
 import axios from 'axios';
-import { onMounted, ref, watch } from 'vue'
-import { Cropper } from 'vue-advanced-cropper'
+import { computed, onMounted, ref, watch } from 'vue'
+import { Cropper, CircleStencil } from 'vue-advanced-cropper'
 import 'vue-advanced-cropper/dist/style.css';
 import DeleteIcon from '&/antdesign-delete-o.svg'
 import CameraIcon from '&/antdesign-camera-o.svg'
@@ -115,13 +113,13 @@ const props = defineProps({
 		type: Number,
 		default: 250,
 	},
-	ratio: {
-		type: Number,
-		default: 0.7,
+	stencilProps: {
+		type: Object,
+		default: () => {},
 	},
-	viewportType: {
+	stencilType: {
 		type: String,
-		default: "square",
+		default: "rectangle",
 	},
 	defaultChar: {
 		type: String,
@@ -146,6 +144,10 @@ const error = ref("")
 const uploadRef = ref(null)
 const cropperRef = ref(null)
 const cropperReady = ref(false)
+
+const stencilComponent = computed(() => {
+	return props.stencilType === "circle" ? CircleStencil : 'rectangle-stencil'
+})
 
 onMounted(() => {
 	preview.value = props.previousImage

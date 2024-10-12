@@ -41,14 +41,20 @@ import ActieAgenda from "./components/apps/ActieAgenda.vue"
 import ActieWijzer from "./components/apps/ActieWijzer.vue"
 import AddActie from "./components/apps/AddActie.vue"
 import HomeAgenda from "./components/apps/HomeAgenda.vue"
+import Notifications from "./components/apps/Notifications.vue"
 import Organizers from "./components/apps/Organizers.vue"
 import OrganizersFeatured from "./components/apps/OrganizersFeatured.vue"
+import Profile from "./components/forms/Profile.vue"
+import Security from "./components/forms/Security.vue"
 app.component("ActieAgenda", ActieAgenda)
 app.component("ActieWijzer", ActieWijzer)
 app.component("AddActie", AddActie)
 app.component("HomeAgenda", HomeAgenda)
+app.component("Notifications", Notifications)
 app.component("Organizers", Organizers)
 app.component("OrganizersFeatured", OrganizersFeatured)
+app.component("Profile", Profile)
+app.component("Security", Security)
 
   
 // Admin portal components

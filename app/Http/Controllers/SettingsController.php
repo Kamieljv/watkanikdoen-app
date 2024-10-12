@@ -32,9 +32,12 @@ class SettingsController extends Controller
         $authed_user = auth()->user();
 
         $authed_user->name = $request->name;
-        // $authed_user->email = $request->email;
+
         if ($request->avatar) {
-            $this->saveAvatar($request->avatar, $authed_user);
+            // continue if avatar is base64
+            if ($this->isBase64($request->avatar)) {
+                $this->saveAvatar($request->avatar, $authed_user);
+            }
         }
         $authed_user->save();
 
@@ -92,5 +95,18 @@ class SettingsController extends Controller
             }
             return view('partials.toast', compact('type', 'message'));
         }
+    }
+
+    /**
+     * Check if a string is base64 encoded
+     *
+     * @param string $string
+     * @return bool
+     */
+    private function isBase64($string)
+    {
+        $decoded = base64_decode($string, true);
+        // Check if the string is base64 encoded and if it can be re-encoded to the same value
+        return $decoded !== false && base64_encode($decoded) === $string;
     }
 }
