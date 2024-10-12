@@ -5,24 +5,26 @@
             en je hier eventueel vragen over stellen. 
             Daarom vragen we je om in te loggen óf een account te maken.
         </div>
-        <div v-if="!currentUser" class="grid grid-cols-1 md:grid-cols-2 max-w-6xl mx-auto flex-col my-6 md:divide-x">
-            <div class="col-span-1 space-y-3">
-                <Login
-                    :routes="routes"
-                    :min-password-length="minPasswordLength"
-                    :async="true"
-                    @done="authDone"
-                />
-            </div>
-            <div class="col-span-1 space-y-3">
-                <Register
-                    :routes="routes"
-                    :min-password-length="minPasswordLength"
-                    :h-captcha-key="hCaptchaKey"
-                    :async="true"
-                    @done="authDone"
-                />
-            </div>
+        <div v-if="!currentUser" class="flex justify-center max-w-6xl mx-auto my-6 md:divide-x">
+            <Login
+                v-if="type === 'login'"
+                class="w-full md:w-1/2"
+                :routes="routes"
+                :min-password-length="minPasswordLength"
+                :async="true"
+                @done="authDone"
+                @switchType="type = $event"
+            />
+            <Register
+                v-else
+                class="w-full md:w-1/2"
+                :routes="routes"
+                :min-password-length="minPasswordLength"
+                :h-captcha-key="hCaptchaKey"
+                :async="true"
+                @done="authDone"
+                @switchType="type = $event"
+            />
         </div>
         <div v-else class="grid grid-cols-1 max-w-6xl mx-auto flex-col my-6">
             <SuccessBlock message="Je bent al ingelogd of geregistreerd."/>
@@ -54,6 +56,7 @@ const props = defineProps({
 })
 
 const currentUser = ref(null)
+const type = ref('login')
 const authDone = (user) => {
     currentUser.value = user
     emit('done', user)

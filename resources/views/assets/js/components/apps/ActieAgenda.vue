@@ -128,7 +128,7 @@
 <script setup lang="ts">
 import { onMounted, watch, defineProps, computed, ref } from "vue"
 import FilterIcon from "&/clarity-filter-solid.svg"
-import { calcDistance } from "../../mixins/geoHelper"
+import { calcDistance } from "../../helpers/geoHelper"
 import debounce from "lodash/debounce"
 import _ from 'lodash'
 import axios from "axios";
