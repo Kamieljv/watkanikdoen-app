@@ -56,52 +56,47 @@
 	</div>
 </template>
 
-<script>
-export default {
-	name: "Notifications",
-	props: {
-		notifications: {
-			type: Array,
-			required: true,
-		},
-		readRoute: {
-			type: String,
-			required: true,
-		}
-	},
-	data() {
-		return {
-			notif: this.notifications
-		}
-	},
-	computed: {
-		noNotifications() {
-			return this.notif.length === 0
-		},
-		notificationsProcessed() {
-			return this.notif.map((n) => {
-				n.unread = n.read_at === null
-				return n
-			})
-		},
-		unreadNotifications() {
-			return this.notificationsProcessed.filter((n) => n.unread === true).length
-		}
-	},
-	mounted() {
-	},
-	methods: {
-		markAsRead(e) {
-			this.$http.post(this.readRoute + "/" + e.target.dataset.id).then((response) => {
-				if (response.data.type == "success") {
-					Vue.set(this.notif[e.target.dataset.listid], "read_at", new Date())
-				}
-			})
-		}
-	},
-}
-</script>
+<script setup lang="ts">
+import axios from 'axios';
+import { computed, ref } from 'vue';
+import _ from 'lodash';
+const __ = str => _.get(window.i18n, str)
 
+const props = defineProps({
+	notifications: {
+		type: Array,
+		required: true,
+	},
+	readRoute: {
+		type: String,
+		required: true,
+	}
+})
+
+const notif = ref(props.notifications)
+
+const noNotifications = computed(() => notif.value.length === 0)
+
+const notificationsProcessed = computed(() => {
+	return notif.value.map((n: object) => {
+		n.unread = n.read_at === null
+		return n
+	})
+})
+
+const unreadNotifications = computed(() => {
+	return notificationsProcessed.value.filter((n) => n.unread === true).length
+})
+
+const markAsRead = (e) => {
+	axios.post(props.readRoute + "/" + e.target.dataset.id).then((response) => {
+		if (response.data.type == "success") {
+			notif.value[e.target.dataset.listid].read_at = new Date()
+		}
+	})
+}
+
+</script>
 <style lang="scss" scoped>
 	#notification-ul {
 		/* Hide scrollbar for IE, Edge and Firefox */

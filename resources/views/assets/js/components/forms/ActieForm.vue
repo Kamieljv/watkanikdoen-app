@@ -140,6 +140,10 @@
                             viewport-type="square"
                             default-color="var(--wkid-blue-light)"
                             :width="1000"
+                            :stencil-props="{
+                                minAspectRatio: 1/1,
+                                maxAspectRatio: 16/8
+                            }"
                         />
                     </div>
                 </div>
