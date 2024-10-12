@@ -8,11 +8,14 @@
 
         <div :class="{'mt-8 mx-5 sm:mx-auto sm:w-full sm:max-w-md': !async}">
             <div class="px-4 py-8 bg-white sm:px-10" :class="{'border shadow border-gray-50 sm:rounded-lg': !async}">
-                <div v-if="!async">
+                <div>
                     <p class="mb-2 text-sm">{{ __("auth.account?") }}</p>
                     <span class="block w-full rounded-md shadow-sm">
-                        <a :href="routes.login" class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-blue-600 transition duration-150 ease-in-out border border-transparent rounded-md border-1 border-blue-600 hover:bg-blue-200">
-                            {{ this.sentenceCase(__("auth.login")) }}
+                        <a v-if="async" @click="switchType('login')" class="flex items-center cursor-pointer justify-center w-full px-4 py-2 text-sm font-medium text-blue-600 transition duration-150 ease-in-out border border-transparent rounded-md border-1 border-blue-600 hover:bg-blue-200">
+                            {{ sentenceCase(__("auth.login")) }}
+                        </a>
+                        <a v-else :href="routes.register" class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-blue-600 transition duration-150 ease-in-out border border-transparent rounded-md border-1 border-blue-600 hover:bg-blue-200">
+                            {{ sentenceCase(__("auth.login")) }}
                         </a>
                     </span>
                     <hr class="my-5">
@@ -28,7 +31,7 @@
                 <Form
                     ref="validator"
                 >
-                    <form ref="register_form" role="form" method="POST" @submit.prevent="handleSubmit" :action="routes.register">
+                    <form ref="registerFormRef" role="form" method="POST" @submit.prevent="handleSubmit" :action="routes.register">
                         <slot name="csrf"/>
 
                         <!-- Name -->
@@ -59,10 +62,8 @@
                             label="Wachtwoord"
                             name="password"
                             type="password"
-                            :rules="{min: minPasswordLength}"
+                            :rules="{min: minPasswordLength, required: true}"
                             autocomplete="new-password"
-                            password
-                            required
                         />
 
                         <!-- Password Confirmation -->
@@ -71,10 +72,8 @@
                             label="Wachtwoord bevestigen"
                             name="password_confirmation"
                             type="password"
-                            :rules="{min: minPasswordLength, confirmed: {target: 'password'}}"
+                            :rules="{min: minPasswordLength, confirmed: {target: 'password'}, required: true}"
                             autocomplete="new-password"
-                            password
-                            required
                         />
 
                         <div class="mt-6">
@@ -105,78 +104,81 @@
     </div>
 </template>
 
-<script>
+<script setup lang="ts">
+import axios from 'axios';
+import { computed, onMounted, ref } from 'vue';
+import { sentenceCase } from '../../helpers/caseHelper.js';
+import _ from 'lodash';
+const __ = (str) => _.get(window.i18n, str)
+const emit = defineEmits(['done', 'switchType'])
 
-import { caseHelper } from '../../mixins/caseHelper';
 
-export default {
-	name: "Register",
-    mixins: [
-        caseHelper,
-    ],
-    props: {
-        routes: {
-            type: Object,
-            required: true,
-        },
-        minPasswordLength: {
-            type: Number,
-            default: 10,
-        },
-        hCaptchaKey: {
-            type: String,
-            required: true,
-        },
-        errors: {
-            type: Object,
-            default: () => {}
-        },
-        async: {
-            type: Boolean,
-            default: false,
-        }
+const props = defineProps({
+    routes: {
+        type: Object,
+        required: true,
     },
-    data() {
-		return {
-            name: '',
-			email: '',
-            password: '',
-            passwordConfirm: '',
-            termsApproved: false,
-            currentErrors: null,
+    minPasswordLength: {
+        type: Number,
+        default: 10,
+    },
+    hCaptchaKey: {
+        type: String,
+        required: true,
+    },
+    errors: {
+        type: Object,
+        default: () => {}
+    },
+    async: {
+        type: Boolean,
+        default: false,
+    }
+})
+
+const name = ref("")
+const email = ref("")
+const password = ref("")
+const passwordConfirm = ref("")
+const termsApproved = ref(false)
+const currentErrors = ref([])
+const registerFormRef = ref(null)
+
+const handleSubmit = () => {
+    if (props.async) {
+        const formData = new FormData(registerFormRef.value)
+        const data = {}
+        for (const [key, value] of formData) {
+            data[key] = value
         }
-	},
-    methods: {
-        handleSubmit() {
-            if (this.async) {
-                var formData = new FormData(this.$refs.register_form)
-                var data = {}
-                for (const [key, value] of formData) {
-                    data[key] = value
-                }
-                this.$http.post(this.routes.register, data).then((response) => {
-                    if (response.data.status == 'success') {
-                        this.currentErrors = []
-                        this.$emit('done', response.data.user)
-                    }
-                }).catch((error) => {
-                    this.currentErrors = error.response.data.errors
-                })
-            } else {
-                this.$refs.register_form.submit()
+        axios.post(props.routes.register, data).then((response) => {
+            if (response.data.status == 'success') {
+                currentErrors.value = []
+                emit('done', response.data.user)
             }
-        }
-    },
-    computed: {
-        termsText() {
-            return this.__("auth.accept_terms")
-                .replace(':terms', this.routes.terms)
-        }
-    },
-    mounted () {
-        this.currentErrors = this.errors
+        }).catch((error) => {
+            currentErrors.value = error.response.data.errors
+        })
+    } else {
+        registerFormRef.value.submit()
     }
 }
+
+const switchType = (type) => {
+    emit('switchType', type)
+}
+
+const termsText = computed(() => {
+    return __("auth.accept_terms")
+        .replace(':terms', props.routes.terms)
+})
+
+
+
+onMounted(() => {
+    currentErrors.value = props.errors ? Object.values(props.errors).map((v) => v[0]) : []
+})
+
 </script>
 <style scoped>
     .failure {

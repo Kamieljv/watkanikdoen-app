@@ -74,7 +74,7 @@
 
 <script>
 
-import { caseHelper } from '../../mixins/caseHelper';
+import { caseHelper } from '../../helpers/caseHelper';
 
 export default {
 	name: "ResetPassword",
