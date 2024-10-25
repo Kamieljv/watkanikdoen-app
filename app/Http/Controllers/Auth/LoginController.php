@@ -69,8 +69,11 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if (setting('auth.verify_email') && !$user->verified) {
+            // If user email is not verified, log out and
             $this->guard()->logout();
-            return redirect()->back()->with('warning', __('auth.please_verify_email'));
+            return False;
+        } else {
+            return True;
         }
     }
 
@@ -86,16 +89,23 @@ class LoginController extends Controller
 
         $this->clearLoginAttempts($request);
 
+        $authenticated = $this->authenticated($request, $this->guard()->user());
+
         if ($request->expectsJson()) {
+            if (!$authenticated) {
+                return response(['status' => 'failed', 'message' => __('auth.please_verify_email')], 200);
+            }
             return response([
                 'status' => 'success',
                 'user' => auth()->user(),
                 'redirect' => session('url.intended') ?? $this->redirectPath()
             ], 200);
+        } else {
+            if (!$authenticated) {
+                return redirect()->back()->with('warning', __('auth.please_verify_email'));
+            }
+            return redirect()->intended($this->redirectPath());
         }
-
-        return $this->authenticated($request, $this->guard()->user())
-            ?: redirect()->intended($this->redirectPath());
     }
 
     /**

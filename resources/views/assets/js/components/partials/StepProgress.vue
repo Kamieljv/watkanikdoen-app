@@ -1,6 +1,5 @@
 <template>
     <div>
-        {{ current }}
         <div class="w-full h-20 mt-8 sm:mb-4">
             <ul class="progressbar flex justify-between">
                 <li 

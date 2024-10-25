@@ -27,8 +27,6 @@
                 <Form
                     ref="registerFormRef" method="POST" :action="routes.register" @submit="submit"
                 >
-                    <slot name="csrf"/>
-
                     <!-- Name -->
                     <FormField
                         v-model="name"
@@ -74,7 +72,7 @@
                     </div>
 
                     <div class="mt-6 flex">
-                        <Field v-model="termsApproved" name="terms" type="checkbox" id="termsCheckbox" :value="true" :unchecked-value="false" class="mr-2" />
+                        <Checkbox v-model="termsApproved" :binary="true" name="termsCheckbox" id="termsCheckbox" class="mr-2" />
                         <label for="termsCheckbox" class="text-sm text-gray-900" v-html="termsText">
                         </label>
                     </div>

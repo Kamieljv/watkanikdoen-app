@@ -21,8 +21,6 @@
                     <p v-for="e in currentErrors" :key="e" class="italic text-sm">{{e}}</p>
                 </div>
                 <form ref="loginFormRef" @submit.prevent="handleSubmit" :action="routes.login"  method="POST" class="space-y-3">
-                    <slot name="csrf"/>
-
                     <!-- Email -->
                     <FormField
                         v-model="email"
@@ -43,15 +41,8 @@
                         :show-required-mark="false"
                         autocomplete="current-password"
                     />
-                    <!-- Remember me -->
-                    <div class="flex items-center justify-between mt-6">
-                        <div class="flex items-center">
-                            <input id="remember" name="remember" type="checkbox" :checked="remember === 'on'">
-                            <label for="remember" class="block ml-2 text-sm leading-5 text-gray-900">
-                                {{ __("auth.remember_me") }}
-                            </label>
-                        </div>
-
+                    <!-- Forgot password -->
+                    <div class="flex items-center justify-end mt-6">
                         <div class="text-sm leading-5">
                             <a :href="routes.forgot_password" class="font-medium transition duration-150 ease-in-out text-[color:var(--wkid-blue)] focus:outline-none hover:underline hover:text-[color:var(--wkid-blue-dark)]">
                                 {{ __("auth.forgot_password?") }}

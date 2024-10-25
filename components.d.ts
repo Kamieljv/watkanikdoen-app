@@ -13,6 +13,7 @@ declare module 'vue' {
     ActieSmall: typeof import('./resources/views/assets/js/components/partials/ActieSmall.vue')['default']
     ActieWijzer: typeof import('./resources/views/assets/js/components/apps/ActieWijzer.vue')['default']
     AddActie: typeof import('./resources/views/assets/js/components/apps/AddActie.vue')['default']
+    Checkbox: typeof import('primevue/checkbox')['default']
     Collapsible: typeof import('./resources/views/assets/js/components/partials/Collapsible.vue')['default']
     CopyTextField: typeof import('./resources/views/assets/js/components/partials/CopyTextField.vue')['default']
     Dialog: typeof import('primevue/dialog')['default']

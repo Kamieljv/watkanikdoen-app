@@ -60,7 +60,6 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:' . config('app.auth.min_password_length') . '|confirmed',
-            'terms' => 'required',
         ];
         if (env('APP_ENV') == 'production') {
             $rules['h-captcha-response'] = ['required', new ValidHCaptcha()];
