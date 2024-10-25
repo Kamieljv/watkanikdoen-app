@@ -68,7 +68,7 @@
                     />
 
                     <div class="mt-6">
-                        <div class="h-captcha" :data-sitekey="hCaptchaKey"></div>
+                        <vue-hcaptcha :sitekey="hCaptchaKey" @verify="updateCaptchaToken"></vue-hcaptcha>
                     </div>
 
                     <div class="mt-6 flex">
@@ -82,9 +82,10 @@
                                 id="submitBtn"
                                 type="submit"
                                 class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 active:bg-blue-700 disabled:bg-gray-200 disabled:text-gray-900 disabled:cursor-not-allowed"
-                                :disabled="!termsApproved"
+                                :disabled="!termsApproved || !hCaptchaDone"
                             >
-                                {{ __("auth.register") }}
+                                <span v-if="!isLoading">{{ __("auth.register") }}</span>
+                                <div v-else class="custom-loader"></div>
                             </button>
                         </span>
                     </div>
@@ -99,6 +100,7 @@ import axios from 'axios';
 import { Form, Field } from 'vee-validate';
 import { computed, ref } from 'vue';
 import { sentenceCase } from '../../helpers/caseHelper.js';
+import VueHcaptcha from '@hcaptcha/vue3-hcaptcha';
 import _ from 'lodash';
 const __ = (str) => _.get(window.i18n, str)
 const emit = defineEmits(['done', 'switchType'])
@@ -130,18 +132,28 @@ const passwordConfirm = ref("")
 const termsApproved = ref(false)
 const currentErrors = ref([])
 const registerFormRef = ref(null)
+const hCaptchaDone = ref(false)
+const isLoading = ref(false)
+
+const updateCaptchaToken = (token) => {
+    registerFormRef.value.setValues({ "h-captcha-token": token })
+    hCaptchaDone.value = true
+}
 
 const submit = (values) => {
+    isLoading.value = true
     axios.post(props.routes.register, values).then((response) => {
-        if (response.data.status == 'success') {
+        if (response.data?.status == 'success') {
             currentErrors.value = []
             emit('done', response.data.userId)
             if (props.redirect && response.data.redirect) {
                 window.location.href = response.data.redirect; 
             }
         }
+        isLoading.value = false
     }).catch((error) => {
         currentErrors.value = Object.values(error.response.data.errors).flat()
+        isLoading.value = false
     })
 }
 
