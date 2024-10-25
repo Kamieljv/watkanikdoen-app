@@ -27,8 +27,6 @@
     @if(config('umami.key'))
         <script async defer data-website-id="{{ config('umami.key') }}" src="{{ config('umami.url') }}/script.js"></script>
     @endif
-    {{-- hCaptcha --}}
-    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 
     @vite(['resources/views/assets/js/app.js', 'resources/views/assets/sass/app.scss'])
 </head>

@@ -82,7 +82,7 @@
                                 id="submitBtn"
                                 type="submit"
                                 class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 active:bg-blue-700 disabled:bg-gray-200 disabled:text-gray-900 disabled:cursor-not-allowed"
-                                :disabled="!termsApproved || !hCaptchaDone"
+                                :disabled="!termsApproved || !hCaptchaDone || isLoading"
                             >
                                 <span v-if="!isLoading">{{ __("auth.register") }}</span>
                                 <div v-else class="custom-loader"></div>
@@ -97,7 +97,7 @@
 
 <script setup lang="ts">
 import axios from 'axios';
-import { Form, Field } from 'vee-validate';
+import { Form } from 'vee-validate';
 import { computed, ref } from 'vue';
 import { sentenceCase } from '../../helpers/caseHelper.js';
 import VueHcaptcha from '@hcaptcha/vue3-hcaptcha';

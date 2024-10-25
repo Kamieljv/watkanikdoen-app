@@ -43,6 +43,7 @@ import AddActie from "./components/apps/AddActie.vue"
 import ForgotPassword from "./components/forms/ForgotPassword.vue"
 import HomeAgenda from "./components/apps/HomeAgenda.vue"
 import LoginOrRegister from "./components/apps/LoginOrRegister.vue"
+import Newsletter from "./components/forms/Newsletter.vue"
 import Notifications from "./components/apps/Notifications.vue"
 import Organizers from "./components/apps/Organizers.vue"
 import OrganizersFeatured from "./components/apps/OrganizersFeatured.vue"
@@ -56,6 +57,7 @@ app.component("AddActie", AddActie)
 app.component("ForgotPassword", ForgotPassword)
 app.component("HomeAgenda", HomeAgenda)
 app.component("LoginRegister", LoginOrRegister)
+app.component("Newsletter", Newsletter)
 app.component("Notifications", Notifications)
 app.component("Organizers", Organizers)
 app.component("OrganizersFeatured", OrganizersFeatured)
