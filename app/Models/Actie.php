@@ -50,6 +50,7 @@ class Actie extends Model
      */
     protected $appends = [
         'link',
+        'afgelopen',
         'start_end',
         'start_unix',
         '_geoloc',
@@ -226,26 +227,30 @@ class Actie extends Model
         return $this->hasOne(Report::class)->without('actie');
     }
 
-    public function getAfgelopenAttribute()
-    {
-        return Date::parse($this->end_date . " " . $this->end_time)->timestamp < time();
-    }
-
     public function getPublishedAttribute()
     {
         return $this->status === "PUBLISHED";
     }
-
-    public function scopePublished($query)
-    {
-        return $query->where('status', 'PUBLISHED');
-    }
     
+    public function getAfgelopenAttribute()
+    {
+        if ($this->end_time === null) {
+            // if end_time is not set, take the end of the day
+            return Date::parse($this->end_date . " " . "23:59:59")->timestamp < time();
+        }
+        return Date::parse($this->end_date . " " . $this->end_time)->timestamp < time();
+    }
+
     public function scopeNietAfgelopen($query)
     {
         // check if end_time is defined
         return $query->whereRaw("STR_TO_DATE(CONCAT(end_date, ' ', end_time), '%Y-%m-%d %H:%i:%s') > '" . Date::now()->toDateTimeString() . "'")
             ->orWhereRaw("(end_time is NULL AND STR_TO_DATE(end_date, '%Y-%m-%d') >= '" . Date::now()->toDateString() . "')");
+    }
+
+    public function scopePublished($query)
+    {
+        return $query->where('status', 'PUBLISHED');
     }
 
     public function publish()

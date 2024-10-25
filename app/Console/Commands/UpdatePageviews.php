@@ -66,7 +66,10 @@ class UpdatePageviews extends Command
             $actie = Actie::where('slug', $slug)->first();
             if ($actie != null) {
                 $actie->pageviews = $stat->y;
+                // disable and re-enable timestamps to not update the updated_at field when updating pageviews
+                $actie->timestamps = false;
                 $actie->save();
+                $actie->timestamps = true;
             }
         }
     }

@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command(UpdatePageviews::class)->everyFourHours();
+        $schedule->command(UpdatePageviews::class)->dailyAt('01:00');
     }
 
     /**
