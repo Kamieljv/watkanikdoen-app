@@ -44,6 +44,7 @@
 					:rules="{max: 70, email: true}"
 					autocomplete="email"
 					required
+					disabled
 				/>
 
 				<div class="flex justify-end w-full">

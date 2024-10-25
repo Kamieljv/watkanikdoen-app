@@ -1,8 +1,7 @@
 <template>
     <div>
         <div v-if="!sent">
-            <step-progress :steps="stepTitles" :currentStep="activeIndex" v-model="activeIndex">
-            </step-progress>
+            <StepProgress v-model="activeIndex" :steps="stepTitles" />
             <Form>
                 <Transition name="slide" mode="out-in" appear>
                     <div v-if="activeStep.key === 'start'" class="p-8 bg-white rounded-md shadow-md min-h-[400px]"
