@@ -132,7 +132,7 @@ const props = defineProps({
     },
 })
 
-const activeIndex = ref(3)
+const activeIndex = ref(0)
 const steps = ref([
     {
         key: 'start',
