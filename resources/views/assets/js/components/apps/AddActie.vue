@@ -38,11 +38,16 @@
                             :zoom="zoom">
                         </ActieForm>
                     </div>
-                    <div v-else-if="activeStep.key === 'user' && currentUser !== {}"
+                    <div v-else-if="activeStep.key === 'user' && currentUserId"
                         class="p-8 bg-white rounded-md shadow-md min-h-[400px]" :key="3">
                         <h2>Wie ben jij?</h2>
+                        <div class="col-span-2">
+                            We willen je graag op de hoogte houden van de status van je aanmeldingen 
+                            en je hier eventueel vragen over stellen. 
+                            Daarom vragen we je om in te loggen óf een account te maken.
+                        </div>
                         <LoginOrRegister :routes="routes" :min-password-length="minPasswordLength" :async="true"
-                            :h-captcha-key="hCaptchaKey" :user="currentUser" @done="authDone" />
+                            :h-captcha-key="hCaptchaKey" :user-id="currentUserId" @done="authDone" />
                     </div>
                     <div v-else-if="activeStep.key === 'confirm'"
                         class="flex flex-col justify-between p-8 bg-white rounded-md shadow-md min-h-[400px]"
@@ -153,7 +158,7 @@ const steps = ref([
 
 const report = ref({})
 const selectedOrganizers = ref([])
-const currentUser = ref({})
+const currentUserId = ref(null)
 const sent = ref(false)
 const currentErrors = ref([])
 const isLoading = ref(false)
@@ -165,20 +170,35 @@ const isLastStep = computed(() => activeIndex.value === steps.value.length - 1)
 const nextDisabled = computed(() => {
     if ((activeStep.value.key === 'organizer' && selectedOrganizers.value.length == 0) ||
         (activeStep.value.key === 'actie' && actieFormRef.value?.isValid === false) ||
-        (activeStep.value.key === 'user' && Object.keys(currentUser.value).length === 0)
+        (activeStep.value.key === 'user' && currentUserId)
     ) {
         return true
     }
     return false
 })
 onMounted(() => {
-    currentUser.value = props.user
-    if (Object.keys(currentUser.value).length > 0) {
+    currentUserId.value = props.user
+    if (Object.keys(currentUserId.value).length > 0) {
         steps.value = steps.value.filter((s) => s.key !== 'user')
     }
 })
 
-const submit = () => {
+const submit = async () => {
+    // check if currentUserId corresponds to logged-in user
+    await axios.get(props.routes['user_check'], {
+        params: {
+            userId: currentUserId.value
+        }
+    }).then((response) => {
+        if (response.data.status === 'success') {
+            currentErrors.value = []
+        } else {
+            currentErrors.value = { error: ['UserId does not correspond to currently logged-in user.'] }
+        }
+    }).catch((error) => {
+        currentErrors.value = error.response.data.errors;
+    })
+
     isLoading.value = true;
     // build organizers data object
     var organizers = selectedOrganizers.value.map((org) => {
@@ -191,7 +211,7 @@ const submit = () => {
         }
     });
     axios.post(props.routes['report_create'], {
-        userId: currentUser.value.id,
+        userId: currentUserId.value,
         organizers: organizers,
         report: report.value,
     }).then((response) => {
@@ -212,8 +232,8 @@ const handleNext = () => {
     activeIndex.value++
 }
 
-const authDone = (user) => {
-    currentUser.value = user
+const authDone = (userId) => {
+    currentUserId.value = userId
     activeIndex.value++
 }
 

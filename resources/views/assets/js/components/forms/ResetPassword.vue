@@ -7,7 +7,7 @@
             <p class="mt-4 text-sm leading-5 text-center text-gray-600 max-w">
                 {{ __("general.or_back_to") }}
                 <a :href="routes.login" class="font-medium transition duration-150 ease-in-out text-blue-600 hover:text-blue-500 focus:outline-none focus:underline">
-                    {{ this.sentenceCase(__('auth.login')) }}
+                    {{ sentenceCase(__('auth.login')) }}
                 </a>
             </p>
         </div>
@@ -39,10 +39,8 @@
                             label="Nieuw wachtwoord"
                             name="password"
                             type="password"
-                            :rules="{min: minPasswordLength}"
+                            :rules="{min: minPasswordLength, required: true}"
                             autocomplete="new-password"
-                            password
-                            required
                         />
 
                         <!-- Password Confirmation -->
@@ -51,10 +49,8 @@
                             label="Nieuw wachtwoord bevestigen"
                             name="password_confirmation"
                             type="password"
-                            :rules="{min: minPasswordLength, confirmed: {target: 'password'}}"
+                            :rules="{min: minPasswordLength, required: true, confirmed: {target: 'password'}}"
                             autocomplete="new-password"
-                            password
-                            required
                         />
 
                         <div class="flex flex-col items-center justify-center text-sm leading-5">
@@ -72,36 +68,31 @@
     </div>
 </template>
 
-<script>
+<script setup lang="ts">
 
-import { caseHelper } from '../../helpers/caseHelper';
+import { ref } from 'vue';
+import { sentenceCase } from '../../helpers/caseHelper.js'
+import _ from 'lodash';
+const __ = str => _.get(window.i18n, str);
 
-export default {
-	name: "ResetPassword",
-    mixins: [
-        caseHelper,
-    ],
-    props: {
-        routes: {
-            type: Object,
-            required: true,
-        },
-        token: {
-            type: String,
-            default: false,
-        },
-        minPasswordLength: {
-            type: Number,
-            default: 10,
-        },
+const props = defineProps({
+    routes: {
+        type: Object,
+        required: true,
     },
-    data() {
-		return {
-			email: '',
-            password: '',
-            passwordConfirm: '',
-        }
-	},
-}
+    token: {
+        type: String,
+        default: false,
+    },
+    minPasswordLength: {
+        type: Number,
+        default: 10,
+    },
+})
+
+const email = ref('');
+const password = ref('');
+const passwordConfirm = ref('');
+
 </script>
 

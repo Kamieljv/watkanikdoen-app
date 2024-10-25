@@ -9,17 +9,9 @@
 
 @section('content')
     <div id="app">
-        <Forgot-Password
+        <forgot-password
             :routes="{{ json_encode($routes) }}"
             csrf="{{ csrf_token() }}"
         />
     </div>
 @endsection
-
-@push('scripts')
-    <script type="application/javascript">
-        var app = new Vue({
-            el: '#app',
-        });
-    </script>
-@endpush

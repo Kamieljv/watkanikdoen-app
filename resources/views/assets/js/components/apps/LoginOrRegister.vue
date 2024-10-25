@@ -1,17 +1,12 @@
 <template>
     <div                                        >
-        <div class="col-span-2">
-            We willen je graag op de hoogte houden van de status van je aanmeldingen 
-            en je hier eventueel vragen over stellen. 
-            Daarom vragen we je om in te loggen óf een account te maken.
-        </div>
-        <div v-if="!currentUser" class="flex justify-center max-w-6xl mx-auto my-6 md:divide-x">
+        <div v-if="!currentUserId" class="flex justify-center max-w-6xl mx-auto my-6 md:divide-x">
             <Login
                 v-if="type === 'login'"
                 class="w-full md:w-1/2"
                 :routes="routes"
                 :min-password-length="minPasswordLength"
-                :async="true"
+                :redirect="redirect"
                 @done="authDone"
                 @switchType="type = $event"
             />
@@ -20,13 +15,13 @@
                 class="w-full md:w-1/2"
                 :routes="routes"
                 :min-password-length="minPasswordLength"
+                :redirect="redirect"
                 :h-captcha-key="hCaptchaKey"
-                :async="true"
                 @done="authDone"
                 @switchType="type = $event"
             />
         </div>
-        <div v-else class="grid grid-cols-1 max-w-6xl mx-auto flex-col my-6">
+        <div v-else-if="!redirect" class="grid grid-cols-1 max-w-6xl mx-auto flex-col my-6">
             <SuccessBlock message="Je bent al ingelogd of geregistreerd."/>
         </div>
     </div>
@@ -50,22 +45,25 @@ const props = defineProps({
         type: String,
         required: true,
     },
-    user: {
-        type: Object, 
+    userId: {
+        type: Number, 
     },
+    redirect: {
+        type: Boolean,
+        default: true,
+    }
 })
 
-const currentUser = ref(null)
+const currentUserId = ref(null)
 const type = ref('login')
-const authDone = (user) => {
-    currentUser.value = user
-    emit('done', user)
+const authDone = (userId) => {
+    currentUserId.value = userId
+    emit('done', userId)
 }
 
 onMounted(() => {
-    console.log(props.user)
-    if (Object.keys(props.user).length > 0) {
-        currentUser.value = props.user
+    if (props.userId) {
+        currentUserId.value = props.userId
     }
 })
 </script>

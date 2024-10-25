@@ -40,22 +40,29 @@ app.component("LMap", LMap)
 import ActieAgenda from "./components/apps/ActieAgenda.vue"
 import ActieWijzer from "./components/apps/ActieWijzer.vue"
 import AddActie from "./components/apps/AddActie.vue"
+import ForgotPassword from "./components/forms/ForgotPassword.vue"
 import HomeAgenda from "./components/apps/HomeAgenda.vue"
+import LoginOrRegister from "./components/apps/LoginOrRegister.vue"
 import Notifications from "./components/apps/Notifications.vue"
 import Organizers from "./components/apps/Organizers.vue"
 import OrganizersFeatured from "./components/apps/OrganizersFeatured.vue"
 import Profile from "./components/forms/Profile.vue"
+import ResetPassword from "./components/forms/ResetPassword.vue"
 import Security from "./components/forms/Security.vue"
+import WidgetAgenda from "./components/apps/WidgetAgenda.vue"
 app.component("ActieAgenda", ActieAgenda)
 app.component("ActieWijzer", ActieWijzer)
 app.component("AddActie", AddActie)
+app.component("ForgotPassword", ForgotPassword)
 app.component("HomeAgenda", HomeAgenda)
+app.component("LoginRegister", LoginOrRegister)
 app.component("Notifications", Notifications)
 app.component("Organizers", Organizers)
 app.component("OrganizersFeatured", OrganizersFeatured)
 app.component("Profile", Profile)
+app.component("ResetPassword", ResetPassword)
 app.component("Security", Security)
-
+app.component("WidgetAgenda", WidgetAgenda)
   
 // Admin portal components
 import CoordinatesFormField from "../../../js/components/CoordinatesFormField.vue"

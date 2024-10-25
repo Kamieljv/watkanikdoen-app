@@ -57,6 +57,15 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
+    public function isLoggedIn(Request $request)
+    {
+        if (auth()->user()->id === $request->user_id) {
+            return response(['status' => 'success', 'user' => auth()->user()->id], 200);
+        }
+
+        return response(['status' => 'failed'], 200);
+    }
+
     protected function authenticated(Request $request, $user)
     {
         if (setting('auth.verify_email') && !$user->verified) {
@@ -78,11 +87,15 @@ class LoginController extends Controller
         $this->clearLoginAttempts($request);
 
         if ($request->expectsJson()) {
-            return response(['status' => 'success', 'user' => auth()->user()], 200);
+            return response([
+                'status' => 'success',
+                'user' => auth()->user(),
+                'redirect' => session('url.intended') ?? $this->redirectPath()
+            ], 200);
         }
 
         return $this->authenticated($request, $this->guard()->user())
-                ?: redirect()->intended($this->redirectPath());
+            ?: redirect()->intended($this->redirectPath());
     }
 
     /**

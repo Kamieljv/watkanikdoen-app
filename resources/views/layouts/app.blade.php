@@ -20,8 +20,6 @@
 
     <!-- Scripts (only Alpinejs) -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <!-- Styles -->
-    <link href="{{ asset('frontend/css/app.css') }}" rel="stylesheet">
 
     <!-- Get Language file for Vue -->
     <script src="/lang-{{ app()->getLocale() }}.js"></script>

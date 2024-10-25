@@ -36,33 +36,30 @@
     </div>
 </template>
 
-<script>
-export default {
-	name: "WidgetAgenda",
-	props: {
-		acties: {
-			type: Array,
-			required: true,
-		},
+<script setup lang="ts">
+
+import { ref, computed } from 'vue';
+import _ from 'lodash';
+const __ = str => _.get(window.i18n, str);
+
+const props = defineProps({
+	acties: {
+		type: Array,
+		required: true,
 	},
-	data() {
-		return {
-			isGeladen: false,
-			heeftFout: false,
-		}
-	},
-	computed: {
-		heeftActies() {
-			return (this.acties.length > 0)
-		},
-		actiesFormatted() {
-			this.acties.forEach((actie) => {
-				actie.body = actie.body.replace(/(<([^>]+)>)/gi, "")
-				return actie
-			})
-			return this.acties
-		}
-	}
-}
+});
+
+const heeftActies = computed(() => {
+	return (props.acties.length > 0)
+});
+
+const actiesFormatted = computed(() => {
+	props.acties.forEach((actie) => {
+		actie.body = actie.body.replace(/(<([^>]+)>)/gi, "")
+		return actie
+	})
+	return props.acties
+});
+
 </script>
 

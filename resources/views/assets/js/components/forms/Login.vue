@@ -1,21 +1,17 @@
 <template>
-    <div class="flex flex-col" :class="{'justify-center py-10 sm:py-20 sm:px-6 lg:px-8': !async}">
+    <div class="flex flex-col justify-center py-10 sm:py-20 sm:px-6 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <h2 class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-900">
                 {{ sentenceCase(__("auth.login")) }}
             </h2>
         </div>
 
-        <div :class="{'mt-8 mx-5 sm:mx-auto sm:w-full sm:max-w-md': !async}">
-            <div class="px-4 py-8 bg-white sm:px-10" :class="{'border shadow border-gray-50 sm:rounded-lg': !async}">
+        <div class="mt-8 mx-5 sm:mx-auto sm:w-full sm:max-w-md">
+            <div class="px-4 py-8 bg-white sm:px-10 border shadow border-gray-50 sm:rounded-lg">
                 <div>
                     <p class="mb-2 text-sm">{{ __("auth.no_account?") }}</p>
-
                     <span class="block w-full rounded-md shadow-sm">
-                        <a v-if="async" @click="switchType('register')" class="flex items-center cursor-pointer justify-center w-full px-4 py-2 text-sm font-medium text-blue-600 transition duration-150 ease-in-out border border-transparent rounded-md border-1 border-blue-600 hover:bg-blue-200">
-                            {{ sentenceCase(__("auth.register")) }}
-                        </a>
-                        <a v-else :href="routes.register" class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-blue-600 transition duration-150 ease-in-out border border-transparent rounded-md border-1 border-blue-600 hover:bg-blue-200">
+                        <a @click="switchType('register')" class="flex items-center cursor-pointer justify-center w-full px-4 py-2 text-sm font-medium text-blue-600 transition duration-150 ease-in-out border rounded-md border-1 border-blue-600 hover:bg-blue-200">
                             {{ sentenceCase(__("auth.register")) }}
                         </a>
                     </span>
@@ -102,9 +98,9 @@ const props = defineProps({
         type: Number,
         default: 10,
     },
-    async: {
+    redirect: {
         type: Boolean,
-        default: false,
+        default: true,
     }
 })
 
@@ -114,21 +110,21 @@ const currentErrors = ref([])
 const loginFormRef = ref(null)
 
 const handleSubmit = () => {
-    if (props.async) {
-        axios.post(props.routes.login, {
-            "email": email.value,
-            "password": password.value,
-        }).then((response) => {
-            if (response.data.status == 'success') {
-                currentErrors.value = []
-                emit('done', response.data.user)
-            } else {
-                currentErrors.value = [response.data.message]
+    axios.post(props.routes.login, {
+        "email": email.value,
+        "password": password.value,
+        "redirect": props.redirect,
+    }).then((response) => {
+        if (response.data.status == 'success') {
+            currentErrors.value = []
+            emit('done', response.data.userId)
+            if (props.redirect && response.data.redirect) {
+                window.location.href = response.data.redirect; 
             }
-        })
-    } else {
-        loginFormRef.value.submit()
-    }
+        } else {
+            currentErrors.value = [response.data.message]
+        }
+    })
 }
 
 const switchType = (type) => {

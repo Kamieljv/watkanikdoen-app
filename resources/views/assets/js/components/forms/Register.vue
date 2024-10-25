@@ -1,103 +1,95 @@
 <template>
-    <div class="flex flex-col" :class="{'justify-center py-10 sm:py-20 sm:px-6 lg:px-8': !async}">
+    <div class="flex flex-col justify-center py-10 sm:py-20 sm:px-6 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <h2 class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-900">
                 {{ __("auth.register") }}
             </h2>
         </div>
 
-        <div :class="{'mt-8 mx-5 sm:mx-auto sm:w-full sm:max-w-md': !async}">
-            <div class="px-4 py-8 bg-white sm:px-10" :class="{'border shadow border-gray-50 sm:rounded-lg': !async}">
+        <div class="mt-8 mx-5 sm:mx-auto sm:w-full sm:max-w-md">
+            <div class="px-4 py-8 bg-white sm:px-10 border shadow border-gray-50 sm:rounded-lg">
                 <div>
                     <p class="mb-2 text-sm">{{ __("auth.account?") }}</p>
                     <span class="block w-full rounded-md shadow-sm">
-                        <a v-if="async" @click="switchType('login')" class="flex items-center cursor-pointer justify-center w-full px-4 py-2 text-sm font-medium text-blue-600 transition duration-150 ease-in-out border border-transparent rounded-md border-1 border-blue-600 hover:bg-blue-200">
-                            {{ sentenceCase(__("auth.login")) }}
-                        </a>
-                        <a v-else :href="routes.register" class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-blue-600 transition duration-150 ease-in-out border border-transparent rounded-md border-1 border-blue-600 hover:bg-blue-200">
+                        <a @click="switchType('login')" class="flex items-center cursor-pointer justify-center w-full px-4 py-2 text-sm font-medium text-blue-600 transition duration-150 ease-in-out border rounded-md border-1 border-blue-600 hover:bg-blue-200">
                             {{ sentenceCase(__("auth.login")) }}
                         </a>
                     </span>
                     <hr class="my-5">
                 </div>
-                <div v-if="currentErrors && Object.keys(currentErrors).length > 0" class="p-3 mb-3 text-sm rounded-md failure">
+                <div v-if="currentErrors && currentErrors.length > 0" class="p-3 mb-3 text-sm rounded-md failure">
                     <p
-                        v-for="error in Object.keys(currentErrors)"
-                        :key="error"
+                        v-for="error in currentErrors"
                     >
-                        {{ currentErrors[error][0] }}
+                        {{ error }}
                     </p>
                 </div>
                 <Form
-                    ref="validator"
+                    ref="registerFormRef" method="POST" :action="routes.register" @submit="submit"
                 >
-                    <form ref="registerFormRef" role="form" method="POST" @submit.prevent="handleSubmit" :action="routes.register">
-                        <slot name="csrf"/>
+                    <slot name="csrf"/>
 
-                        <!-- Name -->
-                        <FormField
-                            v-model="name"
-                            label="Naam"
-                            name="name"
-                            type="text"
-                            :rules="{max: 50}"
-                            autocomplete="name"
-                            required
-                        />
+                    <!-- Name -->
+                    <FormField
+                        v-model="name"
+                        label="Naam"
+                        name="name"
+                        type="text"
+                        :rules="{max: 50, required: true}"
+                        autocomplete="name"
+                    />
 
-                        <!-- Email -->
-                        <FormField
-                            v-model="email"
-                            label="E-mailadres"
-                            name="email"
-                            type="email"
-                            :rules="{max: 70, email: true}"
-                            autocomplete="email"
-                            required
-                        />
+                    <!-- Email -->
+                    <FormField
+                        v-model="email"
+                        label="E-mailadres"
+                        name="email"
+                        type="email"
+                        :rules="{max: 70, email: true, required: true}"
+                        autocomplete="email"
+                    />
 
-                        <!-- Password -->
-                        <FormField
-                            v-model="password"
-                            label="Wachtwoord"
-                            name="password"
-                            type="password"
-                            :rules="{min: minPasswordLength, required: true}"
-                            autocomplete="new-password"
-                        />
+                    <!-- Password -->
+                    <FormField
+                        v-model="password"
+                        label="Nieuw wachtwoord"
+                        name="password"
+                        type="password"
+                        :rules="`min:${minPasswordLength}|required`"
+                        autocomplete="new-password"
+                    />
 
-                        <!-- Password Confirmation -->
-                        <FormField
-                            v-model="passwordConfirm"
-                            label="Wachtwoord bevestigen"
-                            name="password_confirmation"
-                            type="password"
-                            :rules="{min: minPasswordLength, confirmed: {target: 'password'}, required: true}"
-                            autocomplete="new-password"
-                        />
+                    <!-- Password Confirmation -->
+                    <FormField
+                        v-model="passwordConfirm"
+                        label="Nieuw wachtwoord bevestigen"
+                        name="password_confirmation"
+                        type="password"
+                        :rules="`min:${minPasswordLength}|required|confirmed:@password`"
+                        autocomplete="new-password"
+                    />
 
-                        <div class="mt-6">
-                            <div class="h-captcha" :data-sitekey="hCaptchaKey"></div>
-                        </div>
+                    <div class="mt-6">
+                        <div class="h-captcha" :data-sitekey="hCaptchaKey"></div>
+                    </div>
 
-                        <div class="mt-6 flex">
-                            <input v-model="termsApproved" name="terms" type="checkbox" id="termsCheckbox" class="mr-2">
-                            <label for="termsCheckbox" class="text-sm text-gray-900" v-html="termsText">
-                            </label>
-                        </div>
-                        <div class="flex flex-col items-center justify-center text-sm leading-5">
-                            <span class="block w-full mt-5 rounded-md shadow-sm">
-                                <button
-                                    id="submitBtn"
-                                    type="submit"
-                                    class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 active:bg-blue-700 disabled:bg-gray-200 disabled:text-gray-900 disabled:cursor-not-allowed"
-                                    :disabled="!termsApproved"
-                                >
-                                    {{ __("auth.register") }}
-                                </button>
-                            </span>
-                        </div>
-                    </form>
+                    <div class="mt-6 flex">
+                        <Field v-model="termsApproved" name="terms" type="checkbox" id="termsCheckbox" :value="true" :unchecked-value="false" class="mr-2" />
+                        <label for="termsCheckbox" class="text-sm text-gray-900" v-html="termsText">
+                        </label>
+                    </div>
+                    <div class="flex flex-col items-center justify-center text-sm leading-5">
+                        <span class="block w-full mt-5 rounded-md shadow-sm">
+                            <button
+                                id="submitBtn"
+                                type="submit"
+                                class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 active:bg-blue-700 disabled:bg-gray-200 disabled:text-gray-900 disabled:cursor-not-allowed"
+                                :disabled="!termsApproved"
+                            >
+                                {{ __("auth.register") }}
+                            </button>
+                        </span>
+                    </div>
                 </Form>
             </div>
         </div>
@@ -106,7 +98,8 @@
 
 <script setup lang="ts">
 import axios from 'axios';
-import { computed, onMounted, ref } from 'vue';
+import { Form, Field } from 'vee-validate';
+import { computed, ref } from 'vue';
 import { sentenceCase } from '../../helpers/caseHelper.js';
 import _ from 'lodash';
 const __ = (str) => _.get(window.i18n, str)
@@ -126,13 +119,9 @@ const props = defineProps({
         type: String,
         required: true,
     },
-    errors: {
-        type: Object,
-        default: () => {}
-    },
-    async: {
+    redirect: {
         type: Boolean,
-        default: false,
+        default: true,
     }
 })
 
@@ -144,24 +133,18 @@ const termsApproved = ref(false)
 const currentErrors = ref([])
 const registerFormRef = ref(null)
 
-const handleSubmit = () => {
-    if (props.async) {
-        const formData = new FormData(registerFormRef.value)
-        const data = {}
-        for (const [key, value] of formData) {
-            data[key] = value
-        }
-        axios.post(props.routes.register, data).then((response) => {
-            if (response.data.status == 'success') {
-                currentErrors.value = []
-                emit('done', response.data.user)
+const submit = (values) => {
+    axios.post(props.routes.register, values).then((response) => {
+        if (response.data.status == 'success') {
+            currentErrors.value = []
+            emit('done', response.data.userId)
+            if (props.redirect && response.data.redirect) {
+                window.location.href = response.data.redirect; 
             }
-        }).catch((error) => {
-            currentErrors.value = error.response.data.errors
-        })
-    } else {
-        registerFormRef.value.submit()
-    }
+        }
+    }).catch((error) => {
+        currentErrors.value = Object.values(error.response.data.errors).flat()
+    })
 }
 
 const switchType = (type) => {
@@ -171,12 +154,6 @@ const switchType = (type) => {
 const termsText = computed(() => {
     return __("auth.accept_terms")
         .replace(':terms', props.routes.terms)
-})
-
-
-
-onMounted(() => {
-    currentErrors.value = props.errors ? Object.values(props.errors).map((v) => v[0]) : []
 })
 
 </script>

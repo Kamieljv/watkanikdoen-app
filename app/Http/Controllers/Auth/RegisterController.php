@@ -160,9 +160,15 @@ class RegisterController extends Controller
         $user = $this->create($request->all());
         event(new Registered($user));
 
+        session(['email' => $user->email]);
+
         if (setting('auth.verify_email')) {
             if ($request->expectsJson()) {
-                return response(['status' => 'success', 'user' => $user], 200);
+                return response([
+                    'status' => 'success',
+                    'userId' => $user->id,
+                    'redirect' => route('registration.complete') ?? $this->redirectPath()
+                ], 200);
             } else {
                 return redirect(route('registration.complete'))->with(['email' => $user->email]);
             }
