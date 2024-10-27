@@ -18,7 +18,6 @@
                             name="query"
                             type="text"
 							placeholder="Zoeken..."
-                            @input="processQuery"
 							:clearable="true"
 							classes="block w-full h-full px-3 py-2 transition duration-100 ease-in-out border rounded shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed text-black placeholder-gray-400 bg-white border-gray-300 focus:border-blue-500"
                         />
@@ -27,6 +26,7 @@
 							v-model="themesSelected"
 							:options="themes"
 							optionLabel="name"
+							optionValue="id"
 							placeholder="Thema..."
 							filterPlaceholder="Zoeken..."
 						/>
@@ -35,6 +35,7 @@
 							v-model="categoriesSelected"
 							:options="categories"
 							optionLabel="name"
+							optionValue="id"
 							placeholder="Categorie..."
 							filterPlaceholder="Zoeken..."
 						/>
@@ -47,13 +48,12 @@
 							placeholder="Plaatsnaam"
 						/>
 						<FormSlider
+							v-model="distance"
 							thumbColor="var(--wkid-blue)"
 							progressColor="var(--wkid-blue)"
 							unit="km"
 							:min="10"
 							:max="150"
-							v-model="distance"
-							:currentValue="defaultDistance"
 							:delay="400"
 							:disabled="!coordinatesPresent"
 						/>
@@ -194,8 +194,7 @@ const themesSelected = ref(props.themes.filter(t => props.themesSelectedIds.incl
 const categoriesSelected = ref(props.categories.filter(c => props.categoriesSelectedIds.includes(c.id)).map(c => c.id))
 const query = ref("")
 const coordinates = ref("")
-const distance = ref(null)
-const defaultDistance = 100
+const distance = ref(100)
 const geoSuggestions = ref([])
 const showPast = ref(false)
 const isGeladen = ref(false)
@@ -261,7 +260,7 @@ watch(showPast, () => {
 })
 
 watch(coordinates, () => {
-	distance.value = (distance === null)? defaultDistance : distance
+	getActies()
 })
 
 onMounted(() => {
@@ -304,10 +303,6 @@ const processActiesArray = (acties) => {
 	return acties.filter((a) => !props.excludeIds.includes(a.id)).slice(0, props.limit ?? acties.length)
 }
 
-const processQuery = debounce((input) => {
-	query.value = input
-}, 500)
-
 const getGeoSuggestions = async (geoQuery) => {
 	axios.get("https://api.pdok.nl/bzk/locatieserver/search/v3_1/suggest", {
 		params: {
@@ -337,11 +332,9 @@ const getCoordinates = async (obj) => {
 		}).then((data) => {
 			let pointString = data.data.response.docs[0].centroide_ll
 			coordinates.value = pointString.slice(6,pointString.length-1).split(" ").reverse().join(",")
-			getActies()
 		})
 	} else {
 		coordinates.value = ""
-		getActies()
 	}
 }
 

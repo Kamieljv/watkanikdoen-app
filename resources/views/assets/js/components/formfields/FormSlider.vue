@@ -11,7 +11,7 @@
                 type="range"
                 ref="rangeRef"
                 class="range-slider"
-                @input="inputCaptured"
+                @input="processInput"
                 :max="max"
                 :min="min"
                 step="10"
@@ -39,7 +39,7 @@ const emit = defineEmits(['update:modelValue'])
 
 
 const props = defineProps({
-	currentValue: {
+	modelValue: {
 		type: Number,
 		required: false,
 	},
@@ -101,12 +101,8 @@ const props = defineProps({
 	},
 })
 
-const value = ref(props.currentValue)
+const value = ref(props.modelValue)
 const rangeRef = ref(null)
-
-const inputCaptured = computed(() => {
-	return debounce(processInput, props.delay)
-})
 
 const thumbOffset = computed(() => {
 	var size = Number(props.thumbSize.split("px")[0])
@@ -114,13 +110,13 @@ const thumbOffset = computed(() => {
 })
 
 const updateWebkitProgress = () => {
-	const progress = ((value - props.min) / (props.max - props.min)) * 100 + "%"
+	const progress = ((value.value - props.min) / (props.max - props.min)) * 100 + "%"
 	return rangeRef.value.style.setProperty("--webkit-progress", progress)
 }
 
-const processInput = (event) => {
-	emit("input", Number(event.target.value))
-}
+const processInput = debounce(() => {
+	emit('update:modelValue', Number(value.value))
+}, props.delay)
 
 onMounted(() => {
 	updateWebkitProgress()
