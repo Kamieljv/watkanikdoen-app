@@ -2,25 +2,41 @@
  * This JS adds to the voyager base JS asset.
  * Vue, jQuery and BootstrapJS (among others) are loaded there.
  */
-window.axios = require("axios")
-Vue.prototype.$http = window.axios
 
-// Load Leaflet
+import { createApp } from "vue"
+import PrimeVue from "primevue/config"
+import Aura from '../views/assets/presets/aura'
+
+const app = createApp()
+app.use(PrimeVue, {
+    unstyled: true,
+    pt: Aura
+})
+
+// Lodash for language
+import _ from "lodash"
+app.provide("__", str => _.get(window.i18n, str))
+
+// Vee-validate
+import { setLocale } from "@vee-validate/i18n"
+setLocale("nl")
+import "../views/assets/js/validations"
+
+
 import { LMap, LTileLayer, LMarker, LTooltip } from "@vue-leaflet/vue-leaflet"
 import "leaflet/dist/leaflet.css"
-Vue.component("l-map", LMap)
-// Vue.component("l-tile-layer", LTileLayer)
-Vue.component("l-marker", LMarker)
-Vue.component("l-tooltip", LTooltip)
+app.component("LMap", LMap)
+    .component("l-tile-layer", LTileLayer)
+    .component("l-tile-layer", LTileLayer)
+    .component("l-marker", LMarker)
+    .component("l-tooltip", LTooltip)
 
-// Define translation directive ('__()')
-import _ from "lodash"
-Vue.prototype.__ = str => _.get(window.i18n, str)
+// Import and register Vue components that are used in blade files
+import StatsDashboard from "./components/StatsDashboard.vue"
+import AdminMenu from "./components/StatsDashboard.vue"
+app.component("StatsDashboard", StatsDashboard)
+app.component("AdminMenu", AdminMenu)
+// Load Voyager assets
+// import "../../public/vendor/tcg/voyager/assets/js/app"
 
-// Add TinyMCE (rich text editor) paste plugin
-// (https://www.tiny.cloud/docs-3x/reference/TinyMCE3x@Plugins/Plugin3x@paste/)
-import "../../public/vendor/tcg/voyager/assets/js/plugins/paste/plugin.min.js"
-
-// Load additional components
-const files = require.context("./", true, /\.vue$/i)
-files.keys().map(key => Vue.component(key.split("/").pop().split(".")[0], files(key).default))
+app.mount("#app")

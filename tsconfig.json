@@ -6,6 +6,7 @@
     "importHelpers": true,
     "isolatedModules": true,
     "noEmit": true,
+    "allowSyntheticDefaultImports": true,
     "paths": {
       "@/*": ["./resources/js/*"],
       "&/*": ["./resources/svg/*"]

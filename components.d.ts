@@ -22,7 +22,6 @@ declare module 'vue' {
     FormField: typeof import('./resources/views/assets/js/components/formfields/FormField.vue')['default']
     FormImage: typeof import('./resources/views/assets/js/components/formfields/FormImage.vue')['default']
     FormSlider: typeof import('./resources/views/assets/js/components/formfields/FormSlider.vue')['default']
-    FormTextarea: typeof import('./resources/views/assets/js/components/formfields/FormTextarea.vue')['default']
     FormUrls: typeof import('./resources/views/assets/js/components/formfields/FormUrls.vue')['default']
     HomeAgenda: typeof import('./resources/views/assets/js/components/apps/HomeAgenda.vue')['default']
     InputText: typeof import('primevue/inputtext')['default']
@@ -51,7 +50,6 @@ declare module 'vue' {
     SuccessGIF: typeof import('./resources/views/assets/js/components/partials/SuccessGIF.vue')['default']
     ThemeQuestion: typeof import('./resources/views/assets/js/components/partials/ThemeQuestion.vue')['default']
     ToggleSwitch: typeof import('primevue/toggleswitch')['default']
-    ValidatedFormField: typeof import('./resources/views/assets/js/components/formfields/ValidatedFormField.vue')['default']
     WidgetAgenda: typeof import('./resources/views/assets/js/components/apps/WidgetAgenda.vue')['default']
   }
 }
