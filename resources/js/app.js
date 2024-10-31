@@ -32,11 +32,9 @@ app.component("LMap", LMap)
     .component("l-tooltip", LTooltip)
 
 // Import and register Vue components that are used in blade files
+import CoordinatesFormField from "./components/CoordinatesFormField.vue"
 import StatsDashboard from "./components/StatsDashboard.vue"
-import AdminMenu from "./components/StatsDashboard.vue"
+app.component("CoordinatesFormField", CoordinatesFormField)
 app.component("StatsDashboard", StatsDashboard)
-app.component("AdminMenu", AdminMenu)
-// Load Voyager assets
-// import "../../public/vendor/tcg/voyager/assets/js/app"
 
 app.mount("#app")

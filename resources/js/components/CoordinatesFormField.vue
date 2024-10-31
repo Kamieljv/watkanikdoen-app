@@ -74,163 +74,145 @@
     </div>
 </template>
 
-<script>
-// // fix marker assets
-// import * as L from "leaflet"
-// delete L.Icon.Default.prototype._getIconUrl
-// L.Icon.Default.mergeOptions({
-//   iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-//   iconUrl: require('leaflet/dist/images/marker-icon.png'),
-//   shadowUrl: require('leaflet/dist/images/marker-shadow.png')
-// })
-
+<script setup lang="ts">
 // Load formfield
 import FormAutocomplete from '../../views/assets/js/components/formfields/FormAutocomplete.vue'
 
 import { latLng } from "leaflet"
-export default {
-	name: "CoordinatesFormField",
-	props: {
-		defaultCenter: {
-			type: Array,
-			required: true,
-		},
-		showLatLng: {
-			type: Boolean,
-			default: false,
-		},
-		zoom: {
-			type: Number,
-			required: true,
-		},
-		fieldname: {
-			type: String,
-			required: true,
-		},
-		disabled: {
-			type: Boolean,
-			default: false,
-		},
-		unedited: {
-			type: Boolean,
-			default: true,
-		},
-		frontend: {
-			type: Boolean,
-			default: false,
+import { ref, watch } from "vue"
+import axios from 'axios';
+
+const emit = defineEmits(['input'])
+
+const props = defineProps({
+	defaultCenter: {
+		type: Array,
+		required: true,
+	},
+	showLatLng: {
+		type: Boolean,
+		default: false,
+	},
+	zoom: {
+		type: Number,
+		required: true,
+	},
+	fieldname: {
+		type: String,
+		required: true,
+	},
+	disabled: {
+		type: Boolean,
+		default: false,
+	},
+	unedited: {
+		type: Boolean,
+		default: true,
+	},
+	frontend: {
+		type: Boolean,
+		default: false,
+	}
+})
+
+const center = ref(props.defaultCenter[0])
+const url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+const attribution = "&copy; <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors"
+const lat = ref(center.value.lat)
+const lng = ref(center.value.lng)
+const mapZoom = ref(props.zoom)
+const geoSuggestions = ref([])
+const tooltipOptions = ref({
+	permanent: true,
+})
+const hasNoLatLng = ref((props.unedited && !props.frontend) || (!props.unedited && (!lat.value || !lng.value)))
+
+const latName = ref(props.fieldname + "[lat]")
+const lngName = ref(props.fieldname + "[lng]")
+const coordinates = ref("")
+
+watch(hasNoLatLng, (newVal) => {
+	if (newVal) {
+		lat.value = null
+		lng.value = null
+	} else {
+		console.log(props.defaultCenter)
+		lat.value = props.defaultCenter[0].lat
+		lng.value = props.defaultCenter[0].lng
+	}
+	center.value = latLng(lat.value, lng.value)
+})
+
+watch(center, (value) => {
+	emit('input', value)
+})
+
+const setLatLng = (lat, lng) => {
+	lat.value = lat
+	lng.value = lng
+}
+
+const onMarkerDrag = (latLng) => {
+	setLatLng(latLng.lat, latLng.lng)
+	moveMapAndMarker(lat.value, lng.value)
+}
+
+const onInputKeyPress = (event) => {
+	if (event.which === 13){
+		event.preventDefault()
+	}
+}
+
+const onLatLngInputChange = (event) => {
+	moveMapAndMarker(lat.value, lng.value)
+}
+
+
+const moveMapAndMarker = (lat, lng) => {
+	center.value = latLng(lat, lng)
+}
+
+const getGeoSuggestions = async (geoQuery) => {
+	axios.get("https://api.pdok.nl/bzk/locatieserver/search/v3_1/suggest", {
+		params: {
+			q: geoQuery,
+			rows: 5,
+			fl: "id,weergavenaam",
+			fq: "type:adres",
 		}
-	},
-	components: {"form-autocomplete": FormAutocomplete},
-	data() {
-		return {
-			center: this.defaultCenter[0],
-			url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-			attribution:
-                    "&copy; <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors",
-			lat: null,
-			lng: null,
-			mapZoom: 10,
-			geoSuggestions: [],
-			tooltipOptions: {
-				permanent: true,
-			},
-			hasNoLatLng: false,	
-		}
-	},
-	computed: {
-		latName() {
-			return this.fieldname + "[lat]"
-		},
-		lngName() {
-			return this.fieldname + "[lng]"
-		}
-	},
-	mounted() {
-		this.lat = this.defaultCenter[0].lat
-		this.lng = this.defaultCenter[0].lng
-		this.hasNoLatLng = (this.unedited && !this.frontend) || (!this.unedited && (!this.lat || !this.lng))
-		this.mapZoom = this.zoom
-	},
-	watch: {
-		hasNoLatLng: function(newVal) {
-			if (newVal) {
-				this.lat = null
-				this.lng = null
-			} else {
-				this.lat = this.defaultCenter[0].lat
-				this.lng = this.defaultCenter[0].lng
+	}).then((data) => {
+		geoSuggestions.value = Object.keys(data.data.highlighting).map((key) => {
+			return {
+				id: key,
+				name: data.data.highlighting[key].suggest[0]
 			}
-			this.center = latLng(this.lat, this.lng)
-		},
-		center: {
-			handler: function(value) {
-				this.$emit('input', value)
-			}, 
-			deep: true
-		}
-	},
-	methods: {
-		setLatLng: function(lat, lng) {
-			this.lat = lat
-			this.lng = lng
-		},
-		onMarkerDrag: function(latLng) {
-			this.setLatLng(latLng.lat, latLng.lng)
-			this.moveMapAndMarker(this.lat, this.lng)
-		},
-		onInputKeyPress: function(event) {
-			if (event.which === 13) {
-				event.preventDefault()
+		})
+	})
+}
+
+const getCoordinates = async (obj) => {
+	if (obj !== "") {
+		axios.get("https://api.pdok.nl/bzk/locatieserver/search/v3_1/lookup", {
+			params: {
+				id: obj.id,
+				fl: 'centroide_ll',
 			}
-		},
-		onLatLngInputChange: function(event) {
-			this.moveMapAndMarker(this.lat, this.lng)
-		},
-		moveMapAndMarker: function(lat, lng) {
-			this.center = latLng(lat, lng)
-		},
-		async getGeoSuggestions(geoQuery) {
-			axios.get("https://api.pdok.nl/bzk/locatieserver/search/v3_1/suggest", {
-				params: {
-					q: geoQuery,
-					rows: 5,
-					fl: "id,weergavenaam",
-					fq: "type:adres",
-				}
-			}).then((data) => {
-				this.geoSuggestions = Object.keys(data.data.highlighting).map((key) => {
-					return {
-						id: key,
-						name: data.data.highlighting[key].suggest[0]
-					}
-				})
-			})
-		},
-		async getCoordinates(obj) {
-			if (obj !== "") {
-				axios.get("https://api.pdok.nl/bzk/locatieserver/search/v3_1/lookup", {
-					params: {
-						id: obj.id,
-						fl: 'centroide_ll',
-					}
-				}).then((data) => {
-					let pointString = data.data.response.docs[0].centroide_ll
-					this.coordinates = pointString.slice(6,pointString.length-1).split(" ").reverse()
-					this.center = latLng(this.coordinates[0], this.coordinates[1])
-					this.mapZoom = 17
-				})
-			} else {
-				this.coordinates = ""
-			}
-		}
+		}).then((data) => {
+			let pointString = data.data.response.docs[0].centroide_ll
+			coordinates.value = pointString.slice(6,pointString.length-1).split(" ").reverse()
+			center.value = latLng(coordinates.value[0], coordinates.value[1])
+			mapZoom.value = 17
+		})
+	} else {
+		coordinates.value = ""
 	}
 }
 </script>
 
 <style lang="scss" scoped>
     #map {
-        height: 400px;
-        width: 100%;
+        height: 400px !important;
+        width: 100% !important;
     }
     .leaflet-top.leaflet.left {
         z-index: 400;
