@@ -2,7 +2,7 @@ export default {
     root: ({ props }) => ({
         class: [
             'inline-block relative',
-            'w-10 h-6',
+            'w-12 h-6',
             'rounded-2xl',
             {
                 'opacity-60 select-none pointer-events-none cursor-default': props.disabled

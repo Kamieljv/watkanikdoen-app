@@ -121,7 +121,6 @@
 </template>
 
 <script setup lang="ts">
-    import { defineProps } from 'vue'
     import LogoIcon from '&/logo-icon.svg'
     import LocationIcon from '&/location.svg'
     import _ from 'lodash'

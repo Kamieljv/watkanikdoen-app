@@ -10,6 +10,7 @@
                 @keydown.enter="onEnter"
                 :placeholder="placeholder"
                 :disabled="hasValue"
+				class="h-full"
                 :class="{'pr-8': hasValue}"
             />
 			<!-- The form input -->
@@ -186,6 +187,10 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
 	document.removeEventListener("click", handleClickOutside)
+})
+
+defineExpose({
+	resetResult
 })
 
 </script>

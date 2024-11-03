@@ -7,7 +7,7 @@
 					<span v-if="isRequired" class="text-red-500">*</span>
 				</label>
 			</slot>
-			<div class="flex">
+			<div class="flex h-full">
 				<Field ref="fieldRef" :id="id" v-model="data" :name="fieldName" :type="type" :step="step" :list="'datalist-' + id"
 					:placeholder="placeholder" :rules="rules" :disabled="disabled" :autocomplete="autocomplete"
 					:class="classes" @update:modelValue="updateInput" @focus="focusInput" @blur="blurInput" />

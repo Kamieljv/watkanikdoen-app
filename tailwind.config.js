@@ -43,5 +43,6 @@ module.exports = {
 		"col-span-3",
 		"overflow-scroll"
 	],
-    plugins: [require('tailwindcss-primeui')]
+    plugins: [require('tailwindcss-primeui')],
+	darkMode: 'class'
 }

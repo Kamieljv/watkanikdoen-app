@@ -64,8 +64,8 @@
 	</div>
 </template>
 
-<script setup>
-import { ref, computed, onMounted, defineProps } from 'vue'
+<script setup lang="ts">
+import { ref, computed, onMounted } from 'vue'
 import debounce from 'lodash/debounce'
 import _ from 'lodash'
 const __ = str => _.get(window.i18n, str)

@@ -57,7 +57,7 @@
 
 <script setup lang="ts">
 
-import { computed, defineProps, onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import _ from 'lodash';
 const __ = str => _.get(window.i18n, str);
 
