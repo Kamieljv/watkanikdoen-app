@@ -147,9 +147,9 @@ watch(center, (value) => {
 	emit('input', value)
 })
 
-const setLatLng = (lat, lng) => {
-	lat.value = lat
-	lng.value = lng
+const setLatLng = (latitude, longitude) => {
+	lat.value = latitude
+	lng.value = longitude
 }
 
 const onMarkerDrag = (latLng) => {

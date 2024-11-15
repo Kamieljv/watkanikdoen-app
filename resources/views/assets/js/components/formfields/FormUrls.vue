@@ -5,7 +5,8 @@
             v-model="url"
             name="link"
             type="url"
-            rules="url"
+            validateOn="blur"
+            @blur="console.log(url)"
         >
             <template v-slot:label>
                 <label for="link" class="block text-sm font-medium leading-5 text-gray-700">
@@ -19,6 +20,7 @@
                 </button>
             </template>
         </FormField>
+        <span v-if="error" role="alert">{{ error }}</span>
         <!-- Hidden formfield to contain the urls -->
         <FormField
             id="urls"
@@ -57,6 +59,7 @@ const props = defineProps({
 
 const url = ref('');
 const urls = ref<Array<string> | undefined>(value.value);
+const error = ref(null);
 const fieldRef = ref(null);
 
 watch(
@@ -79,17 +82,32 @@ const addUrl = (e) => {
     // re-set the value with the https:// prefix
     fieldRef.value.fieldRef.value = url.value
     // validate the field
-    fieldRef.value.fieldRef.validate().then((result) => {
-        if (result.valid) {
-            // return if url already exists in urls
-            if (urls.value.includes(url.value)) return;
+    const pattern = new RegExp(
+		'^(https?:\\/\\/)?' + // protocol
+		  '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+		  '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR IP (v4) address
+		  '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+		  '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+		  '(\\#[-a-z\\d_]*)?$', // fragment locator
+		'i'
+	);
+	if (!pattern.test(url.value)) {
+        error.value = 'Dit is geen geldige URL';
+        return;
+    }
 
-            urls.value.push(url.value);
-            url.value = '';
+    // return if url already exists in urls
+    if (urls.value.includes(url.value)) {
+        error.value = 'Deze URL is al toegevoegd';
+        return;
+    }
 
-            emit('update:modelValue', urls.value);
-        }
-    })
+    error.value = null;
+
+    urls.value.push(url.value);
+    url.value = null;
+
+    emit('update:modelValue', urls.value);
     
 }
 

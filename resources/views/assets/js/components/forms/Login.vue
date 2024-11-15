@@ -53,7 +53,7 @@
                     <div class="mt-6">
                         <span class="block w-full rounded-md shadow-sm">
                             <button type="submit" class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 active:bg-blue-700">
-                                {{ __("auth.login") }}
+                                {{ sentenceCase(__("auth.login")) }}
                             </button>
                         </span>
                     </div>

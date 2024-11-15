@@ -155,7 +155,7 @@
 <script setup lang="ts">
 
 import { onMounted, ref, watch } from 'vue';
-import { Form, useForm } from 'vee-validate';
+import { Form } from 'vee-validate';
 import { addHours } from 'date-fns';
 import _ from 'lodash'
 const __ = str => _.get(window.i18n, str)
@@ -178,17 +178,14 @@ const props = defineProps({
 const report = ref(props.modelValue);
 const actionUrls = ref([]);
 const actieValidatorRef = ref(null);
-const isValid = ref(false);
 
-watch(report, (val) => {
-    if (actieValidatorRef.value.meta.dirty) {
-        actieValidatorRef.value.validate().then((result) => {
-            isValid.value = result.valid;
-        })
-    }
-}, 
-{ deep: true }
-)
+const isValid = () => {
+    return actieValidatorRef.value.validate().then((result) => {
+        if (result.valid) {
+            return true;
+        }
+    });
+}
 
 onMounted(() => {
     actionUrls.value = report.value.actionUrls ?? [];

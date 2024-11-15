@@ -7,9 +7,14 @@
 					<span v-if="isRequired" class="text-red-500">*</span>
 				</label>
 			</slot>
-			<div class="flex h-full">
+			<div class="flex" :class="{'h-full': fullHeight}">
 				<Field ref="fieldRef" :id="id" v-model="data" :name="fieldName" :type="type" :step="step" :list="'datalist-' + id"
 					:placeholder="placeholder" :rules="rules" :disabled="disabled" :autocomplete="autocomplete"
+					:validateOnMount="validateOn === 'mount'"
+					:validateOnInput="validateOn === 'input'"
+					:validateOnChange="validateOn === 'change'"
+					:validateOnBlur="validateOn === 'blur'"
+					:validateOnModelUpdate="validateOn === 'modelUpdate'"
 					:class="classes" @update:modelValue="updateInput" @focus="focusInput" @blur="blurInput" />
 				<slot name="button-right" />
 			</div>
@@ -91,9 +96,12 @@
 			type: String,
 			default: '',
 		},
-		validationMode: {
+		validateOn: {
 			type: String,
-			default: 'eager',
+			default: 'change',
+			validator: (value: string) => {
+				return ['mount', 'input', 'change', 'blur', 'modelUpdate'].includes(value);
+			},
 		},
 		classes: {
 			type: String,
@@ -101,6 +109,10 @@
 		},
 		clearable: {
 			type: Boolean,
+			default: false,
+		},
+		fullHeight: {
+			type: Boolean, 
 			default: false,
 		}
 	})

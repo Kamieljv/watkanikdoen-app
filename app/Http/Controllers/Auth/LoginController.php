@@ -97,7 +97,7 @@ class LoginController extends Controller
             }
             return response([
                 'status' => 'success',
-                'user' => auth()->user(),
+                'userId' => auth()->user()->id,
                 'redirect' => session('url.intended') ?? $this->redirectPath()
             ], 200);
         } else {

@@ -37,7 +37,7 @@
                             :zoom="zoom">
                         </ActieForm>
                     </div>
-                    <div v-else-if="activeStep.key === 'user' && currentUserId"
+                    <div v-else-if="activeStep.key === 'user'"
                         class="p-8 bg-white rounded-md shadow-md min-h-[400px]" :key="3">
                         <h2>Wie ben jij?</h2>
                         <div class="col-span-2">
@@ -45,7 +45,7 @@
                             en je hier eventueel vragen over stellen. 
                             Daarom vragen we je om in te loggen óf een account te maken.
                         </div>
-                        <LoginOrRegister :routes="routes" :min-password-length="minPasswordLength" :async="true"
+                        <LoginOrRegister :routes="routes" :min-password-length="minPasswordLength" :redirect="false"
                             :h-captcha-key="hCaptchaKey" :user-id="currentUserId" @done="authDone" />
                     </div>
                     <div v-else-if="activeStep.key === 'confirm'"
@@ -168,16 +168,15 @@ const activeStep = computed(() => steps.value[activeIndex.value])
 const isLastStep = computed(() => activeIndex.value === steps.value.length - 1)
 const nextDisabled = computed(() => {
     if ((activeStep.value.key === 'organizer' && selectedOrganizers.value.length == 0) ||
-        (activeStep.value.key === 'actie' && actieFormRef.value?.isValid === false) ||
-        (activeStep.value.key === 'user' && currentUserId)
+        (activeStep.value.key === 'user' && !currentUserId.value)
     ) {
         return true
     }
     return false
 })
 onMounted(() => {
-    currentUserId.value = props.user
-    if (Object.keys(currentUserId.value).length > 0) {
+    currentUserId.value = props.user ? props.user.id : null
+    if (currentUserId.value) {
         steps.value = steps.value.filter((s) => s.key !== 'user')
     }
 })
@@ -227,6 +226,17 @@ const submit = async () => {
 }
 
 const handleNext = () => {
+    // validate first if active step is actie
+    if (activeStep.value.key === 'actie') {
+        actieFormRef.value.isValid().then((valid) => {
+            if (valid) nextStep()
+        })
+    } else {
+        nextStep()
+    }
+}
+
+const nextStep = () => {
     window.scrollTo(0, 0);
     activeIndex.value++
 }

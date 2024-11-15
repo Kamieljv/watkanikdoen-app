@@ -1,5 +1,5 @@
 <template>
-    <div                                        >
+    <div>
         <div v-if="!currentUserId" class="flex justify-center max-w-6xl mx-auto my-6 md:divide-x">
             <Login
                 v-if="type === 'login'"
@@ -21,7 +21,7 @@
                 @switchType="type = $event"
             />
         </div>
-        <div v-else-if="!redirect" class="grid grid-cols-1 max-w-6xl mx-auto flex-col my-6">
+        <div v-else-if="!redirect && currentUserId" class="grid grid-cols-1 max-w-6xl mx-auto flex-col my-6">
             <SuccessBlock message="Je bent al ingelogd of geregistreerd."/>
         </div>
     </div>
@@ -29,7 +29,7 @@
 
 <script setup lang="ts">
 
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 const emit = defineEmits(['done']);
 
 const props = defineProps({
@@ -46,7 +46,8 @@ const props = defineProps({
         required: true,
     },
     userId: {
-        type: Number, 
+        type: Number,
+        default: null,
     },
     redirect: {
         type: Boolean,
@@ -54,16 +55,14 @@ const props = defineProps({
     }
 })
 
-const currentUserId = ref(null)
+const currentUserId = ref(props.userId)
+
 const type = ref('login')
+
 const authDone = (userId) => {
     currentUserId.value = userId
+    console.log(userId)
     emit('done', userId)
 }
 
-onMounted(() => {
-    if (props.userId) {
-        currentUserId.value = props.userId
-    }
-})
 </script>

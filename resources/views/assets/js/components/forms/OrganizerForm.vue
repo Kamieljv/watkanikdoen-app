@@ -4,9 +4,6 @@
             Wie is de organisator van je actie? Kies één of meerdere organisatoren uit de lijst. 
             Kun je de juiste organisator niet vinden? Dan kun je deze zelf toevoegen met het formulier.
         </p>
-        {{ name }}
-        {{ description }}
-        {{ website }}
         <div class="grid grid-cols-1 md:grid-cols-5 max-w-6xl mx-auto flex-col my-6 md:divide-x">
             <div class="col-span-2 space-y-3">
                 <div class="flex flex-col justify-start flex-1 overflow-hidden bg-white border-gray-150">
@@ -69,8 +66,11 @@
                             label="Website"
                             name="website"
                             type="url"
-                            rules="required|url"
+                            rules="required|url:noProtocol"
                         />
+                        <div class="flex mt-5 justify-end">
+                            <span v-if="error" role="alert">{{error}}</span>
+                        </div>
                         <div class="flex mt-5 justify-end">
                             <a @click="addOrganizer" class="primary add-button">
                                 <AddLineIcon class="shrink-0" style="stroke: currentColor;" />
@@ -139,9 +139,17 @@ const website = ref('')
 const organizersSelected = ref([])
 const organizerValidatorRef = ref(null)
 const descriptionRef = ref(null)
+const error = ref(null)
 
 
 const addOrganizer = () => {
+    error.value = null
+    // check if name of organizer is not already in organizersselected
+    if (organizersSelected.value.find((v) => v.name.toLowerCase() === name.value.toLowerCase())) {
+        error.value = __('organizers.name_already_selected')
+        return
+    }
+
     organizerValidatorRef.value.validate().then((result) => {
         if (result.valid) {
             organizersSelected.value.push({

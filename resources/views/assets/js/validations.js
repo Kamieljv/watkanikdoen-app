@@ -9,7 +9,27 @@ defineRule('max', max)
 defineRule('email', email)
 defineRule('confirmed', confirmed)
 defineRule('is_not', is_not)
-defineRule('url', url)
+
+defineRule('url', (value, [arg]) => {
+
+	// use 'url:noProtocol' to allow urls without protocol
+	if (arg === 'noProtocol') {
+		// add https protocol if not present
+		if (!value.startsWith('http://') && !value.startsWith('https://')) {
+			value = 'https://' + value;
+		}
+	}
+	const pattern = new RegExp(
+		'^(https?:\\/\\/)?' + // protocol
+		  '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+		  '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR IP (v4) address
+		  '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+		  '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+		  '(\\#[-a-z\\d_]*)?$', // fragment locator
+		'i'
+	);
+	return pattern.test(value);
+})
 
 defineRule('afterToday', (value) => {
 	return new Date(value) > new Date()
