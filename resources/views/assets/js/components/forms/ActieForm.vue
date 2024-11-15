@@ -137,7 +137,6 @@
                             v-model="report.image"
                             :previous-image="report.image"
                             field-name="image"
-                            viewport-type="square"
                             default-color="var(--wkid-blue-light)"
                             :width="1000"
                             :stencil-props="{

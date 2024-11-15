@@ -29,6 +29,7 @@ return [
     'view' => 'Bekijk',
     'accepted_notif_title' => 'Toegevoegde actie geaccepteerd',
     'accepted_notif_body' => 'De actie \':title\' is geaccepteerd. Klik om te bekijken.',
+    'user_mismatch' => 'Er is iets misgegaan met het verifiëren van je identiteit. Probeer het opnieuw.',
     // ReportReceived email
     'report_received_subject' => 'Nieuwe actie aangemeld',
     'report_received_greeting' => 'Beste administrator',

@@ -78,7 +78,7 @@
 
 import axios from 'axios';
 import { computed, onMounted, ref, watch } from 'vue'
-import { Cropper, CircleStencil } from 'vue-advanced-cropper'
+import { Cropper, CircleStencil, RectangleStencil } from 'vue-advanced-cropper'
 import 'vue-advanced-cropper/dist/style.css';
 import DeleteIcon from '&/antdesign-delete-o.svg'
 import CameraIcon from '&/antdesign-camera-o.svg'
@@ -146,7 +146,7 @@ const cropperRef = ref(null)
 const cropperReady = ref(false)
 
 const stencilComponent = computed(() => {
-	return props.stencilType === "circle" ? CircleStencil : 'rectangle-stencil'
+	return props.stencilType === "circle" ? CircleStencil : RectangleStencil
 })
 
 onMounted(() => {

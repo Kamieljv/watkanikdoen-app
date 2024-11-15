@@ -182,21 +182,6 @@ onMounted(() => {
 })
 
 const submit = async () => {
-    // check if currentUserId corresponds to logged-in user
-    await axios.get(props.routes['user_check'], {
-        params: {
-            userId: currentUserId.value
-        }
-    }).then((response) => {
-        if (response.data.status === 'success') {
-            currentErrors.value = []
-        } else {
-            currentErrors.value = { error: ['UserId does not correspond to currently logged-in user.'] }
-        }
-    }).catch((error) => {
-        currentErrors.value = error.response.data.errors;
-    })
-
     isLoading.value = true;
     // build organizers data object
     var organizers = selectedOrganizers.value.map((org) => {
@@ -220,7 +205,8 @@ const submit = async () => {
         }
         isLoading.value = false;
     }).catch((error) => {
-        currentErrors.value = error.response.data.errors;
+        console.log(error)
+        // currentErrors.value = error.response.data.errors;
         isLoading.value = false;
     })
 }

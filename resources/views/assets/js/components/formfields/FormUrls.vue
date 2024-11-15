@@ -10,7 +10,7 @@
         >
             <template v-slot:label>
                 <label for="link" class="block text-sm font-medium leading-5 text-gray-700">
-                    Externe link
+                    Externe link (druk op '+' om toe te voegen)
                     <span v-if="required" class="text-red-500">*</span>
                 </label>
             </template>

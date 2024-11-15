@@ -61,7 +61,6 @@ const type = ref('login')
 
 const authDone = (userId) => {
     currentUserId.value = userId
-    console.log(userId)
     emit('done', userId)
 }
 
