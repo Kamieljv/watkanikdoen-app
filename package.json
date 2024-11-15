@@ -26,7 +26,7 @@
         "@vitejs/plugin-vue": "^5.1.4",
         "@vitejs/plugin-vue-jsx": "^4.0.1",
         "@vue-leaflet/vue-leaflet": "^0.10.1",
-        "alpinejs": "^3.14.1",
+        "alpinejs": "^3.14.3",
         "axios": "^1.7.7",
         "date-fns": "^4.1.0",
         "exif-js": "^2.3.0",

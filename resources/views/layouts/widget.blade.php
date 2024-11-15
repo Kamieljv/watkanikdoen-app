@@ -17,8 +17,6 @@
     <meta name="theme-color" content="#ffffff">
     <meta name="url" content="{{ url('/') }}">
 
-    <!-- Scripts (only Alpinejs) -->
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <!-- Vite script and css -->
     @vite(['resources/views/assets/js/app.js', 'resources/views/assets/sass/app.scss'])
 

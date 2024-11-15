@@ -20,6 +20,11 @@ app.use(PrimeVue, {
 import _ from "lodash"
 app.provide('__', str => _.get(window.i18n, str)); 
 
+// AlpineJS
+import Alpine from "alpinejs"
+window.Alpine = Alpine;
+Alpine.start();
+
 // Vee-validate
 import { setLocale } from "@vee-validate/i18n"
 setLocale('nl')

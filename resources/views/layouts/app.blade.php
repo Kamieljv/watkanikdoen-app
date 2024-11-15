@@ -18,9 +18,6 @@
     <meta name="theme-color" content="#ffffff">
     <meta name="url" content="{{ url('/') }}">
 
-    <!-- Scripts (only Alpinejs) -->
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
     <!-- Get Language file for Vue -->
     <script src="/lang-{{ app()->getLocale() }}.js"></script>
     <!-- Umami Web Stats -->
