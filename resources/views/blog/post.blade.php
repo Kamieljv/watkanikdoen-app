@@ -30,7 +30,7 @@
         </div>
 
         <div class="max-w-6xl mx-auto">
-            {!! filterScripts($post->body) !!}
+            {!! Purify::clean($post->body) !!}
         </div>
 
     </article>
