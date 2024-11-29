@@ -25,7 +25,7 @@
                 <Transition name="slide" mode="out-in" appear>
                     <theme-question v-if="currentQuestion.subject == themeStepName" :question="currentQuestion" :themes="themes" :value="themesSelected" :key="activeIndex" @input="handleThemeInput" class="p-8 bg-white rounded-md shadow-md min-h-[400px]">
                     </theme-question>
-                    <question v-else :question="currentQuestion" :value="answersGiven[currentQuestion.id]" :key="activeIndex" @input="handleInput" class="p-8 bg-white rounded-md shadow-md min-h-[400px]">
+                    <question v-else :question="currentQuestion" :value="answersGiven[currentQuestion.id]" :key="activeIndex" @update:modelValue="handleInput" class="p-8 bg-white rounded-md shadow-md min-h-[400px]">
                     </question>
                 </Transition>
                 <div class="flex mt-5" :class="{'justify-end': activeIndex === 0, 'justify-between': activeIndex > 0}">
@@ -57,6 +57,7 @@
 
 <script setup lang="ts">
 
+import { Form } from 'vee-validate';
 import { computed, onMounted, ref } from 'vue';
 import _ from 'lodash';
 const __ = str => _.get(window.i18n, str);

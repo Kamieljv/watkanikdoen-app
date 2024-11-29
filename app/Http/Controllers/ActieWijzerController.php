@@ -102,20 +102,23 @@ class ActieWijzerController extends Controller
         $dimensions = Dimension::all();
 
         // Filter the request parameters using the dimension names and min/max score settings
+        // Only keep the dimensions with a score between the min and max score
         $requests_filtered = array_filter($request->only($dimensions->pluck('name')->toArray()), function($v) {
             return intval($v) && intval($v) >= config('app.actiewijzer.min_score') && intval($v) <= config('app.actiewijzer.max_score');
         });
 
+        // Set the score of the dimensions
         foreach ($dimensions as $d) {
             $d->score = isset($requests_filtered[$d->name]) ? $requests_filtered[$d->name] : 0;
         }
 
+        // Construct a set of themes that are selected
         $themes = null;
         if ( key_exists('themes', $request->all())) {
             $themes = Theme::whereIn('id', $request['themes'])->get();
         }
 
-        // Definieer de routes waarmee de component evenementen kan ophalen
+        // Define the routes with which the component can get the referenties/acties
         $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
             return (strpos($route->uri, 'acties') !== false) && (strpos($route->uri, 'admin') === false);
         })->map(function ($route) {
