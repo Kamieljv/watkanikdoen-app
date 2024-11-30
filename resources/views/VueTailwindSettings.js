@@ -107,7 +107,7 @@ const VueTailwindSettings = {
 		  	fixedClasses: {
 				overlay: "z-[1001] overflow-auto scrolling-touch left-0 top-0 bottom-0 right-0 w-full h-full fixed bg-black/50",
 				wrapper: "relative mx-auto mt-20 max-w-lg px-3 py-12",
-				modal: "overflow-visible relative rounded-lg overflow-hidden",
+				modal: "relative rounded-lg overflow-hidden",
 				body: "p-3",
 				header: "border-b rounded-t",
 				footer: " p-3 rounded-b",
@@ -143,6 +143,14 @@ const VueTailwindSettings = {
 					close: "bg-red-50 text-red-700 hover:bg-red-200 border-red-100 border",
 					modal: "bg-white shadow-lg",
 					footer: "bg-red-50"
+				},
+				card: {
+					overlay: "",
+					header: "p-0",
+					body: "",
+					close: "m-3",
+					modal: "bg-white shadow",
+					footer: "bg-gray-100"
 				}
 			}
 		}

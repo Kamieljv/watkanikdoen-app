@@ -22,6 +22,7 @@
                 :routes="{{ $routes }}"
                 :themes="{{ $themes }}"
                 :referentie-type-id="{{ $referentie_type->id }}"
+                :themes-selected-ids="{{ json_encode($themes_selected_ids) }}"
             />
         </div>
     </div>

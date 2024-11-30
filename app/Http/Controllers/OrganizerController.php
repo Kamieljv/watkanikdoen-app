@@ -58,7 +58,7 @@ class OrganizerController extends Controller
         if ($request->limit) {
             $organizers = $query->orderBy('name', 'ASC')->published()->limit($request->limit)->get();
         } else {
-            $organizers = $query->orderBy('name', 'ASC')->published()->paginate(12);
+            $organizers = $query->orderBy('name', 'ASC')->published()->paginate(24);
         }
 
         return response()->json(['organizers' => $organizers]);
