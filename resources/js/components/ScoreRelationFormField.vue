@@ -28,97 +28,99 @@
 	</div>
 </template>
 
-<script>
-	export default {
-		name: "ScoreRelationFormField",
-		props: {
-			dimensions: {
-				type: Array,
-				required: true,
-			},
-			entityClass: {
-				type: String,
-				required: true,
-			},
-			scoreRoute: {
-				type: String,
-				required: true,
-			},
-			scoreDeleteRoute: {
-				type: String,
-				required: true,
-			},
-			currentScores: {
-				type: Array,
-				required: true,
-			},
-			currentId: {
-				type: Number,
-				required: true,
-			},
-			minScore: {
-				type: Number,
-				required: true,
-			},
-			maxScore: {
-				type: Number,
-				required: true,
-			},
-		},
-		data() {
-			return {
-				dimensionsWithValues: []
-			}
-		},
-		mounted() {
-			// deep copy this.dimensions
-			var dims = JSON.parse(JSON.stringify(this.dimensions));
-			this.dimensionsWithValues = dims.map((e) => {
-				var current = this.currentScores.find((c) => c.id === e.id);
-				e.value = current ? current.pivot.score : null;
-				return e
-			});
-		},
-		methods: {
-			handleChange(e) {
-				this.$set(this.dimensionsWithValues.find((c) => c.id == e.target.dataset.dimId), 'value', e.target.value);
-				this.$http.post(this.scoreRoute, {
-					'entity_class': this.entityClass,
-					'entity_id': this.currentId,
-					'dimension_id': parseInt(e.target.dataset.dimId),
-					'score': parseInt(this.dimensionsWithValues.find((c) => c.id == e.target.dataset.dimId).value)
-				}).then((response) => {
-					if (response.data.status === "success") {
-						// reset the inner html of the error element in the row
-						e.target.closest('tr').querySelector('.error').innerHTML = '';	
-						// remove the invalid class from the input element in the row
-						e.target.closest('tr').querySelector('input').classList.remove('invalid');
-					} else {
-						throw new Error(response.message);
-					}
-				}).catch((error) => {
-					// set the inner html of the error element in the row
-					e.target.closest('tr').querySelector('.error').innerHTML = error.response.data.message;
-					// toggle the invalid class on the input element in the row
-					e.target.closest('tr').querySelector('input').classList.add('invalid');
-				});
-			},
-			handleDelete(dimension_id, e) {
-				var tr = e.target.closest('tr');
-				this.$http.post(this.scoreDeleteRoute, {
-					'entity_class': this.entityClass,
-					'entity_id': this.currentId,
-					'dimension_id': parseInt(dimension_id),
-				}).then((response) => {
-					// reset the inner html of the error element in the row
-					tr.querySelector('.error').innerHTML = '';	
-					// remove the invalid class from the input element in row
-					tr.querySelector('input').classList.remove('invalid');
-				});
-				this.$set(this.dimensionsWithValues.find((c) => c.id == dimension_id), 'value', null);
-			}
+<script setup lang="ts">
+
+import axios from 'axios';
+import { onMounted, ref } from 'vue';
+
+const props = defineProps({
+	dimensions: {
+		type: Array,
+		required: true,
+	},
+	entityClass: {
+		type: String,
+		required: true,
+	},
+	scoreRoute: {
+		type: String,
+		required: true,
+	},
+	scoreDeleteRoute: {
+		type: String,
+		required: true,
+	},
+	currentScores: {
+		type: Array,
+		required: true,
+	},
+	currentId: {
+		type: Number,
+		required: true,
+	},
+	minScore: {
+		type: Number,
+		required: true,
+	},
+	maxScore: {
+		type: Number,
+		required: true,
+	},
+})
+
+const dimensionsWithValues = ref([]);
+
+onMounted(() => {
+	// deep copy props.dimensions
+	var dims = JSON.parse(JSON.stringify(props.dimensions));
+	// add the current score to the dimension
+	dimensionsWithValues.value = dims.map((e) => {
+		var current = props.currentScores.find((c) => c.id === e.id);
+		e.value = current ? current.pivot.score : null;
+		return e
+	});
+});
+
+const handleChange = (e) => {
+	dimensionsWithValues.value.find((c) => c.id == e.target.dataset.dimId).value = e.target.value;
+	axios.post(props.scoreRoute, {
+		'entity_class': props.entityClass,
+		'entity_id': props.currentId,
+		'dimension_id': parseInt(e.target.dataset.dimId),
+		'score': parseInt(dimensionsWithValues.value.find((c) => c.id == e.target.dataset.dimId).value)
+	}).then((response) => {
+		if (response.data.status === "success") {
+			// reset the inner html of the error element in the row
+			e.target.closest('tr').querySelector('.error').innerHTML = '';	
+			// remove the invalid class from the input element in the row
+			e.target.closest('tr').querySelector('input').classList.remove('invalid');
+		} else {
+			throw new Error(response.message);
 		}
-	}
+	}).catch((error) => {
+		// set the inner html of the error element in the row
+		e.target.closest('tr').querySelector('.error').innerHTML = error.response.data.message;
+		// toggle the invalid class on the input element in the row
+		e.target.closest('tr').querySelector('input').classList.add('invalid');
+	});
+}
+
+
+const handleDelete = (dimension_id, e) => {
+	var tr = e.target.closest('tr');
+	axios.post(props.scoreDeleteRoute, {
+		'entity_class': props.entityClass,
+		'entity_id': props.currentId,
+		'dimension_id': parseInt(dimension_id),
+	}).then((response) => {
+		// reset the inner html of the error element in the row
+		tr.querySelector('.error').innerHTML = '';
+		// remove the invalid class from the input element in row
+		tr.querySelector('input').classList.remove('invalid');
+	});
+	dimensionsWithValues.value.find((c) => c.id == dimension_id).value = null;
+}
+		
 </script>
 
 <style lang="scss" scoped>

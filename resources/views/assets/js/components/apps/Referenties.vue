@@ -15,18 +15,14 @@
 						autofocus
 						classes="block w-full h-full px-3 py-2 transition duration-100 ease-in-out border rounded shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed text-black placeholder-gray-400 bg-white border-gray-300 focus:border-blue-500"
 					/>
-                    <t-rich-select
+                    <MultiSelect
 						v-if="themes.length > 0"
-                        id="theme-selector"
-                        :options="themes"
-                        textAttribute="name"
-                        v-model="themesSelected"
-                        :multiple="true"
-                        :closeOnSelect="false"
-                        placeholder="Thema..."
-						searchBoxPlaceholder="Zoeken..."
-						:minimumResultsForSearch="5"
-						noResultsText="Geen resultaten"
+						id="theme-selector"
+						v-model="themesSelected"
+						:options="themes"
+						optionLabel="name"
+						placeholder="Thema..."
+						filterPlaceholder="Zoeken..."
 					/>
                 </div>
             </div>
@@ -36,18 +32,16 @@
                 <div class="relative mx-auto w-full">
                     <div class="relative mx-auto max-w-7xl">
                         <div v-if="!isGeladen && !appending" class="grid grid-auto gap-5 mx-auto mt-12 sm:grid-cols-2 lg:grid-cols-3">
-							<t-card
-								v-for="i in skeletonArray"
-								:key="i"
-								variant="skeleton"
-								class="rounded-lg shadow-md overflow-hidden"
+							<div v-for="i in skeletonArray"
+                                :key="i"
+								class="animate-pulse flex flex-col h-full justify-between border border-gray-200 mb-1 rounded-lg shadow-md"
 							>
-								<template v-slot:header>
-									<div class="h-6 w-20 inline-block bg-gray-100 rounded"/>
-								</template>
-								<div class="relative h-6 w-full inline-block bg-gray-200 rounded"></div>
-								<div class="relative h-3 w-full inline-block bg-gray-200 rounded"></div>
-							</t-card>
+								<div class="h-48 row-span-1 bg-gray-200"></div>
+								<div class="p-3">
+									<div class="relative h-6 w-full inline-block bg-gray-200 rounded"></div>
+									<div class="relative h-3 w-full inline-block bg-gray-200 rounded"></div>
+								</div>
+							</div>
                         </div>
                         <div v-else-if="heeftReferenties" class="grid gap-5 mx-auto mt-12 sm:grid-cols-2 lg:grid-cols-3">
                             <Referentie
@@ -138,154 +132,152 @@
     </div>
 </template>
 
-<script>
-export default {
-	name: "Referenties",
-	props: {
-		referentieTypeId: {
-			type: Number,
-			default: null,
-		},
-		routes: {
-			type: Object,
-			default: () => {},
-		},
-		themes: {
-			type: Array,
-			default: () => [],
-		},
-		themesSelectedIds: {
-			type: Array,
-			default: () => [],
-		},
-		referentiesFixed: {
-			type: Array,
-			default: () => [],
-		},
-		enableShowMore: {
-			type: Boolean,
-			default: true,
-		},
-		showThemes: {
-			type: Boolean, 
-			default: true,
-		},
-		filterable: {
-			type: Boolean,
-			default: true,
-		},
-		max: {
-			type: Number,
-			default: null,
-		},
+<script setup lang="ts">
+
+import { ref, computed, onMounted, watch } from 'vue'
+import axios from 'axios'
+
+const props = defineProps({
+	referentieTypeId: {
+		type: Number,
+		default: null,
 	},
-	data() {
-		return {
-			referenties: [],
-			currentReferentie: null,
-			themesSelected: [],
-			query: "",
-			isGeladen: false,
-			heeftFout: false,
-			currentPage: null,
-			lastPage: null,
-			perPage: null,
-			total: null,
-			appending: false,
-			modalOpen: false,
-		}
+	routes: {
+		type: Object,
+		required: true,
 	},
-	computed: {
-		skeletonArray() {
-			return [...Array(this.max ?? 9).keys()]
-		},
-		heeftReferenties() {
-			return (this.referenties.length > 0)
-		},
-		referentiesFormatted() {
-			this.referenties.forEach((referentie) => {
-				referentie.description = referentie.description ? referentie.description.replace(/(<([^>]+)>)/gi, "") : null
-				return referentie
-			})
-			return this.referenties
-		},
-		filterCount() {
-			var filters = [this.query, this.themesSelected]
-			return filters.filter(f => (!!f && !(f.length === 0))).length
-		},
+	themes: {
+		type: Array,
+		default: () => [],
 	},
-	watch: {
-		query: function() {
-			if (this.referentiesFixed.length === 0) {
-				this.getReferenties()
-			}
-		},
-		themesSelected: function() {
-			if (this.referentiesFixed.length === 0) {
-				this.getReferenties()
-			}
-		},
+	themesSelectedIds: {
+		type: Array,
+		default: () => [],
 	},
-	mounted() {
-		this.themesSelected = this.themes.filter(t => this.themesSelectedIds.includes(t.id)).map(t => t.id);
-		if (this.referentiesFixed.length > 0) {
-			this.referenties = this.referentiesFixed
-			this.isGeladen = true
-		} else {
-			this.getReferenties()
-		}
+	referentiesFixed: {
+		type: Array,
+		default: () => [],
 	},
-	methods: {
-		getReferenties: _.debounce(async function getReferenties() {
-			this.isGeladen = false
-			this.heeftFout = false
-			axios.get(this.routes["referenties.search"].uri, {
-				params: {
-					referentieTypeId: this.referentieTypeId,
-					q: this.query,
-					themes: this.themesSelected,
-					page: this.currentPage,
-					limit: this.max ?? null
-				}
-			}).then((response) => {
-				if ('per_page' in response.data.referenties) {
-					if (this.appending) {
-						this.referenties = this.referenties.concat(response.data.referenties.data)
-					} else {
-						this.referenties = response.data.referenties.data
-					}
-					this.currentPage = response.data.referenties.current_page
-					this.lastPage = response.data.referenties.last_page
-					this.perPage = response.data.referenties.per_page
-					this.total = response.data.referenties.total
-				} else {
-					this.referenties = response.data.referenties
-				}
-			}).catch((error) => {
-				this.heeftFout = true
-			}).finally(() => {
-				this.isGeladen = true
-				this.appending = false
-			})
-		}, 500),
-		processQuery: _.debounce(function(input) {
-			this.query = input
-		}, 500),
-		openReferentieModal(e, referentie) {
-			this.currentReferentie = referentie
-			console.log(referentie)
-			this.modalOpen = true
-		},
-		simplifyUrl(url) {
-			// remove http(s):// and trailing slash
-			return url.replace(/(^\w+:|^)\/\//, "").replace(/\/$/, "")
-		},
-		resetFilters() {
-			this.themesSelected = []
-			this.query = ""
-		}
+	enableShowMore: {
+		type: Boolean,
+		default: true,
+	},
+	showThemes: {
+		type: Boolean, 
+		default: true,
+	},
+	filterable: {
+		type: Boolean,
+		default: true,
+	},
+	max: {
+		type: Number,
+		default: null,
+	},
+})
+
+const referenties = ref([])
+const currentReferentie = ref(null)
+const themesSelected = ref(props.themes.filter(t => props.themesSelectedIds.includes(t.id)).map(t => t.id))
+const query = ref("")
+const isGeladen = ref(false)
+const heeftFout = ref(false)
+const currentPage = ref(null)
+const lastPage = ref(null)
+const perPage = ref(null)
+const total = ref(null)
+const appending = ref(false)
+const modalOpen = ref(false)
+const skeletonArray = ref([...Array(props.max ?? 9).keys()])
+
+const heeftReferenties = computed(() => referenties.value.length > 0)
+
+const referentiesFormatted = computed(() => {
+	referenties.value.forEach((referentie) => {
+		referentie.description = referentie.description ? referentie.description.replace(/(<([^>]+)>)/gi, "") : null
+		return referentie
+	})
+	return referenties.value
+})
+
+const filterCount = computed(() => {
+	const filters = [query.value, themesSelected.value]
+	return filters.filter(f => !!f && !(f.length === 0)).length
+})
+
+watch(query, () => {
+	if (props.referentiesFixed.length === 0) {
+		getReferenties()
 	}
+})
+
+watch(themesSelected, () => {
+	if (props.referentiesFixed.length === 0) {
+		getReferenties()
+	}
+})
+
+const getReferenties = async () => {
+	isGeladen.value = false
+	heeftFout.value = false
+	axios.get(props.routes["referenties.search"].uri, {
+		params: {
+			referentieTypeId: props.referentieTypeId,
+			q: query.value,
+			themes: themesSelected.value,
+			page: currentPage.value,
+			limit: props.max ?? null
+		}
+	}).then((response) => {
+		if ('per_page' in response.data.referenties) {
+			if (appending.value) {
+				referenties.value = referenties.value.concat(response.data.referenties.data)
+			} else {
+				referenties.value = response.data.referenties.data
+			}
+			currentPage.value = response.data.referenties.current_page
+			lastPage.value = response.data.referenties.last_page
+			perPage.value = response.data.referenties.per_page
+			total.value = response.data.referenties.total
+		} else {
+			referenties.value = response.data.referenties
+		}
+	}).catch((error) => {
+		heeftFout.value = true
+	}).finally(() => {
+		isGeladen.value = true
+		appending.value = false
+	})
 }
+
+const processQuery = (value) => {
+	query.value = value
+}
+
+const openReferentieModal = (e, referentie) => {
+	currentReferentie.value = referentie
+	modalOpen.value = true
+}
+
+const simplifyUrl = (url) => {
+	return url.replace(/(^\w+:|^)\/\//, "").replace(/\/$/, "")
+}
+
+const resetFilters = () => {
+	themesSelected.value = []
+	query.value = ""
+}
+
+onMounted(() => {
+	if (props.referentiesFixed.length > 0) {
+		referenties.value = props.referentiesFixed
+		isGeladen.value = true
+	} else {
+		getReferenties()
+	}
+})
+
+
 </script>
 <style scoped>
 	a.tag-link {

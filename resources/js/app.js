@@ -33,8 +33,12 @@ app.component("LMap", LMap)
 
 // Import and register Vue components that are used in blade files
 import CoordinatesFormField from "./components/CoordinatesFormField.vue"
+import EditAnswersFormField from "./components/EditAnswersFormField.vue"
+import ScoreRelationFormField from "./components/ScoreRelationFormField.vue"
 import StatsDashboard from "./components/StatsDashboard.vue"
 app.component("CoordinatesFormField", CoordinatesFormField)
+app.component("EditAnswersFormField", EditAnswersFormField)
+app.component("ScoreRelationFormField", ScoreRelationFormField)
 app.component("StatsDashboard", StatsDashboard)
 
 app.mount("#app")

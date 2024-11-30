@@ -45,6 +45,8 @@ app.component("LMap", LMap)
 import ActieAgenda from "./components/apps/ActieAgenda.vue"
 import ActieWijzer from "./components/apps/ActieWijzer.vue"
 import AddActie from "./components/apps/AddActie.vue"
+import Collapsible from "./components/partials/Collapsible.vue"
+import CopyTextField from "./components/partials/CopyTextField.vue"
 import ForgotPassword from "./components/forms/ForgotPassword.vue"
 import HomeAgenda from "./components/apps/HomeAgenda.vue"
 import LoginOrRegister from "./components/apps/LoginOrRegister.vue"
@@ -53,12 +55,18 @@ import Notifications from "./components/apps/Notifications.vue"
 import Organizers from "./components/apps/Organizers.vue"
 import OrganizersFeatured from "./components/apps/OrganizersFeatured.vue"
 import Profile from "./components/forms/Profile.vue"
+import ProgressBar from "./components/partials/ProgressBar.vue"
+import Referentie from "./components/partials/Referentie.vue"
+import Referenties from "./components/apps/Referenties.vue"
 import ResetPassword from "./components/forms/ResetPassword.vue"
 import Security from "./components/forms/Security.vue"
+import SimpleMap from "./components/partials/SimpleMap.vue"
 import WidgetAgenda from "./components/apps/WidgetAgenda.vue"
 app.component("ActieAgenda", ActieAgenda)
 app.component("ActieWijzer", ActieWijzer)
 app.component("AddActie", AddActie)
+app.component("Collapsible", Collapsible)
+app.component("CopyTextField", CopyTextField)
 app.component("ForgotPassword", ForgotPassword)
 app.component("HomeAgenda", HomeAgenda)
 app.component("LoginRegister", LoginOrRegister)
@@ -67,8 +75,12 @@ app.component("Notifications", Notifications)
 app.component("Organizers", Organizers)
 app.component("OrganizersFeatured", OrganizersFeatured)
 app.component("Profile", Profile)
+app.component("ProgressBar", ProgressBar)
+app.component("Referentie", Referentie)
+app.component("Referenties", Referenties)
 app.component("ResetPassword", ResetPassword)
 app.component("Security", Security)
+app.component("SimpleMap", SimpleMap)
 app.component("WidgetAgenda", WidgetAgenda)
   
 // Admin portal components

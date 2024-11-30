@@ -88,7 +88,7 @@
 
 <script setup lang="ts">
 
-import LogoIcon from '&/logo-icon.vue'
+import LogoIcon from '&/logo-icon.svg'
 
 const props = defineProps({
     referentie: {
