@@ -69,7 +69,7 @@
 
 import { onMounted, ref } from "vue"
 import axios from 'axios'
-import moment from 'moment'
+import { DateTime, Duration } from "luxon";
 
 const props = defineProps({
 	platformStatsRoute: {
@@ -125,8 +125,8 @@ const getVisitStats = (startDaysAgo, endDaysAgo) => {
 				"Authorization": `Bearer ${response.data.token}`
 			},
 			params: {
-				startAt: moment().subtract(startDaysAgo, "days").unix()*1000,
-				endAt: moment().subtract(endDaysAgo, "days").unix()*1000
+				startAt: DateTime.now().minus({days: startDaysAgo}).toMillis(),
+				endAt: DateTime.now().minus({days: endDaysAgo}).toMillis()
 			}
 		}).then((response) => {
 			processData(response.data);
@@ -189,9 +189,7 @@ const processData = (data) => {
 
 const formatShortTime = (secs, space = ' ') => {
 	const prefix = secs < 0 ? '-' : '';
-	const time = moment.utc(secs * 1000)
-	const minutes = time.minutes()
-	const seconds = time.seconds()
+	const {minutes, seconds} = Duration.fromObject({ seconds: Math.round(secs) });
 
 	let t = '';
 
