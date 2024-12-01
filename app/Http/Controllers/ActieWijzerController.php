@@ -25,7 +25,7 @@ class ActieWijzerController extends Controller
     {
         $questions = Question::active()->get()->toArray();
         $dimensions = Dimension::all()->toArray();
-        $themes = Theme::orderBy('name', 'ASC')->all()->toArray();
+        $themes = Theme::orderBy('name', 'ASC')->get()->toArray();
         $result_route = route('actiewijzer.result');
 
         // SEO

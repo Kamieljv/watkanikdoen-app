@@ -178,12 +178,15 @@
 				limit: props.max ?? null
 			}
 		}).then((response) => {
-			if (appending.value) {
-				organizers.value = organizers.value.concat(response.data.acties.data)
-			} else {
-				organizers.value = response.data.acties.data
+			if (props.max) {
+				organizers.value = response.data.organizers
+				return
 			}
-			organizers.value = response.data.organizers.data
+			else if (appending.value) {
+				organizers.value = organizers.value.concat(response.data.organizers.data)
+			} else {
+				organizers.value = response.data.organizers.data
+			}
 			currentPage.value = response.data.organizers.current_page
 			lastPage.value = response.data.organizers.last_page
 			perPage.value = response.data.organizers.per_page

@@ -79,9 +79,9 @@
                         </ul>
                         <div
                             v-if="actie.distance"
-                            class="relative self-start inline-block bg-[color:#8a8a8a7d] px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
+                            class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
                         >
-                            <span class="flex items-center text-white" rel="theme">
+                            <span class="flex items-center" rel="theme">
                                 <LocationIcon style="fill: currentColor; width: 14px; height: 14px;" />
                                 &nbsp; {{ actie.distance + ' km' }}<br/>
                             </span>

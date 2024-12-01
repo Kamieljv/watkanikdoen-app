@@ -68,6 +68,7 @@
 import { ref, computed, onMounted } from 'vue'
 import debounce from 'lodash/debounce'
 import _ from 'lodash'
+import axios from 'axios'
 const __ = str => _.get(window.i18n, str)
 
 const props = defineProps({

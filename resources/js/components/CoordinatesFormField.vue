@@ -2,10 +2,18 @@
     <div>
         <div class="form-group mb-2">
 			<div class="w-full text-sm my-2 mb-5 mx-1">
-				<label>
-					<input name="hasNoLatLng" v-model="hasNoLatLng" type="checkbox"/>
-					Deze actie heeft geen specifieke locatie.
-				</label>
+				<div v-if="frontend">
+					<Checkbox v-model="hasNoLatLng" :binary="true" name="hasNoLatLng" id="hasNoLatLng" class="mr-2" />
+					<label for="hasNoLatLng" class="text-sm text-gray-900">
+						{{__("reports.has_no_latlng") ?? "Deze actie heeft geen specifieke locatie."}}
+					</label>
+				</div>
+				<div v-else>
+					<input v-model="hasNoLatLng" type="checkbox" name="hasNoLatLng" id="hasNoLatLng" class="mr-2" />
+					<label for="hasNoLatLng" class="text-sm text-gray-900">
+						{{__("reports.has_no_latlng") ?? "Deze actie heeft geen specifieke locatie."}}
+					</label>
+				</div>
 			</div>
             <form-autocomplete
 				v-if="!hasNoLatLng"
@@ -81,6 +89,8 @@ import FormAutocomplete from '../../views/assets/js/components/formfields/FormAu
 import { latLng } from "leaflet"
 import { ref, watch } from "vue"
 import axios from 'axios';
+import _ from 'lodash';
+const __ = str => _.get(window.i18n, str)
 
 const emit = defineEmits(['input'])
 
@@ -136,7 +146,6 @@ watch(hasNoLatLng, (newVal) => {
 		lat.value = null
 		lng.value = null
 	} else {
-		console.log(props.defaultCenter)
 		lat.value = props.defaultCenter[0].lat
 		lng.value = props.defaultCenter[0].lng
 	}

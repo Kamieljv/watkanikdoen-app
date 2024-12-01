@@ -115,9 +115,8 @@
                 </div>
             </div>
         </div>
-		<div>
-			<!-- see more button -->
-			<div v-if="enableShowMore && heeftActies && total > perPage && currentPage !== lastPage && !appending" class="flex justify-center">
+		<!-- see more button -->
+		<div v-if="enableShowMore && heeftActies && total > perPage && currentPage !== lastPage && !appending" class="flex justify-center">
 			<button @click="currentPage++; appending=true; getActies()" class="btn secondary">{{__('general.load_more')}}</button>
 		</div>
 		<div v-else-if="appending" class="flex justify-center">

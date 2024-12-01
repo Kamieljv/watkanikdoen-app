@@ -144,7 +144,7 @@ const props = defineProps({
 	},
 	routes: {
 		type: Object,
-		required: true,
+		default: () => {},
 	},
 	themes: {
 		type: Array,
