@@ -6,12 +6,12 @@
                 <div id="filter-wrapper" class="col grid gap-3" :class="{'grid-cols-2': themes.length > 0}">
 					<FormField
 						v-model="query"
-						:value="query"
 						name="query"
 						type="text"
 						placeholder="Zoeken..."
 						@input="processQuery"
 						:clearable="true"
+						:full-height="true"
 						autofocus
 						classes="block w-full h-full px-3 py-2 transition duration-100 ease-in-out border rounded shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed text-black placeholder-gray-400 bg-white border-gray-300 focus:border-blue-500"
 					/>
@@ -73,15 +73,22 @@
 		</div>
 
 		<!-- Referentie Modal -->
-		<t-modal
+		<Dialog
+			modal
 			v-if="currentReferentie"
-			v-model="modalOpen"
-			variant="card"
+			class="w-full sm:w-1/2"
+			v-model:visible="modalOpen"
+			:draggable="false"
+			pt:mask:class="dialog-mask"
+			pt:header:class="flex items-center justify-between shrink-0 rounded-tl-lg rounded-tr-lg text-surface-700 dark:text-surface-0/80 border border-b-0 border-surface-200 dark:border-surface-700"
+			pt:headeractions:class="flex items-center absolute top-0 right-0 m-3"
+			pt:content:class="p-3 text-surface-700 dark:text-surface-0/80 border border-t-0 border-b-0 border-surface-200 dark:border-surface-700 overflow-y-auto"
+			pt:footer:class="flex items-center justify-end shrink-0 text-right gap-2 px-3 pb-3 border-t-0 rounded-b-lg bg-surface-0 dark:bg-surface-900 text-surface-700 dark:text-surface-0/80 border border-t-0 border-b-0 border-surface-200 dark:border-surface-700"
 		>
 			<template v-slot:header>
 				<img v-if="currentReferentie.linked_image" class="object-cover w-full h-[150px]" :src="currentReferentie.linked_image.url" alt="">
-                <div v-else class="h-[150px] bg-gray-300 text-gray-400 flex items-center justify-center">
-                    <svg-vue icon="logo-icon" style="fill: currentColor; height: 80px;"></svg-vue>
+                <div v-else class="h-[150px] md:h-[250px] w-full bg-gray-300 text-gray-400 flex items-center justify-center">
+                    <LogoIcon style="fill: currentColor; height: 80px;" />
                 </div>
 				<ul class="themes-container flex flex-wrap m-3 absolute top-0 w-4/5">
                     <li
@@ -121,21 +128,26 @@
 			<template v-slot:footer>
 				<div class="flex justify-end">
 					<a :href="currentReferentie.url">
-						<button class="btn pink items-center" type="button">
-							<svg-vue icon="antdesign-link-o" class="w-4 h-4 mr-1" fill="currentColor" />
-							{{ simplifyUrl(currentReferentie.url) }}
+						<button class="btn text-xl pink items-center" type="button">
+							<LinkIcon class="w-4 h-4 mr-1" fill="currentColor" />
+							{{ __('general.go_to')}}&nbsp;
+							<span class="font-extrabold">{{ simplifyUrl(currentReferentie.url) }}</span>
 						</button>
 					</a>
 				</div>
 			</template>
-		</t-modal>
+		</Dialog>
     </div>
 </template>
 
 <script setup lang="ts">
 
+import LogoIcon from '&/logo-icon.svg'
+import LinkIcon from '&/antdesign-link-o.svg'
 import { ref, computed, onMounted, watch } from 'vue'
 import axios from 'axios'
+import debounce from "lodash/debounce"
+const __ = str => _.get(window.i18n, str)
 
 const props = defineProps({
 	referentieTypeId: {
@@ -217,7 +229,7 @@ watch(themesSelected, () => {
 	}
 })
 
-const getReferenties = async () => {
+const getReferenties = debounce(() => {
 	isGeladen.value = false
 	heeftFout.value = false
 	axios.get(props.routes["referenties.search"].uri, {
@@ -248,7 +260,7 @@ const getReferenties = async () => {
 		isGeladen.value = true
 		appending.value = false
 	})
-}
+}, 500)
 
 const processQuery = (value) => {
 	query.value = value
@@ -277,12 +289,25 @@ onMounted(() => {
 	}
 })
 
+// close Dialog when clicking outside
+document.addEventListener('click', (e) => {
+	// check if clicked element has class dialog-mask
+	if (modalOpen.value && e.target.classList.contains('dialog-mask')) {
+		modalOpen.value = false
+	}
+	
+})
+
 
 </script>
-<style scoped>
+<style>
 	a.tag-link {
 		color: inherit;
 		text-decoration: none !important
+	}
+
+	.dialog-mask {
+		background-color: rgba(0, 0, 0, 0.5);
 	}
 </style>
 

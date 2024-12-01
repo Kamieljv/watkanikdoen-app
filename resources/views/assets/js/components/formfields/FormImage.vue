@@ -27,6 +27,7 @@
 			:header="header"
 			class="w-full sm:w-1/2"
 			v-model:visible="uploadOpen"
+			:draggable="false"
 		>
 			<div class="flex justify-center">
 				<cropper
@@ -60,6 +61,7 @@
 			v-model:visible="deleteOpen"
 			class="w-full sm:w-1/2 overflow-hidden"
 			header="Weet je zeker dat je de foto wil verwijderen?"
+			:draggable="false"
 		>
 			Als je op "Ja" klikt wordt de foto voor goed verwijderd.
 			<template v-slot:footer>
