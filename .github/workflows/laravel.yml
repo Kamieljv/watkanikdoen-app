@@ -8,7 +8,7 @@ on:
 
 jobs:
   laravel:
-    name: Laravel Testsuite
+    name: Laravel CI
     runs-on: ubuntu-20.04 # has mysql 8 installed by default
     steps:
       - name: Set Up Mysql 8
@@ -54,6 +54,13 @@ jobs:
           php artisan key:generate
       - name: Run Migrations
         run: php artisan migrate --force -v
-
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.3.0' 
+      - name: Install packages
+        run: npm ci
+      - name: Run node
+        run: npm run build
       - name: Test with pest
-        run: ./vendor/bin/pest
+        run: ./vendor/bin/pest     
