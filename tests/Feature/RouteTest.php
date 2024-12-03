@@ -2,8 +2,6 @@
 
 use App\Models\User;
 
-beforeEach(fn () => $this->withoutVite());
-
 // Non-authenticated routes (defined in tests/Datasets/Routes.php)
 test('available routes', function ($url) {
 
