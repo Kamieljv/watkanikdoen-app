@@ -50,7 +50,7 @@
                     <div id="notification-li-{{ $index + 1 }}" class="flex flex-col border-b border-gray-200 @if(!isset($show_all_notifications)){{ 'hover:bg-gray-50' }}@endif">
                         <div class="flex items-start p-5">
                             <div class="flex items-center justify-center text-xl w-10 h-10 rounded-full text-gray-400 bg-gray-100">
-                                @svg(@$notification_data->icon, ['style' => 'stroke: currentColor; height: 26px;'])
+                                @svg('bell', ['style' => 'stroke: currentColor; height: 26px;'])
                             </div>
                             <div class="flex flex-col items-start flex-1 w-0 ml-3">
                                 <a href="{{ @$notification_data->link }}">

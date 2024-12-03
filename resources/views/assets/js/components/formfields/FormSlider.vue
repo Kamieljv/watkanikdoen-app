@@ -9,9 +9,9 @@
             </div>
             <input
                 type="range"
-                ref="range"
+                ref="rangeRef"
                 class="range-slider"
-                @input="inputCaptured"
+                @input="processInput"
                 :max="max"
                 :min="min"
                 step="10"
@@ -32,103 +32,99 @@
     </div>
 </template>
 
-<script>
-export default {
-	name: "FormSlider",
-	props: {
-		currentValue: {
-			type: Number,
-			required: false,
-		},
-		unit: {
-			type: String
-		},
-		rangeWidth: {
-			type: String,
-			required: false,
-			default: "100%",
-		},
-		delay: {
-			type: Number, 
-			required: false,
-			default: 500,
-		},
-		disabled: {
-			type: Boolean,
-			default: false,
-		},
-		progressColor: {
-			type: String,
-			required: false,
-			default: "#000c",
-		},
-		trackColor: {
-			type: String,
-			required: false,
-			default: "#0003",
-		},
-		squaredThumb: {
-			type: Boolean,
-			required: false,
-			default: false,
-		},
-		thumbColor: {
-			type: String,
-			required: false,
-			default: "blue",
-		},
-		thumbSize: {
-			type: String,
-			required: false,
-			default: "14px",
-		},
-		trackHeight: {
-			type: String,
-			default: "5px",
-		},
-		max: {
-			type: Number,
-			required: false,
-			default: 100,
-		},
-		min: {
-			type: Number,
-			required: false,
-			default: 10,
-		},
+<script setup lang="ts">
+import { computed, onMounted, ref, watch } from 'vue';
+import debounce from 'lodash/debounce'
+const emit = defineEmits(['update:modelValue'])
+
+
+const props = defineProps({
+	modelValue: {
+		type: Number,
+		required: false,
 	},
-	data() {
-		return {
-			value: this.currentValue,
-		}
-	}, 
-	computed: {
-		updateWebkitProgress() {
-			const progress = ((this.value - this.min) / (this.max - this.min)) * 100 + "%"
-			return this.$refs.range.style.setProperty("--webkit-progress", progress)
-		},
-		inputCaptured() {
-			return _.debounce(this.processInput, this.delay)
-		},
-		thumbOffset() {
-			var size = Number(this.thumbSize.split("px")[0])
-			return (Math.max((size/2 - 1) * 0.5, 0) - size * 0.5) + "px"
-		}
+	unit: {
+		type: String
 	},
-	mounted() {
-		this.updateWebkitProgress
+	rangeWidth: {
+		type: String,
+		required: false,
+		default: "100%",
 	},
-	watch: {
-		value: function() {
-			this.updateWebkitProgress
-		},
+	delay: {
+		type: Number, 
+		required: false,
+		default: 500,
 	},
-	methods: {
-		processInput(event) {
-			this.$emit("input", Number(event.target.value))
-		},
+	disabled: {
+		type: Boolean,
+		default: false,
 	},
+	progressColor: {
+		type: String,
+		required: false,
+		default: "#000c",
+	},
+	trackColor: {
+		type: String,
+		required: false,
+		default: "#0003",
+	},
+	squaredThumb: {
+		type: Boolean,
+		required: false,
+		default: false,
+	},
+	thumbColor: {
+		type: String,
+		required: false,
+		default: "blue",
+	},
+	thumbSize: {
+		type: String,
+		required: false,
+		default: "14px",
+	},
+	trackHeight: {
+		type: String,
+		default: "5px",
+	},
+	max: {
+		type: Number,
+		required: false,
+		default: 100,
+	},
+	min: {
+		type: Number,
+		required: false,
+		default: 10,
+	},
+})
+
+const value = ref(props.modelValue)
+const rangeRef = ref(null)
+
+const thumbOffset = computed(() => {
+	var size = Number(props.thumbSize.split("px")[0])
+	return (Math.max((size/2 - 1) * 0.5, 0) - size * 0.5) + "px"
+})
+
+const updateWebkitProgress = () => {
+	const progress = ((value.value - props.min) / (props.max - props.min)) * 100 + "%"
+	return rangeRef.value.style.setProperty("--webkit-progress", progress)
 }
+
+const processInput = debounce(() => {
+	emit('update:modelValue', Number(value.value))
+}, props.delay)
+
+onMounted(() => {
+	updateWebkitProgress()
+})
+
+watch(value, () => {
+	updateWebkitProgress()
+})
 </script>
 
 <style scoped>

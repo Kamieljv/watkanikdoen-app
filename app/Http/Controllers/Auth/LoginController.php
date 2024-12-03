@@ -57,11 +57,23 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
+    public function isLoggedIn(Request $request)
+    {
+        if (auth()->user()->id === $request->user_id) {
+            return response(['status' => 'success', 'user' => auth()->user()->id], 200);
+        }
+
+        return response(['status' => 'failed'], 200);
+    }
+
     protected function authenticated(Request $request, $user)
     {
         if (setting('auth.verify_email') && !$user->verified) {
+            // If user email is not verified, log out and
             $this->guard()->logout();
-            return redirect()->back()->with('warning', __('auth.please_verify_email'));
+            return False;
+        } else {
+            return True;
         }
     }
 
@@ -77,12 +89,23 @@ class LoginController extends Controller
 
         $this->clearLoginAttempts($request);
 
-        if ($request->expectsJson()) {
-            return response(['status' => 'success', 'user' => auth()->user()], 200);
-        }
+        $authenticated = $this->authenticated($request, $this->guard()->user());
 
-        return $this->authenticated($request, $this->guard()->user())
-                ?: redirect()->intended($this->redirectPath());
+        if ($request->expectsJson()) {
+            if (!$authenticated) {
+                return response(['status' => 'failed', 'message' => __('auth.please_verify_email')], 200);
+            }
+            return response([
+                'status' => 'success',
+                'userId' => auth()->user()->id,
+                'redirect' => session('url.intended') ?? $this->redirectPath()
+            ], 200);
+        } else {
+            if (!$authenticated) {
+                return redirect()->back()->with('warning', __('auth.please_verify_email'));
+            }
+            return redirect()->intended($this->redirectPath());
+        }
     }
 
     /**

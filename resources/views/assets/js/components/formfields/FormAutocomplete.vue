@@ -1,8 +1,8 @@
 <template>
-    <div class="relative">
+    <div ref="fieldRef" class="relative">
         <div class="h-full">
 			<!-- The search input -->
-            <t-input
+            <InputText
                 @input="onChange"
                 v-model="search"
                 @keydown.down="onArrowDown"
@@ -10,6 +10,7 @@
                 @keydown.enter="onEnter"
                 :placeholder="placeholder"
                 :disabled="hasValue"
+				class="h-full"
                 :class="{'pr-8': hasValue}"
             />
 			<!-- The form input -->
@@ -54,10 +55,14 @@
     </div>
 </template>
 
-<script>
-export default {
-	name: "FormAutocomplete",
-	props: {
+<script setup lang="ts">
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import debounce from 'lodash/debounce';
+const emit = defineEmits(["input", "change"])
+
+
+const props = defineProps(
+	{
 		items: {
 			type: Array,
 			required: false,
@@ -89,95 +94,105 @@ export default {
 			required: false,
 			default: "",
 		}
-	},
-	data() {
-		return {
-			isOpen: false,
-			results: [],
-			search: "",
-			isLoading: false,
-			hasValue: false,
-			arrowCounter: 0,
-			preventOpen: false,
-			formValue: null,
+	}
+)
+
+const isOpen = ref(false)
+const results = ref([])
+const search = ref("")
+const isLoading = ref(false)
+const hasValue = ref(false)
+const arrowCounter = ref(0)
+const preventOpen = ref(false)
+const formValue = ref(null)
+const fieldRef = ref(null)
+
+watch(() => props.items, (value, oldValue) => {
+	if (value !== oldValue) {
+		results.value = value
+		isLoading.value = false
+		isOpen.value = true
+	}
+})
+
+const setResult = (result) => {
+	preventOpen.value = true
+	search.value = result[props.visibleAttribute].replace(/(<([^>]+)>)/gi, "")
+	if (!props.isAsync) {
+		formValue.value = result[props.formAttribute]
+	}
+	isOpen.value = false
+	hasValue.value = true
+	emit("input", result)
+}
+
+const resetResult = () => {
+	search.value = ""
+	isOpen.value = false
+	hasValue.value = false
+	formValue.value = null
+	emit("input", "")
+}
+
+const filterResults = () => {
+	results.value = items.filter((item) => {
+		return item[props.visibleAttribute].toLowerCase().indexOf(search.value.toLowerCase()) > -1
+	})
+}
+
+const onChange = debounce(() => {
+	if (search.value.length >= props.minQueryLength) {
+		if (!preventOpen.value) emit("change", search.value)
+		if (props.isAsync) {
+			isLoading.value = true
+			isOpen.value = !preventOpen.value
+		} else {
+			filterResults()
+			isOpen.value = !preventOpen.value
 		}
-	},
-	watch: {
-		items: function (value, oldValue) {
-			if (value !== oldValue) {
-				this.results = value
-				this.isLoading = false
-				this.isOpen = true
-			}
-		},
-	},
-	mounted() {
-		document.addEventListener("click", this.handleClickOutside)
-	},
-	destroyed() {
-		document.removeEventListener("click", this.handleClickOutside)
-	},
-	methods: {
-		setResult(result) {
-			this.preventOpen = true
-			this.search = result[this.visibleAttribute].replace(/(<([^>]+)>)/gi, "")
-			if (!this.isAsync) {
-				this.formValue = result[this.formAttribute]
-			}
-			this.isOpen = false
-			this.hasValue = true
-			this.$emit("input", result)
-		},
-		resetResult() {
-			this.search = ""
-			this.isOpen = false
-			this.hasValue = false
-			this.formValue = null
-			this.$emit("input", "")
-		},
-		filterResults() {
-			this.results = this.items.filter((item) => {
-				return item[this.visibleAttribute].toLowerCase().indexOf(this.search.toLowerCase()) > -1
-			})
-		},
-		onChange: _.debounce(function() {
-			if (this.search.length >= this.minQueryLength) {
-				if (!this.preventOpen) this.$emit("change", this.search)
-				if (this.isAsync) {
-					this.isLoading = true
-					this.isOpen = !this.preventOpen
-				} else {
-					this.filterResults()
-					this.isOpen = !this.preventOpen
-				}
-			} else {
-				this.isOpen = false
-			}
-			this.preventOpen = false
-		}, 500),
-		handleClickOutside(event) {
-			if (!this.$el.contains(event.target)) {
-				this.isOpen = false
-				this.arrowCounter = 0
-			}
-		},
-		onArrowDown() {
-			if (this.arrowCounter < this.results.length) {
-				this.arrowCounter = this.arrowCounter + 1
-			}
-		},
-		onArrowUp() {
-			if (this.arrowCounter > 0) {
-				this.arrowCounter = this.arrowCounter - 1
-			}
-		},
-		onEnter() {
-			this.search = this.results[this.arrowCounter][this.visibleAttribute].replace(/(<([^>]+)>)/gi, "")
-			this.isOpen = false
-			this.arrowCounter = 0
-		},
+	} else {
+		isOpen.value = false
+	}
+	preventOpen.value = false
+}, 500)
+
+const handleClickOutside = (event) => {
+	if (!fieldRef.value.contains(event.target)) {
+		isOpen.value = false
+		arrowCounter.value = 0
 	}
 }
+
+const onArrowDown = () => {
+	if (arrowCounter.value < results.value.length) {
+		arrowCounter.value = arrowCounter.value + 1
+	}
+}
+
+const onArrowUp = () => {
+	if (arrowCounter.value > 0) {
+		arrowCounter.value = arrowCounter.value - 1
+	}
+}
+
+const onEnter = () => {
+	search.value = results.value[arrowCounter.value][props.visibleAttribute].replace(/(<([^>]+)>)/gi, "")
+	isOpen.value = false
+	arrowCounter.value = 0
+}
+
+onMounted(() => {
+	document.addEventListener("click", handleClickOutside)
+})
+
+onBeforeUnmount(() => {
+	document.removeEventListener("click", handleClickOutside)
+})
+
+defineExpose({
+	resetResult
+})
+
 </script>
 <style lang="scss" scoped>
 	@import "../../../sass/app.scss";

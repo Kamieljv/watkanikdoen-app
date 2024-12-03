@@ -7,22 +7,19 @@
         </div>
     </div>
 </template>
-<script>
-export default {
-    name: "SuccessGIF",
-    props: {
-        title: {
-            type: String,
-            required: true,
-        },
-        message: {
-            type: String,
-            default: '',
-        },
-        src: {
-            type: String,
-            required: true,
-        },
+<script setup lang="ts">
+const props = defineProps({
+    title: {
+        type: String,
+        required: true,
     },
-}
+    message: {
+        type: String,
+        default: '',
+    },
+    src: {
+        type: String,
+        required: true,
+    },
+})
 </script>

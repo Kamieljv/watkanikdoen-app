@@ -47,11 +47,3 @@
         </div>
     </div>
 @stop
-
-@push('javascript')
-    <script type="application/javascript">
-        var app = new Vue({
-            el: '#app',
-        });
-    </script>
-@endpush

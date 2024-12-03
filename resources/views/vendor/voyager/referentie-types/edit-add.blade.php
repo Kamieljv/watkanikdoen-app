@@ -102,14 +102,14 @@
                                 <label class="control-label" for="name">Dimension scores</label>
 
                                 <score-relation-form-field
-                                        :dimensions="{{ json_encode(\App\Models\Dimension::get()->toArray())}}"
-                                        entity-class="App\Models\ReferentieType"
-                                        :score-route="{{ json_encode(route('actiewijzer.score_dimension'))}}"
-                                        :score-delete-route="{{ json_encode(route('actiewijzer.delete_dimension_score'))}}"
-                                        :current-scores="{{ json_encode($referentie_type ? ($referentie_type->dimensions) : array()) }}"
-                                        :current-id="{{ $dataTypeContent->getKey() }}"
-                                        :min-score="{{ config('app.actiewijzer.min_score') }}"
-                                        :max-score="{{ config('app.actiewijzer.max_score') }}"
+                                    :dimensions="{{ json_encode(\App\Models\Dimension::get()->toArray())}}"
+                                    entity-class="App\Models\ReferentieType"
+                                    :score-route="{{ json_encode(route('actiewijzer.score_dimension'))}}"
+                                    :score-delete-route="{{ json_encode(route('actiewijzer.delete_dimension_score'))}}"
+                                    :current-scores="{{ json_encode($referentie_type ? ($referentie_type->dimensions) : array()) }}"
+                                    :current-id="{{ $dataTypeContent->getKey() }}"
+                                    :min-score="{{ config('app.actiewijzer.min_score') }}"
+                                    :max-score="{{ config('app.actiewijzer.max_score') }}"
                                 />
                             </div>
 
@@ -136,12 +136,4 @@
             </div>
         </div>
     </div>
-
-    @push('javascript')
-      <script type="application/javascript">
-            var app = new Vue({
-                  el: '#app',
-            });
-      </script>
-    @endpush
 @endsection

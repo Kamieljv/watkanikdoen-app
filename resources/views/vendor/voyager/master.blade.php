@@ -49,6 +49,7 @@
     @endif
 
     @yield('head')
+    @vite(['resources/js/app.js', 'resources/sass/app.scss'])
 </head>
 
 <body class="voyager @if(isset($dataType) && isset($dataType->slug)){{ $dataType->slug }}@endif">
@@ -108,8 +109,6 @@
     </div>
 </div>
 @include('voyager::partials.app-footer')
-
-<!-- Javascript Libs -->
 
 
 <script type="text/javascript" src="{{ voyager_asset('js/app.js') }}"></script>

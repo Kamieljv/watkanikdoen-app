@@ -19,4 +19,5 @@ return [
     'logo' => 'Logo',
     'none_selected' => 'Geen organisatoren geselecteerd',
     'view_all_organizers' => 'Bekijk alle organisatoren',
+    'name_already_selected' => 'Er is al een organisatie met deze naam geselecteerd',
 ];

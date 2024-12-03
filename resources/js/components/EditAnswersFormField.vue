@@ -13,7 +13,7 @@
 					<button 
 						v-if="!a.editable" 
 						class="edit-btn" 
-						@click.prevent="$set(a, 'editable', !a.editable)"
+						@click.prevent="handleEdit($event, a.id)"
 					>
 						Bewerken
 					</button>
@@ -46,75 +46,71 @@
 	</div>
 </template>
 
-<script>
-	import ScoreRelationFormField from './ScoreRelationFormField.vue';
+<script setup lang="ts">
+import { ref } from 'vue';
+import ScoreRelationFormField from './ScoreRelationFormField.vue';
+import axios from 'axios';
 
-	export default {
-		name: "EditAnswersFormField",
-		props: {
-			answers: {
-				type: Array,
-				required: true,
-			},
-			editRoute: {
-				type: String,
-				required: true,
-			},
-			deleteRoute: {
-				type: String,
-				required: true,
-			},
-			scoreRoute: {
-				type: String,
-				required: true,
-			},
-			scoreDeleteRoute: {
-				type: String,
-				required: true,
-			},
-			editAnswerRoute: {
-				type: String,
-				required: true,
-			},
-			dimensions: {
-				type: Array,
-				required: true,
-			},
-		},
-		data() {
-			return {
-				answersToEdit: [],
-			}
-		},
-		mounted() {
-			this.answersToEdit = this.answers.map(a => {
-				a.editable = false
-				return a
-			});
-		},
-		methods: {
-			handleSave(e, id) {
-				var val = e.target.closest('div').querySelector('input').value;
-				this.$set(this.answersToEdit.find((a) => a.id == id), 'value', val);
-				this.$http.post(this.editAnswerRoute, {
-					'id': id,	
-					'answer': val,
-				}).then((response) => {
-					this.$set(this.answersToEdit.find((a) => a.id == id), 'editable', false);
-					
-					if (response.data.status === "success") {
-						// reset the inner html of the error element in the row
-						e.target.closest('div').querySelector('.error').innerHTML = '';	
-					} else {
-						throw new Error(response.message);
-					}
-				}).catch((error) => {
-					// set the inner html of the error element in the row
-					e.target.closest('div').querySelector('.error').innerHTML = error.response.data.message;
-				});
-			},
+const props = defineProps({
+	answers: {
+		type: Array,
+		required: true,
+	},
+	editRoute: {
+		type: String,
+		required: true,
+	},
+	deleteRoute: {
+		type: String,
+		required: true,
+	},
+	scoreRoute: {
+		type: String,
+		required: true,
+	},
+	scoreDeleteRoute: {
+		type: String,
+		required: true,
+	},
+	editAnswerRoute: {
+		type: String,
+		required: true,
+	},
+	dimensions: {
+		type: Array,
+		required: true,
+	},
+});
+
+const answersToEdit = ref(props.answers.map(a => {
+	a.editable = false;
+	return a;
+}));
+
+const handleEdit = (e, id) => {
+	answersToEdit.value.find((a) => a.id == id).editable = true;
+}
+
+const handleSave = (e, id) => {
+	var val = e.target.closest('div').querySelector('input').value;
+	answersToEdit.value.find((a) => a.id == id).answer = val;
+	axios.post(props.editAnswerRoute, {
+		'id': id,	
+		'answer': val,
+	}).then((response) => {
+		answersToEdit.value.find((a) => a.id == id).editable = false;
+		
+		if (response.data.status === "success") {
+			// reset the inner html of the error element in the row
+			e.target.closest('div').querySelector('.error').innerHTML = '';	
+		} else {
+			throw new Error(response.message);
 		}
-	}
+	}).catch((error) => {
+		// set the inner html of the error element in the row
+		e.target.closest('div').querySelector('.error').innerHTML = error.response.data.message;
+	});
+}
 </script>
 
 <style lang="scss" scoped>

@@ -57,6 +57,15 @@ class ReportController extends Controller
 
     public function create(Request $request)
     {
+        // check if user is logged in and reported userId matched logged-in user
+
+        if (auth()->user()->id !== (int) $request->userId) {
+            return response([
+                'status' => 'error',
+                'message' => __('reports.user_mismatch'),
+            ], 200);
+        }
+
         $this->validator($request->all())->validate();
 
         try {

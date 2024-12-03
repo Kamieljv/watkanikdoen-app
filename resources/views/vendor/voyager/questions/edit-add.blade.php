@@ -137,11 +137,4 @@
         </div>
     </div>
 
-    @push('javascript')
-      <script type="application/javascript">
-            var app = new Vue({
-                  el: '#app',
-            });
-      </script>
-    @endpush
 @endsection
