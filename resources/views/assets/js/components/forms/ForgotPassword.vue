@@ -7,7 +7,7 @@
             <p class="mt-4 text-sm leading-5 text-center text-gray-600 max-w">
                 {{ __("general.or_back_to") }}
                 <a :href="routes.login" class="font-medium transition duration-150 ease-in-out text-blue-600 hover:text-blue-500 focus:outline-none focus:underline">
-                    {{ this.sentenceCase(__('auth.login')) }}
+                    {{ sentenceCase(__('auth.login')) }}
                 </a>
             </p>
         </div>
@@ -48,55 +48,46 @@
     </div>
 </template>
 
-<script>
+<script setup lang="ts">
 
-import { ValidationProvider } from 'vee-validate';
-import { caseHelper } from '../../mixins/caseHelper';
+import { inject, ref } from 'vue';
+import { sentenceCase } from "../../helpers/caseHelper.js";
+import axios from 'axios';
+const __ = inject('translate')
 
-export default {
-	name: "ForgotPassword",
-    components: {
-        ValidationProvider,
+const props = defineProps({
+    routes: {
+        type: Object,
+        required: true,
     },
-    mixins: [
-        caseHelper,
-    ],
-    props: {
-        routes: {
-            type: Object,
-            required: true,
-        },
-        csrf: {
-            type: String,
-            required: true,
-        },
+    csrf: {
+        type: String,
+        required: true,
     },
-    data() {
-		return {
-			email: '',
-            responseMessage: '',
-            success: null,
-            isLoading: false,
-        }
-	},
-    methods: {
-        submit: async function() {
-            this.isLoading = true
-            this.$http.post(this.routes.password_reset, {
-                email: this.email,
-                _token: this.csrf,
-            }).then((response) => {
-                this.responseMessage = response.data.message
-                this.success = true
-                this.isLoading = false
-            }).catch((err) => {
-                this.success = false
-                this.isLoading = false
-            })
-        }
+});
+
+const email = ref('');
+const responseMessage = ref('');
+const success = ref(null);
+const isLoading = ref(false);
+
+const submit = async function() {
+    isLoading.value = true;
+    try {
+        const response = await axios.post(props.routes.password_reset, {
+            email: email.value,
+            _token: props.csrf,
+        });
+        responseMessage.value = response.data.message;
+        success.value = true;
+    } catch (err) {
+        success.value = false;
     }
+    isLoading.value = false;
 }
+
 </script>
+
 <style scoped>
     .success {
         color: var(--wkid-message-success-dark);

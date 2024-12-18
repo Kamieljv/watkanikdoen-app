@@ -7,14 +7,14 @@
             <p class="mt-4 text-sm leading-5 text-center text-gray-600 max-w">
                 {{ __("general.or_back_to") }}
                 <a :href="routes.login" class="font-medium transition duration-150 ease-in-out text-blue-600 hover:text-blue-500 focus:outline-none focus:underline">
-                    {{ this.sentenceCase(__('auth.login')) }}
+                    {{ sentenceCase(__('auth.login')) }}
                 </a>
             </p>
         </div>
 
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div class="px-4 py-8 bg-white border shadow border-gray-50 sm:rounded-lg sm:px-10">
-                <ValidationObserver
+                <Form
                     ref="validator"
                 >
                     <form :action="routes.password_change" method="POST">
@@ -39,10 +39,8 @@
                             label="Nieuw wachtwoord"
                             name="password"
                             type="password"
-                            :rules="{min: minPasswordLength}"
+                            :rules="{min: minPasswordLength, required: true}"
                             autocomplete="new-password"
-                            password
-                            required
                         />
 
                         <!-- Password Confirmation -->
@@ -51,10 +49,8 @@
                             label="Nieuw wachtwoord bevestigen"
                             name="password_confirmation"
                             type="password"
-                            :rules="{min: minPasswordLength, confirmed: {target: 'password'}}"
+                            :rules="{min: minPasswordLength, required: true, confirmed: {target: 'password'}}"
                             autocomplete="new-password"
-                            password
-                            required
                         />
 
                         <div class="flex flex-col items-center justify-center text-sm leading-5">
@@ -66,46 +62,36 @@
                         </div>
 
                     </form>
-                </ValidationObserver>
+                </Form>
             </div>
         </div>
     </div>
 </template>
 
-<script>
+<script setup lang="ts">
 
-import { ValidationProvider } from 'vee-validate';
-import { caseHelper } from '../../mixins/caseHelper';
+import { inject, ref } from 'vue';
+import { sentenceCase } from '../../helpers/caseHelper.js'
+const __ = inject('translate');
 
-export default {
-	name: "ResetPassword",
-    components: {
-        ValidationProvider,
+const props = defineProps({
+    routes: {
+        type: Object,
+        required: true,
     },
-    mixins: [
-        caseHelper,
-    ],
-    props: {
-        routes: {
-            type: Object,
-            required: true,
-        },
-        token: {
-            type: String,
-            default: false,
-        },
-        minPasswordLength: {
-            type: Number,
-            default: 10,
-        },
+    token: {
+        type: String,
+        default: false,
     },
-    data() {
-		return {
-			email: '',
-            password: '',
-            passwordConfirm: '',
-        }
-	},
-}
+    minPasswordLength: {
+        type: Number,
+        default: 10,
+    },
+})
+
+const email = ref('');
+const password = ref('');
+const passwordConfirm = ref('');
+
 </script>
 

@@ -1,5 +1,6 @@
 @import "fonts";
 @import "editor";
+@import "primevue";
 
 :root {
   --wkid-red: #e11d00;
@@ -214,6 +215,13 @@ svg {
   & a {
     @apply font-medium transition duration-150 text-[color:var(--wkid-message-warning-dark)] underline ease-in-out focus:outline-none focus:underline;
   }
+}
+
+span[role="alert"] {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--wkid-message-error-dark);
 }
 
 @keyframes drop {

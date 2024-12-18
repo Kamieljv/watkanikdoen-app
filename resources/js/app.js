@@ -2,30 +2,43 @@
  * This JS adds to the voyager base JS asset.
  * Vue, jQuery and BootstrapJS (among others) are loaded there.
  */
-window.axios = require("axios")
-Vue.prototype.$http = window.axios
 
-// Explicitly load FormField components
-import VueTailwind from "vue-tailwind"
-import VueTailwindSettings from "../views/VueTailwindSettings.js"
-Vue.use(VueTailwind, VueTailwindSettings)
+import { createApp } from "vue"
+import PrimeVue from "primevue/config"
+import Aura from '../views/assets/presets/aura'
 
-// Load Leaflet
-import { LMap, LTileLayer, LMarker, LTooltip } from "vue2-leaflet"
+const app = createApp()
+app.use(PrimeVue, {
+    unstyled: true,
+    pt: Aura
+})
+
+// Lodash for language
+import get from "lodash/get"
+app.provide("translate", str => get(window.i18n, str)); 
+
+// Vee-validate
+import { setLocale } from "@vee-validate/i18n"
+setLocale("nl")
+import "../views/assets/js/validations"
+
+
+import { LMap, LTileLayer, LMarker, LTooltip } from "@vue-leaflet/vue-leaflet"
 import "leaflet/dist/leaflet.css"
-Vue.component("l-map", LMap)
-Vue.component("l-tile-layer", LTileLayer)
-Vue.component("l-marker", LMarker)
-Vue.component("l-tooltip", LTooltip)
+app.component("LMap", LMap)
+    .component("l-tile-layer", LTileLayer)
+    .component("l-tile-layer", LTileLayer)
+    .component("l-marker", LMarker)
+    .component("l-tooltip", LTooltip)
 
-// Define translation directive ('__()')
-import _ from "lodash"
-Vue.prototype.__ = str => _.get(window.i18n, str)
+// Import and register Vue components that are used in blade files
+import CoordinatesFormField from "./components/CoordinatesFormField.vue"
+import EditAnswersFormField from "./components/EditAnswersFormField.vue"
+import ScoreRelationFormField from "./components/ScoreRelationFormField.vue"
+import StatsDashboard from "./components/StatsDashboard.vue"
+app.component("CoordinatesFormField", CoordinatesFormField)
+app.component("EditAnswersFormField", EditAnswersFormField)
+app.component("ScoreRelationFormField", ScoreRelationFormField)
+app.component("StatsDashboard", StatsDashboard)
 
-// Add TinyMCE (rich text editor) paste plugin
-// (https://www.tiny.cloud/docs-3x/reference/TinyMCE3x@Plugins/Plugin3x@paste/)
-import "../../public/vendor/tcg/voyager/assets/js/plugins/paste/plugin.min.js"
-
-// Load additional components
-const files = require.context("./", true, /\.vue$/i)
-files.keys().map(key => Vue.component(key.split("/").pop().split(".")[0], files(key).default))
+app.mount("#app")

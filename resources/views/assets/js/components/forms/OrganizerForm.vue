@@ -1,5 +1,5 @@
 <template>
-    <ValidationObserver ref="organizerValidator">
+    <Form ref="organizerValidatorRef">
         <p class="text-body leading-5 text-gray-500 mt">
             Wie is de organisator van je actie? Kies één of meerdere organisatoren uit de lijst. 
             Kun je de juiste organisator niet vinden? Dan kun je deze zelf toevoegen met het formulier.
@@ -18,13 +18,13 @@
                     <div class="flex flex-col mt-5 md:pr-5">
                         <!-- Organizers -->
                         <Organizers
-                            v-model="organizersSelected"
                             :organizers-selected="organizersSelected"
                             :routes="routes"
                             :show-themes="false"
                             :enable-show-more="false"
                             :max="5"
                             mode="select"
+                            @update:modelValue="updateOrganizersSelected"
                         />
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                             label="Naam"
                             name="naam"
                             type="text"
-                            rules="required|max:80"
+                            rules="required|min:2|max:80"
                             validation-mode="lazy"
                         />
                         <!-- Body -->
@@ -54,11 +54,10 @@
                             <label for="description" class="block text-sm font-medium leading-5 text-gray-700">
                                 {{ __("organizers.description") }}
                             </label>
-                            <rich-text-field
+                            <RichTextField
                                 name="description"
-                                :value="description"
                                 v-model="description"
-                                ref="description"
+                                ref="descriptionRef"
                             />
                         </div>
                         <!-- Website -->
@@ -67,11 +66,14 @@
                             label="Website"
                             name="website"
                             type="url"
-                            rules="required|url"
+                            rules="required|url:noProtocol"
                         />
                         <div class="flex mt-5 justify-end">
+                            <span v-if="error" role="alert">{{error}}</span>
+                        </div>
+                        <div class="flex mt-5 justify-end">
                             <a @click="addOrganizer" class="primary add-button">
-                                <svg-vue icon="clarity-add-line" class="shrink-0" style="stroke: currentColor;"></svg-vue>
+                                <AddLineIcon class="shrink-0" style="stroke: currentColor;" />
                                 {{ __('general.add') }}
                             </a>
                         </div>
@@ -91,14 +93,14 @@
                     <hr class="mt-2"/>
                 </div>
                 <div v-if="organizersSelected.length > 0" class="flex flex-col mt-5">
-                    <organizer
+                    <Organizer
                         v-for="organizer in organizersSelected"
                         :key="organizer.name"
                         :organizer="organizer"
                         :show-themes="false"
                         :disabled="true"
                         mode="remove"
-                        @input="removeSelected($event, organizer)"
+                        @update:modelValue="removeSelected($event, organizer)"
                     />
                 </div>
                 <div v-else class="flex flex-col mt-5">
@@ -108,78 +110,84 @@
                 </div>
             </div>
         </div>
-    </ValidationObserver>
+    </Form>
 </template>
 
-<script>
+<script setup lang="ts">
 
-import { ValidationObserver } from 'vee-validate';
-import { ValidationProvider } from 'vee-validate';
-import { caseHelper } from '../../mixins/caseHelper';
+import { inject, onMounted, ref, watch } from 'vue'
+import { Form } from 'vee-validate'
+import AddLineIcon from '&/clarity-add-line.svg'
+const __ = inject('translate')
+const emit = defineEmits(['update:modelValue'])
 
-export default {
-	name: "Actie",
-    components: {
-        ValidationProvider,
-        ValidationObserver,
+const props = defineProps({
+    routes: {
+        type: Object,
+        required: true,
     },
-    mixins: [
-        caseHelper,
-    ],
-    props: {
-        routes: {
-            type: Object,
-            required: true,
-        },
-        selectedOrganizers: {
-            type: Array,
-            default: () => [],
-        }
-    },
-    data() {
-		return {
-            name: '',
-            description: '',
-            website: '',
-            organizersSelected: [],
-        }
-	},
-    methods: {
-        addOrganizer: function() {
-            this.$refs.organizerValidator.validate().then((result) => {
-                if (result) {
-                    this.organizersSelected.push({
-                        name: this.name, 
-                        description: this.description, 
-                        website: this.website
-                    })
-                    this.$refs.organizerValidator.reset()
-                    this.resetForm()
-                }
-            })           
-        },
-        resetForm: function() {
-            this.name = this.description = this.website = ''
-            this.$refs.description.editor.commands.clearContent()
-        },
-        removeSelected: function(e, organizer) {
-            this.organizersSelected = this.organizersSelected.filter((v) => {
-                if (!('id' in organizer)) {
-                    return v.name !== organizer.name
-                }
-                return v.id !== organizer.id
-            })
-        }
-    },
-    mounted() {
-        this.organizersSelected = this.selectedOrganizers.length > 0 ? this.selectedOrganizers : []
-    },
-    watch: {
-        organizersSelected: function(value) {
-            this.$emit('input', this.organizersSelected)
-        }
+    modelValue: {
+        type: Array,
+        default: () => [],
     }
+})
+
+const name = ref('')
+const description = ref('')
+const website = ref('')
+const organizersSelected = ref([])
+const organizerValidatorRef = ref(null)
+const descriptionRef = ref(null)
+const error = ref(null)
+
+
+const addOrganizer = () => {
+    error.value = null
+    // check if name of organizer is not already in organizersselected
+    if (organizersSelected.value.find((v) => v.name.toLowerCase() === name.value.toLowerCase())) {
+        error.value = __('organizers.name_already_selected')
+        return
+    }
+
+    organizerValidatorRef.value.validate().then((result) => {
+        if (result.valid) {
+            organizersSelected.value.push({
+                name: name.value, 
+                description: description.value, 
+                website: website.value
+            })
+            organizerValidatorRef.value.resetForm()
+            resetForm()
+        }
+    })           
 }
+
+const resetForm = () => {
+    name.value = description.value = website.value = ''
+    descriptionRef.value.editor.commands.clearContent()
+}
+
+const removeSelected = (e, organizer) => {
+    organizersSelected.value = organizersSelected.value.filter((v) => {
+        if (!('id' in organizer)) {
+            return v.name !== organizer.name
+        }
+        return v.id !== organizer.id
+    })
+}
+
+const updateOrganizersSelected = (value) => {
+    organizersSelected.value = value
+}
+
+onMounted(() => {
+    organizersSelected.value = props.modelValue.length > 0 ? props.modelValue : []
+})
+
+watch(organizersSelected, (value) => {
+    emit('update:modelValue', organizersSelected.value)
+})
+
 </script>
 
 <style lang="scss" scoped>

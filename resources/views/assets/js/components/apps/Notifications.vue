@@ -15,7 +15,7 @@
 		</div>
 
 		<div v-if="noNotifications" id="notifications-none" class="flex items-center justify-center h-24 w-full text-gray-600 font-medium">
-			<svg-vue icon="antdesign-inbox-o" class="w-5 h-5 mr-3" />
+			<InboxIcon class="w-5 h-5 mr-3" />
 			{{ __("dashboard.no_notifications") }}
 		</div>
 
@@ -29,8 +29,8 @@
 			>
 				<div class="flex items-start p-5">
 					<div class="flex-shrink-0 pt-1">
-						<div class="flex items-center justify-center text-xl w-10 h-10 rounded-full text-white" :class="{'text-white bg-[color:var(--wkid-blue)]': n.unread, 'bg-gray-100': !n.unread}">
-							<svg-vue :icon="n.data.icon" style="stroke: currentColor; height: 26px;" />
+						<div class="flex items-center justify-center text-xl w-10 h-10 rounded-full text-gray-400" :class="{'text-white bg-[color:var(--wkid-blue)]': n.unread, 'bg-gray-100': !n.unread}">
+							<BellIcon style="stroke: currentColor; height: 26px;" />
 						</div>
 					</div>
 					<div class="flex flex-col items-start flex-1 w-0 ml-3">
@@ -41,7 +41,7 @@
 							</div>
 						</a>
 						<div class="flex space-x-3 w-full items-center justify-left mt-2 text-xs font-medium leading-5 text-gray-500">
-							<span class="notification-datetime text-xs">{{ moment(n.created_at).fromNow() }}</span>
+							<span class="notification-datetime text-xs">{{ formatDistanceToNow(parseISO(n.created_at), {locale: nl}) }} {{ __('general.ago') }}</span>
 							<span v-if="n.unread">•</span>
 							<span v-if="n.unread" @click="markAsRead" :data-id="n.id" :data-listid="i" class="flex justify-start text-xs text-gray-500 cursor-pointer hover:text-gray-700 mark-as-read hover:underline">
 								<svg class="absolute w-4 h-4 mt-1 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
@@ -56,52 +56,51 @@
 	</div>
 </template>
 
-<script>
-export default {
-	name: "Notifications",
-	props: {
-		notifications: {
-			type: Array,
-			required: true,
-		},
-		readRoute: {
-			type: String,
-			required: true,
-		}
-	},
-	data() {
-		return {
-			notif: this.notifications
-		}
-	},
-	computed: {
-		noNotifications() {
-			return this.notif.length === 0
-		},
-		notificationsProcessed() {
-			return this.notif.map((n) => {
-				n.unread = n.read_at === null
-				return n
-			})
-		},
-		unreadNotifications() {
-			return this.notificationsProcessed.filter((n) => n.unread === true).length
-		}
-	},
-	mounted() {
-	},
-	methods: {
-		markAsRead(e) {
-			this.$http.post(this.readRoute + "/" + e.target.dataset.id).then((response) => {
-				if (response.data.type == "success") {
-					Vue.set(this.notif[e.target.dataset.listid], "read_at", new Date())
-				}
-			})
-		}
-	},
-}
-</script>
+<script setup lang="ts">
+import axios from 'axios';
+import { parseISO } from 'date-fns/parseISO';
+import { formatDistanceToNow } from 'date-fns/formatDistanceToNow';
+import { nl } from 'date-fns/locale';
+import { computed, inject, ref } from 'vue';
+import InboxIcon from '&/antdesign-inbox-o.svg';
+import BellIcon from '&/bell.svg';
+const __ = inject('translate')
 
+const props = defineProps({
+	notifications: {
+		type: Array,
+		required: true,
+	},
+	readRoute: {
+		type: String,
+		required: true,
+	}
+})
+
+const notif = ref(props.notifications)
+
+const noNotifications = computed(() => notif.value.length === 0)
+
+const notificationsProcessed = computed(() => {
+	return notif.value.map((n: object) => {
+		n.unread = n.read_at === null
+		return n
+	})
+})
+
+const unreadNotifications = computed(() => {
+	return notificationsProcessed.value.filter((n) => n.unread === true).length
+})
+
+const markAsRead = (e) => {
+	axios.post(props.readRoute + "/" + e.target.dataset.id).then((response) => {
+		if (response.data.type == "success") {
+			notif.value[e.target.dataset.listid].read_at = new Date()
+		}
+	})
+}
+
+</script>
 <style lang="scss" scoped>
 	#notification-ul {
 		/* Hide scrollbar for IE, Edge and Firefox */

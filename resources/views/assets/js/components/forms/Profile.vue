@@ -10,14 +10,17 @@
 					{{ errors[error][0] }}
 				</span>
 			</div>
-			<div class="flex justify-start w-full mb-8 w-full h-32 lg:m-b0">
-				<form-image
+			<div class="flex justify-start w-32 h-32 mb-8 lg:m-b0">
+				<FormImage
 					:previous-image="previousImage"
 					field-name="avatar"
-					viewport-type="circle"
+					stencil-type="circle"
+					:stencil-props="{
+						minAspectRatio: 1/1,
+						maxAspectRatio: 1/1
+					}"
 					:default-char="defaultChar"
 					:header="imageUploadHeader"
-					:ratio="1"
 					:delete-route="routes.delete_avatar"
 				/>
 			</div>
@@ -41,6 +44,7 @@
 					:rules="{max: 70, email: true}"
 					autocomplete="email"
 					required
+					disabled
 				/>
 
 				<div class="flex justify-end w-full">
@@ -53,45 +57,30 @@
 	</form>
 </template>
 
-<script>
+<script setup lang="ts">
 
-import { ValidationProvider } from 'vee-validate';
+import { computed, inject } from 'vue';
+const __ = inject('translate')
 
-export default {
-	name: "Profile",
-    components: {
-        ValidationProvider,
-    },
-    props: {
-        routes: {
-            type: Object,
-            required: true,
-        },
-        user: {
-            type: Object,
-            required: true,
-        },
-		errors: {
-            type: Object|Array,
-            default: () => {}
-        },
-    },
-    data() {
-		return {
-        }
+const props = defineProps({
+	routes: {
+		type: Object,
+		required: true,
 	},
-    computed: {
-        imageUploadHeader() {
-            return this.__("general.position_and_resize_photo")
-        },
-        previousImage() {
-            return this.user.linked_image ? user.linked_image.url + '?' + new Date() : ''
-        },
-        defaultChar() {
-            return this.user.name.slice(0, 1).toUpperCase()
-        }
-    },
-}
+	user: {
+		type: Object,
+		required: true,
+	},
+	errors: {
+		type: Object,
+		default: () => {}
+	},
+})
+
+const imageUploadHeader = computed(() => __("general.position_and_resize_photo"))
+const previousImage = computed(() => props.user.linked_image ? props.user.linked_image.url + '?' + new Date() : '')
+const defaultChar = computed(() => props.user.name.slice(0, 1).toUpperCase())
+
 </script>
 <style scoped>
     .failure {

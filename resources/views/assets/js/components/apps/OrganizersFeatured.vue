@@ -19,12 +19,13 @@
 							</div>
                         </div>
                         <div v-else-if="heeftOrganizers" >
-                            <organizer-large
+                            <organizer
                                 v-for="organizer in organizersFormatted"
                                 :key="organizer.id"
                                 :organizer="organizer"
 								:route="organizerBaseRoute + organizer.slug"
 								:show-themes="showThemes"
+								:type="'large'"
                             />
                         </div>
 						<div v-else-if="isGeladen" class="flex justify-center items-center py-8">
@@ -39,10 +40,12 @@
     </div>
 </template>
 
-<script>
-export default {
-	name: "OrganizersFeatured",
-	props: {
+<script setup lang="ts">
+	import { computed, inject, onMounted, ref } from 'vue'
+	import axios from 'axios'
+	const __ = inject('translate')
+
+	const props = defineProps({
 		routes: {
 			type: Object,
 			required: true,
@@ -55,53 +58,50 @@ export default {
 			type: Number,
 			default: 3,
 		}
-	},
-	data() {
-		return {
-			organizers: [],
-			isGeladen: false,
-			heeftFout: false,
-		}
-	},
-	computed: {
-		skeletonArray() {
-			return [...Array(3).keys()]
-		},
-		heeftOrganizers() {
-			return (this.organizers.length > 0)
-		},
-		organizersFormatted() {
-			this.organizers.forEach((organizer) => {
-				organizer.description = organizer.description ? organizer.description.replace(/(<([^>]+)>)/gi, "") : null
-				return organizer
-			})
-			return this.organizers
-		},
-		organizerBaseRoute() {
-			return this.routes["organizers.organizer"].uri.split("{")[0]
-		},
-	},
-	mounted() {
-		this.getOrganizers()
-	},
-	methods: {
-		getOrganizers: async function getOrganizers() {
-			this.isGeladen = false
-			this.heeftFout = false
-			axios.get(this.routes["organizers.search"].uri, {
+	})
+
+	const organizers = ref([])
+	const isGeladen = ref(false)
+	const heeftFout = ref(false)
+	
+	const skeletonArray = ref([...Array(3).keys()])
+
+	const heeftOrganizers = computed(() => {
+		return (organizers.value.length > 0)
+	})
+	const organizersFormatted = computed(() => {
+		organizers.value.forEach((organizer) => {
+			organizer.description = organizer.description ? organizer.description.replace(/(<([^>]+)>)/gi, "") : null
+			return organizer
+		})
+		return organizers.value
+	})
+	const organizerBaseRoute = computed(() => {
+		return props.routes["organizers.organizer"].uri.split("{")[0]
+	})
+
+	onMounted(() => {
+		getOrganizers()
+	})
+
+	const getOrganizers = async function getOrganizers() {
+		isGeladen.value = false
+		heeftFout.value = false
+		try {
+			const response = await axios.get(props.routes["organizers.search"].uri, {
 				params: {
-					limit: this.max,
+					limit: props.max,
 					onlyFeatured: true
 				}
-			}).then((response) => {
-				this.organizers = response.data.organizers
-			}).catch((error) => {
-				this.heeftFout = true
-			}).finally(() => {
-				this.isGeladen = true
 			})
+			organizers.value = response.data.organizers
+		} catch (error) {
+			heeftFout.value = true
+			console.error(error)
+		} finally {
+			isGeladen.value = true
 		}
 	}
-}
+	
 </script>
 

@@ -18,19 +18,14 @@
     <meta name="theme-color" content="#ffffff">
     <meta name="url" content="{{ url('/') }}">
 
-    <!-- Scripts (only Alpinejs) -->
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <!-- Styles -->
-    <link href="{{ asset('frontend/css/app.css') }}" rel="stylesheet">
-
     <!-- Get Language file for Vue -->
     <script src="/lang-{{ app()->getLocale() }}.js"></script>
     <!-- Umami Web Stats -->
     @if(config('umami.key'))
         <script async defer data-website-id="{{ config('umami.key') }}" src="{{ config('umami.url') }}/script.js"></script>
     @endif
-    {{-- hCaptcha --}}
-    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+
+    @vite(['resources/views/assets/js/app.js', 'resources/views/assets/sass/app.scss'])
 </head>
 <body class="flex flex-col min-h-screen @if(Request::is('/')){{ 'bg-white' }}@else{{ 'bg-gray-50' }}@endif">
 
@@ -57,7 +52,6 @@
     <!-- End Full Loader -->
 
     <!-- Scripts -->
-    <script src="{{ asset('frontend/js/app.js') }}"></script>
     @stack('scripts')
 
     <!-- Cookie notice -->

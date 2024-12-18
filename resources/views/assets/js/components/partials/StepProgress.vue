@@ -15,42 +15,39 @@
         </div>
     </div>
 </template>
-<script>
-export default {
-    props: {
-        steps: {
-            type: Array,
-            required: true,
-        },
-        currentStep: {
-            type: Number,
-            required: true,
-        },
+<script setup lang="ts">
+
+import { ref, computed, watch } from 'vue';
+const emit = defineEmits(['update:modelValue'])
+
+const props = defineProps({
+    modelValue: {
+        type: Number,
+        required: true,
     },
-    data () {
-        return {
-            current: this.currentStep
-        }
+    steps: {
+        type: Array,
+        required: true,
     },
-    computed: {
-        widthPerc: function() {
-            return 100 / this.steps.length + '%'
-        }
-    },
-    watch: {
-        currentStep() {
-            this.current = this.currentStep
-        }
-    },
-    methods: {
-        setCurrentStep: function(i) {
-            if ((i - this.current) === 0 || (i-1) < this.current) {
-                this.current = i-1
-                this.$emit('input', this.current)
-            }
-        }
+})
+
+const current = ref(props.modelValue)
+
+const widthPerc = computed(() => {
+    return 100 / props.steps.length + '%'
+})
+
+watch(() => props.modelValue, (value) => {
+    current.value = value
+})
+
+const setCurrentStep = (i: number) => {
+    if ((i - current.value) === 0 || (i-1) < current.value) {
+        current.value = i-1
+        emit('update:modelValue', current.value)
     }
 }
+
 </script>
 
 <style scoped lang="scss">

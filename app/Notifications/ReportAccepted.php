@@ -3,12 +3,17 @@
 namespace App\Notifications;
 
 use App\Models\Actie;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use Illuminate\Notifications\Messages\MailMessage;
 
 class ReportAccepted extends Notification
 {
     use Queueable;
+
+    public Actie $actie;
+    public User $user;
 
     /**
      * Create a new notification instance.
@@ -18,6 +23,7 @@ class ReportAccepted extends Notification
     public function __construct(Actie $actie)
     {
         $this->actie = $actie;
+        $this->user = User::find($actie->user_id);
     }
 
     /**
@@ -28,7 +34,7 @@ class ReportAccepted extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'mail'];
     }
 
     /**
@@ -41,9 +47,26 @@ class ReportAccepted extends Notification
     {
         return [
             'title' => __('reports.accepted_notif_title'),
-            'icon' => 'bell',
             'body' => __('reports.accepted_notif_body', ['title' => $this->actie->title]),
             'link' => route('acties.actie', $this->actie->slug),
         ];
+    }
+
+    /**
+     * Get the mail representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return \Illuminate\Notifications\Messages\MailMessage
+     */
+    public function toMail($notifiable)
+    {
+        $url = config('app.url') . '/actie/' . $this->actie->slug;
+
+        return (new MailMessage())
+                    ->subject(__("reports.report_accepted_subject") . ' | ' . config('app.name'))
+                    ->greeting(__("reports.report_accepted_greeting") . ' ' . $this->user->name . ',')
+                    ->line(__("reports.report_accepted_message", ['title' => $this->actie->title]))
+                    ->action(__("reports.report_accepted_action"), $url)
+                    ->salutation(__('emails.salutation'));
     }
 }

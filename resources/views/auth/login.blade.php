@@ -5,28 +5,18 @@
         'login' => route('login'),
         'forgot_password' => route('password.request'),
         'register' => route('register'),
+        'register_complete' => route('registration.complete'),
+        'terms' => '/algemene-voorwaarden-en-privacyverklaring',
+        'privacypolicy' => '/privacybeleid',
     ];
 @endphp
 
 @section('content')
     <div id="app">
-        <Login
+        <login-register 
             :routes="{{ json_encode($routes) }}"
-            :errors="{{ $errors }}"
-            remember="{{ old('remember') }}"
             :min-password-length="{{ config('app.auth.min_password_length') }}"
-        >
-            <template v-slot:csrf>
-                {{ csrf_field() }}
-            </template>
-        </Login>
+            h-captcha-key="{{ env('H_CAPTCHA_KEY') }}"
+        />
     </div>
 @endsection
-
-@push('scripts')
-    <script type="application/javascript">
-        var app = new Vue({
-            el: '#app',
-        });
-    </script>
-@endpush

@@ -12,7 +12,7 @@
                 <div class="flex-shrink-0 col-span-1 relative">
                     <img v-if="actie.linked_image" class="object-cover h-full" :src="actie.linked_image.url" alt="">
                     <div v-else class="h-full bg-gray-300 text-gray-400 flex items-center justify-center">
-                        <svg-vue icon="logo-icon" style="fill: currentColor; height: 80px;"></svg-vue>
+                        <LogoIcon style="fill: currentColor; height: 80px;" />
                     </div>
                 </div>
                 <div class="flex flex-col col-span-2 justify-between flex-1 bg-white">
@@ -69,24 +69,26 @@
     </article>
 </template>
 
-<script>
-export default {
-	name: "ActieSmall",
-	props: {
-		actie: {
-			type: Object,
-			required: true,
-		},
+<script setup lang="ts">
+    import { computed, inject } from 'vue'
+    import LogoIcon from '&/logo-icon.svg'
+    const __ = inject('translate')
+
+    const props = defineProps({
+        actie: {
+            type: Object,
+            required: true,
+        },
         targetBlank: {
             type: Boolean,
             default: false,
         }
-	},
-	computed: {
-		isAfgelopen() {
-			return new Date(this.actie.end_date + " " + this.actie.end_time) < new Date()
-		}
-	}
-}
+    })
+        
+    const isAfgelopen = computed(() => {
+            return new Date(props.actie.end_date + " " + props.actie.end_time) < new Date()
+        }
+    )
+    
 </script>
 

@@ -6,13 +6,13 @@
         <a :href="actie.link" class="h-full not-prose" :class="{'opacity-70 grayscale': actie.afgelopen}" :title="actie.afgelopen ? 'Deze actie is afgelopen' : actie.title ">
             <meta property="name" :content="actie.title">
             <meta property="author" typeof="Person" content="admin">
-            <meta property="dateModified" :content="new Date(actie.updated_at).toISOString()">
-            <meta class="uk-margin-remove-adjacent" property="datePublished" :content="new Date(actie.created_at).toISOString()">
+            <meta v-if="actie.updated_at" property="dateModified" :content="new Date(actie.updated_at).toISOString()">
+            <meta v-if="actie.created_at" class="uk-margin-remove-adjacent" property="datePublished" :content="new Date(actie.created_at).toISOString()">
             <div class="content flex flex-col h-full">
                 <div class="flex-shrink-0" style="position:relative;">
                     <img v-if="actie.linked_image" class="object-cover w-full h-[150px]" :src="actie.linked_image.url" alt="">
                     <div v-else class="h-[150px] bg-gray-300 text-gray-400 flex items-center justify-center">
-                        <svg-vue icon="logo-icon" style="fill: currentColor; height: 80px;"></svg-vue>
+                        <LogoIcon style="fill: currentColor; height: 80px;" />
                     </div>
                     <ul v-if="actie.themes.length <= 2" class="themes-container flex flex-wrap p-2 absolute top-0 w-full">
                         <li
@@ -79,10 +79,10 @@
                         </ul>
                         <div
                             v-if="actie.distance"
-                            class="relative self-start inline-block bg-[color:#8a8a8a7d] px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
+                            class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
                         >
-                            <span class="flex items-center text-white" rel="theme">
-                                <svg-vue icon="location" style="fill: currentColor; width: 14px; height: 14px;"></svg-vue>
+                            <span class="flex items-center" rel="theme">
+                                <LocationIcon style="fill: currentColor; width: 14px; height: 14px;" />
                                 &nbsp; {{ actie.distance + ' km' }}<br/>
                             </span>
                         </div>
@@ -120,15 +120,18 @@
     </article>
 </template>
 
-<script>
-export default {
-	name: "Actie",
-	props: {
-		actie: {
-			type: Object,
-			required: true,
-		}
-	}
-}
+<script setup lang="ts">
+    import LogoIcon from '&/logo-icon.svg'
+    import LocationIcon from '&/location.svg'
+    import { inject } from 'vue';
+    const __ = inject('translate')
+
+    const props = defineProps({
+        actie: {
+            type: Object,
+            required: true
+        }
+    });
+
 </script>
 
