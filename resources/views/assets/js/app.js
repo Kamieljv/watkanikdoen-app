@@ -30,10 +30,6 @@ import { setLocale } from "@vee-validate/i18n"
 setLocale('nl')
 import './validations'
 
-// Luxon locale
-import { Settings } from "luxon"
-Settings.defaultLocale = "nl";
-
 // Image upload/edit
 import "exif-js"
 

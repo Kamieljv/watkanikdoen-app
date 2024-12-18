@@ -69,7 +69,7 @@
 
 import { onMounted, ref } from "vue"
 import axios from 'axios'
-import { DateTime, Duration } from "luxon";
+import { getTime, intervalToDuration, subDays } from "date-fns";
 
 const props = defineProps({
 	platformStatsRoute: {
@@ -125,8 +125,8 @@ const getVisitStats = (startDaysAgo, endDaysAgo) => {
 				"Authorization": `Bearer ${response.data.token}`
 			},
 			params: {
-				startAt: DateTime.now().minus({days: startDaysAgo}).toMillis(),
-				endAt: DateTime.now().minus({days: endDaysAgo}).toMillis()
+				startAt: getTime(subDays(new Date(), startDaysAgo)),
+				endAt: getTime(subDays(new Date(), endDaysAgo))
 			}
 		}).then((response) => {
 			processData(response.data);
@@ -189,7 +189,7 @@ const processData = (data) => {
 
 const formatShortTime = (secs, space = ' ') => {
 	const prefix = secs < 0 ? '-' : '';
-	const {minutes, seconds} = Duration.fromObject({ seconds: Math.round(secs) });
+	const {minutes, seconds} = intervalToDuration({ start: 0, end: Math.round(secs) * 1000 });
 
 	let t = '';
 

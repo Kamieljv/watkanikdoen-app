@@ -41,7 +41,7 @@
 							</div>
 						</a>
 						<div class="flex space-x-3 w-full items-center justify-left mt-2 text-xs font-medium leading-5 text-gray-500">
-							<span class="notification-datetime text-xs">{{ DateTime.fromISO(n.created_at).toRelative() }}</span>
+							<span class="notification-datetime text-xs">{{ formatDistanceToNow(parseISO(n.created_at), {locale: nl}) }} {{ __('general.ago') }}</span>
 							<span v-if="n.unread">•</span>
 							<span v-if="n.unread" @click="markAsRead" :data-id="n.id" :data-listid="i" class="flex justify-start text-xs text-gray-500 cursor-pointer hover:text-gray-700 mark-as-read hover:underline">
 								<svg class="absolute w-4 h-4 mt-1 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
@@ -58,7 +58,8 @@
 
 <script setup lang="ts">
 import axios from 'axios';
-import { DateTime } from 'luxon';
+import { parseISO, formatDistanceToNow } from 'date-fns';
+import { nl } from 'date-fns/locale';
 import { computed, ref } from 'vue';
 import InboxIcon from '&/antdesign-inbox-o.svg';
 import BellIcon from '&/bell.svg';
