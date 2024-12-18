@@ -94,18 +94,18 @@
 				<div class="flex flex-col md:flex-row w-full space-y-14 md:space-y-0 mt-10 items-center">
 					<div class="flex-col w-full md:w-1/3 text-center">
 						<a href="/acties">
-							<span class="stat font-bold scroll-reveal" data-val="{{$stats["acties"]}}">0</span>
+							<span class="stat font-bold" data-val="{{$stats["acties"]}}">{{$stats["acties"]}}</span>
 							<p class="font-bold text-2xl">acties</p>
 						</a>
 					</div>
 					<div class="flex-col w-full md:w-1/3 text-center">
 						<a href="/organisatoren/index">
-							<span class="stat font-bold scroll-reveal" data-val="{{$stats["organizers"]}}">0</span>
+							<span class="stat font-bold" data-val="{{$stats["organizers"]}}">{{$stats["organizers"]}}</span>
 							<p class="font-bold text-2xl">organisatoren</p>
 						</a>
 					</div>
 					<div class="flex-col w-full md:w-1/3 text-center">
-						<span class="stat font-bold scroll-reveal" data-val="{{$stats["themes"]}}">0</span>
+						<span class="stat font-bold" data-val="{{$stats["themes"]}}">{{$stats["themes"]}}</span>
 						<p class="font-bold text-2xl">thema's</p>
 					</div>
 				</div>

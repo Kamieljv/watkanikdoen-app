@@ -37,10 +37,6 @@ class HomeController extends Controller
             'themes' => Theme::count()
         ];
 
-        // $organizer = Organizer::all()->map(function ($o) {
-        //     return $o->only(['id', 'name']);
-        // });;
-
         // SEO
         SEOTools::setTitle('Home');
 
