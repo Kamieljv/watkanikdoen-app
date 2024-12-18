@@ -11,7 +11,7 @@
             }"
             :title="organizer.name">
             <div class="flex w-full space-x-3 justify-start items-center">
-                <img v-if="organizer.linked_image" class="rounded-full" 
+                <img v-if="organizer.linked_image" class="organizer-image flex items-center justify-center rounded-full bg-gray-500 text-white" 
                     :class="{small: type === 'small', large: type === 'large'}" 
                     :src="organizer.linked_image.url" :title="organizer.name"
                 >
