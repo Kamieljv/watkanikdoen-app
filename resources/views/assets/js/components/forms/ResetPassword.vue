@@ -70,10 +70,9 @@
 
 <script setup lang="ts">
 
-import { ref } from 'vue';
+import { inject, ref } from 'vue';
 import { sentenceCase } from '../../helpers/caseHelper.js'
-import _ from 'lodash';
-const __ = str => _.get(window.i18n, str);
+const __ = inject('translate');
 
 const props = defineProps({
     routes: {

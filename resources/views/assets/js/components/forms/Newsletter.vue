@@ -78,13 +78,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, inject, ref } from 'vue';
 import { Form } from 'vee-validate';
 import { sentenceCase } from '../../helpers/caseHelper.js';
 import VueHcaptcha from '@hcaptcha/vue3-hcaptcha';
 import axios from 'axios';
-import _ from 'lodash';
-const __ = str => _.get(window.i18n, str)
+const __ = inject('translate')
 
 const props = defineProps({
     routes: {

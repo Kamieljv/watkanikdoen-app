@@ -69,7 +69,9 @@
 
 import { onMounted, ref } from "vue"
 import axios from 'axios'
-import { getTime, intervalToDuration, subDays } from "date-fns";
+import { getTime } from "date-fns/getTime"
+import { intervalToDuration } from "date-fns/intervalToDuration";
+import { subDays } from "date-fns/subDays";
 
 const props = defineProps({
 	platformStatsRoute: {

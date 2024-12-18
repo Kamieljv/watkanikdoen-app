@@ -87,11 +87,9 @@
 import FormAutocomplete from '../../views/assets/js/components/formfields/FormAutocomplete.vue'
 
 import { latLng } from "leaflet"
-import { ref, watch } from "vue"
+import { ref, watch, inject } from "vue"
 import axios from 'axios';
-import _ from 'lodash';
-const __ = str => _.get(window.i18n, str)
-
+const __ = inject('translate')
 const emit = defineEmits(['input'])
 
 const props = defineProps({

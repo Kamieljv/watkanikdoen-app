@@ -58,9 +58,8 @@
 <script setup lang="ts">
 
 import { Form } from 'vee-validate';
-import { computed, onMounted, ref } from 'vue';
-import _ from 'lodash';
-const __ = str => _.get(window.i18n, str);
+import { computed, inject, onMounted, ref } from 'vue';
+const __ = inject('translate');
 
 const props = defineProps({
     questions: {

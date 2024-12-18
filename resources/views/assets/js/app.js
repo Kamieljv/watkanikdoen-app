@@ -4,7 +4,6 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-import "./bootstrap"
 import "./custom"
 import { createApp } from "vue"
 import PrimeVue from "primevue/config"
@@ -17,8 +16,8 @@ app.use(PrimeVue, {
 })
 
 // Lodash for language
-import _ from "lodash"
-app.provide('__', str => _.get(window.i18n, str)); 
+import get from "lodash/get"
+app.provide("translate", str => get(window.i18n, str)); 
 
 // AlpineJS
 import Alpine from "alpinejs"

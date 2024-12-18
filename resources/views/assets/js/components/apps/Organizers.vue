@@ -80,12 +80,11 @@
 </template>
 
 <script setup lang="ts">
-	import { ref, computed, watch, onMounted } from 'vue'
+	import { ref, computed, watch, onMounted, inject } from 'vue'
 	import axios from 'axios'
 	import debounce from 'lodash/debounce'
 	const emit = defineEmits(['update:modelValue'])
-	import _ from 'lodash'
-	const __ = str => _.get(window.i18n, str)
+	const __ = inject('translate')
 
 
 	const props = defineProps({

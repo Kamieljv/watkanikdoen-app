@@ -144,10 +144,10 @@
 
 import LogoIcon from '&/logo-icon.svg'
 import LinkIcon from '&/antdesign-link-o.svg'
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, watch, inject } from 'vue'
 import axios from 'axios'
 import debounce from "lodash/debounce"
-const __ = str => _.get(window.i18n, str)
+const __ = inject('translate')
 
 const props = defineProps({
 	referentieTypeId: {

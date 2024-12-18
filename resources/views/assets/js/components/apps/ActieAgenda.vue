@@ -126,13 +126,12 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, watch, computed, ref } from "vue"
+import { onMounted, watch, computed, ref, inject } from "vue"
 import FilterIcon from "&/clarity-filter-solid.svg"
 import { calcDistance } from "../../helpers/geoHelper"
 import debounce from "lodash/debounce"
-import _ from 'lodash'
 import axios from "axios";
-const __ = str => _.get(window.i18n, str)
+const __ = inject('translate')
 
 const props = defineProps({
 	routes: {

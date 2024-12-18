@@ -70,10 +70,9 @@
 </template>
 
 <script setup lang="ts">
-    import { computed } from 'vue'
+    import { computed, inject } from 'vue'
     import LogoIcon from '&/logo-icon.svg'
-    import _ from 'lodash'
-    const __ = str => _.get(window.i18n, str)
+    const __ = inject('translate')
 
     const props = defineProps({
         actie: {

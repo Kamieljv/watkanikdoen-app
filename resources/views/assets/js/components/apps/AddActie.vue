@@ -98,12 +98,11 @@
 
 <script setup lang="ts">
 
-import { computed, onMounted, ref } from 'vue'
+import { computed, inject, onMounted, ref } from 'vue'
 import { Form } from 'vee-validate'
-import _ from 'lodash'
 import axios from 'axios';
 import OrganizerForm from '../forms/OrganizerForm.vue';
-const __ = str => _.get(window.i18n, str)
+const __ = inject('translate')
 
 const props = defineProps({
     routes: {

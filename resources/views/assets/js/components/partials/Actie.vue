@@ -123,8 +123,8 @@
 <script setup lang="ts">
     import LogoIcon from '&/logo-icon.svg'
     import LocationIcon from '&/location.svg'
-    import _ from 'lodash'
-    const __ = str => _.get(window.i18n, str)
+    import { inject } from 'vue';
+    const __ = inject('translate')
 
     const props = defineProps({
         actie: {

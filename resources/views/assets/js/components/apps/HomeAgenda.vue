@@ -65,11 +65,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, inject } from 'vue'
 import debounce from 'lodash/debounce'
-import _ from 'lodash'
 import axios from 'axios'
-const __ = str => _.get(window.i18n, str)
+const __ = inject('translate')
 
 const props = defineProps({
 	routes: {

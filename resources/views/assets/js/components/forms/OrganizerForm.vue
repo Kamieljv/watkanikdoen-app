@@ -115,11 +115,10 @@
 
 <script setup lang="ts">
 
-import { onMounted, ref, watch } from 'vue'
+import { inject, onMounted, ref, watch } from 'vue'
 import { Form } from 'vee-validate'
 import AddLineIcon from '&/clarity-add-line.svg'
-import _ from 'lodash'
-const __ = str => _.get(window.i18n, str)
+const __ = inject('translate')
 const emit = defineEmits(['update:modelValue'])
 
 const props = defineProps({

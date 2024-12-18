@@ -38,9 +38,8 @@
 
 <script setup lang="ts">
 
-import { ref, computed } from 'vue';
-import _ from 'lodash';
-const __ = str => _.get(window.i18n, str);
+import { computed, inject } from 'vue';
+const __ = inject('translate');
 
 const props = defineProps({
 	acties: {

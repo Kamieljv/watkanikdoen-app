@@ -14,8 +14,8 @@ app.use(PrimeVue, {
 })
 
 // Lodash for language
-import _ from "lodash"
-app.provide("__", str => _.get(window.i18n, str))
+import get from "lodash/get"
+app.provide("translate", str => get(window.i18n, str)); 
 
 // Vee-validate
 import { setLocale } from "@vee-validate/i18n"

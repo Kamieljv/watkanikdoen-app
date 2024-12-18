@@ -98,11 +98,10 @@
 <script setup lang="ts">
 import axios from 'axios';
 import { Form } from 'vee-validate';
-import { computed, ref } from 'vue';
+import { computed, inject, ref } from 'vue';
 import { sentenceCase } from '../../helpers/caseHelper.js';
 import VueHcaptcha from '@hcaptcha/vue3-hcaptcha';
-import _ from 'lodash';
-const __ = (str) => _.get(window.i18n, str)
+const __ = inject('translate')
 const emit = defineEmits(['done', 'switchType'])
 
 

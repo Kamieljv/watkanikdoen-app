@@ -58,13 +58,13 @@
 
 <script setup lang="ts">
 import axios from 'axios';
-import { parseISO, formatDistanceToNow } from 'date-fns';
+import { parseISO } from 'date-fns/parseISO';
+import { formatDistanceToNow } from 'date-fns/formatDistanceToNow';
 import { nl } from 'date-fns/locale';
-import { computed, ref } from 'vue';
+import { computed, inject, ref } from 'vue';
 import InboxIcon from '&/antdesign-inbox-o.svg';
 import BellIcon from '&/bell.svg';
-import _ from 'lodash';
-const __ = str => _.get(window.i18n, str)
+const __ = inject('translate')
 
 const props = defineProps({
 	notifications: {

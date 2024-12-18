@@ -153,11 +153,10 @@
 
 <script setup lang="ts">
 
-import { onMounted, ref, watch } from 'vue';
+import { inject, onMounted, ref, watch } from 'vue';
 import { Form } from 'vee-validate';
-import { addHours } from 'date-fns';
-import _ from 'lodash'
-const __ = str => _.get(window.i18n, str)
+import { addHours } from 'date-fns/addHours';
+const __ = inject('translate')
 
 const props = defineProps({
     modelValue: {

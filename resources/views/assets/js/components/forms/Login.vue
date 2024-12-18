@@ -64,11 +64,10 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { inject, onMounted, ref } from 'vue';
 import axios from 'axios';
-import _ from 'lodash';
 import { sentenceCase } from '../../helpers/caseHelper.js'
-const __ = str => _.get(window.i18n, str)
+const __ = inject('translate')
 const emit = defineEmits(['done', 'switchType'])
 
 

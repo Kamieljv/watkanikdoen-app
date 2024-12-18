@@ -41,8 +41,9 @@
 </template>
 
 <script setup lang="ts">
-	import { computed, onMounted, ref } from 'vue'
+	import { computed, inject, onMounted, ref } from 'vue'
 	import axios from 'axios'
+	const __ = inject('translate')
 
 	const props = defineProps({
 		routes: {

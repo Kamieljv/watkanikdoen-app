@@ -66,12 +66,11 @@
 </template>
 
 <script setup lang="ts">
-    import { computed, ref, watch } from 'vue'
+    import { computed, inject, ref, watch } from 'vue'
     import CheckIcon from '&/clarity-check-line.svg'
     import DeleteIcon from '&/antdesign-delete-o.svg'
     const emit = defineEmits(['update:modelValue'])
-    import _ from 'lodash'
-	const __ = str => _.get(window.i18n, str)
+	const __ = inject('translate')
 
     const props = defineProps({
         organizer: {
