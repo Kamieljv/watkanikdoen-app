@@ -27,7 +27,6 @@ import { LMap, LTileLayer, LMarker, LTooltip } from "@vue-leaflet/vue-leaflet"
 import "leaflet/dist/leaflet.css"
 app.component("LMap", LMap)
     .component("l-tile-layer", LTileLayer)
-    .component("l-tile-layer", LTileLayer)
     .component("l-marker", LMarker)
     .component("l-tooltip", LTooltip)
 
