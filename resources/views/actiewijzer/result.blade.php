@@ -83,7 +83,7 @@
                     <h2 id="{{str_replace(' ', '_', $rt->title)}}">{{$rt->title}}&nbsp;
                         @if($rt->match_perc)<span class="text-pink-600">{{$rt->match_perc}}%</span>@endif
                     </h2>
-                    <p>{!! filterScripts($rt->description) !!}</p>
+                    <p>{!! Purify::clean($rt->description) !!}</p>
                     @if ($rt->title == config('app.actiewijzer.demonstrations_section_name'))
                         <p><i>Demonstraties voor
                             @if($themes->count() == 1) het thema @else de thema's @endif

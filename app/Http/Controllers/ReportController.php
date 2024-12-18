@@ -93,7 +93,7 @@ class ReportController extends Controller
                 'user_id' => $request->userId,
                 'organizer_ids' => $organizer_ids ? implode(",", $organizer_ids) : '',
                 'title' => $request->report['title'],
-                'body' => $request->report['body'] ?? null,
+                'body' => $request->report['body'] ? Purify::clean($request->report['body']) : null,
                 'externe_link' => $request->report['actionUrls'],
                 'start_date' => Date::parse($request->report['start_date'])->format('Y-m-d'),
                 'end_date' => Date::parse($request->report['end_date'])->format('Y-m-d'),

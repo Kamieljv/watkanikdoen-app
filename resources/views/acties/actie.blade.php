@@ -211,7 +211,7 @@
                                     </div>
                                 </a>
                                 {{-- <div class="text-sm">
-                                    {!! filterScripts($organizer->description) !!}
+                                    {!! Purify::clean($organizer->description) !!}
                                 </div> --}}
                             @endforeach
                         </div>
@@ -246,7 +246,7 @@
                         <span>{{ __("acties.description") }}</span>
                     </h3>
                     <div class="text-base">
-                        {!! filterScripts($actie->body) !!}
+                        {!! Purify::clean($actie->body) !!}
                     </div>
                 </div>
         </article>
