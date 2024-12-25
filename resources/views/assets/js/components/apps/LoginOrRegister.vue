@@ -52,12 +52,16 @@ const props = defineProps({
     redirect: {
         type: Boolean,
         default: true,
+    },
+    type: {
+        type: String,
+        default: 'login'
     }
 })
 
 const currentUserId = ref(props.userId)
 
-const type = ref('login')
+const type = ref(props.type)
 
 const authDone = (userId) => {
     currentUserId.value = userId
