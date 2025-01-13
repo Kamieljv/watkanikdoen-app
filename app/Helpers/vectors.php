@@ -26,15 +26,21 @@ function percentageMatch(array $a, array $b)
     $va = new Vector(array_values(array_map('intval', $a)));
     $vb = new Vector(array_values(array_map('intval', $b)));
 
-
     // return 0 if the lenght of va is 0
     if ($va->length() == 0) {
         return 0;
     }
 
-    // compute scalar projection of a on b (dot(a, b)/len(b)), divided by len(b) again to get percentage
+    // Check for one-dimensional vectors
+    if ($va->getSize() == 1 && $vb->getSize() == 1) {
+        // Calculate similarity score for one-dimensional vectors
+        $similarity = ($va[0] == 0 || $vb[0] == 0) ? 0 : ($va[0] / $vb[0]) * 100;
+        return min(max($similarity, 10), 100);
+    }
+
+    // compute cosine similarity of a on b (https://en.wikipedia.org/wiki/Cosine_similarity)
     try {
-        return min(max($va->dotProduct($vb) / $vb->length() ** 2 * 100, 10), 100);
+        return min(max($va->cosineSimilarity($vb) * 100, 10), 100);
     } catch (DivisionByZeroError $e) {
         return null;
     }
