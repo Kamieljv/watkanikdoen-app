@@ -193,19 +193,16 @@
                                 <a href="https://wa.me/?text={{ urlencode($actie->title . ' - ' . url()->current()) }}" 
                                    target="_blank"
                                    class="flex-1 inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[#25D366] hover:bg-[#128C7E]">
-                                    @svg('fab-whatsapp', ['class' => 'w-5 h-5'])
-                                    <span class="ml-2">WhatsApp</span>
+                                    @svg('bxl-whatsapp', ['class' => 'w-7 h-7'])
                                 </a>
                                 <a href="https://t.me/share/url?url={{ urlencode(url()->current()) }}&text={{ urlencode($actie->title) }}"
                                    target="_blank" 
                                    class="flex-1 inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[#0088cc] hover:bg-[#006699]">
-                                    @svg('fab-telegram', ['class' => 'w-5 h-5'])
-                                    <span class="ml-2">Telegram</span>
+                                    @svg('bxl-telegram', ['class' => 'w-6 h-6'])
                                 </a>
                                 <button onclick="navigator.clipboard.writeText(window.location.href); this.classList.add('bg-green-600'); setTimeout(() => this.classList.remove('bg-green-600'), 1000)"
                                         class="flex-1 inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-gray-500 hover:bg-gray-600">
-                                    @svg('heroicon-o-link', ['class' => 'w-5 h-5'])
-                                    <span class="ml-2">Kopieer</span>
+                                    @svg('clarity-copy-line', ['class' => 'w-5 h-5'])
                                 </button>
                             </div>
                         </div>
