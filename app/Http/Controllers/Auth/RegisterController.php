@@ -128,7 +128,8 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-        return view('auth.register');
+        $type = 'register';
+        return view('auth.login', compact('type'));
     }
 
     public function verify(Request $request, $verification_code)

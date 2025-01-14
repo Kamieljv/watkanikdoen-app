@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Jenssegers\Date\Date;
+use Stevebauman\Purify\Facades\Purify;
 use Validator;
 use Voyager;
 
