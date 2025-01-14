@@ -117,11 +117,13 @@
                         </div>
                     @else
                         @if($rt->referenties->count() > 0)
-                            <referenties
-                                :referenties-fixed="{{ json_encode($rt->referenties) }}"
-                                :filterable="false"
-                                :max="3"
-                            />
+                            <div>
+                                <referenties
+                                    :referenties-fixed="{{ json_encode($rt->referenties) }}"
+                                    :filterable="false"
+                                    :max="3"
+                                />
+                            </div>
                             <div class="flex items-center justify-center my-12">
                                 <a href="{{ route('actiewijzer.referentie_type', strtolower($rt->title)) . '?' . http_build_query(['themes' => array_column($themes->toArray(), 'id')])}}">
                                     <button class="secondary flex items-center hover:translate-x-[0.250rem]">
