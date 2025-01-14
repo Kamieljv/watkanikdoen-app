@@ -113,7 +113,7 @@ class ActieWijzerController extends Controller
         }
 
         // Construct a set of themes that are selected
-        $themes = null;
+        $themes = collect();
         if ( key_exists('themes', $request->all())) {
             $themes = Theme::whereIn('id', $request['themes'])->get();
         }
@@ -131,7 +131,9 @@ class ActieWijzerController extends Controller
         // Get referentie_types and calculate the similarity with the score_vector
         $referentie_types = ReferentieType::published()->with(['referenties' => function (Builder $query) use ($themes) {
             $query->whereHas('themes', function (Builder $query) use ($themes) {
-                $query->whereIn('theme_id', $themes->pluck('id')->toArray());
+                if ($themes->count() > 0) {
+                    $query->whereIn('theme_id', $themes->pluck('id')->toArray());
+                }
             })->with('referentie_types');
             $query->inRandomOrder()->limit(3);
         }])->get();
