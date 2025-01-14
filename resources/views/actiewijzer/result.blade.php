@@ -147,3 +147,12 @@
     </div>
 
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // add the current window location to local storage
+            localStorage.setItem('actiewijzer_result_url', window.location.href);
+        });
+    </script>
+@endpush
