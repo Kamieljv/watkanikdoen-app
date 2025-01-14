@@ -56,17 +56,19 @@
 
                 <div class="mt-10 md:gap-6 grid grid-cols-2">
                     <div class="w-full col-span-2 md:col-span-1">
-                        <h4 class="text-lg mb-2">Thema's</h4>
-                        <div class="flex flex-wrap">
-                            @foreach ($themes as $t)
-                                <div
-                                    class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 uppercase rounded"
-                                    style="background-color: {{ $t->color }}"
-                                >
-                                    <span class="text-white text-sm">{{ $t->name }}</span>
-                                </div>
-                            @endforeach
-                        </div>
+                        @if ($themes->count() > 0)
+                            <h4 class="text-lg mb-2">Thema's</h4>
+                            <div class="flex flex-wrap">
+                                @foreach ($themes as $t)
+                                    <div
+                                        class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 uppercase rounded"
+                                        style="background-color: {{ $t->color }}"
+                                    >
+                                        <span class="text-white text-sm">{{ $t->name }}</span>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
                     <div class="w-full col-span-2 md:col-span-1 mt-5 md:mt-0">
                         <h4 class="text-lg mb-2">Bewaren & Delen </h4>
