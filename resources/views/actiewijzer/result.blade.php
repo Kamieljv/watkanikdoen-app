@@ -125,7 +125,7 @@
                                 />
                             </div>
                             <div class="flex items-center justify-center my-12">
-                                <a href="{{ route('actiewijzer.referentie_type', strtolower($rt->title)) . '?' . http_build_query(['themes' => array_column($themes->toArray(), 'id')])}}">
+                                <a href="{{ $rt->link . '?' . http_build_query(['themes' => array_column($themes->toArray(), 'id')])}}">
                                     <button class="secondary flex items-center hover:translate-x-[0.250rem]">
                                         <p class="text-lg">Bekijk alles van {{ $rt->title }}</p> 
                                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 ml-1" style="transform: rotate(180deg);">
