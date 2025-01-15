@@ -156,9 +156,9 @@ class ActieWijzerController extends Controller
         return view('actiewijzer.result', compact('themes', 'dimensions', 'referentie_types', 'routes'));
     }
 
-    public function referentie_type($referentie_type, Request $request)
+    public function referentie_type($slug, Request $request)
     {
-        $referentie_type = ReferentieType::where('title', $referentie_type)->firstOrFail();
+        $referentie_type = ReferentieType::where('slug', $slug)->firstOrFail();
 
         // Definieer de routes waarmee de component evenementen kan ophalen
         $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
