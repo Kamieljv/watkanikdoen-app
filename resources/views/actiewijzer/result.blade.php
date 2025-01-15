@@ -56,17 +56,19 @@
 
                 <div class="mt-10 md:gap-6 grid grid-cols-2">
                     <div class="w-full col-span-2 md:col-span-1">
-                        <h4 class="text-lg mb-2">Thema's</h4>
-                        <div class="flex flex-wrap">
-                            @foreach ($themes as $t)
-                                <div
-                                    class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 uppercase rounded"
-                                    style="background-color: {{ $t->color }}"
-                                >
-                                    <span class="text-white text-sm">{{ $t->name }}</span>
-                                </div>
-                            @endforeach
-                        </div>
+                        @if ($themes->count() > 0)
+                            <h4 class="text-lg mb-2">Thema's</h4>
+                            <div class="flex flex-wrap">
+                                @foreach ($themes as $t)
+                                    <div
+                                        class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 uppercase rounded"
+                                        style="background-color: {{ $t->color }}"
+                                    >
+                                        <span class="text-white text-sm">{{ $t->name }}</span>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
                     <div class="w-full col-span-2 md:col-span-1 mt-5 md:mt-0">
                         <h4 class="text-lg mb-2">Bewaren & Delen </h4>
@@ -115,13 +117,15 @@
                         </div>
                     @else
                         @if($rt->referenties->count() > 0)
-                            <referenties
-                                :referenties-fixed="{{ json_encode($rt->referenties) }}"
-                                :filterable="false"
-                                :max="3"
-                            />
+                            <div>
+                                <referenties
+                                    :referenties-fixed="{{ json_encode($rt->referenties) }}"
+                                    :filterable="false"
+                                    :max="3"
+                                />
+                            </div>
                             <div class="flex items-center justify-center my-12">
-                                <a href="{{ route('actiewijzer.referentie_type', strtolower($rt->title)) . '?' . http_build_query(['themes' => array_column($themes->toArray(), 'id')])}}">
+                                <a href="{{ $rt->link . '?' . http_build_query(['themes' => array_column($themes->toArray(), 'id')])}}">
                                     <button class="secondary flex items-center hover:translate-x-[0.250rem]">
                                         <p class="text-lg">Bekijk alles van {{ $rt->title }}</p> 
                                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 ml-1" style="transform: rotate(180deg);">
@@ -145,3 +149,12 @@
     </div>
 
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // add the current window location to local storage
+            localStorage.setItem('actiewijzer_result_url', window.location.href);
+        });
+    </script>
+@endpush
