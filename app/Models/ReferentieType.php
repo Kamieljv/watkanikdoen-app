@@ -56,8 +56,7 @@ class ReferentieType extends Model
 
     public function getLinkAttribute()
     {
-        return url('/type/' . strtolower($this->title));
-
+        return route('actiewijzer.referentie_type', ['referentie_type' => $this->slug]);
     }
 
     public function scopePublished($query)
