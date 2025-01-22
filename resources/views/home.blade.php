@@ -18,7 +18,7 @@
         </div>
     </div>
     <div id="app">
-		<div style="min-height:610px">
+		<div style="min-height: 600px">
 			<home-agenda
 				:routes="{{ $routes }}"
 			>

@@ -227,7 +227,7 @@
                             </div>
                         @endif
                         <h1>{{ $actie->title }}</h1>
-                        <div class="flex justify-between">
+                        <div class="flex justify-between mb-4">
                             <span class="flex items-center mt-0 italic text-sm font-normal">
                                 @if (isset($actie->updated_at))
                                     {{ __("acties.last_edit") }}: {{ Date::parse($actie->updated_at)->diffForHumans() }}
@@ -254,7 +254,7 @@
         {{-- More from this theme section --}}
         @if ($count_same_theme > 0)
             <div class="pb-40 text-gray-800 overflow-hidden bg-gray-100">
-                <div class="max-w-6xl px-5 mx-auto prose lg:px-0 mt-10">
+                <div class="max-w-6xl px-5 mx-auto lg:px-0 mt-10">
                     @if ($actie->themes->count() > 1)
                         <h2>Meer acties in de thema's 
                             @foreach($actie->themes as $key=>$theme)
