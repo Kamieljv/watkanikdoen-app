@@ -8,8 +8,8 @@
             <meta property="author" typeof="Person" content="admin">
             <meta property="dateModified" :content="new Date(actie.updated_at).toISOString()">
             <meta class="uk-margin-remove-adjacent" property="datePublished" :content="new Date(actie.created_at).toISOString()">
-            <div class="content h-full grid grid-cols-3">
-                <div class="flex-shrink-0 col-span-1 relative h-[140px]">
+            <div class="content h-full grid grid-cols-3 min-h-[140px]">
+                <div class="flex-shrink-0 col-span-1 relative h-full">
                     <img v-if="actie.linked_image" class="object-cover w-full h-full" :src="actie.linked_image.url" alt="">
                     <div v-else class="w-full h-full bg-gray-300 text-gray-400 flex items-center justify-center">
                         <LogoIcon style="fill: currentColor; height: 80px;" />
