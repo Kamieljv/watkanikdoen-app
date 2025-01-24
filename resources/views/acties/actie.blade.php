@@ -16,7 +16,7 @@
         </div>
     @endif
     <div id="app">
-        <article id="post-{{ $actie->id }}" class="max-w-6xl px-5 mx-auto prose lg:px-0 mt-6 {{ $count_same_theme == 0 ? 'mb-40' : 'mb-24' }}">
+        <article id="post-{{ $actie->id }}" class="max-w-6xl px-5 mx-auto lg:px-0 mt-6 {{ $count_same_theme == 0 ? 'mb-40' : 'mb-24' }}">
             <meta property="name" content="{{ $actie->title }}">
             <meta property="author" typeof="Person" content="admin">
             <meta property="dateModified" content="{{ Carbon\Carbon::parse($actie->updated_at)->toIso8601String() }}">
@@ -245,7 +245,7 @@
                     <h3 class="leading-none block sm:hidden mt-0">
                         <span>{{ __("acties.description") }}</span>
                     </h3>
-                    <div class="text-base">
+                    <div class="text-base prose">
                         {!! Purify::clean($actie->body) !!}
                     </div>
                 </div>
