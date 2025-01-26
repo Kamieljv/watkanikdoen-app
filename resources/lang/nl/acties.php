@@ -22,6 +22,7 @@ return [
     'about_organizer' => 'Over de organisator',
     'about_organizers' => 'Over de organisatoren',
     'details' => 'Details',
+    'share' => 'Delen',
     'description' => 'Beschrijving',
     'to_action_page' => 'Naar actiepagina',
     'last_edit' => 'Laatst bijgewerkt',
