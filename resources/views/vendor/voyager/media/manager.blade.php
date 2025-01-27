@@ -2,11 +2,11 @@
 <div>
     <div v-if="hidden_element" :id="'dd_'+this._uid" class="dd">
         <ol id="files" class="dd-list">
-            <li v-for="file in getSelectedFiles()" class="dd-item" :data-url="file">
-                <div class="file_link selected" aria-hidden="true" data-toggle="tooltip" data-placement="auto" :title="file">
+            <li v-for="file in input_files" class="dd-item" :data-url="file">
+                <div class="file_link selected" aria-hidden="true" data-toggle="tooltip" data-placement="auto" :title="file.name">
                     <div class="link_icon">
                         <template v-if="fileIs(file, 'image')">
-                            <div class="img_icon" :style="imgIcon('{{ Storage::disk(config('voyager.storage.disk'))->url('/') }}'+file)"></div>
+                            <div class="img_icon" :style="imgIcon('{{ Storage::disk(config('voyager.storage.disk'))->url('/') }}'+file.relative_path)"></div>
                         </template>
                         <template v-else-if="fileIs(file, 'video')">
                             <i class="icon voyager-video"></i>
@@ -26,7 +26,7 @@
                     </div>
                     <div class="details">
                         <div class="folder">
-                            <h4>@{{ getFileName(file) }}</h4>
+                            <h4>@{{ file.name }}</h4>
                         </div>
                     </div>
                     <i class="voyager-x dd-nodrag" v-on:click="removeFileFromInput(file)"></i>
@@ -451,6 +451,7 @@
             return {
                 current_folder: this.basePath,
 		  		selected_files: [],
+                input_files: [],
                 files: [],
                 query: '',
 		  		is_loading: true,
@@ -621,6 +622,7 @@
             addFileToInput: function(file) {
                 if (file.type != 'folder') {
                     if (!this.allowMultiSelect) {
+                        this.input_files = [file];
                         this.hidden_element.value = file.relative_path;
                     } else {
                         var content = JSON.parse(this.hidden_element.value);
@@ -639,6 +641,7 @@
                             content.push(file.relative_path);
                             this.hidden_element.value = JSON.stringify(content);
                         }
+                        this.input_files = content;
                     }
                     this.$forceUpdate();
                 }
@@ -648,23 +651,13 @@
                     var content = JSON.parse(this.hidden_element.value);
                     if (content.indexOf(path) !== -1) {
                         content.splice(content.indexOf(path), 1);
+                        this.input_files = content;
                         this.hidden_element.value = JSON.stringify(content);
                         this.$forceUpdate();
                     }
                 } else {
+                    this.input_files = [];
                     this.hidden_element.value = '';
-                }
-            },
-            getSelectedFiles: function() {
-                if (!this.allowMultiSelect) {
-                    var content = [];
-                    if (this.hidden_element.value != '') {
-                        content.push(this.hidden_element.value);
-                    }
-
-                    return content;
-                } else {
-                    return JSON.parse(this.hidden_element.value);
                 }
             },
             renameFile: function(object) {
@@ -892,6 +885,7 @@
                     success: function(e, res) {
                         if (res.success) {
                             toastr.success(res.message, "{{ __('voyager::generic.sweet_success') }}");
+                            console.log(res)
                         } else {
                             toastr.error(res.message, "{{ __('voyager::generic.whoopsie') }}");
                         }

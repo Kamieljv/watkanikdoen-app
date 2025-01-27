@@ -281,7 +281,7 @@
                                 <input type="text" class="form-control" id="slug" name="slug"
                                     placeholder="slug"
                                     {!! isFieldSlugAutoGenerator($dataType, $dataTypeContent, "slug") !!}
-                                    value="{{ $dataTypeContent->slug ?? '' }}">
+                                    value="{{ old('slug', $dataTypeContent->slug ?? '') }}">
                             </div>
                             <div class="form-group">
                                 <label for="status">{{ __('voyager::actie.status') }}</label> <i class="voyager-info-circled" title="Alleen acties met de status 'gepubliceerd' zijn zichtbaar voor het publiek."></i>
