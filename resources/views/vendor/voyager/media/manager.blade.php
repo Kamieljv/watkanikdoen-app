@@ -457,6 +457,7 @@
 		  		is_loading: true,
                 hidden_element: null,
                 isExpanded: this.expanded,
+                lastUploadedFile: '',
                 modals: {
                     new_folder: {
                         name: ''
@@ -478,7 +479,7 @@
             }
         },
         methods: {
-            getFiles: function() {
+            getFiles: async function(callback = undefined) {
                 var vm = this;
                 vm.is_loading = true;
                 $.post('{{ route('voyager.media.files') }}', { folder: vm.current_folder, _token: '{{ csrf_token() }}', details: vm.details }, function(data) {
@@ -493,7 +494,11 @@
                         vm.selected_files.push(data[0]);
                     }
 					vm.is_loading = false;
-				});
+				}).then(() => {
+                    if (callback) {
+                        callback();
+                    }
+                });
             },
             selectFile: function(file, e) {
                 if ((!e.ctrlKey && !e.metaKey && !e.shiftKey) || !this.allowMultiSelect) {
@@ -590,6 +595,14 @@
 
                 this.getFiles();
             },
+            getFileFromPath: function(path) {
+                for (var i = 0, file; file = this.files[i]; i++) {
+                    if (file.relative_path == path) {
+                        return file;
+                    }
+                }
+                return null;
+            },
             filter: function(file) {
                 if (this.allowedTypes.length > 0) {
                     if (file.type != 'folder') {
@@ -620,6 +633,9 @@
                 }
             },
             addFileToInput: function(file) {
+                if (typeof file === 'string') {
+                    file = this.getFileFromPath(file);
+                }
                 if (file.type != 'folder') {
                     if (!this.allowMultiSelect) {
                         this.input_files = [file];
@@ -645,6 +661,9 @@
                     }
                     this.$forceUpdate();
                 }
+            },
+            addLastUploadedToInput() {
+                this.addFileToInput(this.lastUploadedFile);
             },
             removeFileFromInput: function(path) {
                 if (this.allowMultiSelect) {
@@ -884,8 +903,8 @@
                     },
                     success: function(e, res) {
                         if (res.success) {
+                            vm.lastUploadedFile = res.path;
                             toastr.success(res.message, "{{ __('voyager::generic.sweet_success') }}");
-                            console.log(res)
                         } else {
                             toastr.error(res.message, "{{ __('voyager::generic.whoopsie') }}");
                         }
@@ -893,8 +912,8 @@
                     error: function(e, res, xhr) {
                         toastr.error(res, "{{ __('voyager::generic.whoopsie') }}");
                     },
-                    queuecomplete: function() {
-                        vm.getFiles();
+                    queuecomplete: function(res) {
+                        vm.getFiles(vm.addLastUploadedToInput);
                     }
                 });
             }
