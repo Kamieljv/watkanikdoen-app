@@ -484,6 +484,9 @@
                 vm.is_loading = true;
                 $.post('{{ route('voyager.media.files') }}', { folder: vm.current_folder, _token: '{{ csrf_token() }}', details: vm.details }, function(data) {
                     vm.files = [];
+                    if (vm.maxToLoad) {
+                        data = data.slice(0, vm.maxToLoad);
+                    }
                     for (var i = 0, file; file = data[i]; i++) {
                         if (vm.filter(file) && (file.type == 'folder' || vm.search(file, vm.query))) {
                             vm.files.push(file);
