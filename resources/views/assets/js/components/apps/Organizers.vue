@@ -6,10 +6,10 @@
                 <div id="filter-wrapper" class="col grid gap-3" :class="{'grid-cols-2': themes.length > 0}">
 					<FormField
 						v-model="query"
+						:value="query"
 						name="query"
 						type="text"
 						placeholder="Zoeken..."
-						@input="processQuery"
 						:clearable="true"
 						:full-height="true"
 						autofocus
@@ -195,10 +195,6 @@
 			appending.value = false
 		})
 	}, 500)
-
-	const processQuery = (value) => {
-		query.value = value
-	}
 
 	const updateOrganizersSelected = (value, organizer) => {
 		if (value === true) {
