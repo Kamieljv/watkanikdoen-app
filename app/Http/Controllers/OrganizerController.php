@@ -39,8 +39,7 @@ class OrganizerController extends Controller
         $query = Organizer::query();
         if ($request->q) {
             $query->where(function ($q) use ($request) {
-                $q->where('name', 'LIKE', '%' . $request->q . '%')
-                    ->orWhere('description', 'LIKE', '%' . $request->q . '%');
+                $q->where('name', 'LIKE', '%' . $request->q . '%');
             });
         }
         if ($request->themes) {
@@ -50,7 +49,6 @@ class OrganizerController extends Controller
             });
         }
         if ($request->onlyFeatured) {
-
             if ($request->onlyFeatured === 'true') {
                 $query->where('featured', 1);
             }
