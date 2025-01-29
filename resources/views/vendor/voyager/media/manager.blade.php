@@ -671,15 +671,19 @@
                     this.hidden_element = document.querySelector(this.element);
                     if (!this.hidden_element) {
                         console.error('Element "'+this.element+'" could not be found.');
-                    } else if (this.hidden_element.value) {
-                        try {
-                            this.input_files = JSON.parse(this.hidden_element.value);
-                        } catch (e) {
-                            this.input_files = [this.getFileFromPath(this.hidden_element.value.replace(/^'(.*)'$/, '$1'))];
-                        }
                     } else {
-                        if (this.maxSelectedFiles > 1) {
-                            this.hidden_element.value = '[]';
+                        this.hidden_element.value = this.hidden_element.value.replace(/^'(.*)'$/, '$1')
+
+                        if (this.hidden_element.value && this.hidden_element !== '\'\'') {
+                            try {
+                                this.input_files = JSON.parse(this.hidden_element.value);
+                            } catch (e) {
+                                this.input_files = [this.getFileFromPath(this.hidden_element.value)];
+                            }
+                        } else {
+                            if (this.maxSelectedFiles > 1) {
+                                this.hidden_element.value = '[]';
+                            }
                         }
                     }
                 }
