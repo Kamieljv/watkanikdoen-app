@@ -2,11 +2,11 @@
 <div>
     <div v-if="hidden_element" :id="'dd_'+this._uid" class="dd">
         <ol id="files" class="dd-list">
-            <li v-for="file in getSelectedFiles()" class="dd-item" :data-url="file">
-                <div class="file_link selected" aria-hidden="true" data-toggle="tooltip" data-placement="auto" :title="file">
+            <li v-for="file in input_files" class="dd-item" :data-url="file">
+                <div class="file_link selected" aria-hidden="true" data-toggle="tooltip" data-placement="auto" :title="file.name">
                     <div class="link_icon">
                         <template v-if="fileIs(file, 'image')">
-                            <div class="img_icon" :style="imgIcon('{{ Storage::disk(config('voyager.storage.disk'))->url('/') }}'+file)"></div>
+                            <div class="img_icon" :style="imgIcon('{{ Storage::disk(config('voyager.storage.disk'))->url('/') }}'+file.relative_path)"></div>
                         </template>
                         <template v-else-if="fileIs(file, 'video')">
                             <i class="icon voyager-video"></i>
@@ -26,7 +26,7 @@
                     </div>
                     <div class="details">
                         <div class="folder">
-                            <h4>@{{ getFileName(file) }}</h4>
+                            <h4>@{{ file.name }}</h4>
                         </div>
                     </div>
                     <i class="voyager-x dd-nodrag" v-on:click="removeFileFromInput(file)"></i>
@@ -451,11 +451,13 @@
             return {
                 current_folder: this.basePath,
 		  		selected_files: [],
+                input_files: [],
                 files: [],
                 query: '',
 		  		is_loading: true,
                 hidden_element: null,
                 isExpanded: this.expanded,
+                lastUploadedFile: '',
                 modals: {
                     new_folder: {
                         name: ''
@@ -477,11 +479,14 @@
             }
         },
         methods: {
-            getFiles: function() {
+            getFiles: async function(callback = undefined) {
                 var vm = this;
                 vm.is_loading = true;
                 $.post('{{ route('voyager.media.files') }}', { folder: vm.current_folder, _token: '{{ csrf_token() }}', details: vm.details }, function(data) {
                     vm.files = [];
+                    if (vm.maxToLoad) {
+                        data = data.slice(0, vm.maxToLoad);
+                    }
                     for (var i = 0, file; file = data[i]; i++) {
                         if (vm.filter(file) && (file.type == 'folder' || vm.search(file, vm.query))) {
                             vm.files.push(file);
@@ -492,7 +497,11 @@
                         vm.selected_files.push(data[0]);
                     }
 					vm.is_loading = false;
-				});
+				}).then(() => {
+                    if (callback) {
+                        callback();
+                    }
+                });
             },
             selectFile: function(file, e) {
                 if ((!e.ctrlKey && !e.metaKey && !e.shiftKey) || !this.allowMultiSelect) {
@@ -589,6 +598,15 @@
 
                 this.getFiles();
             },
+            getFileFromPath: function(path) {
+                for (var i = 0, file; file = this.files[i]; i++) {
+                    if (file.relative_path == path) {
+                        return file;
+                    }
+                }
+                console.error(`File with path \'${path}\'' not found`);
+                return null;
+            },
             filter: function(file) {
                 if (this.allowedTypes.length > 0) {
                     if (file.type != 'folder') {
@@ -619,8 +637,12 @@
                 }
             },
             addFileToInput: function(file) {
+                if (typeof file === 'string') {
+                    file = this.getFileFromPath(file);
+                }
                 if (file.type != 'folder') {
-                    if (!this.allowMultiSelect) {
+                    if (this.maxSelectedFiles <= 1) {
+                        this.input_files = [file];
                         this.hidden_element.value = file.relative_path;
                     } else {
                         var content = JSON.parse(this.hidden_element.value);
@@ -639,32 +661,48 @@
                             content.push(file.relative_path);
                             this.hidden_element.value = JSON.stringify(content);
                         }
+                        this.input_files = content;
                     }
                     this.$forceUpdate();
                 }
             },
+            addLastUploadedToInput() {
+                this.addFileToInput(this.lastUploadedFile);
+            },
+            addFileFromHiddenElementToInput() {
+                if (this.element != '') {
+                    this.hidden_element = document.querySelector(this.element);
+                    if (!this.hidden_element) {
+                        console.error('Element "'+this.element+'" could not be found.');
+                    } else {
+                        this.hidden_element.value = this.hidden_element.value.replace(/^'(.*)'$/, '$1')
+
+                        if (this.hidden_element.value && this.hidden_element !== '\'\'') {
+                            try {
+                                this.input_files = JSON.parse(this.hidden_element.value);
+                            } catch (e) {
+                                this.input_files = [this.getFileFromPath(this.hidden_element.value)];
+                            }
+                        } else {
+                            if (this.maxSelectedFiles > 1) {
+                                this.hidden_element.value = '[]';
+                            }
+                        }
+                    }
+                }
+            },
             removeFileFromInput: function(path) {
-                if (this.allowMultiSelect) {
+                if (this.maxSelectedFiles > 1) {
                     var content = JSON.parse(this.hidden_element.value);
                     if (content.indexOf(path) !== -1) {
                         content.splice(content.indexOf(path), 1);
+                        this.input_files = content;
                         this.hidden_element.value = JSON.stringify(content);
                         this.$forceUpdate();
                     }
                 } else {
+                    this.input_files = [];
                     this.hidden_element.value = '';
-                }
-            },
-            getSelectedFiles: function() {
-                if (!this.allowMultiSelect) {
-                    var content = [];
-                    if (this.hidden_element.value != '') {
-                        content.push(this.hidden_element.value);
-                    }
-
-                    return content;
-                } else {
-                    return JSON.parse(this.hidden_element.value);
                 }
             },
             renameFile: function(object) {
@@ -817,19 +855,8 @@
             }
         },
         mounted: function() {
-            this.getFiles();
+            this.getFiles(this.addFileFromHiddenElementToInput);
             var vm = this;
-
-            if (this.element != '') {
-                this.hidden_element = document.querySelector(this.element);
-                if (!this.hidden_element) {
-                    console.error('Element "'+this.element+'" could not be found.');
-                } else {
-                    if (this.maxSelectedFiles > 1 && this.hidden_element.value == '') {
-                        this.hidden_element.value = '[]';
-                    }
-                }
-            }
 
             //Key events
             this.onkeydown = function(evt) {
@@ -891,6 +918,7 @@
                     },
                     success: function(e, res) {
                         if (res.success) {
+                            vm.lastUploadedFile = res.path;
                             toastr.success(res.message, "{{ __('voyager::generic.sweet_success') }}");
                         } else {
                             toastr.error(res.message, "{{ __('voyager::generic.whoopsie') }}");
@@ -899,8 +927,8 @@
                     error: function(e, res, xhr) {
                         toastr.error(res, "{{ __('voyager::generic.whoopsie') }}");
                     },
-                    queuecomplete: function() {
-                        vm.getFiles();
+                    queuecomplete: function(res) {
+                        vm.getFiles(vm.addLastUploadedToInput);
                     }
                 });
             }
