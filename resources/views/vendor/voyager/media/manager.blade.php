@@ -601,6 +601,7 @@
                         return file;
                     }
                 }
+                console.error(`File with path \'${path}\'' not found`);
                 return null;
             },
             filter: function(file) {
@@ -637,7 +638,7 @@
                     file = this.getFileFromPath(file);
                 }
                 if (file.type != 'folder') {
-                    if (!this.allowMultiSelect) {
+                    if (this.maxSelectedFiles <= 1) {
                         this.input_files = [file];
                         this.hidden_element.value = file.relative_path;
                     } else {
@@ -665,8 +666,26 @@
             addLastUploadedToInput() {
                 this.addFileToInput(this.lastUploadedFile);
             },
+            addFileFromHiddenElementToInput() {
+                if (this.element != '') {
+                    this.hidden_element = document.querySelector(this.element);
+                    if (!this.hidden_element) {
+                        console.error('Element "'+this.element+'" could not be found.');
+                    } else if (this.hidden_element.value) {
+                        try {
+                            this.input_files = JSON.parse(this.hidden_element.value);
+                        } catch (e) {
+                            this.input_files = [this.getFileFromPath(this.hidden_element.value.replace(/^'(.*)'$/, '$1'))];
+                        }
+                    } else {
+                        if (this.maxSelectedFiles > 1) {
+                            this.hidden_element.value = '[]';
+                        }
+                    }
+                }
+            },
             removeFileFromInput: function(path) {
-                if (this.allowMultiSelect) {
+                if (this.maxSelectedFiles > 1) {
                     var content = JSON.parse(this.hidden_element.value);
                     if (content.indexOf(path) !== -1) {
                         content.splice(content.indexOf(path), 1);
@@ -829,19 +848,8 @@
             }
         },
         mounted: function() {
-            this.getFiles();
+            this.getFiles(this.addFileFromHiddenElementToInput);
             var vm = this;
-
-            if (this.element != '') {
-                this.hidden_element = document.querySelector(this.element);
-                if (!this.hidden_element) {
-                    console.error('Element "'+this.element+'" could not be found.');
-                } else {
-                    if (this.maxSelectedFiles > 1 && this.hidden_element.value == '') {
-                        this.hidden_element.value = '[]';
-                    }
-                }
-            }
 
             //Key events
             this.onkeydown = function(evt) {
