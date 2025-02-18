@@ -272,7 +272,7 @@ const getActies = debounce(() => {
 	axios.get(props.routes["acties.search"].uri, {
 		params: {
 			q: query.value,
-			themes: themesSelected.value ? themesSelected.value.map(t => t.id) : props.themeIds,
+			themes: themesSelected.value ? themesSelected.value : props.themeIds,
 			categories: categoriesSelected.value,
 			coordinates: coordinates.value,
 			distance: distance.value,
