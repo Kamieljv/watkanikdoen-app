@@ -27,6 +27,20 @@
                 <p class="font-normal">{{ __('actiewijzer.results_summary_body') }}
                 
                 <div class="mt-10 md:gap-6 grid grid-cols-2">
+                    <div class="w-full col-span-2 md:col-span-1 mt-5 md:mt-0">
+                        <h4 class="text-lg mb-2">Type acties die bij jou passen</h4>
+                        <div class="flex flex-wrap space-x-1">
+                            @foreach($referentie_types as $rt)
+                                <a href="#{{str_replace(' ', '_', $rt->title)}}">
+                                    <div class="bg-gray-200 hover:bg-gray-300 px-3 py-2 rounded-full mb-1">
+                                        {{$rt->title}}
+                                        &nbsp;
+                                        @if($rt->match_perc)<span class="text-pink-600 font-bold">{{$rt->match_perc}}%</span>@endif
+                                    </div>
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
                     <div class="w-full col-span-2 md:col-span-1">
                         <h4 class="text-lg mb-2">Voorkeuren</h4>
                         @foreach ($dimensions as $dim)
@@ -38,19 +52,6 @@
                                 <progress-bar :value="{{$dim->score}}" class="w-full" :min="0" :max="{{config('app.actiewijzer.max_score')}}" color="var(--wkid-pink)" background-color="#C9C9C9"/>
                             </div>
                         @endforeach
-                    </div>
-                    <div class="w-full col-span-2 md:col-span-1 mt-5 md:mt-0">
-                        <h4 class="text-lg mb-2">Type acties die bij jou passen</h4>
-                        <div>
-                            @foreach($referentie_types as $rt)
-                                <div>
-                                    <a href="#{{str_replace(' ', '_', $rt->title)}}" class="hover:font-bold">{{$rt->title}}
-                                        &nbsp;
-                                        @if($rt->match_perc)<span class="text-pink-600">{{$rt->match_perc}}%</span>@endif
-                                    </a>
-                                </div>
-                            @endforeach
-                        </div>
                     </div>
                 </div>
 
