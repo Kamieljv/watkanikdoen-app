@@ -21,6 +21,7 @@
 						v-model="themesSelected"
 						:options="themes"
 						optionLabel="name"
+						optionValue="id"
 						placeholder="Thema..."
 						filterPlaceholder="Zoeken..."
 					/>
