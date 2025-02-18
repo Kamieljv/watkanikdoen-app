@@ -8,7 +8,7 @@
             <div
                 v-for="t in themes"
                 :key="t.id"
-                class="relative self-start inline-block px-2 py-1 mr-1 mb-1 cursor-pointer text-xs font-medium leading-5 uppercase bg-gray-100 rounded"
+                class="relative self-start inline-block px-3 py-2 mr-1 mb-1 cursor-pointer text-xs font-medium leading-5 uppercase bg-gray-100 rounded-full"
                 :class="{'border-2 border-white': selected.includes(t.id), 'border-2': !selected.includes(t.id)}"
                 :style="{backgroundColor: selected.includes(t.id) ? t.color : 'rgba(0, 0, 0, 0)'}"
                 :data-id="t.id"
