@@ -23,6 +23,7 @@ class ReferentieTypesTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'title' => 'Vrijwilligerswerk',
+                'slug' => 'vrijwilligerswerk',
                 'description' => 'Ik wil vrijwilligerswerk doen',
                 'style' => '{}',
                 'status' => 'PUBLISHED',
@@ -33,6 +34,7 @@ class ReferentieTypesTableSeeder extends Seeder
             array (
                 'id' => 2,
                 'title' => 'Doneren',
+                'slug' => 'doneren',
                 'description' => 'Ik wil doneren',
                 'style' => '{}',
                 'status' => 'PUBLISHED',
@@ -40,7 +42,5 @@ class ReferentieTypesTableSeeder extends Seeder
                 'updated_at' => NULL,
             ),
         ));
-        
-        
     }
 }

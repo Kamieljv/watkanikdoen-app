@@ -90,7 +90,8 @@ class ActieController extends VoyagerBaseController
         if ($request->q) {
             $query->where(function ($q) use ($request) {
                 $q->where('title', 'LIKE', '%' . $request->q . '%')
-                    ->orWhere('body', 'LIKE', '%' . $request->q . '%');
+                    ->orWhere('body', 'LIKE', '%' . $request->q . '%')
+                    ->orWhere('keywords', 'LIKE', '%' . $request->q . '%');
             });
         }
         if ($request->themes) {

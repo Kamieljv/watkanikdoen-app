@@ -113,7 +113,7 @@ class ActieWijzerController extends Controller
         }
 
         // Construct a set of themes that are selected
-        $themes = null;
+        $themes = collect();
         if ( key_exists('themes', $request->all())) {
             $themes = Theme::whereIn('id', $request['themes'])->get();
         }
@@ -131,7 +131,9 @@ class ActieWijzerController extends Controller
         // Get referentie_types and calculate the similarity with the score_vector
         $referentie_types = ReferentieType::published()->with(['referenties' => function (Builder $query) use ($themes) {
             $query->whereHas('themes', function (Builder $query) use ($themes) {
-                $query->whereIn('theme_id', $themes->pluck('id')->toArray());
+                if ($themes->count() > 0) {
+                    $query->whereIn('theme_id', $themes->pluck('id')->toArray());
+                }
             })->with('referentie_types');
             $query->inRandomOrder()->limit(3);
         }])->get();
@@ -154,9 +156,9 @@ class ActieWijzerController extends Controller
         return view('actiewijzer.result', compact('themes', 'dimensions', 'referentie_types', 'routes'));
     }
 
-    public function referentie_type($referentie_type, Request $request)
+    public function referentie_type($slug, Request $request)
     {
-        $referentie_type = ReferentieType::where('title', $referentie_type)->firstOrFail();
+        $referentie_type = ReferentieType::where('slug', $slug)->firstOrFail();
 
         // Definieer de routes waarmee de component evenementen kan ophalen
         $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {

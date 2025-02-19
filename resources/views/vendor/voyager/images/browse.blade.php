@@ -141,7 +141,7 @@
                                         {{-- Object type --}}
                                         <td>
                                             @if($model)
-                                                {{ __('voyager::models.'.strtolower(class_basename($model))) }}
+                                                {{ class_basename($model) }}
                                             @else
                                                 -
                                             @endif

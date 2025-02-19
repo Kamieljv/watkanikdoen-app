@@ -39,6 +39,11 @@ class Referentie extends Model
         return $this->hasOne(Image::class)->without('referentie');
     }
 
+    public function voyagerRoute($action)
+    {
+        return route('voyager.referenties.' . $action, $this->id);
+    }
+
     public function scopePublished($query)
     {
         return $query->where('status', 'PUBLISHED');

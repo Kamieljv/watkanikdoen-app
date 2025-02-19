@@ -21,6 +21,7 @@
 						v-model="themesSelected"
 						:options="themes"
 						optionLabel="name"
+						optionValue="id"
 						placeholder="Thema..."
 						filterPlaceholder="Zoeken..."
 					/>
@@ -172,7 +173,7 @@
 		axios.get(props.routes["organizers.search"].uri, {
 			params: {
 				q: query.value,
-				themes: themesSelected.value.map((theme) => theme.id),
+				themes: themesSelected.value ? themesSelected.value : null,
 				page: currentPage.value,
 				limit: props.max ?? null
 			}

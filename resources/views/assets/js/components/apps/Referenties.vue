@@ -21,6 +21,7 @@
 						v-model="themesSelected"
 						:options="themes"
 						optionLabel="name"
+						optionValue="id"
 						placeholder="Thema..."
 						filterPlaceholder="Zoeken..."
 					/>
@@ -76,17 +77,17 @@
 		<Dialog
 			modal
 			v-if="currentReferentie"
-			class="w-full sm:w-1/2"
+			class="w-full sm:w-1/2 m-[2px] sm:m-0 overflow-hidden"
 			v-model:visible="modalOpen"
 			:draggable="false"
 			pt:mask:class="dialog-mask"
-			pt:header:class="flex items-center justify-between shrink-0 rounded-tl-lg rounded-tr-lg text-surface-700 dark:text-surface-0/80 border border-b-0 border-surface-200 dark:border-surface-700"
+			pt:header:class="flex items-center justify-between shrink-0 rounded-tl-lg rounded-tr-lg text-surface-700 dark:text-surface-0/80"
 			pt:headeractions:class="flex items-center absolute top-0 right-0 m-3"
-			pt:content:class="p-3 text-surface-700 dark:text-surface-0/80 border border-t-0 border-b-0 border-surface-200 dark:border-surface-700 overflow-y-auto"
-			pt:footer:class="flex items-center justify-end shrink-0 text-right gap-2 px-3 pb-3 border-t-0 rounded-b-lg bg-surface-0 dark:bg-surface-900 text-surface-700 dark:text-surface-0/80 border border-t-0 border-b-0 border-surface-200 dark:border-surface-700"
+			pt:content:class="p-5 text-surface-700 dark:text-surface-0/80 overflow-y-auto"
+			pt:footer:class="flex items-center justify-end shrink-0 text-right gap-2 px-5 pb-5 border-t-0 rounded-b-lg bg-surface-0 dark:bg-surface-900 text-surface-700 dark:text-surface-0/80"
 		>
 			<template v-slot:header>
-				<img v-if="currentReferentie.linked_image" class="object-cover w-full h-[150px]" :src="currentReferentie.linked_image.url" alt="">
+				<img v-if="currentReferentie.linked_image" class="object-cover w-full h-[20rem]" :src="currentReferentie.linked_image.url" alt="">
                 <div v-else class="h-[150px] md:h-[250px] w-full bg-gray-300 text-gray-400 flex items-center justify-center">
                     <LogoIcon style="fill: currentColor; height: 80px;" />
                 </div>
@@ -108,8 +109,8 @@
 					{{ currentReferentie.title }}
 				</h3>
 				<p class="my-2 text-sm text-gray-500" v-html="currentReferentie.description"></p>
-				<div v-if="currentReferentie.referentie_types.length > 1" class="mt-4">
-					<p class="text-sm text-gray-500 font-semibold">Wat kun je hier nog meer doen?</p>
+				<div class="mt-4">
+					<p class="text-sm text-gray-500 font-semibold">Wat kun je hier doen?</p>
 					<ul class="flex flex-wrap my-2">
 						<li
 							v-for="refType in currentReferentie.referentie_types"
