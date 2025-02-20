@@ -49,5 +49,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ReferentiesTableSeeder::class);
         $this->call(ReferentieThemeTableSeeder::class);
         $this->call(ReferentieReferentieTypeTableSeeder::class);
+        $this->call(HandbookPagesTableSeeder::class);
+        $this->call(TagsTableSeeder::class);
+        $this->call(HandbookPageTagTableSeeder::class);
     }
 }

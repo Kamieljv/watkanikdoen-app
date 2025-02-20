@@ -27,6 +27,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\WidgetController;
+use App\Http\Controllers\HandbookController;
 
 // Authentication routes
 Auth::routes();
@@ -83,6 +84,10 @@ Route::get('subscriber/verified', [SubscriberController::class, 'verified'])->na
 
 // Widget route
 Route::get('widget', [WidgetController::class, 'index'])->name('widget');
+
+// Handbook routes
+Route::get('handbook', [HandbookController::class, 'index'])->name('handbook.index');
+Route::get('handbook/{page}', [HandbookController::class, 'page'])->name('handbook.page');
 
 // General page route
 Route::get('{page}', [PageController::class, 'page'])->name('page');
