@@ -1,8 +1,8 @@
 <template>
     <div class="p-8">
-        <h4 class="mb-5 text-[var(--wkid-pink)] text-2xl font-thin">ActieWijzer</h4>
+        <h4 class="mb-5 text-[var(--wkid-pink)] text-lg md:text-2xl font-thin">ActieWijzer</h4>
         <h1 class="mb-2">{{question.question}}</h1>
-        <h3 class="font-normal text-gray-500">{{ question.description }}</h3>
+        <h3 class="font-normal text-gray-500 text-lg md:text-2xl">{{ question.description }}</h3>
 
         <div class="my-5">
             <div

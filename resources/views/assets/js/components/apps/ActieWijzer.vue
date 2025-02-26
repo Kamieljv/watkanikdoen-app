@@ -3,8 +3,8 @@
         <div v-if="!started">
             <div class="flex flex-col justify-between max-w-6xl mx-auto my-6 p-8 bg-white rounded-md shadow-md min-h-[400px]">
                 <div>
-                    <h1 class="mb-1">Doe de ActieWijzer!</h1>
-                    <h3 class="font-normal text-gray-500">{{ __('actiewijzer.description') }}</h3>
+                    <h1 class="mb-1">{{ __('actiewijzer.title') }}</h1>
+                    <h3 class="font-normal text-gray-500 text-lg md:text-2xl">{{ __('actiewijzer.description') }}</h3>
                 </div>
                 <div>
                     <div v-if="urlFromStorage" class="flex justify-between items-center bg-blue-200 p-3 mb-4 rounded-md">
@@ -13,12 +13,16 @@
                             <button class="secondary">{{ __('actiewijzer.previous_result_link') }}</button>
                         </a>
                     </div>
-                    <div class="flex justify-end">
+                    <div class="flex justify-end mt-5 flex-wrap flex-col md:flex-row">
+                        <p class="flex items-center p-3 text-sm text-gray-500 gap-1">
+                            <ShieldIcon class="w-5 h-5" />
+                            {{ __('actiewijzer.privacy_notice') }}
+                        </p>
                         <p class="flex items-center p-3 text-sm text-gray-500 gap-1">
                             <ClockIcon class="w-5 h-5" />
                             {{ __('actiewijzer.fill_in_time') }}
                         </p>
-                        <button @click="started = true" class="primary items-center hover:translate-x-[0.250rem]" tabindex="0">
+                        <button @click="started = true" class="primary items-center hover:translate-x-[0.250rem] mt-3 md:mt-0" tabindex="0">
                             <p class="text-lg">{{__('actiewijzer.start')}}</p>
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 ml-1" style="transform: rotate(180deg);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                         </button>
@@ -72,6 +76,8 @@
 import { Form } from 'vee-validate';
 import { computed, inject, onMounted, ref } from 'vue';
 import ClockIcon from '&/antdesign-clock-circle-o.svg';
+import ShieldIcon from '&/clarity-shield-check-solid.svg';
+
 const __ = inject('translate');
 
 const props = defineProps({
