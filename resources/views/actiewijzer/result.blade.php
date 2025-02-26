@@ -27,11 +27,11 @@
                 <p class="font-normal">{{ __('actiewijzer.results_summary_body') }}
                 
                 <div class="mt-10 md:gap-6 grid grid-cols-2">
-                    <div class="w-full col-span-2 md:col-span-1 mt-5 md:mt-0">
+                    <div class="w-full col-span-2 md:col-span-1">
                         <h4 class="text-lg mb-2">Type acties die bij jou passen</h4>
-                        <div class="flex flex-wrap space-x-1">
+                        <div class="flex flex-wrap">
                             @foreach($referentie_types as $rt)
-                                <a href="#{{str_replace(' ', '_', $rt->title)}}">
+                                <a href="#{{str_replace(' ', '_', $rt->title)}}" class="mr-1">
                                     <div class="bg-gray-200 hover:bg-gray-300 px-3 py-2 rounded-full mb-1">
                                         {{$rt->title}}
                                         &nbsp;
@@ -41,7 +41,7 @@
                             @endforeach
                         </div>
                     </div>
-                    <div class="w-full col-span-2 md:col-span-1">
+                    <div class="w-full col-span-2 md:col-span-1 mt-5 md:mt-0">
                         <h4 class="text-lg mb-2">Voorkeuren</h4>
                         @foreach ($dimensions as $dim)
                             <div class="mb-2 flex flex-col justify-between">
