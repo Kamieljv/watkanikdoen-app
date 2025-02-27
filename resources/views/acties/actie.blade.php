@@ -286,7 +286,8 @@
                     <actie-agenda
                         :routes="{{ $routes }}"
                         :filterable="false"
-                        :theme-ids="{{ json_encode(array_column($actie->themes->toArray(), 'id')) }}"
+                        :themes="{{ $themes }}"
+                        :themes-selected-ids="{{ json_encode(array_column($actie->themes->toArray(), 'id')) }}"
                         :exclude-ids="{{ json_encode([$actie->id]) }}"
                         :narrower="true"
                         :skeletons="2"
