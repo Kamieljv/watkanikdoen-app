@@ -166,10 +166,6 @@ const props = defineProps({
 		type: Number,
 		default: null,
 	},
-	themeIds: {
-		type: Array,
-		default: () => [],
-	},
 	excludeIds: {
 		type: Array,
 		default: () => [],
@@ -193,7 +189,7 @@ const themesSelected = ref(props.themes.filter(t => props.themesSelectedIds.incl
 const categoriesSelected = ref(props.categories.filter(c => props.categoriesSelectedIds.includes(c.id)).map(c => c.id))
 const query = ref("")
 const coordinates = ref("")
-const distance = ref(100)
+const distance = ref(1000)
 const geoSuggestions = ref([])
 const showPast = ref(false)
 const isGeladen = ref(false)
@@ -272,7 +268,7 @@ const getActies = debounce(() => {
 	axios.get(props.routes["acties.search"].uri, {
 		params: {
 			q: query.value,
-			themes: themesSelected.value ? themesSelected.value : props.themeIds,
+			themes: themesSelected.value ? themesSelected.value : null,
 			categories: categoriesSelected.value,
 			coordinates: coordinates.value,
 			distance: distance.value,

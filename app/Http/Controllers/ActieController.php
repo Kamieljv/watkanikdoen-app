@@ -72,6 +72,8 @@ class ActieController extends VoyagerBaseController
             $isAdmin = auth()->user()->hasRole('admin');
         }
 
+        $themes = Theme::orderBy('name', 'ASC')->get();
+
         // count acties with the same theme
         $actieThemes = array_column($actie->themes->toArray(), 'id');
         $count_same_theme = Actie::query()
@@ -81,7 +83,7 @@ class ActieController extends VoyagerBaseController
             ->whereNot('id', $actie->id) // exclude current action
             ->published()->nietAfgelopen()->count();
 
-        return view('acties.actie', compact('actie', 'routes', 'isAdmin', 'count_same_theme'));
+        return view('acties.actie', compact('actie', 'themes', 'routes', 'isAdmin', 'count_same_theme'));
     }
 
     public function search(Request $request)

@@ -100,7 +100,8 @@
                         <actie-agenda
                             :routes="{{ $routes }}"
                             :filterable="false"
-                            :theme-ids="{{ json_encode(array_column($themes->toArray(), 'id')) }}"
+                            :themes="{{ $themes}}"
+                            :themes-selected-ids="{{ json_encode(array_column($themes->toArray(), 'id')) }}"
                             :narrower="true"
                             :skeletons="2"
                             :limit="4"
