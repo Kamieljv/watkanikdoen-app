@@ -21,7 +21,7 @@ class ReportsTableFactorySeeder extends Seeder
         
         DB::table('reports')->delete();
 
-        Report::factory()->count(4)->create();
+        Report::factory()->count(10)->create();
 
         #Quantity of Reports
         $reports = Report::all()

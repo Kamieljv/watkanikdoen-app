@@ -12,37 +12,44 @@ class ThemeFactory extends Factory
     protected $model = Theme::class;
 
     protected static $names_map = [
-        'Wonen',
         'Klimaat',
-        'Dierenrechten',
         'Anti-racisme',
+        'Dierenrechten',
+        'Vrouwenrechten',
+        'Migratie',
+        'LGBTQIA+ rechten',
+        'Leefomgeving',
+        'Bezetting en kolonialisme',
+        'Zorg en welzijn',
+        'Democratie',
+        'Anti-fascisme',
+        'Mensenrechten',
+        'Inclusiviteit',
+        'Onderwijs',
+        'Economie en ongelijkheid',
+        'Anti-validisme',
     ];
  
     public function definition( ): array
     {
-        # This number is the same in the count parameter in the seeder file
-        $tot_elements = $this->count;
-
         # Picking up one name
-        $theme_name = $this->faker
-                            ->unique()->randomElement(static::$names_map);
-
+        $theme_name = $this->faker->unique()->randomElement(static::$names_map);
     
         #Calculating create date from start date
-        $create_at_obj =  $this->faker->dateTimeBetween( "-2years",now()) ;
-        $create_at = $create_at_obj->format("Y-m-d H:i:s");
+        $created_at = $this->faker->dateTimeBetween("-2years" , 'now');
 
-        #Calculating  updated date from create date
-        $update_at_obj =  $this->faker->dateTimeBetween($create_at_obj,now()) ;
-        $update_at = $update_at_obj->format("Y-m-d H:i:s");
+        #Calculating updated date from create date
+        $updated_at = $this->faker->dateTimeBetween($created_at, 'now');
+
+        # Slugify the name (URL safe)
+        $slug = strtolower(str_replace(' ', '-', $theme_name));
 
         return [
-            'id' => $this->faker->unique()->randomDigitNotZero(),
             'name' => $theme_name,
-            'slug' => $theme_name,
+            'slug' => $slug,
             'color' => $this->faker->hexColor(),
-            'created_at' => $create_at,
-            'updated_at' => $update_at,
+            'created_at' => $created_at->format("Y-m-d H:i:s"),
+            'updated_at' => $updated_at->format("Y-m-d H:i:s"),
         ];
     }
 }

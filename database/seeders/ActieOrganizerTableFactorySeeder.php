@@ -1,13 +1,10 @@
 <?php
-
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-use App\Models\Organizer;
 use App\Models\Actie;
+use App\Models\Organizer;
 use DB;
-
+use Illuminate\Database\Seeder;
 
 class ActieOrganizerTableFactorySeeder extends Seeder
 {
@@ -25,15 +22,14 @@ class ActieOrganizerTableFactorySeeder extends Seeder
         # Populating the relationship table actie_organizer using relationship
         # belongsToMany in actie->organizers()
         Actie::all()
-                ->each(function ($actie) use ($organizersCount) { 
-                        $actie->organizers()
-                             ->attach(
-                                 Organizer::all()
-                                            ->random(rand(1, $organizersCount))
-                                            ->pluck('id')
-                                            ->toArray()
-                                );
-                        }
+            ->each(function ($actie) use ($organizersCount) {
+                $actie->organizers()
+                    ->attach(
+                        Organizer::all()
+                            ->random(rand(1, $organizersCount))
+                            ->pluck('id')
+                            ->toArray()
                     );
+            });
     }
 }

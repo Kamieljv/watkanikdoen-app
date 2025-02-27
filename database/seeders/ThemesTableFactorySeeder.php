@@ -15,6 +15,6 @@ class ThemesTableFactorySeeder extends Seeder
     public function run(): void
     {
         DB::table('themes')->delete();
-        Theme::factory()->count(4)->create();
+        Theme::factory()->count(10)->create();
     }
 }

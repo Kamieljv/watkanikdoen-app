@@ -25,15 +25,15 @@ class ActieThemeTableFactorySeeder extends Seeder
         # Populating the relationship table actie_organizer using relationship
         # belongsToMany in actie->themes()
         Actie::all()
-                ->each(function ($actie) use ($themeCount) { 
-                        $actie->themes()
-                                ->attach(
-                                    Theme::all()
-                                            ->random(rand(0, $themeCount))
-                                            ->pluck('id')
-                                            ->toArray()
-                                );
-                        }
-                    );
+            ->each(function ($actie) use ($themeCount) { 
+                    $actie->themes()
+                        ->attach(
+                            Theme::all()
+                                ->random(rand(1, $themeCount))
+                                ->pluck('id')
+                                ->toArray()
+                        );
+                }
+            );
     }
 }

@@ -1,12 +1,10 @@
 <?php
-
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-use App\Models\Category;
 use App\Models\Actie;
+use App\Models\Category;
 use DB;
+use Illuminate\Database\Seeder;
 
 class ActieCategoryTableFactorySeeder extends Seeder
 {
@@ -24,15 +22,15 @@ class ActieCategoryTableFactorySeeder extends Seeder
         # Populating the relationship table actie_category using relationship
         # belongsToMany in actie->categories()
         Actie::all()
-                ->each(function ($actie) use ($categorieCount) { 
-                        $actie->categories()
-                                ->attach(
-                                    Category::all()
-                                            ->random(rand(1, $categorieCount))
-                                            ->pluck('id')
-                                            ->toArray()
-                                );
-                        }
+            ->each(function ($actie) use ($categorieCount) {
+                $actie->categories()
+                    ->attach(
+                        Category::all()
+                            ->random(1)
+                            ->pluck('id')
+                            ->toArray()
                     );
+            }
+            );
     }
 }

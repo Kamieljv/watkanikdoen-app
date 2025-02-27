@@ -15,15 +15,6 @@ class ActieFactory extends Factory
     // Setting model
     protected $model = Actie::class;
 
-    // Setting dummy types
-    protected static $titles_map = [
-        'Klimaatdemo',
-        'Black Lives Matter',
-        'Kick Out Zwarte Piet',
-        'Woonprotest',
-        'Bio-industrie Protest',
-    ];
-
     protected static $externe_link_map = [
         'https://utrecht.nl',
         'https://partijvoordedieren.nl',
@@ -31,7 +22,6 @@ class ActieFactory extends Factory
     ];
 
     protected static $location_human_map = [
-
         'De Dam, Amsterdam',
         'Jaarbeursplein, Utrecht',
         'Museumplein, Amsterdam',
@@ -53,7 +43,6 @@ class ActieFactory extends Factory
     protected static $status_map = [
         'PUBLISHED',
         'DRAFT',
-        'PENDING',
     ];
 
     protected static $image_map = [
@@ -64,66 +53,58 @@ class ActieFactory extends Factory
     ];
 
     protected static $keywords_map = [
-        null,
-    ];
-
-    protected static $location_map = [
-        'POINT (5.1065183336479 52.088538312124)',
-        null,
+        'demonstratie',
+        'actie'
     ];
 
     public function definition(): array
     {
 
         // Picking a random action name
-        $actie_name = $this->faker->randomElement(static::$titles_map);
+        $actie_name = $this->faker->sentence(4);
 
         // Fake an address for the location_human field
-        $location_human = $this->faker->address();
-
-        // Extracting Street from location (used to make slug unique)
-        preg_match("/^\D*(?=\d)/", $location_human, $m);
-        $pos = isset($m[0]) ? strlen($m[0]) : false;
-        $street = substr($location_human, 0, $pos);
-        $street = str_replace(" ", "", $street);
+        $location_human = $this->faker->randomElement(static::$location_human_map);
 
         // Calculating the first date
-        $start_date_obj = $this->faker->dateTimeBetween('-2year', now());
+        $start_date = $this->faker->dateTimeBetween('-2 years', '+2 years');
         // Calculating the end date from the start date
-        $end_date_obj = $this->faker->dateTimeBetween($start_date_obj, now());
+        $end_date = $this->faker->dateTimeInInterval($start_date, '+3 days');
 
         // Calculating create date from start date
-        $created_at = $this->faker->dateTimeBetween("-2years", $start_date_obj)->format("Y-m-d H:i:s");
+        $created_at = $this->faker->dateTimeInInterval($start_date, "-2 days");
         // Calculating  updated date from create date
-        $updated_at = $this->faker->dateTimeBetween($created_at, now())->format("Y-m-d H:i:s");
+        $updated_at = $this->faker->dateTimeInInterval($created_at, '+1 hour');
 
         // Calculating random location and generating point string
         $latitude = $this->faker->latitude($min = 51, $max = 53);
-        $longitude = $this->faker->longitude($min = 4, $max = -7);
-        $point_string = sprintf("ST_GeomFromText('POINT (%f %f)')", $latitude, $longitude);
+        $longitude = $this->faker->longitude($min = 4, $max = 6);
+
+        $point_string = sprintf("ST_GeomFromText('POINT (%f %f)')", $longitude, $latitude);
+
+        // Slugify the actie_name (URL safe) and add a hash to make unique
+        $slug = strtolower(str_replace(' ', '-', $actie_name)) .  '-' . $this->faker->numerify('########');
 
         return [
-            // To mantain integrity with other seeds, for example with ReferentiesTableSeeder
-            'id' => $this->faker->unique()->randomElement([11, 12, 16, 17, 19, 20, 23, 24, 25]),
-            'user_id' => $this->faker->randomElement([1]),
+            'user_id' => 1,
             'title' => $actie_name,
             'excerpt' => $this->faker->text(124),
             'body' => '<p>' . $this->faker->text(124) . ' <strong>' . $this->faker->text(146) . '</strong> ' . $this->faker->text(236) . '<em>Integer ' . $this->faker->text(34) . ' </em></p>',
             'externe_link' => $this->faker->randomElement(static::$externe_link_map),
-            'start_date' => $start_date_obj->format('Y-m-d'),
-            'start_time' => $start_date_obj->format('H:i:s'),
-            'end_date' => $end_date_obj->format('Y-m-d'),
-            'end_time' => $end_date_obj->format('H:i:s'),
+            'start_date' => $start_date->format('Y-m-d'),
+            'start_time' => $start_date->format('H:i:s'),
+            'end_date' => $end_date->format('Y-m-d'),
+            'end_time' => $end_date->format('H:i:s'),
             'location' => DB::raw($point_string),
             'location_human' => $location_human,
             'image' => $this->faker->randomElement(static::$image_map),
-            'slug' => $actie_name . '-' . $street,
+            'slug' => $slug,
             'keywords' => $this->faker->randomElement(static::$keywords_map), // slug fied is unique. This is a provisory solution
-            'disobedient' => (int) $this->faker->boolean(),
+            'disobedient' => 0,
             'pageviews' => $this->faker->numberBetween(30, 1000),
             'status' => $this->faker->randomElement(static::$status_map),
-            'created_at' => $created_at,
-            'updated_at' => $updated_at,
+            'created_at' => $created_at->format("Y-m-d H:i:s"),
+            'updated_at' => $updated_at->format("Y-m-d H:i:s"),
         ];
     }
 

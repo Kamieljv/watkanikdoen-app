@@ -1,12 +1,10 @@
 <?php
-
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-use App\Models\Theme;
 use App\Models\Organizer;
+use App\Models\Theme;
 use DB;
+use Illuminate\Database\Seeder;
 
 class OrganizerThemeTableFactorySeeder extends Seeder
 {
@@ -24,15 +22,15 @@ class OrganizerThemeTableFactorySeeder extends Seeder
         # Populating the relationship table organizer_theme using relationship
         # belongsToMany in actie->themes()
         Organizer::all()
-                ->each(function ($organizer) use ($themeCount) { 
-                        $organizer->themes()
-                                ->attach(
-                                    Theme::all()
-                                            ->random(rand(0, $themeCount))
-                                            ->pluck('id')
-                                            ->toArray()
-                                );
-                        }
+            ->each(function ($organizer) use ($themeCount) {
+                $organizer->themes()
+                    ->attach(
+                        Theme::all()
+                            ->random(rand(1, $themeCount))
+                            ->pluck('id')
+                            ->toArray()
                     );
+            }
+            );
     }
 }

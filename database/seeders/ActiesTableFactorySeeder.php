@@ -18,7 +18,7 @@ class ActiesTableFactorySeeder extends Seeder
         DB::table('acties')->delete();
 
         Actie::factory()
-                ->count(9)
+                ->count(20)
                 ->create();
     }
 }
