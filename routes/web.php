@@ -18,6 +18,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ICalController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\NotificationController;
@@ -80,6 +81,10 @@ Route::post('subscriber/create', [SubscriberController::class, 'store'])->name('
 Route::get('subscriber/delete', [SubscriberController::class, 'delete'])->name('subscribers.delete');
 Route::get('subscriber/verify/{id}/{hash}', [SubscriberController::class, 'verify'])->name('subscribers.verify');
 Route::get('subscriber/verified', [SubscriberController::class, 'verified'])->name('subscribers.verified');
+
+// iCal route
+Route::get('ical/feed', [ICalController::class, 'generate'])->name('ical.feed');
+Route::get('ical/{id}', [ICalController::class, 'generate'])->name('ical.single');
 
 // Widget route
 Route::get('widget', [WidgetController::class, 'index'])->name('widget');
