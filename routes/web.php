@@ -18,6 +18,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ICalController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\NotificationController;
@@ -59,7 +60,9 @@ Route::get('/lang-{lang}.js', [LanguageController::class, 'show']);
 // Acties & Organizers
 Route::get('acties', [ActieController::class, 'agenda'])->name('acties.agenda');
 Route::get('acties/search', [ActieController::class, 'search'])->name('acties.search');
-Route::get('actie/{actie}', [ActieController::class, 'actie'])->name('acties.actie');
+Route::get('actie/{slug}', [ActieController::class, 'actie'])->name('acties.actie');
+Route::get('actie/{slug}/ics', [ICalController::class, 'actie'])->name('ical.actie');
+
 Route::get('organisatoren/index', [OrganizerController::class, 'index'])->name('organizers.index');
 Route::get('organisatoren/search', [OrganizerController::class, 'search'])->name('organizers.search');
 Route::get('organisator/{organizer}', [OrganizerController::class, 'organizer'])->name('organizers.organizer');
@@ -80,6 +83,9 @@ Route::post('subscriber/create', [SubscriberController::class, 'store'])->name('
 Route::get('subscriber/delete', [SubscriberController::class, 'delete'])->name('subscribers.delete');
 Route::get('subscriber/verify/{id}/{hash}', [SubscriberController::class, 'verify'])->name('subscribers.verify');
 Route::get('subscriber/verified', [SubscriberController::class, 'verified'])->name('subscribers.verified');
+
+// iCal route
+Route::get('ical/feed', [ICalController::class, 'generate'])->name('ical.feed');
 
 // Widget route
 Route::get('widget', [WidgetController::class, 'index'])->name('widget');
