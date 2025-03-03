@@ -60,7 +60,9 @@ Route::get('/lang-{lang}.js', [LanguageController::class, 'show']);
 // Acties & Organizers
 Route::get('acties', [ActieController::class, 'agenda'])->name('acties.agenda');
 Route::get('acties/search', [ActieController::class, 'search'])->name('acties.search');
-Route::get('actie/{actie}', [ActieController::class, 'actie'])->name('acties.actie');
+Route::get('actie/{slug}', [ActieController::class, 'actie'])->name('acties.actie');
+Route::get('actie/{slug}/ics', [ICalController::class, 'actie'])->name('ical.actie');
+
 Route::get('organisatoren/index', [OrganizerController::class, 'index'])->name('organizers.index');
 Route::get('organisatoren/search', [OrganizerController::class, 'search'])->name('organizers.search');
 Route::get('organisator/{organizer}', [OrganizerController::class, 'organizer'])->name('organizers.organizer');
@@ -84,7 +86,6 @@ Route::get('subscriber/verified', [SubscriberController::class, 'verified'])->na
 
 // iCal route
 Route::get('ical/feed', [ICalController::class, 'generate'])->name('ical.feed');
-Route::get('ical/{id}', [ICalController::class, 'generate'])->name('ical.single');
 
 // Widget route
 Route::get('widget', [WidgetController::class, 'index'])->name('widget');

@@ -1,7 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use Jenssegers\Date\Date;
+use Illuminate\Support\Facades\Response;
+use Spatie\IcalendarGenerator\Components\Calendar;
+use Spatie\IcalendarGenerator\Components\Event;
 use \App\Models\Actie;
 
 class ICalController extends Controller
@@ -22,8 +25,7 @@ class ICalController extends Controller
             if ($events === false) {
                 dd($events);
             }
-        } 
-
+        }
 
         define('ICAL_FORMAT', 'Ymd\THis\Z');
 
@@ -57,5 +59,40 @@ class ICalController extends Controller
         $icalObject = str_replace(' ', '', $icalObject);
 
         echo $icalObject;
+    }
+
+    public function actie($slug)
+    {
+        $actie = Actie::where('slug', '=', $slug)->firstOrFail();
+
+        if (!$actie->published || $actie->afgelopen) {
+            abort(404);
+        }
+
+        if ($actie->_geoloc != null) {
+            $ical = Calendar::create('Watkanikdoen.nl Calendar')
+                ->event(Event::create($actie->title)
+                        ->period($actie->start, $actie->end)
+                        ->address($actie->location_human)
+                        ->coordinates($actie->_geoloc['lat'], $actie->_geoloc['lng'])
+                )
+                ->get();
+        } else {
+            $ical = Calendar::create('Watkanikdoen.nl Calendar')
+                ->event(Event::create($actie->title)
+                        ->period($actie->start, $actie->end)
+                        ->address($actie->location_human)
+                )
+                ->get();
+        }
+
+        // Set the headers for the response
+        $headers = [
+            'Content-Type'        => 'text/calendar',
+            'Content-Disposition' => 'attachment; filename="' . $slug . '.ics"',
+        ];
+
+        // Return the ICS file as a response
+        return Response::make($ical, 200, $headers);
     }
 }

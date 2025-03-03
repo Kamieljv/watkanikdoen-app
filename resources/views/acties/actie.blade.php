@@ -126,6 +126,12 @@
                                             <p class="truncate">{{ $label ? str_replace('www.', '', $label[3]) : $externe_link }}</p>
                                         </a>
                                     @endforeach
+                                    @if ($actie->start_time && $actie->end_time && !$actie->afgelopen)
+                                        <a href="{{ route('ical.actie', $actie->slug) }}" target="_blank" class="w-full inline-flex items-center justify-center space-x-1 px-4 py-2 text-base font-medium leading-6 text-gray-800 whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-gray-200 hover:bg-gray-300">
+                                            @svg('antdesign-calendar-o', ['class' => 'flex-nowrap flex-shrink-0', 'style' => 'width: 20px; height: 20px'])
+                                            <p class="truncate">{{ __('acties.add_to_calendar') }}</p>
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -159,6 +165,12 @@
                                         <p class="truncate">{{ $label ? str_replace('www.', '', $label[3]) : $externe_link }}</p>
                                     </a>
                                 @endforeach
+                                @if ($actie->start_time && $actie->end_time && !$actie->afgelopen)
+                                    <a href="{{ route('ical.actie', $actie->slug) }}" target="_blank" class="w-full inline-flex items-center justify-center space-x-1 px-4 py-2 text-base font-medium leading-6 text-gray-800 whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-gray-200 hover:bg-gray-300">
+                                        @svg('antdesign-calendar-o', ['class' => 'flex-nowrap flex-shrink-0', 'style' => 'width: 20px; height: 20px'])
+                                        <p class="truncate">{{ __('acties.add_to_calendar') }}</p>
+                                    </a>
+                                @endif
                             </div>
                             @if($actie->disobedient === 1)
                                 <div

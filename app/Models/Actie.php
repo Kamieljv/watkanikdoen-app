@@ -96,6 +96,16 @@ class Actie extends Model
         return url('/actie/' . $this->slug);
     }
 
+    public function getStartAttribute()
+    {
+        return Date::parse($this->start_date . " " . $this->start_time);
+    }
+
+    public function getEndAttribute()
+    {
+        return Date::parse($this->end_date . " " . $this->end_time);
+    }
+
     public function getStartEndAttribute()
     {
         if ($this->start_date && $this->end_date) {
