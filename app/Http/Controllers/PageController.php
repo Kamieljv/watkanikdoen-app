@@ -13,7 +13,7 @@ class PageController extends Controller
             ->where('status', '=', 'ACTIVE')->firstOrFail();
 
         // SEO
-        SEOTools::setTitle($page->title);
+        SEOTools::setTitle($page->title . ' | ' . config('brand.title'));
         if ($page->meta_description !== null) {
             SEOTools::setDescription(substr(strip_tags($page->meta_description), 0, 300));
         }

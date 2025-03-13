@@ -38,7 +38,7 @@ class HomeController extends Controller
         ];
 
         // SEO
-        SEOTools::setTitle('Home');
+        SEOTools::setTitle('Home' . ' | ' . config('brand.title'));
 
         return view('home', compact('routes', 'stats'));
     }
