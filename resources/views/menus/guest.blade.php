@@ -17,7 +17,9 @@
         </a>
     </span>
     <span class="inline-flex rounded-md shadow-sm" style="margin-left: 10px">
-        <a href="{{ route('report.landing') }}" class="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-500 hover:bg-blue-600">
+        <a href="{{ route('report.landing') }}" class="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-500 hover:bg-blue-600"
+            data-umami-event="Report action button in header"
+        >
             {{ __("menus.report_action") }}
         </a>
     </span>
