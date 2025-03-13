@@ -200,7 +200,8 @@
                         <div class="not-prose flex flex-col gap-3 p-3 bg-white rounded-lg shadow-lg overflow-hidden">
                             <h4>{{ __('acties.share') }}</h4>
                             <div class="flex gap-2">
-                                <a href="https://bsky.app/intent/compose?text={{ urlencode($actie->title . " " . url()->current()) }}"
+                                @php $blueskyUrl = $browser->isMobile() ? 'bluesky://' : 'https://bsky.app/' . urlencode($actie->title . " " . url()->current()); @endphp
+                                <a href="{{$blueskyUrl}}intent/compose?text={{ urlencode($actie->title . " " . url()->current()) }}"
                                     target="_blank"
                                     class="w-1/4 inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[#1da1f2] hover:bg-[#0b7bc5]"
                                     title="{{ __('acties.share_via') . " BlueSky"}}"
