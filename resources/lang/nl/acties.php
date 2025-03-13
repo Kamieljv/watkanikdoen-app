@@ -23,6 +23,8 @@ return [
     'about_organizers' => 'Over de organisatoren',
     'details' => 'Details',
     'share' => 'Delen',
+    'share_via' => 'Delen via',
+    'copy_link' => 'Kopieer link',
     'description' => 'Beschrijving',
     'to_action_page' => 'Naar actiepagina',
     'last_edit' => 'Laatst bijgewerkt',
