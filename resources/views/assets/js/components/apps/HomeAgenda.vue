@@ -40,7 +40,7 @@
 							</div>
 							<div class="flex items-center justify-center my-12">
 								<a href="/acties">
-									<button class="primary flex items-center hover:translate-x-[0.250rem]">
+									<button class="primary flex items-center hover:translate-x-[0.250rem]" data-umami-event="View all actions button on homepage">
 										<p class="text-lg">{{ __('acties.view_all_actions') }}</p>
 										<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"
 											xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 ml-1"
