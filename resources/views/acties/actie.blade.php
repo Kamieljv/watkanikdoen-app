@@ -200,8 +200,15 @@
                         <div class="not-prose flex flex-col gap-3 p-3 bg-white rounded-lg shadow-lg overflow-hidden">
                             <h4>{{ __('acties.share') }}</h4>
                             <div class="flex gap-2">
+                                <a href="https://bsky.app/intent/compose?text={{ urlencode($actie->title . " " . url()->current()) }}"
+                                    target="_blank"
+                                    class="w-1/4 inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[#1da1f2] hover:bg-[#0b7bc5]"
+                                    title="{{ __('acties.share_via') . " BlueSky"}}"
+                                    data-umami-event="BlueSky share of actie">
+                                    @svg('bxl-bluesky', ['class' => 'w-6 h-6'])
+                                </a>
                                 @if($browser->isMobile())
-                                    <a href="https://t.me/share/url?url={{ urlencode(url()->current()) }}&text={{ urlencode($actie->title) }}"
+                                    <a href="https://t.me/share/url?url={{ urlencode(url()->current()) }}&text={{ rawurlencode($actie->title) }}"
                                         target="_blank"
                                         class="w-1/4 inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[#0088cc] hover:bg-[#006699]"
                                         title="{{ __('acties.share_via') . " Telegram"}}"
@@ -214,15 +221,7 @@
                                         title="{{ __('acties.share_via') . " WhatsApp"}}"
                                         data-umami-event="WhatsApp share of actie">
                                         @svg('bxl-whatsapp', ['class' => 'w-7 h-7'])
-                                    </a>
-                                @else
-                                    <a href="https://bsky.app/intent/compose?text={{ urlencode($actie->title . " " . url()->current()) }}"
-                                        target="_blank"
-                                        class="w-1/4 inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[#1da1f2] hover:bg-[#0b7bc5]"
-                                        title="{{ __('acties.share_via') . " BlueSky"}}"
-                                        data-umami-event="BlueSky share of actie">
-                                        @svg('bxl-bluesky', ['class' => 'w-6 h-6'])
-                                    </a>
+                                    </a>                                    
                                 @endif
                                 <button
                                     onclick="navigator.clipboard.writeText(window.location.href); this.classList.add('bg-green-600'); setTimeout(() => this.classList.remove('bg-green-600'), 1000)"
