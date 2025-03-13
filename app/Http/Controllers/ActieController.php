@@ -65,6 +65,9 @@ class ActieController extends VoyagerBaseController
         if ($actie->keywords !== null) {
             SEOMeta::setKeywords($actie->keywords);
         }
+        if ($actie->linked_image !== null) {
+            SEOTools::opengraph()->addImage($actie->linked_image->url);
+        }
 
         // Pass admin attribute
         $isAdmin = false;
