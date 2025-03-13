@@ -212,6 +212,7 @@ return [
 
         Lab404\Impersonate\ImpersonateServiceProvider::class,
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
+        App\Providers\MobileDetectServiceProvider::class,
 
         /*
          * Application Service Providers...
