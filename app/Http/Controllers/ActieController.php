@@ -33,7 +33,7 @@ class ActieController extends VoyagerBaseController
         $categories_selected_ids = $request->categories ? array_map('intval', $request->categories) : [];
 
         // SEO
-        SEOTools::setTitle('Acties');
+        SEOTools::setTitle('Acties' . ' | ' . config('brand.title'));
 
         return view('acties.agenda', compact('routes', 'themes', 'categories', 'themes_selected_ids', 'categories_selected_ids'));
     }
@@ -58,7 +58,7 @@ class ActieController extends VoyagerBaseController
 
 
         // SEO
-        SEOTools::setTitle($actie->title);
+        SEOTools::setTitle($actie->title . ' | ' . config('brand.title'));
         if ($actie->excerpt !== null) {
             SEOTools::setDescription($actie->excerpt);
         }

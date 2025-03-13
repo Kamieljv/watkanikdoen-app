@@ -29,7 +29,7 @@ class ActieWijzerController extends Controller
         $result_route = route('actiewijzer.result');
 
         // SEO
-        SEOTools::setTitle(__('actiewijzer.title'));
+        SEOTools::setTitle(__('actiewijzer.title') . ' | ' . config('brand.title'));
         SEOTools::setDescription(__('actiewijzer.description'));
         SEOMeta::setKeywords(__('actiewijzer.keywords'));
 

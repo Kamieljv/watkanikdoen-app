@@ -28,7 +28,7 @@ class OrganizerController extends Controller
         $themes = Theme::orderBy('name', 'ASC')->get();
 
         // SEO
-        SEOTools::setTitle(__("organizers.title"));
+        SEOTools::setTitle(__("organizers.title") . ' | ' . config('brand.title'));
         SEOTools::setDescription(__("organizers.description"));
 
         return view('organizers.index', compact('routes', 'themes'));
@@ -78,7 +78,7 @@ class OrganizerController extends Controller
         });
 
         // SEO
-        SEOTools::setTitle($organizer->name);
+        SEOTools::setTitle($organizer->name . ' | ' . config('brand.title'));
         if ($organizer->description !== null) {
             SEOTools::setDescription(substr(strip_tags($organizer->description), 0, 300));
         }
