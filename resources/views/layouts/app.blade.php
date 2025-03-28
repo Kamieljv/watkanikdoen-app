@@ -54,10 +54,10 @@
     <!-- Scripts -->
     @stack('scripts')
 
-    <!-- Cookie notice -->
+    {{-- <!-- Cookie notice -->
     <div id="cookie-container" class="">
         @include('partials.cookies')
-    </div>
+    </div> --}}
 
     <!-- Toast messages -->
     <div id="toast-container">
