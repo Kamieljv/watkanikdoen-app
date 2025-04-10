@@ -21,7 +21,7 @@ class ActieCategoryTableFactorySeeder extends Seeder
 
         # Populating the relationship table actie_category using relationship
         # belongsToMany in actie->categories()
-        Actie::all()
+        Actie::select(['id'])->get()
             ->each(function ($actie) use ($categorieCount) {
                 $actie->categories()
                     ->attach(
