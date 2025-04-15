@@ -4,21 +4,21 @@
             <div class="flex flex-col justify-between max-w-6xl mx-auto my-6 p-8 bg-white rounded-md shadow-md min-h-[400px]">
                 <div>
                     <h1 class="mb-1">{{ __('actiewijzer.title') }}</h1>
-                    <h3 class="font-normal text-gray-500 text-lg md:text-2xl">{{ __('actiewijzer.description') }}</h3>
+                    <h3 class="font-normal text-gray-700 text-lg mt-2 md:mt-3 md:text-2xl">{{ __('actiewijzer.description') }}</h3>
                 </div>
                 <div>
-                    <div v-if="urlFromStorage" class="flex justify-between items-center bg-blue-200 p-3 mb-4 rounded-md">
-                        {{ __('actiewijzer.previous_result_detected') }}
+                    <div v-if="urlFromStorage" class="flex flex-col md:flex-row gap-3 justify-between items-end md:items-center bg-blue-200 p-3 mt-8 md:mt-0 mb-4 rounded-md">
+                        <p class="text-gray-800">{{ __('actiewijzer.previous_result_detected') }}</p>
                         <a :href="urlFromStorage">
                             <button class="secondary">{{ __('actiewijzer.previous_result_link') }}</button>
                         </a>
                     </div>
                     <div class="flex justify-end mt-5 flex-wrap flex-col md:flex-row">
-                        <p class="flex items-center p-3 text-sm text-gray-500 gap-1">
+                        <p class="flex items-center p-1 md:p-3 text-sm text-gray-500 gap-1">
                             <ShieldIcon class="w-5 h-5" />
                             {{ __('actiewijzer.privacy_notice') }}
                         </p>
-                        <p class="flex items-center p-3 text-sm text-gray-500 gap-1">
+                        <p class="flex items-center p-1 md:p-3 text-sm text-gray-500 gap-1">
                             <ClockIcon class="w-5 h-5" />
                             {{ __('actiewijzer.fill_in_time') }}
                         </p>
