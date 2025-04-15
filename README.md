@@ -1,19 +1,20 @@
 # Wat Kan Ik Doen webapp
 
-## Deployment Instructions
+## Deploying for development
 
-### 1. Set up the database
-
-- Create a database and add the connection details to `.env`
-- Run migrations with `php artisan migrate`
-- Run seeders with `php artisan db:seed`
-
-### 2. Run the server
-
-- Run the server with `php artisan serve`
-
-### 3. Log in using the admin account
-
+- Copy `.env.example` to `.env` and add the following connection parameters
+```
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=watkanikdoen_app
+DB_USERNAME=mysql
+DB_PASSWORD=change-me
+```
+- Run the Docker Compose with `docker compose up -d --build`
+- Install composer packages in the container `docker compose exec app sh -c "composer install"`
+- Run the migrations and seeders in the container `docker compose exec app sh -c "php artisan migrate:fresh --seed"`
+- Open [localhost:8000](http://localhost:8000) in your browser
 - Log in with the username `admin@admin.com` and password `admin12345`. Change the password after logging in.
 
 ## Modifying BREAD
