@@ -97,7 +97,7 @@
                         <p class="my-2 line-clamp-3 text-sm text-gray-500" v-html="actie.body"></p>
                     </div>
                 </div>
-                <div v-if="actie.organizers > 0" class="flex items-center p-3 bg-gray-200">
+                <div v-if="actie.organizers.length > 0" class="flex items-center p-3 bg-gray-200">
                     <div class="flex-shrink-0">
                         <a :href="actie.organizers[0].link">
                             <img v-if="actie.organizers[0].linked_image" class="w-10 h-10 rounded-full" :src="actie.organizers[0].linked_image.url" :alt="actie.organizers[0].name" :title="actie.organizers[0].name">
@@ -112,7 +112,7 @@
                             <a :href="actie.organizers[0].link" class="font-medium hover:underline" style="color: inherit;">
                                 {{ actie.organizers[0].name }}</a>
                             <span v-if="actie.organizers.length > 1">
-                                <span>{{__('general.and')}}</span>
+                                <span>&nbsp;{{__('general.and')}}&nbsp;</span>
                                 <span class="font-medium">{{actie.organizers.length - 1}} {{(actie.organizers.length - 1 > 1)? __('general.others') : __('general.other')}}</span>
                             </span>
                         </p>
