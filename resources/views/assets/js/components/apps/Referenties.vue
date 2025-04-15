@@ -128,7 +128,7 @@
 			</div>
 			<template v-slot:footer>
 				<div class="flex justify-end">
-					<a :href="currentReferentie.url">
+					<a :href="currentReferentie.url" target="_blank">
 						<button class="btn text-xl pink items-center" type="button">
 							<LinkIcon class="w-4 h-4 mr-1" fill="currentColor" />
 							{{ __('general.go_to')}}&nbsp;
