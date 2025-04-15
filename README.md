@@ -16,6 +16,7 @@ DB_PASSWORD=change-me
 - Run the migrations and seeders in the container `docker compose exec app sh -c "php artisan migrate:fresh --seed"`
 - Open [localhost:8000](http://localhost:8000) in your browser
 - Log in with the username `admin@admin.com` and password `admin12345`. Change the password after logging in.
+- Start the vite development mode with `npm run dev` on your local machine
 
 ## Modifying BREAD
 Configuration of the Voyager admin panel are saved in database tables. The defaults are seeded by files in `database/seeders`. Any changes need to be kept up to date in these seeders, to ensure easy deployment. 
