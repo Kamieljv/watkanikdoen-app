@@ -134,12 +134,7 @@
 		font-size: 5rem;
 		line-height: 4rem;
 	}
-	#actiewijzer-banner {
-		position: relative;
-		background: var(--wkid-pink);  
-		background: linear-gradient(to top left, var(--wkid-pink), #91368b);  
-		width: 100%;
-	}
+	
 	#whoarewe-section {
 		position: relative;
 		background: var(--wkid-pink);  
