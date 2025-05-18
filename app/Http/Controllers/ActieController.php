@@ -68,6 +68,10 @@ class ActieController extends VoyagerBaseController
         if ($actie->linked_image !== null) {
             SEOTools::opengraph()->addImage($actie->linked_image->url);
         }
+        // set robots meta tag to noindex if the actie is over 1 year old
+        if ($actie->start_date < now()->subYear()) {
+            SEOMeta::setRobots('noindex');
+        }
 
         // Pass admin attribute
         $isAdmin = false;
