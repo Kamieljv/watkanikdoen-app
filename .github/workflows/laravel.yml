@@ -9,7 +9,7 @@ on:
 jobs:
   laravel:
     name: Laravel CI
-    runs-on: ubuntu-22.04 # has mysql 8 installed by default
+    runs-on: ubuntu-24.04
     steps:
       - name: Set Up Mysql 8
         run: |
