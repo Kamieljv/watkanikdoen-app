@@ -102,13 +102,14 @@
             </collapsible>
 
             @foreach($referentie_types as $rt)
-                <div class="mt-20">
-                    <h2 id="{{str_replace(' ', '_', $rt->title)}}">{{$rt->title}}&nbsp;
+                <div class="mt-20 p-6 bg-gray-50 rounded-lg">
+                    <h2 id="{{str_replace(' ', '_', $rt->title)}}" class="mb-4">
+                        {{$rt->title}}&nbsp;
                         @if($rt->match_perc)<span class="text-pink-600">{{$rt->match_perc}}%</span>@endif
                     </h2>
                     <p>{!! Purify::clean($rt->description) !!}</p>
-                    @if ($rt->title == config('app.actiewijzer.demonstrations_section_name'))
-                        <p><i>Demonstraties voor
+                    @if ($rt->title == config('app.actiewijzer.demonstrations_section_name') && $has_relevant_acties)
+                        <p class="mt-3"><i>Demonstraties voor
                             @if($themes->count() == 1) het thema @else de thema's @endif
                             @foreach($themes as $key=>$theme)
                                 <span class="underline underline-offset-2" style="text-decoration-color: {{ $theme->color }}; text-decoration-thickness: 4px;">
@@ -127,7 +128,7 @@
                             :limit="4"
                         >
                         </actie-agenda>
-                        <div class="flex items-center justify-center my-12">
+                        <div class="flex items-center justify-center mt-12">
                             <a href="{{ route('acties.agenda') . '?' . http_build_query(['themes' => array_column($themes->toArray(), 'id')])}}">
                                 <button class="secondary flex items-center hover:translate-x-[0.250rem]">
                                     <p class="text-lg">Bekijk alle Acties</p> 
@@ -146,7 +147,7 @@
                                     :max="3"
                                 />
                             </div>
-                            <div class="flex items-center justify-center my-12">
+                            <div class="flex items-center justify-center mt-12">
                                 <a href="{{ $rt->link . '?' . http_build_query(['themes' => array_column($themes->toArray(), 'id')])}}">
                                     <button class="secondary flex items-center hover:translate-x-[0.250rem]">
                                         <p class="text-lg">Bekijk alles van {{ $rt->title }}</p> 

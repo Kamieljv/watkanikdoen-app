@@ -18,15 +18,17 @@
         </div>
     </div>
 	{{-- ActieWijzer banner --}}
-	{{-- <div id="actiewijzer-banner" class="relative mx-auto max-w-6xl text-white py-4 px-6 rounded-lg flex justify-between items-center">
-		<p class="text-xl"><span class="font-bold">Nieuw!</span>&nbsp; {{__('actiewijzer.promo_text')}}</p>
-		<a href="/actiewijzer">
-			<button class="secondary-white flex items-center hover:translate-x-[0.250rem]">
-				<p class="text-lg">{{__('actiewijzer.start')}}</p>
-				<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 ml-1" style="transform: rotate(180deg);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-			</button>
-		</a>
-	</div> --}}
+	<div id="actiewijzer-banner-container" class="relative px-3 md:mx-auto max-w-6xl">
+		<div id="actiewijzer-banner" class="text-white py-4 px-6 rounded-lg flex flex-col md:flex-row justify-between items-end md:items-center gap-2 md:gap-0">
+			<p class="text-base md:text-xl w-full md:w-auto"><span class="font-bold">Nieuw!</span>&nbsp; {{__('actiewijzer.promo_text')}}</p>
+			<a href="/actiewijzer">
+				<button class="secondary-white flex items-center hover:translate-x-[0.250rem]">
+					<p class="text-lg">{{__('actiewijzer.start')}}</p>
+					<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 ml-1" style="transform: rotate(180deg);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+				</button>
+			</a>
+		</div>
+	</div>
     <div id="app">
 		<div style="min-height: 600px">
 			<home-agenda
