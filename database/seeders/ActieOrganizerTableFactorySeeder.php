@@ -21,7 +21,7 @@ class ActieOrganizerTableFactorySeeder extends Seeder
 
         # Populating the relationship table actie_organizer using relationship
         # belongsToMany in actie->organizers()
-        Actie::all()
+        Actie::select(['id'])->get()
             ->each(function ($actie) use ($organizersCount) {
                 $actie->organizers()
                     ->attach(

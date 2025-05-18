@@ -46,10 +46,7 @@ class ActieFactory extends Factory
     ];
 
     protected static $image_map = [
-        null,
-        'acties/pexels-karolina-grabowska-8106775-resize-500.jpg',
-        'acties/pexels-markus-spiske-3039036-resize-500.jpg',
-        'acties/pexels-paddy-o-sullivan-2369217-resize-500.jpg',
+        null
     ];
 
     protected static $keywords_map = [

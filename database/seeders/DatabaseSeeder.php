@@ -35,7 +35,8 @@ class DatabaseSeeder extends Seeder
 
         // Custom Model Seeders
         $this->call(CategoriesTableFactorySeeder::class);
-        $this->call(ThemesTableFactorySeeder::class);
+        // $this->call(ThemesTableFactorySeeder::class);
+        $this->call(ThemesTableSeeder::class);
         $this->call(OrganizersTableFactorySeeder::class);
         $this->call(ActiesTableFactorySeeder::class);
         $this->call(ActieThemeTableFactorySeeder::class);
@@ -52,6 +53,5 @@ class DatabaseSeeder extends Seeder
         $this->call(ReferentieTypeDimensionTableSeeder::class);
         $this->call(ReferentiesTableFactorySeeder::class);
         $this->call(ReferentieThemeTableSeeder::class);
-        $this->call(ReferentieReferentieTypeTableSeeder::class);
     }
 }
