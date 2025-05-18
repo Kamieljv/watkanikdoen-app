@@ -11,6 +11,7 @@ DB_DATABASE=watkanikdoen_app
 DB_USERNAME=mysql
 DB_PASSWORD=change-me
 ```
+- Generate a Laravel app key with `php artisan key:generate`
 - Run the Docker Compose with `docker compose up -d --build`
 - Install composer packages in the container `docker compose exec app sh -c "composer install"`
 - Run the migrations and seeders in the container `docker compose exec app sh -c "php artisan migrate:fresh --seed"`
