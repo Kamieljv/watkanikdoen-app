@@ -305,7 +305,7 @@
                     <h3 class="leading-none block sm:hidden mt-0">
                         <span>{{ __('acties.description') }}</span>
                     </h3>
-                    <div class="text-base mt-10">
+                    <div class="text-base mt-10 html-output">
                         {!! Purify::clean($actie->body) !!}
                     </div>
                 </div>
