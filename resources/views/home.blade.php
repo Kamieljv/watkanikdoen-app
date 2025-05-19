@@ -20,7 +20,7 @@
 	{{-- ActieWijzer banner --}}
 	<div id="actiewijzer-banner-container" class="relative px-3 md:mx-auto max-w-6xl">
 		<div id="actiewijzer-banner" class="text-white py-4 px-6 rounded-lg flex flex-col md:flex-row justify-between items-end md:items-center gap-2 md:gap-0">
-			<p class="text-base md:text-xl w-full md:w-auto"><span class="font-bold">Nieuw!</span>&nbsp; {{__('actiewijzer.promo_text')}}</p>
+			<p class="text-base md:text-xl w-full md:w-auto"><span class="font-bold">Nieuw!</span>&nbsp; {!! __('actiewijzer.promo_text') !!}</p>
 			<a href="/actiewijzer">
 				<button class="secondary-white flex items-center hover:translate-x-[0.250rem]">
 					<p class="text-lg">{{__('actiewijzer.start')}}</p>
