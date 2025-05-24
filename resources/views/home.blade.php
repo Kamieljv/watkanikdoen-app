@@ -17,6 +17,20 @@
             </p>
         </div>
     </div>
+	
+	{{-- ActieWijzer banner --}}
+	<div id="actiewijzer-banner-container" class="relative mt-5 md:mx-auto max-w-6xl">
+		<div id="actiewijzer-banner" class="text-white p-4 md:px-6 rounded-lg flex flex-col sm:flex-row justify-between items-end sm:items-center gap-2 md:gap-0">
+			<p class="text-base md:text-lg w-full md:w-auto"><span class="font-bold">Nieuw!</span>&nbsp; {!! __('actiewijzer.promo_text') !!}</p>
+			<a href="/actiewijzer">
+				<button class="secondary-white flex items-center hover:translate-x-[0.250rem]">
+					<p class="text-base sm:text-lg">{{__('actiewijzer.start')}}</p>
+					<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 ml-1" style="transform: rotate(180deg);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+				</button>
+			</a>
+		</div>
+	</div>
+
     <div id="app">
 		<div style="min-height: 600px">
 			<home-agenda
@@ -24,23 +38,6 @@
 			>
 			</home-agenda>
 		</div>
-		{{-- ActieWijzer --}}
-		{{-- <div id="actiewijzer-section" class="row py-20 px-3 text-white">
-			<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-2 mx-auto max-w-6xl px-3 items-center">
-				<div class="col-span-2 lg:col-span-1 text-left md:text-right pr-5 mb-8 md:mb-0 md:border-r">
-					<h1>Ontdek wat voor actie bij jou <br/>past met de ActieWijzer</h1>
-					<p>We stellen je een aantal vragen over hoe en waarvoor jij je graag wil inzetten.</p>
-				</div>
-				<div class="col-span-1 flex flex-col md:pl-5"> 
-					<a href="/actiewijzer">
-						<button class="primary flex items-center hover:translate-x-[0.250rem]">
-							<p class="text-lg">{{__('actiewijzer.start')}}</p>
-							<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 ml-1" style="transform: rotate(180deg);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-						</button>
-					</a>
-				</div>
-			</div>
-		</div> --}}
 		{{-- Who are we? --}}
 		<div id="whoarewe-section" class="row h-[450px] md:h-[370px] text-white relative overflow-hidden">
 			<div class="absolute left-[-30%] md:left-[20%] top-[-70%] md:top-[-110%] opacity-20">
@@ -139,12 +136,7 @@
 		font-size: 5rem;
 		line-height: 4rem;
 	}
-	#actiewijzer-section {
-		position: relative;
-		background: var(--wkid-pink);  
-		background: linear-gradient(to top left, var(--wkid-pink), #91368b);  
-		width: 100%;
-	}
+	
 	#whoarewe-section {
 		position: relative;
 		background: var(--wkid-pink);  

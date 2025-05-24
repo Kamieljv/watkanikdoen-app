@@ -26,7 +26,7 @@
             >
                 <p class="font-normal">{{ __('actiewijzer.results_summary_body') }}
                 
-                <div class="mt-10 md:gap-6 grid grid-cols-2">
+                <div class="mt-10 gap-6 grid grid-cols-2">
                     <div class="w-full col-span-2 md:col-span-1">
                         <h4 class="text-lg mb-2">Type acties die bij jou passen</h4>
                         <div class="flex flex-wrap">
@@ -41,7 +41,7 @@
                             @endforeach
                         </div>
                     </div>
-                    <div class="w-full col-span-2 md:col-span-1 mt-5 md:mt-0">
+                    {{-- <div class="w-full col-span-2 md:col-span-1 mt-5 md:mt-0">
                         <h4 class="text-lg mb-2">Voorkeuren</h4>
                         @foreach ($dimensions as $dim)
                             <div class="mb-2 flex flex-col justify-between">
@@ -52,10 +52,7 @@
                                 <progress-bar :value="{{$dim->score}}" class="w-full" :min="0" :max="{{config('app.actiewijzer.max_score')}}" color="var(--wkid-pink)" background-color="#C9C9C9"/>
                             </div>
                         @endforeach
-                    </div>
-                </div>
-
-                <div class="mt-10 md:gap-6 grid grid-cols-2">
+                    </div> --}}
                     <div class="w-full col-span-2 md:col-span-1">
                         @if ($themes->count() > 0)
                             <h4 class="text-lg mb-2">Thema's</h4>
@@ -71,24 +68,48 @@
                             </div>
                         @endif
                     </div>
-                    <div class="w-full col-span-2 md:col-span-1 mt-5 md:mt-0">
+                </div>
+
+                <div class="mt-3 md:mt-10 md:gap-6 grid grid-cols-2">
+                    <div class="w-full col-span-2 mt-5 md:mt-0">
                         <h4 class="text-lg mb-2">Bewaren & Delen </h4>
                         <p class="mb-2">Sla de link hieronder op in je Bladwijzers of Favorieten of deel de link met je vrienden!</p>
-                        <copy-text-field
-                            :current-url="true"
-                        />
+                        <div class="flex gap-2">
+                            <a href="https://t.me/share/url?url={{ urlencode(url()->full()) }}&text={{ urlencode('Ik heb de actiewijzer ingevuld en dit is het resultaat!') }}"
+                                target="_blank"
+                                class="min-w-20 inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[#0088cc] hover:bg-[#006699]"
+                                title="{{ __('acties.share_via') . " Telegram"}}"
+                                data-umami-event="Telegram share of ActieWijzer result">
+                                @svg('bxl-telegram', ['class' => 'w-6 h-6'])
+                            </a>
+                            <a href="https://wa.me/?text={{ urlencode('Ik heb de actiewijzer ingevuld en dit is het resultaat!' . ' - ' . url()->full()) }}"
+                                target="_blank"
+                                class="min-w-20 inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[#25D366] hover:bg-[#128C7E]"
+                                title="{{ __('acties.share_via') . " WhatsApp"}}"
+                                data-umami-event="WhatsApp share of ActieWijzer result">
+                                @svg('bxl-whatsapp', ['class' => 'w-7 h-7'])
+                            </a>                                    
+                            <button
+                                onclick="navigator.clipboard.writeText(window.location.href); this.classList.add('bg-green-600'); setTimeout(() => this.classList.remove('bg-green-600'), 1000)"
+                                class="min-w-20 inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-gray-500 hover:bg-gray-600"
+                                title="{{ __('acties.copy_link') }}"
+                                data-umami-event="Copy link of ActieWijzer result">
+                                @svg('clarity-copy-line', ['class' => 'w-5 h-5', 'title' => __('acties.copy_link')])
+                            </button>
+                        </div>
                     </div>
                 </div>
             </collapsible>
 
             @foreach($referentie_types as $rt)
-                <div class="mt-20">
-                    <h2 id="{{str_replace(' ', '_', $rt->title)}}">{{$rt->title}}&nbsp;
+                <div class="mt-20 p-6 bg-gray-50 rounded-lg">
+                    <h2 id="{{str_replace(' ', '_', $rt->title)}}" class="mb-4">
+                        {{$rt->title}}&nbsp;
                         @if($rt->match_perc)<span class="text-pink-600">{{$rt->match_perc}}%</span>@endif
                     </h2>
                     <p>{!! Purify::clean($rt->description) !!}</p>
-                    @if ($rt->title == config('app.actiewijzer.demonstrations_section_name'))
-                        <p><i>Demonstraties voor
+                    @if ($rt->title == config('app.actiewijzer.demonstrations_section_name') && $has_relevant_acties)
+                        <p class="mt-3"><i>Demonstraties voor
                             @if($themes->count() == 1) het thema @else de thema's @endif
                             @foreach($themes as $key=>$theme)
                                 <span class="underline underline-offset-2" style="text-decoration-color: {{ $theme->color }}; text-decoration-thickness: 4px;">
@@ -107,7 +128,7 @@
                             :limit="4"
                         >
                         </actie-agenda>
-                        <div class="flex items-center justify-center my-12">
+                        <div class="flex items-center justify-center mt-12">
                             <a href="{{ route('acties.agenda') . '?' . http_build_query(['themes' => array_column($themes->toArray(), 'id')])}}">
                                 <button class="secondary flex items-center hover:translate-x-[0.250rem]">
                                     <p class="text-lg">Bekijk alle Acties</p> 
@@ -126,7 +147,7 @@
                                     :max="3"
                                 />
                             </div>
-                            <div class="flex items-center justify-center my-12">
+                            <div class="flex items-center justify-center mt-12">
                                 <a href="{{ $rt->link . '?' . http_build_query(['themes' => array_column($themes->toArray(), 'id')])}}">
                                     <button class="secondary flex items-center hover:translate-x-[0.250rem]">
                                         <p class="text-lg">Bekijk alles van {{ $rt->title }}</p> 

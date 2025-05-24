@@ -117,7 +117,7 @@ class CookieConsent {
 	}
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-	window.cookieConsent = new CookieConsent()
-	window.cookieConsent.start()
-})
+// document.addEventListener('DOMContentLoaded', function () {
+// 	window.cookieConsent = new CookieConsent()
+// 	window.cookieConsent.start()
+// })

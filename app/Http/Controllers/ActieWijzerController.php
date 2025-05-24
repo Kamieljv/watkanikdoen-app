@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ScoreDimensionRequest;
 use App\Http\Requests\DeleteDimensionScoreRequest;
+use App\Models\Actie;
 use App\Models\Answer;
 use App\Models\Question;
 use App\Models\Dimension;
@@ -153,7 +154,14 @@ class ActieWijzerController extends Controller
         }
         $referentie_types = $referentie_types->sortByDesc('match_perc');
 
-        return view('actiewijzer.result', compact('themes', 'dimensions', 'referentie_types', 'routes'));
+        // Check if there are published and future actions in the selected themes
+        $has_relevant_acties = Actie::whereHas('themes', function (Builder $query) use ($themes) {
+            if ($themes->count() > 0) {
+                $query->whereIn('theme_id', $themes->pluck('id')->toArray());
+            }
+        })->published()->nietAfgelopen()->exists();
+
+        return view('actiewijzer.result', compact('themes', 'dimensions', 'referentie_types', 'routes', 'has_relevant_acties'));
     }
 
     public function referentie_type($slug, Request $request)

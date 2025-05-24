@@ -23,7 +23,7 @@
                             </h3>
                             <span class="text-sm font-bold text-[color:var(--wkid-pink)]">{{actie.start_date.toUpperCase()}}</span>
                             <div class="mb-2">
-                                <p class="text-sm leading-5 text-gray-900 line-clamp-2">
+                                <p class="text-sm leading-4 text-gray-900 line-clamp-2">
                                     {{ __("acties.by") }}
                                     <a :href="actie.organizers[0].link" class="font-medium hover:underline" style="color: inherit;">
                                         {{ actie.organizers[0].name }}</a>
@@ -32,35 +32,7 @@
                             </div>
                         </div>
                         <div>
-                            <ul v-if="actie.themes.length <= 1" class="themes-container w-full">
-                                <li
-                                    v-for="theme in actie.themes"
-                                    :key="theme.id"
-                                    class="relative self-start inline-block px-2 py-1 mr-1 text-xs font-medium uppercase bg-gray-100 rounded"
-                                    :style="{backgroundColor: theme.color}"
-                                >
-                                    <span class="text-white" rel="theme">
-                                        {{ theme.name }}
-                                    </span>
-                                </li>
-                            </ul>
-                            <ul v-else class="themes-container w-full">
-                                <li
-                                    class="relative self-start inline-block px-2 py-1 mr-1 text-xs font-medium uppercase bg-gray-100 rounded"
-                                    :style="{backgroundColor: actie.themes[0].color}"
-                                >
-                                    <span class="text-white" rel="theme">
-                                        {{ actie.themes[0].name }}
-                                    </span>
-                                </li>
-                                <li
-                                    class="relative self-start inline-block px-2 py-1 mr-1 text-xs font-medium uppercase bg-gray-100 rounded"
-                                >
-                                    <span class="text-gray-800" rel="theme">
-                                        +{{ actie.themes.length - 1 }}
-                                    </span>
-                                </li>
-                            </ul>
+                            <ThemesChips :themes="actie.themes" :max-visible="2" :show-plus-label="false" :compact="true"></ThemesChips>
                         </div>  
                     </div>
                 </div>

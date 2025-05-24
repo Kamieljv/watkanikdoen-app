@@ -13,6 +13,7 @@
 return [
     'title' => 'Welkom bij de ActieWijzer!',
     'description' => 'Ontdek welke acties bij jou passen met de ActieWijzer van Watkanikdoen.nl! Beantwoord de vragen en ontvang persoonlijke actiesuggesties.',
+    'promo_text' => 'Ontdek welke acties en organisaties bij jou passen met de <b>ActieWijzer</b>!',
     'keywords' => 'actiewijzer, acties, watkanikdoen.nl, wat kan ik doen, activisme, actievoeren, demonstreren, vrijwilligerswerk, petities',
     'fill_in_time' => 'Invultijd: 2 minuten',
     'privacy_notice' => 'We slaan geen gegevens van je op',

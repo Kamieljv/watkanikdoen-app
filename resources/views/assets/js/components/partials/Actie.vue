@@ -14,35 +14,9 @@
                     <div v-else class="h-[150px] bg-gray-300 text-gray-400 flex items-center justify-center">
                         <LogoIcon style="fill: currentColor; height: 80px;" />
                     </div>
-                    <ul v-if="actie.themes.length <= 2" class="themes-container flex flex-wrap p-2 absolute top-0 w-full">
-                        <li
-                            v-for="theme in actie.themes"
-                            :key="theme.id"
-                            class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-white uppercase bg-gray-100 rounded"
-                            :style="{backgroundColor: theme.color}"
-                        >
-                            <span class="text-white" rel="theme">
-                                {{ theme.name }}
-                            </span>
-                        </li>
-                    </ul>
-                    <ul v-else class="themes-container flex flex-wrap p-2 absolute top-0 w-full">
-                        <li
-                            class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-white after:uppercase bg-gray-100 rounded"
-                            :style="{backgroundColor: actie.themes[0].color}"
-                        >
-                            <span class="text-white" rel="theme">
-                                {{ actie.themes[0].name }}
-                            </span>
-                        </li>
-                        <li
-                            class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-white uppercase bg-gray-100 rounded"
-                        >
-                            <span class="text-gray-800" rel="theme">
-                                +{{ actie.themes.length - 1 }} thema's
-                            </span>
-                        </li>
-                    </ul>
+                    <div class="absolute top-0 p-2">
+                        <ThemesChips :themes="actie.themes" :max-visible="3"></ThemesChips>
+                    </div>
                     <div class="text-left p-2 absolute bottom-0 w-full">
                         <ul
                             class="categories-container flex flex-wrap"
