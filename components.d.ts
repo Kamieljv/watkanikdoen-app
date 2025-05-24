@@ -49,6 +49,7 @@ declare module 'vue' {
     SuccessBlock: typeof import('./resources/views/assets/js/components/partials/SuccessBlock.vue')['default']
     SuccessGIF: typeof import('./resources/views/assets/js/components/partials/SuccessGIF.vue')['default']
     ThemeQuestion: typeof import('./resources/views/assets/js/components/partials/ThemeQuestion.vue')['default']
+    ThemesChips: typeof import('./resources/views/assets/js/components/partials/ThemesChips.vue')['default']
     ToggleSwitch: typeof import('primevue/toggleswitch')['default']
     WidgetAgenda: typeof import('./resources/views/assets/js/components/apps/WidgetAgenda.vue')['default']
   }
