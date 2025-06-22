@@ -6,8 +6,10 @@ use App\Notifications\Mail\PasswordReset;
 use Illuminate\Notifications\Notifiable;
 use Lab404\Impersonate\Models\Impersonate;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Filament\Panel;
+use Filament\Models\Contracts\FilamentUser;
 
-class User extends \TCG\Voyager\Models\User implements JWTSubject
+class User extends \TCG\Voyager\Models\User implements JWTSubject, FilamentUser
 {
     use Notifiable;
     use Impersonate;
@@ -61,6 +63,17 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
     {
         // Any user that is not an admin can be impersonated
         return !$this->hasRole('admin');
+    }
+
+    /**
+     * Check if the user can access the Filament panel.
+     *
+     * @return bool
+     */
+    public function canAccessPanel(Panel $panel): bool
+    {
+        // Allow access to the Filament panel if the user is an admin or has the 'organizer' role
+        return $this->hasRole('admin');
     }
 
     public function hasAnnouncements()

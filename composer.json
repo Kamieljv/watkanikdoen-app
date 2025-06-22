@@ -1,10 +1,7 @@
 {
     "name": "laravel/laravel",
     "description": "The Laravel Framework.",
-    "keywords": [
-        "framework",
-        "laravel"
-    ],
+    "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
     "require": {
@@ -16,6 +13,7 @@
         "codeat3/blade-ant-design-icons": "^1.9",
         "codeat3/blade-clarity-icons": "^1.10",
         "darkaonline/l5-swagger": "^8.6",
+        "filament/filament": "^3.3",
         "guzzlehttp/guzzle": "^7.8",
         "intervention/image": "^2.7",
         "jenssegers/date": "^4.0",
@@ -75,7 +73,8 @@
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover"
+            "@php artisan package:discover",
+            "@php artisan filament:upgrade"
         ]
     },
     "config": {
