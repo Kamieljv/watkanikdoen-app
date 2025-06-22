@@ -18,6 +18,7 @@ return [
     'blog' => 'Blog',
     'acties' => 'Acties',
     'about_us' => 'Over ons',
+    'donate' => 'Doneren',
     'organizers' => 'Organisatoren',
     'hoe_werkt_het' => 'Hoe werkt het?',
     'welke_acties_plaatsen_we' => 'Welke acties plaatsen we?',
