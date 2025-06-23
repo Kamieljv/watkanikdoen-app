@@ -22,7 +22,7 @@
         "laravel/helpers": "^1.7",
         "laravel/tinker": "^2.9",
         "laravel/ui": "^4.5",
-        "livewire/livewire": "^3.4",
+        "livewire/livewire": "^3.6",
         "matanyadaev/laravel-eloquent-spatial": "^4.2",
         "mcordingley/linearalgebra": "^3.0",
         "mobiledetect/mobiledetectlib": "^4.8",
