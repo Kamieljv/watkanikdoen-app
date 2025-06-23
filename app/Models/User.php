@@ -8,8 +8,10 @@ use Lab404\Impersonate\Models\Impersonate;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Filament\Panel;
 use Filament\Models\Contracts\FilamentUser;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class User extends \TCG\Voyager\Models\User implements JWTSubject, FilamentUser
+class User extends Authenticatable implements JWTSubject, FilamentUser
 {
     use Notifiable;
     use Impersonate;
@@ -47,22 +49,15 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject, FilamentUser
         return $keyValue->value ?? '';
     }
 
-    /**
-     * @return bool
-     */
-    public function canImpersonate()
+    public function role(): HasOne
     {
-        // If user is admin they can impersonate
-        return $this->hasRole('admin');
+        return $this->hasOne(Role::class);
     }
 
-    /**
-     * @return bool
-     */
-    public function canBeImpersonated()
+    public function hasRole(string $role): bool
     {
-        // Any user that is not an admin can be impersonated
-        return !$this->hasRole('admin');
+        // Check if the user has the specified role
+        return $this->role()->where('name', $role)->exists();
     }
 
     /**
@@ -85,11 +80,6 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject, FilamentUser
             return false;
         }
         return !$this->announcements->contains($latest_announcement->id);
-    }
-
-    public function voyagerRoute($action)
-    {
-        return route('voyager.organizers.' . $action, $this->id);
     }
 
     public function announcements()
