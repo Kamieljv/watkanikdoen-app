@@ -110,7 +110,7 @@ const thumbOffset = computed(() => {
 })
 
 const updateWebkitProgress = () => {
-	const progress = ((value.value - props.min) / (props.max - props.min)) * 100 + "%"
+	const progress = Math.min(((value.value - props.min) / (props.max - props.min)) * 100, 100) + "%";
 	return rangeRef.value.style.setProperty("--webkit-progress", progress)
 }
 
