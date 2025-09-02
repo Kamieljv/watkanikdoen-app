@@ -34,7 +34,7 @@
 			</div>
 			<div class="absolute w-full top-1/2 -translate-y-2/4 flex flex-col mx-auto text-center items-center">
 				<h1>Wat is Watkanikdoen.nl?</h1>
-				<div class="w-full px-8 md:w-1/2 text-center font-medium mt-3">
+				<div class="w-full px-8 lg:w-1/2 text-center font-medium mt-3">
 					<p>
 						Wij geloven dat iedereen wel iets heeft om de straat voor op te gaan. 
 						Of het je nu gaat om de klimaatcrisis, institutioneel racisme of dierenrechten. Daarom ontwikkelen we digitale tools
@@ -101,7 +101,7 @@
 		<div id="newsletter-section" class="row relative mx-2 md:mx-3 my-10 rounded-2xl py-20 md:py-32 px-3 text-gray-800 overflow-hidden bg-gray-200">
 			<div class="flex flex-col mx-auto max-w-6xl px-3 items-center text-center">
 				<h1>Op de hoogte blijven van onze ontwikkelingen?</h1>
-				<div class="w-full px-8 md:w-1/2 text-center font-medium mt-3">
+				<div class="w-full px-8 lg:w-1/2 text-center font-medium mt-3">
 					<p>
 						Nieuwe features? Samenwerkingen? Een recap van de gaafste acties van de afgelopen periode?
 						We zijn begonnen met een nieuwsbrief, waarmee we abonnees op de hoogte houden van nieuwe ontwikkelingen
@@ -128,12 +128,12 @@
 	
 	#whoarewe-section {
 		position: relative;
-		background: var(--wkid-pink);  
-		background: linear-gradient(to top left, var(--wkid-pink), #91368b);  
+		background: var(--wkid-pink);
+		background: linear-gradient(to top left, var(--wkid-pink-90), #91368be6);
 	}
 	#stats-section {
 		background: var(--wkid-blue);  
-		background: linear-gradient(to top left, var(--wkid-blue), #ca467a);  
+		background: linear-gradient(to top left, var(--wkid-blue-90), #ca467ae6);  
 	}
 
 	.ball {
