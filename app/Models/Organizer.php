@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Organizer extends Model
 {
@@ -78,6 +79,11 @@ class Organizer extends Model
     public function linked_image()
     {
         return $this->hasOne(Image::class)->without('organizer');
+    }
+
+    public function tags(): MorphToMany
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
     }
     
     public function getPublishedAttribute()

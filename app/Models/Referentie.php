@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ReferentieType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Referentie extends Model
 {
@@ -39,6 +40,11 @@ class Referentie extends Model
     public function linked_image()
     {
         return $this->hasOne(Image::class)->without('referentie');
+    }
+
+    public function tags(): MorphToMany
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
     }
 
     public function voyagerRoute($action)
