@@ -34,7 +34,7 @@
 			</div>
 			<div class="absolute w-full top-1/2 -translate-y-2/4 flex flex-col mx-auto text-center items-center">
 				<h1>Wat is Watkanikdoen.nl?</h1>
-				<div class="w-full px-8 lg:w-1/2 text-center font-medium mt-3">
+				<div class="w-full px-8 lg:w-2/3 text-center font-medium mt-3">
 					<p>
 						Wij geloven dat iedereen wel iets heeft om de straat voor op te gaan. 
 						Of het je nu gaat om de klimaatcrisis, institutioneel racisme of dierenrechten. Daarom ontwikkelen we digitale tools
@@ -101,7 +101,7 @@
 		<div id="newsletter-section" class="row relative mx-2 md:mx-3 my-10 rounded-2xl py-20 md:py-32 px-3 text-gray-800 overflow-hidden bg-gray-200">
 			<div class="flex flex-col mx-auto max-w-6xl px-3 items-center text-center">
 				<h1>Op de hoogte blijven van onze ontwikkelingen?</h1>
-				<div class="w-full px-8 lg:w-1/2 text-center font-medium mt-3">
+				<div class="w-full px-8 lg:w-2/3 text-center font-medium mt-3">
 					<p>
 						Nieuwe features? Samenwerkingen? Een recap van de gaafste acties van de afgelopen periode?
 						We zijn begonnen met een nieuwsbrief, waarmee we abonnees op de hoogte houden van nieuwe ontwikkelingen
@@ -149,7 +149,7 @@
 			const step = (timestamp) => {
 				if (!startTimestamp) startTimestamp = timestamp;
 				const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-				obj.innerHTML = Math.floor(progress * (end - start) - start);
+				obj.innerHTML = Math.floor(progress * (end - start) + start);
 				if (progress < 1) {
 					window.requestAnimationFrame(step);
 				}
@@ -171,51 +171,5 @@
 		// Add observers to all stat elements
 		const stats = document.querySelectorAll('span.stat');
 		stats.forEach((s) => observer.observe(s));
-
-		// Background animation for stats
-		const colors = ["#ffffff"];
-
-		const numBalls = 10;
-		const balls = [];
-
-		for (let i = 0; i < numBalls; i++) {
-			let ball = document.createElement("div");
-			ball.classList.add("ball");
-			ball.style.background = colors[Math.floor(Math.random() * colors.length)];
-			ball.style.left = `${Math.floor(Math.random() * 100)}%`;
-			ball.style.top = `${Math.floor(Math.random() * 100)}%`;
-			ball.style.transform = `scale(${0.5+Math.random()})`;
-			ball.style.width = `${0.4+Math.random()}em`;
-			ball.style.height = ball.style.width;
-			
-			balls.push(ball);
-			document.getElementById('stats-section').appendChild(ball);
-		}
-
-		// Keyframes
-		balls.forEach((el, i, ra) => {
-			let to = {
-				x: Math.random() * (i % 2 === 0 ? -11 : 11),
-				y: Math.random() * (i % 2 === 0 ? -5 : 5)
-			};
-			let to2 = {
-				x: Math.random() * (i % 2 === 0 ? -11 : 11),
-				y: Math.random() * (i % 2 === 0 ? -5 : 5)
-			};
-
-			let anim = el.animate(
-				[
-					{ transform: "translate(0, 0)" },
-					{ transform: `translate(${to.x}rem, ${to.y}rem)` }
-				],
-				{
-					duration: (Math.random() + 1) * 2000, // random duration
-					direction: "alternate",
-					fill: "both",
-					iterations: Infinity,
-					easing: "ease-in-out"
-				}
-			);
-		});
     </script>
 @endpush
