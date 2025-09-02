@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Facades\DB;
 use MatanYadaev\EloquentSpatial\Traits\HasSpatial;
 use MatanYadaev\EloquentSpatial\Objects\Point;
@@ -225,6 +226,11 @@ class Actie extends Model
             return asset('storage/' . $image->storage_path);
         }
         return null;
+    }
+    
+    public function tags(): MorphToMany
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
     }
 
     public function getPublishedAttribute()
