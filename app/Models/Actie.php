@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Facades\DB;
 use Jenssegers\Date\Date;
 use TCG\Voyager\Traits\Spatial;
@@ -237,6 +238,11 @@ class Actie extends Model
     public function report()
     {
         return $this->hasOne(Report::class)->without('actie');
+    }
+
+    public function tags(): MorphToMany
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
     }
 
     public function getPublishedAttribute()
