@@ -1,5 +1,5 @@
 <template>
-    <ul v-if="themes.length <= maxVisible" class="flex flex-wrap">
+    <ul v-if="themes.length <= maxVisible" :class="`flex flex-wrap justify-${justify}`">
         <li v-for="theme in themes" :key="theme.id"
             class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-white uppercase bg-gray-100 rounded"
             :style="{ backgroundColor: theme.color }">
@@ -8,8 +8,8 @@
             </span>
         </li>
     </ul>
-    <ul v-else class="flex flex-wrap">
-        <li v-for="theme in themes.slice(0, maxVisible - 1)" class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-white uppercase bg-gray-100 rounded"
+    <ul v-else :class="`flex flex-wrap justify-${justify}`">
+        <li v-for="theme in themes.slice(0, maxVisible)" class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-white uppercase bg-gray-100 rounded"
             :style="{ backgroundColor: themes[0].color }">
             <span class="text-white" rel="theme">
                 {{ theme.name }}
@@ -18,7 +18,7 @@
         <li
             class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-white uppercase bg-gray-100 rounded">
             <span class="text-gray-800" rel="theme">
-                +{{ themes.length - maxVisible + 1 }}{{ showPlusLabel ? " thema's" : "" }}
+                +{{ themes.length - maxVisible }}{{ showPlusLabel ? " thema's" : "" }}
             </span>
         </li>
     </ul>
@@ -39,6 +39,10 @@ export default {
         showPlusLabel: {
             type: Boolean,
             default: true,
+        },
+        justify: {
+            type: String,
+            default: 'start',
         },
     },
 };

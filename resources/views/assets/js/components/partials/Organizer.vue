@@ -27,13 +27,13 @@
                 <div class="flex flex-1 flex-col overflow-hidden">
                     <p class="font-bold truncate">{{ organizer.name }}</p>
                     <p v-if="type === 'large'" class="text-sm line-clamp-2" v-html="organizer.description"></p>
-                    <div v-else-if="type === 'small' && showThemes" class="sm:hidden pt-2 flex space-x-1">
-                        <ThemesChips :themes="organizer.themes" :max-visible="2" :show-plus-label="false" />
+                    <div v-else-if="type === 'small' && showThemes" class="sm:hidden pt-2 flex space-x-1 justify-end">
+                        <ThemesChips :themes="organizer.themes" :max-visible="2" justify="end" :show-plus-label="false" />
                     </div>
                 </div>
             </div>
-            <div v-if="showThemes" class="hidden sm:flex w-full justify-end items-center">
-               <ThemesChips :themes="organizer.themes" />
+            <div v-if="showThemes" class="hidden sm:flex w-full items-center justify-end">
+               <ThemesChips :themes="organizer.themes" justify="end" />
             </div>
             <div v-if="mode == 'select' && selected" class="flex justify-end items-center">
                 <CheckIcon class="shrink-0" style="stroke: currentColor; width: 26px; height: 24px;" />

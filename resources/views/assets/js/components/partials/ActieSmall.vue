@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <div>
-                            <ThemesChips :themes="actie.themes" :max-visible="2" :show-plus-label="false" :compact="true"></ThemesChips>
+                            <ThemesChips :themes="actie.themes" :max-visible="1" :show-plus-label="false" :compact="true"></ThemesChips>
                         </div>  
                     </div>
                 </div>
