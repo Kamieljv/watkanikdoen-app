@@ -126,6 +126,9 @@ class ActieController extends VoyagerBaseController
             $radius = ($request->distance ?? 9999) * 1000;
             $query->whereRaw("ST_Distance_Sphere(location, ST_GeomFromText('POINT({$coordinates[1]} {$coordinates[0]})')) <= {$radius}");
         }
+        if ($request->slug) {
+            $query->where('slug', $request->slug);
+        }
 
         $query->published()->orderBy('start_date')->orderBy('start_time');
 
