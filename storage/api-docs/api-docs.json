@@ -127,6 +127,46 @@
                 }
             }
         },
+        "/acties/{slug}": {
+            "get": {
+                "tags": [
+                    "Acties"
+                ],
+                "summary": "Get a specific actie",
+                "operationId": "9a936ca675a8718627e36e9bc2526c97",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Actie slug",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/ActieResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Actie not found"
+                    }
+                }
+            }
+        },
         "/categories": {
             "get": {
                 "tags": [
@@ -162,6 +202,34 @@
                 }
             }
         },
+        "/categories/{slug}": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Get a single category by slug",
+                "operationId": "4107814491524836e9f18a029a7f42c3",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Category slug",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Category not found"
+                    }
+                }
+            }
+        },
         "/organizers": {
             "get": {
                 "tags": [
@@ -193,6 +261,34 @@
                 "responses": {
                     "200": {
                         "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/organizers/{slug}": {
+            "get": {
+                "tags": [
+                    "Organizers"
+                ],
+                "summary": "Get a specific organizer",
+                "operationId": "0583b8cd4dd4c8d6bcaa12c3184aa834",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Organizer slug",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Organizer not found"
                     }
                 }
             }
@@ -340,10 +436,6 @@
                         "example": "https://example.com/actie/climate-march"
                     },
                     "afgelopen": {
-                        "type": "boolean",
-                        "example": false
-                    },
-                    "disobedient": {
                         "type": "boolean",
                         "example": false
                     },

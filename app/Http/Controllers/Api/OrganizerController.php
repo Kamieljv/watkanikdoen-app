@@ -66,10 +66,26 @@ class OrganizerController extends BaseApiController
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param string $slug
-     * @return JsonResponse
+     * @OA\Get(
+     *     path="/organizers/{slug}",
+     *     summary="Get a specific organizer",
+     *     tags={"Organizers"},
+     *     @OA\Parameter(
+     *         name="slug",
+     *         in="path",
+     *         description="Organizer slug",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Organizer not found"
+     *     )
+     * )
      */
     public function show(string $slug): JsonResponse
     {

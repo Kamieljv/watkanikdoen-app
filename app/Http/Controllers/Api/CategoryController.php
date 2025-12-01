@@ -63,10 +63,26 @@ class CategoryController extends BaseApiController
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param string $slug
-     * @return JsonResponse
+     * @OA\Get(
+     *     path="/categories/{slug}",
+     *     summary="Get a single category by slug",
+     *     tags={"Categories"},
+     *     @OA\Parameter(
+     *         name="slug",
+     *         in="path",
+     *         description="Category slug",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Category not found"
+     *     )
+     * )
      */
     public function show(string $slug): JsonResponse
     {

@@ -160,10 +160,36 @@ class ActieController extends BaseApiController
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param string $slug
-     * @return JsonResponse
+     * @OA\Get(
+     *     path="/acties/{slug}",
+     *     summary="Get a specific actie",
+     *     tags={"Acties"},
+     *     @OA\Parameter(
+     *         name="slug",
+     *         in="path",
+     *         description="Actie slug",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="data",
+     *                     ref="#/components/schemas/ActieResource"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Actie not found"
+     *     )
+     * )
      */
     public function show(string $slug): JsonResponse
     {
