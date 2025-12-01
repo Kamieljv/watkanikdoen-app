@@ -15,6 +15,7 @@
         "blade-ui-kit/blade-icons": "^1.8",
         "codeat3/blade-ant-design-icons": "^1.9",
         "codeat3/blade-clarity-icons": "^1.10",
+        "darkaonline/l5-swagger": "^8.6",
         "guzzlehttp/guzzle": "^7.8",
         "intervention/image": "^2.7",
         "jenssegers/date": "^4.0",
@@ -84,12 +85,6 @@
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "pestphp/pest-plugin": true
-        }
-    },
-    "repositories": {
-        "hooks": {
-            "type": "composer",
-            "url": "https://larapack.io"
         }
     }
 }

@@ -4,7 +4,21 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use OpenApi\Annotations as OA;
 
+/**
+ * @OA\Schema(
+ *     schema="ThemeResource",
+ *     type="object",
+ *     title="Theme Resource",
+ *     @OA\Property(property="id", type="integer", example=1),
+ *     @OA\Property(property="name", type="string", example="Klimaat"),
+ *     @OA\Property(property="color", type="string", example="#00FF00"),
+ *     @OA\Property(property="slug", type="string", example="klimaat"),
+ *     @OA\Property(property="created_at", type="string", format="date-time"),
+ *     @OA\Property(property="updated_at", type="string", format="date-time")
+ * )
+ */
 class ThemeResource extends JsonResource
 {
     /**

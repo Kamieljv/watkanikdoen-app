@@ -4,7 +4,23 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use OpenApi\Annotations as OA;
 
+/**
+ * @OA\Schema(
+ *     schema="OrganizerResource",
+ *     type="object",
+ *     title="Organizer Resource",
+ *     @OA\Property(property="id", type="integer", example=1),
+ *     @OA\Property(property="name", type="string", example="Climate Action"),
+ *     @OA\Property(property="logo", type="string", example="/storage/logos/climate-action.png"),
+ *     @OA\Property(property="slug", type="string", example="climate-action"),
+ *     @OA\Property(property="description", type="string", nullable=true),
+ *     @OA\Property(property="website", type="string", nullable=true),
+ *     @OA\Property(property="created_at", type="string", format="date-time"),
+ *     @OA\Property(property="updated_at", type="string", format="date-time")
+ * )
+ */
 class OrganizerResource extends JsonResource
 {
     /**

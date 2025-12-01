@@ -7,14 +7,34 @@ use App\Models\Organizer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use OpenApi\Annotations as OA;
 
 class OrganizerController extends BaseApiController
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @param Request $request
-     * @return AnonymousResourceCollection
+     * @OA\Get(
+     *     path="/organizers",
+     *     summary="Get a list of organizers",
+     *     tags={"Organizers"},
+     *     @OA\Parameter(
+     *         name="per_page",
+     *         in="query",
+     *         description="Number of items per page (max 100)",
+     *         required=false,
+     *         @OA\Schema(type="integer", default=15)
+     *     ),
+     *     @OA\Parameter(
+     *         name="search",
+     *         in="query",
+     *         description="Search term",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation"
+     *     )
+     * )
      */
     public function index(Request $request): AnonymousResourceCollection
     {

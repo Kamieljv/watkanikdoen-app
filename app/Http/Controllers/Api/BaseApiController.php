@@ -4,6 +4,23 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
+use OpenApi\Annotations as OA;
+
+
+/**
+ * @OA\Info(
+ *   version="1.0.0",
+ *   title="Watkanikdoen.nl API",
+ *   description="API for Watkanikdoen.nl",
+ *   @OA\Contact(
+ *      email="info@watkanikdoen.nl"
+ *   ),
+ * )
+ * @OA\Server(
+ *   url="/api/v1",
+ *   description="API V1"
+ * )
+ */
 
 class BaseApiController extends Controller
 {

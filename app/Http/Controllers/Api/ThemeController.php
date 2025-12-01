@@ -7,14 +7,34 @@ use App\Models\Theme;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use OpenApi\Annotations as OA;
 
 class ThemeController extends BaseApiController
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @param Request $request
-     * @return AnonymousResourceCollection
+     * @OA\Get(
+     *     path="/themes",
+     *     summary="Get a list of themes",
+     *     tags={"Themes"},
+     *     @OA\Parameter(
+     *         name="per_page",
+     *         in="query",
+     *         description="Number of items per page (max 100)",
+     *         required=false,
+     *         @OA\Schema(type="integer", default=50)
+     *     ),
+     *     @OA\Parameter(
+     *         name="search",
+     *         in="query",
+     *         description="Search term",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation"
+     *     )
+     * )
      */
     public function index(Request $request): AnonymousResourceCollection
     {
@@ -43,10 +63,26 @@ class ThemeController extends BaseApiController
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param string $slug
-     * @return JsonResponse
+     * @OA\Get(
+     *     path="/themes/{slug}",
+     *     summary="Get a specific theme",
+     *     tags={"Themes"},
+     *     @OA\Parameter(
+     *         name="slug",
+     *         in="path",
+     *         description="Theme slug",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Theme not found"
+     *     )
+     * )
      */
     public function show(string $slug): JsonResponse
     {

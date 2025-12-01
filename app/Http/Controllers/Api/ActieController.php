@@ -7,14 +7,95 @@ use App\Models\Actie;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use OpenApi\Annotations as OA;
 
 class ActieController extends BaseApiController
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @param Request $request
-     * @return AnonymousResourceCollection
+     * @OA\Get(
+     *     path="/acties",
+     *     summary="Get a list of acties",
+     *     tags={"Acties"},
+     *     @OA\Parameter(
+     *         name="per_page",
+     *         in="query",
+     *         description="Number of items per page (max 100)",
+     *         required=false,
+     *         @OA\Schema(type="integer", default=15)
+     *     ),
+     *     @OA\Parameter(
+     *         name="upcoming",
+     *         in="query",
+     *         description="Filter by upcoming (true) or past (false) acties",
+     *         required=false,
+     *         @OA\Schema(type="boolean")
+     *     ),
+     *     @OA\Parameter(
+     *         name="theme",
+     *         in="query",
+     *         description="Filter by theme slug",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="category",
+     *         in="query",
+     *         description="Filter by category slug",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="organizer",
+     *         in="query",
+     *         description="Filter by organizer slug",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="search",
+     *         in="query",
+     *         description="Search term",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="sort_by",
+     *         in="query",
+     *         description="Sort by field (start_date, created_at, title, pageviews)",
+     *         required=false,
+     *         @OA\Schema(type="string", default="start_date")
+     *     ),
+     *     @OA\Parameter(
+     *         name="sort_order",
+     *         in="query",
+     *         description="Sort order (asc or desc)",
+     *         required=false,
+     *         @OA\Schema(type="string", default="asc")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="data",
+     *                     type="array",
+     *                     @OA\Items(ref="#/components/schemas/ActieResource")
+     *                 ),
+     *                 @OA\Property(
+     *                     property="links",
+     *                     type="object"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="meta",
+     *                     type="object"
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
      */
     public function index(Request $request): AnonymousResourceCollection
     {
