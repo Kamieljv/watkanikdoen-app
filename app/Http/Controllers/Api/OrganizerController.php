@@ -41,7 +41,8 @@ class OrganizerController extends BaseApiController
         $perPage = $request->input('per_page', 15);
         $perPage = min($perPage, 100); // Max 100 per page
 
-        $query = Organizer::query();
+        $query = Organizer::query()
+            ->published();
 
         // Search
         if ($request->has('search')) {
@@ -89,7 +90,10 @@ class OrganizerController extends BaseApiController
      */
     public function show(string $slug): JsonResponse
     {
-        $organizer = Organizer::where('slug', $slug)->first();
+        $organizer = Organizer::query()
+            ->where('slug', $slug)
+            ->published()
+            ->first();
 
         if (!$organizer) {
             return $this->sendError('Organizer not found', [], 404);

@@ -104,7 +104,14 @@ class ActieController extends BaseApiController
 
         $query = Actie::query()
             ->published()
-            ->with(['organizers', 'categories', 'themes', 'linked_image']);
+            ->with([
+                'organizers' => function ($query) {
+                    $query->published();
+                },
+                'categories',
+                'themes',
+                'linked_image'
+            ]);
 
         // Filter by upcoming/past
         if ($request->has('upcoming')) {
@@ -133,7 +140,8 @@ class ActieController extends BaseApiController
         // Filter by organizer
         if ($request->has('organizer')) {
             $query->whereHas('organizers', function ($q) use ($request) {
-                $q->where('organizers.slug', $request->input('organizer'));
+                $q->where('organizers.slug', $request->input('organizer'))
+                    ->where('organizers.status', 'PUBLISHED');
             });
         }
 
@@ -196,7 +204,14 @@ class ActieController extends BaseApiController
         $actie = Actie::query()
             ->where('slug', $slug)
             ->published()
-            ->with(['organizers', 'categories', 'themes', 'linked_image'])
+            ->with([
+                'organizers' => function ($query) {
+                    $query->published();
+                },
+                'categories',
+                'themes',
+                'linked_image'
+            ])
             ->first();
 
         if (!$actie) {
