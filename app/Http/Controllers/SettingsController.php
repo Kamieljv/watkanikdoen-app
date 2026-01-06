@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
-use TCG\Voyager\Http\Controllers\Controller;
 use Validator;
 
 class SettingsController extends Controller
@@ -71,7 +70,7 @@ class SettingsController extends Controller
         $ext = '.' . explode('/', mime_content_type($avatar))[1];
         $path = 'avatars/' . md5($user->name . $user->email . microtime()) . $ext;
         // Store the image on the server
-        Storage::disk(config('voyager.storage.disk'))->put($path, file_get_contents($avatar));
+        Storage::disk('public')->put($path, file_get_contents($avatar));
         // Create entry in db
         Image::create([
             'path' => $path,
@@ -85,7 +84,7 @@ class SettingsController extends Controller
         if (auth()->user()->id !== (int) $id) {
             abort(403, 'Unauthorized action.');
         } else {
-            if (Storage::disk(config('voyager.storage.disk'))->delete(auth()->user()->linked_image->path)) {
+            if (Storage::disk('public')->delete(auth()->user()->linked_image->path)) {
                 auth()->user()->linked_image()->delete();
                 $type = 'success';
                 $message = __("settings.profile.avatar_delete_success");

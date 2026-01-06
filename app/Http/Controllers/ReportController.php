@@ -107,7 +107,7 @@ class ReportController extends Controller
                 $ext = '.' . explode('/', mime_content_type($request->report['image']))[1];
                 $path = 'reports/' . md5($request->report['title'] . microtime()) . $ext;
                 // Store the image on the server
-                Storage::disk(config('voyager.storage.disk'))->put($path, file_get_contents($request->report['image']));
+                Storage::disk('public')->put($path, file_get_contents($request->report['image']));
                 // Create entry in db
                 Image::create([
                     'path' => $path,
@@ -173,7 +173,7 @@ class ReportController extends Controller
         if ($report->image) {
             $newImagePath = 'acties/' . explode("/", $report->image)[1];
             try {
-                Storage::disk(config('voyager.storage.disk'))->copy($report->image, $newImagePath);
+                Storage::disk('public')->copy($report->image, $newImagePath);
             } catch (\Throwable $e) {
                 return back()
                     ->with([
