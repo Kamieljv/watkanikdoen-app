@@ -127,7 +127,9 @@ class ReportController extends Controller
 
         // Send email notification to admin
         if(config('app.debug') == false){
-            $admin = User::where('username', 'admin')->first();
+            $admin = User::whereHas('roles', function ($q) {
+                $q->where('name', 'admin');
+            })->first();
             $admin->notify(new ReportReceived($report));
         }
         return response([

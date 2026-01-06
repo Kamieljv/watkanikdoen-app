@@ -3,18 +3,22 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
+use App\Models\Role;
 use App\Models\User;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 
 class UserResource extends Resource
@@ -27,8 +31,6 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('role_id')
-                    ->numeric(),
                 TextInput::make('name')
                     ->required()
                     ->maxLength(191),
@@ -36,18 +38,11 @@ class UserResource extends Resource
                     ->email()
                     ->required()
                     ->maxLength(191),
-                TextInput::make('avatar')
-                    ->maxLength(191)
-                    ->default('users/default.png'),
-                TextInput::make('username')
-                    ->required()
-                    ->maxLength(191),
-                TextInput::make('password')
-                    ->password()
-                    ->required()
-                    ->maxLength(191),
                 Toggle::make('verified'),
                 DateTimePicker::make('email_verified_at'),
+                Select::make('role')
+                    ->relationship(name: 'roles', titleAttribute: 'name')
+                    ->required()
             ]);
     }
 
@@ -55,38 +50,31 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('role_id')
-                    ->numeric()
-                    ->sortable(),
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('email')
                     ->searchable(),
-                TextColumn::make('avatar')
-                    ->searchable(),
-                TextColumn::make('username')
+                TextColumn::make('roles.name')
+                    ->label('Role')
                     ->searchable(),
                 IconColumn::make('verified')
                     ->boolean(),
-                TextColumn::make('verification_code')
-                    ->searchable(),
-                TextColumn::make('email_verified_at')
-                    ->dateTime()
-                    ->sortable(),
                 TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->dateTime(),
             ])
             ->filters([
-                //
+                Filter::make('admin')
+                    ->query(fn ($query) => $query->whereHas('roles', fn ($q) => $q->where('name', 'admin')))
+                    ->label('Admin Users'),
+                Filter::make('unverified')
+                    ->query(fn ($query) => $query->where('verified', false))
+                    ->label('Unverified Users'),
             ])
             ->actions([
-                EditAction::make(),
+                ActionGroup::make([
+                    EditAction::make(),
+                    DeleteAction::make(),
+                ]),
             ])
             ->bulkActions([
                 BulkActionGroup::make([

@@ -86,27 +86,11 @@ class RegisterController extends Controller
             $verified = 0;
         }
 
-        if (isset($data['username']) && !empty($data['username'])) {
-            $username = $data['username'];
-        } elseif (isset($data['name']) && !empty($data['name'])) {
-            $username = str_slug($data['name']);
-        } else {
-            $username = $this->getUniqueUsernameFromEmail($data['email']);
-        }
-
-        $username_original = $username;
         $counter = 1;
-
-        while (User::where('username', '=', $username)->first()) {
-            $username = $username_original . (string)$counter;
-            $counter += 1;
-        }
-
 
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'username' => $username,
             'password' => bcrypt($data['password']),
             'role_id' => $role->id,
             'verification_code' => $verification_code,
@@ -188,26 +172,4 @@ class RegisterController extends Controller
         return view('auth.register-complete');
     }
 
-    public function getUniqueUsernameFromEmail($email)
-    {
-        $username = strtolower(trim(str_slug(explode('@', $email)[0])));
-
-        $new_username = $username;
-
-        $user_exists = User::where('username', '=', $username)->first();
-        $counter = 1;
-        while (isset($user_exists->id)) {
-            $new_username = $username . $counter;
-            $counter += 1;
-            $user_exists = User::where('username', '=', $new_username)->first();
-        }
-
-        $username = $new_username;
-
-        if (strlen($username) < 4) {
-            $username = $username . uniqid();
-        }
-
-        return strtolower($username);
-    }
 }
