@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Storage;
 use Jenssegers\Date\Date;
 use Stevebauman\Purify\Facades\Purify;
 use Validator;
-use Voyager;
 
 class ReportController extends Controller
 {
@@ -139,13 +138,8 @@ class ReportController extends Controller
 
     public function approve($id)
     {
-        $dataTypeReports = Voyager::model('DataType')->where('slug', '=', 'reports')->first();
-        $dataTypeActies = Voyager::model('DataType')->where('slug', '=', 'acties')->first();
-
         // Check permissions
-        $this->authorize('edit', app($dataTypeReports->model_name));
-        // Check permissions
-        $this->authorize('add', app($dataTypeActies->model_name));
+        auth()->user()->can(['edit_reports', 'add_acties']);
 
         // get report data
         $report = Report::findOrFail($id);

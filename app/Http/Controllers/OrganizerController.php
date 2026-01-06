@@ -8,7 +8,6 @@ use App\Models\User;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Voyager;
 
 
 class OrganizerController extends Controller
@@ -94,10 +93,8 @@ class OrganizerController extends Controller
 
     public function approve($id)
     {
-        $dataTypeOrganizers = Voyager::model('DataType')->where('slug', '=', 'organizers')->first();
-
         // Check permissions
-        $this->authorize('edit', app($dataTypeOrganizers->model_name));
+        auth()->user()->can('edit_organizers');
 
         // get report data
         $organizer = Organizer::findOrFail($id);
@@ -134,11 +131,8 @@ class OrganizerController extends Controller
 
     public function publish($id)
     {
-        $dataTypeOrganizers = Voyager::model('DataType')->where('slug', '=', 'organizers')->first();
-
         // Check permissions
-        $this->authorize('edit', app($dataTypeOrganizers->model_name));
-
+        auth()->user()->can('edit_organizers');
         // get report data
         $organizer = Organizer::findOrFail($id);
 

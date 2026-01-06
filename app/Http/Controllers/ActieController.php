@@ -9,10 +9,8 @@ use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use TCG\Voyager\Http\Controllers\VoyagerBaseController;
-use Voyager;
 
-class ActieController extends VoyagerBaseController
+class ActieController extends Controller
 {
     public function agenda(Request $request)
     {
@@ -144,10 +142,8 @@ class ActieController extends VoyagerBaseController
 
     public function publish($id)
     {
-        $dataTypeActies = Voyager::model('DataType')->where('slug', '=', 'acties')->first();
-
         // Check permissions
-        $this->authorize('edit', app($dataTypeActies->model_name));
+        auth()->user()->can('edit_acties');
 
         // get report data
         $actie = Actie::findOrFail($id);
