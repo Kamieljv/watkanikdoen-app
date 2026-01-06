@@ -9,7 +9,7 @@
     $defaultCenter = old('location') &&
         (old('location')['lat'] !== NULL)
             ? [old('location')]
-            : [['lat' => config('voyager.maps.center.lat'), 'lng' => config('voyager.maps.center.lng')]];
+            : [['lat' => config('app.maps.center.lat'), 'lng' => config('app.maps.center.lng')]];
 @endphp
 
 @section('content')
@@ -26,7 +26,7 @@
             <Add-Actie
                 :routes="{{ json_encode($routes) }}"
                 :default-center="{{ json_encode($defaultCenter) }}"
-                :zoom={{ config('voyager.maps.zoom') }}
+                :zoom={{ config('app.maps.zoom') }}
                 :min-password-length="{{ config('app.auth.min_password_length') }}"
                 h-captcha-key="{{ env('H_CAPTCHA_KEY') }}"
                 :user="{{ auth()->user() ? auth()->user() : '{}' }}"
