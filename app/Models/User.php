@@ -10,11 +10,13 @@ use Filament\Panel;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements JWTSubject, FilamentUser
 {
     use Notifiable;
     use Impersonate;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -49,25 +51,25 @@ class User extends Authenticatable implements JWTSubject, FilamentUser
         return $keyValue->value ?? '';
     }
 
-    public function role(): HasOne
+    /**
+     * Legacy Voyager role relationship - kept for backward compatibility
+     * Will be deprecated after migration to Spatie permissions
+     */
+    public function voyagerRole(): HasOne
     {
-        return $this->hasOne(Role::class);
-    }
-
-    public function hasRole(string $role): bool
-    {
-        // Check if the user has the specified role
-        return $this->role()->where('name', $role)->exists();
+        return $this->hasOne(Role::class, 'id', 'role_id');
     }
 
     /**
      * Check if the user can access the Filament panel.
+     * Uses Spatie's HasRoles trait hasRole() method
      *
      * @return bool
      */
     public function canAccessPanel(Panel $panel): bool
     {
-        // Allow access to the Filament panel if the user is an admin or has the 'organizer' role
+        // Allow access to the Filament panel if the user is an admin
+        // After migration, this will use Spatie's hasRole() method
         return $this->hasRole('admin');
     }
 
