@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use App\Notifications\Mail\VerifyEmail;
 use App\Rules\ValidHCaptcha;
@@ -12,7 +13,6 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
-use TCG\Voyager\Models\Role;
 
 class RegisterController extends Controller
 {
@@ -76,7 +76,7 @@ class RegisterController extends Controller
      */
     public function create(array $data)
     {
-        $role = Role::where('name', '=', config('voyager.user.default_role'))->first();
+        $role = Role::where('name', '=', config('permission.default_role'))->first();
 
         $verification_code = null;
         $verified = 1;

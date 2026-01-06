@@ -7,9 +7,7 @@ use App\Actions\Publish;
 use App\Actions\View;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
-use TCG\Voyager\Actions\ViewAction;
 use Throwable;
-use Voyager;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,10 +22,6 @@ class AppServiceProvider extends ServiceProvider
             $this->app['request']->server->set('HTTPS', true);
         }
         $this->setSchemaDefaultLength();
-
-        Voyager::addAction(Approve::class);
-        Voyager::addAction(Publish::class);
-        Voyager::replaceAction(ViewAction::class, View::class);
     }
 
     /**

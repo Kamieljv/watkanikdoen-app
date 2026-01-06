@@ -2,9 +2,8 @@
 
 namespace App\Actions;
 
-use TCG\Voyager\Actions\AbstractAction;
 
-class Approve extends AbstractAction
+class Approve
 {
     public function getTitle()
     {

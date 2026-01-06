@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
+use App\Traits\Spatial;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Jenssegers\Date\Date;
-use TCG\Voyager\Traits\Spatial;
-use Voyager;
 
 class Actie extends Model
 {

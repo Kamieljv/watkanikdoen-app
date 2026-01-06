@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Voyager;
 
 class Image extends Model
 {
@@ -33,7 +32,8 @@ class Image extends Model
 
     public function getUrlAttribute()
     {
-        return Voyager::image($this->path);
+        // TODO: implement image from storage
+        return '';
     }
 
     public function user()

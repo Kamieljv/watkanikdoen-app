@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Voyager;
 
 class Post extends Model
 {
@@ -19,7 +18,8 @@ class Post extends Model
 
     public function image()
     {
-        return Voyager::image($this->image);
+        // TODO: implement image from storage
+        return '';
     }
 
     public function category()

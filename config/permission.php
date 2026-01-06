@@ -97,6 +97,11 @@ return [
     ],
 
     /*
+     * Set the default role for new users
+     */
+    'default_role' => 'basic',
+
+    /*
      * When set to true, the method for checking permissions will be registered on the gate.
      * Set this to false if you want to implement custom logic for checking permissions.
      */

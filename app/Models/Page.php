@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Voyager;
 
 class Page extends Model
 {
@@ -14,6 +13,7 @@ class Page extends Model
 
     public function image()
     {
-        return Voyager::image($this->image);
+        // TODO: implement image from storage
+        return '';
     }
 }

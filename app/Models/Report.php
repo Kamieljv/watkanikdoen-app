@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
+use App\Traits\Spatial;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use TCG\Voyager\Traits\Spatial;
-use Voyager;
 
 class Report extends Model
 {

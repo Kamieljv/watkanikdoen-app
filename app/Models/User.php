@@ -52,15 +52,6 @@ class User extends Authenticatable implements JWTSubject, FilamentUser
     }
 
     /**
-     * Legacy Voyager role relationship - kept for backward compatibility
-     * Will be deprecated after migration to Spatie permissions
-     */
-    public function voyagerRole(): HasOne
-    {
-        return $this->hasOne(Role::class, 'id', 'role_id');
-    }
-
-    /**
      * Check if the user can access the Filament panel.
      * Uses Spatie's HasRoles trait hasRole() method
      *
