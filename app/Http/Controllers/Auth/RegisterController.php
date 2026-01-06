@@ -81,7 +81,7 @@ class RegisterController extends Controller
         $verification_code = null;
         $verified = 1;
 
-        if (setting('auth.verify_email', false)) {
+        if (config('app.verify_email', false)) {
             $verification_code = str_random(30);
             $verified = 0;
         }
@@ -98,7 +98,7 @@ class RegisterController extends Controller
             'trial_ends_at' => null,
         ]);
 
-        if (setting('auth.verify_email', false)) {
+        if (config('app.verify_email')) {
             $this->sendVerificationEmail($user);
         }
 
@@ -146,7 +146,7 @@ class RegisterController extends Controller
 
         session(['email' => $user->email]);
 
-        if (setting('auth.verify_email')) {
+        if (config('app.verify_email')) {
             if ($request->expectsJson()) {
                 return response([
                     'status' => 'success',

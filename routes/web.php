@@ -37,7 +37,6 @@ Route::get('register/complete', [RegisterController::class, 'complete'])->name('
 
 // Include voyager routes and some custom admin routes
 Route::group(['prefix' => 'admin'], function () {
-    Voyager::routes();
     Route::get('report/approve/{id}', [ReportController::class, 'approve'])->name('report.approve');
     Route::get('organizer/approve/{id}', [OrganizerController::class, 'approve'])->name('organizer.approve');
     Route::get('actie/publish/{id}', [ActieController::class, 'publish'])->name('actie.publish');

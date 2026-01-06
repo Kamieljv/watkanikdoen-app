@@ -59,7 +59,7 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        if (setting('auth.verify_email') && !$user->verified) {
+        if (config('app.verify_email') && !$user->verified) {
             // If user email is not verified, log out and
             $this->guard()->logout();
             return False;

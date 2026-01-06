@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Watkanikdoen.nl'),
 
     /*
     |--------------------------------------------------------------------------
@@ -55,6 +55,18 @@ return [
     'url' => env('APP_URL', 'http://localhost'),
 
     'asset_url' => env('ASSET_URL', null),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Verify Email Addresses
+    |--------------------------------------------------------------------------
+    |
+    | This option controls whether the application requires email verification
+    | for new users upon registration. If set to true, users will need to
+    | verify their email addresses before they can access certain features.
+    |
+    */
+    'verify_email' => env('VERIFY_EMAIL', true),
 
     /*
     |--------------------------------------------------------------------------
