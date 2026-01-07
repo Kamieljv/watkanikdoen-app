@@ -72,7 +72,7 @@
                                 {{ __("blog.written_by") }}<a href="#" class="hover:underline">{{ $post->user->name }}</a>
                             </p>
                             <div class="flex text-sm leading-5 text-gray-500">
-				 			{{ __("general.on") }} <time datetime="{{ Carbon\Carbon::parse($post->created_at)->toIso8601String() }}" class="ml-1">{{ Date::parse($post->created_at)->format("j F Y") }}</time>
+				 			{{ __("general.on") }} <time datetime="{{ Carbon\Carbon::parse($post->created_at)->toIso8601String() }}" class="ml-1">{{ \Carbon\Carbon::parse($post->created_at)->translatedFormat("j F Y") }}</time>
                             </div>
                         </div>
                     </div>

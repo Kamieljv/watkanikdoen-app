@@ -35,7 +35,7 @@ Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('user/verify/{verification_code}', [RegisterController::class, 'verify'])->name('verify');
 Route::get('register/complete', [RegisterController::class, 'complete'])->name('registration.complete');
 
-// Include voyager routes and some custom admin routes
+// Custom admin routes
 Route::group(['prefix' => 'admin'], function () {
     Route::get('report/approve/{id}', [ReportController::class, 'approve'])->name('report.approve');
     Route::get('organizer/approve/{id}', [OrganizerController::class, 'approve'])->name('organizer.approve');

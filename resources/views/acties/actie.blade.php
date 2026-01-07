@@ -79,7 +79,7 @@
                                     <span class="flex items-center mt-0 italic text-sm font-normal">
                                         @if (isset($actie->updated_at))
                                             {{ __('acties.last_edit') }}:
-                                            {{ Date::parse($actie->updated_at)->diffForHumans() }}
+                                            {{ \Carbon\Carbon::parse($actie->updated_at)->diffForHumans() }}
                                         @else
                                             {{ __('acties.created_at') }}: {{ $actie->created_at }}
                                         @endif
@@ -289,7 +289,7 @@
                         <div class="flex justify-between mb-4">
                             <span class="flex items-center mt-0 italic text-sm font-normal">
                                 @if (isset($actie->updated_at))
-                                    {{ __('acties.last_edit') }}: {{ Date::parse($actie->updated_at)->diffForHumans() }}
+                                    {{ __('acties.last_edit') }}: {{ \Carbon\Carbon::parse($actie->updated_at)->diffForHumans() }}
                                 @else
                                     {{ __('acties.created_at') }}: {{ $actie->created_at }}
                                 @endif

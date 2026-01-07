@@ -15,7 +15,6 @@
         "filament/filament": "^4.4",
         "guzzlehttp/guzzle": "^7.10",
         "intervention/image": "^3.11",
-        "jenssegers/date": "^2.0",
         "lab404/laravel-impersonate": "^1.7",
         "laravel/helpers": "^1.8",
         "laravel/tinker": "^2.11",

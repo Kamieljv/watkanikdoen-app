@@ -68,7 +68,7 @@
                                         </td>
                                         {{-- Date Reported --}}
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {{ Date::parse($report->created_at)->diffForHumans() }}
+                                            {{ \Carbon\Carbon::parse($report->created_at)->diffForHumans() }}
                                         </td>
                                         {{-- Status --}}
                                         @php

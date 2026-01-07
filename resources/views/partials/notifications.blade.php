@@ -60,7 +60,7 @@
                                     </div>
                                 </a>
                                 <div class="flex space-x-3 w-full items-center justify-left mt-2 text-xs font-medium leading-5 text-gray-500">
-                                    <span class="notification-datetime">{{ Date::parse(@$notification->created_at)->diffForHumans() }}</span>
+                                    <span class="notification-datetime">{{ \Carbon\Carbon::parse(@$notification->created_at)->diffForHumans() }}</span>
                                     <span>•</span>
                                     <span data-id="{{ $notification->id }}" data-listid="{{ $index+1 }}" class="flex justify-start text-xs text-gray-500 cursor-pointer hover:text-gray-700 mark-as-read hover:underline">
                                         <svg class="absolute w-4 h-4 mt-1 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>

@@ -9,12 +9,12 @@ use App\Models\Report;
 use App\Models\User;
 use App\Notifications\Mail\ReportReceived;
 use App\Rules\Website;
+use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
-use Jenssegers\Date\Date;
 use Stevebauman\Purify\Facades\Purify;
 use Validator;
 
@@ -95,10 +95,10 @@ class ReportController extends Controller
                 'title' => $request->report['title'],
                 'body' => $request->report['body'] ? Purify::clean($request->report['body']) : null,
                 'externe_link' => $request->report['actionUrls'],
-                'start_date' => Date::parse($request->report['start_date'])->format('Y-m-d'),
-                'end_date' => Date::parse($request->report['end_date'])->format('Y-m-d'),
-                'start_time' => isset($request->report['start_time']) ? Date::parse($request->report['start_time'])->format('H:i') : null,
-                'end_time' => isset($request->report['end_time']) ? Date::parse($request->report['end_time'])->format('H:i') : null,
+                'start_date' => Carbon::parse($request->report['start_date'])->format('Y-m-d'),
+                'end_date' => Carbon::parse($request->report['end_date'])->format('Y-m-d'),
+                'start_time' => isset($request->report['start_time']) ? Carbon::parse($request->report['start_time'])->format('H:i') : null,
+                'end_time' => isset($request->report['end_time']) ? Carbon::parse($request->report['end_time'])->format('H:i') : null,
                 'location' => isset($request->report['location']) ?
                     DB::raw("ST_GeomFromText('POINT({$request->report['location']['lng']} {$request->report['location']['lat']})')") : null,
                 'location_human' => $request->report['location_human'],

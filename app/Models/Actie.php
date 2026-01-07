@@ -3,11 +3,10 @@
 namespace App\Models;
 
 use App\Traits\Spatial;
-
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use Jenssegers\Date\Date;
 
 class Actie extends Model
 {
@@ -98,49 +97,49 @@ class Actie extends Model
 
     public function getStartAttribute()
     {
-        return Date::parse($this->start_date . " " . $this->start_time);
+        return Carbon::parse($this->start_date . " " . $this->start_time);
     }
 
     public function getEndAttribute()
     {
-        return Date::parse($this->end_date . " " . $this->end_time);
+        return Carbon::parse($this->end_date . " " . $this->end_time);
     }
 
     public function getStartEndAttribute()
     {
         if ($this->start_date && $this->end_date) {
-            $start = Date::parse($this->start_date . " " . $this->start_time);
-            $end = Date::parse($this->end_date . " " . $this->end_time);
+            $start = Carbon::parse($this->start_date . " " . $this->start_time);
+            $end = Carbon::parse($this->end_date . " " . $this->end_time);
             
             if ($this->start_date == $this->end_date) {
                 // start and end on same day
                 if ($this->start_time && $this->end_time) {
-                    return $start->format('j M Y, G:i') . '-' . $end->format('G:i');
+                    return $start->translatedFormat('j M Y, G:i') . '-' . $end->translatedFormat('G:i');
                 } else if ($this->start_time) {
-                    return $start->format('j M Y, G:i');
+                    return $start->translatedFormat('j M Y, G:i');
                 } else {
-                    return $start->format('j M Y');
+                    return $start->translatedFormat('j M Y');
                 }
             } else if ($start->diffInDays($end) < 3) {
                 // start and end < 3 days difference
                 if ($this->start_time && $this->end_time) {
-                    return $start->format('j M Y, G:i') . ' ' . __('general.until') . ' ' . $end->format('j M Y, G:i');
+                    return $start->translatedFormat('j M Y, G:i') . ' ' . __('general.until') . ' ' . $end->translatedFormat('j M Y, G:i');
                 } else if ($this->start_time) {
-                    return $start->format('j M Y, G:i') . ' ' . __('general.until') . ' ' . $end->format('j M Y');
+                    return $start->translatedFormat('j M Y, G:i') . ' ' . __('general.until') . ' ' . $end->translatedFormat('j M Y');
                 } else {
-                    return $start->format('j M Y');
+                    return $start->translatedFormat('j M Y');
                 }
             } else {
                 // start and end >= 3 days difference
-                return $start->format('j M Y') . ' ' . __('general.until') . ' ' . $end->format('j M Y');
+                return $start->translatedFormat('j M Y') . ' ' . __('general.until') . ' ' . $end->translatedFormat('j M Y');
             }
         }
         else if ($this->start_date) {
-            $start = Date::parse($this->start_date . " " . $this->start_time);
+            $start = Carbon::parse($this->start_date . " " . $this->start_time);
             if ($this->start_time) {
-                return $start->format('j M Y, G:i');
+                return $start->translatedFormat('j M Y, G:i');
             } else {
-                return $start->format('j M Y');
+                return $start->translatedFormat('j M Y');
             }
         } else {
             return null;
@@ -149,7 +148,7 @@ class Actie extends Model
 
     public function getStartUnixAttribute()
     {
-        return Date::parse($this->start_date . " " . $this->start_time)->timestamp;
+        return Carbon::parse($this->start_date . " " . $this->start_time)->timestamp;
     }
 
     public function getPageviewsTextAttribute()
@@ -248,16 +247,16 @@ class Actie extends Model
     {
         if ($this->end_time === null) {
             // if end_time is not set, take the end of the day
-            return Date::parse($this->end_date . " " . "23:59:59")->timestamp < time();
+            return Carbon::parse($this->end_date . " " . "23:59:59")->timestamp < time();
         }
-        return Date::parse($this->end_date . " " . $this->end_time)->timestamp < time();
+        return Carbon::parse($this->end_date . " " . $this->end_time)->timestamp < time();
     }
 
     public function scopeNietAfgelopen($query)
     {
         // check if end_time is defined
-        return $query->whereRaw("STR_TO_DATE(CONCAT(end_date, ' ', end_time), '%Y-%m-%d %H:%i:%s') > '" . Date::now()->toDateTimeString() . "'")
-            ->orWhereRaw("(end_time is NULL AND STR_TO_DATE(end_date, '%Y-%m-%d') >= '" . Date::now()->toDateString() . "')");
+        return $query->whereRaw("STR_TO_DATE(CONCAT(end_date, ' ', end_time), '%Y-%m-%d %H:%i:%s') > '" . Carbon::now()->toDateTimeString() . "'")
+            ->orWhereRaw("(end_time is NULL AND STR_TO_DATE(end_date, '%Y-%m-%d') >= '" . Carbon::now()->toDateString() . "')");
     }
 
     public function scopePublished($query)

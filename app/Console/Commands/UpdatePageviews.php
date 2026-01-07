@@ -8,8 +8,8 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Notification;
-use Jenssegers\Date\Date;
 
+use Carbon\Carbon;
 
 class UpdatePageviews extends Command
 {
@@ -56,8 +56,8 @@ class UpdatePageviews extends Command
             
             // make metrics request
             $response = Http::withToken($token)->get(config('umami.url') . '/api/websites/' . config('umami.websiteId') . '/metrics', [
-                'startAt' => Date::createFromDate(2000, 01, 01)->timestamp * 1000,
-                'endAt' => Date::now()->timestamp * 1000,
+                'startAt' => Carbon::createFromDate(2000, 01, 01)->timestamp * 1000,
+                'endAt' => Carbon::now()->timestamp * 1000,
                 'type' => 'url'
             ]);
             // declare pagestats and filter for acties only
