@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Auth\MustVerifyEmail;
-use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\Mail\SubscriberVerifyEmail;
 
 class Subscriber extends Model
 {
+    use HasFactory;
     use Notifiable;
 
     protected $table = 'subscribers';
