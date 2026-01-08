@@ -15,10 +15,10 @@ class DatabaseSeeder extends Seeder
     {
         // Base Seeders
         $this->call(RolesTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
         $this->call(PermissionsTableSeeder::class);
         $this->call(ModelHasRolesTableSeeder::class);
         $this->call(RoleHasPermissionsTableSeeder::class);
-        $this->call(UsersTableSeeder::class);
         $this->call(AnnouncementsTableSeeder::class);
         $this->call(NotificationsTableSeeder::class);
         $this->call(PagesTableSeeder::class);
