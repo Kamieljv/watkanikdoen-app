@@ -7,7 +7,6 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TimePicker;
 use Filament\Schemas\Schema;
 
@@ -38,8 +37,9 @@ class ReportForm
                 RichEditor::make('body')
                     ->required()
                     ->columnSpanFull(),
-                Textarea::make('externe_link')
+                TextInput::make('externe_link')
                     ->required()
+                    ->url()
                     ->columnSpanFull(),
                 DatePicker::make('start_date'),
                 TimePicker::make('start_time'),
