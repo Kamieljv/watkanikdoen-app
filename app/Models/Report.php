@@ -53,6 +53,53 @@ class Report extends Model
         return route('voyager.organizers.' . $action, $this->id);
     }
 
+    /**
+     * Accessor that mimics Eloquent dynamic property.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getOrganizersAttribute()
+    {
+        if (!$this->relationLoaded('organizers')) {
+            $organizers = Organizer::whereIn('id', $this->organizer_ids)->get();
+
+            $this->setRelation('organizers', $organizers);
+        }
+
+        return $this->getRelation('organizers');
+    }
+
+    /**
+     * Access organizers relation query.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function organizers()
+    {
+        return Organizer::whereIn('id', $this->organizer_ids);
+    }
+
+    /**
+     * Accessor for organizer_ids property.
+     *
+     * @return array
+     */
+    public function getOrganizerIdsAttribute($commaSeparatedIds)
+    {
+        return explode(',', $commaSeparatedIds);
+    }
+
+    /**
+     * Mutator for organizer_ids property.
+     *
+     * @param  array|string $ids
+     * @return void
+     */
+    public function setOrganizerIdsAttribute($ids)
+    {
+        $this->attributes['organizer_ids'] = is_string($ids) ? $ids : implode(',', $ids);
+    }
+
     public function getCoordinatesAttribute()
     {
         return $this->location;
