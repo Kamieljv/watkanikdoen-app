@@ -19,7 +19,7 @@ class SubscriberResource extends Resource
 {
     protected static ?string $model = Subscriber::class;
 
-    protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedNewspaper;
 
     protected static string | UnitEnum | null $navigationGroup = 'Accounts';
 
