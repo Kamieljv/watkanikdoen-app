@@ -25,6 +25,11 @@ class PageResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'Page';
 
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
     public static function form(Schema $schema): Schema
     {
         return PageForm::configure($schema);

@@ -256,6 +256,11 @@ class Actie extends Model
         return $query->where('status', 'PUBLISHED');
     }
 
+    public function isPublished(): bool
+    {
+        return $this->status === 'PUBLISHED';
+    }
+
     public function publish()
     {
         $this->status = 'PUBLISHED';

@@ -13,4 +13,14 @@ class CreateActie extends CreateRecord
     {
         return $this->getResource()::getUrl('index');
     }
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        // If latitude and longitude are set, create a point geometry
+        if (!empty($data['latitude']) && !empty($data['longitude'])) {
+            $data['location'] = \DB::raw("ST_GeomFromText('POINT(" . $data['longitude'] . " " . $data['latitude'] . ")')");
+        }
+
+        return $data;
+    }
 }

@@ -21,4 +21,14 @@ class EditActie extends EditRecord
     {
         return $this->getResource()::getUrl('index');
     }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        // If location is set, create a point geometry
+        if (!empty($data['location'])) {
+            $data['location'] = \DB::raw("ST_GeomFromText('POINT(" . $data['location']['lng'] . " " . $data['location']['lat'] . ")')");
+        }
+
+        return $data;
+    }
 }

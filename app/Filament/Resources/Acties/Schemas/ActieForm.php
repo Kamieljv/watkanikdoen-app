@@ -2,14 +2,22 @@
 
 namespace App\Filament\Resources\Acties\Schemas;
 
+use App\Models\Actie;
+use Dotswan\MapPicker\Fields\Map;
+use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Str;
 
 class ActieForm
 {
@@ -17,38 +25,84 @@ class ActieForm
     {
         return $schema
             ->components([
-                TextInput::make('user_id')
-                    ->required()
-                    ->numeric(),
                 TextInput::make('title')
-                    ->required(),
+                    ->live()
+                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                    ->required()
+                    ->maxLength(255),
                 Textarea::make('excerpt')
                     ->columnSpanFull(),
-                Textarea::make('body')
+                RichEditor::make('body')
                     ->required()
                     ->columnSpanFull(),
-                Textarea::make('keywords')
-                    ->columnSpanFull(),
-                Textarea::make('externe_link')
+                TagsInput::make('externe_link')
+                    ->label('External link')
+                    ->separator(',')
                     ->required()
+                    ->nestedRecursiveRules([
+                        'min:3',
+                        'max:255',
+                        'url',
+                    ])
                     ->columnSpanFull(),
-                DatePicker::make('start_date'),
-                TimePicker::make('start_time'),
-                DatePicker::make('end_date'),
-                TimePicker::make('end_time'),
-                TextInput::make('location'),
-                TextInput::make('location_human'),
-                FileUpload::make('image')
-                    ->image(),
-                Toggle::make('disobedient'),
-                TextInput::make('slug')
-                    ->required(),
-                Select::make('status')
-                    ->options(['PUBLISHED' => 'P u b l i s h e d', 'DRAFT' => 'D r a f t', 'PENDING' => 'P e n d i n g'])
-                    ->default('DRAFT')
-                    ->required(),
-                TextInput::make('pageviews')
-                    ->numeric(),
+                FileUpload::make('linked_image')
+                    ->image()
+                    ->imageEditor()
+                    ->columnSpan(2),
+                Section::make('Datum en tijd')
+                    ->schema([
+                        DatePicker::make('start_date'),
+                        TimePicker::make('start_time'),
+                        DatePicker::make('end_date'),
+                        TimePicker::make('end_time'),
+                    ])
+                    ->columnSpan(1),
+                Section::make('Locatie')
+                    ->schema([
+                        Toggle::make('no_specific_location')
+                            ->label('This action has no specific location')
+                            ->reactive()
+                            ->afterStateUpdated(function (Set $set, ?bool $state): void {
+                                if ($state) {
+                                    $set('location', null);
+                                    $set('latitude', null);
+                                    $set('longitude', null);
+                                }
+                            }),
+                        TextInput::make('latitude')
+                            ->hidden(),
+                        TextInput::make('longitude')
+                            ->hidden(),
+                        Map::make('location')
+                            ->label('Coördinaten')
+                            ->defaultLocation(latitude: 52.373165, longitude: 4.895716)
+                            ->afterStateUpdated(function (Set $set, ?array $old, ?array $state): void {
+                                $set('latitude', $state['lat']);
+                                $set('longitude', $state['lng']);
+                            })
+                            ->afterStateHydrated(function ($state, $record, $set): void {
+                                $set('location', ['lat' => $record?->latitude, 'lng' => $record?->longitude]);
+                            })
+                            ->hidden(fn ($get) => $get('no_specific_location')),
+                        TextInput::make('location_human')
+                            ->label('Location')
+                            ->required()
+                            ->maxLength(255),
+                    ])
+                    ->columnSpan(1),
+                Section::make('SEO & Publishing settings')
+                    ->schema([
+                        TextInput::make('slug')
+                            ->required()
+                            ->maxLength(255)
+                            ->unique(Actie::class, 'slug', fn ($record) => $record)
+                            ->disabled(fn (?string $operation, ?Actie $record) => $operation == 'edit' && $record->isPublished()),
+                        Select::make('status')
+                            ->options(['PUBLISHED' => 'Published', 'DRAFT' => 'Draft', 'PENDING' => 'Pending'])
+                            ->default('DRAFT')
+                            ->required(),
+                    ])
+                    ->columnSpan(2),
             ]);
     }
 }

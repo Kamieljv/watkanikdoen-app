@@ -7,6 +7,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\BooleanColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
@@ -31,6 +32,11 @@ class ReportsTable
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable(),
+                ImageColumn::make('linked_image.url')
+                    ->label('Image')
+                    ->square()
+                    ->height(50)
+                    ->width(50),
                 TextColumn::make('status')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {

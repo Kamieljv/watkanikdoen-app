@@ -17,16 +17,28 @@ class ActiesTable
         return $table
             ->columns([
                 TextColumn::make('title')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('start')
                     ->getStateUsing(fn ($record) => $record->start_date . ' ' . $record->start_time)
                     ->dateTime('j M Y H:i')
                     ->sortable(),
                 TextColumn::make('location_human')
+                    ->label('Location')
                     ->searchable(),
-                ImageColumn::make('image'),
+                ImageColumn::make('linked_image.url')
+                    ->label('Image')
+                    ->square()
+                    ->height(50)
+                    ->width(50),
                 TextColumn::make('status')
-                    ->badge(),
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'DRAFT' => 'secondary',
+                        'PUBLISHED' => 'success',
+                        'PENDING' => 'info',
+                    })
+                    ->sortable(),
                 TextColumn::make('pageviews')
                     ->numeric()
                     ->sortable(),

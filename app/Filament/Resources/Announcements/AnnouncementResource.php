@@ -25,6 +25,11 @@ class AnnouncementResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'Announcement';
 
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
     public static function form(Schema $schema): Schema
     {
         return AnnouncementForm::configure($schema);

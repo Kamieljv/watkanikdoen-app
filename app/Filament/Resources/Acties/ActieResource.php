@@ -19,11 +19,16 @@ class ActieResource extends Resource
 {
     protected static ?string $model = Actie::class;
 
-    protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedMegaphone;
 
     protected static string | UnitEnum | null $navigationGroup = 'Acties & Organisatoren';
 
     protected static ?string $recordTitleAttribute = 'Actie';
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 
     public static function form(Schema $schema): Schema
     {

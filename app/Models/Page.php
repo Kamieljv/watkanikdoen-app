@@ -34,4 +34,9 @@ class Page extends Model
     {
         return $this->belongsTo(User::class, 'author_id');
     }
+
+    public function isPublished(): bool
+    {
+        return $this->status === 'PUBLISHED';
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Pages\Schemas;
 
+use App\Models\Page;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
@@ -33,7 +34,10 @@ class PageForm
                 FileUpload::make('image')
                     ->image(),
                 TextInput::make('slug')
-                    ->required(),
+                    ->required()
+                    ->maxLength(255)
+                    ->unique(Page::class, 'slug', fn ($record) => $record)
+                    ->disabled(fn (?string $operation, ?Page $record) => $operation == 'edit' && $record->isPublished()),
                 Section::make('SEO & Publishing settings')
                     ->schema([
                         Textarea::make('meta_description')
