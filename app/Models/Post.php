@@ -6,12 +6,27 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+
+    public $fillable = [
+        'author_id',
+        'category_id',
+        'title',
+        'seo_title',
+        'excerpt',
+        'body',
+        'image',
+        'slug',
+        'meta_description',
+        'meta_keywords',
+        'status',
+        'featured',
+    ];
     public function link()
     {
         return url('/blog/' . $this->category->slug . '/' . $this->slug);
     }
 
-    public function user()
+    public function author()
     {
         return $this->belongsTo(User::class, 'author_id');
     }
@@ -25,5 +40,10 @@ class Post extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function isPublished(): bool
+    {
+        return $this->status === 'PUBLISHED';
     }
 }

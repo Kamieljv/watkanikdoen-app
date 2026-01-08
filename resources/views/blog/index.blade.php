@@ -64,12 +64,12 @@
                 <div class="flex items-center p-6 bg-gray-50">
                         <div class="flex-shrink-0">
                             <a href="#">
-                                <img class="w-10 h-10 rounded-full" src="{{ $post->user->avatar_path }}" alt="">
+                                <img class="w-10 h-10 rounded-full" src="{{ $post->author->avatar_path }}" alt="">
                             </a>
                         </div>
                         <div class="ml-3">
                             <p class="text-sm font-medium leading-5 text-gray-900">
-                                {{ __("blog.written_by") }}<a href="#" class="hover:underline">{{ $post->user->name }}</a>
+                                {{ __("blog.written_by") }}<a href="#" class="hover:underline">{{ $post->author->name }}</a>
                             </p>
                             <div class="flex text-sm leading-5 text-gray-500">
 				 			{{ __("general.on") }} <time datetime="{{ Carbon\Carbon::parse($post->created_at)->toIso8601String() }}" class="ml-1">{{ \Carbon\Carbon::parse($post->created_at)->translatedFormat("j F Y") }}</time>
