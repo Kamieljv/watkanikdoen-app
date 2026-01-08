@@ -26,6 +26,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->brandLogo(fn () => view('filament.admin.logo'))
             ->login()
             ->revealablePasswords(false)
             ->colors([
