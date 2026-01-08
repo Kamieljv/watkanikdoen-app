@@ -2,11 +2,27 @@
 
 namespace Database\Seeders;
 
+use App\Models\Image;
 use DB;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
 {
+
+    protected static function getImageMap(): array
+    {
+        // list the image files in /storage/app/public/avatars starting with seed_
+        $storagePath = storage_path('app/public/avatars');
+        $imageFiles = [];
+        if (file_exists($storagePath)) {
+            $files = glob($storagePath . '/seed_*.png');
+            foreach ($files as $file) {
+                $imageFiles[] = 'avatars/' . basename($file);
+            }
+        }
+        return $imageFiles;
+    }
+
     /**
      * Auto generated seed file
      *
@@ -46,5 +62,13 @@ class UsersTableSeeder extends Seeder
                 'updated_at' => '2022-01-27 14:59:38',
             ),
         ));
+
+        // Add an avatar to the non-admin user
+        $user = \App\Models\User::find(2);
+        $imageMap = $this->getImageMap();
+        Image::create([
+            'path' => !empty($imageMap) ? $imageMap[array_rand($imageMap)] : null,
+            'user_id' => $user->id,
+        ]);
     }
 }

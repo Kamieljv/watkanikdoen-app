@@ -45,10 +45,6 @@ class ActieFactory extends Factory
         'DRAFT',
     ];
 
-    protected static $image_map = [
-        null
-    ];
-
     protected static $keywords_map = [
         'demonstratie',
         'actie'
@@ -94,7 +90,7 @@ class ActieFactory extends Factory
             'end_time' => $end_date->format('H:i:s'),
             'location' => DB::raw($point_string),
             'location_human' => $location_human,
-            'image' => $this->faker->randomElement(static::$image_map),
+            'image' => null,
             'slug' => $slug,
             'keywords' => $this->faker->randomElement(static::$keywords_map), // slug fied is unique. This is a provisory solution
             'disobedient' => 0,

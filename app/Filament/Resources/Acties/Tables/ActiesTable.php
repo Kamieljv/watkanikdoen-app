@@ -1,45 +1,34 @@
 <?php
 
-namespace App\Filament\Resources\Reports\Tables;
+namespace App\Filament\Resources\Acties\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Actions\ViewAction;
-use Filament\Tables\Columns\BooleanColumn;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 
-class ReportsTable
+class ActiesTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
                 TextColumn::make('title')
-                    ->sortable()
                     ->searchable(),
                 TextColumn::make('start')
                     ->getStateUsing(fn ($record) => $record->start_date . ' ' . $record->start_time)
                     ->dateTime('j M Y H:i')
                     ->sortable(),
-                TextColumn::make('organizer_names')
-                    ->getStateUsing(fn ($record) => $record->organizers->pluck('name')->join(', '))
-                    ->label('Organizers')
-                    ->sortable(),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable(),
+                TextColumn::make('location_human')
+                    ->searchable(),
+                ImageColumn::make('image'),
                 TextColumn::make('status')
-                    ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        'PENDING' => 'info',
-                        'APPROVED' => 'success',
-                        'REJECTED' => 'danger',
-                    })
-                    ->sortable(),
-                BooleanColumn::make('reporter_notified')
+                    ->badge(),
+                TextColumn::make('pageviews')
+                    ->numeric()
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
@@ -51,13 +40,10 @@ class ReportsTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                Filter::make('pending')
-                    ->query(fn ($query) => $query->where('status', 'PENDING'))
-                    ->label('Pending Reports'),
+                //
             ])
             ->recordActions([
                 EditAction::make(),
-                ViewAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

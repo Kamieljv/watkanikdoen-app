@@ -32,8 +32,7 @@ class Image extends Model
 
     public function getUrlAttribute()
     {
-        // TODO: implement image from storage
-        return '';
+        return asset('storage/' . $this->path);
     }
 
     public function user()

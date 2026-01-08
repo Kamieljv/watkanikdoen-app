@@ -44,15 +44,15 @@ class ResetMigrations extends Command
         $this->info('Clearing all rows from migrations table...');
         DB::table('migrations')->truncate();
 
-        if ($this->confirm('Do you want to re-run all migrations? [yes/no]', false)) {
+        if ($this->confirm('Do you want to re-run all migrations?', false)) {
             $this->info('Re-running all migrations...');
             Artisan::call('migrate', ['--force' => true]);
             $this->info('All migrations have been reset and re-run successfully.');
         }
 
-        if ($this->confirm('Do you want to re-seed the database? [yes/no]', false)) {
+        if ($this->confirm('Do you want to re-seed the database?', false)) {
             $this->info('Re-seeding the database...');
-            Artisan::call('db:seed', ['--force' => true]);
+            Artisan::call('db:seed', ['--force' => true], $this->getOutput());
             $this->info('Database seeding complete.');
         }
 

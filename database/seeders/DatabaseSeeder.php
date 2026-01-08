@@ -13,6 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // Get some sample images
+        $this->call(SampleImagesSeeder::class);
+        
         // Base Seeders
         $this->call(RolesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
