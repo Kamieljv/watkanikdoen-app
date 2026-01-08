@@ -15,21 +15,16 @@ class DatabaseSeeder extends Seeder
     {
         // Base Seeders
         $this->call(RolesTableSeeder::class);
+        $this->call(PermissionsTableSeeder::class);
+        $this->call(ModelHasRolesTableSeeder::class);
+        $this->call(RoleHasPermissionsTableSeeder::class);
         $this->call(UsersTableSeeder::class);
-        $this->call(UserRolesTableSeeder::class);
         $this->call(AnnouncementsTableSeeder::class);
-        $this->call(DataTypesTableSeeder::class);
-        $this->call(DataRowsTableSeeder::class);
-        $this->call(MenusTableSeeder::class);
-        $this->call(MenuItemsTableSeeder::class);
         $this->call(NotificationsTableSeeder::class);
         $this->call(PagesTableSeeder::class);
         $this->call(PasswordResetsTableSeeder::class);
         $this->call(PermissionsTableSeeder::class);
-        $this->call(PermissionRoleTableSeeder::class);
-        $this->call(PermissionGroupsTableSeeder::class);
         $this->call(PostsTableSeeder::class);
-        $this->call(TranslationsTableSeeder::class);
         $this->call(JobsTableSeeder::class);
 
         // Custom Model Seeders
@@ -53,6 +48,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ReferentiesTableFactorySeeder::class);
         $this->call(ReferentieThemeTableSeeder::class);
 
-        $this->call(SubscribersTableSeeder::class);
+        $this->call(SubscribersTableFactorySeeder::class);
+        $this->call(ModelHasRolesTableSeeder::class);
+        $this->call(RoleHasPermissionsTableSeeder::class);
     }
 }

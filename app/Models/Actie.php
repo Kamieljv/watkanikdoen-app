@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-use App\Traits\Spatial;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use MatanYadaev\EloquentSpatial\Traits\HasSpatial;
 
 class Actie extends Model
 {
-    use Spatial;
+    use HasSpatial;
     use HasFactory;
 
     protected $spatial = ['location'];
@@ -165,15 +165,7 @@ class Actie extends Model
 
     public function getgeolocAttribute()
     {
-        $coords = $this->getCoordinates();
-        if (count($coords) === 0) {
-            return null;
-        } else { 
-            return [
-                'lat' => floatval($coords[0]['lat']),
-                'lng' => floatval($coords[0]['lng'])
-            ];
-        }
+        return $this->location;
     }
 
     public function setExterneLinkAttribute($value)

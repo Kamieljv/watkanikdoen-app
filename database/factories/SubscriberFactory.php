@@ -2,12 +2,11 @@
 
 namespace Database\Factories;
 
-use App\Models\Actie;
+use App\Models\Subscriber;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\DB;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Actie>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Subscriber>
  */
 class SubscriberFactory extends Factory
 {

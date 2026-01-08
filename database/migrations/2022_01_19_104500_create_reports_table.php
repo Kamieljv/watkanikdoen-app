@@ -22,7 +22,7 @@ class CreateReportsTable extends Migration
             $table->text('externe_link');
             $table->dateTime('time_start');
             $table->dateTime('time_end');
-            $table->point('location')->nullable();
+            $table->geometry('location', subtype: 'point')->nullable();
             $table->string('location_human');
             $table->string('image')->nullable();
             $table->enum('status', ['PENDING', 'APPROVED', 'REJECTED'])->default('PENDING');

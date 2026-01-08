@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Referentie extends Model
 {
-    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
     use HasFactory;
 
     protected $table = 'referenties';

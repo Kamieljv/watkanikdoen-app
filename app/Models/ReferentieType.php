@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Log;
 
 class ReferentieType extends Model
 {
-    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
-    
     protected $table = 'referentie_types';
 
     protected $appends = [

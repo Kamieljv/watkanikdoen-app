@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use App\Traits\Spatial;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use MatanYadaev\EloquentSpatial\Traits\HasSpatial;
 
 class Report extends Model
 {
-    use Spatial;
+    use HasSpatial;
     use HasFactory;
     
     protected $spatial = ['location'];
@@ -55,8 +55,7 @@ class Report extends Model
 
     public function getCoordinatesAttribute()
     {
-        $coords = $this->getCoordinates();
-        return (count($coords) === 0) ? null : $coords[0];
+        return $this->location;
     }
 
     public function approve()
