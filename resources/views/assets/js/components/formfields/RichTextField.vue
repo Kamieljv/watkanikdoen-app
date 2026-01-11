@@ -1,6 +1,6 @@
 <template>
-    <div class="rich-text-editor rounded-md mt-1 p-1 border">
-        <div v-if="editor" class="menu flex flex-row space-x-1 pb-2 border-b">
+    <div class="rich-text-editor rounded-md mt-1 p-1 border border-gray-200">
+        <div v-if="editor" class="menu flex flex-row space-x-1 pb-2 border-b border-gray-200">
             <button :disabled="disabled" @click="editor.chain().focus().toggleBold().run()" :class="{ 'is-active': editor.isActive('bold') }" tabindex="-1">
                 <BoldIcon style="fill: currentColor;"/>
             </button>

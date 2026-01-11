@@ -6,7 +6,7 @@
                 <Transition name="slide" mode="out-in" appear>
                     <div v-if="activeStep.key === 'start'" class="p-8 bg-white rounded-md shadow-md min-h-[400px]"
                         :key="0">
-                        <h2>Een actie toevoegen</h2>
+                        <h2 class="mb-3">Een actie toevoegen</h2>
                         <p>Super dat je een actie wilt toevoegen! Op deze manier werk je met ons mee om de
                             website volledig te maken.
                             Om een actie toe te voegen vragen we je om in te loggen of een account aan te maken.
@@ -23,7 +23,7 @@
                     </div>
                     <div v-else-if="activeStep.key === 'organizer'"
                         class="p-8 bg-white rounded-md shadow-md min-h-[400px]" :key="1">
-                        <h2>Kies organisator(en)</h2>
+                        <h2 class="mb-3">Kies organisator(en)</h2>
                         <OrganizerForm 
                             v-model="selectedOrganizers"
                             :routes="routes" 
@@ -31,7 +31,7 @@
                     </div>
                     <div v-else-if="activeStep.key === 'actie'"
                         class="p-8 bg-white rounded-md shadow-md min-h-[400px]" :key="2">
-                        <h2>Actiedetails beschrijven</h2>
+                        <h2 class="mb-3">Actiedetails beschrijven</h2>
                         <ActieForm ref="actieFormRef" v-model="report"
                             :default-center="('location' in report) ? [report.location] : defaultCenter"
                             :zoom="zoom">
@@ -39,7 +39,7 @@
                     </div>
                     <div v-else-if="activeStep.key === 'user'"
                         class="p-8 bg-white rounded-md shadow-md min-h-[400px]" :key="3">
-                        <h2>Wie ben jij?</h2>
+                        <h2 class="mb-3">Wie ben jij?</h2>
                         <div class="col-span-2">
                             We willen je graag op de hoogte houden van de status van je aanmeldingen 
                             en je hier eventueel vragen over stellen. 
@@ -52,7 +52,7 @@
                         class="flex flex-col justify-between p-8 bg-white rounded-md shadow-md min-h-[400px]"
                         :key="4">
                         <div>
-                            <h2>Bevestig en verzend je actie</h2>
+                            <h2 class="mb-3">Bevestig en verzend je actie</h2>
                             <p>Ben je helemaal klaar? Klik dan op 'Verzenden'.
                                 <br /><br />
                                 We gaan zo snel mogelijk aan de slag om je inzending te toetsen aan onze <a
@@ -233,10 +233,6 @@ const authDone = (userId) => {
 
 </script>
 <style scoped>
-h2 {
-    @apply mb-3;
-}
-
 .slide-enter-active,
 .slide-leave-active {
     transition: all 0.25s ease-in-out;

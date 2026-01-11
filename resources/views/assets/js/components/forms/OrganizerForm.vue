@@ -4,9 +4,9 @@
             Wie is de organisator van je actie? Kies één of meerdere organisatoren uit de lijst. 
             Kun je de juiste organisator niet vinden? Dan kun je deze zelf toevoegen met het formulier.
         </p>
-        <div class="grid grid-cols-1 md:grid-cols-5 max-w-6xl mx-auto flex-col my-6 md:divide-x">
-            <div class="col-span-2 space-y-3">
-                <div class="flex flex-col justify-start flex-1 overflow-hidden bg-white border-gray-150">
+        <div class="grid grid-cols-1 md:grid-cols-5 max-w-6xl mx-auto flex-col my-6 md:divide-x divide-gray-600">
+            <div class="col-span-2 space-y-3 border-gray-200">
+                <div class="flex flex-col justify-start flex-1 overflow-hidden bg-white border-gray-200">
                     <div class="flex flex-col mt-5 md:pr-5">
                         <h3 class="text-lg font-medium leading-6 text-gray-900">
                             Kies een organisator uit onze lijst
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="col-span-3 space-y-3">
-                <div class="flex flex-col justify-start flex-1 overflow-hidden bg-white border-gray-150">
+                <div class="flex flex-col justify-start flex-1 overflow-hidden bg-white border-gray-200">
                     <div class="flex flex-col mt-5 md:pl-5">
                         <h3 class="text-lg font-medium leading-6 text-gray-900">
                             Of voeg de organisator zelf toe
@@ -72,8 +72,8 @@
                             <span v-if="error" role="alert">{{error}}</span>
                         </div>
                         <div class="flex mt-5 justify-end">
-                            <a @click="addOrganizer" class="primary add-button">
-                                <AddLineIcon class="shrink-0" style="stroke: currentColor;" />
+                            <a @click="addOrganizer" class="primary bg-green-600 hover:bg-green-500 focus:outline-none focus:border-green-700 active:bg-green-700 flex items-center">
+                                <AddLineIcon class="shrink-0 h-5 w-[17px] mr-[5px]" style="stroke: currentColor;" />
                                 {{ __('general.add') }}
                             </a>
                         </div>
@@ -82,7 +82,7 @@
             </div>
         </div>
         <div class="max-w-6xl mx-auto flex-col my-6">
-            <div class="flex flex-col justify-start flex-1 overflow-hidden bg-white border-gray-150">
+            <div class="flex flex-col justify-start flex-1 overflow-hidden bg-white border-gray-200">
                 <div class="flex flex-col mt-5">
                     <h3 class="text-lg font-medium leading-6 text-gray-900">
                         Geselecteerde Organisatoren
@@ -90,7 +90,7 @@
                     <p class="text-sm leading-5 text-gray-500 mt">
                         Klik op een organisator om uit de selectie te verwijderen.
                     </p>
-                    <hr class="mt-2"/>
+                    <hr class="mt-2 border-gray-200"/>
                 </div>
                 <div v-if="organizersSelected.length > 0" class="flex flex-col mt-5">
                     <Organizer
@@ -189,15 +189,3 @@ watch(organizersSelected, (value) => {
 })
 
 </script>
-
-<style lang="scss" scoped>
-    .add-button {
-        @apply bg-green-600 hover:bg-green-500 focus:outline-none focus:border-green-700 active:bg-green-700;
-
-        & svg {
-            height: 20px;
-            width: 17px;
-            margin-right: 5px;
-        }
-    }
-</style>

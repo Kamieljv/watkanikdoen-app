@@ -13,7 +13,7 @@
 						:clearable="true"
 						:full-height="true"
 						autofocus
-						classes="block w-full h-full px-3 py-2 transition duration-100 ease-in-out border rounded shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed text-black placeholder-gray-400 bg-white border-gray-300 focus:border-blue-500"
+						classes="block w-full h-full px-3 py-2 transition duration-100 ease-in-out border rounded shadow-sm disabled:opacity-50 disabled:cursor-not-allowed text-black placeholder-gray-400 bg-white border-gray-300"
 					/>
                     <MultiSelect
 						v-if="themes.length > 0"
@@ -129,10 +129,10 @@
 			<template v-slot:footer>
 				<div class="flex justify-end">
 					<a :href="currentReferentie.url" target="_blank">
-						<button class="btn text-xl pink items-center" type="button">
+						<button class="btn pink items-center" type="button">
 							<LinkIcon class="w-4 h-4 mr-1" fill="currentColor" />
 							{{ __('general.go_to')}}&nbsp;
-							<span class="font-extrabold">{{ simplifyUrl(currentReferentie.url) }}</span>
+							<span>{{ simplifyUrl(currentReferentie.url) }}</span>
 						</button>
 					</a>
 				</div>

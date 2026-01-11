@@ -4,7 +4,7 @@
             <div class="flex flex-col justify-between max-w-6xl mx-auto my-6 p-8 bg-white rounded-md shadow-md min-h-[400px]">
                 <div>
                     <h1 class="mb-1">{{ __('actiewijzer.title') }}</h1>
-                    <h3 class="font-normal text-gray-700 text-lg mt-2 md:mt-3 md:text-2xl">{{ __('actiewijzer.description') }}</h3>
+                    <p class="text-gray-700 text-lg mt-2 md:mt-3 md:text-2xl">{{ __('actiewijzer.description') }}</p>
                 </div>
                 <div>
                     <div v-if="urlFromStorage" class="flex flex-col md:flex-row gap-3 justify-between items-end md:items-center bg-blue-200 p-3 mt-8 md:mt-0 mb-4 rounded-md">
@@ -175,10 +175,6 @@ const computeDimensionScores = () => {
 
 </script>
 <style scoped>
-    h2 {
-        @apply mb-3;
-    }
-    
     .slide-enter-active {
         transition: all 0.5s ease-in-out;
     }

@@ -11,7 +11,7 @@
 					<template v-slot:icon>
 						<FilterIcon class="w-6 h-6 text-gray-500"/>
 					</template>
-					<div id="filter-wrapper" class="col grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-5">
+					<div id="filter-wrapper" class="grid gap-3 grid-cols-1 sm:grid-cols-2 md:grid-cols-5">
 						<FormField
                             v-model="query"
 							:value="query"
@@ -58,16 +58,18 @@
 							:delay="400"
 							:disabled="!coordinatesPresent"
 						/>
-						<div class="flex items-center space-x-3">
-							<ToggleSwitch
-								v-model="showPast"
-								name="showPast"
-							/>
-							<label class="text-sm text-gray-600" for="showPast">Toon ook acties in het verleden</label>
+						<div class="col-span-1 sm:col-span-2 md:col-span-5 flex sm:flex-row flex-col sm:h-9 sm:items-center justify-between space-y-3 sm:space-y-0">
+							<div class="flex items-center space-x-3">
+								<ToggleSwitch
+									v-model="showPast"
+									name="showPast"
+								/>
+								<label class="text-sm text-gray-600" for="showPast">Toon ook acties in het verleden</label>
+							</div>
+							<button v-on:click="resetFilters" v-if="filterCount" class="gray uppercase">
+								Filter(s) wissen
+							</button>
 						</div>
-						<button v-on:click="resetFilters" v-if="filterCount" class="gray uppercase">
-							Filter(s) wissen
-						</button>
 					</div>
 				</Collapsible>
             </div>
@@ -212,10 +214,10 @@ const heeftActies = computed(() => {
 const actiesFormatted = computed(() => {
 	acties.value.forEach((actie) => {
 		actie.body = actie.body.replace(/(<([^>]+)>)/gi, "")
-		if (actie._geoloc && coordinates.value !== "") {
+		if (actie.location && coordinates.value !== "") {
 			let coordinatesArray = coordinates.value.split(",")
 			// calculate distance to actie in km
-			actie.distance = calcDistance(actie._geoloc.lat, actie._geoloc.lng,
+			actie.distance = calcDistance(actie.location.lat, actie.location.lng,
 				coordinatesArray[0], coordinatesArray[1]).toFixed(1)
 		} else {
 			actie.distance = null
