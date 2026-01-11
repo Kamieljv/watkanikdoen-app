@@ -26,7 +26,7 @@ return new class extends Migration
     {
         if (!Schema::hasColumn('users', 'username')) {
             Schema::table('users', function ($table) {
-                $table->string('username')->unique()->after('email');
+                $table->string('username')->unique()->after('email')->nullable();
             });
         }
     }

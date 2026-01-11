@@ -46,7 +46,7 @@ class ResetMigrations extends Command
 
         if ($this->confirm('Do you want to re-run all migrations?', false)) {
             $this->info('Re-running all migrations...');
-            Artisan::call('migrate', ['--force' => true]);
+            Artisan::call('migrate', ['--force' => true], $this->getOutput());
             $this->info('All migrations have been reset and re-run successfully.');
         }
 
