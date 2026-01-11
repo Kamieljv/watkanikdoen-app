@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Acties\Pages;
 use App\Filament\Resources\Acties\ActieResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
+use MatanYadaev\EloquentSpatial\Objects\Point;
 
 class EditActie extends EditRecord
 {
@@ -22,11 +23,20 @@ class EditActie extends EditRecord
         return $this->getResource()::getUrl('index');
     }
 
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        // The location Point object will be automatically converted to array by afterStateHydrated
+        return $data;
+    }
+
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        // If location is set, create a point geometry
-        if (!empty($data['location'])) {
-            $data['location'] = \DB::raw("ST_GeomFromText('POINT(" . $data['location']['lng'] . " " . $data['location']['lat'] . ")')");
+        // If location coordinates are set, create a Point object
+        if (!empty($data['location']) && is_array($data['location'])) {
+            $data['location'] = new Point(
+                latitude: $data['location']['lat'],
+                longitude: $data['location']['lng']
+            );
         }
 
         return $data;

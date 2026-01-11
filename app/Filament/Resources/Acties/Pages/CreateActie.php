@@ -16,9 +16,9 @@ class CreateActie extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        // If latitude and longitude are set, create a point geometry
-        if (!empty($data['latitude']) && !empty($data['longitude'])) {
-            $data['location'] = \DB::raw("ST_GeomFromText('POINT(" . $data['longitude'] . " " . $data['latitude'] . ")')");
+        // If location is set, create a point geometry
+        if (!empty($data['location'])) {
+            $data['location'] = \DB::raw("ST_GeomFromText('POINT(" . $data['location']['lng'] . " " . $data['location']['lat'] . ")')");
         }
 
         return $data;

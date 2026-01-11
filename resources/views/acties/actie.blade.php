@@ -233,9 +233,9 @@
                                 </button>
                             </div>
                         </div>
-                        @if ($actie->__geoloc)
+                        @if ($actie->location)
                             <div class="flex-col gap-3 not-prose bg-white rounded-lg shadow-lg overflow-hidden">
-                                <simple-map :center="{{ json_encode($actie->__geoloc) }}" :height="'200px'">
+                                <simple-map :center="{{ json_encode($actie->location) }}" :height="'200px'">
                                 </simple-map>
                             </div>
                         @endif

@@ -7,20 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use MatanYadaev\EloquentSpatial\Traits\HasSpatial;
+use MatanYadaev\EloquentSpatial\Objects\Point;
 
 class Actie extends Model
 {
     use HasSpatial;
     use HasFactory;
-
-    protected $spatial = ['location'];
-
-    /**
-     * Select geometrical attributes as text from database.
-     *
-     * @var bool
-     */
-    protected $geometryAsText = true;
 
     /**
      * The attributes that are mass assignable.
@@ -54,15 +46,15 @@ class Actie extends Model
         'afgelopen',
         'start_end',
         'start_unix',
-        '_geoloc',
     ];
 
     protected $hidden = [
-        'location',
         'author_id',
-        'status',
         'image',
-        'slug',
+    ];
+
+    protected $casts = [
+        'location' => Point::class,
     ];
 
     /**
@@ -161,11 +153,6 @@ class Actie extends Model
             return strval($this->pageviews);
         }
         return false;
-    }
-
-    public function getgeolocAttribute()
-    {
-        return $this->location;
     }
 
     public function setExterneLinkAttribute($value)

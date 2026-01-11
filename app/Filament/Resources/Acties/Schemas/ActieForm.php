@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources\Acties\Schemas;
 
+use App\Filament\Forms\Components\AddressSearchField;
 use App\Models\Actie;
 use Dotswan\MapPicker\Fields\Map;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
@@ -65,23 +65,22 @@ class ActieForm
                             ->afterStateUpdated(function (Set $set, ?bool $state): void {
                                 if ($state) {
                                     $set('location', null);
-                                    $set('latitude', null);
-                                    $set('longitude', null);
+                                    $set('address_search', null);
                                 }
                             }),
-                        TextInput::make('latitude')
-                            ->hidden(),
-                        TextInput::make('longitude')
-                            ->hidden(),
+                        AddressSearchField::make('address_search')
+                            ->label('Search address')
+                            ->placeholder('Type an address to search...')
+                            ->helperText('Search for an address to automatically set coordinates')
+                            ->hidden(fn ($get) => $get('no_specific_location')),
                         Map::make('location')
                             ->label('Coördinaten')
                             ->defaultLocation(latitude: 52.373165, longitude: 4.895716)
-                            ->afterStateUpdated(function (Set $set, ?array $old, ?array $state): void {
-                                $set('latitude', $state['lat']);
-                                $set('longitude', $state['lng']);
-                            })
+                            ->reactive()
                             ->afterStateHydrated(function ($state, $record, $set): void {
-                                $set('location', ['lat' => $record?->latitude, 'lng' => $record?->longitude]);
+                                if ($record?->location) {
+                                    $set('location', ['lat' => $record->location->latitude, 'lng' => $record->location->longitude]);
+                                }
                             })
                             ->hidden(fn ($get) => $get('no_specific_location')),
                         TextInput::make('location_human')
