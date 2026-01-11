@@ -5,12 +5,16 @@
 
 import { createApp } from "vue"
 import PrimeVue from "primevue/config"
-import Aura from '../views/assets/presets/aura'
+import Aura from '@primeuix/themes/aura';
 
 const app = createApp()
 app.use(PrimeVue, {
-    unstyled: true,
-    pt: Aura
+    theme: {
+        preset: Aura,
+        options: {
+            darkModeSelector: false,
+        }
+    },
 })
 
 // Lodash for language

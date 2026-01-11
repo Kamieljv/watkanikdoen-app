@@ -7,12 +7,59 @@
 import "./custom"
 import { createApp } from "vue"
 import PrimeVue from "primevue/config"
-import Aura from '../presets/aura'
+import { definePreset } from '@primeuix/themes';
+import Aura from '@primeuix/themes/aura';
+
+const CustomPreset = definePreset(Aura, {
+    semantic: {
+        colorScheme: {
+            light: {
+                root: {
+                    primaryColor: 'var(--wkid-pink)',
+                    primaryHoverColor: 'var(--wkid-pink)',
+                }
+            }
+        }
+    },
+    components: {
+        dialog: {
+            colorScheme: {
+                light: {
+                    root: {
+                        borderColor: 'none',
+                    },
+                    header: {
+                        padding: '0',
+                    },
+                    content: {
+                        padding: '1rem',
+                    },
+                },
+            }
+        },
+        radiobutton: {
+            colorScheme: {
+                light: {
+                    icon: {
+                        checkedColor: 'rgba(255, 255, 255, 0.5)',
+                        checkedHoverColor: 'rgba(255, 255, 255, 0.5)',
+                    }
+                }
+            }
+        }
+    }
+});
+
+
 
 const app = createApp()
 app.use(PrimeVue, {
-    unstyled: true,
-    pt: Aura
+    theme: {
+        preset: CustomPreset,
+        options: {
+            darkModeSelector: false || 'none',
+        }
+    }
 })
 
 // Lodash for language

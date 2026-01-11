@@ -1,6 +1,8 @@
+@import "tailwindcss";
+@import "tailwindcss-primeui";
+@custom-variant dark (&:where(.app-dark, .app-dark *));
 @import "fonts";
 @import "editor";
-@import "primevue";
 
 :root {
   --wkid-red: #e11d00;
@@ -36,9 +38,6 @@
   --wkid-message-success-light: #e0fbd9;
   --wkid-message-error-light: #ffc5bd;
 }
-
-// Tailwind CSS
-@tailwind base;
 
 @layer base {
   h1 {
@@ -88,7 +87,7 @@
   [type="checkbox"] {
     @apply text-[color:var(--wkid-blue)] border-gray-300 rounded-xl shadow-sm
       focus:border-[color:var(--wkid-blue)] focus:ring focus:ring-offset-0
-      focus:ring-blue-600 focus:ring-opacity-50;
+      focus:ring-blue-600/50;
   }
 
   [v-cloak] {display: none;}
@@ -117,7 +116,7 @@
       @apply flex justify-center px-4 py-2 text-sm font-medium cursor-pointer text-blue-600 transition duration-150 ease-in-out border rounded-md border-blue-600 hover:bg-blue-200;
     }
     &.secondary-white {
-      @apply flex justify-center px-4 py-2 text-sm font-medium cursor-pointer text-white transition duration-150 ease-in-out border rounded-md border-white hover:bg-white hover:bg-opacity-30;
+      @apply flex justify-center px-4 py-2 text-sm font-medium cursor-pointer text-white transition duration-150 ease-in-out border rounded-md border-white hover:bg-white/30;
     }
     &.gray {
       @apply flex justify-center px-4 py-2 text-sm font-medium cursor-pointer text-gray-600 transition duration-150 ease-in-out border border-transparent rounded-md bg-gray-200 hover:bg-gray-300;
@@ -127,9 +126,6 @@
     }
   }
 }
-
-@tailwind components;
-@tailwind utilities;
 
 [x-cloak] {
   display: none;
@@ -209,10 +205,6 @@ h6 {
       background: #ffffff3d;
     }
   }
-}
-
-svg {
-  width: 100%;
 }
 
 .alert-success {
