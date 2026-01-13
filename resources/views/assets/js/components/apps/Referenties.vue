@@ -81,7 +81,7 @@
 			v-model:visible="modalOpen"
 			:draggable="false"
 			pt:mask:class="dialog-mask"
-			pt:header:class="flex items-center justify-between shrink-0 rounded-tl-lg rounded-tr-lg text-surface-700 dark:text-surface-0/80"
+			pt:header:class="flex !p-0 items-center justify-between shrink-0 rounded-tl-lg rounded-tr-lg text-surface-700 dark:text-surface-0/80"
 			pt:headeractions:class="flex items-center absolute top-0 right-0 m-3"
 			pt:content:class="p-5 text-surface-700 dark:text-surface-0/80 overflow-y-auto"
 			pt:footer:class="flex items-center justify-end shrink-0 text-right gap-2 px-5 pb-5 border-t-0 rounded-b-lg bg-surface-0 dark:bg-surface-900 text-surface-700 dark:text-surface-0/80"

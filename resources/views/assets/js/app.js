@@ -28,9 +28,6 @@ const CustomPreset = definePreset(Aura, {
                     root: {
                         borderColor: 'none',
                     },
-                    header: {
-                        padding: '0',
-                    },
                     content: {
                         padding: '1rem',
                     },
