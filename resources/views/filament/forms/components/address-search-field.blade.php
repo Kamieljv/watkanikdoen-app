@@ -3,7 +3,7 @@
     :field="$field"
 >
     <div 
-        class="fi-input-wrp fi-fo-text-input relative"
+        class="fi-input-wrp fi-fo-text-input relative overflow-visible"
         x-data="{ 
             suggestions: [],
             showSuggestions: false,
@@ -62,7 +62,7 @@
         <div 
             x-show="showSuggestions && suggestions.length > 0"
             x-cloak
-            class="absolute z-50 mt-1 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-lg max-h-60 overflow-auto"
+            class="absolute z-2000 mt-10 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-lg max-h-60 overflow-auto"
         >
             <template x-for="suggestion in suggestions" :key="suggestion.id">
                 <div
