@@ -86,7 +86,7 @@ class ActieFactory extends Factory
             'start_time' => $start_date->format('H:i:s'),
             'end_date' => $end_date->format('Y-m-d'),
             'end_time' => $end_date->format('H:i:s'),
-            'location' => new Point($longitude, $latitude),
+            'location' => new Point($latitude, $longitude),
             'location_human' => $location_human,
             'image' => null,
             'slug' => $slug,

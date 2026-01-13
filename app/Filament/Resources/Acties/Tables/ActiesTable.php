@@ -26,7 +26,7 @@ class ActiesTable
                 TextColumn::make('location_human')
                     ->label('Location')
                     ->searchable(),
-                ImageColumn::make('linked_image.url')
+                ImageColumn::make('image_url')
                     ->label('Image')
                     ->square()
                     ->height(50)

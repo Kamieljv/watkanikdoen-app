@@ -1,4 +1,7 @@
 @import '../../../../vendor/filament/filament/resources/css/theme.css';
 
+/* Fix to make sure filemanager classes are loaded in correct order */
+@import '../../../../vendor/mwguerra/filemanager/resources/css/index.css';
+
 @source '../../../../app/Filament/**/*';
 @source '../../../../resources/views/filament/**/*';

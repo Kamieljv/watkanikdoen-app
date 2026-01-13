@@ -9,7 +9,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Filament\Panel;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use MWGuerra\FileManager\Models\FileSystemItem;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements JWTSubject, FilamentUser
@@ -28,21 +28,19 @@ class User extends Authenticatable implements JWTSubject, FilamentUser
     ];
 
     /**
+     * The attributes that are added to the model's array form.
+     */
+    protected $appends = [
+        'image_url',
+    ];
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
     protected $hidden = [
         'password', 'remember_token',
-    ];
-
-    /**
-     * The relations to eager load on every query.
-     *
-     * @var array
-     */
-    protected $with = [
-        'linked_image',
     ];
 
     public function profile($key)
@@ -85,9 +83,18 @@ class User extends Authenticatable implements JWTSubject, FilamentUser
         return $this->hasMany(Report::class)->without('user');
     }
 
-    public function linked_image()
+    public function avatar()
     {
-        return $this->hasOne(Image::class)->without('user');
+        return $this->morphToMany(FileSystemItem::class, 'model', 'file_has_models', 'model_id', 'file_id');
+    }
+
+    public function getImageUrlAttribute()
+    {
+        $avatar = $this->avatar()->where('file_type', 'image')->first();
+        if ($avatar) {
+            return asset('storage' . $avatar->getFullPath());
+        }
+        return null;
     }
 
     /**

@@ -40,6 +40,10 @@ RUN useradd -u 1000 -ms /bin/bash -g www www
 # Change current user to www
 USER www
 
+# Set PHP upload limits
+RUN sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 100M/" /usr/local/etc/php/php.ini
+RUN sed -i "s/post_max_size = 8M/post_max_size = 100M/" /usr/local/etc/php/php.ini
+
 # Expose port 8000 and start php development server
 EXPOSE 8000
 

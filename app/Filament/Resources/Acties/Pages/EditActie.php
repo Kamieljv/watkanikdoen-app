@@ -6,6 +6,7 @@ use App\Filament\Resources\Acties\ActieResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 use MatanYadaev\EloquentSpatial\Objects\Point;
+use \MWGuerra\FileManager\Models\FileSystemItem;
 
 class EditActie extends EditRecord
 {
@@ -25,7 +26,14 @@ class EditActie extends EditRecord
 
     protected function mutateFormDataBeforeFill(array $data): array
     {
-        // The location Point object will be automatically converted to array by afterStateHydrated
+        // Load image from relationship
+        if ($this->record) {
+            $image = $this->record->image()->where('file_type', 'image')->first();
+            if ($image && $image->storage_path) {
+                $data['image_upload'] = [$image->storage_path];
+            }
+        }
+        
         return $data;
     }
 
@@ -39,6 +47,45 @@ class EditActie extends EditRecord
             );
         }
 
+        // Remove image from the model when it is not set in the form data
+        if (!isset($data['image_upload'])) {
+            $this->record->image()->detach();
+        }
+
         return $data;
+    }
+
+    protected function afterSave(): void
+    {
+        $data = $this->form->getState();
+        \Log::debug('After save data: ' . json_encode($data));
+
+        // If image upload data is present and is different, update the relationship        
+        if (isset($data['image_upload']) && $this->record->image()->first()?->storage_path !== $data['image_upload']) {
+            \Log::debug('Updating image uploads for record ID: ' . $this->record->id);
+            // Remove old images
+            $this->record->image()->detach();
+
+            // Get the id of the folder FileSystemItem for 'acties' if it exists
+            $folderId = FileSystemItem::where('name', 'acties')
+                ->where('type', 'folder')
+                ->first()->id ?? null;
+
+            // Get 
+            
+            // Attach new images
+            $fileSystemItem = FileSystemItem::firstOrCreate([
+                'storage_path' => $data['image_upload'],
+            ], [
+                'parent_id' => $folderId,
+                'name' => basename($data['image_upload']),
+                'type' => 'file',
+                'file_type' => 'image',
+                'size' => filesize(storage_path('app/public/' . $data['image_upload'])),
+                'storage_path' => $data['image_upload'],
+            ]);
+            
+            $this->record->image()->attach($fileSystemItem->id);
+        }
     }
 }

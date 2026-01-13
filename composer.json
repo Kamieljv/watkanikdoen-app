@@ -24,11 +24,11 @@
         "matanyadaev/laravel-eloquent-spatial": "^4.5",
         "mcordingley/linearalgebra": "^3.0",
         "mobiledetect/mobiledetectlib": "^4.8",
+        "mwguerra/filemanager": "^0.1.8",
         "orangehill/iseed": "^3.1",
         "spatie/icalendar-generator": "^3.2",
         "spatie/laravel-permission": "^6.24",
         "stevebauman/purify": "^6.3",
-        "tomatophp/filament-media-manager": "^4.0",
         "tymon/jwt-auth": "^2.2"
     },
     "require-dev": {

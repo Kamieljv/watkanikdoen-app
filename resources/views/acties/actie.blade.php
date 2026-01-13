@@ -33,8 +33,8 @@
                         <div class="flex-shrink-0 not-prose relative rounded-lg shadow-lg overflow-hidden">
                             <!-- Image and tags -->
                             <div class="relative w-full h-48">
-                                @if ($actie->linked_image)
-                                    <img class="object-cover w-full h-full" src="{{ $actie->linked_image->url }}"
+                                @if ($actie->image_url)
+                                    <img class="object-cover w-full h-full" src="{{ $actie->image_url }}"
                                         alt="">
                                 @else
                                     <div

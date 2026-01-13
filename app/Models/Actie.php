@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use MatanYadaev\EloquentSpatial\Traits\HasSpatial;
 use MatanYadaev\EloquentSpatial\Objects\Point;
+use MWGuerra\FileManager\Models\FileSystemItem;
 
 class Actie extends Model
 {
@@ -46,11 +47,11 @@ class Actie extends Model
         'afgelopen',
         'start_end',
         'start_unix',
+        'image_url',
     ];
 
     protected $hidden = [
         'author_id',
-        'image',
     ];
 
     protected $casts = [
@@ -66,7 +67,6 @@ class Actie extends Model
         'organizers:id,name,logo,slug',
         'categories:id,name',
         'themes:id,name,color',
-        'linked_image',
     ];
 
     public static function boot() {
@@ -207,14 +207,23 @@ class Actie extends Model
         return $this->belongsToMany(Theme::class);
     }
 
-    public function linked_image()
+    public function image()
     {
-        return $this->hasOne(Image::class)->without('actie');
+        return $this->morphToMany(FileSystemItem::class, 'model', 'file_has_models', 'model_id', 'file_id');
     }
 
     public function report()
     {
         return $this->hasOne(Report::class)->without('actie');
+    }
+
+    public function getImageUrlAttribute()
+    {
+        $image = $this->image()->where('file_type', 'image')->first();
+        if ($image) {
+            return asset('storage/' . $image->storage_path);
+        }
+        return null;
     }
 
     public function getPublishedAttribute()

@@ -63,8 +63,8 @@ class ActieController extends Controller
         if ($actie->keywords !== null) {
             SEOMeta::setKeywords($actie->keywords);
         }
-        if ($actie->linked_image !== null) {
-            SEOTools::opengraph()->addImage($actie->linked_image->url);
+        if ($actie->image_url !== null) {
+            SEOTools::opengraph()->addImage($actie->image_url);
         }
         // set robots meta tag to noindex if the actie is over 1 year old
         if ($actie->start_date < now()->subYear()) {

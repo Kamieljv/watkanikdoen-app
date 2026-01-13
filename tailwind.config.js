@@ -1,8 +1,12 @@
 module.exports = {
 	mode: "jit",
+	darkMode: "class",
 	content: [
         "./resources/**/*.{blade.php,md,html,vue}",
 		"./resources/views/assets/presets/**/*.{js,vue,ts}",
+		"./app/Filament/**/*.php",
+		"./vendor/filament/**/*.blade.php",
+		"./vendor/mwguerra/filemanager/**/*.blade.php",
 	],
 	theme: {
 		//
@@ -43,5 +47,4 @@ module.exports = {
 		"col-span-3",
 		"overflow-scroll"
 	],
-	darkMode: 'class'
 }

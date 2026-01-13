@@ -8,6 +8,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
@@ -28,6 +29,9 @@ class UsersTable
                     ->sortable(),
                 IconColumn::make('verified')
                     ->boolean(),
+                ImageColumn::make('image_url')
+                    ->label('Avatar')
+                    ->circular(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable(),

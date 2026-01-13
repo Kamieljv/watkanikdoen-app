@@ -45,9 +45,11 @@ class ActieForm
                         'url',
                     ])
                     ->columnSpanFull(),
-                FileUpload::make('linked_image')
+                FileUpload::make('image_upload')
+                    ->disk('public')
                     ->image()
                     ->imageEditor()
+                    ->directory('acties')
                     ->columnSpan(2),
                 Section::make('Datum en tijd')
                     ->schema([
