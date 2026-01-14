@@ -8,13 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Theme extends Model
 {
     use HasFactory;
-    public static function boot()
+
+    protected $fillable = [
+        'name',
+        'slug',
+        'color',
+    ];
+
+    public function acties()
     {
-        parent::boot();
-        static::creating(function ($model) {
-            if (!isset($model->slug)) {
-                $model->slug = preg_replace('/[^A-Za-z0-9\-]/', '_', $model->name);
-            }
-        });
+        return $this->belongsToMany(Actie::class, 'actie_theme');
+    }
+
+    public function organizers()
+    {
+        return $this->belongsToMany(Organizer::class, 'organizer_theme');
     }
 }

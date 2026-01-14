@@ -19,7 +19,7 @@ class OrganizerResource extends Resource
 {
     protected static ?string $model = Organizer::class;
 
-    protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedUsers;
 
     protected static string | UnitEnum | null $navigationGroup = 'Acties & Organisatoren';
 

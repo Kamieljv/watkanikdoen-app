@@ -1,40 +1,36 @@
 <?php
 
-namespace App\Filament\Resources\Posts\Tables;
+namespace App\Filament\Resources\Themes\Tables;
 
 use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 
-class PostsTable
+class ThemesTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('title')
+                TextColumn::make('name')
+                    ->sortable()
                     ->searchable(),
-                ImageColumn::make('image'),
                 TextColumn::make('slug')
                     ->formatStateUsing(fn (string $state): string => "<code>{$state}</code>")
                     ->html()
                     ->searchable(),
-                TextColumn::make('status')
-                    ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        'DRAFT' => 'gray',
-                        'PUBLISHED' => 'success',
-                    }),
-                IconColumn::make('featured')
-                    ->boolean()
-                    ->default(false)
-                    ->color(fn (bool $state): string => $state ? 'success' : 'gray')
+                ColorColumn::make('color')
+                    ->searchable(),
+                TextColumn::make('acties_count')
+                    ->label('Acties')
+                    ->counts('acties')
+                    ->sortable(),
+                TextColumn::make('organizers_count')
+                    ->label('Organizers')
+                    ->counts('organizers')
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
@@ -46,13 +42,10 @@ class PostsTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                Filter::make('published')
-                    ->query(fn ($query) => $query->published())
-                    ->toggle(),
+                //
             ])
             ->recordActions([
                 EditAction::make(),
-                DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
