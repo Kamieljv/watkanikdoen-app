@@ -58,11 +58,8 @@ class EditActie extends EditRecord
     protected function afterSave(): void
     {
         $data = $this->form->getState();
-        \Log::debug('After save data: ' . json_encode($data));
-
         // If image upload data is present and is different, update the relationship        
         if (isset($data['image_upload']) && $this->record->image()->first()?->storage_path !== $data['image_upload']) {
-            \Log::debug('Updating image uploads for record ID: ' . $this->record->id);
             // Remove old images
             $this->record->image()->detach();
 
@@ -71,8 +68,6 @@ class EditActie extends EditRecord
                 ->where('type', 'folder')
                 ->first()->id ?? null;
 
-            // Get 
-            
             // Attach new images
             $fileSystemItem = FileSystemItem::firstOrCreate([
                 'storage_path' => $data['image_upload'],

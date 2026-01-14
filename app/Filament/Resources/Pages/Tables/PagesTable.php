@@ -8,6 +8,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 
 class PagesTable
@@ -35,7 +36,9 @@ class PagesTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Filter::make('published')
+                    ->query(fn ($query) => $query->published())
+                    ->toggle(),
             ])
             ->recordActions([
                 EditAction::make(),
