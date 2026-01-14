@@ -19,7 +19,7 @@ class ThemeResource extends Resource
 {
     protected static ?string $model = Theme::class;
 
-    protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedSwatch;
+    protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedStar;
 
     protected static string | UnitEnum | null $navigationGroup = 'Acties & Organisatoren';
 

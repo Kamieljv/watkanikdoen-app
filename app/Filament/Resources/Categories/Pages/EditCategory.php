@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\Themes\Pages;
+namespace App\Filament\Resources\Categories\Pages;
 
-use App\Filament\Resources\Themes\ThemeResource;
+use App\Filament\Resources\Categories\CategoryResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
-class EditTheme extends EditRecord
+class EditCategory extends EditRecord
 {
-    protected static string $resource = ThemeResource::class;
+    protected static string $resource = CategoryResource::class;
 
     protected function getHeaderActions(): array
     {
