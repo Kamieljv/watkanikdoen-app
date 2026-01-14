@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Categories\Tables;
+namespace App\Filament\Resources\Questions\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -8,23 +8,22 @@ use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class CategoriesTable
+class QuestionsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('name')
-                    ->sortable()
+                TextColumn::make('question')
                     ->searchable(),
-                TextColumn::make('slug')
-                    ->formatStateUsing(fn (string $state): string => "<code>{$state}</code>")
-                    ->html()
+                TextColumn::make('subject')
                     ->searchable(),
-                TextColumn::make('acties_count')
-                    ->label('Number of Acties')
-                    ->counts('acties')
-                    ->sortable(),
+                TextColumn::make('status')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'ACTIVE' => 'success',
+                        'INACTIVE' => 'gray',
+                    }),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
