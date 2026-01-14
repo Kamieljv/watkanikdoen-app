@@ -20,8 +20,8 @@
         <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
             <div class="w-full md:w-auto flex flex-row items-center space-x-5">
                 <div class="flex-shrink-0">
-                    @if($organizer->linked_image)
-                        <img class="w-[80px] h-[80px] rounded-full border-2 border-gray-300" src="{{ $organizer->linked_image->url }}" alt="">
+                    @if($organizer->image_url)
+                        <img class="w-[80px] h-[80px] rounded-full border-2 border-gray-300" src="{{ $organizer->image_url }}" alt="">
                     @else
                         <div class="flex items-center justify-center text-4xl w-[80px] h-[80px]  rounded-full bg-gray-500 text-white border-gray-300">
                             {{ substr($organizer->name, 0, 1) }}

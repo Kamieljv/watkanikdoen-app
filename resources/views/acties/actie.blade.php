@@ -251,9 +251,9 @@
                                 <a href="{{ $organizer->link }}">
                                     <div class="flex flex-row items-center">
                                         <div class="flex-shrink-0">
-                                            @if ($organizer->linked_image)
+                                            @if ($organizer->image_url)
                                                 <img class="w-10 h-10 rounded-full"
-                                                    src="{{ $organizer->linked_image->url }}" alt="">
+                                                    src="{{ $organizer->image_url }}" alt="">
                                             @else
                                                 <div
                                                     class="flex items-center justify-center text-xl w-10 h-10 rounded-full bg-gray-500 text-white border-gray-300">

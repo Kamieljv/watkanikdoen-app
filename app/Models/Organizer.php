@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use MWGuerra\FileManager\Models\FileSystemItem;
 
 class Organizer extends Model
 {
@@ -12,6 +13,7 @@ class Organizer extends Model
     protected $appends = [
         'link',
         'website_human',
+        'image_url',
     ];
 
     protected $fillable = [
@@ -20,6 +22,7 @@ class Organizer extends Model
         'website',
         'slug',
         'user_id',
+        'featured',
     ];
 
     /**
@@ -29,7 +32,6 @@ class Organizer extends Model
      */
     protected $with = [
         'themes:id,name,color,slug',
-        'linked_image',
     ];
 
     public function voyagerRoute($action)
@@ -75,9 +77,18 @@ class Organizer extends Model
         return $this->belongsToMany(Theme::class);
     }
 
-    public function linked_image()
+    public function image()
     {
-        return $this->hasOne(Image::class)->without('organizer');
+        return $this->morphToMany(FileSystemItem::class, 'model', 'file_has_models', 'model_id', 'file_id');
+    }
+
+    public function getImageUrlAttribute()
+    {
+        $image = $this->image()->first();
+        if ($image) {
+            return asset('storage/' . $image->storage_path);
+        }
+        return null;
     }
     
     public function getPublishedAttribute()

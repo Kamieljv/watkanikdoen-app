@@ -74,7 +74,7 @@
                 <div v-if="actie.organizers.length > 0" class="flex items-center p-3 bg-gray-200">
                     <div class="flex-shrink-0">
                         <a :href="actie.organizers[0].link">
-                            <img v-if="actie.organizers[0].linked_image" class="w-10 h-10 rounded-full" :src="actie.organizers[0].linked_image.url" :alt="actie.organizers[0].name" :title="actie.organizers[0].name">
+                            <img v-if="actie.organizers[0].image_url" class="w-10 h-10 rounded-full" :src="actie.organizers[0].image_url" :alt="actie.organizers[0].name" :title="actie.organizers[0].name">
                             <div v-else class="flex items-center justify-center text-xl w-10 h-10 rounded-full bg-gray-500 text-white">
                                 {{ actie.organizers[0].name.charAt(0) }}
                             </div>
