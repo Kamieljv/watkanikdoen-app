@@ -35,6 +35,11 @@ class Page extends Model
         return $this->belongsTo(User::class, 'author_id');
     }
 
+    public function scopePublished($query)
+    {
+        return $query->where('status', 'PUBLISHED');
+    }
+
     public function isPublished(): bool
     {
         return $this->status === 'PUBLISHED';
