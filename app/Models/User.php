@@ -83,16 +83,16 @@ class User extends Authenticatable implements JWTSubject, FilamentUser
         return $this->hasMany(Report::class)->without('user');
     }
 
-    public function avatar()
+    public function image()
     {
         return $this->morphToMany(FileSystemItem::class, 'model', 'file_has_models', 'model_id', 'file_id');
     }
 
     public function getImageUrlAttribute()
     {
-        $avatar = $this->avatar()->where('file_type', 'image')->first();
-        if ($avatar) {
-            return asset('storage' . $avatar->getFullPath());
+        $image = $this->image()->where('file_type', 'image')->first();
+        if ($image) {
+            return asset('storage' . $image->getFullPath());
         }
         return null;
     }
