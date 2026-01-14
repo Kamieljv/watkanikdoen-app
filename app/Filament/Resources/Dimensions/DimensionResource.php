@@ -19,7 +19,7 @@ class DimensionResource extends Resource
 {
     protected static ?string $model = Dimension::class;
 
-    protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string | BackedEnum | null $navigationIcon = Heroicon::ChevronDoubleRight;
 
     protected static string | UnitEnum | null $navigationGroup = 'ActieWijzer';
 
