@@ -3,11 +3,19 @@
 namespace App\Filament\Resources\Acties\Pages;
 
 use App\Filament\Resources\Acties\ActieResource;
+use App\Traits\HandlesImageUpload;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateActie extends CreateRecord
 {
+    use HandlesImageUpload;
+
     protected static string $resource = ActieResource::class;
+
+    protected function getImageFolderName(): string
+    {
+        return 'acties';
+    }
 
     protected function getRedirectUrl(): string
     {
@@ -33,19 +41,9 @@ class CreateActie extends CreateRecord
     {
         $data = $this->form->getState();
         
-        if (isset($data['image_upload']) && is_array($data['image_upload']) && !empty($data['image_upload'])) {
-            foreach ($data['image_upload'] as $filePath) {
-                $fileSystemItem = \MWGuerra\FileManager\Models\FileSystemItem::firstOrCreate([
-                    'storage_path' => $filePath,
-                ], [
-                    'name' => basename($filePath),
-                    'type' => 'file',
-                    'file_type' => 'image',
-                    'storage_path' => $filePath,
-                ]);
-                
-                $this->record->image()->attach($fileSystemItem->id);
-            }
+        // If image upload data is present add an image and attach it       
+        if (isset($data['image_upload'])) {
+            $this->attachImage($data['image_upload']);
         }
     }
 }

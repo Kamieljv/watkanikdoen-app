@@ -51,7 +51,7 @@ class Actie extends Model
     ];
 
     protected $hidden = [
-        'author_id',
+        'user_id',
     ];
 
     protected $casts = [
@@ -215,6 +215,11 @@ class Actie extends Model
     public function report()
     {
         return $this->hasOne(Report::class)->without('actie');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function getImageUrlAttribute()

@@ -2,10 +2,16 @@
 
 namespace App\Filament\Resources\Organizers\Schemas;
 
+use App\Models\Organizer;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Str;
 
 class OrganizerForm
 {
@@ -15,31 +21,48 @@ class OrganizerForm
             ->components([
                 TextInput::make('name')
                     ->live()
-                    ->required(),
-                Textarea::make('description')
+                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                    ->required()
+                    ->maxLength(255),
+                RichEditor::make('description')
                     ->columnSpanFull(),
                 TextInput::make('website')
                     ->url()
                     ->required(),
-                TextInput::make('logo'),
+                FileUpload::make('image_upload')
+                    ->disk('public')
+                    ->image()
+                    ->imageEditor()
+                    ->directory('organizers')
+                    ->columnSpan(2),
                 TextInput::make('email')
                     ->label('Email address')
                     ->email(),
-                TextInput::make('slug')
+                Select::make('themes')
+                    ->relationship('themes', 'name')
+                    ->multiple()
+                    ->preload()
                     ->required(),
-                TextInput::make('featured')
-                    ->numeric(),
-                TextInput::make('user_id')
-                    ->numeric(),
-                Select::make('status')
-                    ->options([
-                        'PENDING' => 'Pending',
-                        'APPROVED' => 'Approved',
-                        'REJECTED' => 'Rejected',
-                        'PUBLISHED' => 'Published',
+                Section::make('SEO & Publishing settings')
+                    ->schema([
+                        Toggle::make('featured')
+                            ->label('Feature this organizer on the homepage')
+                            ->default(false),
+                        TextInput::make('slug')
+                            ->required()
+                            ->maxLength(255)
+                            ->unique(Organizer::class, 'slug', fn ($record) => $record)
+                            ->disabled(fn (?string $operation, ?Organizer $record) => $operation == 'edit' && $record->isPublished()),
+                        Select::make('status')
+                            ->options([
+                                'PENDING' => 'Pending',
+                                'APPROVED' => 'Approved',
+                                'REJECTED' => 'Rejected',
+                                'PUBLISHED' => 'Published',
+                            ])
+                            ->required(),
                     ])
-                    ->default('PENDING')
-                    ->required(),
+                    ->columnSpan(2),
             ]);
     }
 }

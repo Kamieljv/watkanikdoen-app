@@ -96,6 +96,11 @@ class Organizer extends Model
         return $this->status === "PUBLISHED";
     }
 
+    public function isPublished(): bool
+    {
+        return $this->status === "PUBLISHED";
+    }
+
     public function scopePublished($query)
     {
         return $query->where('status', 'PUBLISHED');

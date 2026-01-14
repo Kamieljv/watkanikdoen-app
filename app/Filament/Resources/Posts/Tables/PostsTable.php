@@ -30,7 +30,10 @@ class PostsTable
                         'PUBLISHED' => 'success',
                     }),
                 IconColumn::make('featured')
-                    ->boolean(),
+                    ->boolean()
+                    ->default(false)
+                    ->color(fn (bool $state): string => $state ? 'success' : 'gray')
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

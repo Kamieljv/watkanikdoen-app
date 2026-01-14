@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use MatanYadaev\EloquentSpatial\Traits\HasSpatial;
+use MWGuerra\FileManager\Models\FileSystemItem;
 
 class Report extends Model
 {
@@ -23,6 +24,7 @@ class Report extends Model
 
     protected $appends = [
         'coordinates',
+        'image_url',
     ];
 
     protected $fillable = [
@@ -37,15 +39,10 @@ class Report extends Model
         'end_time',
         'location',
         'location_human',
-        'image',
     ];
 
     protected $hidden = [
         'location',
-    ];
-
-    protected $with = [
-        'linked_image',
     ];
 
     public function voyagerRoute($action)
@@ -105,6 +102,20 @@ class Report extends Model
         return $this->location;
     }
 
+    public function image()
+    {
+        return $this->morphToMany(FileSystemItem::class, 'model', 'file_has_models', 'model_id', 'file_id');
+    }
+
+    public function getImageUrlAttribute()
+    {
+        $image = $this->image()->first();
+        if ($image) {
+            return asset('storage/' . $image->storage_path);
+        }
+        return null;
+    }
+    
     public function approve()
     {
         $this->status = 'APPROVED';

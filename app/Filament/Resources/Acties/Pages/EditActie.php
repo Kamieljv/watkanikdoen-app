@@ -3,14 +3,21 @@
 namespace App\Filament\Resources\Acties\Pages;
 
 use App\Filament\Resources\Acties\ActieResource;
+use App\Traits\HandlesImageUpload;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 use MatanYadaev\EloquentSpatial\Objects\Point;
-use \MWGuerra\FileManager\Models\FileSystemItem;
 
 class EditActie extends EditRecord
 {
+    use HandlesImageUpload;
+
     protected static string $resource = ActieResource::class;
+
+    protected function getImageFolderName(): string
+    {
+        return 'acties';
+    }
 
     protected function getHeaderActions(): array
     {
@@ -59,28 +66,8 @@ class EditActie extends EditRecord
     {
         $data = $this->form->getState();
         // If image upload data is present and is different, update the relationship        
-        if (isset($data['image_upload']) && $this->record->image()->first()?->storage_path !== $data['image_upload']) {
-            // Remove old images
-            $this->record->image()->detach();
-
-            // Get the id of the folder FileSystemItem for 'acties' if it exists
-            $folderId = FileSystemItem::where('name', 'acties')
-                ->where('type', 'folder')
-                ->first()->id ?? null;
-
-            // Attach new images
-            $fileSystemItem = FileSystemItem::firstOrCreate([
-                'storage_path' => $data['image_upload'],
-            ], [
-                'parent_id' => $folderId,
-                'name' => basename($data['image_upload']),
-                'type' => 'file',
-                'file_type' => 'image',
-                'size' => filesize(storage_path('app/public/' . $data['image_upload'])),
-                'storage_path' => $data['image_upload'],
-            ]);
-            
-            $this->record->image()->attach($fileSystemItem->id);
+        if (isset($data['image_upload']) && $this->hasImageChanged($data['image_upload'])) {
+            $this->updateImage($data['image_upload']);
         }
     }
 }

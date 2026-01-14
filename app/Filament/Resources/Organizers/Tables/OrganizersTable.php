@@ -27,6 +27,8 @@ class OrganizersTable
                     ->circular(),
                 IconColumn::make('featured')
                     ->boolean()
+                    ->default(false)
+                    ->color(fn (bool $state): string => $state ? 'success' : 'gray')
                     ->sortable(),
                 TextColumn::make('status')
                     ->badge()

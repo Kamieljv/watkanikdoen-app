@@ -27,8 +27,10 @@ class UsersTable
                 TextColumn::make('roles.name')
                     ->label('Role')
                     ->sortable(),
-                IconColumn::make('verified')
-                    ->boolean(),
+                IconColumn::make('featured')
+                    ->boolean()
+                    ->default(false)
+                    ->sortable(),
                 ImageColumn::make('image_url')
                     ->label('Avatar')
                     ->circular(),

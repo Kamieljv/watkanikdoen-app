@@ -32,7 +32,7 @@ class ReportsTable
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable(),
-                ImageColumn::make('linked_image.url')
+                ImageColumn::make('image_url')
                     ->label('Image')
                     ->square()
                     ->height(50)

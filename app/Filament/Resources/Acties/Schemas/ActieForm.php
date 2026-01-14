@@ -35,6 +35,11 @@ class ActieForm
                 RichEditor::make('body')
                     ->required()
                     ->columnSpanFull(),
+                Select::make('organizer_id')
+                    ->relationship('organizers', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->required(),
                 TagsInput::make('externe_link')
                     ->label('External link')
                     ->separator(',')
@@ -44,7 +49,7 @@ class ActieForm
                         'max:255',
                         'url',
                     ])
-                    ->columnSpanFull(),
+                    ->columnSpan(1),
                 FileUpload::make('image_upload')
                     ->disk('public')
                     ->image()
@@ -57,6 +62,20 @@ class ActieForm
                         TimePicker::make('start_time'),
                         DatePicker::make('end_date'),
                         TimePicker::make('end_time'),
+                    ])
+                    ->columnSpan(1),
+                Section::make('Thema en categorie')
+                    ->schema([
+                        Select::make('themes')
+                            ->relationship('themes', 'name')
+                            ->multiple()
+                            ->preload()
+                            ->required(),
+                        Select::make('categories')
+                            ->relationship('categories', 'name')
+                            ->multiple()
+                            ->preload()
+                            ->required(),
                     ])
                     ->columnSpan(1),
                 Section::make('Locatie')
@@ -90,9 +109,14 @@ class ActieForm
                             ->required()
                             ->maxLength(255),
                     ])
-                    ->columnSpan(1),
+                    ->columnSpan(2),
                 Section::make('SEO & Publishing settings')
                     ->schema([
+                        Select::make('user_id')
+                            ->label('Author')
+                            ->relationship('user', 'name')
+                            ->preload()
+                            ->required(),
                         TextInput::make('slug')
                             ->required()
                             ->maxLength(255)
