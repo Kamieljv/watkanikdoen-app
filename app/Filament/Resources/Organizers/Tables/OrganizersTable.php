@@ -2,6 +2,9 @@
 
 namespace App\Filament\Resources\Organizers\Tables;
 
+use App\Filament\Actions\ApproveAction;
+use App\Filament\Actions\PublishAction;
+use App\Models\Status;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -36,6 +39,8 @@ class OrganizersTable
                         'DRAFT' => 'secondary',
                         'PUBLISHED' => 'success',
                         'PENDING' => 'info',
+                        'APPROVED' => 'warning',
+                        'REJECTED' => 'danger',
                     })
                     ->sortable(),
                 TextColumn::make('created_at')
@@ -60,6 +65,14 @@ class OrganizersTable
             ])
             ->recordActions([
                 EditAction::make(),
+                ApproveAction::make()
+                    ->visible(function ($record) {
+                        return $record->status === Status::PENDING->name;
+                    }),
+                PublishAction::make()
+                    ->visible(function ($record) {
+                        return $record->status === Status::APPROVED->name;
+                    }),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

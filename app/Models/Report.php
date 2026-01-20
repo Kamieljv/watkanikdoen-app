@@ -111,7 +111,7 @@ class Report extends Model
     
     public function approve()
     {
-        $this->status = 'APPROVED';
+        $this->status = Status::APPROVED->name;
         $this->save();
     }
 

@@ -139,32 +139,4 @@ class ActieController extends Controller
         
         return response()->json(['acties' => $acties]);
     }
-
-    public function publish($id)
-    {
-        // Check permissions
-        auth()->user()->can('edit_acties');
-
-        // get report data
-        $actie = Actie::findOrFail($id);
-
-        // check if status is actually a draft to be published
-        if ($actie->status !== 'DRAFT') {
-            return back()
-            ->with([
-                'message'    => __('general.publish_fail', ['entity' => 'Actie']),
-                'alert-type' => 'error',
-            ]);
-        }
-
-        // change actie status
-        $actie->publish();
-
-        return redirect()
-            ->route("voyager.acties.index")
-            ->with([
-                'message'    => __('general.publish_success', ['entity' => 'Actie']),
-                'alert-type' => 'success',
-            ]);
-    }
 }

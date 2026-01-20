@@ -23,6 +23,7 @@ class Organizer extends Model
         'slug',
         'user_id',
         'featured',
+        'status',
     ];
 
     /**
@@ -57,13 +58,18 @@ class Organizer extends Model
 
     public function approve()
     {
-        $this->status = 'APPROVED';
+        $this->status = Status::APPROVED->name;
         $this->save();
+    }
+
+    public function getApproveUrl()
+    {
+        return route('organizer.approve', $this->id);
     }
 
     public function publish()
     {
-        $this->status = 'PUBLISHED';
+        $this->status = Status::PUBLISHED;
         $this->save();
     }
 
@@ -93,16 +99,16 @@ class Organizer extends Model
     
     public function getPublishedAttribute()
     {
-        return $this->status === "PUBLISHED";
+        return $this->status === Status::PUBLISHED;
     }
 
     public function isPublished(): bool
     {
-        return $this->status === "PUBLISHED";
+        return $this->status === Status::PUBLISHED;
     }
 
     public function scopePublished($query)
     {
-        return $query->where('status', 'PUBLISHED');
+        return $query->where('status', Status::PUBLISHED);
     }
 }
