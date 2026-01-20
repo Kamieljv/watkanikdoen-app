@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use MatanYadaev\EloquentSpatial\Traits\HasSpatial;
+use MatanYadaev\EloquentSpatial\Objects\Point;
 use MWGuerra\FileManager\Models\FileSystemItem;
 
 class Report extends Model
@@ -13,8 +14,6 @@ class Report extends Model
     use HasSpatial;
     use HasFactory;
     
-    protected $spatial = ['location'];
-
     /**
      * Select geometrical attributes as text from database.
      *
@@ -23,7 +22,6 @@ class Report extends Model
     protected $geometryAsText = true;
 
     protected $appends = [
-        'coordinates',
         'image_url',
     ];
 
@@ -41,8 +39,8 @@ class Report extends Model
         'location_human',
     ];
 
-    protected $hidden = [
-        'location',
+    protected $casts = [
+        'location' => Point::class,
     ];
 
     public function voyagerRoute($action)
@@ -95,11 +93,6 @@ class Report extends Model
     public function setOrganizerIdsAttribute($ids)
     {
         $this->attributes['organizer_ids'] = is_string($ids) ? $ids : implode(',', $ids);
-    }
-
-    public function getCoordinatesAttribute()
-    {
-        return $this->location;
     }
 
     public function image()

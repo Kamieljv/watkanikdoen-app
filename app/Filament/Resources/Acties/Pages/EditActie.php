@@ -39,6 +39,10 @@ class EditActie extends EditRecord
             if ($image && $image->storage_path) {
                 $data['image_upload'] = [$image->storage_path];
             }
+
+            if (empty($data['location'])) {
+                $data['no_specific_location'] = true;
+            }
         }
         
         return $data;
@@ -46,6 +50,11 @@ class EditActie extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
+        // If no specified location is toggled, set location fields to null
+         if ($data['no_specific_location']) {
+            $data['location'] = null;
+        }
+
         // If location coordinates are set, create a Point object
         if (!empty($data['location']) && is_array($data['location'])) {
             $data['location'] = new Point(
