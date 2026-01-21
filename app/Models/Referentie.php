@@ -21,7 +21,6 @@ class Referentie extends Model
         'title',
         'url',
         'description',
-        'image',
         'status',
     ];
 

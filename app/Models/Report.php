@@ -125,11 +125,6 @@ class Report extends Model
         return $this->belongsTo(User::class)->without('reports');
     }
 
-    public function linked_image()
-    {
-        return $this->hasOne(Image::class)->without('report');
-    }
-
     public function actie()
     {
         return $this->belongsTo(Actie::class)->without('report');

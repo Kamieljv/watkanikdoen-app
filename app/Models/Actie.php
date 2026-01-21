@@ -32,7 +32,6 @@ class Actie extends Model
         'location',
         'location_human',
         'slug',
-        'image',
         'status',
         'disobedient',
     ];

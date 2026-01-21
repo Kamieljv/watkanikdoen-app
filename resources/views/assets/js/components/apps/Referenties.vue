@@ -87,7 +87,7 @@
 			pt:footer:class="flex items-center justify-end shrink-0 text-right gap-2 px-5 pb-5 border-t-0 rounded-b-lg bg-surface-0 dark:bg-surface-900 text-surface-700 dark:text-surface-0/80"
 		>
 			<template v-slot:header>
-				<img v-if="currentReferentie.linked_image" class="object-cover w-full h-[20rem]" :src="currentReferentie.linked_image.url" alt="">
+				<img v-if="currentReferentie.image_url" class="object-cover w-full h-[20rem]" :src="currentReferentie.image_url" alt="">
                 <div v-else class="h-[150px] md:h-[250px] w-full bg-gray-300 text-gray-400 flex items-center justify-center">
                     <LogoIcon style="fill: currentColor; height: 80px;" />
                 </div>
