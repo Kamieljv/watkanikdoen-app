@@ -115,6 +115,11 @@ class Report extends Model
         $this->save();
     }
 
+    public function getApproveUrl()
+    {
+        return route('report.approve', $this->id);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class)->without('reports');

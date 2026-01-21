@@ -6,15 +6,18 @@ use App\Models\Actie;
 use App\Models\Image;
 use App\Models\Organizer;
 use App\Models\Report;
+use App\Models\Status;
 use App\Models\User;
 use App\Notifications\Mail\ReportReceived;
 use App\Rules\Website;
 use Carbon\Carbon;
+use Filament\Notifications\Notification;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+use MWGuerra\FileManager\Models\FileSystemItem;
 use Stevebauman\Purify\Facades\Purify;
 use Validator;
 
@@ -146,44 +149,55 @@ class ReportController extends Controller
         // get report data
         $report = Report::findOrFail($id);
 
-        if ($report->status !== 'PENDING') {
-            return back()
-            ->with([
-                'message'    => __('general.approve_fail', ['entity' => 'Actie']),
-                'alert-type' => 'error',
-            ]);
+        if ($report->status !== Status::PENDING->name) {
+            Notification::make()
+                ->title(__('general.approve_fail', ['entity' => 'Actie']))
+                ->danger()
+                ->send();
+            return back();
         }
 
-        // Add a relationship entry for the ActieOrganizer if the organizer_id is passed
+        // Get organizers and check if published
         if ($report->organizer_ids) {
-            $organizer_ids = explode(",", $report->organizer_ids);
             $organizers = [];
-            foreach ($organizer_ids as $org_id) {
+            foreach ($report->organizer_ids as $org_id) {
                 $org = Organizer::firstWhere('id', $org_id);
-                if ($org->status !== 'PUBLISHED') {
-                    return back()
-                    ->with([
-                        'message'    => __('general.approve_fail_organizer_not_published', ['entity' => 'Actie']),
-                        'alert-type' => 'error',
-                    ]);
+                if ($org->status !== Status::PUBLISHED->name) {
+                    Notification::make()
+                        ->title(__('general.approve_fail_organizer_not_published', ['entity' => 'Actie']))
+                        ->danger()
+                        ->send();
+                    return back();
                 }
                 array_push($organizers, $org);
             }
         }
 
         // Move image to actie folder
-        if ($report->image) {
-            $newImagePath = 'acties/' . explode("/", $report->image)[1];
+        if ($report->image()->exists()) {
+            $image = $report->image()->first();
+            $oldPath = $image->storage_path;
+            $newPath = 'acties/' . basename($oldPath);
             try {
-                Storage::disk('public')->copy($report->image, $newImagePath);
+                Storage::disk('public')->copy($oldPath, $newPath);
             } catch (\Throwable $e) {
-                return back()
-                    ->with([
-                        'message'    => __('general.approve_fail_error_message', ['entity' => 'Actie', 'error' => $e->getMessage()]),
-                        'alert-type' => 'error',
-                    ]);
+                Notification::make()
+                    ->title(__('general.approve_fail', ['entity' => 'Actie']))
+                    ->danger()
+                    ->send();
+                return back();
             }
             
+            // update image path in db
+            $image->storage_path = $newPath;
+            $image->save();
+
+            // Set parent folder to 'acties'
+            $actieFolderId = FileSystemItem::where('name', 'acties')
+                ->where('type', 'folder')
+                ->first()->id ?? null;
+            FileSystemItem::where('storage_path', $oldPath)
+                ->update(['parent_id' => $actieFolderId]);
         }
 
         // create new actie
@@ -196,18 +210,14 @@ class ReportController extends Controller
             'start_time' => $report->start_time,
             'end_date' => $report->end_date,
             'end_time' => $report->end_time,
-            'location' => $report->coordinates ? DB::raw("ST_GeomFromText('POINT({$report->coordinates['lng']} {$report->coordinates['lat']})')") : null,
+            'location' => $report->location,
             'location_human' => $report->location_human,
-            'image' => $report->image ? $newImagePath : '',
             'slug' => $this->createSlug($report->title),
         ]);
-        if (isset($newImagePath)) {
-            Image::create([
-                'path' => $newImagePath,
-                'actie_id' => $actie->id,
-            ]);
+        // Attach the new image if exists
+        if (isset($image)) {
+            $actie->image()->attach($image->id);
         }
-
         // attach organizers to actie
         if (isset($organizers)) {
             foreach ($organizers as $org) {
@@ -220,12 +230,13 @@ class ReportController extends Controller
         $report->actie_id = $actie->id;
         $report->save();
 
+        Notification::make()
+            ->title(__('general.approve_success', ['entity' => 'Actie']))
+            ->success()
+            ->send();
+
         return redirect()
-            ->route("voyager.acties.index")
-            ->with([
-                'message'    => __('general.approve_success', ['entity' => 'Actie']),
-                'alert-type' => 'success',
-            ]);
+            ->route('filament.admin.resources.acties.edit', ['record' => $actie->id]);
     }
 
     /**

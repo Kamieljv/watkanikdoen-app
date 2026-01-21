@@ -73,7 +73,7 @@ class SampleImagesSeeder extends Seeder
 
                 for ($i = 0; $i < $data['numImages'] / count($data['sizes']); $i++) {
                     $imageContents = file_get_contents($url);
-                    $imageName = 'seed_' . $width . '_' . $height . '_' . $i . '.png';
+                    $imageName = 'seed_' . $index . '_' . $width . '_' . $height . '_' . $i . '.png';
                     file_put_contents($storagePath . '/' . $imageName, $imageContents);
                 }
             }

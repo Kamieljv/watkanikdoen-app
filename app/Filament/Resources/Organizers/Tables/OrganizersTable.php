@@ -64,7 +64,6 @@ class OrganizersTable
                     ->toggle(),
             ])
             ->recordActions([
-                EditAction::make(),
                 ApproveAction::make()
                     ->visible(function ($record) {
                         return $record->status === Status::PENDING->name;
@@ -73,6 +72,7 @@ class OrganizersTable
                     ->visible(function ($record) {
                         return $record->status === Status::APPROVED->name;
                     }),
+                EditAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

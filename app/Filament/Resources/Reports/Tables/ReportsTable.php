@@ -2,11 +2,13 @@
 
 namespace App\Filament\Resources\Reports\Tables;
 
+use App\Filament\Actions\ApproveAction;
+use App\Filament\Actions\PublishAction;
+use App\Filament\Resources\Organizers\OrganizerResource;
+use App\Models\Status;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Actions\ViewAction;
-use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
@@ -26,7 +28,13 @@ class ReportsTable
                     ->dateTime('j M Y H:i')
                     ->sortable(),
                 TextColumn::make('organizer_names')
-                    ->getStateUsing(fn ($record) => $record->organizers->pluck('name')->join(', '))
+                    ->getStateUsing(function ($record) {
+                        return $record->organizers->map(function ($organizer) {
+                            $url = OrganizerResource::getUrl('edit', ['record' => $organizer]);
+                            return "<a href=\"{$url}\" class=\"text-primary-600 hover:underline\">{$organizer->name}</a>";
+                        })->join(', ');
+                    })
+                    ->html()
                     ->label('Organizers')
                     ->sortable(),
                 TextColumn::make('created_at')
@@ -45,8 +53,6 @@ class ReportsTable
                         'REJECTED' => 'danger',
                     })
                     ->sortable(),
-                BooleanColumn::make('reporter_notified')
-                    ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -58,12 +64,19 @@ class ReportsTable
             ])
             ->filters([
                 Filter::make('pending')
-                    ->query(fn ($query) => $query->where('status', 'PENDING'))
+                    ->query(fn ($query) => $query->where('status', Status::PENDING->name))
                     ->label('Pending Reports'),
             ])
             ->recordActions([
+                ApproveAction::make()
+                    ->visible(function ($record) {
+                        return $record->status === Status::PENDING->name;
+                    }),
+                PublishAction::make()
+                    ->visible(function ($record) {
+                        return $record->status === Status::APPROVED->name;
+                    }),
                 EditAction::make(),
-                ViewAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
