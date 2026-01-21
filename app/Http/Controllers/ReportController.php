@@ -3,20 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Actie;
-use App\Models\Image;
 use App\Models\Organizer;
 use App\Models\Report;
 use App\Models\Status;
 use App\Models\User;
+use App\Notifications\Mail\ReportAccepted;
 use App\Notifications\Mail\ReportReceived;
 use App\Rules\Website;
 use Carbon\Carbon;
 use Filament\Notifications\Notification;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+use MatanYadaev\EloquentSpatial\Objects\Point;
 use MWGuerra\FileManager\Models\FileSystemItem;
 use Stevebauman\Purify\Facades\Purify;
 use Validator;
@@ -103,22 +103,36 @@ class ReportController extends Controller
                 'start_time' => isset($request->report['start_time']) ? Carbon::parse($request->report['start_time'])->format('H:i') : null,
                 'end_time' => isset($request->report['end_time']) ? Carbon::parse($request->report['end_time'])->format('H:i') : null,
                 'location' => isset($request->report['location']) ?
-                    DB::raw("ST_GeomFromText('POINT({$request->report['location']['lng']} {$request->report['location']['lat']})')") : null,
+                    new Point($request->report['location']['lat'], $request->report['location']['lng']) : null,
                 'location_human' => $request->report['location_human'],
             ]);
             if (isset($request->report['image'])) {
+                // Construct file path
                 $ext = '.' . explode('/', mime_content_type($request->report['image']))[1];
-                $path = 'reports/' . md5($request->report['title'] . microtime()) . $ext;
-                // Store the image on the server
-                Storage::disk('public')->put($path, file_get_contents($request->report['image']));
+                $filePath = 'reports/' . md5($request->report['title'] . microtime()) . $ext;
+                
+                // Get parent folder id
+                $folderId = FileSystemItem::where('name', 'reports')
+                    ->where('type', 'folder')
+                    ->first()->id ?? null;
+
                 // Create entry in db
-                Image::create([
-                    'path' => $path,
-                    'report_id' => $report->id,
+                $fileSystemItem = FileSystemItem::firstOrCreate([
+                    'storage_path' => $filePath,
+                ], [
+                    'parent_id' => $folderId,
+                    'name' => basename($filePath),
+                    'type' => 'file',
+                    'file_type' => 'image',
+                    'size' => filesize(storage_path('app/public/' . $filePath)),
+                    'storage_path' => $filePath,
                 ]);
-                // Also save image on the model
-                $report->image = $path;
-                $report->save();
+
+                // Attach new avatar
+                $report->image()->attach($fileSystemItem->id);
+
+                // Store the image on the server
+                Storage::disk('public')->put($filePath, file_get_contents($request->report['image']));
             }
         } catch (QueryException $exception) {
             $errorInfo = $exception->errorInfo;
@@ -187,7 +201,7 @@ class ReportController extends Controller
                     ->send();
                 return back();
             }
-            
+
             // update image path in db
             $image->storage_path = $newPath;
             $image->save();
@@ -234,6 +248,13 @@ class ReportController extends Controller
             ->title(__('general.approve_success', ['entity' => 'Actie']))
             ->success()
             ->send();
+
+        if (!$report->reporter_notified) {
+            // Notify the user that issued the report
+            $report->user->notify(new ReportAccepted($actie));
+            $report->reporter_notified = 1;
+            $report->save();
+        }
 
         return redirect()
             ->route('filament.admin.resources.acties.edit', ['record' => $actie->id]);

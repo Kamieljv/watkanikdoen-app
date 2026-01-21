@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Actie;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use \MatanYadaev\EloquentSpatial\Objects\Point;
+use MatanYadaev\EloquentSpatial\Objects\Point;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Actie>
