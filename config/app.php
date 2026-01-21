@@ -70,6 +70,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Maintenance Mode
+    |--------------------------------------------------------------------------
+    |
+    | This option controls whether the application is in maintenance mode.
+    | When enabled, all non-admin traffic will be redirected to a maintenance
+    | page. Admins can still access the site normally.
+    |
+    */
+    'maintenance_mode' => env('MAINTENANCE_MODE', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Timezone
     |--------------------------------------------------------------------------
     |

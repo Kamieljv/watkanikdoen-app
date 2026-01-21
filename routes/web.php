@@ -47,6 +47,11 @@ Route::impersonate();
 // Home route
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// Maintenance mode route
+Route::get('/maintenance', function () {
+    return view('maintenance');
+})->name('maintenance');
+
 // Translation file route
 Route::get('/lang-{lang}.js', [LanguageController::class, 'show']);
 
