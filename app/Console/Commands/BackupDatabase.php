@@ -8,7 +8,7 @@ use Carbon\Carbon;
 
 class BackupDatabase extends Command
 {
-    protected $signature = 'db:backup {--path= : Custom path for the backup file (./storage/backups by default)}';
+    protected $signature = 'db:backup {--path= : Custom path for the backup file (see config/database.php for default)}';
 
     protected $description = 'Create a backup of the database';
 
@@ -24,6 +24,23 @@ class BackupDatabase extends Command
             $this->error('Backup failed. Migration aborted.');
             return 1;
         }
+
+        // Cleanup old backups
+        $this->info('🧹 Cleaning up old backups...');
+        $backupPath = $this->option('path') ?: config('database.backups.path');
+        $maxBackups = config('database.backups.max_backups');
+        $files = glob($backupPath . '/database_backup_*.sql');
+        if (count($files) > $maxBackups) {
+            usort($files, function ($a, $b) {
+                return filemtime($a) - filemtime($b);
+            });
+            $filesToDelete = array_slice($files, 0, count($files) - $maxBackups);
+            foreach ($filesToDelete as $file) {
+                unlink($file);
+                $this->line("  Deleted old backup: " . basename($file));
+            }
+        }
+        $this->info('✓ Database backup completed successfully.');
         return 0;
     }
 
@@ -32,7 +49,7 @@ class BackupDatabase extends Command
         $this->info('💾 Creating database backup...');
         
         $timestamp = Carbon::now()->format('Y-m-d_His');
-        $backupPath = $this->option('path') ?: './storage/backups';
+        $backupPath = $this->option('path') ?: config('database.backups.path');
         
         if (!file_exists($backupPath)) {
             mkdir($backupPath, 0755, true);
