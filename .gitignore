@@ -4,6 +4,7 @@
 /public/.well-known
 /public/build
 /storage/*.key
+/storage/backups
 /vendor
 /.idea
 /.vagrant
