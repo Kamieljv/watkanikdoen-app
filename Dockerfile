@@ -42,12 +42,12 @@ RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini && \
 RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
 
-# Change current user to www
-USER www
-
 # Copy entrypoint script
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# Change current user to www
+USER www
 
 # Run php-fpm
 CMD ["/usr/local/bin/docker-entrypoint.sh"]
