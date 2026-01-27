@@ -78,7 +78,7 @@ const props = defineProps({
 })
 
 const imageUploadHeader = computed(() => __("general.position_and_resize_photo"))
-const previousImage = computed(() => props.user.linked_image ? props.user.linked_image.url + '?' + new Date() : '')
+const previousImage = computed(() => props.user.image_url ? props.user.image_url + '?' + new Date() : '')
 const defaultChar = computed(() => props.user.name.slice(0, 1).toUpperCase())
 
 </script>

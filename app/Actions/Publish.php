@@ -2,9 +2,8 @@
 
 namespace App\Actions;
 
-use TCG\Voyager\Actions\AbstractAction;
 
-class Publish extends AbstractAction
+class Publish
 {
     public function getTitle()
     {

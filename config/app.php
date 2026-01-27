@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Watkanikdoen.nl'),
 
     /*
     |--------------------------------------------------------------------------
@@ -55,6 +55,30 @@ return [
     'url' => env('APP_URL', 'http://localhost'),
 
     'asset_url' => env('ASSET_URL', null),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Verify Email Addresses
+    |--------------------------------------------------------------------------
+    |
+    | This option controls whether the application requires email verification
+    | for new users upon registration. If set to true, users will need to
+    | verify their email addresses before they can access certain features.
+    |
+    */
+    'verify_email' => env('VERIFY_EMAIL', true),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Maintenance Mode
+    |--------------------------------------------------------------------------
+    |
+    | This option controls whether the application is in maintenance mode.
+    | When enabled, all non-admin traffic will be redirected to a maintenance
+    | page. Admins can still access the site normally.
+    |
+    */
+    'maintenance_mode' => env('MAINTENANCE_MODE', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -151,6 +175,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Maps
+    |--------------------------------------------------------------------------
+    */
+    'maps' => [
+         'center' => [
+             'lat' => env('MAPS_CENTER_LAT', '52.389'),
+             'lng' => env('MAPS_CENTER_LNG', '4.889'),
+         ],
+         'zoom' => env('MAPS_ZOOM', 11),
+     ],
+
+    /*
+    |--------------------------------------------------------------------------
     | ActieWijzer
     |--------------------------------------------------------------------------
     */
@@ -220,8 +257,8 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
         App\Providers\HelperServiceProvider::class,
+        App\Providers\Filament\AdminPanelProvider::class,
         App\Providers\RouteServiceProvider::class,
 
     ],
@@ -250,7 +287,6 @@ return [
         'Config' => Illuminate\Support\Facades\Config::class,
         'Cookie' => Illuminate\Support\Facades\Cookie::class,
         'Crypt' => Illuminate\Support\Facades\Crypt::class,
-        'Date' => Jenssegers\Date\Date::class,
         'DB' => Illuminate\Support\Facades\DB::class,
         'Eloquent' => Illuminate\Database\Eloquent\Model::class,
         'Event' => Illuminate\Support\Facades\Event::class,

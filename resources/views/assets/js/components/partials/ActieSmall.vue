@@ -10,7 +10,7 @@
             <meta class="uk-margin-remove-adjacent" property="datePublished" :content="new Date(actie.created_at).toISOString()">
             <div class="h-full flex">
                 <div class="w-1/3 h-full">
-                    <img v-if="actie.linked_image" class="object-cover h-full w-full" :src="actie.linked_image.url" alt="">
+                    <img v-if="actie.image_url" class="object-cover h-full w-full" :src="actie.image_url" alt="">
                     <div v-else class="h-full bg-gray-300 text-gray-400 flex items-center justify-center">
                         <LogoIcon style="fill: currentColor; height: 80px;" />
                     </div>

@@ -33,8 +33,8 @@
                         <div class="flex-shrink-0 not-prose relative rounded-lg shadow-lg overflow-hidden">
                             <!-- Image and tags -->
                             <div class="relative w-full h-48">
-                                @if ($actie->linked_image)
-                                    <img class="object-cover w-full h-full" src="{{ $actie->linked_image->url }}"
+                                @if ($actie->image_url)
+                                    <img class="object-cover w-full h-full" src="{{ $actie->image_url }}"
                                         alt="">
                                 @else
                                     <div
@@ -79,7 +79,7 @@
                                     <span class="flex items-center mt-0 italic text-sm font-normal">
                                         @if (isset($actie->updated_at))
                                             {{ __('acties.last_edit') }}:
-                                            {{ Date::parse($actie->updated_at)->diffForHumans() }}
+                                            {{ \Carbon\Carbon::parse($actie->updated_at)->diffForHumans() }}
                                         @else
                                             {{ __('acties.created_at') }}: {{ $actie->created_at }}
                                         @endif
@@ -233,9 +233,9 @@
                                 </button>
                             </div>
                         </div>
-                        @if ($actie->__geoloc)
+                        @if ($actie->location)
                             <div class="flex-col gap-3 not-prose bg-white rounded-lg shadow-lg overflow-hidden">
-                                <simple-map :center="{{ json_encode($actie->__geoloc) }}" :height="'200px'">
+                                <simple-map :center="{{ json_encode($actie->location) }}" :height="'200px'">
                                 </simple-map>
                             </div>
                         @endif
@@ -251,9 +251,9 @@
                                 <a href="{{ $organizer->link }}">
                                     <div class="flex flex-row items-center">
                                         <div class="flex-shrink-0">
-                                            @if ($organizer->linked_image)
+                                            @if ($organizer->image_url)
                                                 <img class="w-10 h-10 rounded-full"
-                                                    src="{{ $organizer->linked_image->url }}" alt="">
+                                                    src="{{ $organizer->image_url }}" alt="">
                                             @else
                                                 <div
                                                     class="flex items-center justify-center text-xl w-10 h-10 rounded-full bg-gray-500 text-white border-gray-300">
@@ -289,7 +289,7 @@
                         <div class="flex justify-between mb-4">
                             <span class="flex items-center mt-0 italic text-sm font-normal">
                                 @if (isset($actie->updated_at))
-                                    {{ __('acties.last_edit') }}: {{ Date::parse($actie->updated_at)->diffForHumans() }}
+                                    {{ __('acties.last_edit') }}: {{ \Carbon\Carbon::parse($actie->updated_at)->diffForHumans() }}
                                 @else
                                     {{ __('acties.created_at') }}: {{ $actie->created_at }}
                                 @endif

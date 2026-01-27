@@ -15,7 +15,7 @@
                             {{ sentenceCase(__("auth.login")) }}
                         </a>
                     </span>
-                    <hr class="my-5">
+                    <hr class="my-5 border-gray-200">
                 </div>
                 <div v-if="currentErrors && currentErrors.length > 0" class="p-3 mb-3 text-sm rounded-md failure">
                     <p

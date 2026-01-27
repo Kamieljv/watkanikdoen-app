@@ -17,12 +17,12 @@ export default defineConfig({
                 // admin assets
                 'resources/views/assets/js/app.js',
                 'resources/views/assets/sass/app.scss',
+                'resources/css/filament/admin/theme.css',
             ],
             refresh: true,
         }),
         vue(),
         svgLoader(),
-        tailwindcss(),
         Components({
             globs: ['resources/views/assets/js/components/**/*.vue'],
             resolvers: [

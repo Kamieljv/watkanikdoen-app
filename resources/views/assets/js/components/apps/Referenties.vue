@@ -13,7 +13,7 @@
 						:clearable="true"
 						:full-height="true"
 						autofocus
-						classes="block w-full h-full px-3 py-2 transition duration-100 ease-in-out border rounded shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed text-black placeholder-gray-400 bg-white border-gray-300 focus:border-blue-500"
+						classes="block w-full h-full px-3 py-2 transition duration-100 ease-in-out border rounded shadow-sm disabled:opacity-50 disabled:cursor-not-allowed text-black placeholder-gray-400 bg-white border-gray-300"
 					/>
                     <MultiSelect
 						v-if="themes.length > 0"
@@ -81,13 +81,13 @@
 			v-model:visible="modalOpen"
 			:draggable="false"
 			pt:mask:class="dialog-mask"
-			pt:header:class="flex items-center justify-between shrink-0 rounded-tl-lg rounded-tr-lg text-surface-700 dark:text-surface-0/80"
+			pt:header:class="flex !p-0 items-center justify-between shrink-0 rounded-tl-lg rounded-tr-lg text-surface-700 dark:text-surface-0/80"
 			pt:headeractions:class="flex items-center absolute top-0 right-0 m-3"
 			pt:content:class="p-5 text-surface-700 dark:text-surface-0/80 overflow-y-auto"
 			pt:footer:class="flex items-center justify-end shrink-0 text-right gap-2 px-5 pb-5 border-t-0 rounded-b-lg bg-surface-0 dark:bg-surface-900 text-surface-700 dark:text-surface-0/80"
 		>
 			<template v-slot:header>
-				<img v-if="currentReferentie.linked_image" class="object-cover w-full h-[20rem]" :src="currentReferentie.linked_image.url" alt="">
+				<img v-if="currentReferentie.image_url" class="object-cover w-full h-[20rem]" :src="currentReferentie.image_url" alt="">
                 <div v-else class="h-[150px] md:h-[250px] w-full bg-gray-300 text-gray-400 flex items-center justify-center">
                     <LogoIcon style="fill: currentColor; height: 80px;" />
                 </div>
@@ -129,10 +129,10 @@
 			<template v-slot:footer>
 				<div class="flex justify-end">
 					<a :href="currentReferentie.url" target="_blank">
-						<button class="btn text-xl pink items-center" type="button">
+						<button class="btn pink items-center" type="button">
 							<LinkIcon class="w-4 h-4 mr-1" fill="currentColor" />
 							{{ __('general.go_to')}}&nbsp;
-							<span class="font-extrabold">{{ simplifyUrl(currentReferentie.url) }}</span>
+							<span>{{ simplifyUrl(currentReferentie.url) }}</span>
 						</button>
 					</a>
 				</div>

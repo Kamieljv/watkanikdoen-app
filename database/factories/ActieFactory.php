@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Actie;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\DB;
+use MatanYadaev\EloquentSpatial\Objects\Point;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Actie>
@@ -45,10 +45,6 @@ class ActieFactory extends Factory
         'DRAFT',
     ];
 
-    protected static $image_map = [
-        null
-    ];
-
     protected static $keywords_map = [
         'demonstratie',
         'actie'
@@ -77,8 +73,6 @@ class ActieFactory extends Factory
         $latitude = $this->faker->latitude($min = 51, $max = 53);
         $longitude = $this->faker->longitude($min = 4, $max = 6);
 
-        $point_string = sprintf("ST_GeomFromText('POINT (%f %f)')", $longitude, $latitude);
-
         // Slugify the actie_name (URL safe) and add a hash to make unique
         $slug = strtolower(str_replace(' ', '-', $actie_name)) .  '-' . $this->faker->numerify('########');
 
@@ -92,9 +86,9 @@ class ActieFactory extends Factory
             'start_time' => $start_date->format('H:i:s'),
             'end_date' => $end_date->format('Y-m-d'),
             'end_time' => $end_date->format('H:i:s'),
-            'location' => DB::raw($point_string),
+            'location' => new Point($latitude, $longitude),
             'location_human' => $location_human,
-            'image' => $this->faker->randomElement(static::$image_map),
+            'image' => null,
             'slug' => $slug,
             'keywords' => $this->faker->randomElement(static::$keywords_map), // slug fied is unique. This is a provisory solution
             'disobedient' => 0,

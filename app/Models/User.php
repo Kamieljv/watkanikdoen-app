@@ -6,11 +6,17 @@ use App\Notifications\Mail\PasswordReset;
 use Illuminate\Notifications\Notifiable;
 use Lab404\Impersonate\Models\Impersonate;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Filament\Panel;
+use Filament\Models\Contracts\FilamentUser;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use MWGuerra\FileManager\Models\FileSystemItem;
+use Spatie\Permission\Traits\HasRoles;
 
-class User extends \TCG\Voyager\Models\User implements JWTSubject
+class User extends Authenticatable implements JWTSubject, FilamentUser
 {
     use Notifiable;
     use Impersonate;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +24,14 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'username', 'password', 'verification_code', 'verified',
+        'name', 'email', 'password', 'verification_code', 'verified',
+    ];
+
+    /**
+     * The attributes that are added to the model's array form.
+     */
+    protected $appends = [
+        'image_url',
     ];
 
     /**
@@ -30,15 +43,6 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
         'password', 'remember_token',
     ];
 
-    /**
-     * The relations to eager load on every query.
-     *
-     * @var array
-     */
-    protected $with = [
-        'linked_image',
-    ];
-
     public function profile($key)
     {
         $keyValue = $this->keyValue($key);
@@ -46,21 +50,16 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
     }
 
     /**
+     * Check if the user can access the Filament panel.
+     * Uses Spatie's HasRoles trait hasRole() method
+     *
      * @return bool
      */
-    public function canImpersonate()
+    public function canAccessPanel(Panel $panel): bool
     {
-        // If user is admin they can impersonate
+        // Allow access to the Filament panel if the user is an admin
+        // After migration, this will use Spatie's hasRole() method
         return $this->hasRole('admin');
-    }
-
-    /**
-     * @return bool
-     */
-    public function canBeImpersonated()
-    {
-        // Any user that is not an admin can be impersonated
-        return !$this->hasRole('admin');
     }
 
     public function hasAnnouncements()
@@ -74,11 +73,6 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
         return !$this->announcements->contains($latest_announcement->id);
     }
 
-    public function voyagerRoute($action)
-    {
-        return route('voyager.organizers.' . $action, $this->id);
-    }
-
     public function announcements()
     {
         return $this->belongsToMany(Announcement::class);
@@ -89,9 +83,18 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
         return $this->hasMany(Report::class)->without('user');
     }
 
-    public function linked_image()
+    public function image()
     {
-        return $this->hasOne(Image::class)->without('user');
+        return $this->morphToMany(FileSystemItem::class, 'model', 'file_has_models', 'model_id', 'file_id');
+    }
+
+    public function getImageUrlAttribute()
+    {
+        $image = $this->image()->where('file_type', 'image')->first();
+        if ($image) {
+            return asset('storage' . $image->getFullPath());
+        }
+        return null;
     }
 
     /**

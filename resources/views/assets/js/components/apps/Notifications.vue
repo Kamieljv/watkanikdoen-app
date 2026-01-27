@@ -1,6 +1,6 @@
 <template>
-	<div class="flex flex-col justify-start flex-1 mb-5 overflow-hidden bg-white border shadow-md rounded-lg border-gray-150">
-		<div class="flex flex-wrap items-center justify-between p-5 bg-white border-b border-gray-150 sm:flex-no-wrap">
+	<div class="flex flex-col justify-start flex-1 mb-5 overflow-hidden bg-white border shadow-md rounded-lg border-gray-200">
+		<div class="flex flex-wrap items-center justify-between p-5 bg-white border-b border-gray-200 sm:flex-no-wrap">
 			<div class="relative flex-1">
 				<h3 class="flex items-center text-lg font-medium leading-6 text-gray-900 space-x-3">
 					<span>{{ __("notifications.notifications") }}</span>

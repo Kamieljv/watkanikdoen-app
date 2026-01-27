@@ -39,15 +39,6 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function username()
-    {
-        if (setting('auth.email_or_username')) {
-            return setting('auth.email_or_username');
-        }
-
-        return 'email';
-    }
-
     public function showLoginForm()
     {
         if (!session()->has('url.intended')) {
@@ -68,7 +59,7 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        if (setting('auth.verify_email') && !$user->verified) {
+        if (config('app.verify_email') && !$user->verified) {
             // If user email is not verified, log out and
             $this->guard()->logout();
             return False;
@@ -122,7 +113,7 @@ class LoginController extends Controller
             return response(['status' => 'failed', 'message' => trans('auth.failed')], 200);
         } else {
             throw ValidationException::withMessages([
-                $this->username() => [trans('auth.failed')],
+                'email' => [trans('auth.failed')],
             ]);
         }
     }

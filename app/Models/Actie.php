@@ -2,26 +2,18 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use Jenssegers\Date\Date;
-use TCG\Voyager\Traits\Spatial;
-use Voyager;
+use MatanYadaev\EloquentSpatial\Traits\HasSpatial;
+use MatanYadaev\EloquentSpatial\Objects\Point;
+use MWGuerra\FileManager\Models\FileSystemItem;
 
 class Actie extends Model
 {
-    use Spatial;
+    use HasSpatial;
     use HasFactory;
-
-    protected $spatial = ['location'];
-
-    /**
-     * Select geometrical attributes as text from database.
-     *
-     * @var bool
-     */
-    protected $geometryAsText = true;
 
     /**
      * The attributes that are mass assignable.
@@ -40,7 +32,6 @@ class Actie extends Model
         'location',
         'location_human',
         'slug',
-        'image',
         'status',
         'disobedient',
     ];
@@ -55,15 +46,15 @@ class Actie extends Model
         'afgelopen',
         'start_end',
         'start_unix',
-        '_geoloc',
+        'image_url',
     ];
 
     protected $hidden = [
-        'location',
-        'author_id',
-        'status',
-        'image',
-        'slug',
+        'user_id',
+    ];
+
+    protected $casts = [
+        'location' => Point::class,
     ];
 
     /**
@@ -75,7 +66,6 @@ class Actie extends Model
         'organizers:id,name,logo,slug',
         'categories:id,name',
         'themes:id,name,color',
-        'linked_image',
     ];
 
     public static function boot() {
@@ -98,49 +88,49 @@ class Actie extends Model
 
     public function getStartAttribute()
     {
-        return Date::parse($this->start_date . " " . $this->start_time);
+        return Carbon::parse($this->start_date . " " . $this->start_time);
     }
 
     public function getEndAttribute()
     {
-        return Date::parse($this->end_date . " " . $this->end_time);
+        return Carbon::parse($this->end_date . " " . $this->end_time);
     }
 
     public function getStartEndAttribute()
     {
         if ($this->start_date && $this->end_date) {
-            $start = Date::parse($this->start_date . " " . $this->start_time);
-            $end = Date::parse($this->end_date . " " . $this->end_time);
+            $start = Carbon::parse($this->start_date . " " . $this->start_time);
+            $end = Carbon::parse($this->end_date . " " . $this->end_time);
             
             if ($this->start_date == $this->end_date) {
                 // start and end on same day
                 if ($this->start_time && $this->end_time) {
-                    return $start->format('j M Y, G:i') . '-' . $end->format('G:i');
+                    return $start->translatedFormat('j M Y, G:i') . '-' . $end->translatedFormat('G:i');
                 } else if ($this->start_time) {
-                    return $start->format('j M Y, G:i');
+                    return $start->translatedFormat('j M Y, G:i');
                 } else {
-                    return $start->format('j M Y');
+                    return $start->translatedFormat('j M Y');
                 }
             } else if ($start->diffInDays($end) < 3) {
                 // start and end < 3 days difference
                 if ($this->start_time && $this->end_time) {
-                    return $start->format('j M Y, G:i') . ' ' . __('general.until') . ' ' . $end->format('j M Y, G:i');
+                    return $start->translatedFormat('j M Y, G:i') . ' ' . __('general.until') . ' ' . $end->translatedFormat('j M Y, G:i');
                 } else if ($this->start_time) {
-                    return $start->format('j M Y, G:i') . ' ' . __('general.until') . ' ' . $end->format('j M Y');
+                    return $start->translatedFormat('j M Y, G:i') . ' ' . __('general.until') . ' ' . $end->translatedFormat('j M Y');
                 } else {
-                    return $start->format('j M Y');
+                    return $start->translatedFormat('j M Y');
                 }
             } else {
                 // start and end >= 3 days difference
-                return $start->format('j M Y') . ' ' . __('general.until') . ' ' . $end->format('j M Y');
+                return $start->translatedFormat('j M Y') . ' ' . __('general.until') . ' ' . $end->translatedFormat('j M Y');
             }
         }
         else if ($this->start_date) {
-            $start = Date::parse($this->start_date . " " . $this->start_time);
+            $start = Carbon::parse($this->start_date . " " . $this->start_time);
             if ($this->start_time) {
-                return $start->format('j M Y, G:i');
+                return $start->translatedFormat('j M Y, G:i');
             } else {
-                return $start->format('j M Y');
+                return $start->translatedFormat('j M Y');
             }
         } else {
             return null;
@@ -149,7 +139,7 @@ class Actie extends Model
 
     public function getStartUnixAttribute()
     {
-        return Date::parse($this->start_date . " " . $this->start_time)->timestamp;
+        return Carbon::parse($this->start_date . " " . $this->start_time)->timestamp;
     }
 
     public function getPageviewsTextAttribute()
@@ -162,19 +152,6 @@ class Actie extends Model
             return strval($this->pageviews);
         }
         return false;
-    }
-
-    public function getgeolocAttribute()
-    {
-        $coords = $this->getCoordinates();
-        if (count($coords) === 0) {
-            return null;
-        } else { 
-            return [
-                'lat' => floatval($coords[0]['lat']),
-                'lng' => floatval($coords[0]['lng'])
-            ];
-        }
     }
 
     public function setExterneLinkAttribute($value)
@@ -229,14 +206,28 @@ class Actie extends Model
         return $this->belongsToMany(Theme::class);
     }
 
-    public function linked_image()
+    public function image()
     {
-        return $this->hasOne(Image::class)->without('actie');
+        return $this->morphToMany(FileSystemItem::class, 'model', 'file_has_models', 'model_id', 'file_id');
     }
 
     public function report()
     {
         return $this->hasOne(Report::class)->without('actie');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function getImageUrlAttribute()
+    {
+        $image = $this->image()->where('file_type', 'image')->first();
+        if ($image) {
+            return asset('storage/' . $image->storage_path);
+        }
+        return null;
     }
 
     public function getPublishedAttribute()
@@ -248,21 +239,26 @@ class Actie extends Model
     {
         if ($this->end_time === null) {
             // if end_time is not set, take the end of the day
-            return Date::parse($this->end_date . " " . "23:59:59")->timestamp < time();
+            return Carbon::parse($this->end_date . " " . "23:59:59")->timestamp < time();
         }
-        return Date::parse($this->end_date . " " . $this->end_time)->timestamp < time();
+        return Carbon::parse($this->end_date . " " . $this->end_time)->timestamp < time();
     }
 
     public function scopeNietAfgelopen($query)
     {
         // check if end_time is defined
-        return $query->whereRaw("STR_TO_DATE(CONCAT(end_date, ' ', end_time), '%Y-%m-%d %H:%i:%s') > '" . Date::now()->toDateTimeString() . "'")
-            ->orWhereRaw("(end_time is NULL AND STR_TO_DATE(end_date, '%Y-%m-%d') >= '" . Date::now()->toDateString() . "')");
+        return $query->whereRaw("STR_TO_DATE(CONCAT(end_date, ' ', end_time), '%Y-%m-%d %H:%i:%s') > '" . Carbon::now()->toDateTimeString() . "'")
+            ->orWhereRaw("(end_time is NULL AND STR_TO_DATE(end_date, '%Y-%m-%d') >= '" . Carbon::now()->toDateString() . "')");
     }
 
     public function scopePublished($query)
     {
         return $query->where('status', 'PUBLISHED');
+    }
+
+    public function isPublished(): bool
+    {
+        return $this->status === 'PUBLISHED';
     }
 
     public function publish()

@@ -2,15 +2,28 @@
 
 namespace Database\Seeders;
 
-
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
+use App\Models\Image;
 use App\Models\Referentie;
 use App\Models\ReferentieType;
 use DB;
+use Illuminate\Database\Seeder;
 
 class ReferentiesTableFactorySeeder extends Seeder
 {
+    protected static function getImageMap(): array
+    {
+        // list the image files in /storage/app/public/referenties starting with seed_
+        $storagePath = storage_path('app/public/referenties');
+        $imageFiles = [];
+        if (file_exists($storagePath)) {
+            $files = glob($storagePath . '/seed_*.png');
+            foreach ($files as $file) {
+                $imageFiles[] = 'referenties/' . basename($file);
+            }
+        }
+        return $imageFiles;
+    }
+
     /**
      * Run the database seeds.
      */
@@ -30,6 +43,12 @@ class ReferentiesTableFactorySeeder extends Seeder
                 $referentie->referentie_types()->attach($referentieType->id);
                 // attach a random theme to the referentie
                 $referentie->themes()->attach($themes[array_rand($themes)]);
+                // attach an image from the image map
+                $imageMap = $this->getImageMap();
+                Image::create([
+                    'path' => !empty($imageMap) ? $imageMap[array_rand($imageMap)] : null,
+                    'referentie_id' => $referentie->id,
+                ]);
             }
         }
     }

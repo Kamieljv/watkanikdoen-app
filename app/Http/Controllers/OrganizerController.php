@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Organizer;
+use App\Models\Status;
 use App\Models\Theme;
 use App\Models\User;
 use Artesaos\SEOTools\Facades\SEOTools;
+use Filament\Notifications\Notification;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Voyager;
 
 
 class OrganizerController extends Controller
@@ -92,73 +94,32 @@ class OrganizerController extends Controller
         return view('organizers.organizer', compact('organizer', 'routes', 'isAdmin'));
     }
 
-    public function approve($id)
+    public function approve($id): RedirectResponse
     {
-        $dataTypeOrganizers = Voyager::model('DataType')->where('slug', '=', 'organizers')->first();
-
         // Check permissions
-        $this->authorize('edit', app($dataTypeOrganizers->model_name));
+        auth()->user()->can('edit_organizers');
 
         // get report data
         $organizer = Organizer::findOrFail($id);
 
         // check if status is actually pending
-        if ($organizer->status !== 'PENDING') {
-            return back()
-            ->with([
-                'message'    => __('general.approve_fail', ['entity' => 'Organisator']),
-                'alert-type' => 'error',
-            ]);
-        }
-
-        // check if user who submitted this action is verified
-        $user = User::findOrFail($organizer->user_id);
-        if (!$user->verified === 1) {
-            return back()
-            ->with([
-                'message'    => __('general.approve_fail_user_not_verified', ['entity' => 'Organisator']),
-                'alert-type' => 'error',
-            ]);
+        if ($organizer->status !== Status::PENDING->name) {
+            Notification::make()
+                ->title(__('general.approve_fail', ['entity' => 'Organisator']))
+                ->danger()
+                ->send();
+            return back();
         }
 
         // change organizer status
         $organizer->approve();
 
-        return redirect()
-            ->route("voyager.organizers.index")
-            ->with([
-                'message'    => __('general.approve_success', ['entity' => 'Organisator']),
-                'alert-type' => 'success',
-            ]);
-    }
-
-    public function publish($id)
-    {
-        $dataTypeOrganizers = Voyager::model('DataType')->where('slug', '=', 'organizers')->first();
-
-        // Check permissions
-        $this->authorize('edit', app($dataTypeOrganizers->model_name));
-
-        // get report data
-        $organizer = Organizer::findOrFail($id);
-
-        // check if status is actually approved
-        if ($organizer->status !== 'APPROVED') {
-            return back()
-            ->with([
-                'message'    => __('general.publish_fail', ['entity' => 'Organisator']),
-                'alert-type' => 'error',
-            ]);
-        }
-
-        // change organizer status
-        $organizer->publish();
+        Notification::make()
+            ->title(__('general.approve_success', ['entity' => 'Organisator']))
+            ->success()
+            ->send();
 
         return redirect()
-            ->route("voyager.organizers.index")
-            ->with([
-                'message'    => __('general.publish_success', ['entity' => 'Organisator']),
-                'alert-type' => 'success',
-            ]);
+            ->route("filament.admin.resources.organizers.index");
     }
 }

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
-use TCG\Voyager\Http\Controllers\Controller;
+use MWGuerra\FileManager\Models\FileSystemItem;
 use Validator;
 
 class SettingsController extends Controller
@@ -26,17 +26,16 @@ class SettingsController extends Controller
         $request->validate([
             'name' => 'required|string',
             'email' => 'sometimes|required|email|unique:users,email,' . Auth::user()->id,
-            'username' => 'sometimes|required|unique:users,username,' . Auth::user()->id,
         ]);
 
         $authed_user = auth()->user();
 
         $authed_user->name = $request->name;
-
         if ($request->avatar) {
             // continue if avatar is base64
-            if ($this->isBase64($request->avatar)) {
-                $this->saveAvatar($request->avatar, $authed_user);
+            $decodedAvatar = $this->isBase64($request->avatar);
+            if ($decodedAvatar !== false) {
+                $this->saveAvatar($decodedAvatar, $request->avatar, $authed_user);
             }
         }
         $authed_user->save();
@@ -66,18 +65,38 @@ class SettingsController extends Controller
         return back()->with('success', __('settings.security.password_update_success'));
     }
 
-    private function saveAvatar($avatar, $user)
+    private function saveAvatar($imageData, $originalAvatar, $user)
     {
-        $ext = '.' . explode('/', mime_content_type($avatar))[1];
-        $path = 'avatars/' . md5($user->name . $user->email . microtime()) . $ext;
-        // Store the image on the server
-        Storage::disk(config('voyager.storage.disk'))->put($path, file_get_contents($avatar));
+        // Save the decoded image data to storage and create a FileSystemItem
+        $extension = explode('/', mime_content_type($originalAvatar))[1];
+        $filePath = 'avatars/' . uniqid() . '.' . $extension;
+        Storage::disk('public')->put($filePath, $imageData);
+
+        // Get parent folder id
+        $folderId = FileSystemItem::where('name', 'avatars')
+            ->where('type', 'folder')
+            ->first()->id ?? null;
+
         // Create entry in db
-        Image::create([
-            'path' => $path,
-            'user_id' => $user->id,
+        $fileSystemItem = FileSystemItem::firstOrCreate([
+            'storage_path' => $filePath,
+        ], [
+            'parent_id' => $folderId,
+            'name' => basename($filePath),
+            'type' => 'file',
+            'file_type' => 'image',
+            'size' => filesize(storage_path('app/public/' . $filePath)),
+            'storage_path' => $filePath,
         ]);
-        return $path;
+
+        // Remove old avatar if exists
+        if ($user->image()->first()) {
+            Storage::disk('public')->delete($user->image()->first()->storage_path);
+            $user->image()->detach();
+        }
+        // Attach new avatar
+        $user->image()->attach($fileSystemItem->id);
+        return $filePath;
     }
 
     public function deleteAvatar($id)
@@ -85,28 +104,37 @@ class SettingsController extends Controller
         if (auth()->user()->id !== (int) $id) {
             abort(403, 'Unauthorized action.');
         } else {
-            if (Storage::disk(config('voyager.storage.disk'))->delete(auth()->user()->linked_image->path)) {
-                auth()->user()->linked_image()->delete();
+            try {
+                $image = auth()->user()->image()->firstOrFail();
+                Storage::disk('public')->delete($image->storage_path);
+                auth()->user()->image()->detach();
                 $type = 'success';
                 $message = __("settings.profile.avatar_delete_success");
-            } else {
+            } catch (\Exception $e) {
                 $type = 'error';
                 $message = __("settings.profile.avatar_delete_fail");
+                return view('partials.toast', compact('type', 'message'));
             }
             return view('partials.toast', compact('type', 'message'));
         }
     }
 
     /**
-     * Check if a string is base64 encoded
+     * Check if a string is base64 encoded and return decoded data
      *
      * @param string $string
-     * @return bool
+     * @return string|false Returns decoded data if valid base64, false otherwise
      */
-    private function isBase64($string)
+    private function isBase64($string): bool|string
     {
-        $decoded = base64_decode($string, true);
+        // Strip data URI prefix if present (e.g., "data:image/png;base64,")
+        $base64String = preg_replace('#^data:image/\w+;base64,#i', '', $string);
+        
+        $decoded = base64_decode($base64String, true);
         // Check if the string is base64 encoded and if it can be re-encoded to the same value
-        return $decoded !== false && base64_encode($decoded) === $string;
+        if ($decoded !== false && base64_encode($decoded) === $base64String) {
+            return $decoded;
+        }
+        return false;
     }
 }

@@ -19,7 +19,7 @@
 
             <h1 class="flex flex-col leading-none">
                 <span>{{ $post->title }}</span>
-                <span class="mt-0 mt-10 text-base font-normal">{{ __("general.written_on") }}<time datetime="{{ Carbon\Carbon::parse($post->created_at)->toIso8601String() }}">{{ Date::parse($post->created_at)->format("j F Y") }}</time>. {{ __("blog.posted_in") }}<a href="{{ route('blog.category', $post->category->slug) }}" rel="category">{{ $post->category->name }}</a>.</span>
+                <span class="mt-0 mt-10 text-base font-normal">{{ __("general.written_on") }}<time datetime="{{ Carbon\Carbon::parse($post->created_at)->toIso8601String() }}">{{ \Carbon\Carbon::parse($post->created_at)->translatedFormat("j F Y") }}</time>. {{ __("blog.posted_in") }}<a href="{{ route('blog.category', $post->category->slug) }}" rel="category">{{ $post->category->name }}</a>.</span>
             </h1>
 
 

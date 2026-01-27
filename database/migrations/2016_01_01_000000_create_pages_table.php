@@ -24,7 +24,7 @@ class CreatePagesTable extends Migration
             $table->string('slug')->unique();
             $table->text('meta_description')->nullable();
             $table->text('meta_keywords')->nullable();
-            $table->enum('status', Page::$statuses)->default(Page::STATUS_INACTIVE);
+            $table->enum('status', ['PUBLISHED', 'DRAFT'])->default('DRAFT');
             $table->timestamps();
         });
     }

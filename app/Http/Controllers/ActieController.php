@@ -9,10 +9,8 @@ use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use TCG\Voyager\Http\Controllers\VoyagerBaseController;
-use Voyager;
 
-class ActieController extends VoyagerBaseController
+class ActieController extends Controller
 {
     public function agenda(Request $request)
     {
@@ -65,8 +63,8 @@ class ActieController extends VoyagerBaseController
         if ($actie->keywords !== null) {
             SEOMeta::setKeywords($actie->keywords);
         }
-        if ($actie->linked_image !== null) {
-            SEOTools::opengraph()->addImage($actie->linked_image->url);
+        if ($actie->image_url !== null) {
+            SEOTools::opengraph()->addImage($actie->image_url);
         }
         // set robots meta tag to noindex if the actie is over 1 year old
         if ($actie->start_date < now()->subYear()) {
@@ -140,35 +138,5 @@ class ActieController extends VoyagerBaseController
         }
         
         return response()->json(['acties' => $acties]);
-    }
-
-    public function publish($id)
-    {
-        $dataTypeActies = Voyager::model('DataType')->where('slug', '=', 'acties')->first();
-
-        // Check permissions
-        $this->authorize('edit', app($dataTypeActies->model_name));
-
-        // get report data
-        $actie = Actie::findOrFail($id);
-
-        // check if status is actually a draft to be published
-        if ($actie->status !== 'DRAFT') {
-            return back()
-            ->with([
-                'message'    => __('general.publish_fail', ['entity' => 'Actie']),
-                'alert-type' => 'error',
-            ]);
-        }
-
-        // change actie status
-        $actie->publish();
-
-        return redirect()
-            ->route("voyager.acties.index")
-            ->with([
-                'message'    => __('general.publish_success', ['entity' => 'Actie']),
-                'alert-type' => 'success',
-            ]);
     }
 }

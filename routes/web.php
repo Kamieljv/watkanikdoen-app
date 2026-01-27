@@ -15,7 +15,6 @@ use App\Http\Controllers\ActieController;
 use App\Http\Controllers\ActieWijzerController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\BlogController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ICalController;
@@ -35,17 +34,11 @@ Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('user/verify/{verification_code}', [RegisterController::class, 'verify'])->name('verify');
 Route::get('register/complete', [RegisterController::class, 'complete'])->name('registration.complete');
 
-// Include voyager routes and some custom admin routes
+// Custom admin routes
 Route::group(['prefix' => 'admin'], function () {
-    Voyager::routes();
     Route::get('report/approve/{id}', [ReportController::class, 'approve'])->name('report.approve');
     Route::get('organizer/approve/{id}', [OrganizerController::class, 'approve'])->name('organizer.approve');
-    Route::get('actie/publish/{id}', [ActieController::class, 'publish'])->name('actie.publish');
-    Route::get('organizer/publish/{id}', [OrganizerController::class, 'publish'])->name('organizer.publish');
     Route::post('images/delete_unlinked', [ImageController::class, 'deleteUnlinked'])->name('images.delete_unlinked');
-    Route::post('actiewijzer/score_dimension', [ActieWijzerController::class, 'scoreDimension'])->name('actiewijzer.score_dimension');
-    Route::post('actiewijzer/delete_dimension_score', [ActieWijzerController::class, 'deleteDimensionScore'])->name('actiewijzer.delete_dimension_score');
-    Route::post('actiewijzer/answer/edit', [ActieWijzerController::class, 'editAnswer'])->name('actiewijzer.answer.edit');
 });
 
 // Wave impersonation route
@@ -53,6 +46,11 @@ Route::impersonate();
 
 // Home route
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// Maintenance mode route
+Route::get('/maintenance', function () {
+    return view('maintenance');
+})->name('maintenance');
 
 // Translation file route
 Route::get('/lang-{lang}.js', [LanguageController::class, 'show']);

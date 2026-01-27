@@ -2,9 +2,8 @@
 
 namespace App\Actions;
 
-use TCG\Voyager\Actions\ViewAction as VoyagerViewAction;
 
-class View extends VoyagerViewAction
+class View
 {
     public function getDefaultRoute()
     {

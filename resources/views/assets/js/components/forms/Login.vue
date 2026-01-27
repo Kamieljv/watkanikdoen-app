@@ -15,7 +15,7 @@
                             {{ sentenceCase(__("auth.register")) }}
                         </a>
                     </span>
-                    <hr class="my-5">
+                    <hr class="my-5 border-gray-200">
                 </div>
                 <div v-if="currentErrors.length > 0" class="error-container rounded-sm p-3">
                     <p v-for="e in currentErrors" :key="e" class="italic text-sm">{{e}}</p>

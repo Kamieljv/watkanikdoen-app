@@ -69,12 +69,12 @@ class ICalController extends Controller
             abort(404);
         }
 
-        if ($actie->_geoloc != null) {
+        if ($actie->location != null) {
             $ical = Calendar::create('Watkanikdoen.nl Calendar')
                 ->event(Event::create($actie->title)
                         ->period($actie->start, $actie->end)
                         ->address($actie->location_human)
-                        ->coordinates($actie->_geoloc['lat'], $actie->_geoloc['lng'])
+                        ->coordinates($actie->location['lat'], $actie->location['lng'])
                 )
                 ->get();
         } else {

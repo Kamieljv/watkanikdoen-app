@@ -23,7 +23,7 @@ class CreateActiesTable extends Migration
             $table->text('externe_link');
             $table->dateTime('time_start')->nullable();
             $table->dateTime('time_end')->nullable();
-            $table->point('location')->nullable();
+            $table->text('location')->nullable();
             $table->string('location_human')->nullable();
             $table->string('image')->nullable();
             $table->string('slug')->unique();

@@ -23,9 +23,9 @@ class AnnouncementsTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'title' => 'Announcement',
-                'description' => 'We have just released the first official version of Wave. Click here to learn more!',
+                'description' => 'This is a test announcement!',
                 'color' => '#ffc376',
-                'url' => '',
+                'url' => 'https://watkanikdoen.nl',
                 'status' => 'INACTIVE',
                 'created_at' => '2018-05-20 23:19:00',
                 'updated_at' => '2018-05-21 00:38:02',

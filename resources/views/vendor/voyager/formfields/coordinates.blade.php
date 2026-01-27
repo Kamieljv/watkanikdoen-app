@@ -10,7 +10,7 @@
         $defaultCenter = [old('location')];
     } else {
         $unedited = 'true';
-        $defaultCenter = [['lat' => config('voyager.maps.center.lat'), 'lng' => config('voyager.maps.center.lng')]];
+        $defaultCenter = [['lat' => config('app.maps.center.lat'), 'lng' => config('app.maps.center.lng')]];
     }
 @endphp
 
@@ -19,7 +19,7 @@
         ref="coordinates"
         :default-center="{{ json_encode($defaultCenter) }}"
         :show-lat-lng="{{ $showLatLng }}"
-        :zoom={{ config('voyager.maps.zoom') }}
+        :zoom={{ config('app.maps.zoom') }}
         :fieldname="'{{ $row->field }}'"
         :unedited="{{ $unedited }}"
     >

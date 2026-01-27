@@ -4,12 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Referentie;
-use Illuminate\Support\Facades\Log;
 
 class ReferentieType extends Model
 {
-    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
-    
     protected $table = 'referentie_types';
 
     protected $appends = [

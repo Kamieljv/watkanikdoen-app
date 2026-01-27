@@ -10,7 +10,7 @@
             <meta v-if="actie.created_at" class="uk-margin-remove-adjacent" property="datePublished" :content="new Date(actie.created_at).toISOString()">
             <div class="content flex flex-col h-full">
                 <div class="flex-shrink-0" style="position:relative;">
-                    <img v-if="actie.linked_image" class="object-cover w-full h-[150px]" :src="actie.linked_image.url" alt="">
+                    <img v-if="actie.image_url" class="object-cover w-full h-[150px]" :src="actie.image_url" alt="">
                     <div v-else class="h-[150px] bg-gray-300 text-gray-400 flex items-center justify-center">
                         <LogoIcon style="fill: currentColor; height: 80px;" />
                     </div>
@@ -74,7 +74,7 @@
                 <div v-if="actie.organizers.length > 0" class="flex items-center p-3 bg-gray-200">
                     <div class="flex-shrink-0">
                         <a :href="actie.organizers[0].link">
-                            <img v-if="actie.organizers[0].linked_image" class="w-10 h-10 rounded-full" :src="actie.organizers[0].linked_image.url" :alt="actie.organizers[0].name" :title="actie.organizers[0].name">
+                            <img v-if="actie.organizers[0].image_url" class="w-10 h-10 rounded-full" :src="actie.organizers[0].image_url" :alt="actie.organizers[0].name" :title="actie.organizers[0].name">
                             <div v-else class="flex items-center justify-center text-xl w-10 h-10 rounded-full bg-gray-500 text-white">
                                 {{ actie.organizers[0].name.charAt(0) }}
                             </div>

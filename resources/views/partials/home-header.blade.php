@@ -7,7 +7,7 @@
     @include('partials.announcement')
 @endif
 <header id="header" x-data="{ mobileMenuOpen: false }" class="fixed inset-x-0 text-white z-30 transition-all duration-100 {{ $show_announcement ? "top-12" : "top-0" }}">
-    <div class="px-3 md:px-8 mx-auto xl:px-0 max-w-6xl border-b-1 border-[#cecece8c]">
+    <div class="px-3 md:px-8 mx-auto xl:px-0 max-w-6xl">
         <div class="flex items-center justify-between h-20 md:h-24 md:justify-start md:space-x-6">
             <div class="inline-flex h-5/6 w-1/3 md:w-1/4">
                 <a id="header-logo-link" href="{{ route('home') }}" class="inline-flex h-full w-full items-center justify-start transition-all duration-1000 ease-out transform text-white">

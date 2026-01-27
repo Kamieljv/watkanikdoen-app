@@ -56,7 +56,7 @@ class WidgetController extends Controller
         if ($request->limit) {
             $acties = $query->limit($request->limit)->get();
         } else {
-            $acties = $query->get(50);
+            $acties = $query->limit(50)->get();
         }
 
         return view('widget', compact('acties'));

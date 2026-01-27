@@ -135,7 +135,7 @@ const resetResult = () => {
 }
 
 const filterResults = () => {
-	results.value = items.filter((item) => {
+	results.value = props.items.filter((item) => {
 		return item[props.visibleAttribute].toLowerCase().indexOf(search.value.toLowerCase()) > -1
 	})
 }

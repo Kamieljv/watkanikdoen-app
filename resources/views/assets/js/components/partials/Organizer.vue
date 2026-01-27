@@ -3,23 +3,23 @@
         <div id="wrapper" 
             class="content flex justify-between items-center border border-gray-200 mb-1 rounded-lg shadow-md hover:shadow-lg" 
             :class="{
-                'hover:bg-gray-100': mode !== 'remove', 
+                'hover:bg-gray-100': mode !== 'remove' && !(selected && mode === 'select'), 
                 'hover:bg-red-100': mode === 'remove',
-                selected: selected && mode === 'select',
-                small: type === 'small',
-                large: type === 'large'
+                'text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 active:bg-blue-700': selected && mode === 'select',
+                'h-full p-3 truncate': type === 'small',
+                'p-5': type === 'large'
             }"
             :title="organizer.name">
             <div class="flex w-full space-x-3 justify-start items-center">
-                <img v-if="organizer.linked_image" class="organizer-image flex items-center justify-center rounded-full bg-gray-500 text-white" 
-                    :class="{small: type === 'small', large: type === 'large'}" 
-                    :src="organizer.linked_image.url" :title="organizer.name"
+                <img v-if="organizer.image_url" class="flex items-center justify-center rounded-full bg-gray-500 text-white" 
+                    :class="{'text-xl w-10 h-10': type === 'small', 'text-3xl w-16 h-16': type === 'large'}" 
+                    :src="organizer.image_url" :title="organizer.name"
                 >
                 <div v-else 
-                    class="organizer-image flex items-center justify-center rounded-full bg-gray-500 text-white"
+                    class="flex items-center justify-center rounded-full bg-gray-500 text-white"
                     :class="{
-                        small: type === 'small',
-                        large: type === 'large'
+                        'text-xl w-10 h-10': type === 'small',
+                        'text-3xl w-16 h-16': type === 'large'
                     }"
                 >
                     {{ organizer.name.charAt(0) }}
@@ -101,26 +101,4 @@
         selected.value = newVal
     })
 </script>
-<style lang="scss" scoped>
-    #wrapper {
-        &.selected {
-            @apply text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 active:bg-blue-700;
-        }
-        &.small {
-            @apply h-full p-3 truncate
-        }
-        &.large {
-            @apply p-5
-        }
-    }
-
-    .organizer-image {
-        &.small {
-            @apply text-xl w-10 h-10
-        }
-        &.large {
-            @apply text-3xl w-16 h-16
-        }
-    }
-</style>
 

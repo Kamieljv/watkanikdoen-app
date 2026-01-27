@@ -1,16 +1,16 @@
 <template>
     <div class="p-8">
-        <h4 class="mb-5 text-[var(--wkid-pink)] text-lg md:text-2xl font-thin">ActieWijzer</h4>
+        <p class="mb-5 text-[var(--wkid-pink)] text-lg md:text-2xl font-thin">ActieWijzer</p>
         <h1 class="mb-2">{{question.question}}</h1>
-        <h3 class="font-normal text-gray-500 text-lg md:text-2xl">{{ question.description }}</h3>
+        <p class="text-gray-500 text-lg md:text-2xl">{{ question.description }}</p>
 
         <div class="my-5">
             <div
                 v-for="t in themes"
                 :key="t.id"
-                class="relative self-start inline-block px-3 py-2 mr-1 mb-1 cursor-pointer text-xs font-medium leading-5 uppercase bg-gray-100 rounded-full"
+                class="relative self-start inline-block px-3 py-2 mr-1 mb-2 border-gray-100 bg-gray-100 cursor-pointer text-xs font-medium leading-5 uppercase rounded-full"
                 :class="{'border-2 border-white': selected.includes(t.id), 'border-2': !selected.includes(t.id)}"
-                :style="{backgroundColor: selected.includes(t.id) ? t.color : 'rgba(0, 0, 0, 0)'}"
+                :style="{backgroundColor: selected.includes(t.id) ? t.color : null}"
                 :data-id="t.id"
                 @click="select(t.id)"
             >
