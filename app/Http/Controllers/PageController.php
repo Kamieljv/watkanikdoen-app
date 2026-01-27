@@ -9,8 +9,7 @@ class PageController extends Controller
 {
     public function page($slug)
     {
-        $page = Page::where('slug', '=', $slug)
-            ->where('status', '=', 'ACTIVE')->firstOrFail();
+        $page = Page::published()->where('slug', '=', $slug)->firstOrFail();
 
         // SEO
         SEOTools::setTitle($page->title . ' | ' . config('brand.title'));
