@@ -45,8 +45,9 @@ RUN useradd -u 1000 -ms /bin/bash -g www www
 # Change current user to www
 USER www
 
-# Expose port 8000 and start php development server
-EXPOSE 8000
+# Copy entrypoint script
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Run php-fpm
-CMD ["php", "artisan", "serve", "--host", "0.0.0.0"]
+CMD ["/usr/local/bin/docker-entrypoint.sh"]
