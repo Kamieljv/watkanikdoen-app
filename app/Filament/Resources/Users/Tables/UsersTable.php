@@ -27,10 +27,6 @@ class UsersTable
                 TextColumn::make('roles.name')
                     ->label('Role')
                     ->sortable(),
-                IconColumn::make('featured')
-                    ->boolean()
-                    ->default(false)
-                    ->sortable(),
                 ImageColumn::make('image_url')
                     ->label('Avatar')
                     ->circular(),

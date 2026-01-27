@@ -62,6 +62,7 @@ class ReportsTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 Filter::make('pending')
                     ->query(fn ($query) => $query->where('status', Status::PENDING->name))

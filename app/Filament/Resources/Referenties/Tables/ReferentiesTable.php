@@ -41,6 +41,7 @@ class ReferentiesTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('title', 'asc')
             ->filters([
                 Filter::make('published')
                     ->query(fn ($query) => $query->where('status', 'PUBLISHED'))

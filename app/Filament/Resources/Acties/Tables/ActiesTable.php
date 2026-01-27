@@ -51,6 +51,7 @@ class ActiesTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('start_date', 'desc')
             ->filters([
                 Filter::make('published')
                     ->query(fn ($query) => $query->published())

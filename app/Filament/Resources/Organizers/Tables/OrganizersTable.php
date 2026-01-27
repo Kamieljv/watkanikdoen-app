@@ -51,8 +51,8 @@ class OrganizersTable
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                
             ])
+            ->defaultSort('name', 'asc')
             ->filters([
                 Filter::make(name: 'published')
                     ->query(fn ($query) => $query->published())
