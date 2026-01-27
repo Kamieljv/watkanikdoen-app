@@ -12,37 +12,36 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Update acties table
-        Schema::table('acties', function (Blueprint $table) {
-            $table->renameColumn('location', 'location_old');
-        });
+        $tablesWithLocation = ['acties', 'reports'];
 
-        Schema::table('acties', function (Blueprint $table) {
-            $table->geometry('location', subtype: 'point')->nullable()->after('location_old');
-        });
+        foreach ($tablesWithLocation as $tableName) {
+            // Check if the geometry type is already point to avoid errors
+            $isPointType = DB::selectOne("
+                SELECT DATA_TYPE
+                FROM INFORMATION_SCHEMA.COLUMNS
+                WHERE TABLE_NAME = '{$tableName}' AND COLUMN_NAME = 'location'
+            ")->DATA_TYPE === 'point';
+            if (!$isPointType) {
+                // Update acties table
+                Schema::table($tableName, function (Blueprint $table) {
+                    $table->renameColumn('location', 'location_old');
+                });
 
-        // Migrate data for acties
-        DB::statement('UPDATE acties SET location = ST_GeometryFromText(location_old) WHERE location_old IS NOT NULL');
+                Schema::table($tableName, function (Blueprint $table) {
+                    $table->geometry('location', subtype: 'point')->nullable()->after('location_old');
+                });
 
-        Schema::table('acties', function (Blueprint $table) {
-            $table->dropColumn('location_old');
-        });
+                // Migrate data for acties
+                DB::statement("UPDATE {$tableName} SET location = ST_GeometryFromText(location_old) WHERE location_old IS NOT NULL");
 
-        // Update reports table
-        Schema::table('reports', function (Blueprint $table) {
-            $table->renameColumn('location', 'location_old');
-        });
-
-        Schema::table('reports', function (Blueprint $table) {
-            $table->geometry('location', subtype: 'point')->nullable()->after('location_old');
-        });
-
-        // Migrate data for reports
-        DB::statement('UPDATE reports SET location = ST_GeometryFromText(location_old) WHERE location_old IS NOT NULL');
-
-        Schema::table('reports', function (Blueprint $table) {
-            $table->dropColumn('location_old');
-        });
+                Schema::table($tableName, function (Blueprint $table) {
+                    $table->dropColumn('location_old');
+                });
+            } else {
+                // Skip migration for acties
+                echo "\nSkipping migration for '{$tableName}' table as 'location' is already of type POINT.\n";
+            }
+        }
     }
 
     /**
