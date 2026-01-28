@@ -74,7 +74,7 @@ class ICalController extends Controller
                 ->event(Event::create($actie->title)
                         ->period($actie->start, $actie->end)
                         ->address($actie->location_human)
-                        ->coordinates($actie->location['lat'], $actie->location['lng'])
+                        ->coordinates($actie->location->latitude, $actie->location->longitude)
                 )
                 ->get();
         } else {
