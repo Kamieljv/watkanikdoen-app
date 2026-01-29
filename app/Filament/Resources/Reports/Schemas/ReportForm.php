@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Reports\Schemas;
 
 use App\Filament\Forms\Components\AddressSearchField;
+use Carbon\Carbon;
 use Dotswan\MapPicker\Fields\Map;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
@@ -61,10 +62,21 @@ class ReportForm
                     ->columnSpan(2),
                 Section::make('Datum en tijd')
                     ->schema([
-                        DatePicker::make('start_date'),
-                        TimePicker::make('start_time'),
-                        DatePicker::make('end_date'),
-                        TimePicker::make('end_time'),
+                        DatePicker::make('start_date')
+                            ->live()
+                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('end_date', $state))
+                            ->required(),
+                        TimePicker::make('start_time')
+                            ->seconds(false)
+                            ->live()
+                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('end_time', Carbon::parse($state)->addHours(1)->format('H:i')))
+                            ->format('H:i'),
+                        DatePicker::make('end_date')
+                            ->required()
+                            ->afterOrEqual('start_date'),
+                        TimePicker::make('end_time')
+                            ->seconds(false)
+                            ->format('H:i'),
                     ]),
                 Section::make('Locatie')
                     ->schema([
