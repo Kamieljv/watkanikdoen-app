@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Acties\Schemas;
 
 use App\Filament\Forms\Components\AddressSearchField;
 use App\Models\Actie;
+use App\Models\User;
 use Dotswan\MapPicker\Fields\Map;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
@@ -26,11 +27,12 @@ class ActieForm
         return $schema
             ->components([
                 TextInput::make('title')
-                    ->live()
-                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))                    ->required()
                     ->required()
                     ->maxLength(255),
                 Textarea::make('excerpt')
+                    ->required()
                     ->columnSpanFull(),
                 RichEditor::make('body')
                     ->required()
@@ -58,10 +60,15 @@ class ActieForm
                     ->columnSpan(2),
                 Section::make('Datum en tijd')
                     ->schema([
-                        DatePicker::make('start_date'),
-                        TimePicker::make('start_time'),
-                        DatePicker::make('end_date'),
-                        TimePicker::make('end_time'),
+                        DatePicker::make('start_date')
+                            ->required(),
+                        TimePicker::make('start_time')
+                            ->format('H:i'),
+                        DatePicker::make('end_date')
+                            ->required()
+                            ->afterOrEqual('start_date'),
+                        TimePicker::make('end_time')
+                            ->format('H:i'),
                     ])
                     ->columnSpan(1),
                 Section::make('Thema en categorie')
@@ -115,6 +122,7 @@ class ActieForm
                         Select::make('user_id')
                             ->label('Author')
                             ->relationship('user', 'name')
+                            ->default(fn () => User::first()?->id)
                             ->preload()
                             ->required(),
                         TextInput::make('slug')
@@ -122,6 +130,10 @@ class ActieForm
                             ->maxLength(255)
                             ->unique(Actie::class, 'slug', fn ($record) => $record)
                             ->disabled(fn (?string $operation, ?Actie $record) => $operation == 'edit' && $record->isPublished()),
+                        TextInput::make('keywords')
+                            ->helperText('Comma separated keywords for SEO')
+                            ->required()
+                            ->maxLength(1000),
                         Select::make('status')
                             ->options(['PUBLISHED' => 'Published', 'DRAFT' => 'Draft', 'PENDING' => 'Pending'])
                             ->default('DRAFT')

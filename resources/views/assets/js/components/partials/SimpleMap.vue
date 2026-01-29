@@ -23,7 +23,7 @@ import { ref } from "vue";
 
 const props = defineProps({
 	center: {
-		type: Object,
+		type: Array,
 		required: true,
 	},
 	height: {
@@ -31,7 +31,6 @@ const props = defineProps({
 		required: true,
 	}
 })
-
 const zoom = ref(10);
 const url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const attribution = "&copy; <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors";

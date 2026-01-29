@@ -234,8 +234,11 @@
                             </div>
                         </div>
                         @if ($actie->location)
+                            @php
+                                $latLng = [$actie->location->latitude, $actie->location->longitude];
+                            @endphp
                             <div class="flex-col gap-3 not-prose bg-white rounded-lg shadow-lg overflow-hidden">
-                                <simple-map :center="{{ json_encode($actie->location) }}" :height="'200px'">
+                                <simple-map :center="{{ json_encode($latLng) }}" :height="'200px'">
                                 </simple-map>
                             </div>
                         @endif

@@ -20,7 +20,7 @@ class OrganizerForm
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->live()
+                    ->live(onBlur: true)
                     ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
                     ->required()
                     ->maxLength(255),
