@@ -32,6 +32,7 @@ class ActieForm
                     ->required()
                     ->maxLength(255),
                 Textarea::make('excerpt')
+                    ->required()
                     ->columnSpanFull(),
                 RichEditor::make('body')
                     ->required()
@@ -59,10 +60,15 @@ class ActieForm
                     ->columnSpan(2),
                 Section::make('Datum en tijd')
                     ->schema([
-                        DatePicker::make('start_date'),
-                        TimePicker::make('start_time'),
-                        DatePicker::make('end_date'),
-                        TimePicker::make('end_time'),
+                        DatePicker::make('start_date')
+                            ->required(),
+                        TimePicker::make('start_time')
+                            ->format('H:i'),
+                        DatePicker::make('end_date')
+                            ->required()
+                            ->afterOrEqual('start_date'),
+                        TimePicker::make('end_time')
+                            ->format('H:i'),
                     ])
                     ->columnSpan(1),
                 Section::make('Thema en categorie')
