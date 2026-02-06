@@ -43,11 +43,6 @@ class Report extends Model
         'location' => Point::class,
     ];
 
-    public function voyagerRoute($action)
-    {
-        return route('voyager.organizers.' . $action, $this->id);
-    }
-
     /**
      * Accessor that mimics Eloquent dynamic property.
      *

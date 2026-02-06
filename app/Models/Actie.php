@@ -76,11 +76,6 @@ class Actie extends Model
         });
     }
 
-    public function voyagerRoute($action)
-    {
-        return route('voyager.organizers.' . $action, $this->id);
-    }
-
     public function getLinkAttribute()
     {
         return url('/actie/' . $this->slug);

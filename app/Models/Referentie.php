@@ -52,11 +52,6 @@ class Referentie extends Model
         return null;
     }
 
-    public function voyagerRoute($action)
-    {
-        return route('voyager.referenties.' . $action, $this->id);
-    }
-
     public function scopePublished($query)
     {
         return $query->where('status', 'PUBLISHED');

@@ -29,7 +29,6 @@ class ActiesTableFactorySeeder extends Seeder
      */
     public function run(): void
     {
-        //
         DB::table('acties')->delete();
 
         // Create Acties and attach an image from the image map

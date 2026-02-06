@@ -19,24 +19,6 @@ DB_PASSWORD=change-me
 - Log in with the username `admin@admin.com` and password `admin12345`. Change the password after logging in.
 - Start the vite development mode with `npm run dev` on your local machine
 
-## Modifying BREAD
-Configuration of the Voyager admin panel are saved in database tables. The defaults are seeded by files in `database/seeders`. Any changes need to be kept up to date in these seeders, to ensure easy deployment. 
-
-Reference for which seeder file (all in `database/seeders`) contains what:
-
-- `MenuItemsTableSeeder.php` -> Create new menu entries here
-- `DataTypesTableSeeder.php` -> Register BREAD for new tables here
-- `DataRowsTableSeeder.php` -> Configure the details for every field in said tables
-- `PermissionsTableSeeder.php` -> Add the BREAD permissions to table
-
-For new tables: 
-
-- Create a new seeder file for the table (see below on how to generate this)
-- Register the seeder file in `DatabaseSeeder.php`.
-
-## Modifying settings
-This can be done at `/admin/settings`. It reads and writes to the `settings` table in the database. So, in order to preserve the settings for future deployments, make sure to update its seed with `php artisan iseed settings`.
-
 ### Generate migrations and seeders
 - Generate migrations for all tables
 
