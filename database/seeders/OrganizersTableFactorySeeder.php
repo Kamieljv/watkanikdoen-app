@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Image;
 use App\Models\Organizer;
 use DB;
 use Illuminate\Database\Seeder;
+use MWGuerra\FileManager\Models\FileSystemItem;
 
 class OrganizersTableFactorySeeder extends Seeder
 {
@@ -23,6 +23,26 @@ class OrganizersTableFactorySeeder extends Seeder
         return $imageFiles;
     }
 
+    protected static function attachImage(Organizer $organizer, string $storagePath): void
+    {
+        // Find or create the folder in the file system
+        $folderId = FileSystemItem::where('name', 'organizers')
+                 ->where('type', 'folder')
+                 ->first()->id ?? null;
+             
+        $fileSystemItem = FileSystemItem::create([
+            'parent_id' => $folderId,
+            'name' => $organizer->id . '_' . basename($storagePath),
+            'type' => 'file',
+            'file_type' => 'image',
+            'size' => filesize(storage_path('app/public/' . $storagePath)),
+            'storage_path' => $storagePath,
+        ]);
+
+        // Attach the image to the organizer
+        $organizer->image()->attach($fileSystemItem->id);
+    }
+
     /**
      * Run the database seeds.
      */
@@ -37,10 +57,7 @@ class OrganizersTableFactorySeeder extends Seeder
             ->count(4)
             ->create()
             ->each(function ($organizer) use ($imageMap) {
-                Image::create([
-                    'path' => !empty($imageMap) ? $imageMap[array_rand($imageMap)] : null,
-                    'organizer_id' => $organizer->id,
-                ]);
+                $this->attachImage($organizer, $imageMap[array_rand($imageMap)]);
             });
     }
 }

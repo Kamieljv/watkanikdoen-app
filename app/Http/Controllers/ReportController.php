@@ -128,7 +128,7 @@ class ReportController extends Controller
                     'storage_path' => $filePath,
                 ]);
 
-                // Attach new avatar
+                // Attach new image
                 $report->image()->attach($fileSystemItem->id);
 
                 // Store the image on the server
