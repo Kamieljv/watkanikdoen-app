@@ -8,9 +8,9 @@
     <a href="/over-ons" class="hidden lg:block shrink-0 text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600">
         {{ __("menus.about_us") }}
     </a>
-    <a href="https://www.firestarterfund.nl/campaigns/16/demonstratie-agenda-voor-vandaag-en-morgen!-" class="hidden lg:block text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600" target="_blank">
+    {{-- <a href="https://www.firestarterfund.nl/campaigns/16/demonstratie-agenda-voor-vandaag-en-morgen!-" class="hidden lg:block text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600" target="_blank">
         {{ __("menus.donate") }}
-    </a>
+    </a> --}}
     <span class="hidden md:inline-flex shrink-0 rounded-md shadow-sm">
         <a href="{{ route('report.landing') }}" class="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-500 hover:bg-blue-600"
             data-umami-event="Report action button in header"
