@@ -23,9 +23,6 @@ class DimensionResource extends Resource
 
     protected static string | UnitEnum | null $navigationGroup = 'ActieWijzer';
 
-
-    protected static ?string $recordTitleAttribute = 'Dimension';
-
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();

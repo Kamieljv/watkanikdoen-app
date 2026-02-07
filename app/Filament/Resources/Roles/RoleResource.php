@@ -23,8 +23,6 @@ class RoleResource extends Resource
 
     protected static string | UnitEnum | null $navigationGroup = 'Accounts';
 
-    protected static ?string $recordTitleAttribute = 'Role';
-
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();

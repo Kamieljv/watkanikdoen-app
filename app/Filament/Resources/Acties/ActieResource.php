@@ -23,7 +23,7 @@ class ActieResource extends Resource
 
     protected static string | UnitEnum | null $navigationGroup = 'Acties & Organisatoren';
 
-    protected static ?string $recordTitleAttribute = 'Actie';
+    protected static ?string $recordTitleAttribute = 'title';
 
     public static function getNavigationBadge(): ?string
     {

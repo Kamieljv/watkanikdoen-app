@@ -23,8 +23,6 @@ class PostResource extends Resource
 
     protected static string | UnitEnum | null $navigationGroup = 'Content';
 
-    protected static ?string $recordTitleAttribute = 'Post';
-
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();

@@ -23,7 +23,7 @@ class OrganizerResource extends Resource
 
     protected static string | UnitEnum | null $navigationGroup = 'Acties & Organisatoren';
 
-    protected static ?string $recordTitleAttribute = 'Organizer';
+    protected static ?string $recordTitleAttribute = 'name';
 
     public static function getNavigationBadge(): ?string
     {
