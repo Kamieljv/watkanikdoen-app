@@ -17,7 +17,6 @@
 				<Notifications
 					id="notifications"
 					:notifications="{{ $notifications }}"
-					read-route="{{ route('notification.read', '') }}"
 				/>
 			</div>
 			{{-- Something --}}
