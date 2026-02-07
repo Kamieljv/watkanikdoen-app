@@ -31,11 +31,11 @@
                             {{__('menus.about_us')}}
                         </div>
                     </a>
-                    <a href="https://www.firestarterfund.nl/campaigns/16/demonstratie-agenda-voor-vandaag-en-morgen!-" class="flex items-center px-8 py-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50" target="_blank">
+                    {{-- <a href="https://www.firestarterfund.nl/campaigns/16/demonstratie-agenda-voor-vandaag-en-morgen!-" class="flex items-center px-8 py-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50" target="_blank">
                         <div class="text-base font-medium leading-6 text-gray-900">
                             {{__('menus.donate')}}
                         </div>
-                    </a>
+                    </a> --}}
                     <a href="/contact" class="flex items-center px-8 py-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">
                         <div class="text-base font-medium leading-6 text-gray-900">
                             {{__("Contact")}}

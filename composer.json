@@ -34,6 +34,7 @@
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.16",
         "fakerphp/faker": "^1.24",
+        "kitloong/laravel-migrations-generator": "^7.2",
         "nunomaduro/collision": "^8.8",
         "spatie/laravel-sitemap": "^7.3"
     },
@@ -51,7 +52,9 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": [
+                "mwguerra/filemanager"
+            ]
         }
     },
     "scripts": {

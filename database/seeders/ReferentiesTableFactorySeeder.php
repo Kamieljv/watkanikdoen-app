@@ -7,6 +7,7 @@ use App\Models\Referentie;
 use App\Models\ReferentieType;
 use DB;
 use Illuminate\Database\Seeder;
+use MWGuerra\FileManager\Models\FileSystemItem;
 
 class ReferentiesTableFactorySeeder extends Seeder
 {
@@ -22,6 +23,26 @@ class ReferentiesTableFactorySeeder extends Seeder
             }
         }
         return $imageFiles;
+    }
+
+    protected static function attachImage(Referentie $referentie, string $storagePath): void
+    {
+        // Find or create the folder in the file system
+        $folderId = FileSystemItem::where('name', 'referenties')
+                 ->where('type', 'folder')
+                 ->first()->id ?? null;
+             
+        $fileSystemItem = FileSystemItem::create([
+            'parent_id' => $folderId,
+            'name' => $referentie->id . '_' . basename($storagePath),
+            'type' => 'file',
+            'file_type' => 'image',
+            'size' => filesize(storage_path('app/public/' . $storagePath)),
+            'storage_path' => $storagePath,
+        ]);
+
+        // Attach the image to the referentie
+        $referentie->image()->attach($fileSystemItem->id);
     }
 
     /**
@@ -45,10 +66,7 @@ class ReferentiesTableFactorySeeder extends Seeder
                 $referentie->themes()->attach($themes[array_rand($themes)]);
                 // attach an image from the image map
                 $imageMap = $this->getImageMap();
-                Image::create([
-                    'path' => !empty($imageMap) ? $imageMap[array_rand($imageMap)] : null,
-                    'referentie_id' => $referentie->id,
-                ]);
+                $this->attachImage($referentie, $imageMap[array_rand($imageMap)]);
             }
         }
     }

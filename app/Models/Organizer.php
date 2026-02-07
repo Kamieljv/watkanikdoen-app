@@ -35,11 +35,6 @@ class Organizer extends Model
         'themes:id,name,color,slug',
     ];
 
-    public function voyagerRoute($action)
-    {
-        return route('voyager.organizers.' . $action, $this->id);
-    }
-
     public function getLinkAttribute()
     {
         return url('/organisator/' . $this->slug);

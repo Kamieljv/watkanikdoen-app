@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Image;
 use DB;
 use Illuminate\Database\Seeder;
+use MWGuerra\FileManager\Models\FileSystemItem;
 
 class UsersTableSeeder extends Seeder
 {
@@ -66,9 +66,21 @@ class UsersTableSeeder extends Seeder
         // Add an avatar to the non-admin user
         $user = \App\Models\User::find(2);
         $imageMap = $this->getImageMap();
-        Image::create([
-            'path' => !empty($imageMap) ? $imageMap[array_rand($imageMap)] : null,
-            'user_id' => $user->id,
-        ]);
+        $storagePath = !empty($imageMap) ? $imageMap[array_rand($imageMap)] : null;
+        if ($storagePath) {
+            $folderId = FileSystemItem::where('name', 'avatars')
+                ->where('type', 'folder')
+                ->first()->id ?? null;
+            
+            $fileSystemItem = FileSystemItem::create([
+                'parent_id' => $folderId,
+                'name' => basename($storagePath),
+                'type' => 'file',
+                'file_type' => 'image',
+                'size' => filesize(storage_path('app/public/' . $storagePath)),
+                'storage_path' => $storagePath,
+            ]);
+            $user->image()->attach($fileSystemItem->id);
+        }
     }
 }

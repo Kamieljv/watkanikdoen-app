@@ -23,8 +23,6 @@ class ReferentieTypeResource extends Resource
 
     protected static string | UnitEnum | null $navigationGroup = 'ActieWijzer';
 
-    protected static ?string $recordTitleAttribute = 'ReferentieType';
-
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();

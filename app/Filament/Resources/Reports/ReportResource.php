@@ -22,8 +22,6 @@ class ReportResource extends Resource
 
     protected static string | UnitEnum | null $navigationGroup = 'Acties & Organisatoren';
 
-    protected static ?string $recordTitleAttribute = 'Report';
-
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();

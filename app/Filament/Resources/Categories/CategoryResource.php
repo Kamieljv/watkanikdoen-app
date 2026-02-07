@@ -23,8 +23,6 @@ class CategoryResource extends Resource
 
     protected static string | UnitEnum | null $navigationGroup = 'Acties & Organisatoren';
 
-    protected static ?string $recordTitleAttribute = 'Category';
-
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();

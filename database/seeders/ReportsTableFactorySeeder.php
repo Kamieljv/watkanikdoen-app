@@ -6,9 +6,10 @@ namespace Database\Seeders;
 
 use App\Models\Actie;
 use App\Models\Image;
-use Illuminate\Database\Seeder;
 use App\Models\Organizer;
 use App\Models\Report;
+use Illuminate\Database\Seeder;
+use MWGuerra\FileManager\Models\FileSystemItem;
 use DB;
 
 class ReportsTableFactorySeeder extends Seeder
@@ -26,6 +27,26 @@ class ReportsTableFactorySeeder extends Seeder
             }
         }
         return $imageFiles;
+    }
+
+    protected static function attachImage(Report $report, string $storagePath): void
+    {
+        // Find or create the folder in the file system
+        $folderId = FileSystemItem::where('name', 'reports')
+                 ->where('type', 'folder')
+                 ->first()->id ?? null;
+             
+        $fileSystemItem = FileSystemItem::create([
+            'parent_id' => $folderId,
+            'name' => $report->id . '_' . basename($storagePath),
+            'type' => 'file',
+            'file_type' => 'image',
+            'size' => filesize(storage_path('app/public/' . $storagePath)),
+            'storage_path' => $storagePath,
+        ]);
+
+        // Attach the image to the report
+        $report->image()->attach($fileSystemItem->id);
     }
 
     /**
@@ -64,10 +85,7 @@ class ReportsTableFactorySeeder extends Seeder
 
             // Create image with report_id
             $imageMap = $this->getImageMap();
-            Image::create([
-                'path' => !empty($imageMap) ? $imageMap[array_rand($imageMap)] : null,
-                'report_id' => $id,
-            ]);
+            $this->attachImage(Report::find($id), $imageMap[array_rand($imageMap)]);
         }
     }
 }

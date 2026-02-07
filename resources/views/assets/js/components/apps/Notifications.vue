@@ -71,10 +71,6 @@ const props = defineProps({
 		type: Array,
 		required: true,
 	},
-	readRoute: {
-		type: String,
-		required: true,
-	}
 })
 
 const notif = ref(props.notifications)
@@ -93,7 +89,7 @@ const unreadNotifications = computed(() => {
 })
 
 const markAsRead = (e) => {
-	axios.post(props.readRoute + "/" + e.target.dataset.id).then((response) => {
+	axios.post("auth/notification/read/" + e.target.dataset.id).then((response) => {
 		if (response.data.type == "success") {
 			notif.value[e.target.dataset.listid].read_at = new Date()
 		}

@@ -50,10 +50,10 @@
                         />
                         <div>
                             <label for="location" class="block text-sm font-medium leading-5 text-gray-700">
-                                {{ __("reports.location") }}
+                                {{ __("reports.location_on_map") }}
                             </label>
                             
-                            <div class="mt-1 rounded-md shadow-sm overflow-hidden">
+                            <div class="mt-1 rounded-md overflow-hidden">
                                 <coordinates-form-field
                                     :default-center="defaultCenter"
                                     :zoom="zoom"

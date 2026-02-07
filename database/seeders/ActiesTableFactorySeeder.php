@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Image;
-use Illuminate\Database\Seeder;
 use App\Models\Actie;
 use DB;
+use Illuminate\Database\Seeder;
+use MWGuerra\FileManager\Models\FileSystemItem;
 
 class ActiesTableFactorySeeder extends Seeder
 {
@@ -24,12 +24,31 @@ class ActiesTableFactorySeeder extends Seeder
         return $imageFiles;
     }
 
+    protected static function attachImage(Actie $actie, string $storagePath): void
+    {
+        // Find or create the folder in the file system
+        $folderId = FileSystemItem::where('name', 'acties')
+                 ->where('type', 'folder')
+                 ->first()->id ?? null;
+             
+        $fileSystemItem = FileSystemItem::create([
+            'parent_id' => $folderId,
+            'name' => $actie->id . '_' . basename($storagePath),
+            'type' => 'file',
+            'file_type' => 'image',
+            'size' => filesize(storage_path('app/public/' . $storagePath)),
+            'storage_path' => $storagePath,
+        ]);
+
+        // Attach the image to the actie
+        $actie->image()->attach($fileSystemItem->id);
+    }
+
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        //
         DB::table('acties')->delete();
 
         // Create Acties and attach an image from the image map
@@ -38,10 +57,7 @@ class ActiesTableFactorySeeder extends Seeder
             ->count(20)
             ->create()
             ->each(function ($actie) use ($imageMap) {
-                Image::create([
-                    'path' => !empty($imageMap) ? $imageMap[array_rand($imageMap)] : null,
-                    'actie_id' => $actie->id,
-                ]);
+                $this->attachImage($actie, $imageMap[array_rand($imageMap)]);
             });
     }
 }

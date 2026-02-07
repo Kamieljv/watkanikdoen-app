@@ -92,7 +92,7 @@ class User extends Authenticatable implements JWTSubject, FilamentUser
     {
         $image = $this->image()->where('file_type', 'image')->first();
         if ($image) {
-            return asset('storage' . $image->getFullPath());
+            return asset('storage/' . $image->storage_path);
         }
         return null;
     }

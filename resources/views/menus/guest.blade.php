@@ -8,9 +8,9 @@
     <a href="/over-ons" class="hidden lg:block text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600">
         {{ __("menus.about_us") }}
     </a>
-    <a href="https://www.firestarterfund.nl/campaigns/16/demonstratie-agenda-voor-vandaag-en-morgen!-" class="hidden lg:block text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600" target="_blank">
+    {{-- <a href="https://www.firestarterfund.nl/campaigns/16/demonstratie-agenda-voor-vandaag-en-morgen!-" class="hidden lg:block text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600" target="_blank">
         {{ __("menus.donate") }}
-    </a>
+    </a> --}}
     <span class="transparent-button inline-flex rounded-md shadow-sm">
         <a href="{{ route('login') }}" class="flex items-center justify-center w-full px-4 py-2 text-base font-medium leading-6 text-blue-500 transition duration-150 ease-in-out border rounded-md border-1 border-blue-500 hover:bg-blue-500/25">
             {{__("Log In")}}
