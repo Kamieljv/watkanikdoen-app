@@ -11,18 +11,18 @@ class QuickActions extends Widget
     protected string $view = 'filament.widgets.quick-actions';
 
     public string $header = 'Snelle acties';
-    
+
     public function getActions(): array
     {
         return [
             [
-                'label' => 'Nieuwe Actie aanmaken',
+                'label' => 'Nieuwe Actie',
                 'icon' => 'heroicon-o-megaphone',
                 'url' => ActieResource::getUrl('create'),
                 'color' => 'primary',
             ],
             [
-                'label' => 'Nieuwe Organizer aanmaken',
+                'label' => 'Nieuwe Organizer',
                 'icon' => 'heroicon-o-users',
                 'url' => OrganizerResource::getUrl('create'),
                 'color' => 'primary',
