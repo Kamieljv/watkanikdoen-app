@@ -53,7 +53,7 @@
                                 {{ __("reports.location") }}
                             </label>
                             
-                            <div class="mt-1 rounded-md shadow-sm overflow-hidden">
+                            <div class="mt-1 rounded-md overflow-hidden">
                                 <coordinates-form-field
                                     :default-center="defaultCenter"
                                     :zoom="zoom"

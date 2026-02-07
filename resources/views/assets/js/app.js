@@ -125,8 +125,4 @@ app.component("Security", Security)
 app.component("SimpleMap", SimpleMap)
 app.component("WidgetAgenda", WidgetAgenda)
   
-// Admin portal components
-import CoordinatesFormField from "../../../js/components/CoordinatesFormField.vue"
-app.component("CoordinatesFormField", CoordinatesFormField)
-
 app.mount("#app")

@@ -59,6 +59,7 @@
         <l-map
 			v-if="!hasNoLatLng"
             id="map"
+			class="rounded-sm"
             :zoom="mapZoom"
             :center="center"
 			:options="{dragging: !disabled, scrollWheelZoom: !disabled}"
@@ -84,7 +85,7 @@
 
 <script setup lang="ts">
 // Load formfield
-import FormAutocomplete from '../../views/assets/js/components/formfields/FormAutocomplete.vue'
+import FormAutocomplete from './FormAutocomplete.vue'
 
 import { latLng } from "leaflet"
 import { ref, watch, inject } from "vue"
