@@ -51,10 +51,8 @@ class ReportController extends Controller
         if (!$report) {
             abort(404);
         } else {
-            $organizers = Organizer::whereIn('id', explode(",", $report->organizer_ids))
-                ->pluck('name')->all();
-            $viewOnly = true;
-            return view('reports.form', compact('viewOnly', 'organizers', 'report'));
+            $organizers = Organizer::whereIn('id', $report->organizer_ids)->get();
+            return view('reports.view', compact('organizers', 'report'));
         }
     }
 
@@ -111,6 +109,9 @@ class ReportController extends Controller
                 $ext = '.' . explode('/', mime_content_type($request->report['image']))[1];
                 $filePath = 'reports/' . md5($request->report['title'] . microtime()) . $ext;
                 
+                // Store the file
+                Storage::disk('public')->put($filePath, file_get_contents($request->report['image']));
+
                 // Get parent folder id
                 $folderId = FileSystemItem::where('name', 'reports')
                     ->where('type', 'folder')
@@ -130,9 +131,6 @@ class ReportController extends Controller
 
                 // Attach new image
                 $report->image()->attach($fileSystemItem->id);
-
-                // Store the image on the server
-                Storage::disk('public')->put($filePath, file_get_contents($request->report['image']));
             }
         } catch (QueryException $exception) {
             $errorInfo = $exception->errorInfo;

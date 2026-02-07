@@ -18,7 +18,6 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ICalController;
-use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrganizerController;
@@ -38,11 +37,7 @@ Route::get('register/complete', [RegisterController::class, 'complete'])->name('
 Route::group(['prefix' => 'admin'], function () {
     Route::get('report/approve/{id}', [ReportController::class, 'approve'])->name('report.approve');
     Route::get('organizer/approve/{id}', [OrganizerController::class, 'approve'])->name('organizer.approve');
-    Route::post('images/delete_unlinked', [ImageController::class, 'deleteUnlinked'])->name('images.delete_unlinked');
 });
-
-// Wave impersonation route
-Route::impersonate();
 
 // Home route
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -95,7 +90,6 @@ Route::get('{page}', [PageController::class, 'page'])->name('page');
 Route::group(['prefix' => 'auth', 'middleware' => ['auth', 'xss']], function () {
     // Dashboard
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('dashboard/getStats', [DashboardController::class, 'getStats'])->name('dashboard.stats');
 
     // Acties aanmelden (authenticated)
     Route::get('aanmelden/view/{id}', [ReportController::class, 'view'])->name('report.view');
