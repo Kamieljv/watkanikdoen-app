@@ -12,7 +12,6 @@ export default defineConfig({
         laravel({
             input: [
                 // public assets
-                'resources/js/app.js',
                 'resources/sass/app.scss',
                 // admin assets
                 'resources/views/assets/js/app.js',
