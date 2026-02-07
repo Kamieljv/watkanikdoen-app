@@ -52,7 +52,7 @@ class OrganizersTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->defaultSort('name', 'asc')
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 Filter::make(name: 'published')
                     ->query(fn ($query) => $query->published())
