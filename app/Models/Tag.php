@@ -29,8 +29,8 @@ class Tag extends Model
         return $this->morphedByMany(Referentie::class, 'taggable');
     }
 
-    public function resources(): MorphToMany
+    public function books(): MorphToMany
     {
-        return $this->morphedByMany(Resource::class, 'taggable');
+        return $this->morphedByMany(Book::class, 'taggable');
     }
 }
