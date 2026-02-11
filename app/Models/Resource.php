@@ -11,7 +11,7 @@ abstract class Resource extends Model
         'title',
         'description',
         'author',
-        'published_at',
+        'year',
         'type',
     ];
 

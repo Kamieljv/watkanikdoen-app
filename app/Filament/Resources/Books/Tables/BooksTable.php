@@ -19,8 +19,7 @@ class BooksTable
                     ->searchable(),
                 TextColumn::make('author')
                     ->searchable(),
-                TextColumn::make('published_at')
-                    ->date()
+                TextColumn::make('year')
                     ->sortable(),
                 TextColumn::make('isbn')
                     ->searchable(),
