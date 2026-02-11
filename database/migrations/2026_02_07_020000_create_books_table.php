@@ -12,7 +12,7 @@ return new class extends Migration {
             $table->string('title');
             $table->text('description')->nullable();
             $table->string('author')->nullable();
-            $table->date('published_at')->nullable();
+            $table->string('year')->nullable();
             $table->string('isbn')->nullable();
             $table->string('cover_image')->nullable();
             $table->timestamps();
@@ -21,6 +21,6 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('taggables');
+        Schema::dropIfExists('books');
     }
 };
