@@ -3,8 +3,7 @@
 namespace App\Filament\Resources\Books\Schemas;
 
 use App\Http\Controllers\BookController;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Actions\Action;
@@ -62,6 +61,14 @@ class BookForm
                 TextInput::make('cover_image')
                     ->label('Cover Image URL')
                     ->url(),
+                Select::make('themes')
+                    ->multiple()
+                    ->relationship('themes', 'name')
+                    ->preload(),
+                Select::make('tags')
+                    ->multiple()
+                    ->relationship('tags', 'name')
+                    ->preload(),
             ]);
     }
 }
