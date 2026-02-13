@@ -23,6 +23,7 @@ class Actie extends Model
     protected $fillable = [
         'user_id',
         'title',
+        'excerpt',
         'body',
         'externe_link',
         'start_date',
@@ -32,6 +33,7 @@ class Actie extends Model
         'location',
         'location_human',
         'slug',
+        'keywords',
         'status',
         'disobedient',
     ];
