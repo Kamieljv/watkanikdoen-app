@@ -110,7 +110,6 @@ class ActieController extends BaseApiController
                 },
                 'categories',
                 'themes',
-                'linked_image'
             ]);
 
         // Filter by upcoming/past
@@ -210,7 +209,6 @@ class ActieController extends BaseApiController
                 },
                 'categories',
                 'themes',
-                'linked_image'
             ])
             ->first();
 

@@ -83,7 +83,7 @@ class ActieResource extends JsonResource
                 'themes' => $this->whenLoaded('themes', function () {
                     return $this->themes->pluck('slug');
                 }),
-                'image' => $this->linked_image,
+                'image' => $this->image_url,
                 'created_at' => $this->created_at?->toIso8601String(),
                 'updated_at' => $this->updated_at?->toIso8601String(),
             ]);
