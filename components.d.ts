@@ -19,6 +19,7 @@ declare module 'vue' {
     CopyTextField: typeof import('./resources/views/assets/js/components/partials/CopyTextField.vue')['default']
     Dialog: typeof import('primevue/dialog')['default']
     ForgotPassword: typeof import('./resources/views/assets/js/components/forms/ForgotPassword.vue')['default']
+    Form: typeof import('@primevue/forms/form')['default']
     FormAutocomplete: typeof import('./resources/views/assets/js/components/formfields/FormAutocomplete.vue')['default']
     FormField: typeof import('./resources/views/assets/js/components/formfields/FormField.vue')['default']
     FormImage: typeof import('./resources/views/assets/js/components/formfields/FormImage.vue')['default']
