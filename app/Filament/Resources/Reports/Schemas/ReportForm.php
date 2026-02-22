@@ -105,6 +105,16 @@ class ReportForm
                             })
                             ->hidden(fn ($get) => $get('no_specific_location'))
                     ])->columnSpan(1),
+                Section::make('Status')
+                    ->schema([
+                        Select::make('status')
+                            ->options([
+                                'PENDING' => 'Pending',
+                                'APPROVED' => 'Approved',
+                                'REJECTED' => 'Rejected',
+                            ])
+                            ->required(),
+                    ])->columnSpan(1),
             ]);
     }
 }
