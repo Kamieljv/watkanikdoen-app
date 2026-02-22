@@ -54,5 +54,6 @@ class DatabaseSeeder extends Seeder
         $this->call(SubscribersTableFactorySeeder::class);
         $this->call(ModelHasRolesTableSeeder::class);
         $this->call(RoleHasPermissionsTableSeeder::class);
+        $this->call(TagTableFactorySeeder::class);
     }
 }
