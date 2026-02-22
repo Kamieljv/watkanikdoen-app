@@ -33,8 +33,7 @@
         "primevue": "^4.0.7",
         "uuid": "^10.0.0",
         "vee-validate": "^4.13.2",
-        "vue-advanced-cropper": "^2.8.9",
-        "vue3-icons": "^0.1.13"
+        "vue-advanced-cropper": "^2.8.9"
     },
     "devDependencies": {
         "@popperjs/core": "^2.11.8",
