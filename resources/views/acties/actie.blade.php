@@ -64,7 +64,7 @@
                                 </ul>
                             </div>
                             {{-- Mobile title & details --}}
-                            <div class="flex flex-col gap-3 not-prose p-3 pt-4 bg-white overflow-hidden block sm:hidden">
+                            <div class="flex flex-col gap-6 not-prose p-3 pt-4 bg-white overflow-hidden block sm:hidden">
                                 @if ($actie->afgelopen)
                                     <div
                                         class="w-full inline-flex bg-blue-50 items-center space-x-3 px-4 py-2 text-base font-medium leading-6 border border-[color:var(--wkid-message-info)] rounded-md text-[color:var(--wkid-message-info-dark)]">
@@ -76,7 +76,7 @@
                                     <span>{{ $actie->title }}</span>
                                 </h1>
                                 <div class="flex justify-between">
-                                    <span class="flex items-center mt-0 italic text-sm font-normal">
+                                    <span class="flex items-center mt-0 italic text-sm font-normal text-gray-500">
                                         @if (isset($actie->updated_at))
                                             {{ __('acties.last_edit') }}:
                                             {{ \Carbon\Carbon::parse($actie->updated_at)->diffForHumans() }}
@@ -184,17 +184,6 @@
                                     </a>
                                 @endif
                             </div>
-                            @if ($actie->disobedient === 1)
-                                <div class="p-3 text-sm rounded-md alert-warning">
-                                    <div class="inline-flex items-center mb-3">
-                                        @svg('antdesign-warning-o', ['style' => 'width: 20px; height: 20px']) &nbsp;
-                                        <span class="font-bold">Burgerlijke ongehoorzaamheid</span>
-                                    </div>
-                                    <div>
-                                        {!! __('acties.civdis_text') !!}
-                                    </div>
-                                </div>
-                            @endif
                         </div>
                         <!-- Social sharing -->
                         <div class="not-prose flex flex-col gap-3 p-3 bg-white rounded-lg shadow-lg overflow-hidden">
@@ -271,9 +260,6 @@
                                         </div>
                                     </div>
                                 </a>
-                                {{-- <div class="text-sm">
-                                    {!! Purify::clean($organizer->description) !!}
-                                </div> --}}
                             @endforeach
                         </div>
                     </div>
@@ -289,8 +275,8 @@
                             </div>
                         @endif
                         <h1>{{ $actie->title }}</h1>
-                        <div class="flex justify-between mb-4">
-                            <span class="flex items-center mt-0 italic text-sm font-normal">
+                        <div class="flex justify-between mb-4 mt-3">
+                            <span class="flex items-center mt-0 italic text-sm font-normal text-gray-500">
                                 @if (isset($actie->updated_at))
                                     {{ __('acties.last_edit') }}: {{ \Carbon\Carbon::parse($actie->updated_at)->diffForHumans() }}
                                 @else
