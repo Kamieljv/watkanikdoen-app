@@ -73,10 +73,6 @@ class ReportsTable
                     ->visible(function ($record) {
                         return $record->status === Status::PENDING->name;
                     }),
-                PublishAction::make()
-                    ->visible(function ($record) {
-                        return $record->status === Status::APPROVED->name;
-                    }),
                 EditAction::make(),
             ])
             ->toolbarActions([

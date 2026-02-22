@@ -1,8 +1,9 @@
-@import "tailwindcss";
-@import "tailwindcss-primeui";
+@use "tailwindcss";
+@use "tailwindcss-primeui";
+@use "fonts";
+@use "editor";
+
 @custom-variant dark (&:where(.app-dark, .app-dark *));
-@import "fonts";
-@import "editor";
 
 :root {
   --wkid-red: #e11d00;

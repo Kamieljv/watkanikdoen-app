@@ -195,7 +195,7 @@ defineExpose({
 
 </script>
 <style lang="scss" scoped>
-	@import "../../../sass/app.scss";
+	@use "../../../sass/app.scss";
 </style>
 <style> 
     .autocomplete-result.is-active,
