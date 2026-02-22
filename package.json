@@ -72,9 +72,7 @@
         "vite": "^6.2.1",
         "vite-svg-loader": "^5.1.0",
         "vue": "^3.5.7",
-        "vue-loader": "^17.4.2",
-        "vue-template-compiler": "^2.7.16",
-        "webpack": ">=5.94.0"
+        "vue-loader": "^17.4.2"
     },
     "type": "module"
 }
