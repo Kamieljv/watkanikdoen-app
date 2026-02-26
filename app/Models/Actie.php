@@ -81,7 +81,7 @@ class Actie extends Model
 
     public function getLinkAttribute()
     {
-        return url('/actie/' . $this->slug);
+        return route('acties.actie', $this->slug);
     }
 
     public function getStartAttribute()

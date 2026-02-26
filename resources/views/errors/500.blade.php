@@ -12,7 +12,7 @@
         <h1 class="mb-10">{{ __("general.500_header") }}</h1>
         <p>
             Mail ons gerust met vragen of feedback via 
-            <a class="text-[color:var(--wkid-blue)]" href="mailto:{{config('app.admin_email')}}">{{config('app.admin_email')}}</a>.
+            <a class="text-blue-500" href="mailto:{{config('app.admin_email')}}">{{config('app.admin_email')}}</a>.
         </p>
     </div>
 @endsection

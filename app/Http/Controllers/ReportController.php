@@ -101,7 +101,7 @@ class ReportController extends Controller
                 'start_time' => isset($request->report['start_time']) ? Carbon::parse($request->report['start_time'])->format('H:i') : null,
                 'end_time' => isset($request->report['end_time']) ? Carbon::parse($request->report['end_time'])->format('H:i') : null,
                 'location' => isset($request->report['location']) ?
-                    new Point($request->report['location']['lat'], $request->report['location']['lng']) : null,
+                    new Point($request->report['location'][1], $request->report['location'][0]) : null,
                 'location_human' => $request->report['location_human'],
             ]);
             if (isset($request->report['image'])) {
@@ -277,8 +277,7 @@ class ReportController extends Controller
             'report.start_time' => 'date_format:H:i',
             'report.end_date' => 'required|date_format:Y-m-d|after_or_equal:report.start_date',
             'report.end_time' => 'date_format:H:i',
-
-            'report.location' => 'array:lat,lng',
+            'report.location' => 'array',
             'report.location_human' => 'required|string|max:200',
             'report.image' => '',
             
