@@ -25,11 +25,11 @@
     }
   }
 
+  /* stylelint-disable */
   & .ProseMirror {
     min-height: 200px;
     padding: 1rem;
   }
-
   & .ProseMirror,
   & .ProseMirror-focused,
   & .ProseMirror:focus {
@@ -46,6 +46,7 @@
   & .tiptap-vuetify-editor__content {
     min-height: 220px;
   }
+  /* stylelint-enable */
 
   & .divider {
     border: 1px solid #e6e6e6;
