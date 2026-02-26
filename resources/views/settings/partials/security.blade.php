@@ -7,7 +7,6 @@
 <div id="app">
 	<Security
 		:routes="{{ json_encode($routes) }}"
-		:user="{{ auth()->user() }}"
 		:min-password-length="{{ config('app.auth.min_password_length') }}"
 		:errors="{{ $errors }}"
 	>

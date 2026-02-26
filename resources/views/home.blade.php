@@ -3,15 +3,15 @@
 @section('content')
     <div class="relative">
         <div id="image-banner" style="background-image:url(images/Banner_nocolor.jpg);"
-        class="h-[200px] md:h-[300px] bg-center bg-cover grayscale brightness-[0.7] contrast-[1.5]"></div>
-        <div id="gradient-banner" class="absolute inset-0 bg-gradient-to-r from-[var(--wkid-pink)] to-[var(--wkid-blue)] opacity-70"></div>
+        class="h-50 md:h-75 bg-center bg-cover grayscale brightness-[0.7] contrast-[1.5]"></div>
+        <div id="gradient-banner" class="absolute inset-0 bg-linear-to-r from-(--wkid-pink) to-blue-500 opacity-70"></div>
         <h1 class="absolute w-full bottom-0 text-center leading-[0.7] text-white uppercase text-4xl md:text-5xl md:leading-[0.7]">
             {{ config('brand.title') }}
         </h1>
     </div>
     <div class="row">
         <div id="welcome" class="md:max-w-2xl px-3 md:px-0 my-8 m-auto text-center flex flex-col items-center justify-center">
-            @svg('custom-vormpje', ['style' => 'fill: var(--wkid-blue-light); height: 100px; opacity: 0.2; position: absolute'])
+            @svg('custom-vormpje', ['style' => 'fill: var(--color-blue-300); height: 100px; opacity: 0.2; position: absolute'])
             <p class="relative">
                 {!! config('brand.description_html') !!}
             </p>
@@ -28,7 +28,7 @@
 			</home-agenda>
 		</div>
 		{{-- Who are we? --}}
-		<div id="whoarewe-section" class="mx-2 md:mx-3 my-10 h-[450px] md:h-[370px] text-white rounded-2xl relative overflow-hidden">
+		<div id="whoarewe-section" class="mx-2 md:mx-3 my-10 h-112.5 md:h-92.5 text-white rounded-2xl relative overflow-hidden">
 			<div class="absolute left-[-30%] md:left-[20%] top-[-70%] md:top-[-110%] opacity-20">
 				@svg('logo-icon', ['style' => 'width: 800px;fill: #fff'])
 			</div>
@@ -43,7 +43,7 @@
 				</div>
 				<div class="flex items-center justify-center mt-12">
 					<a href="/over-ons">
-						<button class="secondary-white flex items-center hover:translate-x-[0.250rem]">
+						<button class="secondary-white flex items-center hover:translate-x-1">
 							<p class="text-lg">{{__('general.about_us')}}</p>
 							<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 ml-1" style="transform: rotate(180deg);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
 						</button>
@@ -66,7 +66,7 @@
 			</div>
 			<div class="flex items-center justify-center mt-12">
 				<a href="/organisatoren/index">
-					<button class="primary flex items-center hover:translate-x-[0.250rem]">
+					<button class="primary flex items-center hover:translate-x-1">
 						<p class="text-lg">{{__('organizers.view_all_organizers')}}</p>
 						<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 ml-1" style="transform: rotate(180deg);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
 					</button>
@@ -74,7 +74,7 @@
 			</div>
 		</div>
         <!-- Statistics -->
-		<div id="stats-section" class="row relative mx-2 md:mx-3 my-10 rounded-2xl py-20 md:py-32 px-3 text-white overflow-hidden bg-[color:var(--wkid-blue)]">
+		<div id="stats-section" class="row relative mx-2 md:mx-3 my-10 rounded-2xl py-20 md:py-32 px-3 text-white overflow-hidden bg-blue-500">
 			<div class="flex flex-col mx-auto max-w-6xl px-3 items-center text-center">
 				<h1>Er is genoeg wat jíj kan doen!</h1>
 				<div class="flex flex-col md:flex-row w-full space-y-14 md:space-y-0 mt-10 items-center">
@@ -132,8 +132,8 @@
 		background: linear-gradient(to top left, var(--wkid-pink-90), #91368be6);
 	}
 	#stats-section {
-		background: var(--wkid-blue);  
-		background: linear-gradient(to top left, var(--wkid-blue-90), #ca467ae6);  
+		background: var(--color-blue-500);  
+		background: linear-gradient(to top left, var(--color-blue-500), #ca467ae6);  
 	}
 
 	.ball {

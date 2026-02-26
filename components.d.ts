@@ -72,6 +72,8 @@ declare global {
   const ActieSmall: typeof import('./resources/views/assets/js/components/partials/ActieSmall.vue')['default']
   const ActieWijzer: typeof import('./resources/views/assets/js/components/apps/ActieWijzer.vue')['default']
   const AddActie: typeof import('./resources/views/assets/js/components/apps/AddActie.vue')['default']
+  const BookItemList: typeof import('./resources/views/assets/js/components/partials/BookItemList.vue')['default']
+  const Books: typeof import('./resources/views/assets/js/components/apps/Books.vue')['default']
   const Checkbox: typeof import('primevue/checkbox')['default']
   const Collapsible: typeof import('./resources/views/assets/js/components/partials/Collapsible.vue')['default']
   const CoordinatesFormField: typeof import('./resources/views/assets/js/components/formfields/CoordinatesFormField.vue')['default']

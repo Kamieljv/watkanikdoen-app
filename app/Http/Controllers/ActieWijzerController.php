@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ScoreDimensionRequest;
-use App\Http\Requests\DeleteDimensionScoreRequest;
 use App\Models\Actie;
-use App\Models\Answer;
 use App\Models\Question;
 use App\Models\Dimension;
 use App\Models\Referentie;
