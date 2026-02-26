@@ -11,7 +11,7 @@
         </a>
     </div>
     @if ($isAdmin)
-        <div class="max-w-6xl mx-auto mt-10 px-5 lg:px-0 mt-4">
+        <div class="max-w-6xl mx-auto px-5 lg:px-0 mt-4">
             <div class="flex p-3 rounded-md bg-gray-600 text-white justify-between">
                 {{ __('general.admin_message') }}
                 <a href="/admin/acties/{{ $actie->id }}/edit" class="italic hover:underline">Actie bewerken</a>
@@ -30,7 +30,7 @@
             <div class="grid grid-cols-12 max-w-6xl mx-auto mt-6 gap-5">
                 <div id="right-container" class="col-span-12 sm:order-last sm:col-span-4">
                     <div class="content flex flex-col gap-4 h-full">
-                        <div class="flex-shrink-0 not-prose relative rounded-lg shadow-lg overflow-hidden">
+                        <div class="shrink-0 not-prose relative rounded-lg shadow-lg overflow-hidden">
                             <!-- Image and tags -->
                             <div class="relative w-full h-48">
                                 @if ($actie->image_url)
@@ -38,7 +38,7 @@
                                         alt="">
                                 @else
                                     <div
-                                        class="h-full bg-gradient-to-r from-[var(--wkid-pink-light)] to-[var(--wkid-blue-light)] text-white flex items-center justify-center">
+                                        class="h-full bg-linear-to-r from-(--wkid-pink-light) to-blue-400 text-white flex items-center justify-center">
                                         @svg('custom-logo-icon', ['style' => 'fill: currentColor; height: 80px;'])
                                     </div>
                                 @endif
@@ -55,7 +55,7 @@
                                 <ul class="categories-container p-2 absolute bottom-0 w-full flex flex-wrap">
                                     @foreach ($actie->categories as $actieCategorie)
                                         <li
-                                            class="relative self-start inline-block bg-gray-100 px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded">
+                                            class="relative self-start inline-block bg-gray-100 px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-gray-400 uppercase rounded">
                                             <span class="flex items-center text-gray-800" rel="categorie">
                                                 {{ $actieCategorie->name }}
                                             </span>
@@ -64,10 +64,10 @@
                                 </ul>
                             </div>
                             {{-- Mobile title & details --}}
-                            <div class="flex flex-col gap-6 not-prose p-3 pt-4 bg-white overflow-hidden block sm:hidden">
+                            <div class="flex flex-col gap-6 not-prose p-3 pt-4 bg-white overflow-hidden sm:hidden">
                                 @if ($actie->afgelopen)
                                     <div
-                                        class="w-full inline-flex bg-blue-50 items-center space-x-3 px-4 py-2 text-base font-medium leading-6 border border-[color:var(--wkid-message-info)] rounded-md text-[color:var(--wkid-message-info-dark)]">
+                                        class="w-full inline-flex bg-blue-50 items-center space-x-3 px-4 py-2 text-base font-medium leading-6 border border-blue-500 rounded-md text-blue-800">
                                         @svg('clarity-info-standard-solid', ['style' => 'width: 20px; height: 20px'])
                                         <span>{{ __('acties.passed') }}</span>
                                     </div>
@@ -269,7 +269,7 @@
                     <div class="leading-none hidden sm:block">
                         @if ($actie->afgelopen)
                             <div
-                                class="w-full inline-flex mb-5 bg-blue-50 items-center space-x-3 px-4 py-2 text-base font-medium leading-6 border border-[color:var(--wkid-message-info)] rounded-md text-[color:var(--wkid-message-info-dark)]">
+                                class="w-full inline-flex mb-5 bg-blue-50 items-center space-x-3 px-4 py-2 text-base font-medium leading-6 border border-blue-800 rounded-md text-blue-800">
                                 @svg('clarity-info-standard-solid', ['style' => 'width: 20px; height: 20px'])
                                 <span>{{ __('acties.passed') }}</span>
                             </div>

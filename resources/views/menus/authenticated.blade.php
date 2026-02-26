@@ -1,11 +1,11 @@
 <nav class="flex items-center justify-end w-full h-full space-x-10">
-    <a href="/acties" class="hidden lg:block shrink-0 text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600">
+    <a href="/acties" class="hidden lg:block shrink-0 text-base font-medium leading-6 transition duration-150 ease-in-out focus:outline-none focus:text-wave-600">
         {{ __("menus.acties") }}
     </a>
-    <a href="{{ route('organizers.index') }}" class="hidden lg:block shrink-0 text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600">
+    <a href="{{ route('organizers.index') }}" class="hidden lg:block shrink-0 text-base font-medium leading-6 transition duration-150 ease-in-out focus:outline-none focus:text-wave-600">
         {{ __("menus.organizers") }}
     </a>
-    <a href="/over-ons" class="hidden lg:block shrink-0 text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600">
+    <a href="/over-ons" class="hidden lg:block shrink-0 text-base font-medium leading-6 transition duration-150 ease-in-out focus:outline-none focus:text-wave-600">
         {{ __("menus.about_us") }}
     </a>
     <a href="{{ config('app.donate_link') }}" class="hidden lg:block text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600" target="_blank">
