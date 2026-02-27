@@ -9,7 +9,7 @@
             </a>
         </div>
 
-        @include('partials.actiewijzer-banner')
+        {{-- @include('partials.actiewijzer-banner') --}}
 
         <div class="max-w-6xl mx-auto mt-6">
             <h1>{{__("books.title")}}</h1>

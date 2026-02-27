@@ -13,6 +13,7 @@ return new class extends Migration {
             $table->text('description')->nullable();
             $table->string('author')->nullable();
             $table->string('year')->nullable();
+            $table->string('publisher')->nullable();
             $table->string('isbn')->nullable();
             $table->string('cover_image')->nullable();
             $table->timestamps();
