@@ -140,7 +140,7 @@ const getActies = debounce(() => {
   isGeladen.value = false;
   hasError.value = false;
   axios
-    .get(props.routes["acties.search"].uri, {
+    .get(props.routes["acties.search"], {
       params: {
         show_past: false,
         limit: 5,

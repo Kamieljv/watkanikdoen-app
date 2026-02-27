@@ -29,14 +29,13 @@ class ReportController extends Controller
     public function landing()
     {
         // Definieer de routes waarmee de component evenementen kan ophalen
-        $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
-            return (strpos($route->uri, 'organisatoren') !== false || strpos($route->uri, 'organisator') !== false) && (strpos($route->uri, 'admin') === false);
-        })->map(function ($route) {
-            return [
-                'uri' => '/' . $route->uri,
-                'methods' => $route->methods,
-            ];
-        })->toArray();
+        $routes = getRouteUris(namePattern: 'organizers');
+        // Add additional routes for report creation, login, and registration
+        $routes = array_merge($routes, [
+            'report_create' => route('report.create'),
+            'login' => route('login'),
+            'register' => route('register'),
+        ]);
 
         // Display the landing page
         return view('reports.landing', compact('routes'));

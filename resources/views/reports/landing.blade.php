@@ -1,11 +1,6 @@
 @extends('layouts.app')
 
 @php
-    $routes = array_merge($routes, [
-        'report_create' => route('report.create'),
-        'login' => route('login'),
-        'register' => route('register'),
-    ]);
     $defaultCenter = old('location') &&
         (old('location') !== NULL)
             ? old('location')

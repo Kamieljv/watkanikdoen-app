@@ -14,7 +14,11 @@ class SubscriberController extends Controller
 {
     public function landing()
     {
-        return view('newsletter.landing');
+        $routes = [
+            'subscribe' => route('subscribers.store'),
+            'terms' => '/algemene-voorwaarden-en-privacyverklaring',
+        ];
+        return view('newsletter.landing', compact('routes'));
     }
 
     public function verified()

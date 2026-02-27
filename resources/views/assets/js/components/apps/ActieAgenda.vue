@@ -333,7 +333,7 @@ const getActies = debounce(() => {
   isGeladen.value = false;
   hasError.value = false;
   axios
-    .get(props.routes["acties.search"].uri, {
+    .get(props.routes["acties.search"], {
       params: {
         q: query.value,
         themes: themesSelected.value ? themesSelected.value : null,

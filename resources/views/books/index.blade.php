@@ -12,18 +12,17 @@
         @include('partials.actiewijzer-banner')
 
         <div class="max-w-6xl mx-auto mt-6">
-            <h1>{{__("organizers.title")}}</h1>
+            <h1>{{__("books.title")}}</h1>
             <p class="mt-4">
-                {!!__("organizers.sub_title")!!}
+                {!!__("books.sub_title")!!}
             </p>
         </div>
     </div>
-
-    <div id="app" class="max-w-6xl mb-40 mx-auto mt-6 px-3">
-        <organizers
+    <div id="app" class="px-3 xl:px-5 mb-40">
+        <books
             :routes="{{ json_encode($routes) }}"
             :themes="{{ $themes }}"
+            :themes-selected-ids="{{ json_encode($themes_selected_ids) }}"
         />
     </div>
-
 @endsection
