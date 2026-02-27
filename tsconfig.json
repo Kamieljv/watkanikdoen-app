@@ -7,9 +7,14 @@
     "isolatedModules": true,
     "noEmit": true,
     "allowSyntheticDefaultImports": true,
+    "baseUrl": "./",
     "paths": {
-      "@/*": ["./resources/js/*"],
       "&/*": ["./resources/svg/*"]
-    }
-  }
+    },
+  },
+  "include": [
+    "*.d.ts",
+    "resources/views/assets/js/**/*",
+    "resources/svg/**/*"
+  ],
 }

@@ -1,14 +1,14 @@
 <nav class="flex items-center justify-end w-full h-full space-x-10">
-    <a href="/acties" class="hidden lg:block shrink-0 text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600">
+    <a href="/acties" class="hidden lg:block shrink-0 text-base font-medium leading-6 transition duration-150 ease-in-out focus:outline-none focus:text-wave-600">
         {{ __("menus.acties") }}
     </a>
-    <a href="{{ route('organizers.index') }}" class="hidden lg:block shrink-0 text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600">
+    <a href="{{ route('organizers.index') }}" class="hidden lg:block shrink-0 text-base font-medium leading-6 transition duration-150 ease-in-out focus:outline-none focus:text-wave-600">
         {{ __("menus.organizers") }}
     </a>
-    <a href="/over-ons" class="hidden lg:block shrink-0 text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600">
+    <a href="/over-ons" class="hidden lg:block shrink-0 text-base font-medium leading-6 transition duration-150 ease-in-out focus:outline-none focus:text-wave-600">
         {{ __("menus.about_us") }}
     </a>
-    {{-- <a href="https://www.firestarterfund.nl/campaigns/16/demonstratie-agenda-voor-vandaag-en-morgen!-" class="hidden lg:block text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600" target="_blank">
+    {{-- <a href="https://www.firestarterfund.nl/campaigns/16/demonstratie-agenda-voor-vandaag-en-morgen!-" class="hidden lg:block text-base font-medium leading-6 transition duration-150 ease-in-out focus:outline-none focus:text-wave-600" target="_blank">
         {{ __("menus.donate") }}
     </a> --}}
     <span class="hidden md:inline-flex shrink-0 rounded-md shadow-sm">

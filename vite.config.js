@@ -6,6 +6,7 @@ import Components from 'unplugin-vue-components/vite';
 import { PrimeVueResolver } from '@primevue/auto-import-resolver';
 import svgLoader from 'vite-svg-loader'
 import { visualizer } from 'rollup-plugin-visualizer';
+import vueDevTools from 'vite-plugin-vue-devtools'
 
 export default defineConfig({
     plugins: [
@@ -37,6 +38,7 @@ export default defineConfig({
                 PrimeVueResolver()
             ],
         }),
+        vueDevTools(),
         // Uncomment to analyze bundle size
         // visualizer({
         //     open: true,

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use MWGuerra\FileManager\Models\FileSystemItem;
 
 class Organizer extends Model
@@ -90,6 +91,11 @@ class Organizer extends Model
             return asset('storage/' . $image->storage_path);
         }
         return null;
+    }
+
+    public function tags(): MorphToMany
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
     }
     
     public function getPublishedAttribute()
