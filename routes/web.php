@@ -15,6 +15,7 @@ use App\Http\Controllers\ActieController;
 use App\Http\Controllers\ActieWijzerController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ICalController;
@@ -69,6 +70,9 @@ Route::get('actiewijzer/result', [ActieWijzerController::class, 'result'])->name
 Route::get('type/{referentie_type}', [ActieWijzerController::class, 'referentie_type'])->name('actiewijzer.referentie_type');
 Route::get('referenties/search', [ActieWijzerController::class, 'search'])->name('referenties.search');
 
+// Books
+Route::get('boeken', [BookController::class, 'index'])->name('books.index');
+Route::get('boeken/search', [BookController::class, 'search'])->name('books.search');
 
 // Newsletter (subscriber) routes
 Route::get('nieuwsbrief', [SubscriberController::class, 'landing'])->name('subscribers.landing');
