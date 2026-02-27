@@ -23,7 +23,7 @@
     <div id="app" class="flex flex-col max-w-7xl mx-auto">
 		<div style="min-height: 600px">
 			<home-agenda
-				:routes="{{ $routes }}"
+				:routes="{{ json_encode($actieRoutes) }}"
 			>
 			</home-agenda>
 		</div>
@@ -60,7 +60,7 @@
 				</div>
 				<div class="col-span-2 flex flex-col md:pl-5"> 
 					<organizers-featured
-						:routes="{{ $routes }}"
+						:routes="{{ json_encode($organizerRoutes) }}"
 					/>
 				</div>
 			</div>

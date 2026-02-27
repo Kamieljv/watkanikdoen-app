@@ -57,14 +57,8 @@ class ActieWijzerController extends Controller
         }
 
         // Define the routes with which the component can get the referenties/acties
-        $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
-            return (strpos($route->uri, 'acties') !== false) && (strpos($route->uri, 'admin') === false);
-        })->map(function ($route) {
-            return [
-                'uri' => '/' . $route->uri,
-                'methods' => $route->methods,
-            ];
-        });
+        $routes = getRouteUris(namePattern: 'acties');
+
 
         // Get referentie_types and calculate the similarity with the score_vector
         $referentie_types = ReferentieType::published()->with(['referenties' => function (Builder $query) use ($themes) {
@@ -106,14 +100,7 @@ class ActieWijzerController extends Controller
         $referentie_type = ReferentieType::where('slug', $slug)->firstOrFail();
 
         // Definieer de routes waarmee de component evenementen kan ophalen
-        $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
-            return strpos($route->uri, 'referenties') !== false && (strpos($route->uri, 'admin') === false);
-        })->map(function ($route) {
-            return [
-                'uri' => '/' . $route->uri,
-                'methods' => $route->methods,
-            ];
-        });
+        $routes = getRouteUris(namePattern: 'referenties');
 
         $themes = Theme::orderBy('name', 'ASC')->get();
         $themes_selected_ids = $request->themes ? array_map('intval', $request->themes) : [];
