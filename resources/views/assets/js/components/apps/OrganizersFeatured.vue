@@ -30,7 +30,7 @@
                 v-for="organizer in organizersFormatted"
                 :key="organizer.id"
                 :organizer="organizer"
-                :route="organizerBaseRoute + organizer.slug"
+                :route="props.routes['organizers.organizer'].replace('{organizer}', organizer.slug)"
                 :show-themes="showThemes"
                 :type="'large'"
               />
@@ -88,9 +88,6 @@ const organizersFormatted = computed(() => {
   });
   return organizers.value;
 });
-const organizerBaseRoute = computed(() => {
-  return props.routes["organizers.organizer"].uri.split("{")[0];
-});
 
 onMounted(() => {
   getOrganizers();
@@ -100,7 +97,7 @@ const getOrganizers = async function getOrganizers() {
   isGeladen.value = false;
   hasError.value = false;
   try {
-    const response = await axios.get(props.routes["organizers.search"].uri, {
+    const response = await axios.get(props.routes["organizers.search"], {
       params: {
         limit: props.max,
         onlyFeatured: true,

@@ -55,7 +55,7 @@
                 v-for="organizer in organizersFormatted"
                 :key="organizer.id"
                 :organizer="organizer"
-                :route="organizerBaseRoute + organizer.slug"
+                :route="routes['organizers.organizer'].replace('{organizer}', organizer.slug)"
                 :show-themes="showThemes"
                 :mode="mode"
                 :selected-initial="organizer.selected"
@@ -116,6 +116,7 @@
 import { ref, computed, watch, onMounted, inject } from "vue";
 import axios from "axios";
 import debounce from "lodash/debounce";
+import type { Organizer } from "../../models";
 const emit = defineEmits(["update:modelValue"]);
 const __: (key: string) => string = inject("translate");
 
@@ -176,9 +177,6 @@ const organizersFormatted = computed(() => {
   });
   return organizers.value;
 });
-const organizerBaseRoute = computed(() => {
-  return props.routes["organizers.organizer"].uri.split("{")[0];
-});
 
 const filterCount = computed(() => {
   const filters = [query.value, themesSelected.value];
@@ -207,7 +205,7 @@ onMounted(() => {
 const getOrganizers = debounce(() => {
   isGeladen.value = false;
   axios
-    .get(props.routes["organizers.search"].uri, {
+    .get(props.routes["organizers.search"], {
       params: {
         q: query.value,
         themes: themesSelected.value ? themesSelected.value : null,
@@ -241,7 +239,7 @@ const updateOrganizersSelected = (value, organizer) => {
   if (value === true) {
     organizersSel.value.push(organizer);
   } else {
-    organizersSel.value = organizersSel.value.filter((v) => {
+    organizersSel.value = organizersSel.value.filter((v: Organizer) => {
       if (!("id" in organizer)) {
         return true;
       }
@@ -252,7 +250,7 @@ const updateOrganizersSelected = (value, organizer) => {
 };
 
 const isSelected = (organizer) => {
-  return !!organizersSel.value.find((v: object) => {
+  return !!organizersSel.value.find((v: Organizer) => {
     if (!("id" in v)) {
       return false;
     }

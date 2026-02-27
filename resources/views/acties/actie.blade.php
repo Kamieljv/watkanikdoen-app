@@ -327,7 +327,7 @@
                         </h2>
                     @endif
                     <actie-agenda
-                        :routes="{{ $routes }}"
+                        :routes="{{ json_encode($routes) }}"
                         :filterable="false"
                         :themes="{{ $themes }}"
                         :themes-selected-ids="{{ json_encode(array_column($actie->themes->toArray(), 'id')) }}"

@@ -113,7 +113,17 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         $type = 'register';
-        return view('auth.login', compact('type'));
+
+        $routes = [
+            'login' => route('login'),
+            'forgot_password' => route('password.request'),
+            'register' => route('register'),
+            'register_complete' => route('registration.complete'),
+            'terms' => '/algemene-voorwaarden-en-privacyverklaring',
+            'privacypolicy' => '/privacybeleid',
+        ];
+
+        return view('auth.login', compact('type', 'routes'));
     }
 
     public function verify(Request $request, $verification_code)

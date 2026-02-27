@@ -293,7 +293,7 @@ const getReferenties = debounce(() => {
   isGeladen.value = false;
   hasError.value = false;
   axios
-    .get(props.routes["referenties.search"].uri, {
+    .get(props.routes["referenties.search"], {
       params: {
         referentieTypeId: props.referentieTypeId,
         q: query.value,

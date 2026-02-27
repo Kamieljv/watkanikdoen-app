@@ -18,7 +18,14 @@ class SettingsController extends Controller
         if (empty($section)) {
             return redirect(route('settings', 'profile'));
         }
-        return view('settings.index', compact('section'));
+
+        $routes = [
+            'profile_put' => route('settings.profile.put'),
+            'security_put' => route('settings.security.put'),
+            'delete_avatar' => route('settings.profile.deleteAvatar', auth()->user()->id),
+        ];
+
+        return view('settings.index', compact('section', 'routes'));
     }
 
     public function profilePut(Request $request)

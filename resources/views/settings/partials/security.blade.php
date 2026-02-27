@@ -1,9 +1,3 @@
-@php
-    $routes = [
-        'security_put' => route('settings.security.put'),
-    ];
-@endphp
-
 <div id="app">
 	<Security
 		:routes="{{ json_encode($routes) }}"

@@ -45,7 +45,16 @@ class LoginController extends Controller
             session(['url.intended' => url()->previous()]);
         }
 
-        return view('auth.login');
+        $routes = [
+            'login' => route('login'),
+            'forgot_password' => route('password.request'),
+            'register' => route('register'),
+            'register_complete' => route('registration.complete'),
+            'terms' => '/algemene-voorwaarden-en-privacyverklaring',
+            'privacypolicy' => '/privacybeleid',
+        ];
+
+        return view('auth.login', compact('routes'));
     }
 
     public function isLoggedIn(Request $request)

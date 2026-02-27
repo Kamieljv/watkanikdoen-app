@@ -119,7 +119,7 @@
                             @endforeach
                         </i></p>
                         <actie-agenda
-                            :routes="{{ $routes }}"
+                            :routes="{{ json_encode($routes) }}"
                             :filterable="false"
                             :themes="{{ $themes}}"
                             :themes-selected-ids="{{ json_encode(array_column($themes->toArray(), 'id')) }}"

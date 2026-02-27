@@ -19,7 +19,7 @@
     <div class="max-w-6xl mx-auto mt-6 px-5">
         <div id="app" class="mb-40">
             <referenties
-                :routes="{{ $routes }}"
+                :routes="{{ json_encode($routes) }}"
                 :themes="{{ $themes }}"
                 :referentie-type-id="{{ $referentie_type->id }}"
                 :themes-selected-ids="{{ json_encode($themes_selected_ids) }}"

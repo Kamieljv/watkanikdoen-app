@@ -15,14 +15,7 @@ class ActieController extends Controller
     public function agenda(Request $request)
     {
         // Definieer de routes waarmee de component evenementen kan ophalen
-        $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
-            return (strpos($route->uri, 'acties') !== false) && (strpos($route->uri, 'admin') === false);
-        })->map(function ($route) {
-            return [
-                'uri' => '/' . $route->uri,
-                'methods' => $route->methods,
-            ];
-        });
+        $routes = getRouteUris(namePattern: 'acties');
 
         $themes = Theme::orderBy('name', 'ASC')->get();
         $categories = Category::orderBy('name', 'ASC')->get();
@@ -45,15 +38,7 @@ class ActieController extends Controller
             abort(404);
         }
 
-        $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
-            return (strpos($route->uri, 'acties') !== false) && (strpos($route->uri, 'admin') === false);
-        })->map(function ($route) {
-            return [
-                'uri' => '/' . $route->uri,
-                'methods' => $route->methods,
-            ];
-        });
-
+        $routes = getRouteUris(namePattern: 'acties');
 
         // SEO
         SEOTools::setTitle($actie->title . ' | ' . config('brand.title'));
