@@ -73,7 +73,7 @@
                                         {{-- Status --}}
                                         @php
                                             $statusColorMap = array(
-                                                'PENDING' => 'bg-blue-100 text-[color:var(--wkid-blue-dark)]',
+                                                'PENDING' => 'bg-blue-100 text-blue-800',
                                                 'APPROVED' => 'bg-green-100 text-green-800',
                                                 'REJECTED' => 'bg-red-100 text-red-800',
                                             )
@@ -89,9 +89,9 @@
                                         {{-- Editing/Viewing --}}
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                             @if($report->status === 'APPROVED' && isset($report->actie))
-                                                <a href="{{ $report->actie->link }}" class="text-[color:var(--wkid-blue)] hover:text-[color:var(--wkid-blue-dark)]">{{ __("reports.view") }}</a>
+                                                <a href="{{ $report->actie->link }}" class="text-blue-500 hover:text-blue-700">{{ __("reports.view") }}</a>
                                             @else
-                                                <a href="{{ route('report.view', $report->id) }}" class="text-[color:var(--wkid-blue)] hover:text-[color:var(--wkid-blue-dark)]">{{ __("reports.view") }}</a>
+                                                <a href="{{ route('report.view', $report->id) }}" class="text-blue-500 hover:text-blue-700">{{ __("reports.view") }}</a>
                                             @endif
                                         </td>
                                     </tr>

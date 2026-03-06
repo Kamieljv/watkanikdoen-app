@@ -18,14 +18,7 @@ class OrganizerController extends Controller
     public function index()
     {
         // Definieer de routes waarmee de component evenementen kan ophalen
-        $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
-            return (strpos($route->uri, 'organisatoren') !== false || strpos($route->uri, 'organisator') !== false) && (strpos($route->uri, 'admin') === false);
-        })->map(function ($route) {
-            return [
-                'uri' => '/' . $route->uri,
-                'methods' => $route->methods,
-            ];
-        });
+        $routes = getRouteUris(namePattern: 'organizers');
 
         $themes = Theme::orderBy('name', 'ASC')->get();
 
@@ -70,14 +63,7 @@ class OrganizerController extends Controller
         $organizer = Organizer::where('slug', '=', $slug)->firstOrFail();
 
         // Definieer de routes waarmee de component evenementen kan ophalen
-        $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
-            return (strpos($route->uri, 'acties') !== false) && (strpos($route->uri, 'admin') === false);
-        })->map(function ($route) {
-            return [
-                'uri' => '/' . $route->uri,
-                'methods' => $route->methods,
-            ];
-        });
+        $routes = getRouteUris(namePattern: 'acties');
 
         // SEO
         SEOTools::setTitle($organizer->name . ' | ' . config('brand.title'));

@@ -59,7 +59,7 @@
         <div id="app" class="mb-40">
             <h3 class="text-gray-800">Acties georganiseerd door {{ $organizer->name }}</h3>
             <actie-agenda
-                :routes="{{ $routes }}"
+                :routes="{{ json_encode($routes) }}"
                 :filterable="false"
                 :organizer-id="{{ $organizer->id }}"
                 :narrower="true"

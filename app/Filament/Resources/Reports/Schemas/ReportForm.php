@@ -103,7 +103,11 @@ class ReportForm
                                     $set('location', ['lat' => $record->location->latitude, 'lng' => $record->location->longitude]);
                                 }
                             })
-                            ->hidden(fn ($get) => $get('no_specific_location'))
+                            ->hidden(fn ($get) => $get('no_specific_location')),
+                        TextInput::make('location_human')
+                            ->label('Location')
+                            ->required()
+                            ->maxLength(255),
                     ])->columnSpan(1),
                 Section::make('Status')
                     ->schema([

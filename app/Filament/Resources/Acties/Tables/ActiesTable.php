@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Acties\Tables;
 
+use App\Filament\Resources\Acties\ActieResource;
+use App\Models\Actie;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -16,6 +18,7 @@ class ActiesTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->recordUrl(fn (Actie $record): string => ActieResource::getUrl('edit', ['record' => $record]))
             ->columns([
                 TextColumn::make('title')
                     ->searchable()
@@ -64,7 +67,7 @@ class ActiesTable
                     ->toggle(),
             ])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()->defaultView('edit'),
                 ViewAction::make()
                     ->url(fn ($record) => route('acties.actie', $record->slug))
                     ->openUrlInNewTab(),

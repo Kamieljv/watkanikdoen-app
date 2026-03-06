@@ -6,6 +6,9 @@ acties/*
 !avatars/
 avatars/*
 !avatars/.gitignore
+!books/
+books/*
+!books/.gitignore
 !organizers/
 organizers/*
 !organizers/.gitignore

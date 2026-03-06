@@ -39,6 +39,10 @@
         "spatie/laravel-sitemap": "^7.3"
     },
     "autoload": {
+        "files": [
+            "app/Helpers/vectors.php",
+            "app/Helpers/routes.php"
+        ],
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",

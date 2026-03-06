@@ -1,15 +1,10 @@
 @extends('layouts.app')
 
 @php
-    $routes = array_merge($routes, [
-        'report_create' => route('report.create'),
-        'login' => route('login'),
-        'register' => route('register'),
-    ]);
     $defaultCenter = old('location') &&
-        (old('location')['lat'] !== NULL)
-            ? [old('location')]
-            : [['lat' => config('app.maps.center.lat'), 'lng' => config('app.maps.center.lng')]];
+        (old('location') !== NULL)
+            ? old('location')
+            : [config('app.maps.center.lng'), config('app.maps.center.lat')];
 @endphp
 
 @section('content')

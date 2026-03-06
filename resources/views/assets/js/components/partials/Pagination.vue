@@ -1,54 +1,86 @@
 <template>
   <div v-if="pages.length > 1" class="min-w-max">
-    <section class="flex justify-center bg-white px-10 py-3 text-gray-700 font-montserrat">
+    <section
+      class="flex justify-center bg-white px-10 py-3 text-gray-700 font-montserrat"
+    >
       <ul class="flex items-center">
-        <li class="pr-6" v-if="hasPrev">
+        <li v-if="hasPrev" class="pr-6">
           <a href="#" @click.prevent="changePage(prevPage)">
-            <div class="flex items-center justify-center hover:bg-gray-200 rounded-full transform h-6 w-6">
+            <div
+              class="flex items-center justify-center hover:bg-gray-200 rounded-full transform h-6 w-6"
+            >
               <div class="transform">
-                <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                <svg
+                  class="h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 19l-7-7 7-7"
+                  />
                 </svg>
               </div>
             </div>
           </a>
         </li>
-        <li class="pr-6" v-if="hasFirst">
+        <li v-if="hasFirst" class="pr-6">
           <a href="#" @click.prevent="changePage(1)">
-            <div class="flex hover:bg-gray-200 rounded-full transform h-6 w-6 items-center justify-center">
-          <span class="transform">
-            1
-          </span>
+            <div
+              class="flex hover:bg-gray-200 rounded-full transform h-6 w-6 items-center justify-center"
+            >
+              <span class="transform"> 1 </span>
             </div>
           </a>
         </li>
-        <li class="pr-6" v-if="hasFirst">...</li>
-        <li class="pr-6" v-for="page in pages" :key="page">
+        <li v-if="hasFirst" class="pr-6">...</li>
+        <li v-for="page in pages" :key="page" class="pr-6">
           <a href="#" @click.prevent="changePage(page)">
-            <div :class="{'text-white bg-[color:var(--wkid-pink)]': current == page}"
-                 class="flex hover:bg-gray-200 rounded-full transform h-6 w-6 items-center justify-center">
+            <div
+              :class="{
+                'text-white bg-(--wkid-pink)': current == page,
+              }"
+              class="flex hover:bg-gray-200 rounded-full transform h-6 w-6 items-center justify-center"
+            >
               <span class="transform">{{ page }}</span>
             </div>
           </a>
         </li>
-        <li class="pr-6" v-if="hasLast">...</li>
-        <li class="pr-6" v-if="hasLast">
+        <li v-if="hasLast" class="pr-6">...</li>
+        <li v-if="hasLast" class="pr-6">
           <a href="#" @click.prevent="changePage(totalPages)">
-            <div class="flex hover:bg-gray-200 rounded-full transform h-6 w-6 items-center justify-center">
-          <span class="transform">
-            {{ totalPages }}
-          </span>
+            <div
+              class="flex hover:bg-gray-200 rounded-full transform h-6 w-6 items-center justify-center"
+            >
+              <span class="transform">
+                {{ totalPages }}
+              </span>
             </div>
           </a>
         </li>
-        <li class="pr-6" v-if="hasNext">
+        <li v-if="hasNext" class="pr-6">
           <a href="#" @click.prevent="changePage(nextPage)">
-            <div class="flex items-center justify-center hover:bg-gray-200 rounded-full transform h-6 w-6">
+            <div
+              class="flex items-center justify-center hover:bg-gray-200 rounded-full transform h-6 w-6"
+            >
               <div class="transform">
-                <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                <svg
+                  class="h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
+                  />
                 </svg>
               </div>
             </div>
@@ -60,89 +92,86 @@
 </template>
 
 <script setup lang="ts">
-
-import { computed, ref } from 'vue'
-const emit = defineEmits(['page-changed'])
+import { computed } from "vue";
+const emit = defineEmits(["page-changed"]);
 
 const props = defineProps({
   current: {
-	type: Number,
-	default: 1
+    type: Number,
+    default: 1,
   },
   total: {
-	type: Number,
-	default: 0
+    type: Number,
+    default: 0,
   },
   perPage: {
-	type: Number,
-	default: 9
+    type: Number,
+    default: 9,
   },
   pageRange: {
-	type: Number,
-	default: 2
+    type: Number,
+    default: 2,
   },
   textBeforeInput: {
-	type: String,
-	default: "Go to page"
+    type: String,
+    default: "Go to page",
   },
   textAfterInput: {
-	type: String,
-	default: "Go"
-  }
-})
+    type: String,
+    default: "Go",
+  },
+});
 
 const hasFirst = computed(() => {
-  return props.current !== 1
-})
+  return props.current !== 1;
+});
 const hasLast = computed(() => {
-  return rangeEnd.value < totalPages.value
-})
+  return rangeEnd.value < totalPages.value;
+});
 
 const hasPrev = computed(() => {
-  return props.current > 1
-})
+  return props.current > 1;
+});
 
 const hasNext = computed(() => {
-  return props.current < totalPages.value
-})
+  return props.current < totalPages.value;
+});
 
 const changePage = (page: number) => {
   if (page > 0 && page <= totalPages.value) {
-	emit('page-changed', page)
+    emit("page-changed", page);
   }
-}
+};
 
 const pages = computed(() => {
-  const pages = []
+  const pages = [];
   for (let i = rangeStart.value; i <= rangeEnd.value; i++) {
-	pages.push(i)
+    pages.push(i);
   }
-  return pages
-})
+  return pages;
+});
 
 const rangeStart = computed(() => {
-  const start = props.current - props.pageRange
-  return start > 0 ? start : 1
-})
+  const start = props.current - props.pageRange;
+  return start > 0 ? start : 1;
+});
 
 const rangeEnd = computed(() => {
-  const end = props.current + props.pageRange
-  return end < totalPages.value ? end : totalPages.value
-})
+  const end = props.current + props.pageRange;
+  return end < totalPages.value ? end : totalPages.value;
+});
 
 const totalPages = computed(() => {
-  return Math.ceil(props.total / props.perPage)
-})
+  return Math.ceil(props.total / props.perPage);
+});
 
 const nextPage = computed(() => {
-  return props.current + 1
-})
+  return props.current + 1;
+});
 
 const prevPage = computed(() => {
-  return props.current - 1
-})
-
+  return props.current - 1;
+});
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
