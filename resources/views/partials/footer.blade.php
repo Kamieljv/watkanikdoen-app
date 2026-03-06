@@ -24,14 +24,14 @@
                         <span>{{ __('menus.about_us') }}</span>
                     </a>
                 </li>
-                {{-- <li class="text-center">
-                    <a href="https://www.firestarterfund.nl/campaigns/16/demonstratie-agenda-voor-vandaag-en-morgen!-" class="relative inline-block group" style="color: inherit;" target="_blank">
+                <li class="text-center">
+                    <a href="{{ config('app.donate_link') }}" class="relative inline-block group" style="color: inherit;" target="_blank">
                         <span>{{ __('menus.donate') }}</span>
                     </a>
-                </li> --}}
+                </li>
                 <li class="text-center">
                     <a href="/contact" class="relative inline-block group" style="color: inherit;">
-                        <span>{{ __('Contact') }}</span>
+                        <span>{{ __('menus.contact') }}</span>
                     </a>
                 </li>
             </ul>
