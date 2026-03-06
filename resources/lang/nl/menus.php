@@ -20,6 +20,7 @@ return [
     'about_us' => 'Over ons',
     'donate' => 'Doneren',
     'organizers' => 'Organisatoren',
+    'contact' => 'Contact',
     'hoe_werkt_het' => 'Hoe werkt het?',
     'welke_acties_plaatsen_we' => 'Welke acties plaatsen we?',
     'word_vrijwilliger' => 'Word vrijwilliger',

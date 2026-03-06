@@ -31,14 +31,14 @@
                             {{__('menus.about_us')}}
                         </div>
                     </a>
-                    {{-- <a href="https://www.firestarterfund.nl/campaigns/16/demonstratie-agenda-voor-vandaag-en-morgen!-" class="flex items-center px-8 py-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50" target="_blank">
+                    <a href="{{ config('app.donate_link') }}" class="flex items-center px-8 py-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50" target="_blank">
                         <div class="text-base font-medium leading-6 text-gray-900">
                             {{__('menus.donate')}}
                         </div>
-                    </a> --}}
+                    </a>
                     <a href="/contact" class="flex items-center px-8 py-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">
                         <div class="text-base font-medium leading-6 text-gray-900">
-                            {{__("Contact")}}
+                            {{__("menus.contact")}}
                         </div>
                     </a>
                 </nav>
@@ -48,7 +48,7 @@
             <div class="space-y-3">
                 <span class="flex w-full rounded-md shadow-sm">
                     <a href="{{ route('login') }}" class="flex items-center justify-center w-full px-4 py-3 text-base font-medium leading-6 text-blue-600 transition duration-150 ease-in-out border border-transparent rounded-md border-1 border-blue-600 hover:bg-blue-200">
-                        {{__("Log In")}}
+                        {{__("menus.log_in")}}
                     </a>
                 </span>
                 <span class="flex w-full rounded-md shadow-sm">
