@@ -2,5 +2,6 @@
 
 return [
     'title' => 'Boeken',
-    'sub_title' => 'Boeken die je kunnen helpen bij het verduurzamen van je leven',
+    'sub_title' => 'Lees jezelf wijzer! Hieronder vind je de Watkanikdoen boekenlijst, met daarin boeken die je perspectief op de wereld kunnen veranderen.',
+    'search_online' => 'Boek opzoeken',
 ];

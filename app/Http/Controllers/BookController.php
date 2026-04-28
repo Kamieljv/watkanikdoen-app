@@ -46,6 +46,10 @@ class BookController extends Controller
             });
         }
 
+        // Include tags and themes in the response
+        // Tags should be a flat array of tag names, themes should be the full theme objects
+        $query->with(['themes']);
+
         if ($request->limit) {
             $books = $query->limit($request->limit)->get();
         } else {
@@ -106,17 +110,11 @@ class BookController extends Controller
         // Try fetching the cover from Goodreads
         $result['cover_image'] = $this->fetchCoverFromGoodreads($isbn);
 
-        // If the cover image is empty, try to get it via the Hardcover API
-        // Also try to get the description if it's missing
-        if (empty($result['cover_image']) || empty($result['description'])) {
+        // Add missing data using the HardCover API
+        if (in_array(null, $result, strict: true)) {
             $hardcoverData = $this->fetchBookDataFromHardcover($isbn);
             if ($hardcoverData) {
-                if (isset($hardcoverData['cover_image']) && empty($result['cover_image'])) {
-                    $result['cover_image'] = $hardcoverData['cover_image'];
-                }
-                if (isset($hardcoverData['description']) && empty($result['description'])) {
-                    $result['description'] = $hardcoverData['description'];
-                }
+                $result = array_merge($result, $hardcoverData);
             }
         }
 
@@ -230,6 +228,7 @@ class BookController extends Controller
                             url
                         }
                         description
+                        release_year
                     }
                 }
             '
@@ -241,6 +240,7 @@ class BookController extends Controller
                 return [
                     'description' => $data['data']['books'][0]['description'] ?? null,
                     'cover_image' => $data['data']['books'][0]['image']['url'],
+                    'year' => $data['data']['books'][0]['release_year'] ?? null,
                 ];
             }
         }

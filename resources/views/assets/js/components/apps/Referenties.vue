@@ -116,8 +116,9 @@
       v-if="currentReferentie"
       v-model:visible="modalOpen"
       modal
-      class="w-full sm:w-1/2 m-[2px] sm:m-0 overflow-hidden"
+      class="w-full sm:w-1/2 m-0.5 sm:m-0 overflow-hidden"
       :draggable="false"
+      :dismissable-mask="true"
       pt:mask:class="dialog-mask"
       pt:header:class="flex !p-0 items-center justify-between shrink-0 rounded-tl-lg rounded-tr-lg text-surface-700 dark:text-surface-0/80"
       pt:headeractions:class="flex items-center absolute top-0 right-0 m-3"
@@ -355,13 +356,6 @@ onMounted(() => {
   }
 });
 
-// close Dialog when clicking outside
-document.addEventListener("click", (e) => {
-  // check if clicked element has class dialog-mask
-  if (modalOpen.value && (e.target as HTMLElement).classList.contains("dialog-mask")) {
-    modalOpen.value = false;
-  }
-});
 </script>
 <style>
 a.tag-link {
