@@ -51,7 +51,7 @@ class BookForm
         return $schema
             ->components([
                 Section::make('Search by ISBN')
-                    ->description('Enter an ISBN to fetch book data from OpenLibrary')
+                    ->description('Enter an ISBN to fetch book data from OpenLibrary, HardCover and Goodreads')
                     ->schema([
                         TextInput::make('search_isbn')
                             ->label('Search by ISBN')

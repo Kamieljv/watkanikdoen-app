@@ -76,3 +76,21 @@ export interface Dimension {
     name: string;
     maxScore?: number;
 }
+
+export interface Tag {
+    id: number;
+    name: string;
+}
+
+export interface Book {
+    id: number;
+    title: string;
+    description: string;
+    author: string;
+    year: number;
+    publisher: string;
+    isbn: string;
+    cover_image: string;
+    themes: Theme[];
+    tags: string[];
+}
