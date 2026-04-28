@@ -13,6 +13,7 @@
         "darkaonline/l5-swagger": "^8.6",
         "dotswan/filament-map-picker": "2.1.2",
         "filament/filament": "^4.4",
+        "filament/tables": "^4.8.5",
         "guzzlehttp/guzzle": "^7.10",
         "intervention/image": "^3.11",
         "lab404/laravel-impersonate": "^1.7",
