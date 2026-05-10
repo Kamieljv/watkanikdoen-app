@@ -60,6 +60,7 @@ declare module 'vue' {
     SuccessGIF: typeof import('./resources/views/assets/js/components/partials/SuccessGIF.vue')['default']
     ThemeQuestion: typeof import('./resources/views/assets/js/components/partials/ThemeQuestion.vue')['default']
     ThemesChips: typeof import('./resources/views/assets/js/components/partials/ThemesChips.vue')['default']
+    ThemeSelector: typeof import('./resources/views/assets/js/components/partials/ThemeSelector.vue')['default']
     ToggleSwitch: typeof import('primevue/toggleswitch')['default']
     WidgetAgenda: typeof import('./resources/views/assets/js/components/apps/WidgetAgenda.vue')['default']
   }
@@ -115,6 +116,7 @@ declare global {
   const SuccessGIF: typeof import('./resources/views/assets/js/components/partials/SuccessGIF.vue')['default']
   const ThemeQuestion: typeof import('./resources/views/assets/js/components/partials/ThemeQuestion.vue')['default']
   const ThemesChips: typeof import('./resources/views/assets/js/components/partials/ThemesChips.vue')['default']
+  const ThemeSelector: typeof import('./resources/views/assets/js/components/partials/ThemeSelector.vue')['default']
   const ToggleSwitch: typeof import('primevue/toggleswitch')['default']
   const WidgetAgenda: typeof import('./resources/views/assets/js/components/apps/WidgetAgenda.vue')['default']
 }
