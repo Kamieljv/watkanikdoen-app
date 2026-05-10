@@ -155,7 +155,8 @@
 import LogoIcon from "&/logo-icon.svg";
 import LocationIcon from "&/location.svg";
 import { inject } from "vue";
-const __: (key: string) => string = inject("translate");
+import { useTranslate } from "@composables";
+const __ = useTranslate();
 
 const props = defineProps({
   actie: {

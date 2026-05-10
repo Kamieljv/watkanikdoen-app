@@ -84,7 +84,8 @@
 <script setup lang="ts">
 import { inject, ref } from "vue";
 import { sentenceCase } from "../../helpers/caseHelper.js";
-const __: (key: string) => string = inject("translate");
+import { useTranslate } from "@composables";
+const __ = useTranslate();
 
 const props = defineProps({
   routes: {

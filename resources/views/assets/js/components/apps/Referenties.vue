@@ -202,7 +202,8 @@ import { ref, computed, onMounted, watch, inject } from "vue";
 import axios from "axios";
 import debounce from "lodash/debounce";
 import { Theme } from "../../models";
-const __: (key: string) => string = inject("translate");
+import { useTranslate } from "@composables";
+const __ = useTranslate();
 
 const props = defineProps({
   referentieTypeId: {
@@ -355,7 +356,6 @@ onMounted(() => {
     getReferenties();
   }
 });
-
 </script>
 <style>
 a.tag-link {

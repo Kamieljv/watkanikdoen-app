@@ -176,7 +176,8 @@
 import { inject, onMounted, ref } from "vue";
 import { Form } from "vee-validate";
 import { addHours } from "date-fns/addHours";
-const __: (key: string) => string = inject("translate");
+import { useTranslate } from "@composables";
+const __ = useTranslate();
 
 const props = defineProps({
   modelValue: {

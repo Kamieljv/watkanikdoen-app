@@ -122,7 +122,8 @@
 import { ref, computed, onMounted, inject } from "vue";
 import debounce from "lodash/debounce";
 import axios from "axios";
-const __: (key: string) => string = inject("translate");
+import { useTranslate } from "@composables";
+const __ = useTranslate();
 
 const props = defineProps({
   routes: {

@@ -54,7 +54,8 @@ import FormAutocomplete from "./FormAutocomplete.vue";
 
 import { ref, computed, watch, inject, Ref } from "vue";
 import axios from "axios";
-const __: (key: string) => string = inject("translate");
+import { useTranslate } from "@composables";
+const __ = useTranslate();
 const emit = defineEmits(["update:modelValue"]);
 
 const props = defineProps({
@@ -87,7 +88,7 @@ const center: Ref<(number | null)[]> = ref([...props.defaultCenter]);
 const leafletCenter = computed(() =>
   center.value[0] != null && center.value[1] != null
     ? [center.value[1], center.value[0]]
-    : null
+    : null,
 );
 const url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const attribution =

@@ -65,7 +65,8 @@
 import { inject, ref } from "vue";
 import { sentenceCase } from "../../helpers/caseHelper.js";
 import axios from "axios";
-const __: (key: string) => string = inject("translate");
+import { useTranslate } from "@composables";
+const __ = useTranslate();
 
 const props = defineProps({
   routes: {
