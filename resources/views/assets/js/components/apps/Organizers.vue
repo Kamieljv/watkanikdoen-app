@@ -55,7 +55,12 @@
                 v-for="organizer in organizersFormatted"
                 :key="organizer.id"
                 :organizer="organizer"
-                :route="routes['organizers.organizer'].replace('{organizer}', organizer.slug)"
+                :route="
+                  routes['organizers.organizer'].replace(
+                    '{organizer}',
+                    organizer.slug,
+                  )
+                "
                 :show-themes="showThemes"
                 :mode="mode"
                 :selected-initial="organizer.selected"
@@ -118,7 +123,8 @@ import axios from "axios";
 import debounce from "lodash/debounce";
 import type { Organizer } from "../../models";
 const emit = defineEmits(["update:modelValue"]);
-const __: (key: string) => string = inject("translate");
+import { useTranslate } from "@composables";
+const __ = useTranslate();
 
 const props = defineProps({
   routes: {

@@ -136,7 +136,8 @@
 import { inject, onMounted, ref, watch } from "vue";
 import { Form } from "vee-validate";
 import AddLineIcon from "&/clarity-add-line.svg";
-const __: (key: string) => string = inject("translate");
+import { useTranslate } from "@composables";
+const __ = useTranslate();
 const emit = defineEmits(["update:modelValue"]);
 
 const props = defineProps({

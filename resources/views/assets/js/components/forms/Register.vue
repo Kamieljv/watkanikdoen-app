@@ -127,7 +127,8 @@ import { Form } from "vee-validate";
 import { computed, inject, ref } from "vue";
 import { sentenceCase } from "../../helpers/caseHelper.js";
 import VueHcaptcha from "@hcaptcha/vue3-hcaptcha";
-const __: (key: string) => string = inject("translate");
+import { useTranslate } from "@composables";
+const __ = useTranslate();
 const emit = defineEmits(["done", "switchType"]);
 
 const props = defineProps({

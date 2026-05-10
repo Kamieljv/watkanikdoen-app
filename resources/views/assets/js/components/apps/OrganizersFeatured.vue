@@ -30,7 +30,12 @@
                 v-for="organizer in organizersFormatted"
                 :key="organizer.id"
                 :organizer="organizer"
-                :route="props.routes['organizers.organizer'].replace('{organizer}', organizer.slug)"
+                :route="
+                  props.routes['organizers.organizer'].replace(
+                    '{organizer}',
+                    organizer.slug,
+                  )
+                "
                 :show-themes="showThemes"
                 :type="'large'"
               />
@@ -53,7 +58,8 @@
 <script setup lang="ts">
 import { computed, inject, onMounted, ref } from "vue";
 import axios from "axios";
-const __: (key: string) => string = inject("translate");
+import { useTranslate } from "@composables";
+const __ = useTranslate();
 
 const props = defineProps({
   routes: {

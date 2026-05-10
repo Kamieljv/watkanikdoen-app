@@ -89,7 +89,8 @@ import { computed, inject, ref, watch } from "vue";
 import CheckIcon from "&/clarity-check-line.svg";
 import DeleteIcon from "&/antdesign-delete-o.svg";
 const emit = defineEmits(["update:modelValue"]);
-const __: (key: string) => string = inject("translate");
+import { useTranslate } from "@composables";
+const __ = useTranslate();
 
 const props = defineProps({
   organizer: {

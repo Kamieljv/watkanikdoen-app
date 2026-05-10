@@ -155,7 +155,8 @@ import ClockIcon from "&/antdesign-clock-circle-o.svg";
 import ShieldIcon from "&/clarity-shield-check-solid.svg";
 import type { Answer, Dimension, Question, Theme } from "../../models";
 
-const __: (key: string) => string = inject("translate");
+import { useTranslate } from "@composables";
+const __ = useTranslate();
 
 const props = defineProps({
   questions: {

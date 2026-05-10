@@ -53,6 +53,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": resolve(__dirname, "resources/js"),
+      "@composables": resolve(__dirname, "resources/views/assets/js/composables"),
       "&": resolve(__dirname, "resources/svg"),
       "~fonts": resolve(__dirname, "public/fonts"),
       vue: "vue/dist/vue.esm-bundler.js",

@@ -47,7 +47,7 @@
               :zoom="zoom"
             >
             </ActieForm>
-            {{  }}
+            {{}}
           </div>
           <div
             v-else-if="activeStep.key === 'user'"
@@ -153,7 +153,8 @@ import { Form } from "vee-validate";
 import axios from "axios";
 import OrganizerForm from "../forms/OrganizerForm.vue";
 import type { Organizer, Report } from "../../models";
-const __: (key: string) => string = inject("translate");
+import { useTranslate } from "@composables";
+const __ = useTranslate();
 
 const props = defineProps({
   routes: {

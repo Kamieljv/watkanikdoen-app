@@ -103,7 +103,8 @@ import { ref, inject } from "vue";
 import NewTabIcon from "&/lucide-external-link.svg";
 import LogoIcon from "&/logo-icon.svg";
 import ThemesChips from "./ThemesChips.vue";
-const __: (key: string) => string = inject("translate");
+import { useTranslate } from "@composables";
+const __ = useTranslate();
 
 const emit = defineEmits(["update:visible"]);
 

@@ -106,7 +106,8 @@ import { Form } from "vee-validate";
 import { sentenceCase } from "../../helpers/caseHelper.js";
 import VueHcaptcha from "@hcaptcha/vue3-hcaptcha";
 import axios from "axios";
-const __: (key: string) => string = inject("translate");
+import { useTranslate } from "@composables";
+const __ = useTranslate();
 
 const props = defineProps({
   routes: {

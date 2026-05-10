@@ -73,9 +73,7 @@
               class="flex space-x-3 w-full items-center justify-left mt-2 text-xs font-medium leading-5 text-gray-500"
             >
               <span class="notification-datetime text-xs"
-                >{{
-                  formatDistanceToNow(n.created_at, { locale: nl })
-                }}
+                >{{ formatDistanceToNow(n.created_at, { locale: nl }) }}
                 {{ __("general.ago") }}</span
               >
               <span v-if="n.unread">•</span>
@@ -132,7 +130,8 @@ import { computed, inject, Ref, ref } from "vue";
 import InboxIcon from "&/antdesign-inbox-o.svg";
 import BellIcon from "&/bell.svg";
 import type { Notification } from "../../models";
-const __: (key: string) => string = inject("translate");
+import { useTranslate } from "@composables";
+const __ = useTranslate();
 
 const props = defineProps({
   notifications: {
@@ -153,7 +152,9 @@ const notificationsProcessed = computed(() => {
 });
 
 const unreadNotifications = computed(() => {
-  return notificationsProcessed.value.filter((n: Notification) => n.unread === true).length;
+  return notificationsProcessed.value.filter(
+    (n: Notification) => n.unread === true,
+  ).length;
 });
 
 const markAsRead = (e) => {

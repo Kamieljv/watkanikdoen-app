@@ -57,7 +57,8 @@
 
 <script setup lang="ts">
 import { computed, inject } from "vue";
-const __: (key: string) => string = inject("translate");
+import { useTranslate } from "@composables";
+const __ = useTranslate();
 
 const props = defineProps({
   acties: {

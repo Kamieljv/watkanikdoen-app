@@ -90,7 +90,8 @@
 <script setup lang="ts">
 import { computed, inject } from "vue";
 import LogoIcon from "&/logo-icon.svg";
-const __: (key: string) => string = inject("translate");
+import { useTranslate } from "@composables";
+const __ = useTranslate();
 
 const props = defineProps({
   actie: {

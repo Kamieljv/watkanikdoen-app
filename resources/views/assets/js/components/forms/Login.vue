@@ -91,7 +91,8 @@
 import { inject, onMounted, ref } from "vue";
 import axios from "axios";
 import { sentenceCase } from "../../helpers/caseHelper.js";
-const __: (key: string) => string = inject("translate");
+import { useTranslate } from "@composables";
+const __ = useTranslate();
 const emit = defineEmits(["done", "switchType"]);
 
 const props = defineProps({

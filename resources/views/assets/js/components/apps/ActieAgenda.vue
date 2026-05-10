@@ -178,7 +178,8 @@ import { calcDistance } from "../../helpers/geoHelper";
 import debounce from "lodash/debounce";
 import axios from "axios";
 import { Theme, Category } from "../../models";
-const __: (key: string) => string = inject("translate");
+import { useTranslate } from "@composables";
+const __ = useTranslate();
 
 const props = defineProps({
   routes: {

@@ -62,14 +62,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, inject, watch, Ref } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import axios from "axios";
 import debounce from "lodash/debounce";
 import BookItemList from "../partials/BookItemList.vue";
 import BookModal from "../partials/BookModal.vue";
 import { Book } from "../../models";
+import { useTranslate } from "@composables";
 
-const __: (key: string) => string = inject("translate", (key: string) => key);
+const __ = useTranslate();
 
 const props = defineProps({
   searchRoute: {
