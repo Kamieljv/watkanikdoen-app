@@ -19,6 +19,7 @@
         </div>
     </div>
     <div id="app" class="px-3 xl:px-5 mb-40">
+        
         <books
             :routes="{{ json_encode($routes) }}"
             :themes="{{ $themes }}"

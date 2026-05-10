@@ -1,6 +1,17 @@
 <template>
   <div>
     <div class="row mx-auto max-w-6xl mb-8">
+      <div class="flex flex-col items-center mt-10">
+        <h2 class="text-xl text-gray-700">
+          {{ __("books.filter_by_themes") }}
+        </h2>
+        <ThemeSelector
+          v-model="themesSelected"
+          :themes="props.themes"
+          class="my-5 w-full sm:w-2/3"
+        />
+      </div>
+      <hr class="my-8 border-gray-200" />
       <div class="col" style="width: 100%">
         <div class="relative mx-auto w-full">
           <div class="relative mx-auto max-w-7xl">
@@ -52,7 +63,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, inject } from "vue";
+import { ref, computed, onMounted, inject, watch, Ref } from "vue";
 import axios from "axios";
 import debounce from "lodash/debounce";
 import { Theme } from "../../models";
@@ -67,10 +78,6 @@ const props = defineProps({
     type: Array<Theme>,
     default: () => [],
   },
-  themesSelectedIds: {
-    type: Array<number>,
-    default: () => [],
-  },
   enableShowMore: {
     type: Boolean,
     default: true,
@@ -83,14 +90,10 @@ const props = defineProps({
 
 const books = ref([]);
 const currentBook = ref(null);
-const themesSelected = ref(
-  props.themes
-    .filter((t) => props.themesSelectedIds.includes(t.id))
-    .map((t) => t.id),
-);
+const themesSelected = ref([]);
 const isGeladen = ref(false);
 const hasError = ref(false);
-const currentPage = ref(null);
+const currentPage: Ref<number | null> = ref(null);
 const lastPage = ref(null);
 const perPage = ref(null);
 const total = ref(null);
@@ -134,6 +137,12 @@ const getBooks = debounce(() => {
 }, 500);
 
 onMounted(() => {
+  getBooks();
+});
+
+// Watch for changes in selected themes and fetch books accordingly
+watch(themesSelected, () => {
+  currentPage.value = 1; // Reset to first page when themes change
   getBooks();
 });
 </script>
