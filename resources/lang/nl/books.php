@@ -5,4 +5,5 @@ return [
     'sub_title' => 'Lees jezelf wijzer! Hieronder vind je de Watkanikdoen boekenlijst, met daarin boeken die je perspectief op de wereld kunnen veranderen.',
     'search_online' => 'Boek opzoeken',
     'filter_by_themes' => 'Filter op thema\'s',
+    'no_books_found' => 'Geen boeken gevonden',
 ];

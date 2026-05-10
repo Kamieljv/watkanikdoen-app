@@ -36,7 +36,7 @@ class BookController extends Controller
             $query->where(function ($q) use ($request) {
                 $q->where('title', 'LIKE', '%' . $request->q . '%')
                     ->orWhere('description', 'LIKE', '%' . $request->q . '%');
-                    // ->orWhere(column: 'keywords', 'LIKE', '%' . $request->q . '%');
+                // ->orWhere(column: 'keywords', 'LIKE', '%' . $request->q . '%');
             });
         }
         if ($request->themes) {
@@ -53,9 +53,9 @@ class BookController extends Controller
         if ($request->limit) {
             $books = $query->limit($request->limit)->get();
         } else {
-            $books = $query->paginate(24);
+            $books = $query->paginate(10);
         }
-        
+
         return response()->json(['books' => $books]);
     }
 
@@ -200,7 +200,7 @@ class BookController extends Controller
         $container = $xpath->query('.//div[contains(@class, "BookCover__image")]', $doc)->item(0);
         if ($container) {
             $img = $xpath->query('.//img', $container)->item(0);
-        
+
             if ($img) {
                 $src = $img->getAttribute('src');
                 if (!empty($src)) {
@@ -221,7 +221,7 @@ class BookController extends Controller
         $response = Http::withHeaders([
             'Authorization' => env('HARDCOVER_BEARER_TOKEN'),
         ])->post('https://api.hardcover.app/v1/graphql', [
-            'query' => '
+                    'query' => '
                 query BookCoverByISBN13 {
                     books(where: {editions: {isbn_13: {_eq: "' . $isbn . '"}}}) {
                         image {
@@ -232,8 +232,8 @@ class BookController extends Controller
                     }
                 }
             '
-        ]);
-        
+                ]);
+
         if ($response->successful()) {
             $data = $response->json();
             if (isset($data['data']['books'][0]['image']['url'])) {
