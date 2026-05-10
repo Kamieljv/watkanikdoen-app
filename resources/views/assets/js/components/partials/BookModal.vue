@@ -15,16 +15,26 @@
     <template #header>
       <div class="w-full h-10"></div>
     </template>
-    <div class="flex flex-col gap-8 overflow-hidden relative">
+    <div class="flex flex-col gap-8 relative">
       <div
         class="w-full flex gap-3 sm:gap-6 justify-center items-center flex-col sm:flex-row"
       >
-        <img
-          v-if="props.book.cover_image"
-          class="h-60"
-          :src="props.book.cover_image"
-          :alt="props.book.title"
-        />
+        <div class="shrink-0 h-60 w-40 bg-gray-300 relative">
+          <div
+            v-if="!imageLoaded"
+            class="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-400 drop-shadow-lg drop-shadow-gray-300/50"
+          >
+            <LogoIcon class="h-12 w-12" style="fill: currentColor" />
+          </div>
+          <img
+            class="w-full h-full object-contain sm:object-cover transition-opacity duration-300 drop-shadow-lg drop-shadow-gray-300/50"
+            :class="imageLoaded ? 'opacity-100' : 'opacity-0'"
+            :src="props.book.cover_image"
+            :alt="props.book.title"
+            @load="imageLoaded = true"
+            @error="imageError = true"
+          />
+        </div>
         <div>
           <h3
             class="line-clamp-2 uppercase text-xl font-semibold leading-7 text-gray-900 text-center"
@@ -51,15 +61,13 @@
           </div>
         </div>
       </div>
-      <div class="flex flex-col items-center">
+      <div class="flex flex-col items-center overflow-visible">
         <div class="relative">
           <p
             v-sanitize.inline="props.book.description"
             class="text-sm text-gray-700 transition-all duration-300"
             :class="
-              descriptionExpanded
-                ? 'max-h-500 overflow-y-auto'
-                : 'max-h-24 overflow-hidden'
+              descriptionExpanded ? 'max-h-1000' : 'max-h-24 overflow-hidden'
             "
           ></p>
           <div
@@ -69,7 +77,7 @@
         </div>
         <button
           v-if="!descriptionExpanded"
-          class="text-sm bg-white py-1 px-2 -mt-2 z-20 border border-gray-300 rounded cursor-pointer hover:bg-gray-50 transition-colors duration-200"
+          class="absolute -bottom-4 text-sm bg-white py-1 px-2 -mt-2 z-20 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors duration-200"
           type="button"
           @click="descriptionExpanded = !descriptionExpanded"
         >
@@ -93,6 +101,7 @@
 <script setup lang="ts">
 import { ref, inject } from "vue";
 import NewTabIcon from "&/lucide-external-link.svg";
+import LogoIcon from "&/logo-icon.svg";
 import ThemesChips from "./ThemesChips.vue";
 const __: (key: string) => string = inject("translate");
 
@@ -110,6 +119,8 @@ const props = defineProps({
 });
 
 const descriptionExpanded = ref(false);
+const imageLoaded = ref(false);
+const imageError = ref(false);
 
 const updateVisible = (value: boolean) => {
   emit("update:visible", value);
