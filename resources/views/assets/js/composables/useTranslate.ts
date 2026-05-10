@@ -2,9 +2,9 @@ import { inject } from "vue";
 
 /**
  * Composable for accessing the translation function
- * 
+ *
  * @returns Translation function that takes a key and returns the translated string
- * 
+ *
  * @example
  * ```ts
  * const __ = useTranslate();
@@ -12,6 +12,9 @@ import { inject } from "vue";
  * ```
  */
 export function useTranslate(): (key: string) => string {
-  const translate = inject<(key: string) => string>("translate", (key: string) => key);
+  const translate = inject<(key: string) => string>(
+    "translate",
+    (key: string) => key,
+  );
   return translate;
 }
