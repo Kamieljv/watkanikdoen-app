@@ -3,14 +3,14 @@
     :visible="props.open"
     @update:visible="updateVisible"
     modal
-    class="w-full sm:w-2/3 m-0.5 sm:m-0 overflow-hidden"
+    class="w-full sm:w-2/3 max-w-200 m-0.5 sm:m-0 overflow-hidden"
     :dismissable-mask="true"
     :draggable="false"
     pt:mask:class="dialog-mask"
-    pt:header:class="flex !p-0 items-center justify-between shrink-0 rounded-tl-lg rounded-tr-lg text-surface-700 dark:text-surface-0/80"
+    pt:header:class="flex !p-0 items-center justify-between shrink-0 text-surface-700 dark:text-surface-0/80"
     pt:headeractions:class="flex items-center absolute top-0 right-0 m-3"
     pt:content:class="!p-10 text-surface-700 dark:text-surface-0/80 overflow-y-auto"
-    pt:footer:class="flex items-center justify-end shrink-0 text-right gap-2 px-5 pb-5 border-t-0 rounded-b-lg bg-surface-0 dark:bg-surface-900 text-surface-700 dark:text-surface-0/80"
+    pt:footer:class="flex items-center justify-end shrink-0 text-right gap-2 px-5 pb-5 border-t-0 bg-surface-0 dark:bg-surface-900 text-surface-700 dark:text-surface-0/80"
   >
     <template #header>
       <div class="w-full h-10"></div>
@@ -51,28 +51,30 @@
           </div>
         </div>
       </div>
-      <div class="relative">
-        <p
-          v-sanitize.inline="props.book.description"
-          class="text-sm text-gray-700 transition-all duration-300"
-          :class="descriptionExpanded ? '' : 'max-h-24 overflow-hidden'"
-        ></p>
-        <div
-          v-if="!descriptionExpanded"
-          class="absolute flex justify-center left-0 right-0 bottom-0 bg-linear-to-t from-white to-transparent"
-        >
-          <button
-            class="text-sm bg-white py-1 px-2 border border-gray-300 rounded cursor-pointer"
-            type="button"
-            @click="descriptionExpanded = !descriptionExpanded"
-          >
-            {{
+      <div class="flex flex-col items-center">
+        <div class="relative">
+          <p
+            v-sanitize.inline="props.book.description"
+            class="text-sm text-gray-700 transition-all duration-300"
+            :class="
               descriptionExpanded
-                ? __("general.read_less")
-                : __("general.read_more")
-            }}
-          </button>
+                ? 'max-h-500 overflow-y-auto'
+                : 'max-h-24 overflow-hidden'
+            "
+          ></p>
+          <div
+            v-if="!descriptionExpanded"
+            class="absolute flex justify-center left-0 right-0 bottom-0 bg-linear-to-t from-white to-transparent h-15"
+          ></div>
         </div>
+        <button
+          v-if="!descriptionExpanded"
+          class="text-sm bg-white py-1 px-2 -mt-2 z-20 border border-gray-300 rounded cursor-pointer hover:bg-gray-50 transition-colors duration-200"
+          type="button"
+          @click="descriptionExpanded = !descriptionExpanded"
+        >
+          {{ __("general.read_more") }}
+        </button>
       </div>
     </div>
     <template #footer>
@@ -109,14 +111,14 @@ const props = defineProps({
 
 const descriptionExpanded = ref(false);
 
-const updateVisible = (value) => {
+const updateVisible = (value: boolean) => {
   emit("update:visible", value);
   if (!value) descriptionExpanded.value = false;
 };
 
-const getSearchUrl = (title) => {
+const getSearchUrl = (title: string) => {
   const query = encodeURIComponent(title);
-  return `https://www.duckduckgo.com/search?q=${query}`;
+  return `https://www.ecosia.org/search?q=${query}`;
 };
 </script>
 
