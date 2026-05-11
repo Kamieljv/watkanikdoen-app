@@ -10,7 +10,7 @@ use MWGuerra\FileManager\Models\FileSystemItem;
 class Organizer extends Model
 {
     use HasFactory;
-    
+
     protected $appends = [
         'link',
         'website_human',
@@ -97,7 +97,12 @@ class Organizer extends Model
     {
         return $this->morphToMany(Tag::class, 'taggable');
     }
-    
+
+    public function bookShelves()
+    {
+        return $this->hasMany(BookShelf::class);
+    }
+
     public function getPublishedAttribute()
     {
         return $this->status === Status::PUBLISHED;

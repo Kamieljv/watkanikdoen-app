@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,8 +12,8 @@ return new class extends Migration
     {
         Schema::create('book_theme', function (Blueprint $table) {
             $table->increments('id');
-            $table->foreignId('book_id')->index('book_theme_book_id_foreign');
-            $table->foreignId('theme_id')->index('book_theme_theme_id_foreign');
+            $table->unsignedBigInteger('book_id')->index('book_theme_book_id_foreign');
+            $table->unsignedInteger('theme_id')->index('book_theme_theme_id_foreign');
         });
     }
 

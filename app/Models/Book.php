@@ -31,7 +31,7 @@ class Book extends Resource
 
     public function themes()
     {
-        return $this->belongsToMany(Theme::class );
+        return $this->belongsToMany(Theme::class);
     }
 
     public function tags(): MorphToMany
@@ -42,5 +42,12 @@ class Book extends Resource
     public function getTagNamesAttribute()
     {
         return $this->tags->pluck('name');
+    }
+
+    public function bookShelves()
+    {
+        return $this->belongsToMany(BookShelf::class, 'book_shelf_book')
+            ->withPivot('description')
+            ->withTimestamps();
     }
 }
