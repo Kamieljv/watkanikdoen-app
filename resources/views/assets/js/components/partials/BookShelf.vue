@@ -8,11 +8,13 @@
       </div>
       <div class="col" style="width: 100%">
         <div class="relative mx-auto w-full">
-          <div class="relative mx-auto max-w-7xl">
-            <!-- The Bookshelf -->
-            <div class="relative mt-12">
-              <!-- Books on shelf -->
-              <div class="flex flex-wrap gap-6 justify-center pb-3">
+          <div class="relative mx-auto max-w-6xl">
+            <!-- Bookshelf with repeating shelves -->
+            <div class="mt-12" :class="{ shelf: !isMobile }">
+              <!-- Books on shelves -->
+              <div
+                class="flex flex-wrap leading-0 gap-x-6 gap-y-12.5 align-start justify-center pb-10"
+              >
                 <BookItemShelf
                   v-for="book in shelf.books"
                   :key="book.id"
@@ -20,12 +22,6 @@
                   @click="currentBook = book"
                 />
               </div>
-
-              <!-- The Shelf (thick gray line) -->
-              <div
-                class="absolute bottom-0 left-0 right-0 h-2 bg-gray-300"
-                style="border-radius: 2px"
-              ></div>
             </div>
           </div>
         </div>
@@ -46,8 +42,8 @@
 import BookItemShelf from "../partials/BookItemShelf.vue";
 import BookModal from "../partials/BookModal.vue";
 import { BookShelf, BookShelfBook } from "../../models";
-import { useTranslate } from "@composables";
-import { onMounted, ref } from "vue";
+import { useTranslate, useWindowSize } from "@composables";
+import { computed, ref } from "vue";
 
 const __ = useTranslate();
 
@@ -58,9 +54,21 @@ const props = defineProps({
   },
 });
 
-onMounted(() => {
-  console.log(props.shelf.books);
-});
-
 const currentBook = ref<BookShelfBook | null>(null);
+const { width } = useWindowSize();
+const isMobile = computed(() => width.value < 768);
 </script>
+
+<style lang="css" scoped>
+.shelf {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(100% - 8px),
+    #d1d5db calc(100% - 8px),
+    #d1d5db 100%
+  );
+  background-size: 100% 290px;
+  background-position: 0 -35px;
+}
+</style>

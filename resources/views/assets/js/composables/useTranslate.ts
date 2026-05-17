@@ -1,5 +1,3 @@
-import { inject } from "vue";
-
 /**
  * Composable for accessing the translation function
  *
@@ -11,6 +9,9 @@ import { inject } from "vue";
  * const text = __("general.error_loading");
  * ```
  */
+
+import { inject } from "vue";
+
 export function useTranslate(): (
   key: string,
   params?: Record<string, any>,

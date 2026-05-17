@@ -71,17 +71,17 @@ app.use(PrimeVue, {
 import get from "lodash/get";
 app.provide("translate", (str, params = {}) => {
   let translation = get(window.i18n, str, str);
-  
+
   // Replace :param placeholders with actual values
   if (params && typeof params === "object") {
     Object.keys(params).forEach((key) => {
       translation = translation.replace(
         new RegExp(`:${key}`, "g"),
-        params[key]
+        params[key],
       );
     });
   }
-  
+
   return translation;
 });
 
@@ -115,9 +115,9 @@ import ActieAgenda from "./components/apps/ActieAgenda.vue";
 import ActieWijzer from "./components/apps/ActieWijzer.vue";
 import AddActie from "./components/apps/AddActie.vue";
 import BookItemList from "./components/partials/BookItemList.vue";
-import BookItemShelf from "./components/partials/BookItemShelf.vue";
 import Books from "./components/apps/Books.vue";
 import BookShelf from "./components/partials/BookShelf.vue";
+import BookShelves from "./components/partials/BookShelves.vue";
 import Collapsible from "./components/partials/Collapsible.vue";
 import CopyTextField from "./components/partials/CopyTextField.vue";
 import ForgotPassword from "./components/forms/ForgotPassword.vue";
@@ -139,8 +139,8 @@ app.component("ActieAgenda", ActieAgenda);
 app.component("ActieWijzer", ActieWijzer);
 app.component("AddActie", AddActie);
 app.component("Books", Books);
-app.component("BookItemShelf", BookItemShelf);
 app.component("BookShelf", BookShelf);
+app.component("BookShelves", BookShelves);
 app.component("Collapsible", Collapsible);
 app.component("CopyTextField", CopyTextField);
 app.component("ForgotPassword", ForgotPassword);
