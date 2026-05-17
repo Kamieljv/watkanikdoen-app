@@ -32,7 +32,9 @@ class BookShelvesTableFactorySeeder extends Seeder
 
             // Attach 1-5 random books to the book shelf
             $randomBooks = (array) array_rand(array_flip($books), rand(1, 5));
-            $bookShelf->books()->attach($randomBooks);
+            // Generate a random description for each book in the pivot table
+            $bookDescriptions = array_map(fn() => ['description' => \Faker\Factory::create()->sentence()], $randomBooks);
+            $bookShelf->books()->sync(array_combine($randomBooks, $bookDescriptions));
         }
 
         $this->command->info('Created 20 book shelves with themes and books.');

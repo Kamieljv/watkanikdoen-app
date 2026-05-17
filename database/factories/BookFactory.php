@@ -17,7 +17,7 @@ class BookFactory extends Factory
             'author' => $this->faker->name(),
             'year' => $this->faker->year(),
             'isbn' => $this->faker->isbn13(),
-            'cover_image' => sprintf('https://picsum.photos/%d/%d?random=%d', 200, 300, rand(1, 1000)), // Placeholder image URL with random query to ensure uniqueness
+            'cover_image' => sprintf('https://picsum.photos/id/%d/%d/%d', rand(1, 1000), 200, 300), // Placeholder image URL with random query to ensure uniqueness
         ];
     }
 }

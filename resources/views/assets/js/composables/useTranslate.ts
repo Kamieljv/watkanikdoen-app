@@ -11,10 +11,12 @@ import { inject } from "vue";
  * const text = __("general.error_loading");
  * ```
  */
-export function useTranslate(): (key: string) => string {
-  const translate = inject<(key: string) => string>(
-    "translate",
-    (key: string) => key,
-  );
+export function useTranslate(): (
+  key: string,
+  params?: Record<string, any>,
+) => string {
+  const translate = inject<
+    (key: string, params?: Record<string, any>) => string
+  >("translate", (key: string) => key);
   return translate;
 }

@@ -40,20 +40,15 @@ class BookShelfController extends Controller
             ->where('slug', $slug)
             ->firstOrFail();
 
-        Log::info('BookShelf Detail', [
-            'slug' => $slug,
-            'title' => $bookShelf->title,
-            'organizer' => $bookShelf->organizer->name,
-            'themes' => $bookShelf->themes->pluck('name')->toArray(),
-            'books_count' => $bookShelf->books->count(),
-            'books' => $bookShelf->books->map(function ($book) {
-                return [
-                    'title' => $book->title,
-                    'author' => $book->author,
-                    'description_on_shelf' => $book->pivot->description,
-                ];
-            })->toArray()
-        ]);
+        if (!$bookShelf) {
+            abort(404, 'Boekenplank niet gevonden');
+        }
+
+        // Change the remove the pivot data key and add 'notes' to the book data
+        $bookShelf->books->each(function ($book) {
+            $book->notes = $book->pivot->description;
+            $book->makeHidden('pivot');
+        });
 
         // SEO
         SEOTools::setTitle($bookShelf->title);

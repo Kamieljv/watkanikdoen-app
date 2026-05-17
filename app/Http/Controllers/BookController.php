@@ -56,6 +56,12 @@ class BookController extends Controller
             $books = $query->paginate(10);
         }
 
+        // Add bookshelves to the response (only slug, organizer name and image)
+        $books->load([
+            'bookShelves:id,slug,organizer_id',
+            'bookShelves.organizer:id,name',
+        ]);
+
         return response()->json(['books' => $books]);
     }
 

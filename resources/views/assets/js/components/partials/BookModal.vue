@@ -61,8 +61,8 @@
           </div>
         </div>
       </div>
-      <div class="flex flex-col items-center overflow-visible">
-        <div class="relative">
+      <div class="flex flex-col items-center overflow-visible relative">
+        <div class="">
           <p
             v-sanitize.inline="props.book.description"
             class="text-sm text-gray-700 transition-all duration-300"
@@ -84,6 +84,29 @@
           {{ __("general.read_more") }}
         </button>
       </div>
+      <div v-if="showBookShelfLink" class="flex flex-col gap-2 mt-5">
+        <a
+          v-for="shelf in props.book.book_shelves"
+          :key="shelf.slug"
+          :href="`/boekenplank/${shelf.slug}`"
+          class="flex items-center justify-between p-2 bg-gray-50 rounded-md border-gray-300 border gap-2 text-sm text-gray-600"
+        >
+          <div class="flex items-center gap-2">
+            <img
+              :src="shelf.organizer.image_url"
+              :alt="shelf.organizer.name"
+              class="w-10 h-10 rounded-full object-cover"
+            />
+            <span>
+              {{ __("books.view_on_shelf_of") }}
+              <b>{{ shelf.organizer.name }}</b>
+            </span>
+          </div>
+          <button class="gray hidden md:flex items-center gap-1">
+            Bekijk <ArrowRightIcon class="w-5 h-5 rotate-90 inline-block" />
+          </button>
+        </a>
+      </div>
     </div>
     <template #footer>
       <div class="flex justify-end">
@@ -99,10 +122,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, inject } from "vue";
+import { ref } from "vue";
 import NewTabIcon from "&/lucide-external-link.svg";
 import LogoIcon from "&/logo-icon.svg";
+import ArrowRightIcon from "&/clarity-arrow-line.svg";
 import ThemesChips from "./ThemesChips.vue";
+import { Book } from "../../models";
 import { useTranslate } from "@composables";
 const __ = useTranslate();
 
@@ -110,12 +135,16 @@ const emit = defineEmits(["update:visible"]);
 
 const props = defineProps({
   book: {
-    type: Object,
+    type: Object as () => Book,
     required: true,
   },
   open: {
     type: Boolean,
     default: false,
+  },
+  showBookShelfLink: {
+    type: Boolean,
+    default: true,
   },
 });
 

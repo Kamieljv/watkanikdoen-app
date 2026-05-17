@@ -177,7 +177,7 @@ import FilterIcon from "&/clarity-filter-solid.svg";
 import { calcDistance } from "../../helpers/geoHelper";
 import debounce from "lodash/debounce";
 import axios from "axios";
-import { Theme, Category } from "../../models";
+import { Theme, Category, type Actie } from "../../models";
 import { useTranslate } from "@composables";
 const __ = useTranslate();
 
@@ -232,7 +232,7 @@ const props = defineProps({
   },
 });
 
-const acties = ref([]);
+const acties = ref<Actie[]>([]);
 const themesSelected = ref(
   props.themes
     .filter((t) => props.themesSelectedIds.includes(t.id))
@@ -266,7 +266,7 @@ const heeftActies = computed(() => {
 });
 
 const actiesFormatted = computed(() => {
-  acties.value.forEach((actie) => {
+  acties.value.forEach((actie: Actie) => {
     actie.body = actie.body.replace(/(<([^>]+)>)/gi, "");
     if (actie.location && coordinates.value !== "") {
       const coordinatesArray = coordinates.value.split(",");
@@ -368,13 +368,13 @@ const getActies = debounce(() => {
     });
 }, 500);
 
-const processActiesArray = (acties) => {
+const processActiesArray = (acties: Actie[]) => {
   return acties
     .filter((a) => !props.excludeIds.includes(a.id))
     .slice(0, props.limit ?? acties.length);
 };
 
-const getGeoSuggestions = async (geoQuery) => {
+const getGeoSuggestions = async (geoQuery: string) => {
   axios
     .get("https://api.pdok.nl/bzk/locatieserver/search/v3_1/suggest", {
       params: {
@@ -394,7 +394,7 @@ const getGeoSuggestions = async (geoQuery) => {
     });
 };
 
-const getCoordinates = async (obj) => {
+const getCoordinates = async (obj: { id: string }) => {
   isGeladen.value = false;
   if (obj !== "") {
     axios

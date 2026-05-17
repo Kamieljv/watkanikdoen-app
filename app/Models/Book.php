@@ -14,6 +14,10 @@ class Book extends Resource
         'tag_names',
     ];
 
+    protected $hidden = [
+        'tags',
+    ];
+
     /**
      * Add fillable attributes to the base Resource model
      * @param array $attributes
