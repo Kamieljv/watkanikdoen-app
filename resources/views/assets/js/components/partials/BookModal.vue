@@ -19,22 +19,12 @@
       <div
         class="w-full flex gap-3 sm:gap-6 justify-center items-center flex-col sm:flex-row"
       >
-        <div class="shrink-0 h-60 w-40 bg-gray-300 relative">
-          <div
-            v-if="!imageLoaded"
-            class="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-400 drop-shadow-lg drop-shadow-gray-300/50"
-          >
-            <LogoIcon class="h-12 w-12" style="fill: currentColor" />
-          </div>
-          <img
-            class="w-full h-full object-contain sm:object-cover transition-opacity duration-300 drop-shadow-lg drop-shadow-gray-300/50"
-            :class="imageLoaded ? 'opacity-100' : 'opacity-0'"
-            :src="props.book.cover_image"
-            :alt="props.book.title"
-            @load="imageLoaded = true"
-            @error="imageError = true"
-          />
-        </div>
+        <BookCover
+          :cover-image="props.book.cover_image"
+          :title="props.book.title"
+          object-fit="object-contain"
+          class="shrink-0 h-60 w-40 drop-shadow-lg drop-shadow-gray-300/50"
+        />
         <div>
           <h3
             class="line-clamp-2 uppercase text-xl font-semibold leading-7 text-gray-900 text-center"
@@ -149,8 +139,6 @@ const props = defineProps({
 });
 
 const descriptionExpanded = ref(false);
-const imageLoaded = ref(false);
-const imageError = ref(false);
 
 const updateVisible = (value: boolean) => {
   emit("update:visible", value);

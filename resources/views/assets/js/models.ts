@@ -108,6 +108,8 @@ export interface BookShelf {
   title: string;
   description: string;
   books: BookShelfBook[];
+  organizer: Organizer;
+  themes: Theme[];
 }
 
 export interface BookShelfBook extends Book {
