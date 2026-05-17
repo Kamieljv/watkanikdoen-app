@@ -17,17 +17,17 @@ const CustomPreset = definePreset(Aura, {
   semantic: {
     primary: {
       root: {
-        50: '{blue.50}',
-        100: '{blue.100}',
-        200: '{blue.200}',
-        300: '{blue.300}',
-        400: '{blue.400}',
-        500: '{blue.500}',
-        600: '{blue.600}',
-        700: '{blue.700}',
-        800: '{blue.800}',
-        900: '{blue.900}',
-        950: '{blue.950}'
+        50: "{blue.50}",
+        100: "{blue.100}",
+        200: "{blue.200}",
+        300: "{blue.300}",
+        400: "{blue.400}",
+        500: "{blue.500}",
+        600: "{blue.600}",
+        700: "{blue.700}",
+        800: "{blue.800}",
+        900: "{blue.900}",
+        950: "{blue.950}",
       },
     },
   },
@@ -69,7 +69,21 @@ app.use(PrimeVue, {
 
 // Lodash for language
 import get from "lodash/get";
-app.provide("translate", (str) => get(window.i18n, str));
+app.provide("translate", (str, params = {}) => {
+  let translation = get(window.i18n, str, str);
+  
+  // Replace :param placeholders with actual values
+  if (params && typeof params === "object") {
+    Object.keys(params).forEach((key) => {
+      translation = translation.replace(
+        new RegExp(`:${key}`, "g"),
+        params[key]
+      );
+    });
+  }
+  
+  return translation;
+});
 
 // AlpineJS
 import Alpine from "alpinejs";
@@ -101,7 +115,9 @@ import ActieAgenda from "./components/apps/ActieAgenda.vue";
 import ActieWijzer from "./components/apps/ActieWijzer.vue";
 import AddActie from "./components/apps/AddActie.vue";
 import BookItemList from "./components/partials/BookItemList.vue";
+import BookItemShelf from "./components/partials/BookItemShelf.vue";
 import Books from "./components/apps/Books.vue";
+import BookShelf from "./components/partials/BookShelf.vue";
 import Collapsible from "./components/partials/Collapsible.vue";
 import CopyTextField from "./components/partials/CopyTextField.vue";
 import ForgotPassword from "./components/forms/ForgotPassword.vue";
@@ -123,7 +139,8 @@ app.component("ActieAgenda", ActieAgenda);
 app.component("ActieWijzer", ActieWijzer);
 app.component("AddActie", AddActie);
 app.component("Books", Books);
-app.component("BookItemList", BookItemList);
+app.component("BookItemShelf", BookItemShelf);
+app.component("BookShelf", BookShelf);
 app.component("Collapsible", Collapsible);
 app.component("CopyTextField", CopyTextField);
 app.component("ForgotPassword", ForgotPassword);

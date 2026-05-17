@@ -18,7 +18,7 @@
         @error="imageError = true"
       />
     </div>
-    <div class="bg-white p-4 flex flex-col justify-between min-w-0">
+    <div class="bg-white p-4 flex flex-1 flex-col justify-between min-w-0">
       <div class="flex-1 min-w-0 flex flex-col justify-between">
         <div class="flex flex-col">
           <h3 class="font-semibold text-gray-900">
@@ -53,10 +53,11 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import LogoIcon from "&/logo-icon.svg";
+import { Book } from "../../models";
 
 const props = defineProps({
   book: {
-    type: Object,
+    type: Object as () => Book,
     required: true,
   },
 });
