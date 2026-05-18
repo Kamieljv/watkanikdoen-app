@@ -18,6 +18,7 @@ return [
     'blog' => 'Blog',
     'acties' => 'Acties',
     'about_us' => 'Over ons',
+    'newsletter' => 'Nieuwsbrief',
     'donate' => 'Doneren',
     'organizers' => 'Organisatoren',
     'contact' => 'Contact',

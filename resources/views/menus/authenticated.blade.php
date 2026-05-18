@@ -1,27 +1,31 @@
-<nav class="flex items-center justify-end w-full h-full space-x-10">
-    <a href="/acties" class="hidden lg:block shrink-0 text-base font-medium leading-6 transition duration-150 ease-in-out focus:outline-none focus:text-wave-600">
-        {{ __("menus.acties") }}
-    </a>
-    <a href="{{ route('organizers.index') }}" class="hidden lg:block shrink-0 text-base font-medium leading-6 transition duration-150 ease-in-out focus:outline-none focus:text-wave-600">
-        {{ __("menus.organizers") }}
-    </a>
-    <a href="/over-ons" class="hidden lg:block shrink-0 text-base font-medium leading-6 transition duration-150 ease-in-out focus:outline-none focus:text-wave-600">
-        {{ __("menus.about_us") }}
-    </a>
-    <a href="{{ config('app.donate_link') }}" class="hidden lg:block text-base font-medium leading-6 transition duration-150 ease-in-out hover:underline focus:outline-none focus:text-wave-600" target="_blank">
-        {{ __("menus.donate") }}
-    </a>
-    <span class="hidden md:inline-flex shrink-0 rounded-md shadow-sm">
-        <a href="{{ route('report.landing') }}" class="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-500 hover:bg-blue-600"
-            data-umami-event="Report action button in header"
-        >
-            {{ __("menus.report_action") }}
+<nav class="flex items-center justify-end w-full h-full">
+    <div class="flex items-center justify-end flex-1 gap-7">
+        <a href="/acties" class="hidden lg:block shrink-0 text-base font-medium">
+            {{ __("menus.acties") }}
         </a>
-    </span>
+        <a href="{{ route('organizers.index') }}" class="hidden lg:block shrink-0 text-base font-medium">
+            {{ __("menus.organizers") }}
+        </a>
+        <a href="/over-ons" class="hidden lg:block shrink-0 text-base font-medium">
+            {{ __("menus.about_us") }}
+        </a>
+        <a href="/word-vrijwilliger" class="hidden lg:block shrink-0 text-base font-medium">
+            {{ __("menus.word_vrijwilliger") }}
+        </a>
+        <a href="{{ config('app.donate_link') }}" class="hidden lg:block text-base font-medium" target="_blank">
+            {{ __("menus.donate") }}
+        </a>
+        <span class="hidden md:inline-flex shrink-0 rounded-md shadow-sm">
+            <a href="{{ route('report.landing') }}" class="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-500 hover:bg-blue-600"
+                data-umami-event="Report action button in header"
+            >
+                {{ __("menus.report_action") }}
+            </a>
+        </span>
+    </div>
 
-    <div class="flex sm:relative sm:ml-6 items-center">
-
-        <div class="flex justify-end flex-grow lg:hidden">
+    <div class="flex sm:relative items-center sm:ml-4">
+        <div class="flex justify-end flex-1 lg:hidden">
             <button @click="mobileMenuOpen = true" type="button" class="inline-flex items-center justify-center p-2 transition duration-150 ease-in-out rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500">
                 <svg class="w-6 h-6" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path></svg>
             </button>
