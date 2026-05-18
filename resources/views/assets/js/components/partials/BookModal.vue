@@ -93,7 +93,8 @@
             </span>
           </div>
           <button class="gray hidden md:flex items-center gap-1">
-            Bekijk <ArrowRightIcon class="w-5 h-5 rotate-90 inline-block" />
+            {{ __("general.view") }}
+            <ArrowRightIcon class="w-5 h-5 rotate-90 inline-block" />
           </button>
         </a>
       </div>
@@ -114,7 +115,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import NewTabIcon from "&/lucide-external-link.svg";
-import LogoIcon from "&/logo-icon.svg";
 import ArrowRightIcon from "&/clarity-arrow-line.svg";
 import ThemesChips from "./ThemesChips.vue";
 import { Book } from "../../models";

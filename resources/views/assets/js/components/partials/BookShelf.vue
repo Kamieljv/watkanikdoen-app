@@ -1,10 +1,15 @@
 <template>
   <div>
     <div class="row mx-auto max-w-6xl mb-8">
-      <div class="col">
-        <h1 class="text-3xl font-bold text-gray-900">
-          {{ shelf.title }}
+      <div class="flex flex-col gap-2">
+        <h1 class="text-2xl font-bold text-gray-900">
+          <span class="font-medium text-gray-600">{{
+            __("books.shelf_of")
+          }}</span>
+          {{ shelf.organizer.name }}
         </h1>
+        <ThemesChips :themes="shelf.themes" />
+        <p class="text-sm text-gray-700 mt-2">{{ shelf.description }}</p>
       </div>
       <div class="col" style="width: 100%">
         <div class="relative mx-auto w-full">

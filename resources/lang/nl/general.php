@@ -17,6 +17,7 @@ return [
     'ago' => 'geleden',
     'about' => 'Over',
     'about_us' => 'Over ons',
+    'view' => 'Bekijk',
     'mark_as_read' => 'Markeer als gelezen',
     'save' => 'Opslaan',
     'at' => 'om',

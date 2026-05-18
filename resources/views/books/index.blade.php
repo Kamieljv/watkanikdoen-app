@@ -24,6 +24,7 @@
             :routes="{{ json_encode($routes) }}"
             :themes="{{ $themes }}"
             :themes-selected-ids="{{ json_encode($themes_selected_ids) }}"
+            :bookshelves="{{ $bookShelves }}"
         />
     </div>
 @endsection

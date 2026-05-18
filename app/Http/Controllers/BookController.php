@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\BookShelf;
 use App\Models\Theme;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Artesaos\SEOTools\Facades\SEOMeta;
@@ -22,23 +23,21 @@ class BookController extends Controller
         $themes = Theme::orderBy('name', 'ASC')->get();
         $themes_selected_ids = $request->themes ? array_map('intval', $request->themes) : [];
 
+        // Fetch bookshelves with related data
+        $bookShelves = BookShelf::with(['organizer', 'themes', 'books'])
+            ->get();
+
         // SEO
         SEOTools::setTitle(__('books.title'));
         SEOTools::setDescription(__('books.sub_title'));
         SEOMeta::setKeywords(__('books.title'));
-        return view('books.index', compact('themes', 'routes', 'themes_selected_ids'));
+        return view('books.index', compact('themes', 'routes', 'themes_selected_ids', 'bookShelves'));
     }
 
     public function search(Request $request)
     {
         $query = Book::query();
-        if ($request->q) {
-            $query->where(function ($q) use ($request) {
-                $q->where('title', 'LIKE', '%' . $request->q . '%')
-                    ->orWhere('description', 'LIKE', '%' . $request->q . '%');
-                // ->orWhere(column: 'keywords', 'LIKE', '%' . $request->q . '%');
-            });
-        }
+
         if ($request->themes) {
             $requestThemes = is_array($request->themes) ? $request->themes : array($request->themes);
             $query->whereHas('themes', function ($q) use ($requestThemes) {

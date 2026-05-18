@@ -5,13 +5,12 @@
     <BookCover
       :cover-image="book.cover_image"
       :title="book.title"
-      object-fit="object-contain"
       class="shrink-0 h-48 w-full sm:w-30 py-2 sm:p-0 bg-gray-300"
     />
     <div class="bg-white p-4 flex flex-1 flex-col justify-between min-w-0">
       <div class="flex-1 min-w-0 flex flex-col justify-between">
         <div class="flex flex-col">
-          <h3 class="font-semibold text-gray-900">
+          <h3 class="text-xl font-bold text-gray-900">
             {{ book.title }}
           </h3>
           <span
@@ -24,7 +23,7 @@
           </p>
         </div>
         <div class="flex gap-2 justify-between items-center flex-wrap mt-4">
-          <ThemesChips :themes="book.themes" />
+          <ThemesChips :themes="book.themes" :max-visible="isMobile ? 3 : 6" />
           <div class="flex flex-wrap gap-2 mb-1">
             <span
               v-for="tag in book.tag_names"
@@ -45,6 +44,7 @@ import { computed } from "vue";
 import BookCover from "./BookCover.vue";
 import ThemesChips from "./ThemesChips.vue";
 import { Book } from "../../models";
+import { useWindowSize } from "@composables";
 
 const props = defineProps({
   book: {
@@ -65,4 +65,6 @@ const metaDataLine = computed(() => {
 });
 
 const book = props.book;
+
+const isMobile = computed(() => useWindowSize().width.value < 640);
 </script>

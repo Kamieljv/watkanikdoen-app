@@ -20,12 +20,20 @@
               {{ __("books.no_books_found") }}
             </div>
             <div v-else class="flex flex-col gap-5 mx-auto mt-12">
-              <BookItemList
-                v-for="book in books"
-                :key="book.id"
-                :book="book"
-                @click="currentBook = book"
-              />
+              <template
+                v-for="(item, index) in interleavedItems"
+                :key="item.type + '-' + item.id"
+              >
+                <BookItemList
+                  v-if="item.type === 'book'"
+                  :book="item.data"
+                  @click="currentBook = item.data"
+                />
+                <BookShelfSmall
+                  v-else-if="item.type === 'shelf'"
+                  :shelf="item.data"
+                />
+              </template>
             </div>
           </div>
         </div>
@@ -66,8 +74,9 @@ import { ref, computed, onMounted, watch } from "vue";
 import axios from "axios";
 import debounce from "lodash/debounce";
 import BookItemList from "../partials/BookItemList.vue";
+import BookShelfSmall from "../partials/BookShelfSmall.vue";
 import BookModal from "../partials/BookModal.vue";
-import { Book } from "../../models";
+import { Book, BookShelf } from "../../models";
 import { useTranslate } from "@composables";
 
 const __ = useTranslate();
@@ -89,6 +98,10 @@ const props = defineProps({
     type: Number,
     default: null,
   },
+  bookshelves: {
+    type: Array as () => BookShelf[],
+    default: () => [],
+  },
 });
 
 const books = ref<Book[]>([]);
@@ -102,6 +115,37 @@ const total = ref<number | null>(null);
 const appending = ref(false);
 
 const hasBooks = computed(() => books.value.length > 0);
+const filteredShelves = computed(() => {
+  if (props.selectedThemeIds.length === 0) return props.bookshelves;
+  return props.bookshelves.filter((shelf) =>
+    shelf.themes.some((theme) => props.selectedThemeIds.includes(theme.id)),
+  );
+});
+
+const interleavedItems = computed(() => {
+  const items: Array<
+    | { type: "book"; data: Book; id: number }
+    | { type: "shelf"; data: BookShelf; id: number }
+  > = [];
+  let shelfIndex = 0;
+
+  books.value.forEach((book, index) => {
+    // Add the book
+    items.push({ type: "book", data: book, id: book.id });
+
+    // After every 5 books, add a bookshelf if available
+    if ((index + 1) % 5 === 0 && shelfIndex < filteredShelves.value.length) {
+      items.push({
+        type: "shelf",
+        data: filteredShelves.value[shelfIndex],
+        id: filteredShelves.value[shelfIndex].id,
+      });
+      shelfIndex++;
+    }
+  });
+
+  return items;
+});
 
 const getBooks = debounce(() => {
   isLoading.value = true;

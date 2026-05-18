@@ -106,6 +106,7 @@ export interface Book {
 export interface BookShelf {
   id: number;
   title: string;
+  slug: string;
   description: string;
   books: BookShelfBook[];
   organizer: Organizer;

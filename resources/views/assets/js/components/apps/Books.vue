@@ -17,13 +17,14 @@
     <BookList
       :search-route="props.routes['books.search']"
       :selected-theme-ids="themesSelected"
+      :bookshelves="props.bookshelves"
     />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, inject } from "vue";
-import { Theme } from "../../models";
+import { Theme, BookShelf } from "../../models";
 import ThemeSelector from "../partials/ThemeSelector.vue";
 import BookList from "../partials/BookList.vue";
 
@@ -37,6 +38,10 @@ const props = defineProps({
   },
   themes: {
     type: Array<Theme>,
+    default: () => [],
+  },
+  bookshelves: {
+    type: Array as () => BookShelf[],
     default: () => [],
   },
 });
