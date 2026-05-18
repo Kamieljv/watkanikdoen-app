@@ -180,8 +180,8 @@ return [
     */
     'maps' => [
          'center' => [
-             'lat' => env('MAPS_CENTER_LAT', '52.389'),
-             'lng' => env('MAPS_CENTER_LNG', '4.889'),
+             'lat' => env('MAPS_CENTER_LAT', 52.389),
+             'lng' => env('MAPS_CENTER_LNG', 4.889),
          ],
          'zoom' => env('MAPS_ZOOM', 11),
      ],

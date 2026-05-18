@@ -24,4 +24,9 @@ class Theme extends Model
     {
         return $this->belongsToMany(Organizer::class, 'organizer_theme');
     }
+
+    public function bookShelves()
+    {
+        return $this->belongsToMany(BookShelf::class, 'book_shelf_theme');
+    }
 }

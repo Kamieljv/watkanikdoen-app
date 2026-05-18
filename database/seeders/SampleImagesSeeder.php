@@ -41,6 +41,12 @@ class SampleImagesSeeder extends Seeder
                 ],
                 'numImages' => 2,
             ],
+            'books' => [
+                'sizes' => [
+                    [180, 270],
+                ],
+                'numImages' => 20,
+            ],
             'organizers' => [
                 'sizes' => [
                     [300, 200],
