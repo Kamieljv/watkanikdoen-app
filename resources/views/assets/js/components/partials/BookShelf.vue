@@ -2,20 +2,26 @@
   <div>
     <div class="row mx-auto max-w-6xl mb-8">
       <div class="flex flex-col gap-2">
-        <h1 class="text-2xl font-bold text-gray-900">
+        <h1 class="text-2xl font-bold text-gray-900 mb-4">
           <span class="font-medium text-gray-600">{{
             __("books.shelf_of")
           }}</span>
           {{ shelf.organizer.name }}
         </h1>
-        <ThemesChips :themes="shelf.themes" />
+        <ThemesChips :themes="shelf.themes" :max-visible="10" />
         <p class="text-sm text-gray-700 mt-2">{{ shelf.description }}</p>
       </div>
       <div class="col" style="width: 100%">
         <div class="relative mx-auto w-full">
           <div class="relative mx-auto max-w-6xl">
             <!-- Bookshelf with repeating shelves -->
-            <div class="mt-12" :class="{ shelf: !isMobile }">
+            <div
+              class="mt-12"
+              :class="{ shelf: !isMobile }"
+              :style="
+                !isMobile ? { backgroundImage: `url(${shelfLine})` } : undefined
+              "
+            >
               <!-- Books on shelves -->
               <div
                 class="flex flex-wrap leading-0 gap-x-6 gap-y-12.5 align-start justify-center pb-10"
@@ -49,6 +55,7 @@ import BookModal from "../partials/BookModal.vue";
 import { BookShelf, BookShelfBook } from "../../models";
 import { useTranslate, useWindowSize } from "@composables";
 import { computed, ref } from "vue";
+import shelfLine from "&/bookshelf.svg?url";
 
 const __ = useTranslate();
 
@@ -66,14 +73,8 @@ const isMobile = computed(() => width.value < 768);
 
 <style lang="css" scoped>
 .shelf {
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent 0,
-    transparent calc(100% - 8px),
-    #d1d5db calc(100% - 8px),
-    #d1d5db 100%
-  );
   background-size: 100% 290px;
-  background-position: 0 -35px;
+  background-repeat: repeat-y;
+  background-position: 0 -28px;
 }
 </style>

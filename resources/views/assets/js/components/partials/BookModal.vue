@@ -74,6 +74,15 @@
           {{ __("general.read_more") }}
         </button>
       </div>
+      <div v-if="hasNotes" class="flex flex-col gap-2 mt-5">
+        <h4 class="text-md font-semibold text-gray-900">
+          {{ __("books.recommended_by") }}
+        </h4>
+        <p
+          v-sanitize.inline="(props.book as BookShelfBook).notes"
+          class="text-sm text-gray-700 whitespace-pre-wrap"
+        ></p>
+      </div>
       <div v-if="showBookShelfLink" class="flex flex-col gap-2 mt-5">
         <a
           v-for="shelf in props.book.book_shelves"
@@ -113,11 +122,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import NewTabIcon from "&/lucide-external-link.svg";
 import ArrowRightIcon from "&/clarity-arrow-line.svg";
 import ThemesChips from "./ThemesChips.vue";
-import { Book } from "../../models";
+import { Book, type BookShelfBook } from "../../models";
 import { useTranslate } from "@composables";
 const __ = useTranslate();
 
@@ -125,7 +134,7 @@ const emit = defineEmits(["update:visible"]);
 
 const props = defineProps({
   book: {
-    type: Object as () => Book,
+    type: Object as () => Book | BookShelfBook,
     required: true,
   },
   open: {
@@ -139,6 +148,7 @@ const props = defineProps({
 });
 
 const descriptionExpanded = ref(false);
+const hasNotes = computed(() => props.book && "notes" in props.book);
 
 const updateVisible = (value: boolean) => {
   emit("update:visible", value);
