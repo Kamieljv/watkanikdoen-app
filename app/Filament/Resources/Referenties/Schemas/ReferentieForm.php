@@ -40,6 +40,13 @@ class ReferentieForm
                     ->multiple()
                     ->preload()
                     ->required(),
+                Select::make('tags')
+                    ->multiple()
+                    ->relationship('tags', 'name')
+                    ->createOptionForm([
+                        TextInput::make('name')->required(),
+                    ])
+                    ->preload(),
                 Select::make('status')
                     ->options(['PUBLISHED' => 'Published', 'DRAFT' => 'Draft'])
                     ->default('DRAFT')

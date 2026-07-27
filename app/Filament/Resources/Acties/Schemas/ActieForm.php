@@ -29,7 +29,7 @@ class ActieForm
             ->components([
                 TextInput::make('title')
                     ->live(onBlur: true)
-                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))                    ->required()
+                    ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))->required()
                     ->required()
                     ->maxLength(255),
                 Textarea::make('excerpt')
@@ -63,12 +63,12 @@ class ActieForm
                     ->schema([
                         DatePicker::make('start_date')
                             ->live()
-                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('end_date', $state))
+                            ->afterStateUpdated(fn(Set $set, ?string $state) => $set('end_date', $state))
                             ->required(),
                         TimePicker::make('start_time')
                             ->seconds(false)
                             ->live()
-                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('end_time', Carbon::parse($state)->addHours(1)->format('H:i')))
+                            ->afterStateUpdated(fn(Set $set, ?string $state) => $set('end_time', Carbon::parse($state)->addHours(1)->format('H:i')))
                             ->format('H:i'),
                         DatePicker::make('end_date')
                             ->required()
@@ -90,6 +90,13 @@ class ActieForm
                             ->multiple()
                             ->preload()
                             ->required(),
+                        Select::make('tags')
+                            ->multiple()
+                            ->relationship('tags', 'name')
+                            ->createOptionForm([
+                                TextInput::make('name')->required(),
+                            ])
+                            ->preload(),
                     ])
                     ->columnSpan(1),
                 Section::make('Locatie')
@@ -107,7 +114,7 @@ class ActieForm
                             ->label('Search address')
                             ->placeholder('Type an address to search...')
                             ->helperText('Search for an address to automatically set coordinates')
-                            ->hidden(fn ($get) => $get('no_specific_location')),
+                            ->hidden(fn($get) => $get('no_specific_location')),
                         Map::make('location')
                             ->label('Coördinaten')
                             ->defaultLocation(latitude: 52.373165, longitude: 4.895716)
@@ -117,7 +124,7 @@ class ActieForm
                                     $set('location', ['lat' => $record->location->latitude, 'lng' => $record->location->longitude]);
                                 }
                             })
-                            ->hidden(fn ($get) => $get('no_specific_location')),
+                            ->hidden(fn($get) => $get('no_specific_location')),
                         TextInput::make('location_human')
                             ->label('Location')
                             ->required()
@@ -129,14 +136,14 @@ class ActieForm
                         Select::make('user_id')
                             ->label('Author')
                             ->relationship('user', 'name')
-                            ->default(fn () => User::first()?->id)
+                            ->default(fn() => User::first()?->id)
                             ->preload()
                             ->required(),
                         TextInput::make('slug')
                             ->required()
                             ->maxLength(255)
-                            ->unique(Actie::class, 'slug', fn ($record) => $record)
-                            ->disabled(fn (?string $operation, ?Actie $record) => $operation == 'edit' && $record->isPublished()),
+                            ->unique(Actie::class, 'slug', fn($record) => $record)
+                            ->disabled(fn(?string $operation, ?Actie $record) => $operation == 'edit' && $record->isPublished()),
                         TextInput::make('keywords')
                             ->helperText('Comma separated keywords for SEO')
                             ->required()

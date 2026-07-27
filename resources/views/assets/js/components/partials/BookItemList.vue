@@ -5,6 +5,7 @@
     <BookCover
       :cover-image="book.cover_image"
       :title="book.title"
+      object-fit="object-contain"
       class="shrink-0 h-48 w-full sm:w-30 py-2 sm:p-0 bg-gray-300"
     />
     <div class="bg-white p-4 flex flex-1 flex-col justify-between min-w-0">

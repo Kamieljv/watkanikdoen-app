@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\Tags\Tables;
 
-use Dom\Text;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -29,7 +28,7 @@ class TagsTable
                     ->label('Referenties')
                     ->counts('referenties')
                     ->sortable(),
-                TextColumn::make('resources_count')
+                TextColumn::make('books_count')
                     ->label('Books')
                     ->counts('books')
                     ->sortable(),

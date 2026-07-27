@@ -21,7 +21,7 @@ class OrganizerForm
             ->components([
                 TextInput::make('name')
                     ->live(onBlur: true)
-                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                    ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
                     ->required()
                     ->maxLength(255),
                 RichEditor::make('description')
@@ -43,6 +43,13 @@ class OrganizerForm
                     ->multiple()
                     ->preload()
                     ->required(),
+                Select::make('tags')
+                    ->multiple()
+                    ->relationship('tags', 'name')
+                    ->createOptionForm([
+                        TextInput::make('name')->required(),
+                    ])
+                    ->preload(),
                 Section::make('SEO & Publishing settings')
                     ->schema([
                         Toggle::make('featured')
@@ -51,8 +58,8 @@ class OrganizerForm
                         TextInput::make('slug')
                             ->required()
                             ->maxLength(255)
-                            ->unique(Organizer::class, 'slug', fn ($record) => $record)
-                            ->disabled(fn (?string $operation, ?Organizer $record) => $operation == 'edit' && $record->isPublished()),
+                            ->unique(Organizer::class, 'slug', fn($record) => $record)
+                            ->disabled(fn(?string $operation, ?Organizer $record) => $operation == 'edit' && $record->isPublished()),
                         Select::make('status')
                             ->options([
                                 'PENDING' => 'Pending',

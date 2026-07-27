@@ -335,7 +335,7 @@ class BookController extends Controller
             'description' => $this->fetchDeSlegteText($productCrawler, '.product__page-description-content'),
             'author' => $this->fetchDeSlegteSpec($productCrawler, 'Auteur'),
             'publisher' => $this->fetchDeSlegteSpec($productCrawler, 'Uitgever'),
-            'year' => $this->fetchDeSlegteSpec($productCrawler, 'Publicatiedatum'),
+            'year' => (int) filter_var($this->fetchDeSlegteSpec($productCrawler, 'Publicatiedatum'), FILTER_SANITIZE_NUMBER_INT),
         ];
 
         $coverImage = $productCrawler->filter('meta[itemprop="image"]')->first();

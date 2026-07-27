@@ -157,7 +157,7 @@ const updateVisible = (value: boolean) => {
 
 const getSearchUrl = (title: string) => {
   const query = encodeURIComponent(title);
-  return `https://www.ecosia.org/search?q=${query}`;
+  return `https://www.ecosia.org/search?q=${query} boek`;
 };
 </script>
 
