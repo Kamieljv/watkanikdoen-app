@@ -5,7 +5,7 @@
  */
 
 import "./custom";
-import { createApp } from "vue";
+import { createApp, defineAsyncComponent } from "vue";
 import PrimeVue from "primevue/config";
 import { definePreset } from "@primeuix/themes";
 import Aura from "@primeuix/themes/aura";
@@ -110,53 +110,103 @@ app
   .component("l-marker", LMarker)
   .component("l-tooltip", LTooltip);
 
-// Import and register Vue components that are used in blade files
-import ActieAgenda from "./components/apps/ActieAgenda.vue";
-import ActieWijzer from "./components/apps/ActieWijzer.vue";
-import AddActie from "./components/apps/AddActie.vue";
-import BookItemList from "./components/partials/BookItemList.vue";
-import Books from "./components/apps/Books.vue";
-import BookShelf from "./components/partials/BookShelf.vue";
-import BookShelves from "./components/partials/BookShelves.vue";
-import Collapsible from "./components/partials/Collapsible.vue";
-import CopyTextField from "./components/partials/CopyTextField.vue";
-import ForgotPassword from "./components/forms/ForgotPassword.vue";
-import HomeAgenda from "./components/apps/HomeAgenda.vue";
-import LoginOrRegister from "./components/apps/LoginOrRegister.vue";
-import Newsletter from "./components/forms/Newsletter.vue";
-import Notifications from "./components/apps/Notifications.vue";
-import Organizers from "./components/apps/Organizers.vue";
-import OrganizersFeatured from "./components/apps/OrganizersFeatured.vue";
-import Profile from "./components/forms/Profile.vue";
-import ProgressBar from "./components/partials/ProgressBar.vue";
-import Referentie from "./components/partials/Referentie.vue";
-import Referenties from "./components/apps/Referenties.vue";
-import ResetPassword from "./components/forms/ResetPassword.vue";
-import Security from "./components/forms/Security.vue";
-import SimpleMap from "./components/partials/SimpleMap.vue";
-import WidgetAgenda from "./components/apps/WidgetAgenda.vue";
-app.component("ActieAgenda", ActieAgenda);
-app.component("ActieWijzer", ActieWijzer);
-app.component("AddActie", AddActie);
-app.component("Books", Books);
-app.component("BookShelf", BookShelf);
-app.component("BookShelves", BookShelves);
-app.component("Collapsible", Collapsible);
-app.component("CopyTextField", CopyTextField);
-app.component("ForgotPassword", ForgotPassword);
-app.component("HomeAgenda", HomeAgenda);
-app.component("LoginRegister", LoginOrRegister);
-app.component("Newsletter", Newsletter);
-app.component("Notifications", Notifications);
-app.component("Organizers", Organizers);
-app.component("OrganizersFeatured", OrganizersFeatured);
-app.component("Profile", Profile);
-app.component("ProgressBar", ProgressBar);
-app.component("Referentie", Referentie);
-app.component("Referenties", Referenties);
-app.component("ResetPassword", ResetPassword);
-app.component("Security", Security);
-app.component("SimpleMap", SimpleMap);
-app.component("WidgetAgenda", WidgetAgenda);
+// Register Vue components used in blade files as async components so each
+// page only downloads the JS (and heavy deps like Leaflet/Tiptap/cropper)
+// for the components it actually renders, instead of shipping all of them
+// in the single app.js entry loaded on every page.
+const asyncComponent = (loader) => defineAsyncComponent(loader);
+
+app.component(
+  "ActieAgenda",
+  asyncComponent(() => import("./components/apps/ActieAgenda.vue")),
+);
+app.component(
+  "ActieWijzer",
+  asyncComponent(() => import("./components/apps/ActieWijzer.vue")),
+);
+app.component(
+  "AddActie",
+  asyncComponent(() => import("./components/apps/AddActie.vue")),
+);
+app.component(
+  "Books",
+  asyncComponent(() => import("./components/apps/Books.vue")),
+);
+app.component(
+  "BookShelf",
+  asyncComponent(() => import("./components/partials/BookShelf.vue")),
+);
+app.component(
+  "BookShelves",
+  asyncComponent(() => import("./components/partials/BookShelves.vue")),
+);
+app.component(
+  "Collapsible",
+  asyncComponent(() => import("./components/partials/Collapsible.vue")),
+);
+app.component(
+  "CopyTextField",
+  asyncComponent(() => import("./components/partials/CopyTextField.vue")),
+);
+app.component(
+  "ForgotPassword",
+  asyncComponent(() => import("./components/forms/ForgotPassword.vue")),
+);
+app.component(
+  "HomeAgenda",
+  asyncComponent(() => import("./components/apps/HomeAgenda.vue")),
+);
+app.component(
+  "LoginRegister",
+  asyncComponent(() => import("./components/apps/LoginOrRegister.vue")),
+);
+app.component(
+  "Newsletter",
+  asyncComponent(() => import("./components/forms/Newsletter.vue")),
+);
+app.component(
+  "Notifications",
+  asyncComponent(() => import("./components/apps/Notifications.vue")),
+);
+app.component(
+  "Organizers",
+  asyncComponent(() => import("./components/apps/Organizers.vue")),
+);
+app.component(
+  "OrganizersFeatured",
+  asyncComponent(() => import("./components/apps/OrganizersFeatured.vue")),
+);
+app.component(
+  "Profile",
+  asyncComponent(() => import("./components/forms/Profile.vue")),
+);
+app.component(
+  "ProgressBar",
+  asyncComponent(() => import("./components/partials/ProgressBar.vue")),
+);
+app.component(
+  "Referentie",
+  asyncComponent(() => import("./components/partials/Referentie.vue")),
+);
+app.component(
+  "Referenties",
+  asyncComponent(() => import("./components/apps/Referenties.vue")),
+);
+app.component(
+  "ResetPassword",
+  asyncComponent(() => import("./components/forms/ResetPassword.vue")),
+);
+app.component(
+  "Security",
+  asyncComponent(() => import("./components/forms/Security.vue")),
+);
+app.component(
+  "SimpleMap",
+  asyncComponent(() => import("./components/partials/SimpleMap.vue")),
+);
+app.component(
+  "WidgetAgenda",
+  asyncComponent(() => import("./components/apps/WidgetAgenda.vue")),
+);
 
 app.mount("#app");

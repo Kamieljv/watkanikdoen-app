@@ -8,7 +8,7 @@ import svgLoader from "vite-svg-loader";
 import { visualizer } from "rollup-plugin-visualizer";
 import vueDevTools from "vite-plugin-vue-devtools";
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [
     laravel({
       input: [
@@ -41,6 +41,9 @@ export default defineConfig({
     Components({
       globs: ["resources/views/assets/js/components/**/*.vue"],
       resolvers: [PrimeVueResolver()],
+      // components.d.ts is only for editor IntelliSense; skip writing/diffing
+      // it during production builds, it's pure overhead there.
+      dts: command === "serve" ? "components.d.ts" : false,
     }),
     vueDevTools(),
     // Uncomment to analyze bundle size
@@ -97,4 +100,4 @@ export default defineConfig({
     // Enable CSS code splitting
     cssCodeSplit: true,
   },
-});
+}));
