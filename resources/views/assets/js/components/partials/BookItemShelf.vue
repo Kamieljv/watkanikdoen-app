@@ -1,5 +1,5 @@
 <template>
-  <article class="flex cursor-pointer w-90 h-60 gap-4 md:gap-2">
+  <article class="flex cursor-pointer w-80 h-60 gap-4 md:gap-2">
     <!-- Book Cover (standing on shelf) -->
     <BookCover
       :cover-image="book.cover_image"

@@ -26,7 +26,7 @@
       </span>
     </li>
     <li
-      class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-white uppercase bg-gray-100 rounded"
+      class="relative self-start inline-block px-2 py-1 mr-1 mb-1 text-xs font-medium leading-5 text-white uppercase bg-gray-400/10 rounded"
     >
       <span class="text-gray-800" rel="theme">
         +{{ props.themes.length - props.maxVisible

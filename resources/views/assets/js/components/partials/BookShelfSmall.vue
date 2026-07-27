@@ -1,18 +1,13 @@
 <template>
   <a :href="`/boekenplank/${shelf.slug}`">
     <div class="bg-white rounded-lg shadow-md">
-      <div class="p-4 flex flex-col gap-2">
+      <div class="p-4 flex flex-col gap-1">
         <div class="flex justify-between items-center">
-          <h1 class="text-xl font-bold text-gray-900">
-            <span class="font-medium text-gray-600">{{
-              __("books.shelf_of")
-            }}</span>
-            {{ shelf.organizer.name }}
+          <h1 class="flex items-center gap-1 text-xl font-bold text-gray-900">
+            <span class="text-gray-500">{{ __("books.shelf_of") }}</span>
+            <OrganizerChip :organizer="shelf.organizer" :clickable="false" />
           </h1>
         </div>
-        <p class="text-sm text-gray-700 line-clamp-2">
-          {{ shelf.description }}
-        </p>
         <div class="flex gap-2 justify-between items-center flex-wrap mt-4">
           <ThemesChips :themes="shelf.themes" :max-visible="isMobile ? 3 : 6" />
           <div class="flex flex-wrap gap-2 mb-1">

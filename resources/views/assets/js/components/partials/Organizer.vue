@@ -2,7 +2,7 @@
   <a :href="route" :title="titleText" @click="clickOrganizer">
     <div
       id="wrapper"
-      class="content flex justify-between items-center border border-gray-200 mb-1 rounded-lg shadow-md hover:shadow-lg"
+      class="content bg-white flex justify-between items-center border border-gray-200 mb-1 rounded-lg shadow-md hover:shadow-lg"
       :class="{
         'hover:bg-gray-100':
           mode !== 'remove' && !(selected && mode === 'select'),
@@ -125,7 +125,7 @@ const titleText = computed(() => {
   return props.mode === "remove" ? __("general.delete") : "";
 });
 
-const clickOrganizer = (e) => {
+const clickOrganizer = (e: Event) => {
   if (["select", "remove"].includes(props.mode)) {
     e.preventDefault();
     toggleSelect();

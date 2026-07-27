@@ -8,8 +8,13 @@
           }}</span>
           {{ shelf.organizer.name }}
         </h1>
-        <ThemesChips :themes="shelf.themes" :max-visible="10" />
-        <p class="text-sm text-gray-700 mt-2">{{ shelf.description }}</p>
+        <p class="text-sm text-gray-700">{{ shelf.description }}</p>
+        <div class="flex gap-2 justify-between items-center flex-wrap mt-4">
+          <ThemesChips :themes="shelf.themes" :max-visible="6" />
+          <div class="flex flex-wrap gap-2 mb-1">
+            <TagChip v-for="tag in shelf.tag_names" :key="tag" :tag="tag" />
+          </div>
+        </div>
       </div>
       <div class="col" style="width: 100%">
         <div class="relative mx-auto w-full">
@@ -21,7 +26,7 @@
             >
               <!-- Books on shelves -->
               <div
-                class="flex flex-wrap leading-0 gap-x-6 gap-y-12.5 align-start justify-center pb-10"
+                class="flex flex-wrap leading-0 gap-x-10 gap-y-12.5 align-start justify-center pb-10"
               >
                 <BookItemShelf
                   v-for="book in shelf.books"

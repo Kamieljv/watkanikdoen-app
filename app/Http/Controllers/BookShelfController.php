@@ -54,7 +54,7 @@ class BookShelfController extends Controller
         });
 
         // SEO
-        SEOTools::setTitle($bookShelf->title);
+        SEOTools::setTitle('Boekenplank van ' . $bookShelf->organizer->name);
         SEOTools::setDescription($bookShelf->description ?? 'Boekenplank van ' . $bookShelf->organizer->name);
         SEOMeta::setKeywords($bookShelf->themes->pluck('name')->join(', '));
 

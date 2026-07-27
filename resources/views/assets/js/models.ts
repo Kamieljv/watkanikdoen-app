@@ -111,6 +111,7 @@ export interface BookShelf {
   books: BookShelfBook[];
   organizer: Organizer;
   themes: Theme[];
+  tag_names: string[];
 }
 
 export interface BookShelfBook extends Book {
