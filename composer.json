@@ -17,7 +17,7 @@
     "dotswan/filament-map-picker": "2.1.2",
     "filament/filament": "^4.4",
     "filament/tables": "^4.8.5",
-    "guzzlehttp/guzzle": "^7.10",
+    "guzzlehttp/guzzle": "7.15.1",
     "intervention/image": "^3.11",
     "lab404/laravel-impersonate": "^1.7",
     "laravel/framework": "^12.61.1",
@@ -35,6 +35,7 @@
     "stevebauman/purify": "^6.3",
     "symfony/css-selector": "^8.1",
     "symfony/dom-crawler": "^8.1",
+    "symfony/http-foundation": "^7.4.13",
     "tymon/jwt-auth": "^2.2"
   },
   "require-dev": {
