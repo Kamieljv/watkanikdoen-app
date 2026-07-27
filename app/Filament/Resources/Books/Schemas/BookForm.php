@@ -101,6 +101,9 @@ class BookForm
                         Select::make('tags')
                             ->multiple()
                             ->relationship('tags', 'name')
+                            ->createOptionForm([
+                                TextInput::make('name')->required(),
+                            ])
                             ->preload(),
                     ])
                     ->columns(2)
