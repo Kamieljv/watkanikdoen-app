@@ -188,7 +188,6 @@ class BookController extends Controller
         }
 
         $bookData = $workResponse->json();
-        \Log::debug($bookData);
 
         $data = [
             'title' => $bookData['title'] ?? null,
