@@ -1,5 +1,5 @@
 <template>
-  <article class="flex cursor-pointer w-80 h-60 gap-4 md:gap-2">
+  <article class="flex cursor-pointer w-100 h-60 gap-4 md:gap-2">
     <!-- Book Cover (standing on shelf) -->
     <BookCover
       :cover-image="book.cover_image"
@@ -16,18 +16,21 @@
         {{ book.author }}<br />
         {{ book.year }}
       </p>
-      <p
+      <div
         v-if="book.notes"
-        class="text-sm md:text-xs text-gray-500 leading-4 line-clamp-6 italic mt-2"
+        class="flex flex-col text-sm md:text-xs text-gray-300 leading-4 italic m-2"
       >
-        "{{ book.notes.note }}"
-      </p>
+        <QuoteIcon class="w-8 h-8" fill="currentColor" />
+        <div class="pl-2 text-gray-500 line-clamp-6">{{ book.notes.note }}</div>
+        <QuoteIcon class="ml-auto w-6 h-6 rotate-180" fill="currentColor" />
+      </div>
     </div>
   </article>
 </template>
 
 <script setup lang="ts">
 import BookCover from "./BookCover.vue";
+import QuoteIcon from "&/iconpark-iconpark-quote.svg";
 import { BookShelfBook } from "../../models";
 
 const props = defineProps({
