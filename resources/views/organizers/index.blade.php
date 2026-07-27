@@ -21,7 +21,7 @@
 
     <div id="app" class="max-w-6xl mb-40 mx-auto mt-6 px-3">
         <organizers
-            :routes="{{ $routes }}"
+            :routes="{{ json_encode($routes) }}"
             :themes="{{ $themes }}"
         />
     </div>

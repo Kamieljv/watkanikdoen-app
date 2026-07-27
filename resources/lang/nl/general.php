@@ -17,6 +17,7 @@ return [
     'ago' => 'geleden',
     'about' => 'Over',
     'about_us' => 'Over ons',
+    'view' => 'Bekijk',
     'mark_as_read' => 'Markeer als gelezen',
     'save' => 'Opslaan',
     'at' => 'om',
@@ -56,4 +57,5 @@ return [
     'pending' => 'in behandeling',
     'rejected' => 'afgewezen',
     'admin_message' => 'Je bent ingelogd als administrator',
+    'error_loading' => 'Er is een fout opgetreden bij het laden van de gegevens. Probeer het later opnieuw.',
 ];

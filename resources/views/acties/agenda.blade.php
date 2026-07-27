@@ -20,7 +20,7 @@
     </div>
     <div id="app" class="px-3 xl:px-5 mb-40">
         <actie-agenda
-            :routes="{{ $routes }}"
+            :routes="{{ json_encode($routes) }}"
             :themes="{{ $themes }}"
             :categories="{{ $categories }}"
             :themes-selected-ids="{{ json_encode($themes_selected_ids) }}"

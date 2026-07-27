@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use MWGuerra\FileManager\Models\FileSystemItem;
 
 class Organizer extends Model
 {
     use HasFactory;
-    
+
     protected $appends = [
         'link',
         'website_human',
@@ -91,7 +92,17 @@ class Organizer extends Model
         }
         return null;
     }
-    
+
+    public function tags(): MorphToMany
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
+    }
+
+    public function bookShelves()
+    {
+        return $this->hasMany(BookShelf::class);
+    }
+
     public function getPublishedAttribute()
     {
         return $this->status === Status::PUBLISHED;

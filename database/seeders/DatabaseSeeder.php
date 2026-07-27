@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         // Get some sample images
         $this->call(SampleImagesSeeder::class);
-        
+
         // Base Seeders
         $this->call(RolesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
@@ -50,9 +50,12 @@ class DatabaseSeeder extends Seeder
         $this->call(ReferentieTypeDimensionTableSeeder::class);
         $this->call(ReferentiesTableFactorySeeder::class);
         $this->call(ReferentieThemeTableSeeder::class);
+        $this->call(BooksTableFactorySeeder::class);
+        $this->call(BookShelvesTableFactorySeeder::class);
 
         $this->call(SubscribersTableFactorySeeder::class);
         $this->call(ModelHasRolesTableSeeder::class);
         $this->call(RoleHasPermissionsTableSeeder::class);
+        $this->call(TagTableFactorySeeder::class);
     }
 }

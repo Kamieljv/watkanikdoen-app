@@ -2,14 +2,14 @@ name: Laravel CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   laravel:
     name: Laravel CI
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
       - name: Set Up Mysql 8
         run: |
@@ -27,7 +27,14 @@ jobs:
           mysql --host 127.0.0.1 -uroot -proot -e "SELECT @@global.secure_file_priv, @@global.local_infile"
       - name: Checkout
         uses: actions/checkout@v2
-
+      - name: Get PHP Versions
+        id: php-version
+        uses: antfroger/php-version-action@v1
+      - name: Setup PHP (Minimal)
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ steps.php-version.outputs.minimal }}
+          tools: composer:v2
       - name: Get Composer Cache Directory
         id: get-composer-cache
         run: |
@@ -57,10 +64,10 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22.3.0' 
+          node-version: "latest"
       - name: Install packages
         run: npm ci
       - name: Run node
         run: npm run build
       - name: Test with pest
-        run: ./vendor/bin/pest     
+        run: ./vendor/bin/pest

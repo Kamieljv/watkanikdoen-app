@@ -1,12 +1,5 @@
 @extends('layouts.app')
 
-@php
-    $routes = [
-        'login' => route('login'),
-        'password_change' => route('password.request'),
-    ];
-@endphp
-
 @section('content')
     <div id="app">
         <Reset-Password
