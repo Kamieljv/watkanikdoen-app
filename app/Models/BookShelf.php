@@ -12,10 +12,13 @@ class BookShelf extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
         'description',
         'organizer_id',
         'slug',
+    ];
+
+    protected $appends = [
+        'tag_names',
     ];
 
     /**
@@ -42,5 +45,20 @@ class BookShelf extends Model
     public function themes(): BelongsToMany
     {
         return $this->belongsToMany(Theme::class, 'book_shelf_theme');
+    }
+
+    /** 
+     * Add a tag_names attribute based on the unique set of tags present
+     * in this shelf's books.
+     */
+    public function getTagNamesAttribute(): array
+    {
+        return $this->books()
+            ->with('tags')
+            ->get()
+            ->flatMap(fn (Book $book) => $book->tag_names)
+            ->unique()
+            ->values()
+            ->toArray();
     }
 }

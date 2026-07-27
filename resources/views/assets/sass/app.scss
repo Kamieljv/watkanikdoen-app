@@ -6,7 +6,7 @@
 /* stylelint-disable-next-line */
 @custom-variant dark (&:where(.app-dark, .app-dark *));
 
-:root{
+:root {
   // WKID blue
   --color-blue-50: #f2f5ff;
   --color-blue-100: #e4ebff;
@@ -105,7 +105,7 @@
   h4,
   h5,
   h6 {
-    & a {
+    & a.prose {
       @apply font-medium transition duration-150 ease-in-out text-primary focus:outline-none hover:underline hover:text-blue-700;
     }
   }
@@ -185,8 +185,8 @@ h6 {
 .gradient-border-b,
 #header.detatched {
   padding-bottom: 2px;
-  background: linear-gradient(to right, var(--wkid-pink), var(--color-primary)) left
-    bottom #fff no-repeat;
+  background: linear-gradient(to right, var(--wkid-pink), var(--color-primary))
+    left bottom #fff no-repeat;
   background-size: 100% 2px;
 }
 

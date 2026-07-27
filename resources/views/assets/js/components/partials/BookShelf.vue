@@ -16,11 +16,8 @@
           <div class="relative mx-auto max-w-6xl">
             <!-- Bookshelf with repeating shelves -->
             <div
-              class="mt-12"
-              :class="{ shelf: !isMobile }"
-              :style="
-                !isMobile ? { backgroundImage: `url(${shelfLine})` } : undefined
-              "
+              class="mt-12 shelf"
+              :style="{ backgroundImage: `url(${shelfLine})` }"
             >
               <!-- Books on shelves -->
               <div
@@ -54,7 +51,8 @@ import BookItemShelf from "../partials/BookItemShelf.vue";
 import BookModal from "../partials/BookModal.vue";
 import { BookShelf, BookShelfBook } from "../../models";
 import { useTranslate, useWindowSize } from "@composables";
-import { computed, ref } from "vue";
+import { ref } from "vue";
+/* @ts-ignore */
 import shelfLine from "&/bookshelf.svg?url";
 
 const __ = useTranslate();
@@ -67,8 +65,6 @@ const props = defineProps({
 });
 
 const currentBook = ref<BookShelfBook | null>(null);
-const { width } = useWindowSize();
-const isMobile = computed(() => width.value < 768);
 </script>
 
 <style lang="css" scoped>

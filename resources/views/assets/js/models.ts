@@ -28,6 +28,9 @@ export interface Category {
 export interface Organizer {
   id: number;
   name: string;
+  image_url: string;
+  slug: string;
+  link: string;
 }
 
 export interface Notification {
@@ -96,10 +99,7 @@ export interface Book {
   tag_names: string[];
   book_shelves: {
     slug: string;
-    organizer: {
-      name: string;
-      image_url: string;
-    };
+    organizer: Organizer;
   }[];
 }
 
@@ -114,5 +114,10 @@ export interface BookShelf {
 }
 
 export interface BookShelfBook extends Book {
-  notes: string;
+  notes: Note;
+}
+
+interface Note {
+  organizer: Organizer;
+  note: string;
 }

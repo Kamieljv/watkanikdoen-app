@@ -18,12 +18,6 @@ class BookShelfForm
     {
         return $schema
             ->components([
-                TextInput::make('title')
-                    ->live(onBlur: true)
-                    ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
-                    ->required()
-                    ->maxLength(255),
-
                 Textarea::make('description')
                     ->label('Shelf Description')
                     ->helperText('Describe the overall theme or purpose of this book shelf')

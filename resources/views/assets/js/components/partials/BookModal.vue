@@ -22,17 +22,14 @@
         <BookCover
           :cover-image="props.book.cover_image"
           :title="props.book.title"
-          object-fit="object-contain"
           class="shrink-0 h-60 w-40 drop-shadow-lg drop-shadow-gray-300/50"
         />
         <div>
-          <h3
-            class="line-clamp-2 uppercase text-xl font-semibold leading-7 text-gray-900 text-center"
-          >
+          <h3 class="text-xl font-semibold leading-7 text-gray-900 text-center">
             {{ props.book.title }}
           </h3>
-          <p class="text-sm text-gray-500 text-center">
-            {{ props.book.author }}
+          <p class="text-sm text-gray-400 text-center">
+            {{ props.book.author }} | {{ props.book.year }}
           </p>
           <div class="flex justify-center">
             <ThemesChips
@@ -41,18 +38,20 @@
             />
           </div>
           <div class="flex flex-wrap gap-2 justify-center">
-            <span
+            <TagChip
               v-for="tag in props.book.tag_names"
               :key="tag"
-              class="inline-block text-blue-600 text-sm"
-            >
-              #{{ tag }}
-            </span>
+              :tag="tag"
+            />
           </div>
         </div>
       </div>
-      <div class="flex flex-col items-center overflow-visible relative">
-        <div class="">
+      <div
+        v-if="props.book.description"
+        class="flex flex-col items-center mb-3 overflow-visible relative"
+      >
+        <div class="w-full">
+          <h5 class="mb-1">Omschrijving</h5>
           <p
             v-sanitize.inline="props.book.description"
             class="text-sm text-gray-700 transition-all duration-300"
@@ -67,39 +66,39 @@
         </div>
         <button
           v-if="!descriptionExpanded"
-          class="absolute -bottom-4 text-sm bg-white py-1 px-2 -mt-2 z-20 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors duration-200"
+          class="absolute -bottom-8 rounded-lg text-sm text-white bg-gray-500 shadow-sm py-1.5 px-3 -mt-2 z-20 cursor-pointer hover:bg-gray-700 transition-colors duration-200"
           type="button"
           @click="descriptionExpanded = !descriptionExpanded"
         >
           {{ __("general.read_more") }}
         </button>
       </div>
-      <div v-if="hasNotes" class="flex flex-col gap-2 mt-5">
-        <h4 class="text-md font-semibold text-gray-900">
-          {{ __("books.recommended_by") }}
+      <div
+        v-if="hasNotes"
+        class="flex flex-col gap-2 p-3 rounded-md mt-5 bg-gray-100"
+      >
+        <h4 class="flex items-center gap-2 text-md font-semibold text-gray-900">
+          <span class="text-gray-500">{{ __("books.recommended_by") }}</span>
+          <OrganizerChip
+            :organizer="(props.book as BookShelfBook).notes.organizer"
+          />
         </h4>
-        <p
-          v-sanitize.inline="(props.book as BookShelfBook).notes"
-          class="text-sm text-gray-700 whitespace-pre-wrap"
-        ></p>
+        <p class="text-sm italic text-gray-700 whitespace-pre-wrap">
+          "{{ (props.book as BookShelfBook).notes.note }}"
+        </p>
       </div>
       <div v-if="showBookShelfLink" class="flex flex-col gap-2 mt-5">
         <a
           v-for="shelf in props.book.book_shelves"
           :key="shelf.slug"
           :href="`/boekenplank/${shelf.slug}`"
-          class="flex items-center justify-between p-2 bg-gray-50 rounded-md border-gray-300 border gap-2 text-sm text-gray-600"
+          class="flex items-center justify-between p-2 pl-4 bg-gray-100 rounded-md gap-2 text-sm text-gray-600"
         >
-          <div class="flex items-center gap-2">
-            <img
-              :src="shelf.organizer.image_url"
-              :alt="shelf.organizer.name"
-              class="w-10 h-10 rounded-full object-cover"
-            />
-            <span>
-              {{ __("books.view_on_shelf_of") }}
-              <b>{{ shelf.organizer.name }}</b>
-            </span>
+          <div class="flex items-center gap-1">
+            {{ __("books.view_on_shelf_of") }}
+            <b
+              ><OrganizerChip :organizer="shelf.organizer" :clickable="false"
+            /></b>
           </div>
           <button class="gray hidden md:flex items-center gap-1">
             {{ __("general.view") }}
@@ -126,6 +125,7 @@ import { computed, ref } from "vue";
 import NewTabIcon from "&/lucide-external-link.svg";
 import ArrowRightIcon from "&/clarity-arrow-line.svg";
 import ThemesChips from "./ThemesChips.vue";
+import TagChip from "./TagChip.vue";
 import { Book, type BookShelfBook } from "../../models";
 import { useTranslate } from "@composables";
 const __ = useTranslate();

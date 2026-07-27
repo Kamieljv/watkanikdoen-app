@@ -14,7 +14,7 @@
             {{ book.title }}
           </h3>
           <span
-            class="mt-1 text-sm text-gray-500"
+            class="mt-1 text-sm text-gray-400"
             v-sanitize.inline="metaDataLine"
           >
           </span>
@@ -25,13 +25,7 @@
         <div class="flex gap-2 justify-between items-center flex-wrap mt-4">
           <ThemesChips :themes="book.themes" :max-visible="isMobile ? 3 : 6" />
           <div class="flex flex-wrap gap-2 mb-1">
-            <span
-              v-for="tag in book.tag_names"
-              :key="tag"
-              class="inline-block text-blue-600 text-sm leading-3"
-            >
-              #{{ tag }}
-            </span>
+            <TagChip v-for="tag in book.tag_names" :key="tag" :tag="tag" />
           </div>
         </div>
       </div>
@@ -45,6 +39,7 @@ import BookCover from "./BookCover.vue";
 import ThemesChips from "./ThemesChips.vue";
 import { Book } from "../../models";
 import { useWindowSize } from "@composables";
+import TagChip from "./TagChip.vue";
 
 const props = defineProps({
   book: {

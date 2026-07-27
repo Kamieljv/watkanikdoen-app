@@ -1,5 +1,5 @@
 <template>
-  <div :class="['relative', customClass]">
+  <div :class="['relative aspect-213/320', customClass]">
     <div
       v-if="!imageLoaded"
       class="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-400 rounded-sm"

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Resource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use MWGuerra\FileManager\Models\FileSystemItem;
 
 class Book extends Resource
 {
@@ -12,6 +13,7 @@ class Book extends Resource
 
     protected $appends = [
         'tag_names',
+        'cover_image',
     ];
 
     protected $hidden = [
@@ -27,10 +29,23 @@ class Book extends Resource
         $this->mergeFillable([
             'publisher',
             'isbn',
-            'cover_image',
         ]);
 
         parent::__construct($attributes);
+    }
+
+    public function image()
+    {
+        return $this->morphToMany(FileSystemItem::class, 'model', 'file_has_models', 'model_id', 'file_id');
+    }
+
+    public function getCoverImageAttribute(): ?string
+    {
+        $image = $this->image()->where('file_type', 'image')->first();
+        if ($image) {
+            return asset('storage/' . $image->storage_path);
+        }
+        return null;
     }
 
     public function themes()

@@ -4,10 +4,10 @@
     <BookCover
       :cover-image="book.cover_image"
       :title="book.title"
-      class="w-full aspect-2/3 drop-shadow-lg drop-shadow-gray-400/30"
+      class="drop-shadow-lg drop-shadow-gray-400/30"
     />
 
-    <!-- Book Info (below shelf) -->
+    <!-- Book Info (next to book) -->
     <div class="w-full">
       <h3 class="font-bold text-gray-900 text-sm line-clamp-2 mb-1 leading-4">
         {{ book.title }}
@@ -18,9 +18,9 @@
       </p>
       <p
         v-if="book.notes"
-        class="text-sm md:text-xs text-gray-600 leading-4 line-clamp-10 italic mt-2"
+        class="text-sm md:text-xs text-gray-500 leading-4 line-clamp-6 italic mt-2"
       >
-        "{{ book.notes }} {{ book.notes }} {{ book.notes }} {{ book.notes }}"
+        "{{ book.notes.note }}"
       </p>
     </div>
   </article>

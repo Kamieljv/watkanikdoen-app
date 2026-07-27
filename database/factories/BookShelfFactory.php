@@ -12,7 +12,6 @@ class BookShelfFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->sentence(rand(2, 5)),
             'description' => $this->faker->paragraphs(rand(2, 4), true),
             'slug' => $this->faker->slug(),
         ];

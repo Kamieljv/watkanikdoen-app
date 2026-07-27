@@ -10,10 +10,15 @@
             {{ shelf.organizer.name }}
           </h1>
         </div>
-        <ThemesChips :themes="shelf.themes" />
         <p class="text-sm text-gray-700 line-clamp-2">
           {{ shelf.description }}
         </p>
+        <div class="flex gap-2 justify-between items-center flex-wrap mt-4">
+          <ThemesChips :themes="shelf.themes" :max-visible="isMobile ? 3 : 6" />
+          <div class="flex flex-wrap gap-2 mb-1">
+            <TagChip v-for="tag in shelf.tag_names" :key="tag" :tag="tag" />
+          </div>
+        </div>
       </div>
       <div class="bg-gray-200">
         <div
@@ -36,7 +41,8 @@
 import BookCover from "./BookCover.vue";
 import ThemesChips from "./ThemesChips.vue";
 import { type BookShelf } from "../../models";
-import { useTranslate } from "@composables";
+import { useTranslate, useWindowSize } from "@composables";
+import { computed } from "vue";
 
 const __ = useTranslate();
 
@@ -46,4 +52,6 @@ const props = defineProps({
     required: true,
   },
 });
+
+const isMobile = computed(() => useWindowSize().width.value < 640);
 </script>

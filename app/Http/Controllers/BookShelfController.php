@@ -36,7 +36,7 @@ class BookShelfController extends Controller
      */
     public function show(string $slug)
     {
-        $bookShelf = BookShelf::with(['organizer', 'themes', 'books'])
+        $bookShelf = BookShelf::with(['organizer', 'themes', 'books.themes'])
             ->where('slug', $slug)
             ->firstOrFail();
 
@@ -45,8 +45,11 @@ class BookShelfController extends Controller
         }
 
         // Change the remove the pivot data key and add 'notes' to the book data
-        $bookShelf->books->each(function ($book) {
-            $book->notes = $book->pivot->description;
+        $bookShelf->books->each(function ($book) use ($bookShelf) {
+            $book->notes = [
+                'organizer' => $bookShelf->organizer,
+                'note' => $book->pivot->description,
+            ];
             $book->makeHidden('pivot');
         });
 
