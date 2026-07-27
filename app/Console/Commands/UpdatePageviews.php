@@ -3,11 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Models\Actie;
-use App\Notifications\Mail\ErrorAlert;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Notification;
 
 use Carbon\Carbon;
 
