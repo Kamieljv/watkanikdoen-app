@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Tags\Schemas;
 
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
 class TagForm
@@ -10,7 +11,7 @@ class TagForm
     {
         return $schema
             ->components([
-                //
+                TextInput::make('name')->required(),
             ]);
     }
 }
