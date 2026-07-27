@@ -65,20 +65,21 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
+        manualChunks(id) {
+          if (!id.includes("node_modules")) return;
           // Separate PrimeVue components
-          "primevue-core": ["primevue/config"],
+          if (id.includes("primevue/config")) return "primevue-core";
           // Separate large libraries
-          leaflet: ["leaflet", "@vue-leaflet/vue-leaflet"],
-          tiptap: [
-            "@tiptap/vue-3",
-            "@tiptap/core",
-            "@tiptap/starter-kit",
-            "@tiptap/extension-character-count",
-            "@tiptap/extension-underline",
-          ],
+          if (id.includes("/leaflet/") || id.includes("@vue-leaflet/vue-leaflet"))
+            return "leaflet";
+          if (id.includes("@tiptap/")) return "tiptap";
           // Vendor chunk for common dependencies
-          vendor: ["vue", "axios", "alpinejs"],
+          if (
+            id.includes("/vue/") ||
+            id.includes("/axios/") ||
+            id.includes("/alpinejs/")
+          )
+            return "vendor";
         },
       },
     },
