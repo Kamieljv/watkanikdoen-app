@@ -23,8 +23,6 @@ class BookShelfResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Resources';
 
-    protected static ?string $recordTitleAttribute = 'title';
-
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();

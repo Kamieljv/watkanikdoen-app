@@ -14,9 +14,6 @@ class BookShelvesTable
     {
         return $table
             ->columns([
-                TextColumn::make('title')
-                    ->searchable()
-                    ->sortable(),
                 TextColumn::make('organizer.name')
                     ->searchable()
                     ->sortable(),

@@ -19,16 +19,14 @@ class TagResource extends Resource
 {
     protected static ?string $model = Tag::class;
 
-    protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static string | UnitEnum | null $navigationGroup = 'Acties & Organisatoren';
+    protected static string|UnitEnum|null $navigationGroup = 'Acties & Organisatoren';
 
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();
     }
-
-    protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Schema $schema): Schema
     {
