@@ -19,8 +19,8 @@
 
 <body class="min-h-screen bg-(--wkid-pink)">
 
-    <main class="mx-auto max-w-md my-10 px-2">
-        <div class="flex flex-col items-center px-5 pt-14 pb-10 bg-white/30 mx-auto my-10 max-w-md rounded-2xl">
+    <main class="mx-auto max-w-md px-2">
+        <div class="flex flex-col items-center px-5 pt-14 pb-10 bg-white/30 mx-auto my-5 max-w-md rounded-2xl">
             <a href="{{ route('home') }}"
                 class="flex items-center justify-center w-20 h-20 mb-5 bg-white rounded-full shadow-lg ring-4 ring-white/30">
                 @svg('custom-logo-full', ['class' => 'w-18 h-18', 'style' => 'fill: var(--wkid-pink);'])
@@ -28,7 +28,7 @@
 
             <h1 class="text-xl font-bold text-center text-white">{{ config('brand.title_website') }}</h1>
             @include('partials.social-links', ['class' => 'flex items-center space-x-3 my-3'])
-            <p class="mt-2 mb-8 text-sm text-center text-white/80">{{ config('brand.description') }}</p>
+            <p class="mt-2 mb-8 text-sm text-center text-white/90">{{ config('brand.description') }}</p>
 
             <div class="flex flex-col w-full space-y-3">
                 @forelse($links as $link)
