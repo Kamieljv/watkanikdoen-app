@@ -6,6 +6,7 @@ use App\Models\Actie;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 use Carbon\Carbon;
 
@@ -58,6 +59,7 @@ class UpdatePageviews extends Command
                 'endAt' => Carbon::now()->timestamp * 1000,
                 'type' => 'url'
             ]);
+            $response->throw();
             // declare pagestats and filter for acties only
             $pageStats = json_decode($response->body());
             $actieStats = Arr::where($pageStats, function ($v, $k) {
@@ -76,8 +78,10 @@ class UpdatePageviews extends Command
                 }
             }
             return 0;
-        } catch (\Exception $e) {
-            $this->error('Failed to authenticate with Umami: ' . $e->getMessage());
+        } catch (\Throwable $e) {
+            $message = 'Failed to update pageviews from Umami: ' . $e->getMessage();
+            $this->error($message);
+            Log::error($message, ['exception' => $e]);
             return 1;
         }
     }
