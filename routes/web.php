@@ -21,6 +21,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ICalController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\LinktreeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrganizerController;
 use App\Http\Controllers\PageController;
@@ -91,6 +92,9 @@ Route::get('ical/feed', [ICalController::class, 'generate'])->name('ical.feed');
 
 // Widget route
 Route::get('widget', [WidgetController::class, 'index'])->name('widget');
+
+// Linktree route
+Route::get('linktree', [LinktreeController::class, 'index'])->name('linktree');
 
 // General page route
 Route::get('{page}', [PageController::class, 'page'])->name('page');
