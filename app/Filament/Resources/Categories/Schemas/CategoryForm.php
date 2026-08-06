@@ -16,11 +16,11 @@ class CategoryForm
             ->components([
                 TextInput::make('name')
                     ->live(onBlur: true)
-                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                    ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
                     ->required()
                     ->maxLength(255),
                 TextInput::make('slug')
-                    ->unique(Category::class, 'slug', fn ($record) => $record)
+                    ->unique(Category::class, 'slug', fn($record) => $record)
                     ->required(),
             ]);
     }
