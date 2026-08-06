@@ -1,5 +1,5 @@
 <template>
-  <div :class="['relative aspect-213/320', customClass]">
+  <div :class="['relative ', customClass]">
     <div
       v-if="!imageLoaded"
       class="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-400 rounded-sm"
@@ -8,8 +8,9 @@
     </div>
     <img
       :class="[
-        'w-full h-full rounded-sm transition-opacity duration-300',
+        'w-full h-full transition-opacity duration-300 aspect-213/320',
         imageLoaded ? 'opacity-100' : 'opacity-0',
+        rounded ? 'rounded-sm' : '',
         objectFit,
       ]"
       :src="coverImage"
@@ -42,6 +43,10 @@ const props = defineProps({
     default: "object-cover",
     validator: (value: string) =>
       ["object-cover", "object-contain"].includes(value),
+  },
+  rounded: {
+    type: Boolean,
+    default: true,
   },
 });
 

@@ -4,7 +4,17 @@
       class="flex items-center gap-1 p-1 rounded-sm"
       :class="{ 'hover:bg-gray-400/30 hover:pointer': clickable }"
     >
-      <img class="h-5 w-5 rounded-full" :src="props.organizer.image_url" />
+      <img
+        v-if="false"
+        class="h-5 w-5 rounded-full"
+        :src="props.organizer.image_url"
+      />
+      <div
+        v-else
+        class="h-5 w-5 flex items-center justify-center rounded-full bg-gray-500 text-white text-[.85em]"
+      >
+        {{ organizer.name.charAt(0) }}
+      </div>
       {{ props.organizer.name }}
     </div>
   </a>
