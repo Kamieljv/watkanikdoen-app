@@ -2,12 +2,15 @@
   <article
     class="flex flex-col sm:flex-row rounded-lg shadow-lg overflow-hidden cursor-pointer"
   >
-    <BookCover
-      :cover-image="book.cover_image"
-      :title="book.title"
-      object-fit="object-contain"
-      class="shrink-0 h-48 w-full sm:w-30 py-2 sm:p-0 bg-gray-300"
-    />
+    <div class="shrink-0 h-48 w-full sm:w-30 bg-gray-300 flex justify-center">
+      <BookCover
+        :cover-image="book.cover_image"
+        :title="book.title"
+        :object-fit="isMobile ? 'object-contain' : 'object-cover'"
+        :rounded="isMobile"
+        class="h-full py-2 sm:p-0"
+      />
+    </div>
     <div class="bg-white p-4 flex flex-1 flex-col justify-between min-w-0">
       <div class="flex-1 min-w-0 flex flex-col justify-between">
         <div class="flex flex-col">
@@ -35,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, effect } from "vue";
 import BookCover from "./BookCover.vue";
 import ThemesChips from "./ThemesChips.vue";
 import { Book } from "../../models";
@@ -62,5 +65,9 @@ const metaDataLine = computed(() => {
 
 const book = props.book;
 
-const isMobile = computed(() => useWindowSize().width.value < 640);
+const { width } = useWindowSize();
+const isMobile = computed(() => width.value < 640);
+effect(() => {
+  console.log(width.value);
+});
 </script>

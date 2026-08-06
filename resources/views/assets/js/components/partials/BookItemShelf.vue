@@ -4,11 +4,11 @@
     <BookCover
       :cover-image="book.cover_image"
       :title="book.title"
-      class="drop-shadow-lg drop-shadow-gray-400/30"
+      class="shrink-0 h-60 w-40 drop-shadow-lg drop-shadow-gray-400/30"
     />
 
     <!-- Book Info (next to book) -->
-    <div class="w-full">
+    <div class="w-full min-w-0">
       <h3 class="font-bold text-gray-900 text-sm line-clamp-2 mb-1 leading-4">
         {{ book.title }}
       </h3>
