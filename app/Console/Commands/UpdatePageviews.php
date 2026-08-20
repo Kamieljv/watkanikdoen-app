@@ -53,19 +53,34 @@ class UpdatePageviews extends Command
             $response->throw();
             $token = json_decode($response->body())->token;
 
-            // make metrics request
-            $response = Http::withToken($token)->get(config('umami.url') . '/api/websites/' . config('umami.websiteId') . '/metrics', [
-                'startAt' => Carbon::createFromDate(2000, 01, 01)->timestamp * 1000,
-                'endAt' => Carbon::now()->timestamp * 1000,
-                'type' => 'url'
-            ]);
-            $response->throw();
+            // make metrics request, paginating 500 records at a time until a
+            // page comes back with fewer than 500 records (the last page)
+            $pageSize = 500;
+            $page = 0;
+            $pageStats = [];
+            do {
+                $response = Http::withToken($token)->get(config('umami.url') . '/api/websites/' . config('umami.websiteId') . '/metrics', [
+                    'startAt' => Carbon::createFromDate(2000, 01, 01)->timestamp * 1000,
+                    'endAt' => Carbon::now()->timestamp * 1000,
+                    'type' => 'url',
+                    'limit' => 500,
+                    'offset' => $page * 500,
+                ]);
+                $response->throw();
+                $batch = json_decode($response->body());
+
+                $pageStats = array_merge($pageStats, $batch);
+                $page++;
+            } while (count($batch) === $pageSize);
+
             // declare pagestats and filter for acties only
-            $pageStats = json_decode($response->body());
             $actieStats = Arr::where($pageStats, function ($v, $k) {
                 return preg_match('/\/actie\//', $v->x);
             });
+
             // Update pageviews for all found acties
+            $updated = 0;
+            $notFound = [];
             foreach ($actieStats as $stat) {
                 $slug = preg_split('/\/actie\//', $stat->x)[1];
                 $actie = Actie::where('slug', $slug)->first();
@@ -75,8 +90,19 @@ class UpdatePageviews extends Command
                     $actie->timestamps = false;
                     $actie->save();
                     $actie->timestamps = true;
+                    $updated++;
+                } else {
+                    $notFound[] = $slug;
                 }
             }
+
+            Log::debug('UpdatePageviews: finished run', [
+                'matched_urls' => count($actieStats),
+                'updated' => $updated,
+                'not_found_count' => count($notFound),
+                'not_found_slugs' => $notFound,
+            ]);
+
             return 0;
         } catch (\Throwable $e) {
             $message = 'Failed to update pageviews from Umami: ' . $e->getMessage();
