@@ -185,6 +185,14 @@ class Handler extends ExceptionHandler
     {
         if (config('app.env') === 'production') {
             $this->reportable(function (Throwable $e) {
+                // Skip email alerts for known Livewire/Filament hydration noise caused by
+                // malformed requests (bots/scanners) hitting /livewire/update directly.
+                // Still gets logged normally by Laravel below, just not emailed.
+                // See: https://github.com/filamentphp/filament/discussions/19658
+                if ($this->isLivewireHydrationNoise($e)) {
+                    return;
+                }
+
                 // Create Notification Data
                 $exception = [
                     "class" => get_class($e),
@@ -197,8 +205,19 @@ class Handler extends ExceptionHandler
                 // Create a Job for Notification which will run after 5 seconds.
                 Notification::route('mail', config('app.admin_email'))
                     ->notify((new ErrorAlert($exception))->delay(now()->addSeconds(5)));
-            
+
             });
         }
+    }
+
+    /**
+     * Detect TypeErrors thrown while Livewire hydrates component properties from a
+     * malformed update payload (e.g. bots fuzzing /livewire/update). Not an app bug.
+     */
+    protected function isLivewireHydrationNoise(Throwable $e): bool
+    {
+        return $e instanceof \TypeError
+            && (str_contains($e->getFile(), '/vendor/livewire/')
+                || str_contains($e->getFile(), '/vendor/filament/notifications/'));
     }
 }
