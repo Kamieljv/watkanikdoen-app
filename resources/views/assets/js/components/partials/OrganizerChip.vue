@@ -5,7 +5,7 @@
       :class="{ 'hover:bg-gray-400/30 hover:pointer': clickable }"
     >
       <img
-        v-if="false"
+        v-if="props.organizer.image_url"
         class="h-5 w-5 rounded-full"
         :src="props.organizer.image_url"
       />
