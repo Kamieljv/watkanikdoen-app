@@ -67,7 +67,4 @@ const book = props.book;
 
 const { width } = useWindowSize();
 const isMobile = computed(() => width.value < 640);
-effect(() => {
-  console.log(width.value);
-});
 </script>
