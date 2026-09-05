@@ -211,13 +211,16 @@ class Handler extends ExceptionHandler
     }
 
     /**
-     * Detect TypeErrors thrown while Livewire hydrates component properties from a
-     * malformed update payload (e.g. bots fuzzing /livewire/update). Not an app bug.
+     * Detect exceptions thrown from *inside* Livewire/Filament's own hydration
+     * internals (as opposed to our own component/resource code calling into them),
+     * caused by malformed update payloads (e.g. bots fuzzing /livewire/update).
+     * Not an app bug — various exception classes surface here over time
+     * (TypeError, CannotUpdateLockedPropertyException, ...), so match on where the
+     * exception was actually thrown rather than its class.
      */
     protected function isLivewireHydrationNoise(Throwable $e): bool
     {
-        return $e instanceof \TypeError
-            && (str_contains($e->getFile(), '/vendor/livewire/')
-                || str_contains($e->getFile(), '/vendor/filament/notifications/'));
+        return str_contains($e->getFile(), '/vendor/livewire/')
+            || str_contains($e->getFile(), '/vendor/filament/notifications/');
     }
 }
