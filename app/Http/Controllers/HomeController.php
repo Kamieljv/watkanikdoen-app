@@ -16,6 +16,7 @@ class HomeController extends Controller
         // Definieer de routes waarmee de component evenementen kan ophalen
         $actieRoutes = getRouteUris(namePattern: 'acties');
         $organizerRoutes = getRouteUris(namePattern: 'organizers');
+        $bookRoutes = getRouteUris(namePattern: 'book');
         $themes = Theme::orderBy('name', 'ASC')->get();
         $categories = Category::orderBy('name', 'ASC')->get();
 
@@ -29,6 +30,6 @@ class HomeController extends Controller
         // SEO
         SEOTools::setTitle('Home' . ' | ' . config('brand.title'));
 
-        return view('home', compact('actieRoutes', 'organizerRoutes', 'stats'));
+        return view('home', compact('actieRoutes', 'organizerRoutes', 'bookRoutes', 'stats'));
     }
 }

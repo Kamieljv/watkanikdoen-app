@@ -22,6 +22,7 @@ return [
     'save' => 'Opslaan',
     'at' => 'om',
     'or' => 'of',
+    'to' => 'Naar',
     'or_back_to' => 'of, keer terug naar ',
     'or_you_can_here' => 'of, je kunt hier ',
     'on' => 'op',
