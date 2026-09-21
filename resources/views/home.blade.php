@@ -1,34 +1,41 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="relative">
-        <div id="image-banner" style="background-image:url(images/Banner_nocolor.jpg);"
-        class="h-50 md:h-75 bg-center bg-cover grayscale brightness-[0.7] contrast-[1.5]"></div>
-        <div id="gradient-banner" class="absolute inset-0 bg-linear-to-r from-(--wkid-pink) to-blue-500 opacity-70"></div>
-        <h1 class="absolute w-full bottom-0 text-center leading-[0.7] text-white uppercase text-4xl md:text-5xl md:leading-[0.7]">
-            {{ config('brand.title') }}
-        </h1>
-    </div>
-    <div class="row">
-        <div id="welcome" class="md:max-w-2xl px-3 md:px-0 my-8 m-auto text-center flex flex-col items-center justify-center">
-            @svg('custom-vormpje', ['style' => 'fill: var(--color-blue-300); height: 100px; opacity: 0.2; position: absolute'])
-            <p class="relative">
-                {!! config('brand.description_html') !!}
-            </p>
-        </div>
-    </div>
-	
-	@include('partials.actiewijzer-banner')
-
-    <div id="app" class="flex flex-col max-w-7xl mx-auto">
-		<div style="min-height: 600px">
-			<home-agenda
-				:routes="{{ json_encode($actieRoutes) }}"
-			>
-			</home-agenda>
+	<div class="relative">
+		<div id="image-banner" style="background-image:url(images/Banner_nocolor.jpg);"
+			class="h-50 md:h-75 bg-center bg-cover grayscale brightness-[0.7] contrast-[1.5]"></div>
+		<div id="gradient-banner" class="absolute inset-0 bg-linear-to-r from-(--wkid-pink) to-blue-500 opacity-70"></div>
+		<h1
+			class="absolute w-full bottom-0 text-center leading-[0.7] text-white uppercase text-4xl md:text-5xl md:leading-[0.7]">
+			{{ config('brand.title') }}
+		</h1>
+	</div>
+	<div class="row">
+		<div id="welcome"
+			class="md:max-w-2xl px-3 md:px-0 my-8 m-auto text-center flex flex-col items-center justify-center">
+			@svg('custom-vormpje', ['style' => 'fill: var(--color-blue-300); height: 100px; opacity: 0.2; position: absolute'])
+			<p class="relative">
+				{!! config('brand.description_html') !!}
+			</p>
 		</div>
+	</div>
+
+	<div id="app" class="flex flex-col max-w-7xl mx-auto">
+		{{-- De Straat Op --}}
+		<div style="min-height: 400px">
+			<home-straat-op :routes="{{ json_encode($actieRoutes) }}">
+			</home-straat-op>
+		</div>
+
+		{{-- Lezen --}}
+		<div style="min-height: 400px">
+			<home-books :routes="{{ json_encode($bookRoutes) }}">
+			</home-books>
+		</div>
+
 		{{-- Who are we? --}}
-		<div id="whoarewe-section" class="mx-2 md:mx-3 my-10 h-112.5 md:h-92.5 text-white rounded-2xl relative overflow-hidden">
+		<div id="whoarewe-section"
+			class="mx-2 md:mx-3 my-10 h-112.5 md:h-92.5 text-white rounded-2xl relative overflow-hidden">
 			<div class="absolute left-[-30%] md:left-[20%] top-[-70%] md:top-[-110%] opacity-20">
 				@svg('logo-icon', ['style' => 'width: 800px;fill: #fff'])
 			</div>
@@ -36,8 +43,9 @@
 				<h1>Wat is Watkanikdoen.nl?</h1>
 				<div class="w-full px-8 lg:w-2/3 text-center font-medium mt-3">
 					<p>
-						Wij geloven dat iedereen wel iets heeft om de straat voor op te gaan. 
-						Of het je nu gaat om de klimaatcrisis, institutioneel racisme of dierenrechten. Daarom ontwikkelen we digitale tools
+						Wij geloven dat iedereen wel iets heeft om de straat voor op te gaan.
+						Of het je nu gaat om de klimaatcrisis, institutioneel racisme of dierenrechten. Daarom ontwikkelen
+						we digitale tools
 						die het makkelijker maken voor jou om je stem te laten horen en jouw plek in een beweging te vinden.
 					</p>
 				</div>
@@ -45,12 +53,17 @@
 					<a href="/over-ons">
 						<button class="secondary-white flex items-center hover:translate-x-1">
 							<p class="text-lg">{{__('general.about_us')}}</p>
-							<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 ml-1" style="transform: rotate(180deg);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+							<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+								class="w-5 h-5 mr-2 ml-1" style="transform: rotate(180deg);">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+									d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+							</svg>
 						</button>
 					</a>
 				</div>
 			</div>
 		</div>
+
 		{{-- Organizers --}}
 		<div id="organizers-section" class="row py-20 px-3 text-gray-800">
 			<div class="grid grid-cols-1 md:grid-cols-3 mx-auto my-10 max-w-6xl px-0 md:px-3 items-center md:divide-x">
@@ -58,23 +71,26 @@
 					<h1>Organisatoren</h1>
 					<p>Zonder organisator geen actie. Alle organisatoren zijn gekoppeld aan een of meerdere thema's.</p>
 				</div>
-				<div class="col-span-2 flex flex-col md:pl-5"> 
-					<organizers-featured
-						:routes="{{ json_encode($organizerRoutes) }}"
-					/>
+				<div class="col-span-2 flex flex-col md:pl-5">
+					<organizers-featured :routes="{{ json_encode($organizerRoutes) }}" />
 				</div>
 			</div>
 			<div class="flex items-center justify-center mt-12">
 				<a href="/organisatoren/index">
 					<button class="primary flex items-center hover:translate-x-1">
 						<p class="text-lg">{{__('organizers.view_all_organizers')}}</p>
-						<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 ml-1" style="transform: rotate(180deg);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+						<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+							class="w-5 h-5 mr-2 ml-1" style="transform: rotate(180deg);">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+								d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+						</svg>
 					</button>
 				</a>
 			</div>
 		</div>
-        <!-- Statistics -->
-		<div id="stats-section" class="row relative mx-2 md:mx-3 my-10 rounded-2xl py-20 md:py-32 px-3 text-white overflow-hidden bg-blue-500">
+		<!-- Statistics -->
+		<div id="stats-section"
+			class="row relative mx-2 md:mx-3 my-10 rounded-2xl py-20 md:py-32 px-3 text-white overflow-hidden bg-blue-500">
 			<div class="flex flex-col mx-auto max-w-6xl px-3 items-center text-center">
 				<h1>Er is genoeg wat jíj kan doen!</h1>
 				<div class="flex flex-col md:flex-row w-full space-y-14 md:space-y-0 mt-10 items-center">
@@ -98,13 +114,15 @@
 			</div>
 		</div>
 		{{-- Newsletter --}}
-		<div id="newsletter-section" class="row relative mx-2 md:mx-3 my-10 rounded-2xl py-20 md:py-32 px-3 text-gray-800 overflow-hidden bg-gray-200">
+		<div id="newsletter-section"
+			class="row relative mx-2 md:mx-3 my-10 rounded-2xl py-20 md:py-32 px-3 text-gray-800 overflow-hidden bg-gray-200">
 			<div class="flex flex-col mx-auto max-w-6xl px-3 items-center text-center">
 				<h1>Op de hoogte blijven van onze ontwikkelingen?</h1>
 				<div class="w-full px-8 lg:w-2/3 text-center font-medium mt-3">
 					<p>
 						Nieuwe features? Samenwerkingen? Een recap van de gaafste acties van de afgelopen periode?
-						We zijn begonnen met een nieuwsbrief, waarmee we abonnees op de hoogte houden van nieuwe ontwikkelingen
+						We zijn begonnen met een nieuwsbrief, waarmee we abonnees op de hoogte houden van nieuwe
+						ontwikkelingen
 						op dit platform. Meld je aan!
 					</p>
 				</div>
@@ -113,27 +131,32 @@
 				<a href="/nieuwsbrief">
 					<button class="primary flex items-center hover:translate-x-[0.250rem]">
 						<p class="text-lg">{{__('newsletter.subscribe_call_to_action')}}</p>
-						<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 ml-1" style="transform: rotate(180deg);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+						<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+							class="w-5 h-5 mr-2 ml-1" style="transform: rotate(180deg);">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+								d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+						</svg>
 					</button>
 				</a>
 			</div>
 		</div>
-    </div>
+	</div>
 @endsection
 <style>
 	.stat {
 		font-size: 5rem;
 		line-height: 4rem;
 	}
-	
+
 	#whoarewe-section {
 		position: relative;
 		background: var(--wkid-pink);
 		background: linear-gradient(to top left, var(--wkid-pink-90), #91368be6);
 	}
+
 	#stats-section {
-		background: var(--color-blue-500);  
-		background: linear-gradient(to top left, var(--color-blue-500), #ca467ae6);  
+		background: var(--color-blue-500);
+		background: linear-gradient(to top left, var(--color-blue-500), #ca467ae6);
 	}
 
 	.ball {
@@ -143,8 +166,8 @@
 	}
 </style>
 @push('scripts')
-    <script type="application/javascript">
-        function animateValue(obj, start, end, duration) {
+	<script type="application/javascript">
+		function animateValue(obj, start, end, duration) {
 			let startTimestamp = null;
 			const step = (timestamp) => {
 				if (!startTimestamp) startTimestamp = timestamp;
@@ -157,7 +180,7 @@
 			window.requestAnimationFrame(step);
 		}
 
-        const observer = new IntersectionObserver(entries => {
+		const observer = new IntersectionObserver(entries => {
 			// Loop over the entries
 			entries.forEach(entry => {
 				// If the element is visible
@@ -171,5 +194,5 @@
 		// Add observers to all stat elements
 		const stats = document.querySelectorAll('span.stat');
 		stats.forEach((s) => observer.observe(s));
-    </script>
+	</script>
 @endpush
