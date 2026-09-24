@@ -133,7 +133,7 @@ class SettingsController extends Controller
             abort(403, 'Unauthorized action.');
         } else {
             try {
-                auth()->user()->delete();
+                $this->deleteUserData(auth()->user());
             } catch (\Exception $e) {
                 $type = 'error';
                 $message = __("settings.profile.profile_delete_fail");
@@ -141,6 +141,30 @@ class SettingsController extends Controller
             }
             return view('partials.toast', compact('type', 'message'));
         }
+    }
+
+    private function deleteUserData(User $user)
+    {
+        // Implementation for deleting user data
+        // Avatar
+        if ($user->image()->exists()) {
+            $image = $user->image()->first();
+            Storage::disk('public')->delete($image->storage_path);
+            $user->image()->detach();
+        }
+
+        // Remove as a reporter from any associated reports
+        Report::where('user_id', $user->id)->update(['user_id' => null]);
+
+        // Transfer acties to first admin account (if available)
+        $admin = User::role('admin')->first();
+        if (!$admin) {
+            throw new \Exception("No admin user found to transfer Acties to.");
+        }
+        Actie::where('user_id', $user->id)->update(['user_id' => $admin->id]);
+
+        // Then delete the user
+        $user->delete();
     }
 
     /**
