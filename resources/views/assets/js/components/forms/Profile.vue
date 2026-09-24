@@ -62,6 +62,28 @@
       </div>
     </div>
   </form>
+
+   <!-- delete account form -->
+  <div class="w-full p-6 mt-2">
+    <div class="w-full lg:w-9/12 xl:w-4/5 pt-6 border-t border-gray-200">
+      <form
+        :action="routes.delete_profile"
+        method="POST"
+        @submit="confirmDelete"
+      >
+        <slot name="csrf" />
+
+        <div class="flex justify-end w-full">
+          <button
+            type="submit"
+            class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-500"
+          >
+            Verwijder account
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -93,7 +115,20 @@ const previousImage = computed(() =>
   user.value.image_url ? user.value.image_url + "?" + new Date() : "",
 );
 const defaultChar = computed(() => user.value.name.slice(0, 1).toUpperCase());
+
+const confirmDelete = (event: Event) => {
+  // TODO: could be made more pretty
+  const confirmed = window.confirm(
+    "Weet je zeker dat je je account wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt.",
+  );
+
+  if (!confirmed) {
+    event.preventDefault();
+  }
+};
+
 </script>
+
 <style scoped>
 .failure {
   color: var(--wkid-message-error-dark);

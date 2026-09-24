@@ -23,6 +23,7 @@ class SettingsController extends Controller
             'profile_put' => route('settings.profile.put'),
             'security_put' => route('settings.security.put'),
             'delete_avatar' => route('settings.profile.deleteAvatar', auth()->user()->id),
+            'delete_profile' => route('settings.profile.delete', auth()->user()->id)
         ];
 
         return view('settings.index', compact('section', 'routes'));
@@ -120,6 +121,22 @@ class SettingsController extends Controller
             } catch (\Exception $e) {
                 $type = 'error';
                 $message = __("settings.profile.avatar_delete_fail");
+                return view('partials.toast', compact('type', 'message'));
+            }
+            return view('partials.toast', compact('type', 'message'));
+        }
+    }
+
+    public function profileDelete($id)
+    {
+        if (auth()->user()->id !== (int) $id) {
+            abort(403, 'Unauthorized action.');
+        } else {
+            try {
+                auth()->user()->delete();
+            } catch (\Exception $e) {
+                $type = 'error';
+                $message = __("settings.profile.profile_delete_fail");
                 return view('partials.toast', compact('type', 'message'));
             }
             return view('partials.toast', compact('type', 'message'));
