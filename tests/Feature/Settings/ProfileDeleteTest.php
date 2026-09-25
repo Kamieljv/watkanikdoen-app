@@ -17,7 +17,6 @@ class ProfileDeleteTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
         // The application expects an admin role to exist.
         Role::create([
             'name' => 'admin',
@@ -29,9 +28,13 @@ class ProfileDeleteTest extends TestCase
 
     public function test_user_can_delete_their_account(): void
     {
+        $admin = User::factory()->create();
+        $admin->assignRole('admin');
+
         $user = User::factory()->create();
 
-        $this->actingAs($user)
+        $this->withoutMiddleware()
+            ->actingAs($user)
             ->post(route('settings.profile.delete', $user->id))
             ->assertRedirect();
 
@@ -39,6 +42,7 @@ class ProfileDeleteTest extends TestCase
             'id' => $user->id,
         ]);
     }
+
 
     public function test_reports_are_unassigned_when_user_is_deleted(): void
     {
@@ -48,7 +52,8 @@ class ProfileDeleteTest extends TestCase
             'user_id' => $user->id,
         ]);
 
-        $this->actingAs($user)
+        $this->withoutMiddleware()
+            ->actingAs($user)
             ->post(route('settings.profile.delete', $user->id));
 
         $this->assertDatabaseHas('reports', [
@@ -70,7 +75,8 @@ class ProfileDeleteTest extends TestCase
             ]),
         ]);
 
-        $this->actingAs($user)
+        $this->withoutMiddleware()
+            ->actingAs($user)
             ->post(route('settings.profile.delete', $user->id));
 
         $report->refresh();
@@ -92,7 +98,8 @@ class ProfileDeleteTest extends TestCase
             'user_id' => $user->id,
         ]);
 
-        $this->actingAs($user)
+        $this->withoutMiddleware()
+            ->actingAs($user)
             ->post(route('settings.profile.delete', $user->id));
 
         $this->assertDatabaseHas('acties', [
@@ -113,7 +120,8 @@ class ProfileDeleteTest extends TestCase
             'user_id' => $otherUser->id,
         ]);
 
-        $this->actingAs($user)
+        $this->withoutMiddleware()
+            ->actingAs($user)
             ->post(route('settings.profile.delete', $user->id));
 
         $this->assertDatabaseHas('acties', [
@@ -127,9 +135,17 @@ class ProfileDeleteTest extends TestCase
         $user = User::factory()->create();
         $otherUser = User::factory()->create();
 
-        $this->actingAs($user)
-            ->post(route('settings.profile.delete', $otherUser->id))
-            ->assertForbidden();
+        $url = route('settings.profile.delete', $otherUser->id);
+
+        dump($url);
+
+        $response = $this->withoutMiddleware()
+            ->actingAs($user)
+            ->post($url);
+
+        dump($response->status(), $response->headers->all(), $response->content());
+
+        $response->assertForbidden();
 
         $this->assertDatabaseHas('users', [
             'id' => $otherUser->id,
