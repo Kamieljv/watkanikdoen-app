@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Image;
+use App\Models\User;
+use App\Models\Actie;
+use App\Models\Report;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -134,10 +137,11 @@ class SettingsController extends Controller
         } else {
             try {
                 $this->deleteUserData(auth()->user());
+                $type = 'success';
+                $message = __("settings.profile.profile_delete_success");
             } catch (\Exception $e) {
                 $type = 'error';
                 $message = __("settings.profile.profile_delete_fail");
-                return view('partials.toast', compact('type', 'message'));
             }
             return view('partials.toast', compact('type', 'message'));
         }
