@@ -145,8 +145,14 @@ class SettingsController extends Controller
                     ->route('home')
                     ->with('success', $message);
             } catch (\Exception $e) {        
+                return redirect()
+                    ->route('home')
+                    ->with('success', $message);
+            } catch (\Exception $e) {        
                 $type = 'error';
                 $message = __("settings.profile.profile_delete_fail");
+                return view('partials.toast', compact('type', 'message'));
+            }           
                 return view('partials.toast', compact('type', 'message'));
             }           
         }
