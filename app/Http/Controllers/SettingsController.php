@@ -153,9 +153,8 @@ class SettingsController extends Controller
                 $message = __("settings.profile.profile_delete_fail");
                 return view('partials.toast', compact('type', 'message'));
             }           
-                return view('partials.toast', compact('type', 'message'));
-            }           
-        }
+            return view('partials.toast', compact('type', 'message'));
+        }           
     }
 
     private function deleteUserData(User $user)
