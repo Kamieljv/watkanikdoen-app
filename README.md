@@ -1,6 +1,12 @@
 # Wat Kan Ik Doen webapp
 
-## Deploying for development
+## Prerequisites
+
+- Docker Desktop
+- Laravel Herd 
+- Node.js
+
+## Initial setup
 
 - Copy `.env.example` to `.env` and add the following connection parameters
 ```
@@ -12,12 +18,25 @@ DB_USERNAME=mysql
 DB_PASSWORD=change-me
 ```
 - Generate a Laravel app key with `php artisan key:generate`
+- Install PHP/Composer packages on the host using `composer install`, creating the directory `/vendor/`
+- Install the Node/Vite dependencies on the host using `npm install`
+
+## Starting the application for development
+
 - Run the Docker Compose with `docker compose up -d --build`
-- Install composer packages in the container `docker compose exec app sh -c "composer install"`
-- Run the migrations and seeders in the container `docker compose exec app sh -c "php artisan migrate:fresh --seed"`
+- If the composer dependencies have changed or are unavailable inside the container, install them inside using `docker compose exec app sh -c "composer install"`
+- Run the migrations and seeders in the container using `docker compose exec app sh -c "php artisan migrate:fresh --seed"`, if the development database requires some dummy data. Skip this if you already/still have that data.
+- Start Vite in a separate terminal on the host machine using `npm run dev`.
+-- Alternatively, `npm run build` creates a production build, which responds faster but isn't updated in real-time.
 - Open [localhost:8000](http://localhost:8000) in your browser
 - Log in with the username `admin@admin.com` and password `admin12345`. Change the password after logging in.
-- Start the vite development mode with `npm run dev` on your local machine
+-- Note that the seeded example user `user@user.com` has the same password as the admin.
+
+## Unit and feature tests
+
+- Tests are defined in the folder `/tests/`. 
+- With the current setup, a test run within the app container will leave the database empty, meaning you'd have to seed it again for manual testing. We're working on a workaround ...
+- For now, you can at least obtain the expected results of the CI/CD pipeline before pushing back to Github using `./scripts/test-ci.sh` (Linux/MacOS, must still be checked however) or `./scripts/test-ci.ps1` (Windows 10/11).
 
 ### Generate migrations and seeders
 - Generate migrations for all tables
@@ -80,3 +99,6 @@ You can use the following parameters (all optional) to filter the results of the
 - **distance**: the maximum distance (in km) from **coordinates** an action have
 - **show_past**: boolean, whether to show past actions
 - **limit**: maximum number of actions to return
+
+## Troubleshooting
+- Windows 10/11 upon initialization may define `docker-entrypoint.sh` with the setting 'CRLF' instead of Linux default 'LF'. This might break the container upon launch (being based on Linux). This can be changed in the bottom right window in VSC when the file is open. 
