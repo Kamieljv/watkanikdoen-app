@@ -3,7 +3,6 @@
 @use "fonts";
 @use "editor";
 
-/* stylelint-disable-next-line */
 @custom-variant dark (&:where(.app-dark, .app-dark *));
 
 :root {
