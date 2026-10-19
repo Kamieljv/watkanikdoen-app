@@ -23,6 +23,7 @@ import * as maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import ActieSmall from "../partials/ActieSmall.vue";
 import { setWorkerUrl } from "maplibre-gl";
+import workerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 
 interface MapActie {
   id: number;
@@ -217,7 +218,7 @@ function addActies(acties: MapActie[]) {
 }
 
 onMounted(async () => {
-  setWorkerUrl("/js/maplibre/maplibre-gl-worker.mjs");
+  setWorkerUrl(workerUrl);
   map = new maplibregl.Map({
     container: mapEl.value!,
     style: "https://tiles.openfreemap.org/styles/positron",

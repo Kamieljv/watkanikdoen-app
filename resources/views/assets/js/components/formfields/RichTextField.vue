@@ -106,11 +106,10 @@
 <script setup lang="ts">
 import { Editor, EditorContent } from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
-import Underline from "@tiptap/extension-underline";
 import CharacterCount from "@tiptap/extension-character-count";
 // import Link from '@tiptap/extension-link'
 
-import { onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { onBeforeUnmount, onMounted, ref, shallowRef, watch } from "vue";
 import { Field } from "vee-validate";
 
 import BoldIcon from "&/editor/clarity-bold-line.svg";
@@ -143,12 +142,12 @@ const props = defineProps({
   },
 });
 
-const editor = ref(null);
-const formValue = ref(null);
+const editor = shallowRef<Editor | undefined>();
+const formValue = ref<string | null>(null);
 
 onMounted(() => {
   const limit = props.maxCharacters;
-  editor.value = new Editor({
+  const instance = new Editor({
     content: props.modelValue,
     extensions: [
       StarterKit.configure({
@@ -156,7 +155,6 @@ onMounted(() => {
           levels: [1, 2, 3],
         },
       }),
-      Underline,
       CharacterCount.configure({
         limit,
       }),
@@ -164,10 +162,11 @@ onMounted(() => {
     ],
     editable: !props.disabled,
     onUpdate: () => {
-      formValue.value = editor.value.getHTML();
+      formValue.value = instance.getHTML();
     },
   });
-  formValue.value = editor.value.getHTML();
+  editor.value = instance;
+  formValue.value = instance.getHTML();
 });
 
 watch(formValue, (value) => {
@@ -182,7 +181,7 @@ watch(
 );
 
 onBeforeUnmount(() => {
-  editor.value.destroy();
+  editor.value?.destroy();
 });
 
 defineExpose({

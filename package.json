@@ -4,10 +4,9 @@
     "build": "vite build",
     "prod": "npm run build",
     "preview": "vite preview",
-    "lint": "npm run lint-style && npm run lint-js",
-    "lint-fix": "npm run lint-style -- --fix && npm run lint-js -- --fix",
+    "lint": "npm run lint-js",
+    "lint-fix": "npm run lint-js -- --fix",
     "lint-js": "eslint --max-warnings 0 \"resources/**/*.{js,vue}\"",
-    "lint-style": "stylelint \"./resources/**/*.scss\"",
     "lint-php": "./vendor/bin/phpcs .",
     "lint-php-fix": "./vendor/bin/phpcbf .",
     "format": "prettier --write \"resources/**/*.{js,vue,scss}\""
@@ -17,11 +16,11 @@
     "@hcaptcha/vue3-hcaptcha": "^1.3.0",
     "@primeuix/themes": "^2.0.2",
     "@primevue/forms": "^4.5.4",
-    "@tiptap/core": "^2.27.2",
-    "@tiptap/extension-character-count": "^2.27.2",
-    "@tiptap/extension-underline": "^2.27.2",
-    "@tiptap/starter-kit": "^2.27.2",
-    "@tiptap/vue-3": "^2.27.2",
+    "@tiptap/core": "^3.32.0",
+    "@tiptap/extension-character-count": "^3.32.0",
+    "@tiptap/pm": "^3.32.0",
+    "@tiptap/starter-kit": "^3.32.0",
+    "@tiptap/vue-3": "^3.32.0",
     "@vee-validate/i18n": "^4.13.2",
     "@vee-validate/rules": "^4.13.2",
     "@vue-leaflet/vue-leaflet": "^0.10.1",
@@ -46,7 +45,7 @@
     "@primevue/auto-import-resolver": "^4.0.7",
     "@tailwindcss/forms": "^0.5.9",
     "@tailwindcss/postcss": "^4.1.18",
-    "@tailwindcss/typography": "^0.5.15",
+    "@tailwindcss/typography": "^0.5.20",
     "@tailwindcss/vite": "^4.1.18",
     "@types/lodash": "^4.17.24",
     "@vitejs/plugin-vue": "^6.0.8",
@@ -56,7 +55,6 @@
     "eslint": "^10.2.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-vue": "^10.9.0",
-    "fast-glob": "^3.3.2",
     "glob-all": "^3.3.1",
     "globals": "^17.3.0",
     "laravel-vite-plugin": "^3.1.3",
@@ -69,9 +67,6 @@
     "rollup-plugin-visualizer": "^5.12.0",
     "sass": "^1.102.0",
     "sass-loader": "^16.0.2",
-    "stylelint": "^17.9.1",
-    "stylelint-config-standard": "^40.0.0",
-    "stylelint-config-standard-scss": "^17.0.0",
     "tailwindcss": "^4.1.18",
     "tailwindcss-primeui": "^0.6.1",
     "typescript": "^5.6.2",
@@ -83,5 +78,14 @@
     "vue": "^3.5.7",
     "vue-loader": "^17.4.2"
   },
-  "type": "module"
+  "type": "module",
+  "allowScripts": {
+    "@parcel/watcher@2.5.6": true,
+    "fsevents@2.3.3": true
+  },
+  "overrides": {
+    "@tailwindcss/typography": {
+      "postcss-selector-parser": "^7.1.6"
+    }
+  }
 }
