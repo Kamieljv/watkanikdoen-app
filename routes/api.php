@@ -22,6 +22,8 @@ use App\Http\Controllers\Api\CategoryController;
 Route::prefix('v1')->name('api.v1.')->group(function () {
     // Public resource routes
     Route::get('acties', [ActieController::class, 'index'])->name('acties.index');
+    Route::get('acties/map', [ActieController::class, 'map'])->name('acties.map');
+    Route::get('acties/{slug}/card', [ActieController::class, 'card'])->name('acties.card');
     Route::get('acties/{slug}', [ActieController::class, 'show'])->name('acties.show');
     
     Route::get('themes', [ThemeController::class, 'index'])->name('themes.index');

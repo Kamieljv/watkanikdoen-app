@@ -22,6 +22,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ICalController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LinkController;
+use App\Http\Controllers\MapController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrganizerController;
 use App\Http\Controllers\PageController;
@@ -95,6 +96,9 @@ Route::get('widget', [WidgetController::class, 'index'])->name('widget');
 
 // Links route
 Route::get('links', [LinkController::class, 'index'])->name('links');
+
+// Full screen map
+Route::get('kaart', [MapController::class, 'index'])->name('map');
 
 // General page route
 Route::get('{page}', [PageController::class, 'page'])->name('page');

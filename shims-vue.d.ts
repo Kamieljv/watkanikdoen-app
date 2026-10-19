@@ -9,3 +9,4 @@ declare module "*.svg" {
     const Component: ReturnType<typeof defineComponent>;
     export default Component;
 }
+declare module "*.css";
