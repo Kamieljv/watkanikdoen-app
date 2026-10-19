@@ -83,5 +83,9 @@
     "vue": "^3.5.7",
     "vue-loader": "^17.4.2"
   },
-  "type": "module"
+  "type": "module",
+  "allowScripts": {
+    "@parcel/watcher@2.5.6": true,
+    "fsevents@2.3.3": true
+  }
 }
