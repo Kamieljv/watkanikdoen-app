@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Resources\ActieResource;
 use App\Models\Actie;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -164,6 +165,88 @@ class ActieController extends BaseApiController
         $acties = $query->paginate($perPage);
 
         return ActieResource::collection($acties);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/acties/map",
+     *     summary="Get minimal map data (id, slug, coordinates, theme colors) for all acties with a location",
+     *     tags={"Acties"},
+     *     @OA\Response(response=200, description="Successful operation")
+     * )
+     */
+    public function map(): JsonResponse
+    {
+        $acties = Actie::query()
+            ->published()
+            ->whereNotNull('location')
+            ->without(['organizers', 'categories'])
+            ->with('themes:id,color')
+            ->select('acties.id', 'acties.slug', 'acties.location')
+            ->get()
+            ->map(fn (Actie $actie) => [
+                'id' => $actie->id,
+                'slug' => $actie->slug,
+                'lat' => $actie->location->latitude,
+                'lng' => $actie->location->longitude,
+                'colors' => $actie->themes->pluck('color')->filter()->values(),
+            ]);
+
+        return response()->json(['data' => $acties])
+            ->header('Cache-Control', 'public, max-age=300');
+    }
+
+    /**
+     * Date-only label; a range ("15 Dec - 17 Dec 2025") when the actie spans multiple days.
+     */
+    private function dateRange(Actie $actie): string
+    {
+        $start = Carbon::parse($actie->start_date);
+        $end = $actie->end_date ? Carbon::parse($actie->end_date) : null;
+
+        if (!$end || $end->isSameDay($start)) {
+            return $start->translatedFormat('j M Y');
+        }
+
+        $startFormat = $start->year === $end->year ? 'j M' : 'j M Y';
+
+        return $start->translatedFormat($startFormat) . ' - ' . $end->translatedFormat('j M Y');
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/acties/{slug}/card",
+     *     summary="Get the subset of actie data needed to render an actie card",
+     *     tags={"Acties"},
+     *     @OA\Parameter(name="slug", in="path", required=true, @OA\Schema(type="string")),
+     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=404, description="Actie not found")
+     * )
+     */
+    public function card(string $slug): JsonResponse
+    {
+        $actie = Actie::query()
+            ->where('slug', $slug)
+            ->published()
+            ->first();
+
+        if (!$actie) {
+            return $this->sendError('Actie not found', [], 404);
+        }
+
+        return response()->json(['data' => [
+            'id' => $actie->id,
+            'title' => $actie->title,
+            'link' => $actie->link,
+            'start_date' => $this->dateRange($actie),
+            'end_date' => $actie->end_date,
+            'end_time' => $actie->end_time,
+            'created_at' => $actie->created_at,
+            'updated_at' => $actie->updated_at,
+            'image_url' => $actie->image_url,
+            'organizers' => $actie->organizers->map(fn ($o) => ['name' => $o->name, 'link' => $o->link])->values(),
+            'themes' => $actie->themes->map(fn ($t) => ['id' => $t->id, 'name' => $t->name, 'color' => $t->color])->values(),
+        ]]);
     }
 
     /**

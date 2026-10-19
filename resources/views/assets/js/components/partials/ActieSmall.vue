@@ -1,13 +1,20 @@
 <template>
   <article
-    class="flex flex-col overflow-hidden h-[150px] rounded-lg shadow-lg actie relative transition-all ease-out hover:translate-y-[-0.250rem] hover:shadow-[0_0_20px_rgba(0,0,0,0.30)]"
+    class="flex flex-col overflow-hidden rounded-lg actie relative"
+    :class="
+      flat
+        ? 'min-h-[150px]'
+        : 'h-[150px] shadow-lg transition-all ease-out hover:translate-y-[-0.250rem] hover:shadow-[0_0_20px_rgba(0,0,0,0.30)]'
+    "
     typeof="Article"
   >
     <a
       :href="actie.link"
       :target="targetBlank ? '_blank' : ''"
-      class="h-full"
-      :class="{ 'opacity-70 grayscale': isAfgelopen }"
+      :class="[
+        flat ? 'flex flex-1' : 'h-full',
+        { 'opacity-70 grayscale': isAfgelopen && !flat },
+      ]"
       :title="isAfgelopen ? 'Deze actie is afgelopen' : actie.title"
     >
       <meta property="name" :content="actie.title" />
@@ -21,11 +28,11 @@
         property="datePublished"
         :content="new Date(actie.created_at).toISOString()"
       />
-      <div class="h-full flex">
-        <div class="w-1/3 h-full">
+      <div class="flex" :class="flat ? 'flex-1' : 'h-full'">
+        <div class="w-1/3 h-full relative">
           <img
             v-if="actie.image_url"
-            class="object-cover h-full w-full"
+            class="object-cover h-full w-full absolute inset-0"
             :src="actie.image_url"
             alt=""
           />
@@ -38,7 +45,8 @@
         </div>
         <div class="flex flex-col w-2/3 justify-between flex-1 bg-white">
           <div
-            class="title-body-container p-3 h-full overflow-hidden flex flex-col justify-between"
+            class="title-body-container p-3 overflow-hidden flex flex-col justify-between"
+            :class="flat ? 'gap-2' : 'h-full'"
           >
             <div>
               <h3
@@ -99,6 +107,10 @@ const props = defineProps({
     required: true,
   },
   targetBlank: {
+    type: Boolean,
+    default: false,
+  },
+  flat: {
     type: Boolean,
     default: false,
   },

@@ -18,13 +18,14 @@ class ActiesTable
     public static function configure(Table $table): Table
     {
         return $table
-            ->recordUrl(fn (Actie $record): string => ActieResource::getUrl('edit', ['record' => $record]))
+            ->recordUrl(fn(Actie $record): string => ActieResource::getUrl('edit', ['record' => $record]))
             ->columns([
                 TextColumn::make('title')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('start')
-                    ->getStateUsing(fn ($record) => $record->start_date . ' ' . $record->start_time)
+                TextColumn::make('start_date')
+                    ->label('Start')
+                    ->getStateUsing(fn($record) => $record->start_date . ' ' . $record->start_time)
                     ->dateTime('j M Y H:i')
                     ->sortable(),
                 TextColumn::make('location_human')
@@ -37,7 +38,7 @@ class ActiesTable
                     ->width(50),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
+                    ->color(fn(string $state): string => match ($state) {
                         'DRAFT' => 'secondary',
                         'PUBLISHED' => 'success',
                         'PENDING' => 'info',
@@ -58,18 +59,18 @@ class ActiesTable
             ->defaultSort('start_date', 'desc')
             ->filters([
                 Filter::make('published')
-                    ->query(fn ($query) => $query->published())
+                    ->query(fn($query) => $query->published())
                     ->label('Published')
                     ->toggle(),
                 Filter::make('toekomstig')
-                    ->query(fn ($query) => $query->nietAfgelopen())
+                    ->query(fn($query) => $query->nietAfgelopen())
                     ->label('Toekomstige Acties')
                     ->toggle(),
             ])
             ->recordActions([
                 EditAction::make()->defaultView('edit'),
                 ViewAction::make()
-                    ->url(fn ($record) => route('acties.actie', $record->slug))
+                    ->url(fn($record) => route('acties.actie', $record->slug))
                     ->openUrlInNewTab(),
             ])
             ->toolbarActions([

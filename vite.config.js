@@ -14,6 +14,7 @@ export default defineConfig(({ command }) => ({
       input: [
         // admin assets
         "resources/views/assets/js/app.js",
+        "resources/views/assets/js/map.js",
         "resources/views/assets/sass/app.scss",
         "resources/css/filament/admin/theme.css",
       ],
@@ -75,6 +76,7 @@ export default defineConfig(({ command }) => ({
           // Separate large libraries
           if (id.includes("/leaflet/") || id.includes("@vue-leaflet/vue-leaflet"))
             return "leaflet";
+          if (id.includes("maplibre-gl")) return "maplibre";
           if (id.includes("@tiptap/")) return "tiptap";
           // Vendor chunk for common dependencies
           if (
