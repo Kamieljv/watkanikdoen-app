@@ -137,13 +137,9 @@ class ProfileDeleteTest extends TestCase
 
         $url = route('settings.profile.delete', $otherUser->id);
 
-        dump($url);
-
         $response = $this->withoutMiddleware()
             ->actingAs($user)
             ->post($url);
-
-        dump($response->status(), $response->headers->all(), $response->content());
 
         $response->assertForbidden();
 
