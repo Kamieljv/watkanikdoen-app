@@ -63,20 +63,17 @@
     </div>
   </form>
 
-   <!-- delete account form -->
+  <!-- delete account form -->
   <div class="w-full p-6 mt-2">
     <div class="w-full lg:w-9/12 xl:w-4/5 pt-6 border-t border-gray-200">
-      <form
-        :action="routes.delete_profile"
-        method="POST"
-        @submit="confirmDelete"
-      >
+      <form ref="deleteForm" :action="routes.delete_profile" method="POST">
         <slot name="csrf" />
 
         <div class="flex justify-end w-full">
           <button
-            type="submit"
+            type="button"
             class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-500"
+            @click="deleteOpen = true"
           >
             Verwijder account
           </button>
@@ -84,6 +81,33 @@
       </form>
     </div>
   </div>
+
+  <!-- Delete account modal -->
+  <Dialog
+    v-model:visible="deleteOpen"
+    modal
+    class="w-full sm:w-1/2 overflow-hidden"
+    header="Weet je zeker dat je je account wilt verwijderen?"
+    :draggable="false"
+  >
+    <div class="mb-5">Deze actie kan niet ongedaan worden gemaakt.</div>
+    <template #footer>
+      <button
+        class="inline-flex justify-center w-full px-4 py-2 mr-2 text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out bg-white border-gray-300 rounded-md shadow-sm hover:text-gray-500 active:text-gray-800 focus:outline-none sm:text-sm sm:leading-5"
+        type="button"
+        @click="deleteOpen = false"
+      >
+        Annuleren
+      </button>
+      <button
+        class="inline-flex justify-center w-full px-4 py-2 ml-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out border border-transparent rounded-md shadow-sm bg-red-600 hover:bg-red-500 focus:outline-none sm:text-sm sm:leading-5"
+        type="button"
+        @click="deleteForm?.submit()"
+      >
+        Ja, verwijder mijn account
+      </button>
+    </template>
+  </Dialog>
 </template>
 
 <script setup lang="ts">
@@ -116,17 +140,8 @@ const previousImage = computed(() =>
 );
 const defaultChar = computed(() => user.value.name.slice(0, 1).toUpperCase());
 
-const confirmDelete = (event: Event) => {
-  // TODO: could be made more pretty
-  const confirmed = window.confirm(
-    "Weet je zeker dat je je account wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt.",
-  );
-
-  if (!confirmed) {
-    event.preventDefault();
-  }
-};
-
+const deleteOpen = ref(false);
+const deleteForm = ref<HTMLFormElement | null>(null);
 </script>
 
 <style scoped>

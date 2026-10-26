@@ -62,10 +62,10 @@ class SettingsController extends Controller
             'password' => 'required|confirmed|min:' . config('app.auth.min_password_length'),
         ])->validate();
 
-        if (! Hash::check($request->current_password, $request->user()->password)) {
+        if (!Hash::check($request->current_password, $request->user()->password)) {
             $error = ValidationException::withMessages([
                 'current_password' => [__('settings.security.incorrect_current_password')],
-             ]);
+            ]);
             throw $error;
         }
 
@@ -137,29 +137,28 @@ class SettingsController extends Controller
         } else {
             try {
                 $user = auth()->user();
-                auth()->logout(); // Important to log out before deleting user data; ends authenticated session.
+                // Log out before deleting user data; ends authenticated session.
+                auth()->guard()->logout();
                 $this->deleteUserData($user);
                 $type = 'success';
                 $message = __("settings.profile.profile_delete_success");
                 return redirect()
                     ->route('home')
                     ->with('success', $message);
-            } catch (\Exception $e) {        
+            } catch (\Exception $e) {
                 return redirect()
                     ->route('home')
                     ->with('success', $message);
-            } catch (\Exception $e) {        
+            } catch (\Exception $e) {
                 $type = 'error';
                 $message = __("settings.profile.profile_delete_fail");
                 return view('partials.toast', compact('type', 'message'));
-            }           
-            return view('partials.toast', compact('type', 'message'));
-        }           
+            }
+        }
     }
 
     private function deleteUserData(User $user)
     {
-        // Implementation for deleting user data
         // Avatar
         if ($user->image()->exists()) {
             $image = $user->image()->first();
@@ -191,7 +190,7 @@ class SettingsController extends Controller
     {
         // Strip data URI prefix if present (e.g., "data:image/png;base64,")
         $base64String = preg_replace('#^data:image/\w+;base64,#i', '', $string);
-        
+
         $decoded = base64_decode($base64String, true);
         // Check if the string is base64 encoded and if it can be re-encoded to the same value
         if ($decoded !== false && base64_encode($decoded) === $base64String) {
