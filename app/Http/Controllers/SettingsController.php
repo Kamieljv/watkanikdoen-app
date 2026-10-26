@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Image;
+use App\Models\User;
+use App\Models\Actie;
+use App\Models\Report;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -23,6 +26,7 @@ class SettingsController extends Controller
             'profile_put' => route('settings.profile.put'),
             'security_put' => route('settings.security.put'),
             'delete_avatar' => route('settings.profile.deleteAvatar', auth()->user()->id),
+            'delete_profile' => route('settings.profile.delete', auth()->user()->id)
         ];
 
         return view('settings.index', compact('section', 'routes'));
@@ -58,10 +62,10 @@ class SettingsController extends Controller
             'password' => 'required|confirmed|min:' . config('app.auth.min_password_length'),
         ])->validate();
 
-        if (! Hash::check($request->current_password, $request->user()->password)) {
+        if (!Hash::check($request->current_password, $request->user()->password)) {
             $error = ValidationException::withMessages([
                 'current_password' => [__('settings.security.incorrect_current_password')],
-             ]);
+            ]);
             throw $error;
         }
 
@@ -126,6 +130,56 @@ class SettingsController extends Controller
         }
     }
 
+    public function profileDelete($id)
+    {
+        if (auth()->user()->id !== (int) $id) {
+            abort(403, 'Unauthorized action.');
+        } else {
+            try {
+                $user = auth()->user();
+                // Log out before deleting user data; ends authenticated session.
+                auth()->guard()->logout();
+                $this->deleteUserData($user);
+                $type = 'success';
+                $message = __("settings.profile.profile_delete_success");
+                return redirect()
+                    ->route('home')
+                    ->with('success', $message);
+            } catch (\Exception $e) {
+                return redirect()
+                    ->route('home')
+                    ->with('success', $message);
+            } catch (\Exception $e) {
+                $type = 'error';
+                $message = __("settings.profile.profile_delete_fail");
+                return view('partials.toast', compact('type', 'message'));
+            }
+        }
+    }
+
+    private function deleteUserData(User $user)
+    {
+        // Avatar
+        if ($user->image()->exists()) {
+            $image = $user->image()->first();
+            Storage::disk('public')->delete($image->storage_path);
+            $user->image()->detach();
+        }
+
+        // Remove as a reporter from any associated reports
+        Report::where('user_id', $user->id)->update(['user_id' => null]);
+
+        // Transfer acties to first admin account (if available)
+        $admin = User::role('admin')->first();
+        if (!$admin) {
+            throw new \Exception("No admin user found to transfer Acties to.");
+        }
+        Actie::where('user_id', $user->id)->update(['user_id' => $admin->id]);
+
+        // Then delete the user
+        $user->delete();
+    }
+
     /**
      * Check if a string is base64 encoded and return decoded data
      *
@@ -136,7 +190,7 @@ class SettingsController extends Controller
     {
         // Strip data URI prefix if present (e.g., "data:image/png;base64,")
         $base64String = preg_replace('#^data:image/\w+;base64,#i', '', $string);
-        
+
         $decoded = base64_decode($base64String, true);
         // Check if the string is base64 encoded and if it can be re-encoded to the same value
         if ($decoded !== false && base64_encode($decoded) === $base64String) {

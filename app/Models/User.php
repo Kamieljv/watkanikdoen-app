@@ -9,11 +9,13 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Filament\Panel;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use MWGuerra\FileManager\Models\FileSystemItem;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements JWTSubject, FilamentUser
 {
+    use HasFactory;
     use Notifiable;
     use Impersonate;
     use HasRoles;
