@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Feedback;
 use Illuminate\Http\Request;
 
 class FeedbackController extends Controller
@@ -29,8 +30,8 @@ class FeedbackController extends Controller
         Feedback::create($validated);
 
         return redirect()
-            ->route('feedback.create')
-            ->with('success', 'Thank you! Your feedback has been submitted.');
+            ->to(url()->previous())
+            ->with('success', 'Bedankt voor je feedback!');
     }
 
     /**
