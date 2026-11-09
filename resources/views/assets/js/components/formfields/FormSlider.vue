@@ -146,18 +146,12 @@ watch(value, () => {
   width: 100%;
   height: var(--track-height);
   cursor: pointer;
-  background: var(--track-color);
-}
-.range-slider::before {
-  position: absolute;
-  content: "";
-  top: 7px;
-  left: 0;
-  width: var(--webkit-progress);
-  height: var(--track-height);
-  background-color: var(--progress-color);
-  cursor: pointer;
   border-radius: 3px;
+  background: linear-gradient(
+    to right,
+    var(--progress-color) var(--webkit-progress, 0%),
+    var(--track-color) var(--webkit-progress, 0%)
+  );
 }
 .range-slider::-webkit-slider-thumb {
   position: relative;

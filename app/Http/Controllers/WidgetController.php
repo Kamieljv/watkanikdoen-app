@@ -9,6 +9,11 @@ class WidgetController extends Controller
 {
     public function index(Request $request)
     {
+        $request->validate([
+            // "lat,lng", e.g. "52.37,4.89"
+            'coordinates' => ['nullable', 'regex:/^-?\d+(\.\d+)?,-?\d+(\.\d+)?$/'],
+        ]);
+
         $query = Actie::query();
         if ($request->q) {
             $query->where(function ($q) use ($request) {
@@ -42,9 +47,13 @@ class WidgetController extends Controller
             });
         }
         if ($request->coordinates) {
-            $coordinates = explode(',', $request->coordinates);
+            [$lat, $lng] = array_map('floatval', explode(',', $request->coordinates));
             $radius = ($request->distance ?? 9999) * 1000;
-            $query->whereRaw("ST_Distance_Sphere(location, ST_GeomFromText('POINT({$coordinates[1]} {$coordinates[0]})')) <= {$radius}");
+            $distanceSql = "ST_Distance_Sphere(location, ST_GeomFromText(?))";
+            $point = "POINT({$lng} {$lat})";
+            $query->whereRaw("{$distanceSql} <= ?", [$point, $radius]);
+            // closest first when filtering on distance
+            $query->orderByRaw("{$distanceSql} ASC", [$point]);
         }
 
         $query->published()->orderBy('start_date')->orderBy('start_time');

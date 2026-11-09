@@ -17,6 +17,10 @@
       <input type="hidden" :value="formValue" :name="formInputName" />
       <div
         v-if="hasValue"
+        class="absolute right-px inset-y-px w-14 rounded-r bg-gradient-to-l from-gray-200 from-40% to-transparent pointer-events-none"
+      ></div>
+      <div
+        v-if="hasValue"
         class="absolute right-0 inset-y-0 flex items-center pr-3 ml-3 cursor-pointer"
         @click="resetResult"
       >
