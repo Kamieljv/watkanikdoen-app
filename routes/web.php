@@ -18,6 +18,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookShelfController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ICalController;
 use App\Http\Controllers\LanguageController;
@@ -122,3 +123,7 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth', 'xss']], function () 
     // Notifications
     Route::post('notification/read/{id}', [NotificationController::class, 'read'])->name('notification.read');
 });
+
+// Feedback forms
+Route::get('/feedback', [FeedbackController::class, 'create'])->name('feedback.create');
+Route::post('/feedback', [FeedbackController::class, 'store'])->middleware('throttle:5,1')->name('feedback.store');
