@@ -14,10 +14,9 @@
 		<div class="grid grid-cols-1 md:grid-cols-2">
 			{{-- Notifications --}}
 			<div class="col-span-1">
-				<notifications
+				<Notifications
 					id="notifications"
 					:notifications="{{ $notifications }}"
-					read-route="{{ route('notification.read', '') }}"
 				/>
 			</div>
 			{{-- Something --}}
@@ -27,11 +26,3 @@
 	</div>
 
 @endsection
-
-@push('scripts')
-    <script type="application/javascript">
-        var app = new Vue({
-            el: '#app',
-        });
-    </script>
-@endpush

@@ -2,17 +2,31 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Theme extends Model
 {
-    public static function boot()
+    use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'slug',
+        'color',
+    ];
+
+    public function acties()
     {
-        parent::boot();
-        static::creating(function ($model) {
-            if (!isset($model->slug)) {
-                $model->slug = preg_replace('/[^A-Za-z0-9\-]/', '_', $model->name);
-            }
-        });
+        return $this->belongsToMany(Actie::class, 'actie_theme');
+    }
+
+    public function organizers()
+    {
+        return $this->belongsToMany(Organizer::class, 'organizer_theme');
+    }
+
+    public function bookShelves()
+    {
+        return $this->belongsToMany(BookShelf::class, 'book_shelf_theme');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\BackupDatabase;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -26,7 +27,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command(UpdatePageviews::class)->everyFourHours();
+        $schedule->command(UpdatePageviews::class)
+            ->dailyAt('01:00')
+            ->appendOutputTo(storage_path('logs/update_pageviews.log'));
+
+        $schedule->command(BackupDatabase::class)
+            ->weeklyOn(1, '02:00')
+            ->appendOutputTo(storage_path('logs/backup_database.log'));
     }
 
     /**

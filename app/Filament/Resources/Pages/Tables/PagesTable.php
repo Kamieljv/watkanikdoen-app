@@ -1,0 +1,53 @@
+<?php
+
+namespace App\Filament\Resources\Pages\Tables;
+
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Table;
+
+class PagesTable
+{
+    public static function configure(Table $table): Table
+    {
+        return $table
+            ->columns([
+                TextColumn::make('title')
+                    ->searchable(),
+                ImageColumn::make('image'),
+                TextColumn::make('status')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'DRAFT' => 'gray',
+                        'PUBLISHED' => 'success',
+                    }),
+                TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable(),
+                TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+            ])
+            ->defaultSort('created_at', 'desc')
+            ->filters([
+                Filter::make('published')
+                    ->query(fn ($query) => $query->published())
+                    ->toggle(),
+            ])
+            ->recordActions([
+                EditAction::make(),
+                DeleteAction::make(),
+            ])
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                ]),
+            ]);
+    }
+}

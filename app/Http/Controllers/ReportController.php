@@ -3,20 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Actie;
-use App\Models\Image;
 use App\Models\Organizer;
 use App\Models\Report;
+use App\Models\Status;
 use App\Models\User;
+use App\Notifications\Mail\ReportAccepted;
 use App\Notifications\Mail\ReportReceived;
 use App\Rules\Website;
+use Carbon\Carbon;
+use Filament\Notifications\Notification;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
-use Jenssegers\Date\Date;
+use MatanYadaev\EloquentSpatial\Objects\Point;
+use MWGuerra\FileManager\Models\FileSystemItem;
+use Stevebauman\Purify\Facades\Purify;
 use Validator;
-use Voyager;
 
 class ReportController extends Controller
 {
@@ -26,14 +29,13 @@ class ReportController extends Controller
     public function landing()
     {
         // Definieer de routes waarmee de component evenementen kan ophalen
-        $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
-            return (strpos($route->uri, 'organisatoren') !== false || strpos($route->uri, 'organisator') !== false) && (strpos($route->uri, 'admin') === false);
-        })->map(function ($route) {
-            return [
-                'uri' => '/' . $route->uri,
-                'methods' => $route->methods,
-            ];
-        })->toArray();
+        $routes = getRouteUris(namePattern: 'organizers');
+        // Add additional routes for report creation, login, and registration
+        $routes = array_merge($routes, [
+            'report_create' => route('report.create'),
+            'login' => route('login'),
+            'register' => route('register'),
+        ]);
 
         // Display the landing page
         return view('reports.landing', compact('routes'));
@@ -48,15 +50,22 @@ class ReportController extends Controller
         if (!$report) {
             abort(404);
         } else {
-            $organizers = Organizer::whereIn('id', explode(",", $report->organizer_ids))
-                ->pluck('name')->all();
-            $viewOnly = true;
-            return view('reports.form', compact('viewOnly', 'organizers', 'report'));
+            $organizers = Organizer::whereIn('id', $report->organizer_ids)->get();
+            return view('reports.view', compact('organizers', 'report'));
         }
     }
 
     public function create(Request $request)
     {
+        // check if user is logged in and reported userId matched logged-in user
+
+        if (auth()->user()->id !== (int) $request->userId) {
+            return response([
+                'status' => 'error',
+                'message' => __('reports.user_mismatch'),
+            ], 200);
+        }
+
         $this->validator($request->all())->validate();
 
         try {
@@ -84,29 +93,43 @@ class ReportController extends Controller
                 'user_id' => $request->userId,
                 'organizer_ids' => $organizer_ids ? implode(",", $organizer_ids) : '',
                 'title' => $request->report['title'],
-                'body' => $request->report['body'] ?? null,
+                'body' => $request->report['body'] ? Purify::clean($request->report['body']) : null,
                 'externe_link' => $request->report['actionUrls'],
-                'start_date' => Date::parse($request->report['start_date'])->format('Y-m-d'),
-                'end_date' => Date::parse($request->report['end_date'])->format('Y-m-d'),
-                'start_time' => isset($request->report['start_time']) ? Date::parse($request->report['start_time'])->format('H:i') : null,
-                'end_time' => isset($request->report['end_time']) ? Date::parse($request->report['end_time'])->format('H:i') : null,
+                'start_date' => Carbon::parse($request->report['start_date'])->format('Y-m-d'),
+                'end_date' => Carbon::parse($request->report['end_date'])->format('Y-m-d'),
+                'start_time' => isset($request->report['start_time']) ? Carbon::parse($request->report['start_time'])->format('H:i') : null,
+                'end_time' => isset($request->report['end_time']) ? Carbon::parse($request->report['end_time'])->format('H:i') : null,
                 'location' => isset($request->report['location']) ?
-                    DB::raw("ST_GeomFromText('POINT({$request->report['location']['lng']} {$request->report['location']['lat']})')") : null,
+                    new Point($request->report['location'][1], $request->report['location'][0]) : null,
                 'location_human' => $request->report['location_human'],
             ]);
             if (isset($request->report['image'])) {
+                // Construct file path
                 $ext = '.' . explode('/', mime_content_type($request->report['image']))[1];
-                $path = 'reports/' . md5($request->report['title'] . microtime()) . $ext;
-                // Store the image on the server
-                Storage::disk(config('voyager.storage.disk'))->put($path, file_get_contents($request->report['image']));
+                $filePath = 'reports/' . md5($request->report['title'] . microtime()) . $ext;
+                
+                // Store the file
+                Storage::disk('public')->put($filePath, file_get_contents($request->report['image']));
+
+                // Get parent folder id
+                $folderId = FileSystemItem::where('name', 'reports')
+                    ->where('type', 'folder')
+                    ->first()->id ?? null;
+
                 // Create entry in db
-                Image::create([
-                    'path' => $path,
-                    'report_id' => $report->id,
+                $fileSystemItem = FileSystemItem::firstOrCreate([
+                    'storage_path' => $filePath,
+                ], [
+                    'parent_id' => $folderId,
+                    'name' => basename($filePath),
+                    'type' => 'file',
+                    'file_type' => 'image',
+                    'size' => filesize(storage_path('app/public/' . $filePath)),
+                    'storage_path' => $filePath,
                 ]);
-                // Also save image on the model
-                $report->image = $path;
-                $report->save();
+
+                // Attach new image
+                $report->image()->attach($fileSystemItem->id);
             }
         } catch (QueryException $exception) {
             $errorInfo = $exception->errorInfo;
@@ -118,7 +141,9 @@ class ReportController extends Controller
 
         // Send email notification to admin
         if(config('app.debug') == false){
-            $admin = User::where('username', 'admin')->first();
+            $admin = User::whereHas('roles', function ($q) {
+                $q->where('name', 'admin');
+            })->first();
             $admin->notify(new ReportReceived($report));
         }
         return response([
@@ -129,55 +154,61 @@ class ReportController extends Controller
 
     public function approve($id)
     {
-        $dataTypeReports = Voyager::model('DataType')->where('slug', '=', 'reports')->first();
-        $dataTypeActies = Voyager::model('DataType')->where('slug', '=', 'acties')->first();
-
         // Check permissions
-        $this->authorize('edit', app($dataTypeReports->model_name));
-        // Check permissions
-        $this->authorize('add', app($dataTypeActies->model_name));
+        auth()->user()->can(['edit_reports', 'add_acties']);
 
         // get report data
         $report = Report::findOrFail($id);
 
-        if ($report->status !== 'PENDING') {
-            return back()
-            ->with([
-                'message'    => __('general.approve_fail', ['entity' => 'Actie']),
-                'alert-type' => 'error',
-            ]);
+        if ($report->status !== Status::PENDING->name) {
+            Notification::make()
+                ->title(__('general.approve_fail', ['entity' => 'Actie']))
+                ->danger()
+                ->send();
+            return back();
         }
 
-        // Add a relationship entry for the ActieOrganizer if the organizer_id is passed
+        // Get organizers and check if published
         if ($report->organizer_ids) {
-            $organizer_ids = explode(",", $report->organizer_ids);
             $organizers = [];
-            foreach ($organizer_ids as $org_id) {
+            foreach ($report->organizer_ids as $org_id) {
                 $org = Organizer::firstWhere('id', $org_id);
-                if ($org->status !== 'PUBLISHED') {
-                    return back()
-                    ->with([
-                        'message'    => __('general.approve_fail_organizer_not_published', ['entity' => 'Actie']),
-                        'alert-type' => 'error',
-                    ]);
+                if ($org->status !== Status::PUBLISHED->name) {
+                    Notification::make()
+                        ->title(__('general.approve_fail_organizer_not_published', ['entity' => 'Actie']))
+                        ->danger()
+                        ->send();
+                    return back();
                 }
                 array_push($organizers, $org);
             }
         }
 
         // Move image to actie folder
-        if ($report->image) {
-            $newImagePath = 'acties/' . explode("/", $report->image)[1];
+        if ($report->image()->exists()) {
+            $image = $report->image()->first();
+            $oldPath = $image->storage_path;
+            $newPath = 'acties/' . basename($oldPath);
             try {
-                Storage::disk(config('voyager.storage.disk'))->copy($report->image, $newImagePath);
+                Storage::disk('public')->copy($oldPath, $newPath);
             } catch (\Throwable $e) {
-                return back()
-                    ->with([
-                        'message'    => __('general.approve_fail_error_message', ['entity' => 'Actie', 'error' => $e->getMessage()]),
-                        'alert-type' => 'error',
-                    ]);
+                Notification::make()
+                    ->title(__('general.approve_fail', ['entity' => 'Actie']))
+                    ->danger()
+                    ->send();
+                return back();
             }
-            
+
+            // update image path in db
+            $image->storage_path = $newPath;
+            $image->save();
+
+            // Set parent folder to 'acties'
+            $actieFolderId = FileSystemItem::where('name', 'acties')
+                ->where('type', 'folder')
+                ->first()->id ?? null;
+            FileSystemItem::where('storage_path', $oldPath)
+                ->update(['parent_id' => $actieFolderId]);
         }
 
         // create new actie
@@ -190,18 +221,14 @@ class ReportController extends Controller
             'start_time' => $report->start_time,
             'end_date' => $report->end_date,
             'end_time' => $report->end_time,
-            'location' => $report->coordinates ? DB::raw("ST_GeomFromText('POINT({$report->coordinates['lng']} {$report->coordinates['lat']})')") : null,
+            'location' => $report->location,
             'location_human' => $report->location_human,
-            'image' => $report->image ? $newImagePath : '',
             'slug' => $this->createSlug($report->title),
         ]);
-        if (isset($newImagePath)) {
-            Image::create([
-                'path' => $newImagePath,
-                'actie_id' => $actie->id,
-            ]);
+        // Attach the new image if exists
+        if (isset($image)) {
+            $actie->image()->attach($image->id);
         }
-
         // attach organizers to actie
         if (isset($organizers)) {
             foreach ($organizers as $org) {
@@ -214,12 +241,20 @@ class ReportController extends Controller
         $report->actie_id = $actie->id;
         $report->save();
 
+        Notification::make()
+            ->title(__('general.approve_success', ['entity' => 'Actie']))
+            ->success()
+            ->send();
+
+        if (!$report->reporter_notified) {
+            // Notify the user that issued the report
+            $report->user->notify(new ReportAccepted($actie));
+            $report->reporter_notified = 1;
+            $report->save();
+        }
+
         return redirect()
-            ->route("voyager.acties.index")
-            ->with([
-                'message'    => __('general.approve_success', ['entity' => 'Actie']),
-                'alert-type' => 'success',
-            ]);
+            ->route('filament.admin.resources.acties.edit', ['record' => $actie->id]);
     }
 
     /**
@@ -241,8 +276,7 @@ class ReportController extends Controller
             'report.start_time' => 'date_format:H:i',
             'report.end_date' => 'required|date_format:Y-m-d|after_or_equal:report.start_date',
             'report.end_time' => 'date_format:H:i',
-
-            'report.location' => 'array:lat,lng',
+            'report.location' => 'array',
             'report.location_human' => 'required|string|max:200',
             'report.image' => '',
             

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use App\Notifications\Mail\VerifyEmail;
 use App\Rules\ValidHCaptcha;
@@ -12,7 +13,6 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
-use TCG\Voyager\Models\Role;
 
 class RegisterController extends Controller
 {
@@ -60,10 +60,9 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:' . config('app.auth.min_password_length') . '|confirmed',
-            'terms' => 'required',
         ];
         if (env('APP_ENV') == 'production') {
-            $rules['h-captcha-response'] = ['required', new ValidHCaptcha()];
+            $rules['h-captcha-token'] = ['required', new ValidHCaptcha()];
         }
 
         return Validator::make($data, $rules);
@@ -77,37 +76,21 @@ class RegisterController extends Controller
      */
     public function create(array $data)
     {
-        $role = Role::where('name', '=', config('voyager.user.default_role'))->first();
+        $role = Role::where('name', '=', config('permission.default_role'))->first();
 
         $verification_code = null;
         $verified = 1;
 
-        if (setting('auth.verify_email', false)) {
+        if (config('app.verify_email', false)) {
             $verification_code = str_random(30);
             $verified = 0;
         }
 
-        if (isset($data['username']) && !empty($data['username'])) {
-            $username = $data['username'];
-        } elseif (isset($data['name']) && !empty($data['name'])) {
-            $username = str_slug($data['name']);
-        } else {
-            $username = $this->getUniqueUsernameFromEmail($data['email']);
-        }
-
-        $username_original = $username;
         $counter = 1;
-
-        while (User::where('username', '=', $username)->first()) {
-            $username = $username_original . (string)$counter;
-            $counter += 1;
-        }
-
 
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'username' => $username,
             'password' => bcrypt($data['password']),
             'role_id' => $role->id,
             'verification_code' => $verification_code,
@@ -115,7 +98,7 @@ class RegisterController extends Controller
             'trial_ends_at' => null,
         ]);
 
-        if (setting('auth.verify_email', false)) {
+        if (config('app.verify_email')) {
             $this->sendVerificationEmail($user);
         }
 
@@ -129,7 +112,18 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-        return view('auth.register');
+        $type = 'register';
+
+        $routes = [
+            'login' => route('login'),
+            'forgot_password' => route('password.request'),
+            'register' => route('register'),
+            'register_complete' => route('registration.complete'),
+            'terms' => '/algemene-voorwaarden-en-privacyverklaring',
+            'privacypolicy' => '/privacybeleid',
+        ];
+
+        return view('auth.login', compact('type', 'routes'));
     }
 
     public function verify(Request $request, $verification_code)
@@ -160,9 +154,15 @@ class RegisterController extends Controller
         $user = $this->create($request->all());
         event(new Registered($user));
 
-        if (setting('auth.verify_email')) {
+        session(['email' => $user->email]);
+
+        if (config('app.verify_email')) {
             if ($request->expectsJson()) {
-                return response(['status' => 'success', 'user' => $user], 200);
+                return response([
+                    'status' => 'success',
+                    'userId' => $user->id,
+                    'redirect' => route('registration.complete') ?? $this->redirectPath()
+                ], 200);
             } else {
                 return redirect(route('registration.complete'))->with(['email' => $user->email]);
             }
@@ -182,26 +182,4 @@ class RegisterController extends Controller
         return view('auth.register-complete');
     }
 
-    public function getUniqueUsernameFromEmail($email)
-    {
-        $username = strtolower(trim(str_slug(explode('@', $email)[0])));
-
-        $new_username = $username;
-
-        $user_exists = User::where('username', '=', $username)->first();
-        $counter = 1;
-        while (isset($user_exists->id)) {
-            $new_username = $username . $counter;
-            $counter += 1;
-            $user_exists = User::where('username', '=', $new_username)->first();
-        }
-
-        $username = $new_username;
-
-        if (strlen($username) < 4) {
-            $username = $username . uniqid();
-        }
-
-        return strtolower($username);
-    }
 }

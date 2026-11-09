@@ -14,19 +14,8 @@ class HomeController extends Controller
     public function index()
     {
         // Definieer de routes waarmee de component evenementen kan ophalen
-        $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
-            return in_array($route->uri, [
-                'acties/search',
-                'organisatoren/search',
-                'organisator/{organizer}'
-            ]);
-        })->map(function ($route) {
-            return [
-                'uri' => '/' . $route->uri,
-                'methods' => $route->methods,
-            ];
-        });
-
+        $actieRoutes = getRouteUris(namePattern: 'acties');
+        $organizerRoutes = getRouteUris(namePattern: 'organizers');
         $themes = Theme::orderBy('name', 'ASC')->get();
         $categories = Category::orderBy('name', 'ASC')->get();
 
@@ -37,13 +26,9 @@ class HomeController extends Controller
             'themes' => Theme::count()
         ];
 
-        // $organizer = Organizer::all()->map(function ($o) {
-        //     return $o->only(['id', 'name']);
-        // });;
-
         // SEO
-        SEOTools::setTitle('Home');
+        SEOTools::setTitle('Home' . ' | ' . config('brand.title'));
 
-        return view('home', compact('routes', 'stats'));
+        return view('home', compact('actieRoutes', 'organizerRoutes', 'stats'));
     }
 }

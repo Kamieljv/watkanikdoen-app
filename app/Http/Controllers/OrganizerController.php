@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Organizer;
+use App\Models\Status;
 use App\Models\Theme;
 use App\Models\User;
 use Artesaos\SEOTools\Facades\SEOTools;
+use Filament\Notifications\Notification;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Voyager;
 
 
 class OrganizerController extends Controller
@@ -16,19 +18,12 @@ class OrganizerController extends Controller
     public function index()
     {
         // Definieer de routes waarmee de component evenementen kan ophalen
-        $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
-            return (strpos($route->uri, 'organisatoren') !== false || strpos($route->uri, 'organisator') !== false) && (strpos($route->uri, 'admin') === false);
-        })->map(function ($route) {
-            return [
-                'uri' => '/' . $route->uri,
-                'methods' => $route->methods,
-            ];
-        });
+        $routes = getRouteUris(namePattern: 'organizers');
 
         $themes = Theme::orderBy('name', 'ASC')->get();
 
         // SEO
-        SEOTools::setTitle(__("organizers.title"));
+        SEOTools::setTitle(__("organizers.title") . ' | ' . config('brand.title'));
         SEOTools::setDescription(__("organizers.description"));
 
         return view('organizers.index', compact('routes', 'themes'));
@@ -39,8 +34,7 @@ class OrganizerController extends Controller
         $query = Organizer::query();
         if ($request->q) {
             $query->where(function ($q) use ($request) {
-                $q->where('name', 'LIKE', '%' . $request->q . '%')
-                    ->orWhere('description', 'LIKE', '%' . $request->q . '%');
+                $q->where('name', 'LIKE', '%' . $request->q . '%');
             });
         }
         if ($request->themes) {
@@ -50,7 +44,6 @@ class OrganizerController extends Controller
             });
         }
         if ($request->onlyFeatured) {
-
             if ($request->onlyFeatured === 'true') {
                 $query->where('featured', 1);
             }
@@ -58,7 +51,7 @@ class OrganizerController extends Controller
         if ($request->limit) {
             $organizers = $query->orderBy('name', 'ASC')->published()->limit($request->limit)->get();
         } else {
-            $organizers = $query->orderBy('name', 'ASC')->published()->paginate(12);
+            $organizers = $query->orderBy('name', 'ASC')->published()->paginate(24);
         }
 
         return response()->json(['organizers' => $organizers]);
@@ -70,17 +63,10 @@ class OrganizerController extends Controller
         $organizer = Organizer::where('slug', '=', $slug)->firstOrFail();
 
         // Definieer de routes waarmee de component evenementen kan ophalen
-        $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
-            return (strpos($route->uri, 'acties') !== false) && (strpos($route->uri, 'admin') === false);
-        })->map(function ($route) {
-            return [
-                'uri' => '/' . $route->uri,
-                'methods' => $route->methods,
-            ];
-        });
+        $routes = getRouteUris(namePattern: 'acties');
 
         // SEO
-        SEOTools::setTitle($organizer->name);
+        SEOTools::setTitle($organizer->name . ' | ' . config('brand.title'));
         if ($organizer->description !== null) {
             SEOTools::setDescription(substr(strip_tags($organizer->description), 0, 300));
         }
@@ -94,73 +80,32 @@ class OrganizerController extends Controller
         return view('organizers.organizer', compact('organizer', 'routes', 'isAdmin'));
     }
 
-    public function approve($id)
+    public function approve($id): RedirectResponse
     {
-        $dataTypeOrganizers = Voyager::model('DataType')->where('slug', '=', 'organizers')->first();
-
         // Check permissions
-        $this->authorize('edit', app($dataTypeOrganizers->model_name));
+        auth()->user()->can('edit_organizers');
 
         // get report data
         $organizer = Organizer::findOrFail($id);
 
         // check if status is actually pending
-        if ($organizer->status !== 'PENDING') {
-            return back()
-            ->with([
-                'message'    => __('general.approve_fail', ['entity' => 'Organisator']),
-                'alert-type' => 'error',
-            ]);
-        }
-
-        // check if user who submitted this action is verified
-        $user = User::findOrFail($organizer->user_id);
-        if (!$user->verified === 1) {
-            return back()
-            ->with([
-                'message'    => __('general.approve_fail_user_not_verified', ['entity' => 'Organisator']),
-                'alert-type' => 'error',
-            ]);
+        if ($organizer->status !== Status::PENDING->name) {
+            Notification::make()
+                ->title(__('general.approve_fail', ['entity' => 'Organisator']))
+                ->danger()
+                ->send();
+            return back();
         }
 
         // change organizer status
         $organizer->approve();
 
-        return redirect()
-            ->route("voyager.organizers.index")
-            ->with([
-                'message'    => __('general.approve_success', ['entity' => 'Organisator']),
-                'alert-type' => 'success',
-            ]);
-    }
-
-    public function publish($id)
-    {
-        $dataTypeOrganizers = Voyager::model('DataType')->where('slug', '=', 'organizers')->first();
-
-        // Check permissions
-        $this->authorize('edit', app($dataTypeOrganizers->model_name));
-
-        // get report data
-        $organizer = Organizer::findOrFail($id);
-
-        // check if status is actually approved
-        if ($organizer->status !== 'APPROVED') {
-            return back()
-            ->with([
-                'message'    => __('general.publish_fail', ['entity' => 'Organisator']),
-                'alert-type' => 'error',
-            ]);
-        }
-
-        // change organizer status
-        $organizer->publish();
+        Notification::make()
+            ->title(__('general.approve_success', ['entity' => 'Organisator']))
+            ->success()
+            ->send();
 
         return redirect()
-            ->route("voyager.organizers.index")
-            ->with([
-                'message'    => __('general.publish_success', ['entity' => 'Organisator']),
-                'alert-type' => 'success',
-            ]);
+            ->route("filament.admin.resources.organizers.index");
     }
 }

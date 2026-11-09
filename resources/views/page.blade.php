@@ -23,8 +23,11 @@
                 <img width="1200" height="640" src="{{ $page->image() }}" alt="{{ $page->title }}" srcset="{{ $page->image() }}">
             @endif
 
-            {!! filterScripts($page->body) !!}
-
+            <div class="html-output">
+                @if ($page->body !== NULL)
+                    {!! Purify::clean($page->body) !!}
+                @endif
+            </div>
         </article>
     </div>
 

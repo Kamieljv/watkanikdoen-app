@@ -4,23 +4,29 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ReferentieType;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use MWGuerra\FileManager\Models\FileSystemItem;
 
 class Referentie extends Model
 {
+    use HasFactory;
 
     protected $table = 'referenties';
+
+    protected $appends = [
+        'image_url',
+    ];
 
     protected $fillable = [
         'title',
         'url',
         'description',
-        'image',
-        'status'
+        'status',
     ];
 
     protected $with = [
         'themes:id,name,color',
-        'linked_image',
     ];
 
     public function referentie_types()
@@ -33,9 +39,23 @@ class Referentie extends Model
         return $this->belongsToMany(Theme::class);
     }
 
-    public function linked_image()
+    public function image()
     {
-        return $this->hasOne(Image::class)->without('referentie');
+        return $this->morphToMany(FileSystemItem::class, 'model', 'file_has_models', 'model_id', 'file_id');
+    }
+
+    public function tags(): MorphToMany
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
+    }
+
+    public function getImageUrlAttribute()
+    {
+        $image = $this->image()->where('file_type', 'image')->first();
+        if ($image) {
+            return asset('storage/' . $image->storage_path);
+        }
+        return null;
     }
 
     public function scopePublished($query)

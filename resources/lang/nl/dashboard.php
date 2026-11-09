@@ -18,4 +18,5 @@ return [
     // Notifications
     'notifications_description' => 'Bekijk de notificaties die u ontvangen hebt.',
     'no_notifications' => 'U heeft geen notificaties.',
+    'back_to_dashboard' => 'Terug naar dashboard',
 ];

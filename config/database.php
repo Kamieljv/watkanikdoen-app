@@ -108,6 +108,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Database Backups
+    |--------------------------------------------------------------------------
+    | Here you may configure your database backup settings.
+    | You can specify the default backup path and other options.
+    | */
+    'backups' => [
+        'path' => env('DB_BACKUP_PATH', './storage/backups'),
+        'max_backups' => env('DB_MAX_BACKUPS', 10),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Redis Databases
     |--------------------------------------------------------------------------
     |

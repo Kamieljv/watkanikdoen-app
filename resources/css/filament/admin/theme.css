@@ -1,0 +1,51 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+/* Fix to make sure filemanager classes are loaded in correct order */
+@import '../../../../vendor/mwguerra/filemanager/resources/css/index.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+
+
+/* Custom styling */
+
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    width: 15rem;
+}
+
+/***** Chrome, Safari, Opera, and Edge Chromium *****/
+input[type="range"]::-webkit-slider-runnable-track {
+    background: var(--color-gray-300);
+    height: 0.5rem;
+    border-radius: 0.25rem;
+}
+
+/******** Firefox ********/
+input[type="range"]::-moz-range-track {
+    background: var(--color-gray-300);
+    height: 0.5rem;
+    border-radius: 0.25rem;
+}
+/***** Chrome, Safari, Opera, and Edge Chromium *****/
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    border-radius: 50%;
+    margin-top: -0.5rem; /* Centers the thumb on the track */
+    border: none; /*Removes extra border that FF applies*/
+    background-color: var(--color-primary-500);
+    width: 1.5rem;
+    height: 1.5rem; 
+}
+/******** Firefox ********/
+input[type="range"]::-moz-range-thumb {
+    border: none; /*Removes extra border that FF applies*/
+    border-radius: 50%;
+    background-color: var(--color-primary-500);
+    width: 1.5rem;
+    height: 1.5rem;
+}

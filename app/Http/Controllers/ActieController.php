@@ -9,30 +9,24 @@ use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use TCG\Voyager\Http\Controllers\VoyagerBaseController;
-use Voyager;
 
-class ActieController extends VoyagerBaseController
+class ActieController extends Controller
 {
-    public function agenda()
+    public function agenda(Request $request)
     {
         // Definieer de routes waarmee de component evenementen kan ophalen
-        $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
-            return (strpos($route->uri, 'acties') !== false) && (strpos($route->uri, 'admin') === false);
-        })->map(function ($route) {
-            return [
-                'uri' => '/' . $route->uri,
-                'methods' => $route->methods,
-            ];
-        });
+        $routes = getRouteUris(namePattern: 'acties');
 
         $themes = Theme::orderBy('name', 'ASC')->get();
         $categories = Category::orderBy('name', 'ASC')->get();
 
-        // SEO
-        SEOTools::setTitle('Acties');
+        $themes_selected_ids = $request->themes ? array_map('intval', $request->themes) : [];
+        $categories_selected_ids = $request->categories ? array_map('intval', $request->categories) : [];
 
-        return view('acties.agenda', compact('routes', 'themes', 'categories'));
+        // SEO
+        SEOTools::setTitle('Acties' . ' | ' . config('brand.title'));
+
+        return view('acties.agenda', compact('routes', 'themes', 'categories', 'themes_selected_ids', 'categories_selected_ids'));
     }
 
     public function actie($slug)
@@ -44,23 +38,22 @@ class ActieController extends VoyagerBaseController
             abort(404);
         }
 
-        $routes = collect(Route::getRoutes()->getRoutesByName())->filter(function ($route) {
-            return (strpos($route->uri, 'acties') !== false) && (strpos($route->uri, 'admin') === false);
-        })->map(function ($route) {
-            return [
-                'uri' => '/' . $route->uri,
-                'methods' => $route->methods,
-            ];
-        });
-
+        $routes = getRouteUris(namePattern: 'acties');
 
         // SEO
-        SEOTools::setTitle($actie->title);
+        SEOTools::setTitle($actie->title . ' | ' . config('brand.title'));
         if ($actie->excerpt !== null) {
             SEOTools::setDescription($actie->excerpt);
         }
         if ($actie->keywords !== null) {
             SEOMeta::setKeywords($actie->keywords);
+        }
+        if ($actie->image_url !== null) {
+            SEOTools::opengraph()->addImage($actie->image_url);
+        }
+        // set robots meta tag to noindex if the actie is over 1 year old
+        if ($actie->start_date < now()->subYear()) {
+            SEOMeta::setRobots('noindex');
         }
 
         // Pass admin attribute
@@ -68,6 +61,8 @@ class ActieController extends VoyagerBaseController
         if (auth()->user()) {
             $isAdmin = auth()->user()->hasRole('admin');
         }
+
+        $themes = Theme::orderBy('name', 'ASC')->get();
 
         // count acties with the same theme
         $actieThemes = array_column($actie->themes->toArray(), 'id');
@@ -78,16 +73,22 @@ class ActieController extends VoyagerBaseController
             ->whereNot('id', $actie->id) // exclude current action
             ->published()->nietAfgelopen()->count();
 
-        return view('acties.actie', compact('actie', 'routes', 'isAdmin', 'count_same_theme'));
+        return view('acties.actie', compact('actie', 'themes', 'routes', 'isAdmin', 'count_same_theme'));
     }
 
     public function search(Request $request)
     {
+        $request->validate([
+            // "lat,lng", e.g. "52.37,4.89"
+            'coordinates' => ['nullable', 'regex:/^-?\d+(\.\d+)?,-?\d+(\.\d+)?$/'],
+        ]);
+
         $query = Actie::query();
         if ($request->q) {
             $query->where(function ($q) use ($request) {
                 $q->where('title', 'LIKE', '%' . $request->q . '%')
-                    ->orWhere('body', 'LIKE', '%' . $request->q . '%');
+                    ->orWhere('body', 'LIKE', '%' . $request->q . '%')
+                    ->orWhere('keywords', 'LIKE', '%' . $request->q . '%');
             });
         }
         if ($request->themes) {
@@ -109,9 +110,13 @@ class ActieController extends VoyagerBaseController
             });
         }
         if ($request->coordinates) {
-            $coordinates = explode(',', $request->coordinates);
+            [$lat, $lng] = array_map('floatval', explode(',', $request->coordinates));
             $radius = ($request->distance ?? 9999) * 1000;
-            $query->whereRaw("ST_Distance_Sphere(location, ST_GeomFromText('POINT({$coordinates[1]} {$coordinates[0]})')) <= {$radius}");
+            $distanceSql = "ST_Distance_Sphere(location, ST_GeomFromText(?))";
+            $point = "POINT({$lng} {$lat})";
+            $query->whereRaw("{$distanceSql} <= ?", [$point, $radius]);
+            // closest first when filtering on distance
+            $query->orderByRaw("{$distanceSql} ASC", [$point]);
         }
 
         $query->published()->orderBy('start_date')->orderBy('start_time');
@@ -123,39 +128,9 @@ class ActieController extends VoyagerBaseController
         if ($request->limit) {
             $acties = $query->limit($request->limit)->get();
         } else {
-            $acties = $query->paginate(12);
+            $acties = $query->paginate(24);
         }
         
         return response()->json(['acties' => $acties]);
-    }
-
-    public function publish($id)
-    {
-        $dataTypeActies = Voyager::model('DataType')->where('slug', '=', 'acties')->first();
-
-        // Check permissions
-        $this->authorize('edit', app($dataTypeActies->model_name));
-
-        // get report data
-        $actie = Actie::findOrFail($id);
-
-        // check if status is actually a draft to be published
-        if ($actie->status !== 'DRAFT') {
-            return back()
-            ->with([
-                'message'    => __('general.publish_fail', ['entity' => 'Actie']),
-                'alert-type' => 'error',
-            ]);
-        }
-
-        // change actie status
-        $actie->publish();
-
-        return redirect()
-            ->route("voyager.acties.index")
-            ->with([
-                'message'    => __('general.publish_success', ['entity' => 'Actie']),
-                'alert-type' => 'success',
-            ]);
     }
 }

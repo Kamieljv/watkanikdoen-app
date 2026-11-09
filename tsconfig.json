@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "importHelpers": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "@composables": ["./resources/views/assets/js/composables"],
+      "@composables/*": ["./resources/views/assets/js/composables/*"],
+      "&/*": ["./resources/svg/*"]
+    }
+  },
+  "include": ["*.d.ts", "resources/views/assets/js/**/*", "resources/svg/**/*"]
+}

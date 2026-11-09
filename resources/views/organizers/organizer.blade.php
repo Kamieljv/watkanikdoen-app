@@ -2,26 +2,26 @@
 
 @section('content')
 
-    <div class="max-w-4xl mx-auto mt-10 px-5 lg:px-0 flex">
+    <div class="max-w-6xl mx-auto mt-10 px-5 lg:px-0 flex">
         <a href="{{ route('home') }}" class="flex items-center text-sm font-bold cursor-pointer text-gray-700">
             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
             {{ __("acties.back_to_home") }}
         </a>
     </div>
     @if($isAdmin)
-        <div class="max-w-4xl mx-auto mt-10 px-5 lg:px-0 mt-4">
+        <div class="max-w-6xl mx-auto mt-10 px-5 lg:px-0 mt-4">
             <div class="flex p-3 rounded-md bg-gray-600 text-white justify-between">
                 {{__('general.admin_message')}}
                 <a href="/admin/organizers/{{$organizer->id}}/edit" class="italic hover:underline">Organizer bewerken</a>
             </div>
         </div>
     @endif
-    <div class="max-w-4xl mx-auto mt-6 px-5 lg:px-0">
+    <div class="max-w-6xl mx-auto mt-6 px-5 lg:px-0">
         <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
             <div class="w-full md:w-auto flex flex-row items-center space-x-5">
                 <div class="flex-shrink-0">
-                    @if($organizer->linked_image)
-                        <img class="w-[80px] h-[80px] rounded-full border-2 border-gray-300" src="{{ $organizer->linked_image->url }}" alt="">
+                    @if($organizer->image_url)
+                        <img class="w-[80px] h-[80px] rounded-full border-2 border-gray-300" src="{{ $organizer->image_url }}" alt="">
                     @else
                         <div class="flex items-center justify-center text-4xl w-[80px] h-[80px]  rounded-full bg-gray-500 text-white border-gray-300">
                             {{ substr($organizer->name, 0, 1) }}
@@ -53,13 +53,13 @@
         </div>
         <div class="mt-5 mb-10 min-h-20 html-output">
             @if ($organizer->description !== NULL)
-                {!! filterScripts($organizer->description) !!}
+                {!! Purify::clean($organizer->description) !!}
             @endif
         </div>
         <div id="app" class="mb-40">
             <h3 class="text-gray-800">Acties georganiseerd door {{ $organizer->name }}</h3>
             <actie-agenda
-                :routes="{{ $routes }}"
+                :routes="{{ json_encode($routes) }}"
                 :filterable="false"
                 :organizer-id="{{ $organizer->id }}"
                 :narrower="true"
@@ -70,11 +70,3 @@
     </div>
 
 @endsection
-
-@push('scripts')
-    <script type="application/javascript">
-        var app = new Vue({
-            el: '#app',
-        });
-    </script>
-@endpush

@@ -1,115 +1,146 @@
 <template>
-    <a :href="route" @click="clickOrganizer" :title="titleText">
-        <div id="wrapper" 
-            class="content flex h-full p-3 justify-between items-center border border-gray-200 mb-1 rounded-lg shadow-md hover:shadow-lg truncate" 
-            :class="{
-                'hover:bg-gray-100': mode !== 'remove', 
-                'hover:bg-red-100': mode === 'remove',
-                'selected': selected && mode === 'select'
-            }"
-            :title="organizer.name">
-            <div class="flex w-full space-x-3 justify-start items-center">
-                <img v-if="organizer.linked_image" class="w-10 h-10 rounded-full" :src="organizer.linked_image.url" :title="organizer.name">
-                <div v-else class="flex items-center justify-center text-xl w-10 h-10 rounded-full bg-gray-500 text-white">
-                    {{ organizer.name.charAt(0) }}
-                </div>
-                <div class="flex flex-1 flex-col overflow-hidden">
-                    <p class="font-bold truncate">{{ organizer.name }}</p>
-                    <ul v-if="showThemes" class="sm:hidden pt-2 flex space-x-1">
-                        <li
-                            v-for="theme in organizer.themes"
-                            :key="theme.id"
-                            class="relative self-start inline-block px-2 py-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
-                            :style="{backgroundColor: theme.color}"
-                        >
-                            <span class="text-white" rel="theme">
-                                {{ theme.name }}
-                            </span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div v-if="showThemes" class="flex justify-end items-center">
-                <ul class="hidden p-2 sm:flex space-x-1">
-                    <li
-                        v-for="theme in organizer.themes"
-                        :key="theme.id"
-                        class="relative self-start inline-block px-2 py-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
-                        :style="{backgroundColor: theme.color}"
-                    >
-                        <span class="text-white" rel="theme">
-                            {{ theme.name }}
-                        </span>
-                    </li>
-                </ul>
-            </div>
-            <div v-if="mode == 'select' && selected" class="flex justify-end items-center">
-                <svg-vue icon="clarity-check-line" class="shrink-0" style="stroke: currentColor; width: 26px; height: 24px;"></svg-vue>
-            </div>
-            <div v-else-if="mode == 'remove'" @click="toggleSelect" class="flex justify-center items-center cursor-pointer rounded-full w-8 h-8 bg-gray-100 hover:bg-gray-200">
-                <svg-vue icon="antdesign-delete-o" class="shrink-0" style="stroke: currentColor; width: 24px; height: 24px;"></svg-vue>
-            </div>
+  <a :href="route" :title="titleText" @click="clickOrganizer">
+    <div
+      id="wrapper"
+      class="content bg-white flex justify-between items-center border border-gray-200 mb-1 rounded-lg shadow-md hover:shadow-lg"
+      :class="{
+        'hover:bg-gray-100':
+          mode !== 'remove' && !(selected && mode === 'select'),
+        'hover:bg-red-100': mode === 'remove',
+        'text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 active:bg-blue-700':
+          selected && mode === 'select',
+        'h-full p-3 truncate': type === 'small',
+        'p-5': type === 'large',
+      }"
+      :title="organizer.name"
+    >
+      <div class="flex w-full space-x-3 justify-start items-center">
+        <img
+          v-if="organizer.image_url"
+          class="flex items-center justify-center rounded-full bg-gray-500 text-white"
+          :class="{
+            'text-xl w-10 h-10': type === 'small',
+            'text-3xl w-16 h-16': type === 'large',
+          }"
+          :src="organizer.image_url"
+          :title="organizer.name"
+        />
+        <div
+          v-else
+          class="flex items-center justify-center rounded-full bg-gray-500 text-white"
+          :class="{
+            'text-xl w-10 h-10': type === 'small',
+            'text-3xl w-16 h-16': type === 'large',
+          }"
+        >
+          {{ organizer.name.charAt(0) }}
         </div>
-    </a>
+        <div class="flex flex-1 flex-col overflow-hidden">
+          <p class="font-bold truncate">{{ organizer.name }}</p>
+          <p
+            v-if="type === 'large'"
+            v-sanitize.basic="organizer.description"
+            class="text-sm line-clamp-2"
+          ></p>
+          <div
+            v-else-if="type === 'small' && showThemes"
+            class="sm:hidden pt-2 flex space-x-1 justify-end"
+          >
+            <ThemesChips
+              :themes="organizer.themes"
+              :max-visible="2"
+              justify="end"
+              :show-plus-label="false"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        v-if="showThemes"
+        class="hidden sm:flex w-full items-center justify-end"
+      >
+        <ThemesChips :themes="organizer.themes" justify="end" />
+      </div>
+      <div
+        v-if="mode == 'select' && selected"
+        class="flex justify-end items-center"
+      >
+        <CheckIcon
+          class="shrink-0"
+          style="stroke: currentColor; width: 26px; height: 24px"
+        />
+      </div>
+      <div
+        v-else-if="mode == 'remove'"
+        class="flex justify-center items-center cursor-pointer rounded-full w-8 h-8 bg-gray-100 hover:bg-gray-200"
+        @click="toggleSelect"
+      >
+        <DeleteIcon
+          class="shrink-0"
+          style="stroke: currentColor; width: 24px; height: 24px"
+        />
+      </div>
+    </div>
+  </a>
 </template>
 
-<script>
-export default {
-	name: "Organizer",
-	props: {
-		organizer: {
-			type: Object,
-			required: true,
-		},
-		route: {
-			type: String,
-            default: ''
-		},
-        showThemes: {
-            type: Boolean, 
-            default: true,
-        },
-        mode: {
-            type: String,
-            default: 'list',
-        },
-        selectedInitial: {
-            type: Boolean, 
-            default: false,
-        },
-	},
-    data() {
-        return {
-            selected: this.selectedInitial
-        }
-    },
-    computed: {
-        titleText: function() {
-            return this.mode === 'remove' ? this.__('general.delete') : ''
-        }
-    },
-    watch: {
-        selectedInitial: function() {
-            this.selected = this.selectedInitial
-        }
-    },
-    methods: {
-        clickOrganizer(e) {
-            if (['select', 'remove'].includes(this.mode)) {
-                e.preventDefault()
-                this.toggleSelect()
-            }
-        },
-        toggleSelect() {
-            this.selected = !this.selected
-            this.$emit('input', this.selected)
-        },
-    }
-}
-</script>
-<style lang="scss" scoped>
-    #wrapper.selected {
-        @apply text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 active:bg-blue-700;
-    }
-</style>
+<script setup lang="ts">
+import { computed, inject, ref, watch } from "vue";
+import CheckIcon from "&/clarity-check-line.svg";
+import DeleteIcon from "&/antdesign-delete-o.svg";
+const emit = defineEmits(["update:modelValue"]);
+import { useTranslate } from "@composables";
+const __ = useTranslate();
 
+const props = defineProps({
+  organizer: {
+    type: Object,
+    required: true,
+  },
+  route: {
+    type: String,
+    default: "",
+  },
+  showThemes: {
+    type: Boolean,
+    default: true,
+  },
+  mode: {
+    type: String,
+    default: "list",
+  },
+  type: {
+    type: String,
+    default: "small",
+  },
+  selectedInitial: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const selected = ref(props.selectedInitial);
+
+const titleText = computed(() => {
+  return props.mode === "remove" ? __("general.delete") : "";
+});
+
+const clickOrganizer = (e: Event) => {
+  if (["select", "remove"].includes(props.mode)) {
+    e.preventDefault();
+    toggleSelect();
+  }
+};
+
+const toggleSelect = () => {
+  selected.value = !selected.value;
+  emit("update:modelValue", selected.value);
+};
+
+watch(
+  () => props.selectedInitial,
+  (newVal) => {
+    selected.value = newVal;
+  },
+);
+</script>

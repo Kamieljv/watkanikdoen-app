@@ -4,63 +4,209 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require("./bootstrap")
-require("./custom")
+import "./custom";
+import { createApp, defineAsyncComponent } from "vue";
+import PrimeVue from "primevue/config";
+import { definePreset } from "@primeuix/themes";
+import Aura from "@primeuix/themes/aura";
 
-window.Vue = require("vue").default
+const CustomPreset = definePreset(Aura, {
+  options: {
+    prefix: "color",
+  },
+  semantic: {
+    primary: {
+      root: {
+        50: "{blue.50}",
+        100: "{blue.100}",
+        200: "{blue.200}",
+        300: "{blue.300}",
+        400: "{blue.400}",
+        500: "{blue.500}",
+        600: "{blue.600}",
+        700: "{blue.700}",
+        800: "{blue.800}",
+        900: "{blue.900}",
+        950: "{blue.950}",
+      },
+    },
+  },
+  components: {
+    dialog: {
+      colorScheme: {
+        light: {
+          root: {
+            borderColor: "none",
+          },
+          content: {
+            padding: "1rem",
+          },
+        },
+      },
+    },
+    radiobutton: {
+      colorScheme: {
+        light: {
+          icon: {
+            checkedColor: "rgba(255, 255, 255, 0.5)",
+            checkedHoverColor: "rgba(255, 255, 255, 0.5)",
+          },
+        },
+      },
+    },
+  },
+});
 
-/** 
- * Load additional packages
- */
+const app = createApp();
+app.use(PrimeVue, {
+  theme: {
+    preset: CustomPreset,
+    options: {
+      darkModeSelector: false || "none",
+    },
+  },
+});
+
 // Lodash for language
-import _ from "lodash"
-Vue.prototype.__ = str => _.get(window.i18n, str)
+import get from "lodash/get";
+app.provide("translate", (str, params = {}) => {
+  let translation = get(window.i18n, str, str);
 
-// Add axios prototype to Vue
-Vue.prototype.$http = window.axios
+  // Replace :param placeholders with actual values
+  if (params && typeof params === "object") {
+    Object.keys(params).forEach((key) => {
+      translation = translation.replace(
+        new RegExp(`:${key}`, "g"),
+        params[key],
+      );
+    });
+  }
 
-// VueTailwind for components
-import VueTailwind from "vue-tailwind"
-import VueTailwindSettings from "../../VueTailwindSettings.js"
-Vue.use(VueTailwind, VueTailwindSettings)
+  return translation;
+});
 
-// SVG Vue
-import SvgVue from "svg-vue"
-Vue.use(SvgVue)
-
-// Moment
-import moment from "moment"
-Vue.prototype.moment = moment
+// AlpineJS
+import Alpine from "alpinejs";
+window.Alpine = Alpine;
+Alpine.start();
 
 // Vee-validate
-import {ValidationObserver} from 'vee-validate';
-Vue.component('ValidationObserver', ValidationObserver);
-require('./validations')
+import { setLocale } from "@vee-validate/i18n";
+setLocale("nl");
+import "./validations";
+
+// Vue Sanitize for HTML sanitization
+import VueSanitize from "vue-sanitize-directive";
+app.use(VueSanitize);
 
 // Image upload/edit
-import "exif-js"
-import VueCroppie from "vue-croppie"
-import "croppie/croppie.css" // import the croppie css manually
-Vue.use(VueCroppie)
+import "exif-js";
 
-import { LMap, LTileLayer, LMarker, LTooltip } from "vue2-leaflet"
-import "leaflet/dist/leaflet.css"
-Vue.component("LMap", LMap)
-Vue.component("l-tile-layer", LTileLayer)
-Vue.component("l-marker", LMarker)
-Vue.component("l-tooltip", LTooltip)
+import { LMap, LTileLayer, LMarker, LTooltip } from "@vue-leaflet/vue-leaflet";
+import "leaflet/dist/leaflet.css";
+app
+  .component("LMap", LMap)
+  .component("l-tile-layer", LTileLayer)
+  .component("l-marker", LMarker)
+  .component("l-tooltip", LTooltip);
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+// Register Vue components used in blade files as async components so each
+// page only downloads the JS (and heavy deps like Leaflet/Tiptap/cropper)
+// for the components it actually renders, instead of shipping all of them
+// in the single app.js entry loaded on every page.
+const asyncComponent = (loader) => defineAsyncComponent(loader);
 
-const files = require.context("./", true, /\.vue$/i)
-files.keys().map(key => Vue.component(key.split("/").pop().split(".")[0], files(key).default))
+app.component(
+  "ActieAgenda",
+  asyncComponent(() => import("./components/apps/ActieAgenda.vue")),
+);
+app.component(
+  "ActieWijzer",
+  asyncComponent(() => import("./components/apps/ActieWijzer.vue")),
+);
+app.component(
+  "AddActie",
+  asyncComponent(() => import("./components/apps/AddActie.vue")),
+);
+app.component(
+  "Books",
+  asyncComponent(() => import("./components/apps/Books.vue")),
+);
+app.component(
+  "BookShelf",
+  asyncComponent(() => import("./components/partials/BookShelf.vue")),
+);
+app.component(
+  "BookShelves",
+  asyncComponent(() => import("./components/partials/BookShelves.vue")),
+);
+app.component(
+  "Collapsible",
+  asyncComponent(() => import("./components/partials/Collapsible.vue")),
+);
+app.component(
+  "CopyTextField",
+  asyncComponent(() => import("./components/partials/CopyTextField.vue")),
+);
+app.component(
+  "ForgotPassword",
+  asyncComponent(() => import("./components/forms/ForgotPassword.vue")),
+);
+app.component(
+  "HomeAgenda",
+  asyncComponent(() => import("./components/apps/HomeAgenda.vue")),
+);
+app.component(
+  "LoginRegister",
+  asyncComponent(() => import("./components/apps/LoginOrRegister.vue")),
+);
+app.component(
+  "Newsletter",
+  asyncComponent(() => import("./components/forms/Newsletter.vue")),
+);
+app.component(
+  "Notifications",
+  asyncComponent(() => import("./components/apps/Notifications.vue")),
+);
+app.component(
+  "Organizers",
+  asyncComponent(() => import("./components/apps/Organizers.vue")),
+);
+app.component(
+  "OrganizersFeatured",
+  asyncComponent(() => import("./components/apps/OrganizersFeatured.vue")),
+);
+app.component(
+  "Profile",
+  asyncComponent(() => import("./components/forms/Profile.vue")),
+);
+app.component(
+  "ProgressBar",
+  asyncComponent(() => import("./components/partials/ProgressBar.vue")),
+);
+app.component(
+  "Referentie",
+  asyncComponent(() => import("./components/partials/Referentie.vue")),
+);
+app.component(
+  "Referenties",
+  asyncComponent(() => import("./components/apps/Referenties.vue")),
+);
+app.component(
+  "ResetPassword",
+  asyncComponent(() => import("./components/forms/ResetPassword.vue")),
+);
+app.component(
+  "Security",
+  asyncComponent(() => import("./components/forms/Security.vue")),
+);
+app.component(
+  "SimpleMap",
+  asyncComponent(() => import("./components/partials/SimpleMap.vue")),
+);
+app.component(
+  "WidgetAgenda",
+  asyncComponent(() => import("./components/apps/WidgetAgenda.vue")),
+);
 
-// Also load CoordinatesFormField from Voyager section
-import CoordinatesFormField from "../../../js/components/CoordinatesFormField"
-Vue.component("CoordinatesFormField", CoordinatesFormField)
+app.mount("#app");

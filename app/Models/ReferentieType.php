@@ -7,11 +7,15 @@ use App\Models\Referentie;
 
 class ReferentieType extends Model
 {
-
     protected $table = 'referentie_types';
+
+    protected $appends = [
+        'link'
+    ];
 
     protected $fillable = [
         'title',
+        'slug',
         'description',
         'style'
     ];
@@ -22,7 +26,6 @@ class ReferentieType extends Model
      * @var array
      */
     protected $with = [
-        'referenties',
         'dimensions'
     ];
 
@@ -40,14 +43,17 @@ class ReferentieType extends Model
     {
         $score_vec = [];
         foreach (Dimension::all() as $d) {
-            $matching_dim = $this->dimensions->where('id', $d->id);
-            if (count($matching_dim) > 0) {
-                array_push($score_vec, $matching_dim[0]->pivot->score);
-            } else {
-                array_push($score_vec, 0);
+            $matching_dim = $this->dimensions->where('id', $d->id)->first();
+            if ($matching_dim) {
+                $score_vec[$d->id] = $matching_dim->pivot->score;
             }
         }
         return $score_vec;
+    }
+
+    public function getLinkAttribute()
+    {
+        return route('actiewijzer.referentie_type', ['referentie_type' => $this->slug]);
     }
 
     public function scopePublished($query)

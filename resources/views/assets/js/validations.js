@@ -1,99 +1,121 @@
-import {extend} from 'vee-validate';
-import {confirmed, email, is_not, max, min, required} from 'vee-validate/dist/rules';
+import { defineRule, configure } from "vee-validate";
+import {
+  confirmed,
+  email,
+  is_not,
+  url,
+  max,
+  min,
+  required,
+} from "@vee-validate/rules";
+import { localize } from "@vee-validate/i18n";
 
-extend('required', {
-  ...required,
-  message: 'Dit veld is verplicht.',
+// Define the rule globally
+defineRule("required", required);
+defineRule("min", min);
+defineRule("max", max);
+defineRule("email", email);
+defineRule("confirmed", confirmed);
+defineRule("is_not", is_not);
+
+defineRule("url", (value, [arg]) => {
+  // use 'url:noProtocol' to allow urls without protocol
+  if (arg === "noProtocol") {
+    // add https protocol if not present
+    if (!value.startsWith("http://") && !value.startsWith("https://")) {
+      value = "https://" + value;
+    }
+  }
+  const pattern = new RegExp(
+    "^(https?:\\/\\/)?" + // protocol
+      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR IP (v4) address
+      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+      "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+      "(\\#[-a-z\\d_]*)?$", // fragment locator
+    "i",
+  );
+  return pattern.test(value);
 });
 
-extend('min', {
-  ...min,
-  params: ['length'],
-  message: 'Deze waarde mag niet korter zijn dan {length} karakters.',
+defineRule("afterToday", (value) => {
+  return new Date(value) > new Date();
 });
 
-extend('minValue', {
-  validate: (value, params) => isNaN(value) ? false : (Number(value) >= params.min),
-  params: ['min'],
-  message: 'Deze waarde moet minimaal {min} zijn.',
+defineRule("afterIncluding", (value, [target]) => {
+  return new Date(value) >= new Date(target);
 });
 
-extend('max', {
-  ...max,
-  params: ['length'],
-  message: 'Deze waarde mag niet langer zijn dan {length} karakters.',
+defineRule("before", (value, [target]) => {
+  return new Date(value) < new Date(target);
 });
 
-extend('maxValue', {
-  validate: (value, params) => isNaN(value) ? false : (Number(value) <= params.max),
-  params: ['max'],
-  message: 'Deze waarde mag maximaal {max} zijn.',
+defineRule("after", (value, [target]) => {
+  return new Date(value) > new Date(target);
 });
 
-extend('email', {
-  ...email,
-  message: 'Voer een geldig e-mailadres in.',
+configure({
+  // Generates an English message locale generator
+  generateMessage: localize("nl", {
+    messages: {
+      required: "Dit veld is verplicht",
+      min: "Deze waarde mag niet korter zijn dan 0:{min} karakters.",
+      max: "Deze waarde mag niet langer zijn dan 0:{max} karakters.",
+      email: "Voer een geldig e-mailadres in.",
+      confirmed: "De {target} velden komen niet overeen.",
+      is_not: "Waarde mag niet gelijk zijn aan {other}.",
+      url: "Voer een geldige URL in.",
+      after: "Kies een datum na 0:{target}.",
+      before: "Kies een datum voor 0:{target}.",
+      afterToday: "Kies een datum na vandaag.",
+      afterIncluding: "Kies een datum vanaf 0:{target}.",
+    },
+  }),
 });
 
-extend('confirmed', {
-  ...confirmed,
-  message: 'De {target} velden komen niet overeen.',
-});
+// defineRule('before', {
+//   validate: (value, { otherValue} ) => new Date(value) < new Date(otherValue),
+//   params: ['date'],
+//   message: 'Kies een datum voor {date}.',
+// }, {
+//   hasTarget: true
+// });
 
-extend('distinct', {
-  validate: (value, args) => value !== args.target,
-  params: ['target'],
-  message: 'De velden {target} en {_field_} moeten verschillend zijn.',
-});
+// defineRule('after', {
+//   params: ['target'],
+//   validate: (value, {target}) => new Date(value) > new Date(target),
+//   message: 'Kies een datum na {target}.',
+// }, {
+//   hasTarget: true
+// });
 
-extend('is_not', {
-  ...is_not,
-  message: 'Waarde mag niet gelijk zijn aan {other}.',
-});
+// defineRule('afterIncluding', {
+//   params: ['target'],
+//   validate: (value, {target}) => new Date(value) >= new Date(target),
+//   message: 'Kies een datum vanaf {target}.',
+// }, {
+//   hasTarget: true
+// });
 
-extend('before', {
-  validate: (value, { otherValue} ) => new Date(value) < new Date(otherValue),
-  params: ['date'],
-  message: 'Kies een datum voor {date}.',
-}, {
-  hasTarget: true
-});
+// defineRule('afterToday', {
+//   validate: (value) => new Date(value) > new Date(),
+//   message: 'Kies een datum na vandaag.',
+// });
 
-extend('after', {
-  params: ['target'],
-  validate: (value, {target}) => new Date(value) > new Date(target),
-  message: 'Kies een datum na {target}.',
-}, {
-  hasTarget: true
-});
+// defineRule('regex', {
+//   validate: (value, params) => new RegExp(params.exp).test(value),
+//   params: ['exp'],
+//   message: 'Het formaat van het {_field_} veld is niet geldig.',
+// });
 
-extend('afterIncluding', {
-  params: ['target'],
-  validate: (value, {target}) => new Date(value) >= new Date(target),
-  message: 'Kies een datum vanaf {target}.',
-}, {
-  hasTarget: true
-});
-
-extend('afterToday', {
-  validate: (value) => new Date(value) > new Date(),
-  message: 'Kies een datum na vandaag.',
-});
-
-extend('regex', {
-  validate: (value, params) => new RegExp(params.exp).test(value),
-  params: ['exp'],
-  message: 'Het formaat van het {_field_} veld is niet geldig.',
-});
-
-extend('url', {
-  validate(value) {
-    var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
-      '(([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}' + // domain name
-      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-      '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
-    return pattern.test(value);
-  },
-  message: 'Vul een geldige URL in.'
-});
+// defineRule('url', {
+//   validate(value) {
+//     var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+//       '(([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}' + // domain name
+//       '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+//       '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+//       '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+//     return pattern.test(value);
+//   },
+//   message: 'Vul een geldige URL in.'
+// });

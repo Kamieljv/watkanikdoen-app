@@ -14,10 +14,3 @@
 <style>
 	
 </style>
-@push('scripts')
-    <script type="application/javascript">
-        var app = new Vue({
-            el: '#app',
-        });
-    </script>
-@endpush

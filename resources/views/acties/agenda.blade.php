@@ -9,7 +9,9 @@
             </a>
         </div>
 
-        <div class="max-w-6xl mx-auto mt-6 px-5 lg:px-0">
+        @include('partials.actiewijzer-banner')
+
+        <div class="max-w-6xl mx-auto mt-6">
             <h1>{{__("acties.title")}}</h1>
             <p class="mt-4">
                 {!!__("acties.sub_title")!!}
@@ -18,18 +20,12 @@
     </div>
     <div id="app" class="px-3 xl:px-5 mb-40">
         <actie-agenda
-            :routes="{{ $routes }}"
+            :routes="{{ json_encode($routes) }}"
             :themes="{{ $themes }}"
             :categories="{{ $categories }}"
+            :themes-selected-ids="{{ json_encode($themes_selected_ids) }}"
+            :categories-selected-ids="{{ json_encode($categories_selected_ids) }}"
         >
         </actie-agenda>
     </div>
 @endsection
-
-@push('scripts')
-    <script type="application/javascript">
-        var app = new Vue({
-            el: '#app',
-        });
-    </script>
-@endpush

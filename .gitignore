@@ -1,14 +1,10 @@
-package-lock.json
 /node_modules
 /public/hot
-/public/js
-/public/css
-/public/frontend/css
-/public/frontend/js
 /public/storage
 /public/.well-known
-/public/mix-manifest.json
+/public/build
 /storage/*.key
+/storage/backups
 /vendor
 /.idea
 /.vagrant
@@ -20,3 +16,4 @@ yarn-error.log
 .DS_Store
 .phpunit.result.cache
 .phpcs-cache
+.aider*

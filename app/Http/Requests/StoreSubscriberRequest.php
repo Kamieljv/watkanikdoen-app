@@ -22,7 +22,7 @@ class StoreSubscriberRequest extends FormRequest
         ];
 
         if (env('APP_ENV') == 'production') {
-            $rules['h-captcha-response'] = ['required', new ValidHCaptcha()];
+            $rules['h-captcha-token'] = ['required', new ValidHCaptcha()];
         }
         return $rules;
     }

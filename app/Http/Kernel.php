@@ -37,10 +37,13 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\StorePreviousUrl::class,
+            \App\Http\Middleware\CheckMaintenanceMode::class,
         ],
 
         'api' => [
-            'throttle:60,1',
+            \App\Http\Middleware\ForceJsonResponse::class,
+            'throttle:120,1',
             'bindings',
         ],
     ];

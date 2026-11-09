@@ -1,0 +1,596 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Watkanikdoen.nl API",
+        "description": "API for Watkanikdoen.nl",
+        "contact": {
+            "email": "info@watkanikdoen.nl"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/api/v1",
+            "description": "API V1"
+        }
+    ],
+    "paths": {
+        "/acties": {
+            "get": {
+                "tags": [
+                    "Acties"
+                ],
+                "summary": "Get a list of acties",
+                "operationId": "749cef1d5960aea60f73fa09cdece523",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of items per page (max 100)",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 15
+                        }
+                    },
+                    {
+                        "name": "upcoming",
+                        "in": "query",
+                        "description": "Filter by upcoming (true) or past (false) acties",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "theme",
+                        "in": "query",
+                        "description": "Filter by theme slug",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "description": "Filter by category slug",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "organizer",
+                        "in": "query",
+                        "description": "Filter by organizer slug",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search term",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort_by",
+                        "in": "query",
+                        "description": "Sort by field (start_date, created_at, title, pageviews)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "start_date"
+                        }
+                    },
+                    {
+                        "name": "sort_order",
+                        "in": "query",
+                        "description": "Sort order (asc or desc)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "asc"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/ActieResource"
+                                            }
+                                        },
+                                        "links": {
+                                            "type": "object"
+                                        },
+                                        "meta": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/acties/{slug}": {
+            "get": {
+                "tags": [
+                    "Acties"
+                ],
+                "summary": "Get a specific actie",
+                "operationId": "9a936ca675a8718627e36e9bc2526c97",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Actie slug",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/ActieResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Actie not found"
+                    }
+                }
+            }
+        },
+        "/categories": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Get a list of categories",
+                "operationId": "b1b247b2b491b0491c3c728dc33f23f0",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of items per page (max 100)",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 50
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search term",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/categories/{slug}": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Get a single category by slug",
+                "operationId": "4107814491524836e9f18a029a7f42c3",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Category slug",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Category not found"
+                    }
+                }
+            }
+        },
+        "/organizers": {
+            "get": {
+                "tags": [
+                    "Organizers"
+                ],
+                "summary": "Get a list of organizers",
+                "operationId": "0fbdd5210d1bd2ad06a69ea0dafd9e0a",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of items per page (max 100)",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 15
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search term",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/organizers/{slug}": {
+            "get": {
+                "tags": [
+                    "Organizers"
+                ],
+                "summary": "Get a specific organizer",
+                "operationId": "0583b8cd4dd4c8d6bcaa12c3184aa834",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Organizer slug",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Organizer not found"
+                    }
+                }
+            }
+        },
+        "/themes": {
+            "get": {
+                "tags": [
+                    "Themes"
+                ],
+                "summary": "Get a list of themes",
+                "operationId": "0b95badd0a03752ba00a2a16d6feea22",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of items per page (max 100)",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 50
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search term",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/themes/{slug}": {
+            "get": {
+                "tags": [
+                    "Themes"
+                ],
+                "summary": "Get a specific theme",
+                "operationId": "f333d602b71f3de427fd1390457d7c5d",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Theme slug",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Theme not found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ActieResource": {
+                "title": "Actie Resource",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Climate March"
+                    },
+                    "body": {
+                        "type": "string",
+                        "example": "<p>Join us for...</p>"
+                    },
+                    "externe_link": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "start_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-12-15"
+                    },
+                    "start_time": {
+                        "type": "string",
+                        "format": "time",
+                        "example": "14:00:00"
+                    },
+                    "end_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-12-15"
+                    },
+                    "end_time": {
+                        "type": "string",
+                        "format": "time",
+                        "example": "18:00:00"
+                    },
+                    "start_end": {
+                        "type": "string",
+                        "example": "15 Dec 2025, 14:00-18:00"
+                    },
+                    "start_unix": {
+                        "type": "integer",
+                        "example": 1734271200
+                    },
+                    "location_human": {
+                        "type": "string",
+                        "example": "Amsterdam Central"
+                    },
+                    "geoloc": {
+                        "properties": {
+                            "lat": {
+                                "type": "number",
+                                "format": "float",
+                                "example": 52.3791
+                            },
+                            "lng": {
+                                "type": "number",
+                                "format": "float",
+                                "example": 4.9003
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "example": "climate-march"
+                    },
+                    "link": {
+                        "type": "string",
+                        "example": "https://example.com/actie/climate-march"
+                    },
+                    "afgelopen": {
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "pageviews": {
+                        "type": "integer",
+                        "example": 150
+                    },
+                    "pageviews_text": {
+                        "type": "string",
+                        "example": "150"
+                    },
+                    "organizers": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/OrganizerResource"
+                        }
+                    },
+                    "categories": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CategoryResource"
+                        }
+                    },
+                    "themes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ThemeResource"
+                        }
+                    },
+                    "image": {
+                        "type": "object"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "CategoryResource": {
+                "title": "Category Resource",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Demonstratie"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "example": "demonstratie"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "OrganizerResource": {
+                "title": "Organizer Resource",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Climate Action"
+                    },
+                    "logo": {
+                        "type": "string",
+                        "example": "/storage/logos/climate-action.png"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "example": "climate-action"
+                    },
+                    "description": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "website": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "ThemeResource": {
+                "title": "Theme Resource",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Klimaat"
+                    },
+                    "color": {
+                        "type": "string",
+                        "example": "#00FF00"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "example": "klimaat"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Acties",
+            "description": "Acties"
+        },
+        {
+            "name": "Categories",
+            "description": "Categories"
+        },
+        {
+            "name": "Organizers",
+            "description": "Organizers"
+        },
+        {
+            "name": "Themes",
+            "description": "Themes"
+        }
+    ]
+}

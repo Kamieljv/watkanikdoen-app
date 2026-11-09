@@ -1,5 +1,5 @@
-<div class="flex flex-col justify-start flex-1 mb-5 overflow-hidden bg-white border shadow-md rounded-lg border-gray-150">
-    <div class="flex flex-wrap items-center justify-between p-5 bg-white border-b border-gray-150 sm:flex-no-wrap">
+<div class="flex flex-col justify-start flex-1 mb-5 overflow-hidden bg-white border shadow-md rounded-lg border-gray-200">
+    <div class="flex flex-wrap items-center justify-between p-5 bg-white border-b border-gray-200 sm:flex-no-wrap">
         <div class="relative flex-1">
             <h3 class="text-lg font-medium leading-6 text-gray-900">
                 {{ __("dashboard.my_reported_actions") }}
@@ -68,12 +68,12 @@
                                         </td>
                                         {{-- Date Reported --}}
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {{ Date::parse($report->created_at)->diffForHumans() }}
+                                            {{ \Carbon\Carbon::parse($report->created_at)->diffForHumans() }}
                                         </td>
                                         {{-- Status --}}
                                         @php
                                             $statusColorMap = array(
-                                                'PENDING' => 'bg-blue-100 text-[color:var(--wkid-blue-dark)]',
+                                                'PENDING' => 'bg-blue-100 text-blue-800',
                                                 'APPROVED' => 'bg-green-100 text-green-800',
                                                 'REJECTED' => 'bg-red-100 text-red-800',
                                             )
@@ -89,9 +89,9 @@
                                         {{-- Editing/Viewing --}}
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                             @if($report->status === 'APPROVED' && isset($report->actie))
-                                                <a href="{{ $report->actie->link }}" class="text-[color:var(--wkid-blue)] hover:text-[color:var(--wkid-blue-dark)]">{{ __("reports.view") }}</a>
+                                                <a href="{{ $report->actie->link }}" class="text-blue-500 hover:text-blue-700">{{ __("reports.view") }}</a>
                                             @else
-                                                <a href="{{ route('report.view', $report->id) }}" class="text-[color:var(--wkid-blue)] hover:text-[color:var(--wkid-blue-dark)]">{{ __("reports.view") }}</a>
+                                                <a href="{{ route('report.view', $report->id) }}" class="text-blue-500 hover:text-blue-700">{{ __("reports.view") }}</a>
                                             @endif
                                         </td>
                                     </tr>

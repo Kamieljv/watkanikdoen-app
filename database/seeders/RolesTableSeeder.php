@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use DB;
 use Illuminate\Database\Seeder;
 
 class RolesTableSeeder extends Seeder
 {
+
     /**
      * Auto generated seed file
      *
@@ -14,35 +14,37 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
+        
 
-
-        DB::table('roles')->delete();
-
-        DB::table('roles')->insert(array (
-            0 =>
+        \DB::table('roles')->delete();
+        
+        \DB::table('roles')->insert(array (
+            0 => 
             array (
                 'id' => 1,
                 'name' => 'admin',
-                'display_name' => 'Admin User',
+                'guard_name' => 'web',
                 'created_at' => '2017-11-21 16:23:22',
                 'updated_at' => '2017-11-21 16:23:22',
             ),
-            1 =>
+            1 => 
             array (
-                'id' => 3,
+                'id' => 2,
                 'name' => 'basic',
-                'display_name' => 'Basic Plan',
+                'guard_name' => 'web',
                 'created_at' => '2018-07-03 05:03:21',
                 'updated_at' => '2018-07-03 17:28:44',
             ),
-            2 =>
+            2 => 
             array (
-                'id' => 6,
+                'id' => 3,
                 'name' => 'cancelled',
-                'display_name' => 'Cancelled User',
+                'guard_name' => 'web',
                 'created_at' => '2018-07-03 16:28:42',
                 'updated_at' => '2018-07-03 17:28:32',
             ),
         ));
+        
+        
     }
 }

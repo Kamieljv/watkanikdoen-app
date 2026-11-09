@@ -18,19 +18,4 @@ class DashboardController extends Controller
         $notifications = auth()->user()->notifications()->get();
         return view('dashboard.index', compact('reports', 'notifications'));
     }
-
-    /**
-     * Gets statistics
-     */
-    public function getStats()
-    {
-        $acties = Actie::published()->count();
-        $users = User::verified()->count();
-        $organizers = Organizer::count();
-        return response()->json([
-            'acties' => $acties,
-            'users' => $users,
-            'organizers' => $organizers,
-        ]);
-    }
 }
