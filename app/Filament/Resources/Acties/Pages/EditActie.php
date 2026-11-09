@@ -3,10 +3,14 @@
 namespace App\Filament\Resources\Acties\Pages;
 
 use App\Filament\Resources\Acties\ActieResource;
+use App\Services\ImageGeneratorService;
 use App\Traits\HandlesImageUpload;
 use Filament\Actions\DeleteAction;
+use Filament\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
+use Filament\Support\Icons\Heroicon;
 use MatanYadaev\EloquentSpatial\Objects\Point;
+use Illuminate\Support\Facades\Response;
 
 class EditActie extends EditRecord
 {
@@ -22,6 +26,22 @@ class EditActie extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            Action::make('generateInstagramImage')
+                ->label('Genereer Instagram Afbeelding')
+                ->icon(Heroicon::OutlinedPhoto)
+                ->color('info')
+                ->action(function () {
+                    $imageGenerator = new ImageGeneratorService();
+                    $imageData = $imageGenerator->generateActieImage($this->record);
+                    
+                    $filename = 'actie-' . $this->record->id . '-' . date('YmdHis') . '.png';
+                    
+                    return Response::streamDownload(function () use ($imageData) {
+                        echo $imageData;
+                    }, $filename, [
+                        'Content-Type' => 'image/png',
+                    ]);
+                }),
             DeleteAction::make(),
         ];
     }
