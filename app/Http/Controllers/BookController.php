@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\BookShelf;
 use App\Models\Theme;
+use App\Services\BookCoverOptimizer;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Illuminate\Support\Facades\Cache;
@@ -416,7 +417,8 @@ class BookController extends Controller
     }
 
     /**
-     * Download a remote cover image and store it on the public disk under books/.
+     * Download a remote cover image and store it on the public disk under books/,
+     * converted to a small WebP (see BookCoverOptimizer).
      *
      * @param string $url
      * @param string $name Used to derive a unique file name (e.g. the ISBN or title)
@@ -436,7 +438,13 @@ class BookController extends Controller
         $filePath = 'books/' . md5($name . microtime()) . '.' . $extension;
         Storage::disk('public')->put($filePath, $response->body());
 
-        return $filePath;
+        try {
+            return app(BookCoverOptimizer::class)->optimize($filePath);
+        } catch (\Throwable $e) {
+            // Not a readable image
+            Storage::disk('public')->delete($filePath);
+            return null;
+        }
     }
 
     /**

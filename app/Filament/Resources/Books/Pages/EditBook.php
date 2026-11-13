@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Books\Pages;
 
 use App\Filament\Resources\Books\BookResource;
+use App\Services\BookCoverOptimizer;
 use App\Traits\HandlesImageUpload;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
@@ -58,7 +59,7 @@ class EditBook extends EditRecord
         $data = $this->form->getState();
         // If image upload data is present and is different, update the relationship
         if (isset($data['image_upload']) && $this->hasImageChanged($data['image_upload'])) {
-            $this->updateImage($data['image_upload']);
+            $this->updateImage(app(BookCoverOptimizer::class)->optimize($data['image_upload']));
         }
     }
 }
