@@ -29,4 +29,13 @@ return [
         'secret' => env('SPARKPOST_SECRET'),
     ],
 
+    'bigbook' => [
+        'key' => env('BIGBOOK_API_KEY'),
+        'daily_limit' => (int) env('BIGBOOK_DAILY_LIMIT', 50),
+    ],
+
+    'hardcover' => [
+        'token' => env('HARDCOVER_BEARER_TOKEN'),
+    ],
+
 ];
