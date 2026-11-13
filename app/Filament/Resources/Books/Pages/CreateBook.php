@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Books\Pages;
 
 use App\Filament\Resources\Books\BookResource;
+use App\Services\BookCoverOptimizer;
 use App\Traits\HandlesImageUpload;
 use Filament\Resources\Pages\CreateRecord;
 
@@ -38,7 +39,7 @@ class CreateBook extends CreateRecord
 
         // If image upload data is present add an image and attach it
         if (isset($data['image_upload'])) {
-            $this->attachImage($data['image_upload']);
+            $this->attachImage(app(BookCoverOptimizer::class)->optimize($data['image_upload']));
         }
     }
 }
