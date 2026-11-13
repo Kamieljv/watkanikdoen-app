@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libicu-dev \
     libjpeg62-turbo-dev \
+    libwebp-dev \
     libfreetype6-dev \
     locales \
     libzip-dev \
@@ -32,7 +33,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install extensions
 RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl intl
-RUN docker-php-ext-configure gd --enable-gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/
+RUN docker-php-ext-configure gd --enable-gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ --with-webp
 RUN docker-php-ext-install gd
 
 # Install composer and PHP packages

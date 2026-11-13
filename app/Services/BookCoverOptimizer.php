@@ -26,6 +26,10 @@ class BookCoverOptimizer
      */
     public function optimize(string $storagePath): string
     {
+        if (!function_exists('imagewebp') || !function_exists('imagecreatefromwebp')) {
+            throw new \RuntimeException('PHP GD is installed without WebP support (configure gd with --with-webp)');
+        }
+
         $disk = Storage::disk('public');
         $image = ImageManager::gd()->read($disk->path($storagePath));
 
