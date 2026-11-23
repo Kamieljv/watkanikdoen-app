@@ -77,6 +77,10 @@ class BookController extends Controller
         // Tags should be a flat array of tag names, themes should be the full theme objects
         $query->with(['themes']);
 
+        // Random order. With a seed (sent by the books page, one per visit) the order stays
+        // the same across the pages of one visit, so "load more" doesn't repeat or skip books.
+        $query->inRandomOrder($request->filled('seed') ? $request->integer('seed') : '');
+
         if ($request->limit) {
             $books = $query->limit($request->limit)->get();
         } else {

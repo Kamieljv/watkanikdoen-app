@@ -19,6 +19,8 @@
       :selected-theme-ids="themesSelected"
       :bookshelves="props.bookshelves"
       :initial-book="props.selectedBook"
+      :feedback-route="props.feedbackRoute"
+      :h-captcha-key="props.hCaptchaKey"
     />
   </div>
 </template>
@@ -49,6 +51,15 @@ const props = defineProps({
   selectedBook: {
     type: Object as PropType<Book | null>,
     default: null,
+  },
+  // For the "Stuur ons een boekentip!" item in the list
+  feedbackRoute: {
+    type: String,
+    default: "",
+  },
+  hCaptchaKey: {
+    type: String,
+    default: "",
   },
 });
 
