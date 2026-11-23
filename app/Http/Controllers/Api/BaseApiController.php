@@ -12,9 +12,6 @@ use OpenApi\Annotations as OA;
  *   version="1.0.0",
  *   title="Watkanikdoen.nl API",
  *   description="API for Watkanikdoen.nl",
- *   @OA\Contact(
- *      email="info@watkanikdoen.nl"
- *   ),
  * )
  * @OA\Server(
  *   url="/api/v1",
