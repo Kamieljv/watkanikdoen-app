@@ -39,23 +39,8 @@
         </div>
       </div>
     </div>
-    <!-- see more button -->
-    <div
-      v-if="
-        enableShowMore &&
-        hasBooks &&
-        total &&
-        perPage &&
-        total > perPage &&
-        currentPage !== lastPage &&
-        !appending
-      "
-      class="flex justify-center"
-    >
-      <button class="btn secondary" @click="loadMore">
-        {{ __("general.load_more") }}
-      </button>
-    </div>
+    <!-- Sentinel: loads the next page automatically when scrolled into view -->
+    <div v-if="canLoadMore" ref="loadMoreTrigger" aria-hidden="true"></div>
     <div v-else-if="appending" class="flex justify-center">
       <div class="custom-loader dark large"></div>
     </div>
@@ -76,6 +61,7 @@ import {
   onMounted,
   onUnmounted,
   watch,
+  useTemplateRef,
   type PropType,
 } from "vue";
 import axios from "axios";
@@ -127,6 +113,17 @@ const total = ref<number | null>(null);
 const appending = ref(false);
 
 const hasBooks = computed(() => books.value.length > 0);
+const canLoadMore = computed(
+  () =>
+    props.enableShowMore &&
+    hasBooks.value &&
+    !hasError.value &&
+    !isLoading.value &&
+    !appending.value &&
+    lastPage.value !== null &&
+    currentPage.value < lastPage.value,
+);
+const loadMoreTrigger = useTemplateRef<HTMLElement>("loadMoreTrigger");
 const filteredShelves = computed(() => {
   if (props.selectedThemeIds.length === 0) return props.bookshelves;
   return props.bookshelves.filter((shelf) =>
@@ -232,10 +229,26 @@ const onPopState = () => {
 };
 
 const loadMore = () => {
+  if (!canLoadMore.value) return;
   currentPage.value++;
   appending.value = true;
   getBooks();
 };
+
+// Start loading a bit before the bottom of the list is actually reached
+const loadMoreObserver = new IntersectionObserver(
+  (entries) => {
+    if (entries.some((entry) => entry.isIntersecting)) loadMore();
+  },
+  { rootMargin: "0px 0px 400px 0px" },
+);
+
+// The sentinel is re-rendered after each page load, so (re)observe it whenever it
+// appears; if it's still in view after loading, this immediately triggers the next page
+watch(loadMoreTrigger, (el, oldEl) => {
+  if (oldEl) loadMoreObserver.unobserve(oldEl);
+  if (el) loadMoreObserver.observe(el);
+});
 
 onMounted(() => {
   window.addEventListener("popstate", onPopState);
@@ -244,6 +257,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener("popstate", onPopState);
+  loadMoreObserver.disconnect();
 });
 
 // Watch for changes in selected themes and fetch books accordingly
