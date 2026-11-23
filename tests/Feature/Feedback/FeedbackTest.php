@@ -110,7 +110,8 @@ describe('Feedback form', function () {
     it('shows the feedback page', function () {
         $this->get(route('feedback.create'))
             ->assertOk()
-            ->assertSee('<Feedback', false);
+            ->assertSee('<MessageForm', false)
+            ->assertSee('type="feedback"', false);
     });
 
 });

@@ -149,10 +149,6 @@ app.component(
   asyncComponent(() => import("./components/partials/CopyTextField.vue")),
 );
 app.component(
-  "Feedback",
-  asyncComponent(() => import("./components/forms/Feedback.vue")),
-);
-app.component(
   "ForgotPassword",
   asyncComponent(() => import("./components/forms/ForgotPassword.vue")),
 );
@@ -163,6 +159,10 @@ app.component(
 app.component(
   "LoginRegister",
   asyncComponent(() => import("./components/apps/LoginOrRegister.vue")),
+);
+app.component(
+  "MessageForm",
+  asyncComponent(() => import("./components/forms/MessageForm.vue")),
 );
 app.component(
   "Newsletter",
