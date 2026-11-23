@@ -46,11 +46,20 @@ class BookController extends Controller
         $bookShelves = BookShelf::with(['organizer', 'themes', 'books'])
             ->get();
 
+        // Book to open in a modal right away (e.g. when clicked on the homepage)
+        $selectedBook = $request->filled('boek')
+            ? Book::with([
+                'themes',
+                'bookShelves:id,slug,organizer_id',
+                'bookShelves.organizer:id,name',
+            ])->find($request->integer('boek'))
+            : null;
+
         // SEO
         SEOTools::setTitle(__('books.title'));
         SEOTools::setDescription(__('books.sub_title'));
         SEOMeta::setKeywords(__('books.title'));
-        return view('books.index', compact('themes', 'routes', 'themes_selected_ids', 'bookShelves'));
+        return view('books.index', compact('themes', 'routes', 'themes_selected_ids', 'bookShelves', 'selectedBook'));
     }
 
     public function search(Request $request)
@@ -204,6 +213,7 @@ class BookController extends Controller
         return [
             fn(string $isbn) => $this->fetchFromOpenLibrary($isbn),
             fn(string $isbn) => $this->fetchFromHardcover($isbn),
+            fn(string $isbn) => $this->fetchFromGoogleBooks($isbn),
             fn(string $isbn) => $this->fetchFromDeSlegte($isbn),
         ];
     }
@@ -494,7 +504,10 @@ class BookController extends Controller
 
         $data = [
             'title' => $bookData['title'] ?? null,
-            'description' => $bookData['description']['value'] ?? null,
+            // OpenLibrary returns either a plain string or a {type, value} object
+            'description' => is_array($bookData['description'] ?? null)
+                ? ($bookData['description']['value'] ?? null)
+                : ($bookData['description'] ?? null),
             'year' => $bookData['publish_date'] ?? null,
             'publisher' => $bookData['publishers'][0] ?? null,
         ];
@@ -566,8 +579,8 @@ class BookController extends Controller
             'Authorization' => config('services.hardcover.token'),
         ])->post('https://api.hardcover.app/v1/graphql', [
                     'query' => '
-                query BookCoverByISBN13 {
-                    books(where: {editions: {isbn_13: {_eq: "' . $isbn . '"}}}) {
+                query BookByISBN {
+                    books(where: {editions: {_or: [{isbn_13: {_eq: "' . $isbn . '"}}, {isbn_10: {_eq: "' . $isbn . '"}}]}}) {
                         image {
                             url
                         }
@@ -595,6 +608,66 @@ class BookController extends Controller
             'year' => $book['release_year'] ?? null,
 
         ];
+    }
+
+    /**
+     * Fetch book data from the Google Books API by ISBN. Good coverage of Dutch
+     * books. Skipped without an API key: the anonymous quota is shared and
+     * usually exhausted.
+     *
+     * The cover is left out: Google only offers small, low-quality thumbnails.
+     *
+     * @see https://developers.google.com/books/docs/v1/using#WorkingVolumes
+     * @param string $isbn
+     * @return array<string, mixed>
+     */
+    protected function fetchFromGoogleBooks(string $isbn): array
+    {
+        if (empty(config('services.google_books.key'))) {
+            return [];
+        }
+
+        $response = Http::acceptJson()->timeout(10)->get('https://www.googleapis.com/books/v1/volumes', [
+            'q' => "isbn:{$isbn}",
+            'key' => config('services.google_books.key'),
+        ]);
+
+        if (!$response->successful()) {
+            Log::warning('Google Books API request failed', ['isbn' => $isbn, 'status' => $response->status()]);
+            return [];
+        }
+
+        $book = $response->json('items.0.volumeInfo');
+        if (empty($book)) {
+            return [];
+        }
+
+        return [
+            'title' => $book['title'] ?? null,
+            'description' => $this->htmlToText($book['description'] ?? null),
+            'author' => $this->joinNames($book['authors'] ?? []),
+            'publisher' => $book['publisher'] ?? null,
+            'year' => !empty($book['publishedDate']) ? (int) substr($book['publishedDate'], 0, 4) : null,
+        ];
+    }
+
+    /**
+     * Convert a (simple) HTML description to plain text, keeping paragraph breaks.
+     *
+     * @param string|null $html
+     * @return string|null
+     */
+    protected function htmlToText(?string $html): ?string
+    {
+        if (empty($html)) {
+            return null;
+        }
+
+        $text = preg_replace(['/<br\s*\/?>/i', '/<\/p>/i'], ["\n", "\n\n"], $html);
+        $text = html_entity_decode(strip_tags($text), ENT_QUOTES | ENT_HTML5);
+        $text = trim(preg_replace("/\n{3,}/", "\n\n", $text));
+
+        return $text !== '' ? $text : null;
     }
 
     /**

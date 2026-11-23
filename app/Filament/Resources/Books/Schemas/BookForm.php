@@ -57,7 +57,7 @@ class BookForm
         return $schema
             ->components([
                 Section::make('Search by title')
-                    ->description('Search OpenLibrary (or Big Book API if OpenLibrary finds nothing) by title, then pick a result to fill in the form. Missing fields are completed from OpenLibrary, Hardcover and De Slegte by ISBN.')
+                    ->description('Search OpenLibrary (or Big Book API if OpenLibrary finds nothing) by title, then pick a result to fill in the form. Missing fields are completed from OpenLibrary, Hardcover, Google Books and De Slegte by ISBN.')
                     ->schema([
                         Select::make('search_title')
                             ->label('Search by title')

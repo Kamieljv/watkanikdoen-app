@@ -9,11 +9,7 @@
             <button class="secondary-white flex items-center hover:translate-x-[0.250rem]"
                 data-umami-event="ActieWijzer banner button">
                 <p class="text-base sm:text-lg">{{ __('actiewijzer.start') }}</p>
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 h-5 mr-2 ml-1" style="transform: rotate(180deg);">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                </svg>
+                @svg('custom-arrow-right', 'w-5 h-5 ml-2')
             </button>
         </a>
     </div>

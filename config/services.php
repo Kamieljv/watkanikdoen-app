@@ -38,4 +38,8 @@ return [
         'token' => env('HARDCOVER_BEARER_TOKEN'),
     ],
 
+    'google_books' => [
+        'key' => env('GOOGLE_BOOKS_API_KEY'),
+    ],
+
 ];

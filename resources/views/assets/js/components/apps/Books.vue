@@ -18,13 +18,14 @@
       :search-route="props.routes['books.search']"
       :selected-theme-ids="themesSelected"
       :bookshelves="props.bookshelves"
+      :initial-book="props.selectedBook"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, inject } from "vue";
-import { Theme, BookShelf } from "../../models";
+import { ref, type PropType } from "vue";
+import { Theme, Book, BookShelf } from "../../models";
 import ThemeSelector from "../partials/ThemeSelector.vue";
 import BookList from "../partials/BookList.vue";
 
@@ -43,6 +44,11 @@ const props = defineProps({
   bookshelves: {
     type: Array as () => BookShelf[],
     default: () => [],
+  },
+  // Book whose modal is opened on load (from the ?boek=ID query parameter)
+  selectedBook: {
+    type: Object as PropType<Book | null>,
+    default: null,
   },
 });
 

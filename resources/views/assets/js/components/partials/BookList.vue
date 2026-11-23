@@ -21,13 +21,13 @@
             </div>
             <div v-else class="flex flex-col gap-5 mx-auto mt-12">
               <template
-                v-for="(item, index) in interleavedItems"
+                v-for="item in interleavedItems"
                 :key="item.type + '-' + item.id"
               >
                 <BookItemList
                   v-if="item.type === 'book'"
                   :book="item.data"
-                  @click="currentBook = item.data"
+                  @click="openBook(item.data)"
                 />
                 <BookShelfSmall
                   v-else-if="item.type === 'shelf'"
@@ -39,23 +39,8 @@
         </div>
       </div>
     </div>
-    <!-- see more button -->
-    <div
-      v-if="
-        enableShowMore &&
-        hasBooks &&
-        total &&
-        perPage &&
-        total > perPage &&
-        currentPage !== lastPage &&
-        !appending
-      "
-      class="flex justify-center"
-    >
-      <button class="btn secondary" @click="loadMore">
-        {{ __("general.load_more") }}
-      </button>
-    </div>
+    <!-- Sentinel: loads the next page automatically when scrolled into view -->
+    <div v-if="canLoadMore" ref="loadMoreTrigger" aria-hidden="true"></div>
     <div v-else-if="appending" class="flex justify-center">
       <div class="custom-loader dark large"></div>
     </div>
@@ -64,13 +49,21 @@
       v-if="currentBook"
       :book="currentBook"
       :open="currentBook !== null"
-      @update:visible="currentBook = null"
+      @update:visible="closeBook"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from "vue";
+import {
+  ref,
+  computed,
+  onMounted,
+  onUnmounted,
+  watch,
+  useTemplateRef,
+  type PropType,
+} from "vue";
 import axios from "axios";
 import debounce from "lodash/debounce";
 import BookItemList from "../partials/BookItemList.vue";
@@ -102,10 +95,15 @@ const props = defineProps({
     type: Array as () => BookShelf[],
     default: () => [],
   },
+  // Book whose modal is opened on load
+  initialBook: {
+    type: Object as PropType<Book | null>,
+    default: null,
+  },
 });
 
 const books = ref<Book[]>([]);
-const currentBook = ref<Book | null>(null);
+const currentBook = ref<Book | null>(props.initialBook);
 const isLoading = ref(true);
 const hasError = ref(false);
 const currentPage = ref(1);
@@ -115,6 +113,17 @@ const total = ref<number | null>(null);
 const appending = ref(false);
 
 const hasBooks = computed(() => books.value.length > 0);
+const canLoadMore = computed(
+  () =>
+    props.enableShowMore &&
+    hasBooks.value &&
+    !hasError.value &&
+    !isLoading.value &&
+    !appending.value &&
+    lastPage.value !== null &&
+    currentPage.value < lastPage.value,
+);
+const loadMoreTrigger = useTemplateRef<HTMLElement>("loadMoreTrigger");
 const filteredShelves = computed(() => {
   if (props.selectedThemeIds.length === 0) return props.bookshelves;
   return props.bookshelves.filter((shelf) =>
@@ -183,14 +192,72 @@ const getBooks = debounce(() => {
     });
 }, 500);
 
+// The open book is reflected in the URL as ?boek=ID, so it can be shared as a link
+const BOOK_PARAM = "boek";
+
+const urlWithBook = (id: number | null) => {
+  const url = new URL(window.location.href);
+  if (id) url.searchParams.set(BOOK_PARAM, String(id));
+  else url.searchParams.delete(BOOK_PARAM);
+  return url;
+};
+
+const openBook = (book: Book) => {
+  currentBook.value = book;
+  // New history entry, so the back button closes the modal
+  window.history.pushState({ bookId: book.id }, "", urlWithBook(book.id));
+};
+
+const closeBook = () => {
+  if (window.history.state?.bookId) {
+    // Opened from the list: go back to the entry without ?boek (onPopState closes the modal)
+    window.history.back();
+    return;
+  }
+  // Opened via a link (?boek=ID on load): drop the parameter, so a refresh doesn't reopen it
+  currentBook.value = null;
+  window.history.replaceState(window.history.state, "", urlWithBook(null));
+};
+
+// Back/forward: show the book from the URL, if any
+const onPopState = () => {
+  const id = Number(new URL(window.location.href).searchParams.get(BOOK_PARAM));
+  currentBook.value =
+    (id &&
+      [props.initialBook, ...books.value].find((book) => book?.id === id)) ||
+    null;
+};
+
 const loadMore = () => {
+  if (!canLoadMore.value) return;
   currentPage.value++;
   appending.value = true;
   getBooks();
 };
 
+// Start loading a bit before the bottom of the list is actually reached
+const loadMoreObserver = new IntersectionObserver(
+  (entries) => {
+    if (entries.some((entry) => entry.isIntersecting)) loadMore();
+  },
+  { rootMargin: "0px 0px 400px 0px" },
+);
+
+// The sentinel is re-rendered after each page load, so (re)observe it whenever it
+// appears; if it's still in view after loading, this immediately triggers the next page
+watch(loadMoreTrigger, (el, oldEl) => {
+  if (oldEl) loadMoreObserver.unobserve(oldEl);
+  if (el) loadMoreObserver.observe(el);
+});
+
 onMounted(() => {
+  window.addEventListener("popstate", onPopState);
   getBooks();
+});
+
+onUnmounted(() => {
+  window.removeEventListener("popstate", onPopState);
+  loadMoreObserver.disconnect();
 });
 
 // Watch for changes in selected themes and fetch books accordingly
