@@ -179,6 +179,10 @@ h6 {
   & p {
     margin-bottom: 1em;
   }
+
+  a {
+    @apply font-medium text-primary underline transition duration-150 ease-in-out hover:text-blue-700;
+  }
 }
 
 .gradient-border-b,
