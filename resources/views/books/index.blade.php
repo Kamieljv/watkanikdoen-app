@@ -20,6 +20,7 @@
 
         <books :routes="{{ json_encode($routes) }}" :themes="{{ $themes }}"
             :themes-selected-ids="{{ json_encode($themes_selected_ids) }}" :bookshelves="{{ $bookShelves }}"
-            :selected-book="{{ json_encode($selectedBook) }}" />
+            :selected-book="{{ json_encode($selectedBook) }}"
+            feedback-route="{{ route('feedback.store') }}" h-captcha-key="{{ env('H_CAPTCHA_KEY') }}" />
     </div>
 @endsection

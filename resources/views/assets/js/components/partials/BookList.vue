@@ -33,6 +33,11 @@
                   v-else-if="item.type === 'shelf'"
                   :shelf="item.data"
                 />
+                <BookTipItem
+                  v-else-if="item.type === 'tip'"
+                  :feedback-route="props.feedbackRoute"
+                  :h-captcha-key="props.hCaptchaKey"
+                />
               </template>
             </div>
           </div>
@@ -68,6 +73,7 @@ import axios from "axios";
 import debounce from "lodash/debounce";
 import BookItemList from "../partials/BookItemList.vue";
 import BookShelfSmall from "../partials/BookShelfSmall.vue";
+import BookTipItem from "../partials/BookTipItem.vue";
 import BookModal from "../partials/BookModal.vue";
 import { Book, BookShelf } from "../../models";
 import { useTranslate } from "@composables";
@@ -100,7 +106,19 @@ const props = defineProps({
     type: Object as PropType<Book | null>,
     default: null,
   },
+  // Shows a "Stuur ons een boekentip!" item in the list when given
+  feedbackRoute: {
+    type: String,
+    default: "",
+  },
+  hCaptchaKey: {
+    type: String,
+    default: "",
+  },
 });
+
+// Position of the book tip item: after this many books (or at the end, if there are fewer)
+const TIP_AFTER_BOOKS = 7;
 
 const books = ref<Book[]>([]);
 const currentBook = ref<Book | null>(props.initialBook);
@@ -135,12 +153,18 @@ const interleavedItems = computed(() => {
   const items: Array<
     | { type: "book"; data: Book; id: number }
     | { type: "shelf"; data: BookShelf; id: number }
+    | { type: "tip"; id: number }
   > = [];
+  const showTip = props.feedbackRoute !== "";
   let shelfIndex = 0;
 
   books.value.forEach((book, index) => {
     // Add the book
     items.push({ type: "book", data: book, id: book.id });
+
+    if (showTip && index + 1 === TIP_AFTER_BOOKS) {
+      items.push({ type: "tip", id: 0 });
+    }
 
     // After every 5 books, add a bookshelf if available
     if ((index + 1) % 5 === 0 && shelfIndex < filteredShelves.value.length) {
@@ -152,6 +176,10 @@ const interleavedItems = computed(() => {
       shelfIndex++;
     }
   });
+
+  if (showTip && books.value.length < TIP_AFTER_BOOKS) {
+    items.push({ type: "tip", id: 0 });
+  }
 
   return items;
 });
