@@ -27,7 +27,7 @@
                 <BookItemList
                   v-if="item.type === 'book'"
                   :book="item.data"
-                  @click="currentBook = item.data"
+                  @click="openBook(item.data)"
                 />
                 <BookShelfSmall
                   v-else-if="item.type === 'shelf'"
@@ -70,7 +70,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch, type PropType } from "vue";
+import {
+  ref,
+  computed,
+  onMounted,
+  onUnmounted,
+  watch,
+  type PropType,
+} from "vue";
 import axios from "axios";
 import debounce from "lodash/debounce";
 import BookItemList from "../partials/BookItemList.vue";
@@ -188,14 +195,40 @@ const getBooks = debounce(() => {
     });
 }, 500);
 
-// Close the modal and drop ?boek=ID from the URL, so a refresh doesn't reopen it
-const closeBook = () => {
-  currentBook.value = null;
+// The open book is reflected in the URL as ?boek=ID, so it can be shared as a link
+const BOOK_PARAM = "boek";
+
+const urlWithBook = (id: number | null) => {
   const url = new URL(window.location.href);
-  if (url.searchParams.has("boek")) {
-    url.searchParams.delete("boek");
-    window.history.replaceState(window.history.state, "", url);
+  if (id) url.searchParams.set(BOOK_PARAM, String(id));
+  else url.searchParams.delete(BOOK_PARAM);
+  return url;
+};
+
+const openBook = (book: Book) => {
+  currentBook.value = book;
+  // New history entry, so the back button closes the modal
+  window.history.pushState({ bookId: book.id }, "", urlWithBook(book.id));
+};
+
+const closeBook = () => {
+  if (window.history.state?.bookId) {
+    // Opened from the list: go back to the entry without ?boek (onPopState closes the modal)
+    window.history.back();
+    return;
   }
+  // Opened via a link (?boek=ID on load): drop the parameter, so a refresh doesn't reopen it
+  currentBook.value = null;
+  window.history.replaceState(window.history.state, "", urlWithBook(null));
+};
+
+// Back/forward: show the book from the URL, if any
+const onPopState = () => {
+  const id = Number(new URL(window.location.href).searchParams.get(BOOK_PARAM));
+  currentBook.value =
+    (id &&
+      [props.initialBook, ...books.value].find((book) => book?.id === id)) ||
+    null;
 };
 
 const loadMore = () => {
@@ -205,7 +238,12 @@ const loadMore = () => {
 };
 
 onMounted(() => {
+  window.addEventListener("popstate", onPopState);
   getBooks();
+});
+
+onUnmounted(() => {
+  window.removeEventListener("popstate", onPopState);
 });
 
 // Watch for changes in selected themes and fetch books accordingly
