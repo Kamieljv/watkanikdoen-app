@@ -38,7 +38,7 @@
 
         @if($page->slug === 'contact')
             <div id="app">
-                <MessageForm
+                <message-form
                     type="contact"
                     :routes="{{ json_encode(['store' => route('contact.store')]) }}"
                     h-captcha-key="{{ env('H_CAPTCHA_KEY') }}"

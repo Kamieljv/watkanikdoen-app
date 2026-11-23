@@ -94,11 +94,13 @@ describe('Contact form', function () {
 
         $this->get(route('page', 'contact'))
             ->assertOk()
+            // Kebab-case: the browser lowercases in-DOM tags, so <MessageForm> would not resolve
+            ->assertSee('<message-form', false)
             ->assertSee('type="contact"', false);
 
         $this->get(route('page', 'over-ons'))
             ->assertOk()
-            ->assertDontSee('<MessageForm', false);
+            ->assertDontSee('<message-form', false);
     });
 
 });
