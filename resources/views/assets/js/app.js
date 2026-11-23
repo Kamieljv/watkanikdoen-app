@@ -153,6 +153,10 @@ app.component(
   asyncComponent(() => import("./components/forms/ForgotPassword.vue")),
 );
 app.component(
+  "HomeAgenda",
+  asyncComponent(() => import("./components/apps/HomeAgenda.vue")),
+);
+app.component(
   "LoginRegister",
   asyncComponent(() => import("./components/apps/LoginOrRegister.vue")),
 );
