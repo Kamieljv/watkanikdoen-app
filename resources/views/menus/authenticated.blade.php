@@ -6,11 +6,8 @@
         <a href="{{ route('organizers.index') }}" class="hidden lg:block shrink-0 text-base font-medium">
             {{ __("menus.organizers") }}
         </a>
-        <a href="/over-ons" class="hidden lg:block shrink-0 text-base font-medium">
-            {{ __("menus.about_us") }}
-        </a>
-        <a href="/word-vrijwilliger" class="hidden lg:block shrink-0 text-base font-medium">
-            {{ __("menus.word_vrijwilliger") }}
+        <a href="/boeken" class="hidden lg:block shrink-0 text-base font-medium">
+            {{ __("menus.books") }}
         </a>
         <a href="{{ config('app.donate_link') }}" class="hidden lg:block text-base font-medium" target="_blank">
             {{ __("menus.donate") }}
@@ -25,9 +22,11 @@
     </div>
 
     <div class="flex sm:relative items-center sm:ml-4">
-        <div class="flex justify-end flex-1 lg:hidden">
-            <button @click="mobileMenuOpen = true" type="button"
-                class="inline-flex items-center justify-center p-2 transition duration-150 ease-in-out rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500">
+        {{-- Hamburger: opens the menu panel (menus/authenticated-mobile), on all screen sizes --}}
+        <div class="header-icon flex justify-end flex-1">
+            <button @click="mobileMenuOpen = true" type="button" aria-label="{{ __('menus.more') }}"
+                aria-haspopup="true" x-bind:aria-expanded="mobileMenuOpen"
+                class="inline-flex items-center justify-center p-2 cursor-pointer transition duration-150 ease-in-out rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500">
                 <svg class="w-6 h-6" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path>
                 </svg>
@@ -50,7 +49,8 @@
                     @else
                         <div
                             class="flex items-center justify-center text-xl w-10 h-10 rounded-full text-white bg-[color:var(--wkid-pink)]">
-                            {{ substr(auth()->user()->name, 0, 1) }}</div>
+                            {{ substr(auth()->user()->name, 0, 1) }}
+                        </div>
                     @endif
                 </button>
             </div>

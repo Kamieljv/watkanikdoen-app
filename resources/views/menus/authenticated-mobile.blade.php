@@ -1,8 +1,11 @@
-<div x-cloak x-show="mobileMenuOpen" x-transition:enter="duration-300 ease-out scale-100"
-    x-transition:enter-start="opacity-50 scale-110" x-transition:enter-end="opacity-100 scale-100"
-    x-transition:leave="transition duration-75 ease-in scale-100" x-transition:leave-start="opacity-100 scale-100"
-    x-transition:leave-end="opacity-0 scale-100"
-    class="absolute top-2 right-2 left-[20%] sm:min-w-[250px] sm:left-auto shadow-lg rounded-lg overflow-hidden transition origin-top transform lg:hidden">
+{{-- Menu panel for logged-in users. Opened by the hamburger in menus/authenticated on all screen sizes;
+     items that are already in the header bar at that size are hidden here. --}}
+<div x-cloak x-show="mobileMenuOpen" @click.outside="mobileMenuOpen = false"
+    @keydown.escape.window="mobileMenuOpen = false" x-transition:enter="duration-300 ease-out"
+    x-transition:enter-start="opacity-50" x-transition:enter-end="opacity-100"
+    x-transition:leave="transition duration-75 ease-in" x-transition:leave-start="opacity-100"
+    x-transition:leave-end="opacity-0"
+    class="absolute top-2 right-2 left-[20%] sm:min-w-[250px] sm:left-auto lg:right-[max(0.5rem,calc((100%-72rem)/2+1.5rem))] text-left shadow-lg rounded-lg overflow-hidden transition origin-top-right transform">
     <div class="bg-white divide-y-2 shadow-xs divide-gray-50">
         <div class="pt-6 pb-6">
             <div class="absolute right-4 top-4">
@@ -17,15 +20,21 @@
             <div class="mt-8">
                 <nav class="grid row-gap-8">
                     <a href="/acties"
-                        class="flex items-center px-8 py-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">
+                        class="lg:hidden flex items-center px-8 py-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">
                         <div class="text-base font-medium leading-6 text-gray-900">
                             {{__("menus.acties")}}
                         </div>
                     </a>
                     <a href="{{route('organizers.index')}}"
-                        class="flex items-center px-8 py-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">
+                        class="lg:hidden flex items-center px-8 py-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">
                         <div class="text-base font-medium leading-6 text-gray-900">
                             {{__("menus.organizers")}}
+                        </div>
+                    </a>
+                    <a href="/boeken"
+                        class="lg:hidden flex items-center px-8 py-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">
+                        <div class="text-base font-medium leading-6 text-gray-900">
+                            {{__("menus.books")}}
                         </div>
                     </a>
                     <a href="/over-ons"
@@ -47,13 +56,19 @@
                         </div>
                     </a>
                     <a href="{{ config('app.donate_link') }}"
-                        class="flex items-center px-8 py-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50"
+                        class="lg:hidden flex items-center px-8 py-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50"
                         target="_blank">
                         <div class="text-base font-medium leading-6 text-gray-900">
                             {{__('menus.donate')}}
                         </div>
                     </a>
-                    <div class="px-8 pt-6">
+                    <a href="/contact"
+                        class="flex items-center px-8 py-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">
+                        <div class="text-base font-medium leading-6 text-gray-900">
+                            {{__("menus.contact")}}
+                        </div>
+                    </a>
+                    <div class="md:hidden px-8 pt-6">
                         <span class="flex w-full rounded-md shadow-sm">
                             <a href="{{ route('report.landing') }}"
                                 class="flex items-center justify-center w-full px-4 py-3 text-base font-medium leading-6 text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-blue-600 hover:bg-blue-500"
