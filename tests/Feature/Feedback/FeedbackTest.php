@@ -3,11 +3,12 @@
 use App\Models\Feedback;
 use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Routing\Middleware\ThrottleRequests;
 
 uses(RefreshDatabase::class);
 
 beforeEach(function () {
-    $this->withoutMiddleware(VerifyCsrfToken::class);
+    $this->withoutMiddleware([VerifyCsrfToken::class, ThrottleRequests::class]);
 });
 
 
@@ -80,6 +81,36 @@ describe('Feedback form', function () {
         $response->assertSessionHasErrors('message');
 
         expect(Feedback::count())->toBe(0);
+    });
+
+    it('returns json when submitted from the feedback component', function () {
+        $response = $this->postJson(route('feedback.store'), [
+            'message' => 'Submitted via the Vue form.',
+        ]);
+
+        $response->assertCreated()->assertJson(['status' => 'created']);
+
+        $this->assertDatabaseHas('feedback', [
+            'message' => 'Submitted via the Vue form.',
+        ]);
+    });
+
+    it('requires an hcaptcha token in production', function () {
+        app()->detectEnvironment(fn () => 'production');
+
+        $response = $this->postJson(route('feedback.store'), [
+            'message' => 'No captcha here.',
+        ]);
+
+        $response->assertUnprocessable()->assertJsonValidationErrors('h-captcha-token');
+
+        expect(Feedback::count())->toBe(0);
+    });
+
+    it('shows the feedback page', function () {
+        $this->get(route('feedback.create'))
+            ->assertOk()
+            ->assertSee('<Feedback', false);
     });
 
 });

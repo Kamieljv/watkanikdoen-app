@@ -2,8 +2,6 @@
 
 namespace App\Filament\Resources\Feedback;
 
-use App\Filament\Resources\Feedback\Pages\CreateFeedback;
-use App\Filament\Resources\Feedback\Pages\EditFeedback;
 use App\Filament\Resources\Feedback\Pages\ListFeedback;
 use App\Filament\Resources\Feedback\Pages\ViewFeedback;
 use App\Filament\Resources\Feedback\Schemas\FeedbackForm;

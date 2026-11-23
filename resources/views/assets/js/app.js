@@ -149,6 +149,10 @@ app.component(
   asyncComponent(() => import("./components/partials/CopyTextField.vue")),
 );
 app.component(
+  "Feedback",
+  asyncComponent(() => import("./components/forms/Feedback.vue")),
+);
+app.component(
   "ForgotPassword",
   asyncComponent(() => import("./components/forms/ForgotPassword.vue")),
 );

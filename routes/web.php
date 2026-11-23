@@ -89,6 +89,10 @@ Route::get('subscriber/delete', [SubscriberController::class, 'delete'])->name('
 Route::get('subscriber/verify/{id}/{hash}', [SubscriberController::class, 'verify'])->name('subscribers.verify');
 Route::get('subscriber/verified', [SubscriberController::class, 'verified'])->name('subscribers.verified');
 
+// Feedback forms
+Route::get('/feedback', [FeedbackController::class, 'create'])->name('feedback.create');
+Route::post('/feedback', [FeedbackController::class, 'store'])->middleware('throttle:5,1')->name('feedback.store');
+
 // iCal route
 Route::get('ical/feed', [ICalController::class, 'generate'])->name('ical.feed');
 
@@ -124,6 +128,3 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth', 'xss']], function () 
     Route::post('notification/read/{id}', [NotificationController::class, 'read'])->name('notification.read');
 });
 
-// Feedback forms
-Route::get('/feedback', [FeedbackController::class, 'create'])->name('feedback.create');
-Route::post('/feedback', [FeedbackController::class, 'store'])->middleware('throttle:5,1')->name('feedback.store');
