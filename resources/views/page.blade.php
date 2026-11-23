@@ -29,6 +29,9 @@
                 @endif
             </div>
         </article>
+        @if($page->slug === 'contact')
+            @include('feedback.form')
+        @endif
     </div>
 
 @endsection

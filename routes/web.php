@@ -18,6 +18,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookShelfController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ICalController;
 use App\Http\Controllers\LanguageController;
@@ -88,6 +89,10 @@ Route::get('subscriber/delete', [SubscriberController::class, 'delete'])->name('
 Route::get('subscriber/verify/{id}/{hash}', [SubscriberController::class, 'verify'])->name('subscribers.verify');
 Route::get('subscriber/verified', [SubscriberController::class, 'verified'])->name('subscribers.verified');
 
+// Feedback forms
+Route::get('/feedback', [FeedbackController::class, 'create'])->name('feedback.create');
+Route::post('/feedback', [FeedbackController::class, 'store'])->middleware('throttle:5,1')->name('feedback.store');
+
 // iCal route
 Route::get('ical/feed', [ICalController::class, 'generate'])->name('ical.feed');
 
@@ -122,3 +127,4 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth', 'xss']], function () 
     // Notifications
     Route::post('notification/read/{id}', [NotificationController::class, 'read'])->name('notification.read');
 });
+
