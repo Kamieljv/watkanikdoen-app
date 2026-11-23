@@ -21,7 +21,7 @@
             </div>
             <div v-else class="flex flex-col gap-5 mx-auto mt-12">
               <template
-                v-for="(item, index) in interleavedItems"
+                v-for="item in interleavedItems"
                 :key="item.type + '-' + item.id"
               >
                 <BookItemList
@@ -64,13 +64,13 @@
       v-if="currentBook"
       :book="currentBook"
       :open="currentBook !== null"
-      @update:visible="currentBook = null"
+      @update:visible="closeBook"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from "vue";
+import { ref, computed, onMounted, watch, type PropType } from "vue";
 import axios from "axios";
 import debounce from "lodash/debounce";
 import BookItemList from "../partials/BookItemList.vue";
@@ -102,10 +102,15 @@ const props = defineProps({
     type: Array as () => BookShelf[],
     default: () => [],
   },
+  // Book whose modal is opened on load
+  initialBook: {
+    type: Object as PropType<Book | null>,
+    default: null,
+  },
 });
 
 const books = ref<Book[]>([]);
-const currentBook = ref<Book | null>(null);
+const currentBook = ref<Book | null>(props.initialBook);
 const isLoading = ref(true);
 const hasError = ref(false);
 const currentPage = ref(1);
@@ -182,6 +187,16 @@ const getBooks = debounce(() => {
       appending.value = false;
     });
 }, 500);
+
+// Close the modal and drop ?boek=ID from the URL, so a refresh doesn't reopen it
+const closeBook = () => {
+  currentBook.value = null;
+  const url = new URL(window.location.href);
+  if (url.searchParams.has("boek")) {
+    url.searchParams.delete("boek");
+    window.history.replaceState(window.history.state, "", url);
+  }
+};
 
 const loadMore = () => {
   currentPage.value++;

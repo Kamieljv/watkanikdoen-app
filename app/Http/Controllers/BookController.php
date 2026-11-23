@@ -46,11 +46,20 @@ class BookController extends Controller
         $bookShelves = BookShelf::with(['organizer', 'themes', 'books'])
             ->get();
 
+        // Book to open in a modal right away (e.g. when clicked on the homepage)
+        $selectedBook = $request->filled('boek')
+            ? Book::with([
+                'themes',
+                'bookShelves:id,slug,organizer_id',
+                'bookShelves.organizer:id,name',
+            ])->find($request->integer('boek'))
+            : null;
+
         // SEO
         SEOTools::setTitle(__('books.title'));
         SEOTools::setDescription(__('books.sub_title'));
         SEOMeta::setKeywords(__('books.title'));
-        return view('books.index', compact('themes', 'routes', 'themes_selected_ids', 'bookShelves'));
+        return view('books.index', compact('themes', 'routes', 'themes_selected_ids', 'bookShelves', 'selectedBook'));
     }
 
     public function search(Request $request)

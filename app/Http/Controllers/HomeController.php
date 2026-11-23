@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Actie;
+use App\Models\Book;
 use App\Models\Category;
 use App\Models\Organizer;
 use App\Models\Theme;
@@ -20,6 +21,12 @@ class HomeController extends Controller
         $themes = Theme::orderBy('name', 'ASC')->get();
         $categories = Category::orderBy('name', 'ASC')->get();
 
+        // Random selection of books (with a cover) for the books block
+        $books = Book::whereHas('image', fn ($q) => $q->where('file_type', 'image'))
+            ->inRandomOrder()
+            ->limit(6)
+            ->get();
+
         // Platform Statistics
         $stats = [
             'acties' => Actie::published()->count(),
@@ -30,6 +37,6 @@ class HomeController extends Controller
         // SEO
         SEOTools::setTitle('Home' . ' | ' . config('brand.title'));
 
-        return view('home', compact('actieRoutes', 'organizerRoutes', 'bookRoutes', 'stats'));
+        return view('home', compact('actieRoutes', 'organizerRoutes', 'bookRoutes', 'books', 'stats'));
     }
 }
