@@ -117,6 +117,9 @@ const props = defineProps({
   },
 });
 
+// Seed for the random order of the books: one per visit, so every page uses the same order
+const randomSeed = Math.floor(Math.random() * 1_000_000_000);
+
 // Position of the book tip item: after this many books (or at the end, if there are fewer)
 const TIP_AFTER_BOOKS = 7;
 
@@ -194,6 +197,7 @@ const getBooks = debounce(() => {
         themes: props.selectedThemeIds,
         page: currentPage.value,
         limit: props.max,
+        seed: randomSeed,
       },
     })
     .then((response) => {
