@@ -153,14 +153,6 @@ app.component(
   asyncComponent(() => import("./components/forms/ForgotPassword.vue")),
 );
 app.component(
-  "HomeBooks",
-  asyncComponent(() => import("./components/apps/HomeBooks.vue")),
-);
-app.component(
-  "HomeStraatOp",
-  asyncComponent(() => import("./components/apps/HomeStraatOp.vue")),
-);
-app.component(
   "LoginRegister",
   asyncComponent(() => import("./components/apps/LoginOrRegister.vue")),
 );
