@@ -18,7 +18,6 @@ return [
     'by' => 'Door',
     'written_by' => 'Geschreven door ',
     'organized_by' => 'Georganiseerd door ',
-    'back_to_home' => 'Terug naar Home',
     'about_organizer' => 'Over de organisator',
     'about_organizers' => 'Over de organisatoren',
     'details' => 'Details',

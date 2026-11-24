@@ -4,7 +4,7 @@
     <div class="max-w-6xl mx-auto mt-10 px-5 lg:px-0 flex">
         <a href="{{ route('home') }}" class="flex items-center text-sm font-bold cursor-pointer text-gray-700">
             @svg('custom-arrow-left', 'w-4 h-4 mr-2')
-            {{ __('acties.back_to_home') }}
+            {{ __('general.back_to_home') }}
         </a>
     </div>
     @if ($isAdmin)
@@ -31,8 +31,7 @@
                             <!-- Image and tags -->
                             <div class="relative w-full h-48">
                                 @if ($actie->image_url)
-                                    <img class="object-cover w-full h-full" src="{{ $actie->image_url }}"
-                                        alt="">
+                                    <img class="object-cover w-full h-full" src="{{ $actie->image_url }}" alt="">
                                 @else
                                     <div
                                         class="h-full bg-linear-to-r from-(--wkid-pink-light) to-blue-400 text-white flex items-center justify-center">
@@ -115,23 +114,24 @@
                                 @endif
                                 <div class="space-y-1">
                                     @foreach ($actie->externe_link as $externe_link)
-                                        <?php
+                                                                    <?php
                                         preg_match('/(http(s)?:[\\/]+)?([a-z0-9.\-_]+)[\\/]?/', strtolower($externe_link), $label);
                                         if (substr($externe_link, 0, 4) != 'http') {
                                             $externe_link = 'https://' . $externe_link;
                                         }
-                                        ?>
-                                        <a href="{{ $externe_link }}" target="_blank"
-                                            class="w-full inline-flex items-center justify-center space-x-1 px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
-                                            @svg('antdesign-link-o', ['class' => 'flex-nowrap flex-shrink-0', 'style' => 'width: 20px; height: 20px'])
-                                            <p class="truncate">
-                                                {{ $label ? str_replace('www.', '', $label[3]) : $externe_link }}</p>
-                                        </a>
+                                                                            ?>
+                                                                    <a href="{{ $externe_link }}" target="_blank"
+                                                                        class="w-full inline-flex items-center justify-center space-x-1 px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
+                                                                        @svg('antdesign-link-o', ['class' => 'flex-nowrap flex-shrink-0', 'style' => 'width: 20px; height: 20px'])
+                                                                        <p class="truncate">
+                                                                            {{ $label ? str_replace('www.', '', $label[3]) : $externe_link }}
+                                                                        </p>
+                                                                    </a>
                                     @endforeach
                                     @if ($actie->start_time && $actie->end_time && !$actie->afgelopen)
-                                        <a href="{{ route('ical.actie', $actie->slug) }}" target="_blank" class="w-full inline-flex items-center justify-center space-x-1 px-4 py-2 text-base font-medium leading-6 text-gray-800 whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-gray-200 hover:bg-gray-300"
-                                            data-umami-event="Add to calendar button (mobile)"
-                                        >
+                                        <a href="{{ route('ical.actie', $actie->slug) }}" target="_blank"
+                                            class="w-full inline-flex items-center justify-center space-x-1 px-4 py-2 text-base font-medium leading-6 text-gray-800 whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-gray-200 hover:bg-gray-300"
+                                            data-umami-event="Add to calendar button (mobile)">
                                             @svg('antdesign-calendar-o', ['class' => 'flex-nowrap flex-shrink-0', 'style' => 'width: 20px; height: 20px'])
                                             <p class="truncate">{{ __('acties.add_to_calendar') }}</p>
                                         </a>
@@ -159,23 +159,24 @@
                             </div>
                             <div class="space-y-1">
                                 @foreach ($actie->externe_link as $externe_link)
-                                    <?php
+                                                            <?php
                                     preg_match('/(http(s)?:[\\/]+)?([a-z0-9.\-_]+)[\\/]?/', strtolower($externe_link), $label);
                                     if (substr($externe_link, 0, 4) != 'http') {
                                         $externe_link = 'https://' . $externe_link;
                                     }
-                                    ?>
-                                    <a href="{{ $externe_link }}" target="_blank"
-                                        class="w-full inline-flex items-center justify-center space-x-1 px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
-                                        @svg('antdesign-link-o', ['class' => 'flex-nowrap flex-shrink-0', 'style' => 'width: 20px; height: 20px'])
-                                        <p class="truncate">
-                                            {{ $label ? str_replace('www.', '', $label[3]) : $externe_link }}</p>
-                                    </a>
+                                                                    ?>
+                                                            <a href="{{ $externe_link }}" target="_blank"
+                                                                class="w-full inline-flex items-center justify-center space-x-1 px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
+                                                                @svg('antdesign-link-o', ['class' => 'flex-nowrap flex-shrink-0', 'style' => 'width: 20px; height: 20px'])
+                                                                <p class="truncate">
+                                                                    {{ $label ? str_replace('www.', '', $label[3]) : $externe_link }}
+                                                                </p>
+                                                            </a>
                                 @endforeach
                                 @if ($actie->start_time && $actie->end_time && !$actie->afgelopen)
-                                    <a href="{{ route('ical.actie', $actie->slug) }}" target="_blank" class="w-full inline-flex items-center justify-center space-x-1 px-4 py-2 text-base font-medium leading-6 text-gray-800 whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-gray-200 hover:bg-gray-300"
-                                        data-umami-event="Add to calendar button (desktop)"    
-                                    >
+                                    <a href="{{ route('ical.actie', $actie->slug) }}" target="_blank"
+                                        class="w-full inline-flex items-center justify-center space-x-1 px-4 py-2 text-base font-medium leading-6 text-gray-800 whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-gray-200 hover:bg-gray-300"
+                                        data-umami-event="Add to calendar button (desktop)">
                                         @svg('antdesign-calendar-o', ['class' => 'flex-nowrap flex-shrink-0', 'style' => 'width: 20px; height: 20px'])
                                         <p class="truncate">{{ __('acties.add_to_calendar') }}</p>
                                     </a>
@@ -208,13 +209,12 @@
                                         title="{{ __('acties.share_via') . " WhatsApp"}}"
                                         data-umami-event="WhatsApp share of actie">
                                         @svg('bxl-whatsapp', ['class' => 'w-7 h-7'])
-                                    </a>                                    
+                                    </a>
                                 @endif
                                 <button
                                     onclick="navigator.clipboard.writeText(window.location.href); this.classList.add('bg-green-600'); setTimeout(() => this.classList.remove('bg-green-600'), 1000)"
                                     class="w-1/4 inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-gray-500 hover:bg-gray-600"
-                                    title="{{ __('acties.copy_link') }}"
-                                    data-umami-event="Copy link of actie">
+                                    title="{{ __('acties.copy_link') }}" data-umami-event="Copy link of actie">
                                     @svg('clarity-copy-line', ['class' => 'w-5 h-5', 'title' => __('acties.copy_link')])
                                 </button>
                             </div>
@@ -241,8 +241,7 @@
                                     <div class="flex flex-row items-center">
                                         <div class="flex-shrink-0">
                                             @if ($organizer->image_url)
-                                                <img class="w-10 h-10 rounded-full"
-                                                    src="{{ $organizer->image_url }}" alt="">
+                                                <img class="w-10 h-10 rounded-full" src="{{ $organizer->image_url }}" alt="">
                                             @else
                                                 <div
                                                     class="flex items-center justify-center text-xl w-10 h-10 rounded-full bg-gray-500 text-white border-gray-300">
@@ -275,7 +274,8 @@
                         <div class="flex justify-between mb-4 mt-3">
                             <span class="flex items-center mt-0 italic text-sm font-normal text-gray-500">
                                 @if (isset($actie->updated_at))
-                                    {{ __('acties.last_edit') }}: {{ \Carbon\Carbon::parse($actie->updated_at)->diffForHumans() }}
+                                    {{ __('acties.last_edit') }}:
+                                    {{ \Carbon\Carbon::parse($actie->updated_at)->diffForHumans() }}
                                 @else
                                     {{ __('acties.created_at') }}: {{ $actie->created_at }}
                                 @endif
@@ -323,16 +323,9 @@
                             </span>
                         </h2>
                     @endif
-                    <actie-agenda
-                        :routes="{{ json_encode($routes) }}"
-                        :filterable="false"
-                        :themes="{{ $themes }}"
+                    <actie-agenda :routes="{{ json_encode($routes) }}" :filterable="false" :themes="{{ $themes }}"
                         :themes-selected-ids="{{ json_encode(array_column($actie->themes->toArray(), 'id')) }}"
-                        :exclude-ids="{{ json_encode([$actie->id]) }}"
-                        :narrower="true"
-                        :skeletons="2"
-                        :limit="4"
-                    >
+                        :exclude-ids="{{ json_encode([$actie->id]) }}" :narrower="true" :skeletons="2" :limit="4">
                     </actie-agenda>
                 </div>
             </div>

@@ -20,6 +20,7 @@ return [
     'view' => 'Bekijk',
     'mark_as_read' => 'Markeer als gelezen',
     'save' => 'Opslaan',
+    'back_to_home' => 'Terug naar Home',
     'at' => 'om',
     'or' => 'of',
     'to' => 'Naar',
