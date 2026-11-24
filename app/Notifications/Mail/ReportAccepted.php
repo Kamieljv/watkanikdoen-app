@@ -63,10 +63,10 @@ class ReportAccepted extends Notification
         $url = config('app.url') . '/actie/' . $this->actie->slug;
 
         return (new MailMessage())
-                    ->subject(__("reports.report_accepted_subject") . ' | ' . config('app.name'))
-                    ->greeting(__("reports.report_accepted_greeting") . ' ' . $this->user->name . ',')
-                    ->line(__("reports.report_accepted_message", ['title' => $this->actie->title]))
-                    ->action(__("reports.report_accepted_action"), $url)
+                    ->subject(__("emails.report_accepted.subject") . ' | ' . config('app.name'))
+                    ->greeting(__("emails.greeting") . ' ' . $this->user->name . ',')
+                    ->line(__("emails.report_accepted.message", ['title' => $this->actie->title]))
+                    ->action(__("emails.report_accepted.action"), $url)
                     ->salutation(__('emails.salutation'));
     }
 }

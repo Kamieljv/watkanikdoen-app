@@ -41,11 +41,11 @@ class VerifyEmail extends Notification
         $url = url('/user/verify/' . $this->user->verification_code);
 
         return (new MailMessage())
-                    ->subject(__("Verify Email Address") . ' | ' . config('app.name'))
-                    ->greeting(__("Dear") . ' ' . $this->user->name . ',')
-                    ->line(__("Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another."))
-                    ->line(__("This link will expire in :count minutes.", ['count' => config('auth.verification.expire')]))
-                    ->action(__("Verify Email Address"), $url)
+                    ->subject(__("emails.verify_email.subject") . ' | ' . config('app.name'))
+                    ->greeting(__("emails.greeting") . ' ' . $this->user->name . ',')
+                    ->line(__("emails.verify_email.intro"))
+                    ->line(__("emails.verify_email.expires", ['count' => config('auth.verification.expire')]))
+                    ->action(__("emails.verify_email.action"), $url)
                     ->salutation(__('emails.salutation'));
     }
 

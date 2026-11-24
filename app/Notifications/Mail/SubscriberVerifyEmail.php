@@ -6,7 +6,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\URL;
 
 class SubscriberVerifyEmail extends Notification
@@ -44,30 +43,14 @@ class SubscriberVerifyEmail extends Notification
     {
         $verificationUrl = $this->verificationUrl($notifiable);
 
-        $mail = new MailMessage();
-
-        $mail->subject(Lang::get(config('newsletter.mail.verify.subject', 'Verify Email Address')));
-        $mail->greeting(Lang::get(config('newsletter.mail.verify.greeting', 'Hello!')));
-
-        if (!empty(config('newsletter.mail.verify.content'))) {
-            foreach (config('newsletter.mail.verify.content') as $value) {
-                $mail->line(Lang::get($value));
-            }
-        } else {
-            $mail->line(Lang::get('Please click the button below to verify your email address.'));
-        }
-
-        $mail->action(Lang::get(config('newsletter.mail.verify.action', 'Verify Email Address')), $verificationUrl);
-
-        if (!empty(config('newsletter.mail.verify.footer'))) {
-            foreach (config('newsletter.mail.verify.footer') as $value) {
-                $mail->line(Lang::get($value));
-            }
-        } else {
-            $mail->line(Lang::get('If you did not sign up for our newsletter, no further action is required.'));
-        }
-
-        return $mail;
+        return (new MailMessage())
+                    ->subject(__('emails.newsletter_verify.subject') . ' | ' . config('app.name'))
+                    ->greeting(__('emails.newsletter_verify.greeting'))
+                    ->line(__('emails.newsletter_verify.intro'))
+                    ->line(__('emails.newsletter_verify.instruction'))
+                    ->action(__('emails.newsletter_verify.action'), $verificationUrl)
+                    ->line(__('emails.newsletter_verify.outro'))
+                    ->salutation(__('emails.salutation'));
     }
 
     /**

@@ -40,11 +40,11 @@ class PasswordReset extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage())
-                    ->subject(__("Reset Password") . ' | ' . config('app.name'))
-                    ->greeting(__("Dear") . ',')
-                    ->line(__("You are receiving this email because we received a password reset request for your account."))
-                    ->action(__("Reset Password"), url('password/reset', $this->token))
-                    ->line(__("If you did not request a password reset, no further action is required."))
+                    ->subject(__("emails.password_reset.subject") . ' | ' . config('app.name'))
+                    ->greeting(__("emails.greeting") . ',')
+                    ->line(__("emails.password_reset.intro"))
+                    ->action(__("emails.password_reset.action"), url('password/reset', $this->token))
+                    ->line(__("emails.password_reset.outro"))
                     ->salutation(__('emails.salutation'));
     }
 

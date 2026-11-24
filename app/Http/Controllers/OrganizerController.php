@@ -82,8 +82,8 @@ class OrganizerController extends Controller
 
     public function approve($id): RedirectResponse
     {
-        // Check permissions
-        auth()->user()->can('edit_organizers');
+        // Only admins (the same users that can access the admin panel)
+        abort_unless(auth()->user()?->hasRole('admin'), 403);
 
         // get report data
         $organizer = Organizer::findOrFail($id);
