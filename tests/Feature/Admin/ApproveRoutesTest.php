@@ -3,9 +3,13 @@
 use App\Models\Organizer;
 use App\Models\Report;
 use App\Models\User;
+use App\Notifications\Mail\ReportAccepted;
+use Illuminate\Support\Facades\Notification;
 use Spatie\Permission\Models\Role;
 
 beforeEach(function () {
+    // Approving a report e-mails the reporter (ReportAccepted)
+    Notification::fake();
     Role::create(['name' => 'admin', 'guard_name' => 'web']);
 
     $this->organizer = Organizer::factory()->create(['status' => 'PENDING']);
@@ -26,6 +30,7 @@ describe('Approve routes', function () {
 
         expect($this->report->fresh()->status)->toBe('PENDING')
             ->and($this->organizer->fresh()->status)->toBe('PENDING');
+        Notification::assertNothingSent();
     });
 
     it('forbids logged-in users that are not admin', function () {
@@ -36,6 +41,7 @@ describe('Approve routes', function () {
 
         expect($this->report->fresh()->status)->toBe('PENDING')
             ->and($this->organizer->fresh()->status)->toBe('PENDING');
+        Notification::assertNothingSent();
     });
 
     it('lets admins approve reports and organizers', function () {
@@ -48,6 +54,7 @@ describe('Approve routes', function () {
 
         expect($this->report->fresh()->status)->toBe('APPROVED')
             ->and($this->organizer->fresh()->status)->not->toBe('PENDING');
+        Notification::assertSentTo($this->report->user, ReportAccepted::class);
     });
 
 });

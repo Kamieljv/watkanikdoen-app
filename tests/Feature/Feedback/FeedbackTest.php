@@ -4,11 +4,14 @@ use App\Models\Feedback;
 use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Routing\Middleware\ThrottleRequests;
+use Illuminate\Support\Facades\Notification;
 
 uses(RefreshDatabase::class);
 
 beforeEach(function () {
     $this->withoutMiddleware([VerifyCsrfToken::class, ThrottleRequests::class]);
+    // Submissions e-mail the admin (InboxMessageReceived, tested in tests/Feature/Notifications)
+    Notification::fake();
 });
 
 
