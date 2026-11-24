@@ -2,10 +2,10 @@
   <!-- Same shape as BookItemList, with a question mark instead of a cover -->
   <article
     id="boekentip"
-    class="min-h-48 flex flex-col sm:flex-row rounded-lg shadow-lg overflow-hidden"
+    class="min-h-48 border-2 border-(--wkid-pink) flex flex-col sm:flex-row rounded-lg shadow-lg overflow-hidden"
   >
     <div
-      class="shrink-0 h-32 sm:h-auto w-full sm:w-30 flex items-center justify-center bg-linear-to-br from-(--wkid-pink) to-blue-500 text-white"
+      class="shrink-0 h-32 sm:h-auto w-full sm:w-30 flex items-center justify-center bg-linear-to-br from-gray-200 to-gray-500 text-white"
       aria-hidden="true"
     >
       <span class="text-8xl font-bold leading-none select-none">?</span>

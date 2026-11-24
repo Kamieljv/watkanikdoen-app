@@ -5,24 +5,21 @@
 	<div class="max-w-6xl mx-auto mt-10 px-5 lg:px-0 flex">
 		<a href="{{ route('home') }}" class="flex items-center text-sm font-bold cursor-pointer text-gray-700">
 			@svg('custom-arrow-left', 'w-4 h-4 mr-2')
-			{{ __("acties.back_to_home") }}
+			{{ __("general.back_to_home") }}
 		</a>
 	</div>
 	<div id="app" class="max-w-6xl mx-auto flex flex-col px-5 mt-6 mb-40 lg:px-0">
 		{{-- Reports --}}
-	    @include('dashboard.partials.reports')
+		@include('dashboard.partials.reports')
 		<div class="grid grid-cols-1 md:grid-cols-2">
 			{{-- Notifications --}}
 			<div class="col-span-1">
-				<Notifications
-					id="notifications"
-					:notifications="{{ $notifications }}"
-				/>
+				<Notifications id="notifications" :notifications="{{ $notifications }}" />
 			</div>
 			{{-- Something --}}
 			<div class="col-span-1">
 				{{-- something --}}
 			</div>
-	</div>
+		</div>
 
 @endsection

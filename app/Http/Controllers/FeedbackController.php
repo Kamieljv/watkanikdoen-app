@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreFeedbackRequest;
 use App\Models\Feedback;
+use App\Notifications\Mail\InboxMessageReceived;
 use Illuminate\Http\Request;
 
 class FeedbackController extends Controller
@@ -21,7 +22,9 @@ class FeedbackController extends Controller
      */
     public function store(StoreFeedbackRequest $request)
     {
-        Feedback::create($request->safe()->only(['name', 'email', 'subject', 'message']));
+        $message = Feedback::create($request->safe()->only(['name', 'email', 'subject', 'message']));
+
+        $this->notifyAdmin(new InboxMessageReceived($message));
 
         if ($request->expectsJson()) {
             return response()->json([

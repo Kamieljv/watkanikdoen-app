@@ -38,14 +38,4 @@ return [
     // ReportAccepted notification
     'accepted_notif_title' => 'Toegevoegde actie geaccepteerd',
     'accepted_notif_body' => 'De actie \':title\' is geaccepteerd. Klik om te bekijken.',
-    // ReportReceived email
-    'report_received_subject' => 'Nieuwe actie aangemeld',
-    'report_received_greeting' => 'Beste administrator',
-    'report_received_message' => 'Er is een nieuwe actie aangemeld. Klik op de knop hieronder om de actie te bekijken.',
-    'report_received_action' => 'Aangemelde actie bekijken',
-    // ReportAccepted email
-    'report_accepted_subject' => 'Actie geaccepteerd',
-    'report_accepted_greeting' => 'Beste',
-    'report_accepted_message' => 'Je aangemelde actie met de titel \':title\' is geaccepteerd. Klik op de knop hieronder om de actie te bekijken.',
-    'report_accepted_action' => 'Actie bekijken',
 ];

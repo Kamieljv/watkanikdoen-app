@@ -12,5 +12,7 @@
     <php>
         <env name="APP_ENV" value="testing" force="true" />
         <env name="DB_DATABASE" value="watkanikdoen_test" force="true" />
+        <!-- Never send real mail from tests (CI has no SMTP credentials) -->
+        <env name="MAIL_MAILER" value="array" force="true" />
     </php>
 </phpunit>

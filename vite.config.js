@@ -8,6 +8,14 @@ import svgLoader from "vite-svg-loader";
 import { visualizer } from "rollup-plugin-visualizer";
 import vueDevTools from "vite-plugin-vue-devtools";
 
+// Remove console.* calls and debugger statements in production
+const productionMinify = {
+  compress: {
+    dropConsole: true,
+    dropDebugger: true,
+  },
+};
+
 export default defineConfig(({ command }) => ({
   plugins: [
     laravel({
@@ -66,6 +74,14 @@ export default defineConfig(({ command }) => ({
       vue: "vue/dist/vue.esm-bundler.js",
     },
   },
+  // Web workers (e.g. maplibre's) are built separately and need the same minify options
+  worker: {
+    rolldownOptions: {
+      output: {
+        minify: productionMinify,
+      },
+    },
+  },
   build: {
     rollupOptions: {
       output: {
@@ -86,17 +102,11 @@ export default defineConfig(({ command }) => ({
           )
             return "vendor";
         },
+        // Oxc minifier (Vite 8's default, much faster than terser)
+        minify: productionMinify,
       },
     },
-    // Enable minification
-    minify: "terser",
-    terserOptions: {
-      compress: {
-        drop_console: true, // Remove console.log in production
-        drop_debugger: true,
-        pure_funcs: ["console.log", "console.info"],
-      },
-    },
+    minify: "oxc",
     // Adjust chunk size warnings
     chunkSizeWarningLimit: 600,
     // Enable CSS code splitting

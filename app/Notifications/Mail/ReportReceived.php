@@ -41,10 +41,10 @@ class ReportReceived extends Notification
         $url = config('app.url') . '/admin/reports';
 
         return (new MailMessage())
-                    ->subject(__("reports.report_received_subject") . ' | ' . config('app.name'))
-                    ->greeting(__("reports.report_received_greeting") . ',')
-                    ->line(__("reports.report_received_message"))
-                    ->action(__("reports.report_received_action"), $url)
+                    ->subject(__("emails.report_received.subject") . ' | ' . config('app.name'))
+                    ->greeting(__("emails.greeting_admin") . ',')
+                    ->line(__("emails.report_received.message"))
+                    ->action(__("emails.report_received.action"), $url)
                     ->salutation(__('emails.salutation'));
     }
 

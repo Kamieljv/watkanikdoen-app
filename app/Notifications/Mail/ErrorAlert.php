@@ -39,14 +39,16 @@ class ErrorAlert extends Notification
      */
     public function toMail($notifiable)
     {
+        $app = config('app.name');
+
         return (new MailMessage())
-                    ->subject("[ALERT] Critical error on " . config('app.name'))
-                    ->greeting(__("Dear") . "admin" . ',')
-                    ->line("A critical error occurred on the production server (app: " . config('app.name') . ").")
-                    ->line("Class: " . $this->exception['class'])
-                    ->line("Message: " . $this->exception['message'])
-                    ->line("File: " . $this->exception['file'] . " on line " . $this->exception['line'])
-                    ->line("Stack trace: " . $this->exception['traceback']);
+                    ->subject(__('emails.error_alert.subject', ['app' => $app]))
+                    ->greeting(__('emails.greeting_admin') . ',')
+                    ->line(__('emails.error_alert.intro', ['app' => $app]))
+                    ->line(__('emails.error_alert.class') . ': ' . $this->exception['class'])
+                    ->line(__('emails.error_alert.message') . ': ' . $this->exception['message'])
+                    ->line(__('emails.error_alert.file') . ': ' . $this->exception['file'] . ' (' . __('emails.error_alert.line') . ' ' . $this->exception['line'] . ')')
+                    ->line(__('emails.error_alert.trace') . ': ' . $this->exception['traceback']);
     }
 
     /**

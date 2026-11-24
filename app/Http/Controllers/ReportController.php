@@ -154,8 +154,8 @@ class ReportController extends Controller
 
     public function approve($id)
     {
-        // Check permissions
-        auth()->user()->can(['edit_reports', 'add_acties']);
+        // Only admins (the same users that can access the admin panel)
+        abort_unless(auth()->user()?->hasRole('admin'), 403);
 
         // get report data
         $report = Report::findOrFail($id);

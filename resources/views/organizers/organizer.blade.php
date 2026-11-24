@@ -5,7 +5,7 @@
     <div class="max-w-6xl mx-auto mt-10 px-5 lg:px-0 flex">
         <a href="{{ route('home') }}" class="flex items-center text-sm font-bold cursor-pointer text-gray-700">
             @svg('custom-arrow-left', 'w-4 h-4 mr-2')
-            {{ __("acties.back_to_home") }}
+            {{ __("general.back_to_home") }}
         </a>
     </div>
     @if($isAdmin)
@@ -21,9 +21,11 @@
             <div class="w-full md:w-auto flex flex-row items-center space-x-5">
                 <div class="flex-shrink-0">
                     @if($organizer->image_url)
-                        <img class="w-[80px] h-[80px] rounded-full border-2 border-gray-300" src="{{ $organizer->image_url }}" alt="">
+                        <img class="w-[80px] h-[80px] rounded-full border-2 border-gray-300" src="{{ $organizer->image_url }}"
+                            alt="">
                     @else
-                        <div class="flex items-center justify-center text-4xl w-[80px] h-[80px]  rounded-full bg-gray-500 text-white border-gray-300">
+                        <div
+                            class="flex items-center justify-center text-4xl w-[80px] h-[80px]  rounded-full bg-gray-500 text-white border-gray-300">
                             {{ substr($organizer->name, 0, 1) }}
                         </div>
                     @endif
@@ -31,7 +33,8 @@
                 <h1>{{ $organizer->name }}</h1>
             </div>
             @if($organizer->website !== NULL)
-                <a href="{{ $organizer->website }}" target="_blank" class="w-full md:w-auto inline-flex space-x-3 items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
+                <a href="{{ $organizer->website }}" target="_blank"
+                    class="w-full md:w-auto inline-flex space-x-3 items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-[color:var(--wkid-pink)] hover:bg-[color:var(--wkid-pink-dark)]">
                     @svg('antdesign-link-o', ['style' => 'width: 20px; height: 20px'])
                     <span>{{ __("general.go_to") . ' ' . $organizer->website_human }}</span>
                 </a>
@@ -40,10 +43,8 @@
         <div class="mt-5 mb-10 min-h-20">
             <ul class="pt-2 flex space-x-1">
                 @foreach ($organizer->themes as $theme)
-                    <li
-                        class="relative self-start inline-block px-2 py-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
-                        style="background-color: {{ $theme->color}}"
-                    >
+                    <li class="relative self-start inline-block px-2 py-1 text-xs font-medium leading-5 text-gray-400 uppercase bg-gray-100 rounded"
+                        style="background-color: {{ $theme->color}}">
                         <span class="text-white">
                             {{ $theme->name }}
                         </span>
@@ -58,13 +59,8 @@
         </div>
         <div id="app" class="mb-40">
             <h3 class="text-gray-800">Acties georganiseerd door {{ $organizer->name }}</h3>
-            <actie-agenda
-                :routes="{{ json_encode($routes) }}"
-                :filterable="false"
-                :organizer-id="{{ $organizer->id }}"
-                :narrower="true"
-                :skeletons="2"
-            >
+            <actie-agenda :routes="{{ json_encode($routes) }}" :filterable="false" :organizer-id="{{ $organizer->id }}"
+                :narrower="true" :skeletons="2">
             </actie-agenda>
         </div>
     </div>
